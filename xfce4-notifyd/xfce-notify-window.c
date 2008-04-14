@@ -257,6 +257,8 @@ xfce_notify_window_realize(GtkWidget *widget)
 
     if(window->fade_transparent && window->expire_timeout)
         xfce_notify_window_setup_fade(window);
+    else
+        gtk_window_set_opacity(GTK_WINDOW(window), window->initial_opacity);
 }
 
 static void
