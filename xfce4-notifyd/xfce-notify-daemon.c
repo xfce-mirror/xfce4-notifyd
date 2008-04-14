@@ -267,6 +267,9 @@ galago_notify(XfceNotifyDaemon *daemon,
     XfceNotifyWindow *window;
     GdkPixbuf *pix;
 
+    if(expire_timeout == -1)
+        expire_timeout = daemon->expire_timeout;
+
     if(replaces_id
        && (window = g_tree_lookup(daemon->active_notifications,
                                   GUINT_TO_POINTER(replaces_id))))
@@ -449,6 +452,8 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         daemon->expire_timeout = xfconf_channel_get_int(channel,
                                                         "/expire-timeout",
                                                         -1);
+        if(daemon->expire_timeout != -1)
+            daemon->expire_timeout *= 1000;
     } else if(!strcmp(property, "/fade-transparency")) {
         daemon->fade_transparency = xfconf_channel_get_bool(channel,
                                                             "/fade-transparency",
@@ -517,6 +522,9 @@ xfce_notify_daemon_load_config(XfceNotifyDaemon *daemon,
     daemon->expire_timeout = xfconf_channel_get_int(daemon->settings,
                                                     "/expire-timeout",
                                                     -1);
+    if(daemon->expire_timeout != -1)
+        daemon->expire_timeout *= 1000;
+
     daemon->fade_transparency = xfconf_channel_get_bool(daemon->settings,
                                                         "/fade-transparency",
                                                         TRUE);
