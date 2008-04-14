@@ -231,11 +231,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 static void
 xfce_notify_window_finalize(GObject *object)
 {
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
-
-    if(window->bg_path)
-        cairo_path_destroy(window->bg_path);
-
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->finalize(object);
 }
 
@@ -277,6 +272,11 @@ xfce_notify_window_unrealize(GtkWidget *widget)
     }
 
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->unrealize(widget);
+
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+    }
 }
 
 static inline cairo_path_t *
@@ -690,6 +690,12 @@ xfce_notify_window_set_summary(XfceNotifyWindow *window,
         gtk_widget_show(window->summary);
     else
         gtk_widget_hide(window->summary);
+
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+        gtk_widget_queue_draw(GTK_WIDGET(window));
+    }
 }
 
 void
@@ -706,6 +712,12 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     } else {
         gtk_label_set_markup(GTK_LABEL(window->body), "");
         gtk_widget_hide(window->body);
+    }
+
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+        gtk_widget_queue_draw(GTK_WIDGET(window));
     }
 }
 
@@ -735,6 +747,12 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
         gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), NULL);
         gtk_widget_hide(window->icon);
     }
+
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+        gtk_widget_queue_draw(GTK_WIDGET(window));
+    }
 }
 
 void
@@ -750,6 +768,12 @@ xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
         gtk_widget_show(window->icon);
     else
         gtk_widget_hide(window->icon);
+
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+        gtk_widget_queue_draw(GTK_WIDGET(window));
+    }
 }
 
 void
@@ -790,13 +814,16 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
                                const gchar **actions)
 {
     gint i;
+    GList *children, *l;
 
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
-    if(!actions)
-        return;
+    children = gtk_container_get_children(GTK_CONTAINER(window->button_box));
+    for(l = children; l; l = l->next)
+        gtk_widget_destroy(GTK_WIDGET(l->data));
+    g_list_free(children);
 
-    for(i = 0; actions[i]; i += 2) {
+    for(i = 0; actions && actions[i]; i += 2) {
         const gchar *cur_action_id = actions[i];
         const gchar *cur_button_text = actions[i+1];
         GtkWidget *btn, *lbl;
@@ -833,6 +860,11 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         g_free(btn_text);
     }
 
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+        gtk_widget_queue_draw(GTK_WIDGET(window));
+    }
 }
 
 void
