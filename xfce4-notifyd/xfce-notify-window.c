@@ -279,12 +279,74 @@ xfce_notify_window_unrealize(GtkWidget *widget)
     }
 }
 
+static inline GdkRegion *
+xfce_gdk_region_from_cairo_flat_path(cairo_path_t *flat_path,
+                                     GdkFillRule fill_rule)
+{
+    GdkRegion *region = NULL;
+    gint i;
+    cairo_path_data_t *data;
+    GdkPoint *points;
+    gint max_points = 10, n_points = 0;
+
+    points = g_malloc(sizeof(GdkPoint) * max_points);
+
+    for(i = 0;
+        i < flat_path->num_data;
+        i += flat_path->data[i].header.length)
+    {
+        if(max_points == n_points) {
+            max_points += 10;
+            points = g_realloc(points, sizeof(GdkPoint) * max_points);
+        }
+
+        data = &flat_path->data[i];
+        switch(data->header.type) {
+            case CAIRO_PATH_MOVE_TO:
+                points[n_points].x = data[1].point.x;
+                points[n_points].y = data[1].point.y;
+                n_points++;
+                break;
+
+            case CAIRO_PATH_LINE_TO:
+                points[n_points].x = data[1].point.x;
+                points[n_points].y = data[1].point.y;
+                n_points++;
+                break;
+
+            case CAIRO_PATH_CURVE_TO:
+                g_warning("xfce_gdk_region_from_cairo_flat_path() called with non-flat path");
+                goto out_error;
+
+            case CAIRO_PATH_CLOSE_PATH:
+                if(n_points < 2) {
+                    g_warning("Tried to close path with < 2 points");
+                    goto out_error;
+                }
+                points[n_points].x = points[0].x;
+                points[n_points].y = points[0].y;
+                n_points++;
+                break;
+        }
+    }
+
+    region = gdk_region_polygon(points, n_points, fill_rule);
+
+out_error:
+    g_free(points);
+
+    return region;
+}
+
 static inline cairo_path_t *
 xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
                                   cairo_t *cr)
 {
     GtkWidget *widget = GTK_WIDGET(window);
     gdouble radius = DEFAULT_RADIUS;
+    cairo_path_t *flat_path;
+    GdkRegion *region;
+    GdkFillRule fill_rule;
 
     if(G_LIKELY(window->bg_path))
         return window->bg_path;
@@ -314,6 +376,15 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     }
 
     window->bg_path = cairo_copy_path(cr);
+    
+    flat_path = cairo_copy_path_flat(cr);
+    fill_rule = (cairo_get_fill_rule(cr) == CAIRO_FILL_RULE_WINDING
+                 ? GDK_WINDING_RULE : GDK_EVEN_ODD_RULE);
+    region = xfce_gdk_region_from_cairo_flat_path(flat_path, fill_rule);
+    cairo_path_destroy(flat_path);
+    gdk_window_shape_combine_region(widget->window, region, 0, 0);
+    gdk_region_destroy(region);
+
     cairo_new_path(cr);
 
     return window->bg_path;
