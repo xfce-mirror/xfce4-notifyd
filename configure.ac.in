@@ -71,6 +71,8 @@ Makefile
 themes/Makefile
 themes/Smoke/Makefile
 themes/Smoke/xfce-notify-4.0/Makefile
+themes/ZOMG-PONIES!/Makefile
+themes/ZOMG-PONIES!/xfce-notify-4.0/Makefile
 xfce4-notifyd/Makefile
 po/Makefile.in
 ])

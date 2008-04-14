@@ -1,0 +1,20 @@
+style "ponies-window"
+{
+    bg[NORMAL] = "#ff69b4"
+    XfceNotifyWindow::border-color = "#ffff00"
+    XfceNotifyWindow::border-radius = 10.0
+    XfceNotifyWindow::border-width = 4.0
+}
+class "XfceNotifyWindow" style "ponies-window"
+
+style "ponies-text"
+{
+    fg[NORMAL] = "#ffff00"
+}
+widget "XfceNotifyWindow.*.GtkLabel" style "ponies-text"
+
+style "ponies-btn"
+{
+    bg[NORMAL] = "#9400d3"
+}
+widget "XfceNotifyWindow.*.GtkButton" style "ponies-btn"

@@ -1,2 +1,3 @@
 SUBDIRS = \
-	Smoke
+	Smoke \
+	ZOMG-PONIES!
