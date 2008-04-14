@@ -9,6 +9,7 @@ class "XfceNotifyWindow" style "ponies-window"
 
 style "ponies-text"
 {
+    font_name = "Comic Sans MS 26"
     fg[NORMAL] = "#ffff00"
 }
 widget "XfceNotifyWindow.*.GtkLabel" style "ponies-text"
