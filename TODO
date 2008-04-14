@@ -1,0 +1,13 @@
+* allow setting default notification position
+* listen to client when they request a position to 'point to', maybe have a
+  little arrow thingy point off the notification window
+* don't overlap notifications when more than one is on the screen
+* allow dragging notifications to new location
+* set input shape mask on newer gtk versions
+* window shadow?  would rather the compositor just do this, need to figure out
+  why xfwm4 won't
+* make more parts of the notification themable
+* config dialog (needs some more work on libxfconf-gtk)
+* scale icon data sent over the wire?
+* support desktop_id hint?
+* support different urgency levels
