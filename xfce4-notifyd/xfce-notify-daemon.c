@@ -266,7 +266,7 @@ galago_notify(XfceNotifyDaemon *daemon,
 {
     XfceNotifyWindow *window;
     GdkPixbuf *pix;
-    
+
     if(replaces_id
        && (window = g_tree_lookup(daemon->active_notifications,
                                   GUINT_TO_POINTER(replaces_id))))
@@ -304,6 +304,8 @@ galago_notify(XfceNotifyDaemon *daemon,
 
     if(!app_icon || !*app_icon) {
         GValue *image_data = g_hash_table_lookup(hints, "image_data");
+        if(!image_data)
+            image_data = g_hash_table_lookup(hints, "icon_data");
         if(image_data) {
             pix = galago_pixbuf_from_image_data(image_data);
             if(pix) {
@@ -373,8 +375,10 @@ galago_pixbuf_from_image_data(const GValue *image_data)
                                           G_TYPE_INT,
                                           DBUS_TYPE_G_UCHAR_ARRAY,
                                           G_TYPE_INVALID);
-    if(!G_VALUE_HOLDS(image_data, struct_gtype))
+    if(!G_VALUE_HOLDS(image_data, struct_gtype)) {
+        g_message("Image data is not the correct type");
         return NULL;
+    }
 
     if(!dbus_g_type_struct_get(image_data,
                                0, &width,
@@ -386,6 +390,7 @@ galago_pixbuf_from_image_data(const GValue *image_data)
                                6, &pixel_array,
                                G_MAXUINT))
     {
+        g_message("Unable to retrieve image data struct members");
         return NULL;
     }
 
