@@ -63,7 +63,15 @@ enum
     N_SIGS,
 };
 
-enum {
+enum
+{
+    URGENCY_LOW = 0,
+    URGENCY_NORMAL,
+    URGENCY_CRITICAL,
+};
+
+enum
+{
     CLOSE_REASON_EXPIRED = 1,
     CLOSE_REASON_DISMISSED,
     CLOSE_REASON_CLIENT,
@@ -266,7 +274,16 @@ galago_notify(XfceNotifyDaemon *daemon,
 {
     XfceNotifyWindow *window;
     GdkPixbuf *pix;
+    GValue *urgency_data;
 
+    if((urgency_data = g_hash_table_lookup(hints, "urgency"))
+       && G_VALUE_HOLDS(urgency_data, G_TYPE_UCHAR)
+       && g_value_get_uchar(urgency_data) == URGENCY_CRITICAL)
+    {
+        /* don't expire urgent notifications */
+        expire_timeout = 0;
+    }
+    
     if(expire_timeout == -1)
         expire_timeout = daemon->expire_timeout;
 

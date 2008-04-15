@@ -7,6 +7,5 @@
 * window shadow?  would rather the compositor just do this, need to figure out
   why xfwm4 won't
 * make more parts of the notification themable
-* config dialog (needs some more work on libxfconf-gtk)
+* config dialog (partially done)
 * support desktop_id hint?
-* support different urgency levels
