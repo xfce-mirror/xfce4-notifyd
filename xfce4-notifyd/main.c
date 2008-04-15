@@ -21,9 +21,14 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_STRING_H
+#include <string.h>
+#endif
+
 #include <gtk/gtk.h>
 
 #include <xfconf/xfconf.h>
+#include <libxfce4util/libxfce4util.h>
 #include <libxfcegui4/libxfcegui4.h>
 
 #include "xfce-notify-daemon.h"
@@ -37,6 +42,18 @@ main(int argc,
 
     xfconf_init(NULL);
     gtk_init(&argc, &argv);
+
+    xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
+
+    if(argc > 1) {
+        if(!strcmp(argv[1], "--version") || !strcmp(argv[1], "-V")) {
+            g_print(_("Xfce Notify Daemon %s\n"), VERSION);
+            return 0;
+        } else {
+            g_printerr(_("Unknown option \"%s\"\n"), argv[1]);
+            return 1;
+        }
+    }
 
     daemon = xfce_notify_daemon_new_unique(&error);
     if(!daemon) {
