@@ -831,8 +831,32 @@ void
 xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
                                    GdkPixbuf *pixbuf)
 {
+    gint w, h, pw, ph;
+    GdkPixbuf *p_free = NULL;
+
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window)
                      && (!pixbuf || GDK_IS_PIXBUF(pixbuf)));
+
+    gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
+    pw = gdk_pixbuf_get_width(pixbuf);
+    ph = gdk_pixbuf_get_height(pixbuf);
+
+    if(w > h)
+        w = h;
+    if(pw > w || ph > w) {
+        gint nw, nh;
+
+        if(pw > ph) {
+            nw = w;
+            nh = w * ((gdouble)ph/pw);
+        } else {
+            nw = w * ((gdouble)pw/ph);
+            nh = w;
+        }
+
+        pixbuf = p_free = gdk_pixbuf_scale_simple(pixbuf, nw, nh,
+                                                  GDK_INTERP_BILINEAR);
+    }
 
     gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pixbuf);
 
@@ -846,6 +870,9 @@ xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
         window->bg_path = NULL;
         gtk_widget_queue_draw(GTK_WIDGET(window));
     }
+
+    if(p_free)
+        g_object_unref(G_OBJECT(p_free));
 }
 
 void

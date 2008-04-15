@@ -8,6 +8,5 @@
   why xfwm4 won't
 * make more parts of the notification themable
 * config dialog (needs some more work on libxfconf-gtk)
-* scale icon data sent over the wire?
 * support desktop_id hint?
 * support different urgency levels
