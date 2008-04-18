@@ -7,3 +7,4 @@
   why xfwm4 won't
 * make more parts of the notification themable
 * support desktop_id hint?
+* find a way to completely ditch the old theme when switching to a new one
