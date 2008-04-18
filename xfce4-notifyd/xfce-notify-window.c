@@ -192,8 +192,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
         GdkColormap *cmap = gdk_screen_get_rgba_colormap(screen);
         if(cmap)
             gtk_widget_set_colormap(GTK_WIDGET(window), cmap);
-    } else {
-        /* FIXME: do something useful */
     }
 
     topvbox = gtk_vbox_new(FALSE, BORDER);
@@ -387,6 +385,7 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     region = xfce_gdk_region_from_cairo_flat_path(flat_path, fill_rule);
     cairo_path_destroy(flat_path);
     gdk_window_shape_combine_region(widget->window, region, 0, 0);
+    gdk_window_input_shape_combine_region(widget->window, region, 0, 0);
     gdk_region_destroy(region);
 
     cairo_new_path(cr);
