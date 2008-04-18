@@ -283,7 +283,7 @@ galago_notify(XfceNotifyDaemon *daemon,
         /* don't expire urgent notifications */
         expire_timeout = 0;
     }
-    
+
     if(expire_timeout == -1)
         expire_timeout = daemon->expire_timeout;
 

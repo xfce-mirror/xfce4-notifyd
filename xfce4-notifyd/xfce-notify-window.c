@@ -348,9 +348,12 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     cairo_path_t *flat_path;
     GdkRegion *region;
     GdkFillRule fill_rule;
+    GtkRequisition req;
 
     if(G_LIKELY(window->bg_path))
         return window->bg_path;
+
+    gtk_widget_size_request(GTK_WIDGET(window), &req);
 
     gtk_widget_style_get(widget,
                          "border-radius", &radius,
