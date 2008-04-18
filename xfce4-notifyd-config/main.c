@@ -45,13 +45,149 @@ xfce4_notifyd_slider_format_value(GtkScale *slider,
     return g_strdup_printf("%d%%", (gint)(value * 100));
 }
 
+static void
+xfce4_notifyd_config_theme_treeview_changed(GtkTreeSelection *sel,
+                                            gpointer user_data)
+{
+    XfconfChannel *channel = user_data;
+    GtkTreeModel *model = NULL;
+    GtkTreeIter iter;
+    gchar *theme = NULL;
+
+    if(!gtk_tree_selection_get_selected(sel, &model, &iter))
+        return;
+
+    gtk_tree_model_get(model, &iter, 0, &theme, -1);
+    xfconf_channel_set_string(channel, "/theme", theme);
+    g_free(theme);
+}
+
+static void
+xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
+                                   const gchar *property,
+                                   gpointer user_data)
+{
+    GtkWidget *treeview = user_data;
+    GtkListStore *ls;
+    GtkTreeSelection *sel;
+    GtkTreeIter iter;
+    gchar *theme, *new_theme;
+
+    new_theme = xfconf_channel_get_string(channel, property, "Default");
+
+    sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    ls = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview)));
+
+    for(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ls), &iter);
+        gtk_list_store_iter_is_valid(ls, &iter);
+        gtk_tree_model_iter_next(GTK_TREE_MODEL(ls), &iter))
+    {
+        gtk_tree_model_get(GTK_TREE_MODEL(ls), &iter, 0, &theme, -1);
+        if(!strcmp(theme, new_theme)) {
+            gtk_tree_selection_select_iter(sel, &iter);
+            g_free(theme);
+            g_free(new_theme);
+            return;
+        }
+        g_free(theme);
+    }
+
+    gtk_list_store_append(ls, &iter);
+    gtk_list_store_set(ls, &iter, 0, new_theme, -1);
+    gtk_tree_selection_select_iter(sel, &iter);
+    g_free(new_theme);
+}
+
+static void
+list_store_add_themes_in_dir(GtkListStore *ls,
+                             const gchar *path,
+                             const gchar *current_theme,
+                             GHashTable *themes_seen,
+                             GtkTreeIter *current_theme_iter)
+{
+    GDir *dir;
+    const gchar *file;
+    gchar buf[PATH_MAX];
+
+    dir = g_dir_open(path, 0, NULL);
+    if(!dir)
+        return;
+
+    while((file = g_dir_read_name(dir))) {
+        if(g_hash_table_lookup(themes_seen, file))
+            continue;
+
+        g_snprintf(buf, sizeof(buf), "%s/%s/xfce-notify-4.0/gtkrc",
+                   path, file);
+        if(g_file_test(buf, G_FILE_TEST_IS_REGULAR)) {
+            GtkTreeIter iter;
+
+            gtk_list_store_append(ls, &iter);
+            gtk_list_store_set(ls, &iter, 0, file, -1);
+            g_hash_table_insert(themes_seen, g_strdup(file),
+                                GUINT_TO_POINTER(1));
+
+            if(!strcmp(file, current_theme))
+                memcpy(current_theme_iter, &iter, sizeof(iter));
+        }
+    }
+
+    g_dir_close(dir);
+}
+
+static void
+xfce4_notifyd_config_setup_treeview(GtkWidget *treeview,
+                                    const gchar *current_theme)
+{
+    GtkListStore *ls;
+    gchar *dirname, **dirnames;
+    GHashTable *themes_seen;
+    gint i;
+    GtkCellRenderer *render;
+    GtkTreeViewColumn *col;
+    GtkTreeIter current_theme_iter;
+    GtkTreeSelection *sel;
+
+    ls = gtk_list_store_new(1, G_TYPE_STRING);
+    themes_seen = g_hash_table_new_full(g_str_hash, g_str_equal,
+                                        (GDestroyNotify)g_free, NULL);
+
+    dirname = g_build_filename(xfce_get_homedir(), ".themes", NULL);
+    list_store_add_themes_in_dir(ls, dirname, current_theme,
+                                 themes_seen, &current_theme_iter);
+    g_free(dirname);
+
+    dirnames = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, "themes/");
+    for(i = 0; dirnames && dirnames[i]; ++i)
+        list_store_add_themes_in_dir(ls, dirnames[i], current_theme,
+                                     themes_seen, &current_theme_iter);
+    g_strfreev(dirnames);
+
+    g_hash_table_destroy(themes_seen);
+
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(ls));
+
+    render = gtk_cell_renderer_text_new();
+    col = gtk_tree_view_column_new_with_attributes(_("Theme"), render,
+                                                   "text", 0, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), col);
+    
+    sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    if(gtk_list_store_iter_is_valid(ls, &current_theme_iter))
+        gtk_tree_selection_select_iter(sel, &current_theme_iter);
+
+    g_object_unref(G_OBJECT(ls));
+}
+
 static GtkWidget *
 xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
 {
     XfconfChannel *channel;
-    GtkWidget *dlg, *btn, *sbtn, *slider, *chk;
+    GtkWidget *dlg, *btn, *sbtn, *slider, *chk, *treeview;
     GtkAdjustment *adj;
+    GtkTreeSelection *sel;
     GError *error = NULL;
+    gchar *current_theme;
 
     glade_xml_signal_autoconnect(gxml);
 
@@ -90,6 +226,19 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
     xfconf_g_property_bind(channel, "/fade-transparency", G_TYPE_BOOLEAN,
                            G_OBJECT(chk), "active");
 
+    treeview = glade_xml_get_widget(gxml, "themes_treeview");
+    current_theme = xfconf_channel_get_string(channel, "/theme", "Default");
+    xfce4_notifyd_config_setup_treeview(treeview, current_theme);
+    g_free(current_theme);
+
+    sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    g_signal_connect(G_OBJECT(sel), "changed",
+                     G_CALLBACK(xfce4_notifyd_config_theme_treeview_changed),
+                     channel);
+    g_signal_connect(G_OBJECT(channel), "property-changed::/theme",
+                     G_CALLBACK(xfce4_notifyd_config_theme_changed),
+                     treeview);
+    
     return dlg;
 }
 

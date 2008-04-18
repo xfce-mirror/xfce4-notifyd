@@ -1,6 +1,6 @@
 style "smoke-window"
 {
-    bg[NORMAL] = "#4d4d4d" 
+    bg[NORMAL] = "#3d3d3d" 
     XfceNotifyWindow::border-color = "#ffffff"
     XfceNotifyWindow::border-radius = 10.0
     XfceNotifyWindow::border-width = 2.0
