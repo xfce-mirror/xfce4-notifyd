@@ -461,29 +461,27 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *daemon,
 static void
 xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                     const gchar *property,
+                                    const GValue *value,
                                     gpointer user_data)
 {
     XfceNotifyDaemon *daemon = user_data;
 
     if(!strcmp(property, "/expire-timeout")) {
-        daemon->expire_timeout = xfconf_channel_get_int(channel,
-                                                        "/expire-timeout",
-                                                        -1);
+        daemon->expire_timeout = G_VALUE_TYPE(value)
+                                 ? g_value_get_int(value) : -1;
         if(daemon->expire_timeout != -1)
             daemon->expire_timeout *= 1000;
     } else if(!strcmp(property, "/fade-transparency")) {
-        daemon->fade_transparency = xfconf_channel_get_bool(channel,
-                                                            "/fade-transparency",
-                                                            TRUE);
+        daemon->fade_transparency = G_VALUE_TYPE(value)
+                                    ? g_value_get_boolean(value) : TRUE;
     } else if(!strcmp(property, "/initial-opacity")) {
-        daemon->initial_opacity = xfconf_channel_get_double(channel,
-                                                            "/initial-opacity",
-                                                            0.9);
+        daemon->initial_opacity = G_VALUE_TYPE(value)
+                                  ? g_value_get_double(value) : 0.9;
     } else if(!strcmp(property, "/theme")) {
-        gchar *theme = xfconf_channel_get_string(channel, "/theme",
-                                                 "Default");
-        xfce_notify_daemon_set_theme(daemon, theme);
-        g_free(theme);
+        xfce_notify_daemon_set_theme(daemon,
+                                     G_VALUE_TYPE(value)
+                                     ? g_value_get_string(value)
+                                     : "Default");
     }
 }
 

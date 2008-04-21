@@ -65,15 +65,17 @@ xfce4_notifyd_config_theme_treeview_changed(GtkTreeSelection *sel,
 static void
 xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
                                    const gchar *property,
+                                   const GValue *value,
                                    gpointer user_data)
 {
     GtkWidget *treeview = user_data;
     GtkListStore *ls;
     GtkTreeSelection *sel;
     GtkTreeIter iter;
-    gchar *theme, *new_theme;
+    gchar *theme;
+    const gchar *new_theme;
 
-    new_theme = xfconf_channel_get_string(channel, property, "Default");
+    new_theme = G_VALUE_TYPE(value) ? g_value_get_string(value) : "Default";
 
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
     ls = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview)));
@@ -86,7 +88,6 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
         if(!strcmp(theme, new_theme)) {
             gtk_tree_selection_select_iter(sel, &iter);
             g_free(theme);
-            g_free(new_theme);
             return;
         }
         g_free(theme);
@@ -95,7 +96,6 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
     gtk_list_store_append(ls, &iter);
     gtk_list_store_set(ls, &iter, 0, new_theme, -1);
     gtk_tree_selection_select_iter(sel, &iter);
-    g_free(new_theme);
 }
 
 static void
