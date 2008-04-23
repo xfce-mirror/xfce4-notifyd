@@ -240,6 +240,18 @@ xfce_notify_daemon_window_expired(XfceNotifyWindow *window,
     g_tree_remove(daemon->active_notifications, id_p);
 }
 
+static void
+xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
+                                 gpointer user_data)
+{
+    XfceNotifyDaemon *daemon = user_data;
+    gpointer id_p = g_object_get_data(G_OBJECT(window), "--notify-id");
+
+    g_object_set_data(G_OBJECT(window), "--closed-reason",
+                      GUINT_TO_POINTER(CLOSE_REASON_DISMISSED));
+    g_tree_remove(daemon->active_notifications, id_p);
+}
+
 
 
 static gboolean
@@ -319,6 +331,9 @@ galago_notify(XfceNotifyDaemon *daemon,
                          daemon);
         g_signal_connect(G_OBJECT(window), "expired",
                          G_CALLBACK(xfce_notify_daemon_window_expired),
+                         daemon);
+        g_signal_connect(G_OBJECT(window), "closed",
+                         G_CALLBACK(xfce_notify_daemon_window_closed),
                          daemon);
     }
 

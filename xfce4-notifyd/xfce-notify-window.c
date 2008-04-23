@@ -46,6 +46,8 @@ struct _XfceNotifyWindow
 
     gboolean mouse_hover;
     cairo_path_t *bg_path;
+    cairo_path_t *close_btn_path;
+    GdkRegion *close_btn_region;
 
     gboolean fade_transparent;
     gdouble initial_opacity;
@@ -67,6 +69,7 @@ typedef struct
     GtkWindowClass parent;
 
     /*< signals >*/
+    void (*closed)(XfceNotifyWindow *window);
     void (*action_invoked)(XfceNotifyWindow *window,
                            const gchar *action_id);
     void (*expired)(XfceNotifyWindow *window);
@@ -74,7 +77,7 @@ typedef struct
 
 enum
 {
-    SIG_CLICKED = 0,
+    SIG_CLOSED = 0,
     SIG_ACTION_INVOKED,
     SIG_EXPIRED,
     N_SIGS,
@@ -122,6 +125,15 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->enter_notify_event = xfce_notify_window_enter_leave;
     widget_class->leave_notify_event = xfce_notify_window_enter_leave;
     widget_class->button_release_event = xfce_notify_window_button_release;
+
+    signals[SIG_CLOSED] = g_signal_new("closed",
+                                       XFCE_TYPE_NOTIFY_WINDOW,
+                                       G_SIGNAL_RUN_LAST,
+                                       G_STRUCT_OFFSET(XfceNotifyWindowClass,
+                                                       closed),
+                                       NULL, NULL,
+                                       g_cclosure_marshal_VOID__VOID,
+                                       G_TYPE_NONE, 0);
 
     signals[SIG_ACTION_INVOKED] = g_signal_new("action-invoked",
                                                XFCE_TYPE_NOTIFY_WINDOW,
@@ -275,6 +287,16 @@ xfce_notify_window_unrealize(GtkWidget *widget)
     if(window->bg_path) {
         cairo_path_destroy(window->bg_path);
         window->bg_path = NULL;
+    }
+
+    if(window->close_btn_path) {
+        cairo_path_destroy(window->close_btn_path);
+        window->close_btn_path = NULL;
+    }
+
+    if(window->close_btn_region) {
+        gdk_region_destroy(window->close_btn_region);
+        window->close_btn_region = NULL;
     }
 }
 
@@ -441,6 +463,33 @@ xfce_notify_window_expose(GtkWidget *widget,
         else
             cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
         cairo_set_line_width(cr, border_width);
+
+        cairo_stroke(cr);
+
+        /* draw a circle with an X in it */
+        if(!window->close_btn_path) {
+            cairo_path_t *flat_path;
+            GdkFillRule fill_rule;
+
+            cairo_arc(cr, 15., 15., 7.5, 0., 2*M_PI);
+            window->close_btn_path = cairo_copy_path(cr);
+
+            flat_path = cairo_copy_path_flat(cr);
+            fill_rule = (cairo_get_fill_rule(cr) == CAIRO_FILL_RULE_WINDING
+                         ? GDK_WINDING_RULE : GDK_EVEN_ODD_RULE);
+            window->close_btn_region = xfce_gdk_region_from_cairo_flat_path(flat_path,
+                                                                            fill_rule);
+            cairo_path_destroy(flat_path);
+        } else
+            cairo_append_path(cr, window->close_btn_path);
+        cairo_set_line_width(cr, 1.5);
+        cairo_stroke(cr);
+
+        cairo_move_to(cr, 11., 11.);
+        cairo_line_to(cr, 19., 19.);
+        cairo_stroke(cr);
+        cairo_move_to(cr, 19., 11.);
+        cairo_line_to(cr, 11., 19.);
         cairo_stroke(cr);
     }
 
@@ -495,10 +544,18 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
 
 static gboolean
 xfce_notify_window_button_release(GtkWidget *widget,
-                                        GdkEventButton *evt)
+                                  GdkEventButton *evt)
 {
-    g_signal_emit(G_OBJECT(widget), signals[SIG_ACTION_INVOKED], 0,
-                  "default");
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
+
+    if(window->close_btn_region
+       && gdk_region_point_in(window->close_btn_region, evt->x, evt->y))
+    {
+        g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0);
+    } else {
+        g_signal_emit(G_OBJECT(widget), signals[SIG_ACTION_INVOKED], 0,
+                      "default");
+    }
     return FALSE;
 }
 
@@ -931,7 +988,7 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         const gchar *cur_action_id = actions[i];
         const gchar *cur_button_text = actions[i+1];
         GtkWidget *btn, *lbl;
-        gchar *cur_button_text_escaped, *btn_text;
+        gchar *cur_button_text_escaped;
 
         if(!cur_button_text)
             break;
@@ -949,19 +1006,17 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
                          G_CALLBACK(xfce_notify_window_button_clicked),
                          window);
 
-        cur_button_text_escaped = g_markup_escape_text(cur_button_text, -1);
-        btn_text = g_strconcat("<span size='small'>",
-                               cur_button_text_escaped,
-                               "</span>", NULL);
+
+        cur_button_text_escaped = g_markup_printf_escaped("<span size='small'>%s</span>",
+                                                          cur_button_text);
 
         lbl = gtk_label_new(NULL);
-        gtk_label_set_markup(GTK_LABEL(lbl), btn_text);
+        gtk_label_set_markup(GTK_LABEL(lbl), cur_button_text_escaped);
         gtk_label_set_use_markup(GTK_LABEL(lbl), TRUE);
         gtk_widget_show(lbl);
         gtk_container_add(GTK_CONTAINER(btn), lbl);
 
         g_free(cur_button_text_escaped);
-        g_free(btn_text);
     }
 
     if(window->bg_path) {
