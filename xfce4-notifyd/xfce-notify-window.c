@@ -607,73 +607,95 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
                   action_id);
 }
 
-/* FIXME: this doesn't pass valid markup properly if it's nested inside
- * other valid markup.  still generates a valid final string tho */
+#define ELEM_B    GUINT_TO_POINTER(1)
+#define ELEM_I    GUINT_TO_POINTER(2)
+#define ELEM_U    GUINT_TO_POINTER(3)
+#define ELEM_A    GUINT_TO_POINTER(4)
+
+static inline const gchar *
+elem_to_string(gconstpointer elem_p)
+{
+    gint elem = GPOINTER_TO_UINT(elem_p);
+    switch(elem) {
+        case GPOINTER_TO_UINT(ELEM_B):
+            return "<b>";
+        case GPOINTER_TO_UINT(ELEM_I):
+            return "<i>";
+        case GPOINTER_TO_UINT(ELEM_U):
+            return "<u>";
+        case GPOINTER_TO_UINT(ELEM_A):
+            return "<a>";
+        default:
+            return "??";
+    }
+}
+
 static gchar *
-validate_markup(const gchar *str)
+xfce_notify_window_validate_escape_markup(const gchar *str)
 {
     GString *gstr;
-    gchar *p;
+    const gchar *p;
+    GQueue *open_elems;
+    gconstpointer tmp;
 
+    if(!str)
+        return NULL;
+
+    open_elems = g_queue_new();
     gstr = g_string_sized_new(strlen(str));
-    p = (gchar *)str;
+    p = str;
 
     while(*p) {
-        if(*p == '<') {
-            if((*(p+1) == 'b' || *(p+1) == 'i' || *(p+1) == 'u')
-               && *(p+2) == '>')
-            {
-                gchar *q, cmp[5] = "</?>";
-                cmp[2] = *(p+1);
-
-                q = strstr(p, cmp);
-                if(!q) {
-                    g_warning("Bad markup in <%c>: %s", *(p+1), str);
-                    g_string_free(gstr, TRUE);
-                    return NULL;
-                }
-
-                g_string_append_c(gstr, *p);
-                g_string_append_c(gstr, *(p+1));
-                g_string_append_c(gstr, *(p+2));
+        if('<' == *p) {
+            if('b' == *(p+1) && '>' == *(p+2)) {
+                g_queue_push_head(open_elems, ELEM_B);
+                g_string_append(gstr, "<b>");
                 p += 3;
+            } else if('i' == *(p+1) && '>' == *(p+2)) {
+                g_queue_push_head(open_elems, ELEM_I);
+                g_string_append(gstr, "<i>");
+                p += 3;
+            } else if('u' == *(p+1) && '>' == *(p+2)) {
+                g_queue_push_head(open_elems, ELEM_U);
+                g_string_append(gstr, "<u>");
+                p += 3;
+            } else if('a' == *(p+1) && ' ' == *(p+2)) {
+                /* don't currently support links */
+                g_queue_push_head(open_elems, ELEM_A);
 
-                while(p < q) {
-                    if(*p == '<')
-                        g_string_append(gstr, "&lt;");
-                    else if(*p == '>')
-                        g_string_append(gstr, "&gt;");
-                    else if(*p == '&')
-                        g_string_append(gstr, "&amp;");
-                    else
-                        g_string_append_c(gstr, *p);
-                    p++;
+                p = strchr(p+3, '>');
+                if(!p) {
+                    g_warning("Bad markup in <a>: %s", str);
+                    goto out_err;
                 }
-                g_string_append(gstr, cmp);
-                p += 4;
-            } else if(!strncmp(p + 1, "img ", 4)) {
-                gchar *q, *r = NULL, *s;
+                p++;
+            } else if(!strncmp(p+1, "img ", 4)) {
+                /* don't currently support images; extract alt text
+                 * if available */
+                gchar *imgend, *altbegin, *altend = NULL;
 
-                q = strstr(p, "alt=\"");
-                if(q)
-                    r = strchr(q + 5, '"');
-                if(q && !r) {
-                    g_warning("Bad markup in <img>: %s", str);
-                    g_string_free(gstr, TRUE);
-                    return NULL;
+                altbegin = strstr(p+5, "alt=\"");
+                if(altbegin) {
+                    altbegin += 5;
+                    altend = strchr(altbegin, '"');
+                    if(!altend) {
+                        g_warning("End of <img> alt text not found");
+                        goto out_err;
+                    }
                 }
-                s = strchr(r ? r : p, '>');
 
-                if(s && (!q || s < q))
-                    p = r + 1;
-                else if(!s) {
-                    g_string_append(gstr, "&lt;");
-                    p++;
-                } else if(s && q && s > q) {
+                imgend = strstr(altend ? altend+1 : p+4, "/>");
+                if(!imgend) {
+                    g_warning("Unclosed <img> tag");
+                    goto out_err;
+                }
+
+                if(altbegin) {
+                    /* put the alt text in the label */
                     g_string_append_c(gstr, '[');
                     g_string_append(gstr, _("image: "));
-                    p = q + 5;
-                    while(p < r) {
+                    p = altbegin;
+                    while(p < altend) {
                         if(*p == '<')
                             g_string_append(gstr, "&lt;");
                         else if(*p == '>')
@@ -685,58 +707,79 @@ validate_markup(const gchar *str)
                         p++;
                     }
                     g_string_append_c(gstr, ']');
-                    p = s + 1;
-                } else
-                    g_warning("Unhandled <img> case");
-            } else if(!strncmp(p + 1, "a ", 2)) {
-                gchar *q = strchr(p+2, '>');
-                if(!q) {
-                    g_warning("Bad markup in <a>: %s", str);
-                    g_string_free(gstr, TRUE);
-                    return NULL;
                 }
 
-                p = q + 1;
-
-                q = strstr(p, "</a>");
-                if(!q) {
-                    g_warning("Bad markup finding </a>: %s", str);
-                    g_string_free(gstr, TRUE);
-                    return NULL;
-                }
-
-                while(p < q) {
-                    if(*p == '<')
-                        g_string_append(gstr, "&lt;");
-                    else if(*p == '>')
-                        g_string_append(gstr, "&gt;");
-                    else if(*p == '&')
-                        g_string_append(gstr, "&amp;");
-                    else
-                        g_string_append_c(gstr, *p);
+                p = imgend + 2;
+            } else if('/' == *(p+1)) {
+                if('b' == *(p+2) && '>' == *(p+3)) {
+                    tmp = g_queue_pop_head(open_elems);
+                    if(tmp != ELEM_B) {
+                        g_warning("Bad markup: closing <b> when %s expected",
+                                  elem_to_string(tmp));
+                        goto out_err;
+                    }
+                    g_string_append(gstr, "</b>");
+                    p += 4;
+                } else if('i' == *(p+2) && '>' == *(p+3)) {
+                    tmp = g_queue_pop_head(open_elems);
+                    if(tmp != ELEM_I) {
+                        g_warning("Bad markup: closing <i> when %s expected",
+                                  elem_to_string(tmp));
+                        goto out_err;
+                    }
+                    g_string_append(gstr, "</i>");
+                    p += 4;
+                } else if('u' == *(p+2) && '>' == *(p+3)) {
+                    tmp = g_queue_pop_head(open_elems);
+                    if(tmp != ELEM_U) {
+                        g_warning("Bad markup: closing <u> when %s expected",
+                                  elem_to_string(tmp));
+                        goto out_err;
+                    }
+                    g_string_append(gstr, "</u>");
+                    p += 4;
+                } else if('a' == *(p+2) && '>' == *(p+3)) {
+                    tmp = g_queue_pop_head(open_elems);
+                    if(tmp != ELEM_A) {
+                        g_warning("Bad markup: closing <a> when %s expected",
+                                  elem_to_string(tmp));
+                        goto out_err;
+                    }
+                    p += 4;
+                } else {
+                    g_string_append(gstr, "&gt;");
                     p++;
                 }
-                p += 4;
             } else {
                 g_string_append(gstr, "&lt;");
                 p++;
             }
-        } else if(*p == '>') {
+        } else if('>' == *p) {
             g_string_append(gstr, "&gt;");
             p++;
-        } else if(*p == '&') {
-            g_string_append(gstr, "&amp;");
-            p++;
         } else {
-            g_string_append_c(gstr, *p);
-            p++;
+            const gchar *next = g_utf8_next_char(p);
+
+            if(!next) {
+                g_critical("Bad UTF-8 in string");
+                goto out_err;
+            }
+
+            g_string_append_len(gstr, p, next - p);
+            p = next;
         }
     }
 
     p = gstr->str;
     g_string_free(gstr, FALSE);
+    g_queue_free(open_elems);
 
-    return p;
+    return (gchar *)p;
+
+out_err:
+    g_string_free(gstr, TRUE);
+    g_queue_free(open_elems);
+    return NULL;
 }
 
 static void
@@ -836,8 +879,11 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
     
     if(body && *body) {
-        gchar *markup = validate_markup(body);
+        gchar *markup = xfce_notify_window_validate_escape_markup(body);
+        if(!markup)
+            return;
         gtk_label_set_markup(GTK_LABEL(window->body), markup);
+        gtk_label_set_use_markup(GTK_LABEL(window->body), TRUE);
         gtk_widget_show(window->body);
         g_free(markup);
     } else {
