@@ -1,11 +1,18 @@
 style "smoke-window"
 {
-    bg[NORMAL] = "#3d3d3d" 
+    bg[NORMAL] = "#4d4d4d" 
     XfceNotifyWindow::border-color = "#ffffff"
     XfceNotifyWindow::border-radius = 10.0
-    XfceNotifyWindow::border-width = 2.0
+    XfceNotifyWindow::border-width = 3.0
 }
 class "XfceNotifyWindow" style "smoke-window"
+
+style "smoke-button"
+{
+    bg[NORMAL] = "#202020"
+    bg[PRELIGHT] = "#404040"
+}
+class "XfceNotifyWindow.*.GtkButton" style "smoke-button"
 
 style "smoke-text"
 {
