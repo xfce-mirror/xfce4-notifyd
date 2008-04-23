@@ -32,10 +32,35 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 
+#include <dbus/dbus-glib.h>
+
 #include <xfconf/xfconf.h>
 #include <libxfcegui4/libxfcegui4.h>
 
 #include "xfce4-notifyd-config.glade.h"
+
+/* unfortunately, currently we have to kill the daemon to
+ * change themes.  this is only annoying because existing notifications
+ * will get killed */
+static void
+xfce4_notifyd_config_kill_daemon()
+{
+    DBusGConnection *dbus_conn;
+    DBusGProxy *proxy;
+
+    dbus_conn = dbus_g_bus_get(DBUS_BUS_SESSION, NULL);
+    if(!dbus_conn)
+        return;
+
+    proxy = dbus_g_proxy_new_for_name(dbus_conn,
+                                      "org.freedesktop.Notifications",
+                                      "/org/freedesktop/Notifications",
+                                      "org.xfce.Notifyd");
+    dbus_g_proxy_call_no_reply(proxy, "Quit", G_TYPE_INVALID);
+
+    g_object_unref(G_OBJECT(proxy));
+    dbus_g_connection_unref(dbus_conn);
+}
 
 static gchar *
 xfce4_notifyd_slider_format_value(GtkScale *slider,
@@ -88,6 +113,7 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
         if(!strcmp(theme, new_theme)) {
             gtk_tree_selection_select_iter(sel, &iter);
             g_free(theme);
+            xfce4_notifyd_config_kill_daemon();
             return;
         }
         g_free(theme);

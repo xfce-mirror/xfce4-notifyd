@@ -106,6 +106,9 @@ static gboolean galago_get_server_information(XfceNotifyDaemon *daemon,
                                               gchar **OUT_version,
                                               GError **error);
 
+static gboolean galago_quit(XfceNotifyDaemon *daemon,
+                            GError **error);
+
 static GdkPixbuf *galago_pixbuf_from_image_data(const GValue *image_data);
 
 #include "galago-dbus.h"
@@ -288,6 +291,8 @@ galago_notify(XfceNotifyDaemon *daemon,
     GdkPixbuf *pix;
     GValue *urgency_data;
 
+    fprintf(stderr, "got body: %s\n", body);
+
     if((urgency_data = g_hash_table_lookup(hints, "urgency"))
        && G_VALUE_HOLDS(urgency_data, G_TYPE_UCHAR)
        && g_value_get_uchar(urgency_data) == URGENCY_CRITICAL)
@@ -389,6 +394,16 @@ galago_get_server_information(XfceNotifyDaemon *daemon,
     *OUT_vendor = g_strdup("Xfce");
     *OUT_version = g_strdup(VERSION);
 
+    return TRUE;
+}
+
+static gboolean
+galago_quit(XfceNotifyDaemon *daemon,
+            GError **error)
+{
+    gint i, main_level = gtk_main_level();
+    for(i = 0; i < main_level; ++i)
+        gtk_main_quit();
     return TRUE;
 }
 

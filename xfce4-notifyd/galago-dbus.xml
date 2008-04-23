@@ -40,4 +40,8 @@
         </signal>
 
     </interface>
+    
+    <interface name="org.xfce.Notifyd">
+        <method name="Quit"/>
+    </interface>
 </node>

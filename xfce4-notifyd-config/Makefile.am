@@ -11,14 +11,16 @@ xfce4_notifyd_config_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(LIBGLADE_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
-	$(LIBXFCEGUI4_CFLAGS)
+	$(LIBXFCEGUI4_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS)
 
 xfce4_notifyd_config_LDADD = \
 	$(XFCONF_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBGLADE_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
-	$(LIBXFCEGUI4_LIBS)
+	$(LIBXFCEGUI4_LIBS) \
+	$(DBUS_GLIB_LIBS)
 
 desktopdir = $(datadir)/applications
 desktop_in_files = xfce4-notifyd-config.desktop.in
