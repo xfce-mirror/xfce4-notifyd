@@ -350,6 +350,9 @@ galago_notify(XfceNotifyDaemon *daemon,
         xfce_notify_window_set_body(window, body);
         xfce_notify_window_set_actions(window, actions);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
+        xfce_notify_window_set_fade_transparent(window,
+                                                daemon->fade_transparency);
+        xfce_notify_window_set_opacity(window, daemon->initial_opacity);
 
         *OUT_id = replaces_id;
     } else {
@@ -357,6 +360,10 @@ galago_notify(XfceNotifyDaemon *daemon,
                                                                         app_icon,
                                                                         expire_timeout,
                                                                         actions));
+        xfce_notify_window_set_fade_transparent(window,
+                                                daemon->fade_transparency);
+        xfce_notify_window_set_opacity(window, daemon->initial_opacity);
+
         g_object_set_data(G_OBJECT(window), "--xfce-notify-daemon",
                           daemon);
         
