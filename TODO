@@ -2,10 +2,10 @@
 * listen to client when they request a position to 'point to', maybe have a
   little arrow thingy point off the notification window
 * don't overlap notifications when more than one is on the screen
-* allow dragging notifications to new location
 * window shadow?  would rather the compositor just do this, need to figure out
   why xfwm4 won't
 * make more parts of the notification themable
 * support desktop_id hint?
 * find a way to completely ditch the old theme when switching to a new one
 * prelight fill for close button circle?
+* save notification position after drag
