@@ -17,14 +17,16 @@ xfce4_notifyd_CFLAGS = \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(LIBXFCEGUI4_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
-	$(XFCONF_CFLAGS)
+	$(XFCONF_CFLAGS) \
+	$(LIBSEXY_CFLAGS)
 
 xfce4_notifyd_LDADD = \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(LIBXFCEGUI4_LIBS) \
 	$(DBUS_GLIB_LIBS) \
-	$(XFCONF_LIBS)
+	$(XFCONF_LIBS) \
+	$(LIBSEXY_LIBS)
 
 
 servicedir = $(datadir)/dbus-1/services

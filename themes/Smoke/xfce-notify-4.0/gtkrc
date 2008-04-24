@@ -17,5 +17,6 @@ class "XfceNotifyWindow.*.GtkButton" style "smoke-button"
 style "smoke-text"
 {
     fg[NORMAL] = "#ffffff"
+    GtkWidget::link-color = "#a7a7a7"
 }
-widget "XfceNotifyWindow.*.GtkLabel" style "smoke-text"
+widget_class "XfceNotifyWindow.*.<GtkLabel>" style "smoke-text"

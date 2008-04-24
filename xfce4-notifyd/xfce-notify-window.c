@@ -29,6 +29,10 @@
 
 #include <libxfcegui4/libxfcegui4.h>
 
+#ifdef HAVE_LIBSEXY
+#include <libsexy/sexy.h>
+#endif
+
 #include "xfce-notify-window.h"
 
 #define DEFAULT_EXPIRE_TIMEOUT    10000
@@ -104,6 +108,12 @@ static gboolean xfce_notify_window_trans_timeout(gpointer data);
 
 static void xfce_notify_window_button_clicked(GtkWidget *widget,
                                               gpointer user_data);
+
+#ifdef HAVE_LIBSEXY
+static void xfce_notify_window_url_clicked(SexyUrlLabel *label,
+                                           const gchar *url,
+                                           gpointer user_data);
+#endif
 
 static void xfce_notify_window_setup_fade(XfceNotifyWindow *window);
 
@@ -224,14 +234,23 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(vbox);
     gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
 
-    window->summary = gtk_label_new("");
+    window->summary = gtk_label_new(NULL);
     gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(window->summary), 0.0, 0.5);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
 
-    window->body = gtk_label_new("");
+#ifdef HAVE_LIBSEXY
+    window->body = sexy_url_label_new();
+#else
+    window->body = gtk_label_new(NULL);
+#endif
     gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
     gtk_misc_set_alignment(GTK_MISC(window->body), 0.0, 0.5);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
+#ifdef HAVE_LIBSEXY
+    g_signal_connect(G_OBJECT(window->body), "url-activated",
+                     G_CALLBACK(xfce_notify_window_url_clicked), window);
+#endif
 
     window->button_box = gtk_hbutton_box_new();
     gtk_button_box_set_spacing(GTK_BUTTON_BOX(window->button_box),
@@ -640,6 +659,30 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
                   action_id);
 }
 
+#ifdef HAVE_LIBSEXY
+static void
+xfce_notify_window_url_clicked(SexyUrlLabel *label,
+                               const gchar *url,
+                               gpointer user_data)
+{
+    gchar *opener, *url_quoted, *cmd = NULL;
+
+    if(!(opener = g_find_program_in_path("xdg-open")))
+        if(!(opener = g_find_program_in_path("exo-open")))
+            if(!(opener = g_find_program_in_path("gnome-open")))
+                opener = g_find_program_in_path("firefox");
+
+    if(opener) {
+        url_quoted = g_shell_quote(url);
+        cmd = g_strdup_printf("%s %s", opener, url_quoted);
+        xfce_exec(cmd, FALSE, FALSE, NULL);
+        g_free(url_quoted);
+        g_free(cmd);
+        g_free(opener);
+    }
+}
+#endif
+
 #define ELEM_B    GUINT_TO_POINTER(1)
 #define ELEM_I    GUINT_TO_POINTER(2)
 #define ELEM_U    GUINT_TO_POINTER(3)
@@ -693,15 +736,20 @@ xfce_notify_window_validate_escape_markup(const gchar *str)
                 g_string_append(gstr, "<u>");
                 p += 3;
             } else if('a' == *(p+1) && ' ' == *(p+2)) {
-                /* don't currently support links */
+                gchar *aend;
+
                 g_queue_push_head(open_elems, ELEM_A);
 
-                p = strchr(p+3, '>');
-                if(!p) {
+                aend = strchr(p+3, '>');
+                if(!aend) {
                     g_warning("Bad markup in <a>: %s", str);
                     goto out_err;
                 }
-                p++;
+#ifdef HAVE_LIBSEXY
+                /* only support links with SexyUrlLabel*/
+                g_string_append_len(gstr, p, aend - p + 1);
+#endif
+                p = aend + 1;
             } else if(!strncmp(p+1, "img ", 4)) {
                 /* don't currently support images; extract alt text
                  * if available */
@@ -778,6 +826,9 @@ xfce_notify_window_validate_escape_markup(const gchar *str)
                                   elem_to_string(tmp));
                         goto out_err;
                     }
+#ifdef HAVE_LIBSEXY
+                    g_string_append(gstr, "</a>");
+#endif
                     p += 4;
                 } else {
                     g_string_append(gstr, "&gt;");
@@ -915,8 +966,12 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
         gchar *markup = xfce_notify_window_validate_escape_markup(body);
         if(!markup)
             return;
+#ifdef HAVE_LIBSEXY
+        sexy_url_label_set_markup(SEXY_URL_LABEL(window->body), markup);
+#else
         gtk_label_set_markup(GTK_LABEL(window->body), markup);
         gtk_label_set_use_markup(GTK_LABEL(window->body), TRUE);
+#endif
         gtk_widget_show(window->body);
         g_free(markup);
     } else {
