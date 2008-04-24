@@ -240,7 +240,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_container_add(GTK_CONTAINER(window), topvbox);
 
     spacer = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
-    gtk_widget_set_size_request(spacer, -1, 17 - BORDER * 2);
+    gtk_widget_set_size_request(spacer, -1, 20 - BORDER * 2);
     gtk_widget_show(spacer);
     gtk_box_pack_start(GTK_BOX(topvbox), spacer, FALSE, FALSE, 0);
 
@@ -249,7 +249,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_box_pack_start(GTK_BOX(topvbox), hbox, TRUE, TRUE, 0);
 
     spacer = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
-    gtk_widget_set_size_request(spacer, 17 - BORDER * 2, -1);
+    gtk_widget_set_size_request(spacer, 20 - BORDER * 2, -1);
     gtk_widget_show(spacer);
     gtk_box_pack_start(GTK_BOX(hbox), spacer, FALSE, FALSE, 0);
 
