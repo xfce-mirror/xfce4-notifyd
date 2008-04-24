@@ -96,6 +96,8 @@ static gboolean xfce_notify_window_enter_leave(GtkWidget *widget,
                                                GdkEventCrossing *evt);
 static gboolean xfce_notify_window_button_release(GtkWidget *widget,
                                                   GdkEventButton *evt);
+static void xfce_notify_window_size_request(GtkWidget *widget,
+                                            GtkRequisition *req);
 
 static gboolean xfce_notify_window_expire_timeout(gpointer data);
 static gboolean xfce_notify_window_trans_timeout(gpointer data);
@@ -125,6 +127,7 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->enter_notify_event = xfce_notify_window_enter_leave;
     widget_class->leave_notify_event = xfce_notify_window_enter_leave;
     widget_class->button_release_event = xfce_notify_window_button_release;
+    widget_class->size_request = xfce_notify_window_size_request;
 
     signals[SIG_CLOSED] = g_signal_new("closed",
                                        XFCE_TYPE_NOTIFY_WINDOW,
@@ -557,6 +560,36 @@ xfce_notify_window_button_release(GtkWidget *widget,
                       "default");
     }
     return FALSE;
+}
+
+static void
+xfce_notify_window_size_request(GtkWidget *widget,
+                                GtkRequisition *req)
+{
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
+
+    if(window->bg_path) {
+        cairo_path_destroy(window->bg_path);
+        window->bg_path = NULL;
+    }
+
+    if(window->close_btn_path) {
+        cairo_path_destroy(window->close_btn_path);
+        window->close_btn_path = NULL;
+    }
+
+    if(window->close_btn_region) {
+        gdk_region_destroy(window->close_btn_region);
+        window->close_btn_region = NULL;
+    }
+
+    GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->size_request(widget,
+                                                                    req);
+
+    gtk_window_move(GTK_WINDOW(window),
+                    gdk_screen_get_width(gtk_widget_get_screen(GTK_WIDGET(window)))
+                    - GTK_WIDGET(window)->allocation.width - 48,
+                    48);
 }
 
 

@@ -355,13 +355,6 @@ galago_notify(XfceNotifyDaemon *daemon,
         }
     }
 
-    /* FIXME: handle positioning from hints or based on defaults */
-    gtk_widget_realize(GTK_WIDGET(window));
-    gtk_window_move(GTK_WINDOW(window),
-                    gdk_screen_get_width(gtk_widget_get_screen(GTK_WIDGET(window)))
-                    - GTK_WIDGET(window)->allocation.width - 48,
-                    48);
-
     return TRUE;
 }
 
