@@ -33,7 +33,7 @@ servicedir = $(datadir)/dbus-1/services
 service_in_files = org.freedesktop.Notifications.service.in
 service_DATA = $(service_in_files:.service.in=.service)
 
-%.service: %.service.in
+%.service: $(srcdir)/%.service.in
 	sed -e "s,\@bindir\@,$(bindir),g" < $< > $@
 
 

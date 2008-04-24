@@ -44,4 +44,5 @@ CLEANFILES = \
 	$(desktop_DATA)
 
 EXTRA_DIST = \
-	xfce4-notifyd-config.glade
+	xfce4-notifyd-config.glade \
+	$(desktop_in_files)

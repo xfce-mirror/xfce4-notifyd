@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-15 02:58-0700\n"
+"POT-Creation-Date: 2008-04-24 00:00-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../xfce4-notifyd/main.c:50
-#, c-format
-msgid "Xfce Notify Daemon %s\n"
+#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:229 ../xfce4-notifyd-config/main.c:286
+msgid "Xfce Notify Daemon"
 msgstr ""
 
 #: ../xfce4-notifyd/main.c:53
@@ -26,38 +26,37 @@ msgstr ""
 msgid "Unknown option \"%s\"\n"
 msgstr ""
 
-#: ../xfce4-notifyd/main.c:60 ../xfce4-notifyd-config/main.c:67
-#: ../xfce4-notifyd-config/main.c:111
-msgid "Xfce Notify Daemon"
-msgstr ""
-
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
 msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:484
+#: ../xfce4-notifyd/xfce-notify-daemon.c:522
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:501
+#: ../xfce4-notifyd/xfce-notify-daemon.c:539
 #, c-format
 msgid "Another notification daemon is already running"
 msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-window.c:615
+#: ../xfce4-notifyd/xfce-notify-window.c:836
 msgid "image: "
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:197
+msgid "Theme"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:231
 msgid "Settings daemon is unavailable"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:113
+#: ../xfce4-notifyd-config/main.c:288
 msgid "Unable to display settings dialog"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:114
+#: ../xfce4-notifyd-config/main.c:289
 msgid "The embedded user interface definition file could not be read"
 msgstr ""
 
@@ -84,14 +83,6 @@ msgid "_Opacity:"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Theme:"
-msgstr ""
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "gtk-close"
-msgstr ""
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "seconds"
 msgstr ""
 

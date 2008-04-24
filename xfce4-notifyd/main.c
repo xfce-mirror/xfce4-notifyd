@@ -47,7 +47,7 @@ main(int argc,
 
     if(argc > 1) {
         if(!strcmp(argv[1], "--version") || !strcmp(argv[1], "-V")) {
-            g_print(_("Xfce Notify Daemon %s\n"), VERSION);
+            g_print("%s %s\n", _("Xfce Notify Daemon"), VERSION);
             return 0;
         } else {
             g_printerr(_("Unknown option \"%s\"\n"), argv[1]);
