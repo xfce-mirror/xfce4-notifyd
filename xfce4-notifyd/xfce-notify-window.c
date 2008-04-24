@@ -207,7 +207,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_window_set_accept_focus(GTK_WINDOW(window), FALSE);
     gtk_window_set_skip_taskbar_hint(GTK_WINDOW(window), TRUE);
     gtk_window_set_skip_pager_hint(GTK_WINDOW(window), TRUE);
-    gtk_container_set_border_width(GTK_CONTAINER(window), BORDER);
+    gtk_container_set_border_width(GTK_CONTAINER(window), BORDER * 2);
     gtk_widget_set_app_paintable(GTK_WIDGET(window), TRUE);
     gtk_widget_add_events(GTK_WIDGET(window),
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
@@ -443,7 +443,6 @@ xfce_notify_window_expose(GtkWidget *widget,
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
     GtkStyle *style = gtk_widget_get_style(widget);
-    //GdkColor *c;
     cairo_t *cr;
     GList *children, *l;
     cairo_path_t *bg_path;
@@ -455,11 +454,6 @@ xfce_notify_window_expose(GtkWidget *widget,
 
     cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
     gdk_cairo_region(cr, evt->region);
-    /* FIXME: would be nice to paint so it doesn't look ugly without a
-     * compositor */
-    //c = &style->bg[GTK_STATE_NORMAL];
-    //cairo_set_source_rgba(cr, c->red/65535., c->green/65535.,
-    //                      c->blue/65535., 0.0);
     cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 0.0);
     cairo_fill_preserve(cr);
     cairo_clip(cr);
@@ -493,7 +487,7 @@ xfce_notify_window_expose(GtkWidget *widget,
             cairo_path_t *flat_path;
             GdkFillRule fill_rule;
 
-            cairo_arc(cr, 15., 15., 7.5, 0., 2*M_PI);
+            cairo_arc(cr, 12., 12., 7.5, 0., 2*M_PI);
             window->close_btn_path = cairo_copy_path(cr);
 
             flat_path = cairo_copy_path_flat(cr);
@@ -507,11 +501,11 @@ xfce_notify_window_expose(GtkWidget *widget,
         cairo_set_line_width(cr, 1.5);
         cairo_stroke(cr);
 
-        cairo_move_to(cr, 11., 11.);
-        cairo_line_to(cr, 19., 19.);
+        cairo_move_to(cr, 8., 8.);
+        cairo_line_to(cr, 16., 16.);
         cairo_stroke(cr);
-        cairo_move_to(cr, 19., 11.);
-        cairo_line_to(cr, 11., 19.);
+        cairo_move_to(cr, 16., 8.);
+        cairo_line_to(cr, 8., 16.);
         cairo_stroke(cr);
     }
 
