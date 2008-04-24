@@ -37,7 +37,7 @@
 
 #define DEFAULT_EXPIRE_TIMEOUT    10000
 #define DEFAULT_INITIAL_OPACITY       0.9
-#define TRANS_CHANGE_TIMEOUT        150
+#define TRANS_CHANGE_TIMEOUT        250
 #define DEFAULT_RADIUS               10.0
 #define DEFAULT_BORDER_WIDTH          2.0
 #define BORDER                        8
