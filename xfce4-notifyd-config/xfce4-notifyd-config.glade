@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.3 on Wed Apr 23 23:57:40 2008 -->
+<!--Generated with glade3 3.4.3 on Thu Apr 24 02:10:24 2008 -->
 <glade-interface>
   <requires lib="xfce4"/>
   <widget class="XfceTitledDialog" id="notifyd_settings_dlg">
@@ -37,6 +37,42 @@
                 <property name="visible">True</property>
                 <property name="spacing">4</property>
                 <child>
+                  <widget class="GtkHBox" id="hbox4">
+                    <property name="visible">True</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <widget class="GtkLabel" id="label3">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Default _position:</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">position_combo</property>
+                      </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkComboBox" id="position_combo">
+                        <property name="visible">True</property>
+                        <property name="items" translatable="yes">Top left
+Bottom left
+Top right
+Bottom right</property>
+                      </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+                <child>
                   <widget class="GtkHBox" id="hbox2">
                     <property name="visible">True</property>
                     <property name="spacing">8</property>
@@ -45,6 +81,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Disappear after:</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">expire_timeout_sbtn</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
@@ -79,6 +116,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -90,6 +128,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Opacity:</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">opacity_slider</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
@@ -112,7 +151,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -128,7 +167,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </widget>

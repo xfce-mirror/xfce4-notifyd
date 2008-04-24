@@ -42,6 +42,7 @@ struct _XfceNotifyDaemon
     gint expire_timeout;
     gboolean fade_transparency;
     gdouble initial_opacity;
+    GtkCornerType notify_location;
 
     DBusGConnection *dbus_conn;
     XfconfChannel *settings;
@@ -255,6 +256,42 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     g_tree_remove(daemon->active_notifications, id_p);
 }
 
+static void
+xfce_notify_daemon_window_size_request(GtkWidget *widget,
+                                       GtkRequisition *req,
+                                       gpointer user_data)
+{
+    XfceNotifyDaemon *daemon = user_data;
+    GdkScreen *screen;
+    gint x, y;
+
+    /* FIXME: handle multihead properly */
+    screen = gtk_widget_get_screen(widget);
+
+    switch(daemon->notify_location) {
+        case GTK_CORNER_TOP_LEFT:
+            x = y = 32;
+            break;
+        case GTK_CORNER_BOTTOM_LEFT:
+            x = 32;
+            y = gdk_screen_get_height(screen) - req->height - 32;
+            break;
+        case GTK_CORNER_TOP_RIGHT:
+            x = gdk_screen_get_width(screen) - req->width - 32;
+            y = 32;
+            break;
+        case GTK_CORNER_BOTTOM_RIGHT:
+            x = gdk_screen_get_width(screen) - req->width - 32;
+            y = gdk_screen_get_height(screen) - req->height - 32;
+            break;
+        default:
+            g_warning("Invalid notify location: %d", daemon->notify_location);
+            return;
+    }
+
+    gtk_window_move(GTK_WINDOW(widget), x, y);
+}
+
 
 
 static gboolean
@@ -329,7 +366,6 @@ galago_notify(XfceNotifyDaemon *daemon,
 
         g_tree_insert(daemon->active_notifications,
                       GUINT_TO_POINTER(*OUT_id), window);
-        gtk_widget_show(GTK_WIDGET(window));
 
         g_signal_connect(G_OBJECT(window), "action-invoked",
                          G_CALLBACK(xfce_notify_daemon_window_action_invoked),
@@ -340,6 +376,11 @@ galago_notify(XfceNotifyDaemon *daemon,
         g_signal_connect(G_OBJECT(window), "closed",
                          G_CALLBACK(xfce_notify_daemon_window_closed),
                          daemon);
+        g_signal_connect(G_OBJECT(window), "size-request",
+                         G_CALLBACK(xfce_notify_daemon_window_size_request),
+                         daemon);
+
+        gtk_widget_show(GTK_WIDGET(window));
     }
 
     if(!app_icon || !*app_icon) {
@@ -505,6 +546,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                      G_VALUE_TYPE(value)
                                      ? g_value_get_string(value)
                                      : "Default");
+    } else if(!strcmp(property, "/notify-location")) {
+        daemon->notify_location = G_VALUE_TYPE(value)
+                                  ? g_value_get_uint(value)
+                                  : GTK_CORNER_TOP_RIGHT;
     }
 }
 
@@ -574,6 +619,10 @@ xfce_notify_daemon_load_config(XfceNotifyDaemon *daemon,
                                       "/theme", "Default");
     xfce_notify_daemon_set_theme(daemon, theme);
     g_free(theme);
+
+    daemon->notify_location = xfconf_channel_get_uint(daemon->settings,
+                                                      "/notify-location",
+                                                      GTK_CORNER_TOP_RIGHT);
 
     g_signal_connect(G_OBJECT(daemon->settings), "property-changed",
                      G_CALLBACK(xfce_notify_daemon_settings_changed),

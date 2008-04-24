@@ -209,7 +209,7 @@ static GtkWidget *
 xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
 {
     XfconfChannel *channel;
-    GtkWidget *dlg, *btn, *sbtn, *slider, *chk, *treeview;
+    GtkWidget *dlg, *btn, *sbtn, *slider, *chk, *treeview, *combo;
     GtkAdjustment *adj;
     GtkTreeSelection *sel;
     GError *error = NULL;
@@ -264,6 +264,12 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
     g_signal_connect(G_OBJECT(channel), "property-changed::/theme",
                      G_CALLBACK(xfce4_notifyd_config_theme_changed),
                      treeview);
+
+    combo = glade_xml_get_widget(gxml, "position_combo");
+    xfconf_g_property_bind(channel, "/notify-location", G_TYPE_UINT,
+                           G_OBJECT(combo), "active");
+    if(gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == -1)
+        gtk_combo_box_set_active(GTK_COMBO_BOX(combo), GTK_CORNER_TOP_RIGHT);
     
     return dlg;
 }

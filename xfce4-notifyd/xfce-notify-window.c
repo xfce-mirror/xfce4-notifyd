@@ -673,11 +673,6 @@ xfce_notify_window_size_request(GtkWidget *widget,
 
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->size_request(widget,
                                                                     req);
-
-    gtk_window_move(GTK_WINDOW(window),
-                    gdk_screen_get_width(gtk_widget_get_screen(GTK_WIDGET(window)))
-                    - GTK_WIDGET(window)->allocation.width - 48,
-                    48);
 }
 
 
