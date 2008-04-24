@@ -206,7 +206,7 @@ static void
 xfce_notify_window_init(XfceNotifyWindow *window)
 {
     GdkScreen *screen;
-    GtkWidget *topvbox, *vbox, *hbox;
+    GtkWidget *topvbox, *vbox, *hbox, *spacer;
     
     GTK_WINDOW(window)->type = GTK_WINDOW_TOPLEVEL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
@@ -222,7 +222,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
     gtk_window_set_type_hint(GTK_WINDOW(window),
                              GDK_WINDOW_TYPE_HINT_NOTIFICATION);
-    gtk_container_set_border_width(GTK_CONTAINER(window), BORDER * 2);
+    gtk_container_set_border_width(GTK_CONTAINER(window), BORDER);
     gtk_widget_set_app_paintable(GTK_WIDGET(window), TRUE);
     gtk_widget_add_events(GTK_WIDGET(window),
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
@@ -239,9 +239,19 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(topvbox);
     gtk_container_add(GTK_CONTAINER(window), topvbox);
 
+    spacer = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
+    gtk_widget_set_size_request(spacer, -1, 17 - BORDER * 2);
+    gtk_widget_show(spacer);
+    gtk_box_pack_start(GTK_BOX(topvbox), spacer, FALSE, FALSE, 0);
+
     hbox = gtk_hbox_new(FALSE, BORDER);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(topvbox), hbox, TRUE, TRUE, 0);
+
+    spacer = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
+    gtk_widget_set_size_request(spacer, 17 - BORDER * 2, -1);
+    gtk_widget_show(spacer);
+    gtk_box_pack_start(GTK_BOX(hbox), spacer, FALSE, FALSE, 0);
 
     window->icon = gtk_image_new();
     gtk_box_pack_start(GTK_BOX(hbox), window->icon, FALSE, FALSE, 0);
