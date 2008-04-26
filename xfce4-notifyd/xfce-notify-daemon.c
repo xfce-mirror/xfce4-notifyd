@@ -328,8 +328,6 @@ galago_notify(XfceNotifyDaemon *daemon,
     GdkPixbuf *pix;
     GValue *urgency_data;
 
-    fprintf(stderr, "got body: %s\n", body);
-
     if((urgency_data = g_hash_table_lookup(hints, "urgency"))
        && G_VALUE_HOLDS(urgency_data, G_TYPE_UCHAR)
        && g_value_get_uchar(urgency_data) == URGENCY_CRITICAL)
