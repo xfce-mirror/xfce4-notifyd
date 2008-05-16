@@ -110,8 +110,8 @@ static gboolean xfce_notify_window_button_release(GtkWidget *widget,
                                                   GdkEventButton *evt);
 static gboolean xfce_notify_window_motion_notify(GtkWidget *widget,
                                                  GdkEventMotion *evt);
-static void xfce_notify_window_size_request(GtkWidget *widget,
-                                            GtkRequisition *req);
+static gboolean xfce_notify_window_configure_event(GtkWidget *widget,
+                                                   GdkEventConfigure *evt);
 
 static gboolean xfce_notify_window_expire_timeout(gpointer data);
 static gboolean xfce_notify_window_trans_timeout(gpointer data);
@@ -149,7 +149,7 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->button_press_event = xfce_notify_window_button_press;
     widget_class->button_release_event = xfce_notify_window_button_release;
     widget_class->motion_notify_event = xfce_notify_window_motion_notify;
-    widget_class->size_request = xfce_notify_window_size_request;
+    widget_class->configure_event = xfce_notify_window_configure_event;
 
     signals[SIG_CLOSED] = g_signal_new("closed",
                                        XFCE_TYPE_NOTIFY_WINDOW,
@@ -650,11 +650,15 @@ xfce_notify_window_motion_notify(GtkWidget *widget,
     return FALSE;
 }
 
-static void
-xfce_notify_window_size_request(GtkWidget *widget,
-                                GtkRequisition *req)
+static gboolean
+xfce_notify_window_configure_event(GtkWidget *widget,
+                                   GdkEventConfigure *evt)
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
+    gboolean ret;
+
+    ret = GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->configure_event(widget,
+                                                                             evt);
 
     if(window->bg_path) {
         cairo_path_destroy(window->bg_path);
@@ -671,8 +675,7 @@ xfce_notify_window_size_request(GtkWidget *widget,
         window->close_btn_region = NULL;
     }
 
-    GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->size_request(widget,
-                                                                    req);
+    return ret;
 }
 
 

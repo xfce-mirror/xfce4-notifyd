@@ -257,32 +257,37 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
 }
 
 static void
-xfce_notify_daemon_window_size_request(GtkWidget *widget,
-                                       GtkRequisition *req,
-                                       gpointer user_data)
+xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
+                                        GtkAllocation *allocation,
+                                        gpointer user_data)
 {
     XfceNotifyDaemon *daemon = user_data;
-    GdkScreen *screen;
-    gint x, y;
+    GdkScreen *screen = NULL;
+    gint x, y, monitor;
+    GdkRectangle geom;
 
-    /* FIXME: handle multihead properly */
-    screen = gtk_widget_get_screen(widget);
+    gdk_display_get_pointer(gdk_display_get_default(), &screen, &x, &y, NULL);
+    monitor = gdk_screen_get_monitor_at_point(screen, x, y);
+    gdk_screen_get_monitor_geometry(screen, monitor, &geom);
+
+    gtk_window_set_screen(GTK_WINDOW(widget), screen);
 
     switch(daemon->notify_location) {
         case GTK_CORNER_TOP_LEFT:
-            x = y = 32;
+            x = geom.x + 32;
+            y = geom.y + 32;
             break;
         case GTK_CORNER_BOTTOM_LEFT:
-            x = 32;
-            y = gdk_screen_get_height(screen) - req->height - 32;
+            x = geom.x + 32;
+            y = geom.height - allocation->height - 32;
             break;
         case GTK_CORNER_TOP_RIGHT:
-            x = gdk_screen_get_width(screen) - req->width - 32;
-            y = 32;
+            x = geom.width - allocation->width - 32;
+            y = geom.y + 32;
             break;
         case GTK_CORNER_BOTTOM_RIGHT:
-            x = gdk_screen_get_width(screen) - req->width - 32;
-            y = gdk_screen_get_height(screen) - req->height - 32;
+            x = geom.width - allocation->width - 32;
+            y = geom.height - allocation->height - 32;
             break;
         default:
             g_warning("Invalid notify location: %d", daemon->notify_location);
@@ -381,8 +386,8 @@ galago_notify(XfceNotifyDaemon *daemon,
         g_signal_connect(G_OBJECT(window), "closed",
                          G_CALLBACK(xfce_notify_daemon_window_closed),
                          daemon);
-        g_signal_connect(G_OBJECT(window), "size-request",
-                         G_CALLBACK(xfce_notify_daemon_window_size_request),
+        g_signal_connect(G_OBJECT(window), "size-allocate",
+                         G_CALLBACK(xfce_notify_daemon_window_size_allocate),
                          daemon);
 
         gtk_widget_show(GTK_WIDGET(window));
