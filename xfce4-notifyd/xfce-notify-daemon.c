@@ -409,6 +409,11 @@ galago_notify(XfceNotifyDaemon *daemon,
         }
     }
 
+    gtk_widget_realize(GTK_WIDGET(window));
+    xfce_notify_daemon_window_size_allocate(GTK_WIDGET(window),
+                                            &GTK_WIDGET(window)->allocation,
+                                            daemon);
+
     return TRUE;
 }
 
