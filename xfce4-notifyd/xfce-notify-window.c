@@ -34,6 +34,7 @@
 #endif
 
 #include "xfce-notify-window.h"
+#include "xfce-notify-enum-types.h"
 
 #define DEFAULT_EXPIRE_TIMEOUT    10000
 #define DEFAULT_INITIAL_OPACITY       0.9
@@ -79,17 +80,16 @@ typedef struct
     GtkWindowClass parent;
 
     /*< signals >*/
-    void (*closed)(XfceNotifyWindow *window);
+    void (*closed)(XfceNotifyWindow *window,
+                   XfceNotifyCloseReason reason);
     void (*action_invoked)(XfceNotifyWindow *window,
                            const gchar *action_id);
-    void (*expired)(XfceNotifyWindow *window);
 } XfceNotifyWindowClass;
 
 enum
 {
     SIG_CLOSED = 0,
     SIG_ACTION_INVOKED,
-    SIG_EXPIRED,
     N_SIGS,
 };
 
@@ -157,8 +157,9 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
                                        G_STRUCT_OFFSET(XfceNotifyWindowClass,
                                                        closed),
                                        NULL, NULL,
-                                       g_cclosure_marshal_VOID__VOID,
-                                       G_TYPE_NONE, 0);
+                                       g_cclosure_marshal_VOID__ENUM,
+                                       G_TYPE_NONE, 1,
+                                       XFCE_TYPE_NOTIFY_CLOSE_REASON);
 
     signals[SIG_ACTION_INVOKED] = g_signal_new("action-invoked",
                                                XFCE_TYPE_NOTIFY_WINDOW,
@@ -170,15 +171,6 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
                                                G_TYPE_NONE,
                                                1, G_TYPE_STRING);
 
-    signals[SIG_EXPIRED] = g_signal_new("expired",
-                                        XFCE_TYPE_NOTIFY_WINDOW,
-                                        G_SIGNAL_RUN_LAST,
-                                        G_STRUCT_OFFSET(XfceNotifyWindowClass,
-                                                        expired),
-                                        NULL, NULL,
-                                        g_cclosure_marshal_VOID__VOID,
-                                        G_TYPE_NONE, 0);
-    
     gtk_widget_class_install_style_property(widget_class,
                                             g_param_spec_boxed("border-color",
                                                                "border color",
@@ -615,14 +607,15 @@ xfce_notify_window_button_release(GtkWidget *widget,
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
-    if(window->close_btn_region
-       && gdk_region_point_in(window->close_btn_region, evt->x, evt->y))
+    if(!window->close_btn_region
+       || !gdk_region_point_in(window->close_btn_region, evt->x, evt->y))
     {
-        g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0);
-    } else {
         g_signal_emit(G_OBJECT(widget), signals[SIG_ACTION_INVOKED], 0,
                       "default");
     }
+
+    g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0,
+                  XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 
     return FALSE;
 }
@@ -684,7 +677,8 @@ xfce_notify_window_expire_timeout(gpointer data)
 {
     XfceNotifyWindow *window = data;
     window->expire_id = 0;
-    g_signal_emit(G_OBJECT(window), signals[SIG_EXPIRED], 0);
+    g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
+                  XFCE_NOTIFY_CLOSE_REASON_EXPIRED);
     return FALSE;
 }
 
@@ -1280,4 +1274,15 @@ xfce_notify_window_get_opacity(XfceNotifyWindow *window)
 {
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0.0);
     return window->initial_opacity;
+}
+
+void
+xfce_notify_window_closed(XfceNotifyWindow *window,
+                          XfceNotifyCloseReason reason)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window)
+                     && reason >= XFCE_NOTIFY_CLOSE_REASON_EXPIRED
+                     && reason <= XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+
+    g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0, reason);
 }

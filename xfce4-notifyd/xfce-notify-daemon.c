@@ -159,32 +159,11 @@ xfce_direct_compare(gconstpointer a,
 }
 
 static void
-xfce_notify_daemon_window_destroy(XfceNotifyWindow *window)
-{
-    XfceNotifyDaemon *daemon = g_object_get_data(G_OBJECT(window),
-                                                 "--xfce-notify-daemon");
-    guint id = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(window),
-                                                  "--notify-id"));
-    guint reason = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(window),
-                                                      "--close-reason"));
-
-    gtk_widget_destroy(GTK_WIDGET(window));
-
-    if(!reason)
-        reason = CLOSE_REASON_UNKNOWN;
-
-    if(daemon && id) {
-        g_signal_emit(G_OBJECT(daemon), signals[SIG_NOTIFICATION_CLOSED], 0,
-                      id, reason);
-    }
-}
-
-static void
 xfce_notify_daemon_init(XfceNotifyDaemon *daemon)
 {
     daemon->active_notifications = g_tree_new_full(xfce_direct_compare,
                                                    NULL, NULL,
-                                                   (GDestroyNotify)xfce_notify_daemon_window_destroy);
+                                                   (GDestroyNotify)gtk_widget_destroy);
 
     daemon->last_notification_id = 1;
 }
@@ -226,34 +205,19 @@ xfce_notify_daemon_window_action_invoked(XfceNotifyWindow *window,
                                                   "--notify-id"));
     g_signal_emit(G_OBJECT(daemon), signals[SIG_ACTION_INVOKED], 0,
                   id, action);
-
-    g_object_set_data(G_OBJECT(window), "--close-reason",
-                      GUINT_TO_POINTER(CLOSE_REASON_DISMISSED));
-    g_tree_remove(daemon->active_notifications, GUINT_TO_POINTER(id));
-}
-
-static void
-xfce_notify_daemon_window_expired(XfceNotifyWindow *window,
-                                  gpointer user_data)
-{
-    XfceNotifyDaemon *daemon = user_data;
-    gpointer id_p = g_object_get_data(G_OBJECT(window), "--notify-id");
-
-    g_object_set_data(G_OBJECT(window), "--closed-reason",
-                      GUINT_TO_POINTER(CLOSE_REASON_EXPIRED));
-    g_tree_remove(daemon->active_notifications, id_p);
 }
 
 static void
 xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
+                                 XfceNotifyCloseReason reason,
                                  gpointer user_data)
 {
     XfceNotifyDaemon *daemon = user_data;
     gpointer id_p = g_object_get_data(G_OBJECT(window), "--notify-id");
 
-    g_object_set_data(G_OBJECT(window), "--closed-reason",
-                      GUINT_TO_POINTER(CLOSE_REASON_DISMISSED));
     g_tree_remove(daemon->active_notifications, id_p);
+    g_signal_emit(G_OBJECT(daemon), signals[SIG_NOTIFICATION_CLOSED], 0,
+                  GPOINTER_TO_UINT(id_p), reason);
 }
 
 static void
@@ -370,9 +334,6 @@ galago_notify(XfceNotifyDaemon *daemon,
                                                 daemon->fade_transparency);
         xfce_notify_window_set_opacity(window, daemon->initial_opacity);
 
-        g_object_set_data(G_OBJECT(window), "--xfce-notify-daemon",
-                          daemon);
-        
         *OUT_id = xfce_notify_daemon_generate_id(daemon);
         g_object_set_data(G_OBJECT(window), "--notify-id",
                           GUINT_TO_POINTER(*OUT_id));
@@ -382,9 +343,6 @@ galago_notify(XfceNotifyDaemon *daemon,
 
         g_signal_connect(G_OBJECT(window), "action-invoked",
                          G_CALLBACK(xfce_notify_daemon_window_action_invoked),
-                         daemon);
-        g_signal_connect(G_OBJECT(window), "expired",
-                         G_CALLBACK(xfce_notify_daemon_window_expired),
                          daemon);
         g_signal_connect(G_OBJECT(window), "closed",
                          G_CALLBACK(xfce_notify_daemon_window_closed),
@@ -425,12 +383,8 @@ galago_close_notification(XfceNotifyDaemon *daemon,
     XfceNotifyWindow *window = g_tree_lookup(daemon->active_notifications,
                                              GUINT_TO_POINTER(id));
 
-    if(window) {
-        g_object_set_data(G_OBJECT(window), "--close-reason",
-                          GUINT_TO_POINTER(CLOSE_REASON_CLIENT));
-        g_tree_remove(daemon->active_notifications, GUINT_TO_POINTER(id));
-    }
-    /* FIXME: return an error if the notification doesn't exist? */
+    if(window)
+        xfce_notify_window_closed(window, XFCE_NOTIFY_CLOSE_REASON_CLIENT);
 
     return TRUE;
 }

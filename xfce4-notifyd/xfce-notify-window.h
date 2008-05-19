@@ -28,6 +28,14 @@
 
 G_BEGIN_DECLS
 
+typedef enum
+{
+    XFCE_NOTIFY_CLOSE_REASON_EXPIRED = 1,
+    XFCE_NOTIFY_CLOSE_REASON_DISMISSED,
+    XFCE_NOTIFY_CLOSE_REASON_CLIENT,
+    XFCE_NOTIFY_CLOSE_REASON_UNKNOWN,
+} XfceNotifyCloseReason;
+
 typedef struct _XfceNotifyWindow  XfceNotifyWindow;
 
 GType xfce_notify_window_get_type() G_GNUC_CONST;
@@ -68,6 +76,10 @@ gboolean xfce_notify_window_get_fade_transparent(XfceNotifyWindow *window);
 void xfce_notify_window_set_opacity(XfceNotifyWindow *window,
                                     gdouble opacity);
 gdouble xfce_notify_window_get_opacity(XfceNotifyWindow *window);
+
+/* signal trigger */
+void xfce_notify_window_closed(XfceNotifyWindow *window,
+                               XfceNotifyCloseReason reason);
 
 G_END_DECLS
 

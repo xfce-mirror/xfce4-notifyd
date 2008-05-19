@@ -6,6 +6,8 @@ xfce4_notifyd_SOURCES = \
 	main.c \
 	xfce-notify-daemon.c \
 	xfce-notify-daemon.h \
+	xfce-notify-enum-types.c \
+	xfce-notify-enum-types.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h \
 	xfce-notify-window.c \
@@ -42,10 +44,14 @@ if MAINTAINER_MODE
 BUILT_SOURCES = \
 	galago-dbus.h \
 	xfce-notify-marshal.c \
-	xfce-notify-marshal.h
+	xfce-notify-marshal.h \
+	xfce-notify-enum-types.c \
+	xfce-notify-enum-types.h
 
 CLEANFILES = \
-	$(BUILT_SOURCES)
+	$(BUILT_SOURCES) \
+	stamp-xfce-notify-enum-types.h \
+	stamp-xfce-notify-marshal.h
 
 galago-dbus.h: $(srcdir)/galago-dbus.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=galago $< > $@
@@ -63,6 +69,29 @@ xfce-notify-marshal.c: $(srcdir)/xfce-notify-marshal.list Makefile
 	@echo '#include "xfce-notify-marshal.h"' >$@
 	@echo >>$@
 	glib-genmarshal --prefix=xfce_notify_marshal xfce-notify-marshal.list --body >>$@
+
+xfce-notify-enum-types.h: stamp-xfce-notify-enum-types.h
+	@true
+stamp-xfce-notify-enum-types.h: xfce-notify-window.h Makefile
+	( cd $(srcdir) && glib-mkenums \
+	        --fhead "#ifndef __XFCE_NOTIFY_ENUM_TYPES_H__\n#define __XFCE_NOTIFY_ENUM_TYPES_H__\n#include <glib-object.h>\nG_BEGIN_DECLS\n" \
+	        --fprod "/* enumerations from \"@filename@\" */\n" \
+	        --vhead "GType @enum_name@_get_type() G_GNUC_CONST;\n#define XFCE_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
+	        --ftail "G_END_DECLS\n\n#endif /* __XFCE_NOTIFY_ENUM_TYPES_H__ */" \
+	        xfce-notify-window.h ) >> xgen-xneth \
+	&& ( cmp -s xgen-xneth xfce-notify-enum-types.h || cp xgen-xneth xfce-notify-enum-types.h ) \
+	&& rm -f xgen-xneth \
+	&& echo timestamp > $(@F)
+xfce-notify-enum-types.c: xfce-notify-window.h Makefile
+	( cd $(srcdir) && glib-mkenums \
+	        --fhead "#include \"xfce-notify-enum-types.h\"\n#include \"xfce-notify-window.h\"\n" \
+	        --fprod "\n/* enumerations from \"@filename@\" */" \
+	        --vhead "GType\n@enum_name@_get_type()\n{\n\tstatic GType type = 0;\n\tif(type == 0) {\n\tstatic const G@Type@Value values[] = {"\
+	        --vprod "\t{ @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+	        --vtail "\t{ 0, NULL, NULL }\n\t};\n\ttype = g_@type@_register_static(\"@EnumName@\", values);\n  }\n\treturn type;\n}\n" \
+	        xfce-notify-window.h ) >> xgen-xnetc \
+	&& cp xgen-xnetc xfce-notify-enum-types.c \
+	&& rm -f xgen-xnetc
 
 endif
 
