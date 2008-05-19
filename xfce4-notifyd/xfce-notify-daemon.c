@@ -71,14 +71,6 @@ enum
     URGENCY_CRITICAL,
 };
 
-enum
-{
-    CLOSE_REASON_EXPIRED = 1,
-    CLOSE_REASON_DISMISSED,
-    CLOSE_REASON_CLIENT,
-    CLOSE_REASON_UNKNOWN,
-};
-
 static void xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass);
 static void xfce_notify_daemon_init(XfceNotifyDaemon *daemon);
 
