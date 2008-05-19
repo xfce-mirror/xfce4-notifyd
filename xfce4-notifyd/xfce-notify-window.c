@@ -279,10 +279,9 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 #endif
 
     window->button_box = gtk_hbutton_box_new();
-    gtk_button_box_set_spacing(GTK_BUTTON_BOX(window->button_box),
-                               BORDER / 2);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(window->button_box),
                               GTK_BUTTONBOX_END);
+    gtk_box_set_spacing(GTK_BOX(window->button_box), BORDER / 2);
     gtk_box_set_homogeneous(GTK_BOX(window->button_box), FALSE);
     gtk_box_pack_start(GTK_BOX(topvbox), window->button_box, FALSE, FALSE, 0);
 }
