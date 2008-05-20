@@ -491,10 +491,9 @@ xfce_notify_window_expose(GtkWidget *widget,
                              NULL);
 
         cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
-        if(border_color) {
+        if(border_color)
             gdk_cairo_set_source_color(cr, border_color);
-            g_free(border_color);
-        } else
+        else
             cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
         cairo_set_line_width(cr, border_width);
 
