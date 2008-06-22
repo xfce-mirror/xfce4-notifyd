@@ -710,13 +710,12 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
     gchar *action_id;
 
     action_id = g_object_get_data(G_OBJECT(widget), "--action-id");
-    if(!action_id) {
-        g_warning("No action id specified");
-        return;
-    }
+    g_assert(action_id);
 
     g_signal_emit(G_OBJECT(window), signals[SIG_ACTION_INVOKED], 0,
                   action_id);
+    g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0,
+                  XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 }
 
 #ifdef HAVE_LIBSEXY
@@ -1178,17 +1177,19 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         gtk_widget_destroy(GTK_WIDGET(l->data));
     g_list_free(children);
 
+    if(!actions)
+        gtk_widget_hide(window->button_box);
+    else
+        gtk_widget_show(window->button_box);
+
     for(i = 0; actions && actions[i]; i += 2) {
         const gchar *cur_action_id = actions[i];
         const gchar *cur_button_text = actions[i+1];
         GtkWidget *btn, *lbl;
         gchar *cur_button_text_escaped;
 
-        if(!cur_button_text)
+        if(!cur_button_text || !cur_action_id || !*cur_action_id)
             break;
-
-        if(!i)
-            gtk_widget_show(window->button_box);
 
         btn = gtk_button_new();
         g_object_set_data_full(G_OBJECT(btn), "--action-id",
@@ -1199,7 +1200,6 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         g_signal_connect(G_OBJECT(btn), "clicked",
                          G_CALLBACK(xfce_notify_window_button_clicked),
                          window);
-
 
         cur_button_text_escaped = g_markup_printf_escaped("<span size='small'>%s</span>",
                                                           cur_button_text);
