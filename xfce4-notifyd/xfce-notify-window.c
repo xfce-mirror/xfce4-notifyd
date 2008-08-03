@@ -37,8 +37,9 @@
 #include "xfce-notify-enum-types.h"
 
 #define DEFAULT_EXPIRE_TIMEOUT    10000
-#define DEFAULT_INITIAL_OPACITY       0.9
-#define TRANS_CHANGE_TIMEOUT        250
+#define DEFAULT_NORMAL_OPACITY        0.85
+#define FADE_TIME                   800
+#define FADE_CHANGE_TIMEOUT          50 
 #define DEFAULT_RADIUS               10.0
 #define DEFAULT_BORDER_WIDTH          2.0
 #define BORDER                        8
@@ -55,7 +56,7 @@ struct _XfceNotifyWindow
     GdkRegion *close_btn_region;
 
     gboolean fade_transparent;
-    gdouble initial_opacity;
+    gdouble normal_opacity;
 
     GtkWidget *icon;
     GtkWidget *summary;
@@ -64,7 +65,7 @@ struct _XfceNotifyWindow
     
     guint64 expire_start_timestamp;
     guint expire_id;
-    guint trans_id;
+    guint fade_id;
     guint op_change_steps;
     gdouble op_change_delta;
 
@@ -114,7 +115,7 @@ static gboolean xfce_notify_window_configure_event(GtkWidget *widget,
                                                    GdkEventConfigure *evt);
 
 static gboolean xfce_notify_window_expire_timeout(gpointer data);
-static gboolean xfce_notify_window_trans_timeout(gpointer data);
+static gboolean xfce_notify_window_fade_timeout(gpointer data);
 
 static void xfce_notify_window_button_clicked(GtkWidget *widget,
                                               gpointer user_data);
@@ -124,8 +125,6 @@ static void xfce_notify_window_url_clicked(SexyUrlLabel *label,
                                            const gchar *url,
                                            gpointer user_data);
 #endif
-
-static void xfce_notify_window_setup_fade(XfceNotifyWindow *window);
 
 static guint signals[N_SIGS] = { 0, };
 
@@ -202,7 +201,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     
     GTK_WINDOW(window)->type = GTK_WINDOW_TOPLEVEL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
-    window->initial_opacity = DEFAULT_INITIAL_OPACITY;
+    window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->fade_transparent = TRUE;
 
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
@@ -279,6 +278,23 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 }
 
 static void
+xfce_notify_window_start_expiration(XfceNotifyWindow *window)
+{
+    if(window->expire_timeout) {
+        GTimeVal ct;
+        g_get_current_time(&ct);
+        window->expire_start_timestamp = ct.tv_sec * 1000 + ct.tv_usec / 1000;
+        window->expire_id = g_timeout_add(window->fade_transparent
+                                          ? window->expire_timeout - FADE_TIME
+                                          : window->expire_timeout,
+                                          xfce_notify_window_expire_timeout,
+                                          window);
+    }
+
+    gtk_window_set_opacity(GTK_WINDOW(window), window->normal_opacity);
+}
+
+static void
 xfce_notify_window_finalize(GObject *object)
 {
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->finalize(object);
@@ -291,19 +307,7 @@ xfce_notify_window_realize(GtkWidget *widget)
 
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->realize(widget);
 
-    if(window->expire_timeout) {
-        GTimeVal ct;
-        g_get_current_time(&ct);
-        window->expire_start_timestamp = ct.tv_sec * 1000 + ct.tv_usec / 1000;
-        window->expire_id = g_timeout_add(window->expire_timeout,
-                                          xfce_notify_window_expire_timeout,
-                                          window);
-    }
-
-    if(window->fade_transparent && window->expire_timeout)
-        xfce_notify_window_setup_fade(window);
-    else
-        gtk_window_set_opacity(GTK_WINDOW(window), window->initial_opacity);
+    xfce_notify_window_start_expiration(window);
 }
 
 static void
@@ -311,9 +315,9 @@ xfce_notify_window_unrealize(GtkWidget *widget)
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
-    if(window->trans_id) {
-        g_source_remove(window->trans_id);
-        window->trans_id = 0;
+    if(window->fade_id) {
+        g_source_remove(window->fade_id);
+        window->fade_id = 0;
     }
 
     if(window->expire_id) {
@@ -553,9 +557,9 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
                 g_source_remove(window->expire_id);
                 window->expire_id = 0;
             }
-            if(window->trans_id) {
-                g_source_remove(window->trans_id);
-                window->trans_id = 0;
+            if(window->fade_id) {
+                g_source_remove(window->fade_id);
+                window->fade_id = 0;
             }
         }
         gtk_window_set_opacity(GTK_WINDOW(widget), 1.0);
@@ -565,15 +569,7 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
               && evt->detail != GDK_NOTIFY_INFERIOR
               && !window->dragging)
     {
-        if(window->expire_timeout) {
-            GTimeVal ct;
-            g_get_current_time(&ct);
-            window->expire_start_timestamp = ct.tv_sec * 1000 + ct.tv_usec / 1000;
-            window->expire_id = g_timeout_add(window->expire_timeout,
-                                              xfce_notify_window_expire_timeout,
-                                              window);
-        }
-        xfce_notify_window_setup_fade(window);
+        xfce_notify_window_start_expiration(window);
         window->mouse_hover = FALSE;
         gtk_widget_queue_draw(widget);
     }
@@ -676,14 +672,24 @@ static gboolean
 xfce_notify_window_expire_timeout(gpointer data)
 {
     XfceNotifyWindow *window = data;
+
     window->expire_id = 0;
-    g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
-                  XFCE_NOTIFY_CLOSE_REASON_EXPIRED);
+
+    if(window->fade_transparent) {
+        window->fade_id = g_timeout_add(FADE_CHANGE_TIMEOUT,
+                                        xfce_notify_window_fade_timeout,
+                                        window);
+    } else {
+        /* it might be 800ms early, but that's ok */
+        g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
+                      XFCE_NOTIFY_CLOSE_REASON_EXPIRED);
+    }
+
     return FALSE;
 }
 
 static gboolean
-xfce_notify_window_trans_timeout(gpointer data)
+xfce_notify_window_fade_timeout(gpointer data)
 {
     XfceNotifyWindow *window = data;
     gdouble op = gtk_window_get_opacity(GTK_WINDOW(window));
@@ -695,7 +701,9 @@ xfce_notify_window_trans_timeout(gpointer data)
     gtk_window_set_opacity(GTK_WINDOW(window), op);
 
     if(op <= 0.0001) {
-        window->trans_id = 0;
+        window->fade_id = 0;
+        g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
+                      XFCE_NOTIFY_CLOSE_REASON_EXPIRED);
         return FALSE;
     }
 
@@ -925,37 +933,6 @@ out_err:
     return NULL;
 }
 
-static void
-xfce_notify_window_setup_fade(XfceNotifyWindow *window)
-{
-    GTimeVal ct;
-    guint64 t;
-    guint time_left, steps_left;
-    gdouble op;
-
-    if(!window->expire_timeout || !window->fade_transparent) {
-        gtk_window_set_opacity(GTK_WINDOW(window), window->initial_opacity);
-        return;
-    }
-
-    if(window->trans_id) {
-        g_source_remove(window->trans_id);
-        window->trans_id = 0;
-    }
-
-    g_get_current_time(&ct);
-
-    t = ct.tv_sec * 1000 + ct.tv_usec / 1000;
-    time_left = window->expire_timeout - (t - window->expire_start_timestamp);
-    steps_left = time_left / TRANS_CHANGE_TIMEOUT;
-    op = window->initial_opacity - (window->op_change_steps - steps_left) * window->op_change_delta;
-    gtk_window_set_opacity(GTK_WINDOW(window), op);
-
-    window->trans_id = g_timeout_add(TRANS_CHANGE_TIMEOUT,
-                                     xfce_notify_window_trans_timeout,
-                                     window);
-}
-
 
 
 GtkWidget *
@@ -1141,25 +1118,12 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
     else
         window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
 
-    window->op_change_steps = window->expire_timeout / TRANS_CHANGE_TIMEOUT;
-    xfce_notify_window_set_opacity(window, window->initial_opacity);
-
     if(GTK_WIDGET_REALIZED(window)) {
         if(window->expire_id) {
             g_source_remove(window->expire_id);
             window->expire_id = 0;
         }
-
-        if(window->expire_timeout) {
-            GTimeVal ct;
-            g_get_current_time(&ct);
-            window->expire_start_timestamp = ct.tv_sec * 1000 + ct.tv_usec / 1000;
-            window->expire_id = g_timeout_add(window->expire_timeout,
-                                              xfce_notify_window_expire_timeout,
-                                              window);
-        }
-
-        gtk_window_set_opacity(GTK_WINDOW(window), window->initial_opacity);
+        xfce_notify_window_start_expiration(window);
     }
 }
 
@@ -1231,18 +1195,7 @@ xfce_notify_window_set_fade_transparent(XfceNotifyWindow *window,
 
     window->fade_transparent = fade_transparent;
 
-    if(!GTK_WIDGET_REALIZED(window) || window->mouse_hover)
-        return;
-
-    if(fade_transparent)
-        xfce_notify_window_setup_fade(window);
-    else {
-        if(window->trans_id) {
-            g_source_remove(window->trans_id);
-            window->trans_id = 0;
-        }
-        gtk_window_set_opacity(GTK_WINDOW(window), window->initial_opacity);
-    }
+    /* if we're already realized, we don't actually do anything here */
 }
 
 gboolean
@@ -1263,17 +1216,19 @@ xfce_notify_window_set_opacity(XfceNotifyWindow *window,
     else if(opacity < 0.0)
         opacity = 0.0;
 
-    window->initial_opacity = opacity;
+    window->normal_opacity = opacity;
+    window->op_change_steps = FADE_TIME / FADE_CHANGE_TIMEOUT;
     window->op_change_delta = opacity / window->op_change_steps;
 
-    /* FIXME: recalc current opacity if realized */
+    if(GTK_WIDGET_REALIZED(window) && window->expire_id && !window->fade_id)
+        gtk_window_set_opacity(GTK_WINDOW(window), window->normal_opacity);
 }
 
 gdouble
 xfce_notify_window_get_opacity(XfceNotifyWindow *window)
 {
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0.0);
-    return window->initial_opacity;
+    return window->normal_opacity;
 }
 
 void
