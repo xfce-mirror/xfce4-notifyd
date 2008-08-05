@@ -74,6 +74,7 @@ dnl fi
 AC_OUTPUT([
 Makefile
 themes/Makefile
+themes/Default/Makefile
 themes/Smoke/Makefile
 themes/ZOMG-PONIES!/Makefile
 xfce4-notifyd/Makefile
