@@ -445,8 +445,8 @@ galago_pixbuf_from_image_data(const GValue *image_data)
     correct_len = (height - 1) * rowstride + width
                   * ((channels * bits_per_sample + 7) / 8);
     if(correct_len != pixel_array->len) {
-        g_message("Pixel data length (%d) did not match expected value (%d)",
-                  pixel_array->len, correct_len);
+        g_message("Pixel data length (%d) did not match expected value (%u)",
+                  pixel_array->len, (guint)correct_len);
         return NULL;
     }
 
