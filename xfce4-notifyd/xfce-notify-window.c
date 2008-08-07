@@ -307,6 +307,8 @@ xfce_notify_window_realize(GtkWidget *widget)
 
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->realize(widget);
 
+    gdk_window_set_type_hint(widget->window,
+                             GDK_WINDOW_TYPE_HINT_NOTIFICATION);
     xfce_notify_window_start_expiration(window);
 }
 
