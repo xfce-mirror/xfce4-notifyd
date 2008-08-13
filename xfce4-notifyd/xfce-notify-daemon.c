@@ -26,6 +26,7 @@
 #endif
 
 #include <libxfce4util/libxfce4util.h>
+#include <libxfcegui4/libxfcegui4.h>
 
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
@@ -355,6 +356,31 @@ galago_notify(XfceNotifyDaemon *daemon,
             if(pix) {
                 xfce_notify_window_set_icon_pixbuf(window, pix);
                 g_object_unref(G_OBJECT(pix));
+            }
+        } else {
+            GValue *desktop_id = g_hash_table_lookup(hints, "desktop_id");
+            if(desktop_id) {
+                gchar *resource = g_strdup_printf("applications%c%s.desktop",
+                                                  G_DIR_SEPARATOR,
+                                                  g_value_get_string(desktop_id));
+                XfceRc *rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
+                                                     resource, TRUE);
+                if(rcfile) {
+                    if(xfce_rc_has_group(rcfile, "Desktop Entry")) {
+                        const gchar *icon_file;
+                        xfce_rc_set_group(rcfile, "Desktop Entry");
+                        icon_file = xfce_rc_read_entry(rcfile, "Icon", NULL);
+                        if(icon_file) {
+                            pix = xfce_themed_icon_load(icon_file, 32);
+                            if(pix) {
+                                xfce_notify_window_set_icon_pixbuf(window, pix);
+                                g_object_unref(G_OBJECT(pix));
+                            }
+                        }
+                    }
+                    xfce_rc_close(rcfile);
+                }
+                g_free(resource);
             }
         }
     }
