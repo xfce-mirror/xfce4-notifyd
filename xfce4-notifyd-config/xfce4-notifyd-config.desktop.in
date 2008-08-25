@@ -6,7 +6,6 @@ _Comment=Customize how notifications appear on your screen
 _GenericName=Notification Settings
 _X-XfceSettingsName=Notifications
 Exec=xfce4-notifyd-config
-Icon=
 Terminal=false
 StartupNotify=true
 Type=Application
