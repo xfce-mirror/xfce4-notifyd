@@ -34,16 +34,13 @@ echo >>configure.ac
 
 # substitute revision and linguas
 linguas=$(sed -e '/^#/d' po/LINGUAS)
-if [ -d .git/svn ]; then
-    revision=$(git-svn find-rev trunk)
-elif [ -d .git ]; then
-    revision=$(git-show --pretty=format:%ci $(git-rev-parse HEAD) | head -n 1 | awk '{ gsub("-", "", $1); gsub(":", "", $2); print $1$2 }')
-#    revision="$(cat .git/$(cat .git/HEAD | cut -d' ' -f2) | cut -b 1-8)"
-elif [ -d .svn ]; then
-    revision=$(LC_ALL=C svn info $0 | awk '/^Revision: / {printf "%05d\n", $2}')
-else
-    revision=UNKNOWN
-fi
+
+headsha=$(git rev-parse HEAD)
+minisha=$(echo $headsha | cut -c1-8)
+headdate=$(git show --pretty=format:%ci $headsha | head -n 1 | awk '{ gsub("-", "", $1); print $1; }')
+revision="${headdate}-${minisha}"
+[ "$revision" != "-" ] || revision="UNKNOWN"
+
 sed -e "s/@LINGUAS@/${linguas}/g" \
     -e "s/@REVISION@/${revision}/g" \
     < "configure.ac.in" >> "configure.ac"
