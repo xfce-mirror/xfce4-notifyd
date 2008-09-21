@@ -2,8 +2,8 @@
 bin_PROGRAMS = xfce4-notifyd
 
 xfce4_notifyd_SOURCES = \
-	galago-dbus.h \
 	main.c \
+	notify-dbus.h \
 	xfce-notify-daemon.c \
 	xfce-notify-daemon.h \
 	xfce-notify-enum-types.c \
@@ -42,7 +42,7 @@ service_DATA = $(service_in_files:.service.in=.service)
 if MAINTAINER_MODE
 
 BUILT_SOURCES = \
-	galago-dbus.h \
+	notify-dbus.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h \
 	xfce-notify-enum-types.c \
@@ -53,8 +53,8 @@ CLEANFILES = \
 	stamp-xfce-notify-enum-types.h \
 	stamp-xfce-notify-marshal.h
 
-galago-dbus.h: $(srcdir)/galago-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=galago $< > $@
+notify-dbus.h: $(srcdir)/notify-dbus.xml Makefile
+	dbus-binding-tool --mode=glib-server --prefix=notify $< > $@
 
 xfce-notify-marshal.h: stamp-xfce-notify-marshal.h
 	@true
@@ -100,5 +100,5 @@ DISTCLEANFILES = \
 	$(service_DATA)
 
 EXTRA_DIST = \
-	galago-dbus.xml \
+	notify-dbus.xml \
 	xfce-notify-marshal.list

@@ -77,10 +77,10 @@ static void xfce_notify_daemon_init(XfceNotifyDaemon *daemon);
 
 static void xfce_notify_daemon_finalize(GObject *obj);
 
-static gboolean galago_get_capabilities(XfceNotifyDaemon *daemon,
+static gboolean notify_get_capabilities(XfceNotifyDaemon *daemon,
                                         gchar ***OUT_capabilities,
                                         GError *error);
-static gboolean galago_notify(XfceNotifyDaemon *daemon,
+static gboolean notify_notify(XfceNotifyDaemon *daemon,
                               const gchar *app_name,
                               guint replaces_id,
                               const gchar *app_icon,
@@ -91,21 +91,21 @@ static gboolean galago_notify(XfceNotifyDaemon *daemon,
                               gint expire_timeout,
                               guint *OUT_id,
                               GError **error);
-static gboolean galago_close_notification(XfceNotifyDaemon *daemon,
+static gboolean notify_close_notification(XfceNotifyDaemon *daemon,
                                           guint id,
                                           GError **error);
-static gboolean galago_get_server_information(XfceNotifyDaemon *daemon,
+static gboolean notify_get_server_information(XfceNotifyDaemon *daemon,
                                               gchar **OUT_name,
                                               gchar **OUT_vendor,
                                               gchar **OUT_version,
                                               GError **error);
 
-static gboolean galago_quit(XfceNotifyDaemon *daemon,
+static gboolean notify_quit(XfceNotifyDaemon *daemon,
                             GError **error);
 
-static GdkPixbuf *galago_pixbuf_from_image_data(const GValue *image_data);
+static GdkPixbuf *notify_pixbuf_from_image_data(const GValue *image_data);
 
-#include "galago-dbus.h"
+#include "notify-dbus.h"
 
 static guint signals[N_SIGS] = { 0, };
 
@@ -145,7 +145,7 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
                                                G_TYPE_STRING);
 
     dbus_g_object_type_install_info(G_TYPE_FROM_CLASS(klass),
-                                    &dbus_glib_galago_object_info);
+                                    &dbus_glib_notify_object_info);
 }
 
 static gint
@@ -264,7 +264,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 
 
 static gboolean
-galago_get_capabilities(XfceNotifyDaemon *daemon,
+notify_get_capabilities(XfceNotifyDaemon *daemon,
                         gchar ***OUT_capabilities,
                         GError *error)
 {
@@ -284,7 +284,7 @@ galago_get_capabilities(XfceNotifyDaemon *daemon,
 }
 
 static gboolean
-galago_notify(XfceNotifyDaemon *daemon,
+notify_notify(XfceNotifyDaemon *daemon,
               const gchar *app_name,
               guint replaces_id,
               const gchar *app_icon,
@@ -359,7 +359,7 @@ galago_notify(XfceNotifyDaemon *daemon,
         if(!image_data)
             image_data = g_hash_table_lookup(hints, "icon_data");
         if(image_data) {
-            pix = galago_pixbuf_from_image_data(image_data);
+            pix = notify_pixbuf_from_image_data(image_data);
             if(pix) {
                 xfce_notify_window_set_icon_pixbuf(window, pix);
                 g_object_unref(G_OBJECT(pix));
@@ -401,7 +401,7 @@ galago_notify(XfceNotifyDaemon *daemon,
 }
 
 static gboolean
-galago_close_notification(XfceNotifyDaemon *daemon,
+notify_close_notification(XfceNotifyDaemon *daemon,
                           guint id,
                           GError **error)
 {
@@ -415,7 +415,7 @@ galago_close_notification(XfceNotifyDaemon *daemon,
 }
 
 static gboolean
-galago_get_server_information(XfceNotifyDaemon *daemon,
+notify_get_server_information(XfceNotifyDaemon *daemon,
                               gchar **OUT_name,
                               gchar **OUT_vendor,
                               gchar **OUT_version,
@@ -429,7 +429,7 @@ galago_get_server_information(XfceNotifyDaemon *daemon,
 }
 
 static gboolean
-galago_quit(XfceNotifyDaemon *daemon,
+notify_quit(XfceNotifyDaemon *daemon,
             GError **error)
 {
     gint i, main_level = gtk_main_level();
@@ -441,7 +441,7 @@ galago_quit(XfceNotifyDaemon *daemon,
 
 
 static GdkPixbuf *
-galago_pixbuf_from_image_data(const GValue *image_data)
+notify_pixbuf_from_image_data(const GValue *image_data)
 {
     GdkPixbuf *pix = NULL;
     GType struct_gtype;
