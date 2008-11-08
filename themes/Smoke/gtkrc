@@ -11,8 +11,10 @@ style "smoke-button"
 {
     bg[NORMAL] = "#202020"
     bg[PRELIGHT] = "#404040"
+    fg[NORMAL] = "#ffffff"
+    fg[PRELIGHT] = "#ffffff"
 }
-class "XfceNotifyWindow.*.GtkButton" style "smoke-button"
+widget_class "XfceNotifyWindow.*.GtkButton*" style "smoke-button"
 
 style "smoke-text"
 {
