@@ -197,6 +197,9 @@ xfce4_notifyd_config_setup_treeview(GtkWidget *treeview,
     col = gtk_tree_view_column_new_with_attributes(_("Theme"), render,
                                                    "text", 0, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), col);
+
+    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(ls), 0,
+                                         GTK_SORT_ASCENDING);
     
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
     if(gtk_list_store_iter_is_valid(ls, &current_theme_iter))
