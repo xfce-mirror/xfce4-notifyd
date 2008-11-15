@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.3 on Thu Apr 24 02:10:24 2008 -->
+<!--Generated with glade3 3.4.5 on Sat Nov 15 00:37:01 2008 -->
 <glade-interface>
   <requires lib="xfce4"/>
   <widget class="XfceTitledDialog" id="notifyd_settings_dlg">
@@ -92,7 +92,7 @@ Bottom right</property>
                       <widget class="GtkSpinButton" id="expire_timeout_sbtn">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="adjustment">10 1 480 1 10 10</property>
+                        <property name="adjustment">10 1 480 1 10 0</property>
                         <property name="numeric">True</property>
                       </widget>
                       <packing>
