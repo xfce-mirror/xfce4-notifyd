@@ -6,6 +6,7 @@ xfce4_notifyd_config_SOURCES = \
 	xfce4-notifyd-config.glade.h
 
 xfce4_notifyd_config_CFLAGS = \
+	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	$(XFCONF_CFLAGS) \
 	$(GTK_CFLAGS) \

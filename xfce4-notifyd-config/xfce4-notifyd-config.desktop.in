@@ -1,12 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-_Name=Xfce Notify Daemon Settings
+_Name=Notifications
 _Comment=Customize how notifications appear on your screen
-_GenericName=Notification Settings
-_X-XfceSettingsName=Notifications
 Exec=xfce4-notifyd-config
 Terminal=false
 StartupNotify=true
 Type=Application
-Categories=X-XFCE;Settings;DesktopSettings;X-XfceSettingsDialog;
+Categories=X-XFCE;Settings;DesktopSettings;
+X-XfcePluggable=true

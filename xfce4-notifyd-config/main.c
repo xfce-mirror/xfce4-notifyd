@@ -218,8 +218,6 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
     glade_xml_signal_autoconnect(gxml);
 
     dlg = glade_xml_get_widget(gxml, "notifyd_settings_dlg");
-    g_signal_connect(G_OBJECT(dlg), "response",
-                     G_CALLBACK(gtk_main_quit), NULL);
 
     btn = glade_xml_get_widget(gxml, "close_btn");
     g_signal_connect_swapped(G_OBJECT(btn), "clicked",
@@ -232,7 +230,7 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
                             error->message,
                             GTK_STOCK_QUIT, GTK_RESPONSE_ACCEPT,
                             NULL);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     channel = xfconf_channel_new("xfce4-notifyd");
@@ -280,10 +278,37 @@ main(int argc,
 {
     GtkWidget *settings_dialog = NULL;
     GladeXML *gxml;
-
-    gtk_init(&argc, &argv);
+    gboolean opt_version = FALSE;
+    GdkNativeWindow opt_socket_id = 0;
+    GOptionEntry option_entries[] = {
+        { "version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version, N_("Display version information"), NULL },
+        { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET_ID") },
+        { NULL, },
+    };
+    GError *error = NULL;
 
     xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
+
+    if(!gtk_init_with_args(&argc, &argv, "", option_entries, PACKAGE, &error)) {
+        if(G_LIKELY(error)) {
+            g_printerr("%s: %s.\n", G_LOG_DOMAIN, error->message);
+            g_printerr(_("Type '%s --help' for usage."), G_LOG_DOMAIN);
+            g_printerr("\n");
+            g_error_free(error);
+        } else
+            g_error("Unable to open display.");
+
+        return EXIT_FAILURE;
+    }
+
+    if(G_UNLIKELY(opt_version)) {
+        g_print("%s %s\n", G_LOG_DOMAIN, VERSION);
+        g_print(_("Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>\n"));
+        g_print(_("Released under the terms of the GNU General Public License, version 2\n"));
+        g_print(_("Please report bugs to %s.\n"), PACKAGE_BUGREPORT);
+
+        return EXIT_SUCCESS;
+    }
 
     gxml = glade_xml_new_from_buffer(xfce4_notifyd_config_glade,
                                      xfce4_notifyd_config_glade_length,
@@ -295,18 +320,33 @@ main(int argc,
                             _("The embedded user interface definition file could not be read"),
                             GTK_STOCK_QUIT, GTK_RESPONSE_ACCEPT,
                             NULL);
-        return 1;
+        return EXIT_FAILURE;
     }
 
     settings_dialog = xfce4_notifyd_config_setup_dialog(gxml);
-    gtk_widget_show(settings_dialog);
-    g_object_add_weak_pointer(G_OBJECT(settings_dialog),
-                              (gpointer)&settings_dialog);
 
-    gtk_main();
+    if(opt_socket_id) {
+        GtkWidget *plug, *plug_child;
 
-    if(settings_dialog)
+        plug = gtk_plug_new(opt_socket_id);
+        gtk_widget_show(plug);
+        g_signal_connect(G_OBJECT(plug), "delete-event",
+                         G_CALLBACK(gtk_main_quit), NULL);
+
+        plug_child = glade_xml_get_widget(gxml, "plug-child");
+        gtk_widget_reparent(plug_child, plug);
+        gtk_widget_show(plug_child);
+
+        gdk_notify_startup_complete();
+        g_object_unref(G_OBJECT(gxml));
         gtk_widget_destroy(settings_dialog);
 
-    return 0;
+        gtk_main();
+    } else {
+        g_object_unref(G_OBJECT(gxml));
+
+        gtk_dialog_run(GTK_DIALOG(settings_dialog));
+    }
+
+    return EXIT_SUCCESS;
 }
