@@ -1,73 +1,78 @@
 2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
 
+	* xfce4-notifyd/{org.freedesktop.Notifications.service.in,Makefile.am}:
+	  Install xfce4-notifyd to $libexecdir instead of $bindir
+
+2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+
 	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Change window
 	  title to simply 'Notifications'
 	* po/xfce4-notifyd.pot: Update .pot file
 
-2008-11-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd-config/Makefile.am, xfce4-notifyd-config/main.c,
 	  xfce4-notifyd-config/xfce4-notifyd-config.desktop.in,
 	  xfce4-notifyd-config/xfce4-notifyd-config.glade: make config dialog
 	  pluggable into xfce settings manager, add --version option
 
-2008-11-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* README: add readme content
 
-2008-11-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd-config/xfce4-notifyd-config.glade: set spin buton
 	  page size to zero
 
-2008-11-07  Brian J. Tarricone <bjt23@cornell.edu>
+2008-11-07	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* themes/Smoke/gtkrc: fix button colors in smoke theme
 
-2008-09-21  Brian J. Tarricone <bjt23@cornell.edu>
+2008-09-21	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/Makefile.am, xfce4-notifyd/galago-dbus.xml,
 	  xfce4-notifyd/notify-dbus.xml, xfce4-notifyd/xfce-notify-daemon.c: 
 	  just because it's hosted on galago-project.org, doesn't mean
 	  anything.
 
-2008-09-20  Brian J. Tarricone <bjt23@cornell.edu>
+2008-09-20	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: don't send the 2nd argument
 	  (close reason) with the NotificationClosed signal for some reason libnotify doesn't support it, so apps don't receive
 	  the signal.  lovely.
 
-2008-09-05  Brian J. Tarricone <bjt23@cornell.edu>
+2008-09-05	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* autogen.sh: new git revision subst
 
-2008-08-25  Brian J. Tarricone <bjt23@cornell.edu>
+2008-08-25	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: don't
 	  specify empty Icon=
 
-2008-08-25  Brian J. Tarricone <bjt23@cornell.edu>
+2008-08-25	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: include
 	  notification settings in new xfce settings manager
 
-2008-08-13  Brian J. Tarricone <bjt23@cornell.edu>
+2008-08-13	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: add (untested) support for the
 	  'desktop_id' hint
 
-2008-08-06  Brian J. Tarricone <bjt23@cornell.edu>
+2008-08-06	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: set correct type hint on
 	  notification windows
 
-2008-08-05  Brian J. Tarricone <brian@cartman.(none)>
+2008-08-05	Brian J. Tarricone <brian@cartman.(none)>
 
 	* configure.ac.in, themes/Default/Makefile.am,
 	  themes/Default/gtkrc, themes/Makefile.am: add explicit 'Default'
 	  theme
 
-2008-08-05  Brian J. Tarricone <brian@cartman.(none)>
+2008-08-05	Brian J. Tarricone <brian@cartman.(none)>
 
 	* configure.ac.in, themes/Smoke/Makefile.am, themes/Smoke/gtkrc,
 	  themes/Smoke/xfce-notify-4.0/Makefile.am,
@@ -78,69 +83,69 @@
 	  xfce4-notifyd/xfce-notify-daemon.c: simplify themes/ dir
 	  structure... no need to have the full path in the srctree
 
-2008-08-03  Brian J. Tarricone <bjt23@cornell.edu>
+2008-08-03	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: change how opacity/fading
 	  works
 
-2008-06-21  Brian J. Tarricone <bjt23@cornell.edu>
+2008-06-21	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: dismiss notification when a
 	  button is pressed; ensure action ids are valid
 
-2008-05-19  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-19	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: whoops, don't free gtk
 	  internal data
 
-2008-05-19  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-19	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c,
 	  xfce4-notifyd/xfce-notify-window.c: plug memleak
 
-2008-05-18  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-18	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/Makefile.am, xfce4-notifyd/xfce-notify-daemon.c,
 	  xfce4-notifyd/xfce-notify-window.c,
 	  xfce4-notifyd/xfce-notify-window.h: clean up how notification
 	  closing works
 
-2008-05-18  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-18	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: don't use deprecated macro
 
-2008-05-17  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-17	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: force a size allocation when
 	  the notification is first shown
 
-2008-05-16  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-16	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: advertise body-hyperlinks
 	  capability if compiled with libsexy support
 
-2008-05-16  Brian J. Tarricone <bjt23@cornell.edu>
+2008-05-16	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c,
 	  xfce4-notifyd/xfce-notify-window.c: good placement on multihead,
 	  possibly fix weird window sizing
 
-2008-04-26  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-26	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* configure.ac.in, xfce4-notifyd/xfce-notify-daemon.c: require dev
 	  version of libxfcegui4 with libglade module
 
-2008-04-24  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: fix setting of
 	  fade_transparent and initial_opacity for notifications
 
-2008-04-24  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: tweak spacing between the
 	  circular close button and the notification image
 
-2008-04-24  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd-config/main.c,
 	  xfce4-notifyd-config/xfce4-notifyd-config.glade,
@@ -148,12 +153,12 @@
 	  xfce4-notifyd/xfce-notify-window.c: remove positioning hack, add
 	  pref to specify notification starting corner i'd still like to remember dragged positions, but this is a start
 
-2008-04-24  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: somewhat hacky way of ensuring
 	  close button circle doesn't overlap image/text
 
-2008-04-24  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* Makefile.am, po/ChangeLog, po/xfce4-notifyd.pot,
 	  xfce4-notifyd-config/Makefile.am,
@@ -161,27 +166,27 @@
 	  xfce4-notifyd/Makefile.am, xfce4-notifyd/main.c: update-po, fix make
 	  distcheck
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd/xfce-notify-window.c: allow dragging
 	  notifications around
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd/xfce-notify-window.c: set some extra window
 	  hints
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: be a little nicer on the CPU
 	  when updating window transparency
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: keep the close button circle
 	  in the window border
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* configure.ac.in, themes/Smoke/xfce-notify-4.0/gtkrc,
 	  themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc,
@@ -189,25 +194,25 @@
 	  optional dep on libsexy for SexyUrlLabel for clickable notification
 	  body urls also tweak/update the themes a bit
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c,
 	  xfce4-notifyd/xfce-notify-window.c: partial fix for weird
 	  notification window sizing
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd-config/Makefile.am,
 	  xfce4-notifyd-config/main.c, xfce4-notifyd/galago-dbus.xml,
 	  xfce4-notifyd/xfce-notify-daemon.c: workaround: kill daemon on theme
 	  change
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: fix the markup
 	  validation/escaping routine still don't support images or links, though
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c,
 	  xfce4-notifyd/xfce-notify-window.c: add a close button on mouseover,
@@ -215,58 +220,58 @@
 	  fill color, and it likely will overlap images, but that's ok for
 	  now.
 
-2008-04-23  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* themes/Smoke/xfce-notify-4.0/gtkrc: add explicit button color in
 	  smoke theme
 
-2008-04-21  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-21	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* configure.ac.in, xfce4-notifyd-config/main.c,
 	  xfce4-notifyd/xfce-notify-daemon.c: use new
 	  XfconfChannel::property-changed signal prototype and semantics
 
-2008-04-18  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-18	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO: update todo
 
-2008-04-17  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-17	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd/xfce-notify-window.c: remove useless fixme,
 	  set input shape mask on notification window
 
-2008-04-17  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-17	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* themes/Smoke/xfce-notify-4.0/gtkrc, xfce4-notifyd-config/main.c,
 	  xfce4-notifyd-config/xfce4-notifyd-config.glade: make Smoke theme
 	  darker; hook up all the config dialog's UI elements
 
-2008-04-17  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-17	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c,
 	  xfce4-notifyd/xfce-notify-window.c: attempt to fix initial sizing of
 	  notifications
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd/xfce-notify-daemon.c: make all 'critical'
 	  notifications persistent
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: pixbuf might be null...
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO, xfce4-notifyd/xfce-notify-window.c: scale down icon data
 	  sent over the wire if it's larger than our normal size
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* autogen.sh: use most recent commit time as git version tag instead
 	  of hash
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* Makefile.am, configure.ac.in, po/POTFILES.in,
 	  po/xfce4-notifyd.pot, xfce4-notifyd-config/Makefile.am,
@@ -275,46 +280,46 @@
 	  xfce4-notifyd-config/xfce4-notifyd-config.glade: add simple config
 	  dialog, not complete, hook up intltool, add .pot file
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/Makefile.am, xfce4-notifyd/main.c: clean up
 	  makefile, hook up i18n, add --version
 
-2008-04-15  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: don't require the buttons to
 	  be the same size
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* TODO: add TODO file
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: make rounded corners look not
 	  so ugly on non-composited screens
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: fix window redraw if
 	  notification contents change
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: fix configurable default
 	  expiration timeout setting
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-daemon.c: fix icons that come over the
 	  wire
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc: use large comic sans
 	  font in ZOMG-PONIES! theme at stephan's suggestion
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* configure.ac.in, themes/Makefile.am,
 	  themes/ZOMG-PONIES!/Makefile.am,
@@ -322,17 +327,17 @@
 	  themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc: add ZOMG-PONIES! theme
 	  because i know how happy it will make moritz
 
-2008-04-14  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/org.freedesktop.Notifications.service.in,
 	  xfce4-notifyd/xfce-notify-window.c: add missing dbus service file
 
-2008-04-13  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-13	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/Makefile.am: fix marshal files being recreated on
 	  every make
 
-2008-04-13  Brian J. Tarricone <bjt23@cornell.edu>
+2008-04-13	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* initial commit... everything should more or less work
 

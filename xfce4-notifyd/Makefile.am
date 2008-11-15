@@ -1,5 +1,5 @@
 
-bin_PROGRAMS = xfce4-notifyd
+libexec_PROGRAMS = xfce4-notifyd
 
 xfce4_notifyd_SOURCES = \
 	main.c \
@@ -35,8 +35,8 @@ servicedir = $(datadir)/dbus-1/services
 service_in_files = org.freedesktop.Notifications.service.in
 service_DATA = $(service_in_files:.service.in=.service)
 
-%.service: $(srcdir)/%.service.in
-	sed -e "s,\@bindir\@,$(bindir),g" < $< > $@
+%.service: $(srcdir)/%.service.in Makefile
+	sed -e "s,\@libexecdir\@,$(libexecdir),g" < $< > $@
 
 
 if MAINTAINER_MODE
