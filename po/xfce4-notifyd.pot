@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-24 00:00-0700\n"
+"POT-Creation-Date: 2008-11-15 01:21-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229 ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:227 ../xfce4-notifyd-config/main.c:317
 msgid "Xfce Notify Daemon"
 msgstr ""
 
@@ -30,17 +30,17 @@ msgstr ""
 msgid "Unable to start notification daemon"
 msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:522
+#: ../xfce4-notifyd/xfce-notify-daemon.c:564
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:539
+#: ../xfce4-notifyd/xfce-notify-daemon.c:581
 #, c-format
 msgid "Another notification daemon is already running"
 msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-window.c:836
+#: ../xfce4-notifyd/xfce-notify-window.c:846
 msgid "image: "
 msgstr ""
 
@@ -48,15 +48,47 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:229
 msgid "Settings daemon is unavailable"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:288
+#: ../xfce4-notifyd-config/main.c:284
+msgid "Display version information"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:285
+msgid "Settings manager socket"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:285
+msgid "SOCKET_ID"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:295
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:306
+#, c-format
+msgid "Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>\n"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:307
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:308
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:319
 msgid "Unable to display settings dialog"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:289
+#: ../xfce4-notifyd-config/main.c:320
 msgid "The embedded user interface definition file could not be read"
 msgstr ""
 
@@ -66,26 +98,34 @@ msgid "Customize how notifications appear on your screen"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:3
-msgid "Xfce Notify Daemon Settings"
+msgid "Default _position:"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "_Disappear after:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid ""
+"Top left\n"
+"Bottom left\n"
+"Top right\n"
+"Bottom right"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Fade to transparent"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Opacity:"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
-msgstr ""
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Notification Settings"
 msgstr ""
