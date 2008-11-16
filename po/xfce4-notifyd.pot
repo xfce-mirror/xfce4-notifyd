@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-15 01:21-0800\n"
+"POT-Creation-Date: 2008-11-15 17:37-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:227 ../xfce4-notifyd-config/main.c:317
+#: ../xfce4-notifyd-config/main.c:230
 msgid "Xfce Notify Daemon"
 msgstr ""
 
@@ -48,48 +48,35 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:232
 msgid "Settings daemon is unavailable"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:284
+#: ../xfce4-notifyd-config/main.c:287
 msgid "Display version information"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:285
+#: ../xfce4-notifyd-config/main.c:288
 msgid "Settings manager socket"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:285
+#: ../xfce4-notifyd-config/main.c:288
 msgid "SOCKET_ID"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:295
+#: ../xfce4-notifyd-config/main.c:298
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:306
-#, c-format
-msgid "Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>\n"
-msgstr ""
-
-#: ../xfce4-notifyd-config/main.c:307
+#: ../xfce4-notifyd-config/main.c:310
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:308
+#: ../xfce4-notifyd-config/main.c:311
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr ""
-
-#: ../xfce4-notifyd-config/main.c:319
-msgid "Unable to display settings dialog"
-msgstr ""
-
-#: ../xfce4-notifyd-config/main.c:320
-msgid "The embedded user interface definition file could not be read"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1

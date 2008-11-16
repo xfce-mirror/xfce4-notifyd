@@ -306,7 +306,7 @@ main(int argc,
 
     if(G_UNLIKELY(opt_version)) {
         g_print("%s %s\n", G_LOG_DOMAIN, VERSION);
-        g_print(_("Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>\n"));
+        g_print("Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>\n");
         g_print(_("Released under the terms of the GNU General Public License, version 2\n"));
         g_print(_("Please report bugs to %s.\n"), PACKAGE_BUGREPORT);
 
@@ -316,13 +316,8 @@ main(int argc,
     gxml = glade_xml_new_from_buffer(xfce4_notifyd_config_glade,
                                      xfce4_notifyd_config_glade_length,
                                      NULL, NULL);
-    if(!gxml) {
-        xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
-                            GTK_STOCK_DIALOG_ERROR,
-                            _("Unable to display settings dialog"),
-                            _("The embedded user interface definition file could not be read"),
-                            GTK_STOCK_QUIT, GTK_RESPONSE_ACCEPT,
-                            NULL);
+    if(G_UNLIKELY(!gxml)) {
+        g_error("Unable to read embedded UI definition file");
         return EXIT_FAILURE;
     }
 
