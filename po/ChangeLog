@@ -1,5 +1,10 @@
 2008-11-16	Brian J. Tarricone <bjt23@cornell.edu>
 
+	* fr.po: New translation from Maximilian Schleiss <maximilian@xfce.org>
+	* LINGUAS: Add fr.
+
+2008-11-16	Brian J. Tarricone <bjt23@cornell.edu>
+
 	* es.po: New translation from Abel Martín <abel.martin.ruiz@gmail.com>
 	* LINGUAS: Add es.
 
