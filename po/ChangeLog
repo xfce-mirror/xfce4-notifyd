@@ -1,3 +1,8 @@
+2008-11-17	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* da.po: New translation from Per Kongstad <p_kongstad@op.pl>
+	* LINGUAS: Add da.
+
 2008-11-16	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* fr.po: New translation from Maximilian Schleiss <maximilian@xfce.org>
