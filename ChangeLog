@@ -1,3 +1,7 @@
+2008-11-21	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* Makefile.am: Add release targets.
+
 2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd-config/main.c: Remove a couple strings.
