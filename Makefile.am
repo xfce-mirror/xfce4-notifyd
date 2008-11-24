@@ -1,4 +1,5 @@
 SUBDIRS = \
+	icons \
 	po \
 	themes \
 	xfce4-notifyd \

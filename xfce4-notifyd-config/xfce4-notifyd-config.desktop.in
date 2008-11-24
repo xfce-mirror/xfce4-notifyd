@@ -4,6 +4,7 @@ Version=1.0
 _Name=Notifications
 _Comment=Customize how notifications appear on your screen
 Exec=xfce4-notifyd-config
+Icon=xfce4-notifyd
 Terminal=false
 StartupNotify=true
 Type=Application

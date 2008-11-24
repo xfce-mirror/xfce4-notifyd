@@ -73,6 +73,8 @@ dnl fi
 
 AC_OUTPUT([
 Makefile
+icons/Makefile
+icons/48x48/Makefile
 themes/Makefile
 themes/Default/Makefile
 themes/Smoke/Makefile
