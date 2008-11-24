@@ -1,5 +1,9 @@
 2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
 
+	* {icons/48x48,xfce4-notifyd}/Makefile.am: Fix make distcheck.
+
+2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
+
 	* icons/48x48/xfce4-notifyd.png: Add app icon.
 	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: Set
 	  Icon= key.

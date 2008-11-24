@@ -100,5 +100,6 @@ DISTCLEANFILES = \
 	$(service_DATA)
 
 EXTRA_DIST = \
+	$(service_in_files) \
 	notify-dbus.xml \
 	xfce-notify-marshal.list
