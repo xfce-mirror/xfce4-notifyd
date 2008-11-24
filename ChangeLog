@@ -1,3 +1,8 @@
+2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Fix dialog
+	  layout spacing and add scrolled window shadow.
+
 2008-11-21	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* Makefile.am: Add release targets.

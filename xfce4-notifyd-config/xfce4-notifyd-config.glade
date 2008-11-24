@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sat Nov 15 01:20:56 2008 -->
+<!--Generated with glade3 3.4.5 on Mon Nov 24 01:01:23 2008 -->
 <glade-interface>
   <requires lib="xfce4"/>
   <widget class="XfceTitledDialog" id="notifyd_settings_dlg">
-    <property name="border_width">5</property>
     <property name="title" translatable="yes">Notifications</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <property name="icon_name">xfce4-notifyd</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="has_separator">False</property>
     <property name="subtitle" translatable="yes">Customize how notifications appear on your screen</property>
@@ -17,13 +17,15 @@
         <child>
           <widget class="GtkHBox" id="plug-child">
             <property name="visible">True</property>
-            <property name="spacing">8</property>
+            <property name="border_width">6</property>
+            <property name="spacing">12</property>
             <child>
               <widget class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
                 <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
                 <child>
                   <widget class="GtkTreeView" id="themes_treeview">
                     <property name="visible">True</property>
@@ -38,11 +40,11 @@
             <child>
               <widget class="GtkVBox" id="vbox1">
                 <property name="visible">True</property>
-                <property name="spacing">4</property>
+                <property name="spacing">6</property>
                 <child>
                   <widget class="GtkHBox" id="hbox4">
                     <property name="visible">True</property>
-                    <property name="spacing">8</property>
+                    <property name="spacing">12</property>
                     <child>
                       <widget class="GtkLabel" id="label3">
                         <property name="visible">True</property>
@@ -78,7 +80,7 @@ Bottom right</property>
                 <child>
                   <widget class="GtkHBox" id="hbox2">
                     <property name="visible">True</property>
-                    <property name="spacing">8</property>
+                    <property name="spacing">12</property>
                     <child>
                       <widget class="GtkLabel" id="label1">
                         <property name="visible">True</property>
@@ -125,7 +127,7 @@ Bottom right</property>
                 <child>
                   <widget class="GtkHBox" id="hbox3">
                     <property name="visible">True</property>
-                    <property name="spacing">8</property>
+                    <property name="spacing">12</property>
                     <child>
                       <widget class="GtkLabel" id="label2">
                         <property name="visible">True</property>
