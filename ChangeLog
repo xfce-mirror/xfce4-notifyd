@@ -1,3 +1,17 @@
+2008-11-26	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* xfce4-notifyd/xfce-notify-window.c: Don't set the legacy window
+	  shape when the widget is composited (fixes drawing artifacts with
+	  the curved corners).  Also simplify the painting code a bit when
+	  the widget is *not* composited; should be a little faster and will
+	  probably look better too.
+
+2008-11-26	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* configure.ac.in: Add 'git' version tag.
+	* xfce4-notifyd-config/xfce4-notifyd-config.1: Add man page,
+	  submitted by Evgeni Golov <sargentd@die-welt.net>.
+
 2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* configure.ac.in: Remove 'git' version tag for 0.1.0 release.
