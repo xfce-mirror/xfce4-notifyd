@@ -451,7 +451,13 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
                  ? GDK_WINDING_RULE : GDK_EVEN_ODD_RULE);
     region = xfce_gdk_region_from_cairo_flat_path(flat_path, fill_rule);
     cairo_path_destroy(flat_path);
-    gdk_window_shape_combine_region(widget->window, region, 0, 0);
+    /* only set the window shape if the widget isn't composited; otherwise
+     * the shape might further constrain the window, and because the
+     * path flattening isn't an exact science, it looks ugly. */
+    if(!gtk_widget_is_composited(widget))
+        gdk_window_shape_combine_region(widget->window, region, 0, 0);
+    /* however, of course always set the input shape; it doesn't matter
+     * if this is a pixel or two off here and there */
     gdk_window_input_shape_combine_region(widget->window, region, 0, 0);
     gdk_region_destroy(region);
 
@@ -474,18 +480,35 @@ xfce_notify_window_expose(GtkWidget *widget,
         return FALSE;
 
     cr = gdk_cairo_create(widget->window);
-
-    cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
-    gdk_cairo_region(cr, evt->region);
-    cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 0.0);
-    cairo_fill_preserve(cr);
-    cairo_clip(cr);
-
-    cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-    gdk_cairo_set_source_color(cr, &style->bg[GTK_STATE_NORMAL]);
     bg_path = xfce_notify_window_ensure_bg_path(window, cr);
-    cairo_append_path(cr, bg_path);
-    cairo_fill_preserve(cr);
+
+    /* the idea here is we only do the fancy semi-transparent shaped
+     * painting if the widget is composited.  if not, we avoid artifacts
+     * and optimise a bit by just painting the entire thing and relying
+     * on the window shape mask to effectively "clip" drawing for us */
+    if(gtk_widget_is_composited(widget)) {
+        cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
+        gdk_cairo_region(cr, evt->region);
+        cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 0.0);
+        cairo_fill_preserve(cr);
+        cairo_clip(cr);
+
+        cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+        gdk_cairo_set_source_color(cr, &style->bg[GTK_STATE_NORMAL]);
+        cairo_append_path(cr, bg_path);
+        cairo_fill_preserve(cr);
+    } else {
+        cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+        gdk_cairo_set_source_color(cr, &style->bg[GTK_STATE_NORMAL]);
+        cairo_fill(cr);
+
+        if(window->mouse_hover) {
+            /* but be sure to set the curved path because the code
+            * below needs it */
+            cairo_append_path(cr, bg_path);
+        }
+    }
+
 
     if(window->mouse_hover) {
         GdkColor *border_color = NULL;
