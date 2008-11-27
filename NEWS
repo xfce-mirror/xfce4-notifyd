@@ -2,7 +2,17 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.1.0:
+Version 0.1.0git:
+
+  Features:
+    * Added man page for xfce4-notifyd-config from Evgeni Golov.
+
+  Bugfixes:
+    * Fix ugliness with rounded corners on windows sometimes, both with
+      compositing enabled and disabled.
+
+
+Version 0.1.0 (24 Nov 2008):
 
   Initial release.  See TODO for known issues and unfinished features.
 

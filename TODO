@@ -1,6 +1,9 @@
 * listen to client when they request a position to 'point to', maybe have a
   little arrow thingy point off the notification window
+* set default positions based off _NET_WORKAREA
 * don't overlap notifications when more than one is on the screen
+* more default positions -- center, top center, bottom center, left center,
+  right center
 * window shadow?  would rather the compositor just do this, need to figure out
   why xfwm4 won't -- olivier says shaped windows never get shadows
 * make more parts of the notification themable
