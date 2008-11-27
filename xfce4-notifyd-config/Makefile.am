@@ -23,6 +23,9 @@ xfce4_notifyd_config_LDADD = \
 	$(LIBXFCEGUI4_LIBS) \
 	$(DBUS_GLIB_LIBS)
 
+man_MANS = \
+	xfce4-notifyd-config.1
+
 desktopdir = $(datadir)/applications
 desktop_in_files = xfce4-notifyd-config.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
