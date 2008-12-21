@@ -1,3 +1,9 @@
+2008-12-21	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* ja.po: New translation from Masaton Hashimoto
+	  <cabezon.hashimoto@gmail.com>.
+	* LINGUAS: Add ja.
+
 2008-11-21	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* fr.po: Improvement of one string from Mike Massonnet
