@@ -1,3 +1,9 @@
+2009-06-07	Brian J. Tarricone <bjt23@cornell.edu>
+
+	* xfce4-notifyd/xfce-notify-daemon.c: Re-add support for the
+	  'reason' parameter to the NotificationChanged signal.
+	* configure.ac.in: Add a switch to toggle the old behavior.
+
 2008-11-26	Brian J. Tarricone <bjt23@cornell.edu>
 
 	* xfce4-notifyd/xfce-notify-window.c: Don't set the legacy window

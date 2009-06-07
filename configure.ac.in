@@ -63,6 +63,15 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBSEXY], [libsexy], [0.1.6], [libsexy],
                            [libsexy support (for clickable URLs) (default=yes)],
                            [yes])
 
+AC_ARG_ENABLE([old-notification-closed-signature],
+              [AC_HELP_STRING([--enable-old-notification-closed-signature],
+                              [Use the old NotificationClosed signal signature that leaves out the 'reason' parameter.  You want to enable this if your system has libnotify 0.4.4 or earlier.])],
+              [use_old_sig=$enableval], [use_old_sig=no])
+if test "x$use_old_sig" = "xyes"; then
+    AC_DEFINE([USE_OLD_NOTIFICATION_CHANGED_SIGNATURE], [1],
+              [Set if we should use the old NotificationClosed signal signature])
+fi
+
 dnl check for debugging support
 XDT_FEATURE_DEBUG
 dnl if test "x$enable_debug" = "xfull"; then

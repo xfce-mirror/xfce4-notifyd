@@ -6,6 +6,12 @@ Version 0.1.0git:
 
   Features:
     * Added man page for xfce4-notifyd-config from Evgeni Golov.
+    * Support the 'reason' parameter of the NotificationChanged signal.
+      Note that if you are using libnotify 0.4.4 or older, this will
+      cause memory leaks in *applications* that use libnotify (not in
+      xfce4-notifyd).  In this case, you should compile xfce4-notifyd
+      passing the --enable-old-notification-closed-signature switch
+      to configure.
 
   Bugfixes:
     * Fix ugliness with rounded corners on windows sometimes, both with
