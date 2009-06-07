@@ -688,6 +688,8 @@ xfce_notify_window_configure_event(GtkWidget *widget,
         window->close_btn_region = NULL;
     }
 
+    gtk_widget_queue_draw(widget);
+
     return ret;
 }
 
