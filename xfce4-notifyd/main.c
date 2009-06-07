@@ -37,7 +37,7 @@ int
 main(int argc,
      char **argv)
 {
-    XfceNotifyDaemon *daemon;
+    XfceNotifyDaemon *xndaemon;
     GError *error = NULL;
 
     xfconf_init(NULL);
@@ -55,8 +55,8 @@ main(int argc,
         }
     }
 
-    daemon = xfce_notify_daemon_new_unique(&error);
-    if(!daemon) {
+    xndaemon = xfce_notify_daemon_new_unique(&error);
+    if(!xndaemon) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
                             GTK_STOCK_DIALOG_ERROR,
                             _("Unable to start notification daemon"),
@@ -69,7 +69,7 @@ main(int argc,
 
     gtk_main();
 
-    g_object_unref(G_OBJECT(daemon));
+    g_object_unref(G_OBJECT(xndaemon));
 
     return 0;
 }

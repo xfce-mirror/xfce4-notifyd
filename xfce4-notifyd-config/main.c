@@ -43,7 +43,7 @@
  * change themes.  this is only annoying because existing notifications
  * will get killed */
 static void
-xfce4_notifyd_config_kill_daemon()
+xfce4_notifyd_config_kill_daemon(void)
 {
     DBusGConnection *dbus_conn;
     DBusGProxy *proxy;

@@ -94,9 +94,6 @@ enum
     N_SIGS,
 };
 
-static void xfce_notify_window_class_init(XfceNotifyWindowClass *klass);
-static void xfce_notify_window_init(XfceNotifyWindow *window);
-
 static void xfce_notify_window_finalize(GObject *object);
 
 static void xfce_notify_window_realize(GtkWidget *widget);
@@ -963,7 +960,7 @@ out_err:
 
 
 GtkWidget *
-xfce_notify_window_new()
+xfce_notify_window_new(void)
 {
     return xfce_notify_window_new_with_actions(NULL, NULL, NULL, -1, NULL);
 }
