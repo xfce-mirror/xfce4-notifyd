@@ -2,7 +2,7 @@ dnl configure.ac
 dnl
 dnl xfce4-notifyd - server-side implementation of the fd.o notifications spec
 dnl
-dnl Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>
+dnl Copyright (c) 2008 Brian Tarricone <brian@tarricone.org>
 dnl
 
 dnl version info
@@ -14,41 +14,36 @@ m4_define([xfce4_notifyd_version_tag], [git])
 m4_define([xfce4_notifyd_version], [xfce4_notifyd_version_major().xfce4_notifyd_version_minor().xfce4_notifyd_version_micro()ifelse(xfce4_notifyd_version_tag(), [git], [xfce4_notifyd_version_tag()-xfce4_notifyd_version_build()], [xfce4_notifyd_version_tag()])])
 
 dnl init autoconf
-AC_INIT([xfce4-notifyd], [xfce4_notifyd_version], [bjt23@cornell.edu])
-AC_PREREQ([2.50])
+AC_INIT([xfce4-notifyd], [xfce4_notifyd_version],
+        [http://bugzilla.xfce.org/enter_bug.cgi?product=Xfce4-notifyd],
+        [xfce4-notifyd])
+AC_PREREQ([2.59c])
+AC_CONFIG_SRCDIR([xfce4-notifyd/main.c])
+AC_CONFIG_HEADERS([config.h])
 
 dnl init automake
-AM_INIT_AUTOMAKE()
-AM_CONFIG_HEADER([config.h])
-dnl AC_DEFINE([WEBSITE], ["http://spuriousinterrupt.org/projects/xfce4-notifyd"],
-dnl           [Location of the xfce4-notifyd website])
+AM_INIT_AUTOMAKE([1.10 dist-bzip2 subdir-objects])
 AM_MAINTAINER_MODE
 
 dnl check for UNIX variants
-AC_AIX
-AC_ISC_POSIX
-AC_MINIX
+AC_USE_SYSTEM_EXTENSIONS
 
 dnl check for basic programs
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
-AC_PROG_INTLTOOL([0.31], [no-xml])
-dnl AC_PROG_MAKE_SET
+IT_PROG_INTLTOOL([0.31], [no-xml])
+AM_GNU_GETTEXT_VERSION([0.11])
+AM_GLIB_GNU_GETTEXT
 
 dnl check for standard header files
 AC_HEADER_STDC
-AC_CHECK_HEADERS([errno.h fcntl.h  grp.h \
-                  signal.h stdlib.h string.h \
+AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   sys/stat.h sys/time.h sys/types.h sys/wait.h \
                   unistd.h])
-dnl AC_CHECK_FUNCS([fdwalk getdtablesize setsid sysconf])
 
 dnl Check for i18n support
 XDT_I18N([@LINGUAS@])
-
-dnl Check for X11 installed
-dnl XDT_CHECK_LIBX11_REQUIRE
 
 dnl required
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
@@ -64,31 +59,19 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBSEXY], [libsexy], [0.1.6], [libsexy],
                            [yes])
 
 AC_ARG_ENABLE([old-notification-closed-signature],
-              [AC_HELP_STRING([--enable-old-notification-closed-signature],
+              [AS_HELP_STRING([--enable-old-notification-closed-signature],
                               [Use the old NotificationClosed signal signature that leaves out the 'reason' parameter.  You want to enable this if your system has libnotify 0.4.4 or earlier.])],
               [use_old_sig=$enableval], [use_old_sig=no])
-if test "x$use_old_sig" = "xyes"; then
-    AC_DEFINE([USE_OLD_NOTIFICATION_CHANGED_SIGNATURE], [1],
-              [Set if we should use the old NotificationClosed signal signature])
-fi
+AS_IF([test "x$use_old_sig" = "xyes"],
+      [AC_DEFINE([USE_OLD_NOTIFICATION_CHANGED_SIGNATURE], [1],
+                 [Set if we should use the old NotificationClosed signal signature])])
 
 dnl check for debugging support
 XDT_FEATURE_DEBUG
-dnl if test "x$enable_debug" = "xfull"; then
-dnl     if test "x$CC" = "xgcc"; then
-dnl         CFLAGS="$CFLAGS -fno-strict-aliasing"
-dnl     fi
-dnl fi
 
-AC_OUTPUT([
-Makefile
-icons/Makefile
-icons/48x48/Makefile
-themes/Makefile
-themes/Default/Makefile
-themes/Smoke/Makefile
-themes/ZOMG-PONIES!/Makefile
-xfce4-notifyd/Makefile
-xfce4-notifyd-config/Makefile
-po/Makefile.in
+AC_CONFIG_FILES(
+[
+    Makefile
+    po/Makefile.in
 ])
+AC_OUTPUT
