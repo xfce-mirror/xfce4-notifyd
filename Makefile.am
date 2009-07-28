@@ -1,10 +1,6 @@
 SUBDIRS = \
 	po
 
-AUTOMAKE_OPTIONS = \
-	1.8 \
-	dist-bzip2
-
 dist_autogen = autogen.sh
 dist_misc = TODO
 dist_intltool = \
@@ -18,6 +14,7 @@ distclean_intltool = \
 	intltool-update
 
 libexec_PROGRAMS = xfce4-notifyd/xfce4-notifyd
+bin_PROGRAMS = xfce4-notifyd-config/xfce4-notifyd-config
 
 xfce4_notifyd_xfce4_notifyd_SOURCES = \
 	xfce4-notifyd/main.c \
@@ -31,22 +28,42 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 	xfce4-notifyd/xfce-notify-window.c \
 	xfce4-notifyd/xfce-notify-window.h
 
-xfce4_notifyd_xfce4_notifyd_CFLAGS = \
+xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
+	xfce4-notifyd-config/main.c \
+	xfce4-notifyd-config/xfce4-notifyd-config.glade.h
+
+common_cflags = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(LIBXFCEGUI4_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
-	$(XFCONF_CFLAGS) \
+	$(XFCONF_CFLAGS)
+
+xfce4_notifyd_xfce4_notifyd_CFLAGS = \
+	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
+	$(common_cflags) \
 	$(LIBSEXY_CFLAGS)
 
-xfce4_notifyd_xfce4_notifyd_LDADD = \
+xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
+	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
+	$(common_cflags) \
+	$(LIBGLADE_CFLAGS)
+
+common_ldadd = \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(LIBXFCEGUI4_LIBS) \
 	$(DBUS_GLIB_LIBS) \
-	$(XFCONF_LIBS) \
+	$(XFCONF_LIBS)
+
+xfce4_notifyd_xfce4_notifyd_LDADD = \
+	$(common_ldadd) \
 	$(LIBSEXY_LIBS)
+
+xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
+	$(common_ldadd) \
+	$(LIBGLADE_LIBS)
 
 
 servicedir = $(datadir)/dbus-1/services
@@ -59,6 +76,31 @@ dist_service = \
 	xfce4-notifyd/xfce-notify-marshal.list
 distclean_service = $(service_DATA)
 
+dist_man1_MANS = \
+	xfce4-notifyd-config/xfce4-notifyd-config.1
+
+desktopdir = $(datadir)/applications
+desktop_in_files = xfce4-notifyd-config/xfce4-notifyd-config.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
+
+icon_dir = $(datadir)/icons/hicolor
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(icon_dir)
+
+icons48dir = $(icon_dir)/48x48/apps
+dist_icons48_DATA = icons/48x48/xfce4-notifyd.png
+
+theme_dir = $(datadir)/themes
+
+defaultthemedir = $(theme_dir)/Default/xfce-notify-4.0
+dist_defaulttheme_DATA = themes/Default/gtkrc
+
+smokethemedir = $(theme_dir)/Smoke/xfce-notify-4.0
+dist_smoketheme_DATA = themes/Smoke/gtkrc
+
+zomgponiesthemedir = $(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
+dist_zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtkrc
+
 if MAINTAINER_MODE
 
 built_xfce4_notifyd = \
@@ -68,51 +110,13 @@ built_xfce4_notifyd = \
 	xfce4-notifyd/xfce-notify-enum-types.c \
 	xfce4-notifyd/xfce-notify-enum-types.h
 
+built_xfce4_notifyd_config = \
+	xfce4-notifyd-config/xfce4-notifyd-config.glade.h
+
 clean_xfce4_notifyd = \
 	$(built_xfce4_notifyd) \
 	xfce4-notifyd/stamp-xfce-notify-enum-types.h \
 	xfce4-notifyd/stamp-xfce-notify-marshal.h
-
-endif
-
-bin_PROGRAMS = xfce4-notifyd-config/xfce4-notifyd-config
-
-xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
-	xfce4-notifyd-config/main.c \
-	xfce4-notifyd-config/xfce4-notifyd-config.glade.h
-
-xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
-	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
-	-DLOCALEDIR=\"$(localedir)\" \
-	$(XFCONF_CFLAGS) \
-	$(GTK_CFLAGS) \
-	$(LIBGLADE_CFLAGS) \
-	$(LIBXFCE4UTIL_CFLAGS) \
-	$(LIBXFCEGUI4_CFLAGS) \
-	$(DBUS_GLIB_CFLAGS)
-
-xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
-	$(XFCONF_LIBS) \
-	$(GTK_LIBS) \
-	$(LIBGLADE_LIBS) \
-	$(LIBXFCE4UTIL_LIBS) \
-	$(LIBXFCEGUI4_LIBS) \
-	$(DBUS_GLIB_LIBS)
-
-man1_MANS = \
-	xfce4-notifyd-config/xfce4-notifyd-config.1
-
-dist_man_MANS = \
-	$(man1_MANS)
-
-desktopdir = $(datadir)/applications
-desktop_in_files = xfce4-notifyd-config/xfce4-notifyd-config.desktop.in
-desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
-
-if MAINTAINER_MODE
-
-built_xfce4_notifyd_config = xfce4-notifyd-config/xfce4-notifyd-config.glade.h
 
 endif
 
@@ -124,25 +128,26 @@ dist_xfce4_notifyd_config = \
 	xfce4-notifyd-config/xfce4-notifyd-config.glade \
 	$(desktop_in_files)
 
-icons48dir = $(datadir)/icons/hicolor/48x48/apps
-icons48_DATA = icons/48x48/xfce4-notifyd.png
+dist_noinst_DATA = \
+	$(dist_misc) \
+	$(dist_intltool) \
+	$(dist_service) \
+	$(dist_xfce4_notifyd_config)
 
-dist_icons48 = $(icons48_DATA)
+dist_noinst_SCRIPTS = \
+	$(dist_autogen)
 
-defaultthemedir = $(datadir)/themes/Default/xfce-notify-4.0
-defaulttheme_DATA = themes/Default/gtkrc
+BUILT_SOURCES = \
+	$(built_xfce4_notifyd) \
+	$(built_xfce4_notifyd_config)
 
-dist_themes_default = $(defaulttheme_DATA)
+CLEANFILES = \
+	$(clean_xfce4_notifyd) \
+	$(clean_xfce4_notifyd_config)
 
-smokethemedir = $(datadir)/themes/Smoke/xfce-notify-4.0
-smoketheme_DATA = themes/Smoke/gtkrc
-
-dist_themes_smoke = $(smoketheme_DATA)
-
-zomgponiesthemedir = $(datadir)/themes/ZOMG-PONIES!/xfce-notify-4.0
-zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtkrc
-
-dist_themes_zomgponies = $(zomgponiestheme_DATA)
+DISTCLEANFILES = \
+	$(distclean_intltool) \
+	$(distclean_service)
 
 if MAINTAINER_MODE
 
@@ -190,34 +195,6 @@ xfce4-notifyd-config/xfce4-notifyd-config.glade.h: $(srcdir)/xfce4-notifyd-confi
 	exo-csource --static --name=xfce4_notifyd_config_glade $< >$@
 
 endif
-
-
-dist_noinst_DATA = \
-	$(dist_misc) \
-	$(dist_intltool) \
-	$(dist_service) \
-	$(dist_xfce4_notifyd_config) \
-	$(dist_icons48) \
-	$(dist_themes_default) \
-	$(dist_themes_smoke) \
-	$(dist_themes_zomgponies)
-
-dist_noinst_SCRIPTS = \
-	$(dist_autogen)
-
-BUILT_SOURCES = \
-	$(built_xfce4_notifyd) \
-	$(built_xfce4_notifyd_config)
-
-CLEANFILES = \
-	$(clean_xfce4_notifyd) \
-	$(clean_xfce4_notifyd_config)
-
-DISTCLEANFILES = \
-	$(distclean_intltool) \
-	$(distclean_service)
-
-gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
 install-data-hook:
 	@-if test -z "$(DESTDIR)"; then \
