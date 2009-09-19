@@ -12,6 +12,8 @@ Version 0.1.0git:
       xfce4-notifyd).  In this case, you should compile xfce4-notifyd
       passing the --enable-old-notification-closed-signature switch
       to configure.
+    * Add summary-bold style property to allow themes to set the
+      summary field of the notification bold (bug 5773).
 
   Bugfixes:
     * Fix ugliness with rounded corners on windows sometimes, both with
