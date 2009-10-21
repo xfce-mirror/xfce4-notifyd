@@ -1,0 +1,123 @@
+# Chinese translations for xfce4-notifyd package
+# xfce4-notifyd 软件包的简体中文翻译.
+# Copyright (C) 2009 THE xfce4-notifyd'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-notifyd package.
+# Hunt Xu <mhuntxu@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notifyd VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-15 17:37-0800\n"
+"PO-Revision-Date: 2009-10-21 14:35+0800\n"
+"Last-Translator: Hunt Xu <huntxu@live.cn>\n"
+"Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:230
+msgid "Xfce Notify Daemon"
+msgstr "Xfce 提示守护进程"
+
+#: ../xfce4-notifyd/main.c:53
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "未知选项 \"%s\"\n"
+
+#: ../xfce4-notifyd/main.c:62
+msgid "Unable to start notification daemon"
+msgstr "无法启动通知守护进程"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:564
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr "无法连接至 D-Bus 会话"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:581
+#, c-format
+msgid "Another notification daemon is already running"
+msgstr "另一个通知守护进程已经在运行"
+
+#: ../xfce4-notifyd/xfce-notify-window.c:846
+msgid "image: "
+msgstr "图像: "
+
+#: ../xfce4-notifyd-config/main.c:197
+msgid "Theme"
+msgstr "主题"
+
+#: ../xfce4-notifyd-config/main.c:232
+msgid "Settings daemon is unavailable"
+msgstr "设置守护进程不可用"
+
+#: ../xfce4-notifyd-config/main.c:287
+msgid "Display version information"
+msgstr "显示版本信息"
+
+#: ../xfce4-notifyd-config/main.c:288
+msgid "Settings manager socket"
+msgstr "设置管理器套接字"
+
+#: ../xfce4-notifyd-config/main.c:288
+msgid "SOCKET_ID"
+msgstr "SOCKETID(_I)"
+
+#: ../xfce4-notifyd-config/main.c:298
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "输入 '%s --help' 查看使用帮助。"
+
+#: ../xfce4-notifyd-config/main.c:310
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "在 GNU 通用公共许可证 (GPL) 第二版的约束下发布\n"
+
+#: ../xfce4-notifyd-config/main.c:311
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "请提交错误报告至 %s。\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "自定义通知在您屏幕上的显示方式"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Default _position:"
+msgstr "默认位置(_P):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr "通知"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid ""
+"Top left\n"
+"Bottom left\n"
+"Top right\n"
+"Bottom right"
+msgstr ""
+"左上角\n"
+"左下角\n"
+"右上角\n"
+"右下角"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "在多久后消失(_D):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Fade to transparent"
+msgstr "淡出至透明(_F)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Opacity:"
+msgstr "透明度(_O):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "秒"
+
