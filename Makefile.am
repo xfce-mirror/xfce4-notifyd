@@ -192,7 +192,7 @@ xfce4-notifyd/xfce-notify-enum-types.c: xfce4-notifyd/xfce-notify-window.h Makef
 	&& rm -f xfce4-notifyd/xgen-xnetc
 
 xfce4-notifyd-config/xfce4-notifyd-config.glade.h: $(srcdir)/xfce4-notifyd-config/xfce4-notifyd-config.glade
-	exo-csource --static --name=xfce4_notifyd_config_glade $< >$@
+	$(EXO_CSOURCE) --static --name=xfce4_notifyd_config_glade $< >$@
 
 endif
 

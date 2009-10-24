@@ -58,6 +58,17 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBSEXY], [libsexy], [0.1.6], [libsexy],
                            [libsexy support (for clickable URLs) (default=yes)],
                            [yes])
 
+AS_IF([test "x$USE_MAINTAINER_MODE" = "xyes"],
+[
+  AC_PATH_PROG([EXO_CSOURCE], [exo-csource])
+  AS_IF([test -z "$EXO_CSOURCE"],
+  [
+    echo '*** The program "exo-csource" is required to build when --enable-maintainer-mode'
+    echo '*** is specified.'
+    exit 1
+  ])
+])
+
 AC_ARG_ENABLE([old-notification-closed-signature],
               [AS_HELP_STRING([--enable-old-notification-closed-signature],
                               [Use the old NotificationClosed signal signature that leaves out the 'reason' parameter.  You want to enable this if your system has libnotify 0.4.4 or earlier.])],
