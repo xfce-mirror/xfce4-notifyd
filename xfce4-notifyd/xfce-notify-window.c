@@ -68,12 +68,6 @@ struct _XfceNotifyWindow
     guint fade_id;
     guint op_change_steps;
     gdouble op_change_delta;
-
-    gboolean maybe_begin_drag;
-    gboolean dragging;
-    gint press_start_x;
-    gint press_start_y;
-    guint32 press_timestamp;
 };
 
 typedef struct
@@ -102,12 +96,8 @@ static gboolean xfce_notify_window_expose(GtkWidget *widget,
                                           GdkEventExpose *evt);
 static gboolean xfce_notify_window_enter_leave(GtkWidget *widget,
                                                GdkEventCrossing *evt);
-static gboolean xfce_notify_window_button_press(GtkWidget *widget,
-                                                GdkEventButton *evt);
 static gboolean xfce_notify_window_button_release(GtkWidget *widget,
                                                   GdkEventButton *evt);
-static gboolean xfce_notify_window_motion_notify(GtkWidget *widget,
-                                                 GdkEventMotion *evt);
 static gboolean xfce_notify_window_configure_event(GtkWidget *widget,
                                                    GdkEventConfigure *evt);
 static void xfce_notify_window_style_set(GtkWidget *widget,
@@ -144,9 +134,7 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->expose_event = xfce_notify_window_expose;
     widget_class->enter_notify_event = xfce_notify_window_enter_leave;
     widget_class->leave_notify_event = xfce_notify_window_enter_leave;
-    widget_class->button_press_event = xfce_notify_window_button_press;
     widget_class->button_release_event = xfce_notify_window_button_release;
-    widget_class->motion_notify_event = xfce_notify_window_motion_notify;
     widget_class->configure_event = xfce_notify_window_configure_event;
     widget_class->style_set = xfce_notify_window_style_set;
 
@@ -578,11 +566,6 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
     if(evt->type == GDK_ENTER_NOTIFY) {
-        /* after a drag, we don't get a button release, but we do get an
-         * enter notify */
-        window->maybe_begin_drag = FALSE;
-        window->dragging = FALSE;
-
         if(window->expire_timeout) {
             if(window->expire_id) {
                 g_source_remove(window->expire_id);
@@ -597,32 +580,11 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
         window->mouse_hover = TRUE;
         gtk_widget_queue_draw(widget);
     } else if(evt->type == GDK_LEAVE_NOTIFY
-              && evt->detail != GDK_NOTIFY_INFERIOR
-              && !window->dragging)
+              && evt->detail != GDK_NOTIFY_INFERIOR)
     {
         xfce_notify_window_start_expiration(window);
         window->mouse_hover = FALSE;
         gtk_widget_queue_draw(widget);
-    }
-
-    return FALSE;
-}
-
-static gboolean
-xfce_notify_window_button_press(GtkWidget *widget,
-                                GdkEventButton *evt)
-{
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-
-    if(GDK_BUTTON_PRESS == evt->type && 1 == evt->button) {
-        window->maybe_begin_drag = TRUE;
-        window->dragging = FALSE;
-        window->press_start_x = evt->x_root;
-        window->press_start_y = evt->y_root;
-        window->press_timestamp = evt->time;
-    } else {
-        window->maybe_begin_drag = FALSE;
-        window->dragging = FALSE;
     }
 
     return FALSE;
@@ -643,28 +605,6 @@ xfce_notify_window_button_release(GtkWidget *widget,
 
     g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0,
                   XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
-
-    return FALSE;
-}
-
-static gboolean
-xfce_notify_window_motion_notify(GtkWidget *widget,
-                                 GdkEventMotion *evt)
-{
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-
-    if(window->maybe_begin_drag) {
-        if(gtk_drag_check_threshold(widget, window->press_start_x,
-                                    window->press_start_y,
-                                    evt->x_root, evt->y_root))
-        {
-            window->dragging = TRUE;
-            gtk_window_begin_move_drag(GTK_WINDOW(widget), 1,
-                                       window->press_start_x,
-                                       window->press_start_y,
-                                       window->press_timestamp);
-        }
-    }
 
     return FALSE;
 }
