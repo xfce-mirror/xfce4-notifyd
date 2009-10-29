@@ -60,6 +60,13 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBSEXY], [libsexy], [0.1.6], [libsexy],
                            [libsexy support (for clickable URLs) (default=yes)],
                            [yes])
 
+AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool])
+AS_IF([test -z "$DBUS_BINDING_TOOL"],
+[
+  echo '*** The program "dbus-binding-tool" is required to build.'
+  exit 1
+])
+
 AS_IF([test "x$USE_MAINTAINER_MODE" = "xyes"],
 [
   AC_PATH_PROG([EXO_CSOURCE], [exo-csource])

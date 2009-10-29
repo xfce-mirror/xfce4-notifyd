@@ -156,10 +156,10 @@ DISTCLEANFILES = \
 xfce4-notifyd/notify-dbus.h: $(srcdir)/xfce4-notifyd/notify-dbus.xml Makefile
 if USE_OLD_GET_SERVER_INFORMATION_SIGNATURE
 	sed -e 's,<arg direction="out" name="spec_version" type="s"/>,,' $< > $(<F).tmp
-	dbus-binding-tool --mode=glib-server --prefix=notify $(<F).tmp > $@
+	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=notify $(<F).tmp > $@
 	rm -f $(<F).tmp
 else
-	dbus-binding-tool --mode=glib-server --prefix=notify $< > $@
+	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=notify $< > $@
 endif
 
 if MAINTAINER_MODE
