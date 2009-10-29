@@ -101,10 +101,15 @@ dist_smoketheme_DATA = themes/Smoke/gtkrc
 zomgponiesthemedir = $(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
 dist_zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtkrc
 
+built_xfce4_notifyd = \
+	xfce4-notifyd/notify-dbus.h
+
+clean_xfce4_notifyd = \
+	$(built_xfce4_notifyd)
+
 if MAINTAINER_MODE
 
-built_xfce4_notifyd = \
-	xfce4-notifyd/notify-dbus.h \
+built_xfce4_notifyd += \
 	xfce4-notifyd/xfce-notify-marshal.c \
 	xfce4-notifyd/xfce-notify-marshal.h \
 	xfce4-notifyd/xfce-notify-enum-types.c \
@@ -113,8 +118,7 @@ built_xfce4_notifyd = \
 built_xfce4_notifyd_config = \
 	xfce4-notifyd-config/xfce4-notifyd-config.glade.h
 
-clean_xfce4_notifyd = \
-	$(built_xfce4_notifyd) \
+clean_xfce4_notifyd += \
 	xfce4-notifyd/stamp-xfce-notify-enum-types.h \
 	xfce4-notifyd/stamp-xfce-notify-marshal.h
 
@@ -149,10 +153,16 @@ DISTCLEANFILES = \
 	$(distclean_intltool) \
 	$(distclean_service)
 
-if MAINTAINER_MODE
-
 xfce4-notifyd/notify-dbus.h: $(srcdir)/xfce4-notifyd/notify-dbus.xml Makefile
+if USE_OLD_GET_SERVER_INFORMATION_SIGNATURE
+	sed -e 's,<arg direction="out" name="spec_version" type="s"/>,,' $< > $(<F).tmp
+	dbus-binding-tool --mode=glib-server --prefix=notify $(<F).tmp > $@
+	rm -f $(<F).tmp
+else
 	dbus-binding-tool --mode=glib-server --prefix=notify $< > $@
+endif
+
+if MAINTAINER_MODE
 
 xfce4-notifyd/xfce-notify-marshal.h: xfce4-notifyd/stamp-xfce-notify-marshal.h
 	@true

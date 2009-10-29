@@ -27,6 +27,7 @@
             <arg direction="out" name="name" type="s"/>
             <arg direction="out" name="vendor" type="s"/>
             <arg direction="out" name="version" type="s"/>
+            <arg direction="out" name="spec_version" type="s"/>
         </method>
 
         <signal name="NotificationClosed">
