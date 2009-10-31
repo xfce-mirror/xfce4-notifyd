@@ -83,7 +83,7 @@ enum
 };
 
 static void xfce_notify_daemon_screen_changed(GdkScreen *screen,
-                                              gpointer userdata);
+                                              gpointer user_data);
 static void xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                                           gpointer value,
                                                           gpointer data);
@@ -194,9 +194,10 @@ xfce_notify_daemon_get_n_monitors_quark(void)
 }
 
 static void
-xfce_notify_daemon_screen_changed(GdkScreen *screen, gpointer userdata)
+xfce_notify_daemon_screen_changed(GdkScreen *screen,
+                                  gpointer user_data)
 {
-    XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(userdata);
+    XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(user_data);
     gint j;
     gint new_nmonitor = gdk_screen_get_n_monitors(screen);
     gint screen_number = gdk_screen_get_number(screen);
@@ -330,7 +331,9 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
 
 /* Gets the largest rectangle in src1 which does not contain src2. */
 static void
-xfce_gdk_rectangle_largest_box(GdkRectangle *src1, GdkRectangle *src2, GdkRectangle *dest)
+xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
+                               GdkRectangle *src2,
+                               GdkRectangle *dest)
 {
     gint top = MAX(src2->y, src1->y);
     gint left = MAX(src2->x, src1->x);
@@ -371,7 +374,9 @@ xfce_gdk_rectangle_largest_box(GdkRectangle *src1, GdkRectangle *src2, GdkRectan
 }
 
 static inline void
-translate_origin(GdkRectangle *src1, gint xoffset, gint yoffset)
+translate_origin(GdkRectangle *src1,
+                 gint xoffset,
+                 gint yoffset)
 {
     src1->x += xoffset;
     src1->y += yoffset;
