@@ -1,7 +1,8 @@
 /*
  *  xfce4-notifyd
  *
- *  Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>
+ *  Copyright (c) 2008-2009 Brian Tarricone <bjt23@cornell.edu>
+ *  Copyright (c) 2009 Jérôme Guelfucci <jeromeg@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -39,7 +40,7 @@
 #define DEFAULT_EXPIRE_TIMEOUT    10000
 #define DEFAULT_NORMAL_OPACITY        0.85
 #define FADE_TIME                   800
-#define FADE_CHANGE_TIMEOUT          50 
+#define FADE_CHANGE_TIMEOUT          50
 #define DEFAULT_RADIUS               10.0
 #define DEFAULT_BORDER_WIDTH          2.0
 #define BORDER                        6
@@ -47,6 +48,10 @@
 struct _XfceNotifyWindow
 {
     GtkWindow parent;
+
+    GdkRectangle geometry;
+    gint last_monitor;
+    gint last_screen;
 
     guint expire_timeout;
 
@@ -70,7 +75,7 @@ struct _XfceNotifyWindow
     GtkWidget *summary;
     GtkWidget *body;
     GtkWidget *button_box;
-    
+
     guint64 expire_start_timestamp;
     guint expire_id;
     guint fade_id;
@@ -1026,6 +1031,45 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
         window->bg_path = NULL;
         gtk_widget_queue_draw(GTK_WIDGET(window));
     }
+}
+
+void
+xfce_notify_window_set_geometry(XfceNotifyWindow *window,
+                                GdkRectangle rectangle)
+{
+    window->geometry = rectangle;
+}
+
+GdkRectangle
+*xfce_notify_window_get_geometry (XfceNotifyWindow *window)
+{
+   return &window->geometry;
+}
+
+void
+xfce_notify_window_set_last_monitor(XfceNotifyWindow *window,
+                                    gint monitor)
+{
+    window->last_monitor = monitor;
+}
+
+gint
+xfce_notify_window_get_last_monitor(XfceNotifyWindow *window)
+{
+   return window->last_monitor;
+}
+
+void
+xfce_notify_window_set_last_screen(XfceNotifyWindow *window,
+                                   gint screen)
+{
+    window->last_screen = screen;
+}
+
+gint
+xfce_notify_window_get_last_screen(XfceNotifyWindow *window)
+{
+    return window->last_screen;
 }
 
 void
