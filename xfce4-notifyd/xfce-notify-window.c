@@ -42,7 +42,7 @@
 #define FADE_CHANGE_TIMEOUT          50 
 #define DEFAULT_RADIUS               10.0
 #define DEFAULT_BORDER_WIDTH          2.0
-#define BORDER                        8
+#define BORDER                        6
 
 struct _XfceNotifyWindow
 {
@@ -58,6 +58,7 @@ struct _XfceNotifyWindow
     gboolean fade_transparent;
     gdouble normal_opacity;
 
+    GtkWidget *icon_box;
     GtkWidget *icon;
     GtkWidget *summary;
     GtkWidget *body;
@@ -191,7 +192,8 @@ static void
 xfce_notify_window_init(XfceNotifyWindow *window)
 {
     GdkScreen *screen;
-    GtkWidget *topvbox, *vbox, *hbox, *spacer;
+    GtkWidget *tophbox, *align, *vbox;
+    gdouble border_radius = DEFAULT_RADIUS;
     
     GTK_WINDOW(window)->type = GTK_WINDOW_TOPLEVEL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
@@ -207,12 +209,12 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
     gtk_window_set_type_hint(GTK_WINDOW(window),
                              GDK_WINDOW_TYPE_HINT_NOTIFICATION);
-    gtk_container_set_border_width(GTK_CONTAINER(window), BORDER);
+    gtk_container_set_border_width(GTK_CONTAINER(window), 0);
     gtk_widget_set_app_paintable(GTK_WIDGET(window), TRUE);
     gtk_widget_add_events(GTK_WIDGET(window),
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
                           | GDK_POINTER_MOTION_MASK);
-    
+
     screen = gtk_widget_get_screen(GTK_WIDGET(window));
     if(gdk_screen_is_composited(screen)) {
         GdkColormap *cmap = gdk_screen_get_rgba_colormap(screen);
@@ -220,34 +222,32 @@ xfce_notify_window_init(XfceNotifyWindow *window)
             gtk_widget_set_colormap(GTK_WIDGET(window), cmap);
     }
 
-    topvbox = gtk_vbox_new(FALSE, BORDER);
-    gtk_widget_show(topvbox);
-    gtk_container_add(GTK_CONTAINER(window), topvbox);
+    gtk_widget_ensure_style(GTK_WIDGET(window));
+    gtk_widget_style_get(GTK_WIDGET(window),
+                         "border-radius", &border_radius,
+                         NULL);
 
-    spacer = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
-    gtk_widget_set_size_request(spacer, -1, 20 - BORDER * 2);
-    gtk_widget_show(spacer);
-    gtk_box_pack_start(GTK_BOX(topvbox), spacer, FALSE, FALSE, 0);
+    tophbox = gtk_hbox_new(FALSE, BORDER);
+    gtk_container_set_border_width(GTK_CONTAINER(tophbox), border_radius + 4);
+    gtk_widget_show(tophbox);
+    gtk_container_add(GTK_CONTAINER(window), tophbox);
 
-    hbox = gtk_hbox_new(FALSE, BORDER);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start(GTK_BOX(topvbox), hbox, TRUE, TRUE, 0);
-
-    spacer = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
-    gtk_widget_set_size_request(spacer, 20 - BORDER * 2, -1);
-    gtk_widget_show(spacer);
-    gtk_box_pack_start(GTK_BOX(hbox), spacer, FALSE, FALSE, 0);
+    window->icon_box = align = gtk_alignment_new(0.0, 0.0, 0.0, 0.0);
+    gtk_container_set_border_width(GTK_CONTAINER(align), 0);
+    gtk_box_pack_start(GTK_BOX(tophbox), align, FALSE, TRUE, 0);
 
     window->icon = gtk_image_new();
-    gtk_box_pack_start(GTK_BOX(hbox), window->icon, FALSE, FALSE, 0);
+    gtk_widget_show(window->icon);
+    gtk_container_add(GTK_CONTAINER(align), window->icon);
 
     vbox = gtk_vbox_new(FALSE, BORDER);
+    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
     gtk_widget_show(vbox);
-    gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(tophbox), vbox, TRUE, TRUE, 0);
 
     window->summary = gtk_label_new(NULL);
     gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(window->summary), 0.0, 0.5);
+    gtk_misc_set_alignment(GTK_MISC(window->summary), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
 
 #ifdef HAVE_LIBSEXY
@@ -256,7 +256,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->body = gtk_label_new(NULL);
 #endif
     gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(window->body), 0.0, 0.5);
+    gtk_misc_set_alignment(GTK_MISC(window->body), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
 #ifdef HAVE_LIBSEXY
     g_signal_connect(G_OBJECT(window->body), "url-activated",
@@ -268,7 +268,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
                               GTK_BUTTONBOX_END);
     gtk_box_set_spacing(GTK_BOX(window->button_box), BORDER / 2);
     gtk_box_set_homogeneous(GTK_BOX(window->button_box), FALSE);
-    gtk_box_pack_start(GTK_BOX(topvbox), window->button_box, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), window->button_box, FALSE, FALSE, 0);
 }
 
 static void
@@ -527,7 +527,7 @@ xfce_notify_window_expose(GtkWidget *widget,
             cairo_path_t *flat_path;
             GdkFillRule fill_rule;
 
-            cairo_arc(cr, 12., 12., 7.5, 0., 2*M_PI);
+            cairo_arc(cr, widget->allocation.width - 12., 12., 7.5, 0., 2*M_PI);
             window->close_btn_path = cairo_copy_path(cr);
 
             flat_path = cairo_copy_path_flat(cr);
@@ -541,11 +541,11 @@ xfce_notify_window_expose(GtkWidget *widget,
         cairo_set_line_width(cr, 1.5);
         cairo_stroke(cr);
 
-        cairo_move_to(cr, 8., 8.);
-        cairo_line_to(cr, 16., 16.);
+        cairo_move_to(cr, widget->allocation.width - 8., 8.);
+        cairo_line_to(cr, widget->allocation.width - 16., 16.);
         cairo_stroke(cr);
-        cairo_move_to(cr, 16., 8.);
-        cairo_line_to(cr, 8., 16.);
+        cairo_move_to(cr, widget->allocation.width - 16., 8.);
+        cairo_line_to(cr, widget->allocation.width - 8., 16.);
         cairo_stroke(cr);
     }
 
@@ -1032,7 +1032,7 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
         pix = xfce_themed_icon_load(icon_name, w);
         if(pix) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pix);
-            gtk_widget_show(window->icon);
+            gtk_widget_show(window->icon_box);
             g_object_unref(G_OBJECT(pix));
             icon_set = TRUE;
         }
@@ -1040,7 +1040,7 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
     
     if(!icon_set) {
         gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), NULL);
-        gtk_widget_hide(window->icon);
+        gtk_widget_hide(window->icon_box);
     }
 
     if(window->bg_path) {
@@ -1087,9 +1087,9 @@ xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
     gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pixbuf);
 
     if(pixbuf)
-        gtk_widget_show(window->icon);
+        gtk_widget_show(window->icon_box);
     else
-        gtk_widget_hide(window->icon);
+        gtk_widget_hide(window->icon_box);
 
     if(window->bg_path) {
         cairo_path_destroy(window->bg_path);
