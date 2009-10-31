@@ -14,10 +14,21 @@ Version 0.1.0git:
       to configure.
     * Add summary-bold style property to allow themes to set the
       summary field of the notification bold (bug 5773).
+    * Add the spec_version parameter to the GetServerInformation method.
+      This behavior can be disabled by passing the
+      --enable-old-get-server-information-signature flag to
+      configure (bug 5602).
+    * Make notifications unmovable (Jérôme Guelfucci, bug 5248).
+    * Implement support for icon-only notifications (Canonical
+      extension).
+    * Implement support for "gauge" notifications (Canonical extension).
 
   Bugfixes:
+    * Use correct COPYING file (GPLv2, not GPLv3).
     * Fix ugliness with rounded corners on windows sometimes, both with
       compositing enabled and disabled.
+    * Check for exo-csource at configure time when needed (bug 5783).
+    * Check for dbus-binding-tool at configure time.
 
 
 Version 0.1.0 (24 Nov 2008):

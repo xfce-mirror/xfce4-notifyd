@@ -7,8 +7,6 @@
 * window shadow?  would rather the compositor just do this, need to figure out
   why xfwm4 won't -- olivier says shaped windows never get shadows
 * make more parts of the notification themable
-* support desktop_id hint?
 * find a way to completely ditch the old theme when switching to a new one --
   implemented workaround: kill daemon on theme change
 * prelight fill for close button circle?
-* save notification position after drag
