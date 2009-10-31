@@ -305,7 +305,7 @@ notify_notify(XfceNotifyDaemon *xndaemon,
 {
     XfceNotifyWindow *window;
     GdkPixbuf *pix;
-    GValue *urgency_data;
+    GValue *urgency_data, *value_data;
 
     if((urgency_data = g_hash_table_lookup(hints, "urgency"))
        && G_VALUE_HOLDS(urgency_data, G_TYPE_UCHAR)
@@ -403,6 +403,13 @@ notify_notify(XfceNotifyDaemon *xndaemon,
         xfce_notify_window_set_icon_only(window, TRUE);
     else
         xfce_notify_window_set_icon_only(window, FALSE);
+
+    if((value_data = g_hash_table_lookup(hints, "value"))
+       && G_VALUE_HOLDS_INT(value_data))
+    {
+        xfce_notify_window_set_gauge_value(window, g_value_get_int(value_data));
+    } else
+        xfce_notify_window_unset_gauge_value(window);
 
     gtk_widget_realize(GTK_WIDGET(window));
     xfce_notify_daemon_window_size_allocate(GTK_WIDGET(window),

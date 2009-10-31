@@ -58,11 +58,15 @@ struct _XfceNotifyWindow
     gdouble normal_opacity;
 
     guint32 fade_transparent:1,
-            icon_only:1;
+            icon_only:1,
+            has_summary_text:1,
+            has_body_text:1,
+            has_actions;
 
     GtkWidget *icon_box;
     GtkWidget *icon;
     GtkWidget *content_box;
+    GtkWidget *gauge;
     GtkWidget *summary;
     GtkWidget *body;
     GtkWidget *button_box;
@@ -977,10 +981,13 @@ xfce_notify_window_set_summary(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
     
     gtk_label_set_text(GTK_LABEL(window->summary), summary);
-    if(summary && *summary)
+    if(summary && *summary) {
         gtk_widget_show(window->summary);
-    else
+        window->has_summary_text = TRUE;
+    } else {
         gtk_widget_hide(window->summary);
+        window->has_summary_text = FALSE;
+    }
 
     if(window->bg_path) {
         cairo_path_destroy(window->bg_path);
@@ -1007,9 +1014,11 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
 #endif
         gtk_widget_show(window->body);
         g_free(markup);
+        window->has_body_text = TRUE;
     } else {
         gtk_label_set_markup(GTK_LABEL(window->body), "");
         gtk_widget_hide(window->body);
+        window->has_body_text = FALSE;
     }
 
     if(window->bg_path) {
@@ -1138,10 +1147,13 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         gtk_widget_destroy(GTK_WIDGET(l->data));
     g_list_free(children);
 
-    if(!actions)
+    if(!actions) {
         gtk_widget_hide(window->button_box);
-    else
+        window->has_actions = FALSE;
+    } else {
         gtk_widget_show(window->button_box);
+        window->has_actions = TRUE;
+    }
 
     for(i = 0; actions && actions[i]; i += 2) {
         const gchar *cur_action_id = actions[i];
@@ -1259,6 +1271,74 @@ xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
         gtk_alignment_set(GTK_ALIGNMENT(window->icon_box), 0.0, 0.0, 0.0, 0.0);
         gtk_widget_set_size_request(window->icon_box, -1, -1);
         gtk_widget_show(window->content_box);
+    }
+}
+
+void
+xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
+                                   gint value)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    /* maybe want to do some kind of effect if the value is out of bounds */
+    if(value > 100)
+        value = 100;
+    else if(value < 0)
+        value = 0;
+
+    gtk_widget_hide(window->summary);
+    gtk_widget_hide(window->body);
+    gtk_widget_hide(window->button_box);
+
+    if(!window->gauge) {
+        GtkWidget *align;
+        gint width;
+
+        if(GTK_WIDGET_VISIBLE(window->icon)) {
+            /* size the pbar in relation to the icon */
+            GtkRequisition req;
+
+            gtk_widget_realize(window->icon);
+            gtk_widget_size_request(window->icon, &req);
+            width = req.width * 4;
+        } else {
+            /* FIXME: do something less arbitrary */
+            width = 120;
+        }
+
+        align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+        gtk_widget_show(align);
+        gtk_box_pack_start(GTK_BOX(window->content_box), align, TRUE, TRUE, 0);
+
+        window->gauge = gtk_progress_bar_new();
+        gtk_widget_set_size_request(window->gauge, width, -1);
+        gtk_widget_show(window->gauge);
+        gtk_container_add(GTK_CONTAINER(align), window->gauge);
+    }
+
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(window->gauge),
+                                  value / 100.0);
+}
+
+void
+xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    if(window->gauge) {
+        GtkWidget *align = gtk_widget_get_parent(window->gauge);
+
+        g_assert(align);
+
+        gtk_widget_destroy(align);
+        window->gauge = NULL;
+
+        if(window->has_summary_text)
+            gtk_widget_show(window->summary);
+        if(window->has_body_text)
+            gtk_widget_show(window->body);
+        if(window->has_actions)
+            gtk_widget_show(window->button_box);
     }
 }
 

@@ -80,6 +80,10 @@ gdouble xfce_notify_window_get_opacity(XfceNotifyWindow *window);
 void xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
                                       gboolean icon_only);
 
+void xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
+                                        gint value);
+void xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window);
+
 /* signal trigger */
 void xfce_notify_window_closed(XfceNotifyWindow *window,
                                XfceNotifyCloseReason reason);
