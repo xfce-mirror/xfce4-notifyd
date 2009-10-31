@@ -276,7 +276,7 @@ notify_get_capabilities(XfceNotifyDaemon *xndaemon,
 {
     gint i = 0;
 
-    *OUT_capabilities = g_new(gchar *, 6);
+    *OUT_capabilities = g_new(gchar *, 7);
     (*OUT_capabilities)[i++] = g_strdup("actions");
     (*OUT_capabilities)[i++] = g_strdup("body");
     (*OUT_capabilities)[i++] = g_strdup("body-markup");
@@ -284,6 +284,7 @@ notify_get_capabilities(XfceNotifyDaemon *xndaemon,
     (*OUT_capabilities)[i++] = g_strdup("body-hyperlinks");
 #endif
     (*OUT_capabilities)[i++] = g_strdup("icon-static");
+    (*OUT_capabilities)[i++] = g_strdup("x-canonical-private-icon-only");
     (*OUT_capabilities)[i++] = NULL;
 
     return TRUE;
@@ -397,6 +398,11 @@ notify_notify(XfceNotifyDaemon *xndaemon,
             }
         }
     }
+
+    if(g_hash_table_lookup(hints, "x-canonical-private-icon-only"))
+        xfce_notify_window_set_icon_only(window, TRUE);
+    else
+        xfce_notify_window_set_icon_only(window, FALSE);
 
     gtk_widget_realize(GTK_WIDGET(window));
     xfce_notify_daemon_window_size_allocate(GTK_WIDGET(window),

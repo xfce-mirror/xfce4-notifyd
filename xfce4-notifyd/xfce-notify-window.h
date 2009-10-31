@@ -77,6 +77,9 @@ void xfce_notify_window_set_opacity(XfceNotifyWindow *window,
                                     gdouble opacity);
 gdouble xfce_notify_window_get_opacity(XfceNotifyWindow *window);
 
+void xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
+                                      gboolean icon_only);
+
 /* signal trigger */
 void xfce_notify_window_closed(XfceNotifyWindow *window,
                                XfceNotifyCloseReason reason);

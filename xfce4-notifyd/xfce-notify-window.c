@@ -55,11 +55,14 @@ struct _XfceNotifyWindow
     cairo_path_t *close_btn_path;
     GdkRegion *close_btn_region;
 
-    gboolean fade_transparent;
     gdouble normal_opacity;
+
+    guint32 fade_transparent:1,
+            icon_only:1;
 
     GtkWidget *icon_box;
     GtkWidget *icon;
+    GtkWidget *content_box;
     GtkWidget *summary;
     GtkWidget *body;
     GtkWidget *button_box;
@@ -240,7 +243,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(window->icon);
     gtk_container_add(GTK_CONTAINER(align), window->icon);
 
-    vbox = gtk_vbox_new(FALSE, BORDER);
+    window->content_box = vbox = gtk_vbox_new(FALSE, BORDER);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
     gtk_widget_show(vbox);
     gtk_box_pack_start(GTK_BOX(tophbox), vbox, TRUE, TRUE, 0);
@@ -1187,7 +1190,7 @@ xfce_notify_window_set_fade_transparent(XfceNotifyWindow *window,
     if(fade_transparent == window->fade_transparent)
         return;
 
-    window->fade_transparent = fade_transparent;
+    window->fade_transparent = !!fade_transparent;
 
     /* if we're already realized, we don't actually do anything here */
 }
@@ -1223,6 +1226,40 @@ xfce_notify_window_get_opacity(XfceNotifyWindow *window)
 {
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0.0);
     return window->normal_opacity;
+}
+
+void
+xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
+                                 gboolean icon_only)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    if(icon_only == window->icon_only)
+        return;
+
+    window->icon_only = !!icon_only;
+
+    if(icon_only) {
+        GtkRequisition req;
+
+        if(!GTK_WIDGET_VISIBLE(window->icon_box)) {
+            g_warning("Attempt to set icon-only mode with no icon");
+            return;
+        }
+
+        gtk_widget_hide(window->content_box);
+
+        /* set a wider size on the icon box so it takes up more space */
+        gtk_widget_realize(window->icon);
+        gtk_widget_size_request(window->icon, &req);
+        gtk_widget_set_size_request(window->icon_box, req.width * 4, -1);
+        /* and center it */
+        gtk_alignment_set(GTK_ALIGNMENT(window->icon_box), 0.5, 0.0, 0.0, 0.0);
+    } else {
+        gtk_alignment_set(GTK_ALIGNMENT(window->icon_box), 0.0, 0.0, 0.0, 0.0);
+        gtk_widget_set_size_request(window->icon_box, -1, -1);
+        gtk_widget_show(window->content_box);
+    }
 }
 
 void
