@@ -1040,8 +1040,8 @@ xfce_notify_window_set_geometry(XfceNotifyWindow *window,
     window->geometry = rectangle;
 }
 
-GdkRectangle
-*xfce_notify_window_get_geometry (XfceNotifyWindow *window)
+GdkRectangle *
+xfce_notify_window_get_geometry (XfceNotifyWindow *window)
 {
    return &window->geometry;
 }

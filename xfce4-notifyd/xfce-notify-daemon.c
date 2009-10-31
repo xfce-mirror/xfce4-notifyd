@@ -370,7 +370,7 @@ xfce_gdk_rectangle_largest_box(GdkRectangle *src1, GdkRectangle *src2, GdkRectan
     }
 }
 
-inline static void
+static inline void
 translate_origin(GdkRectangle *src1, gint xoffset, gint yoffset)
 {
     src1->x += xoffset;
@@ -401,12 +401,8 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
     for(l = g_list_first(windows_list); l != NULL; l = g_list_next(l)) {
         GdkWindow *window = l->data;
 
-        DBG("Test if it's a dock");
-
         if(gdk_window_get_type_hint(window) == GDK_WINDOW_TYPE_HINT_DOCK) {
             GdkRectangle window_geom, intersection;
-
-            DBG("It's a dock");
 
             gdk_window_get_frame_extents(window, &window_geom);
 
@@ -438,7 +434,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
     GdkScreen *screen = NULL;
     gint x, y, monitor, screen_n, max_width;
-    GdkRectangle geom, initial, workarea, widget_geom;
+    GdkRectangle *geom_tmp, geom, initial, workarea, widget_geom;
     GList *list;
     gboolean found = FALSE;
 
@@ -449,8 +445,10 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     workarea.width = 0;
     workarea.height = 0;
 
-    /* Notification has already been placed previously. Not sure if that can happen. */
-    if(xfce_notify_window_get_geometry(window)) {
+    geom_tmp = xfce_notify_window_get_geometry(window);
+    if(geom_tmp->width != 0 && geom_tmp->height != 0) {
+        /* Notification has already been placed previously. Not sure if that
+         * can happen. */
         GList *old_list;
 
         screen_n = xfce_notify_window_get_last_screen(window);
