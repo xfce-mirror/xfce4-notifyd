@@ -22,6 +22,10 @@ Version 0.1.0git:
     * Implement support for icon-only notifications (Canonical
       extension).
     * Implement support for "gauge" notifications (Canonical extension).
+    * Added proper placement of notifications so they don't overlap when
+      there are multiple on the screen.  This also uses a custom workarea
+      calculation to avoid placing notifications where docked windows have
+      set struts (Jérôme Guelfucci, bug 5248).
 
   Bugfixes:
     * Use correct COPYING file (GPLv2, not GPLv3).
