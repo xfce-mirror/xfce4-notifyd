@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-15 17:37-0800\n"
-"PO-Revision-Date: 2009-10-18 15:41+0100\n"
+"PO-Revision-Date: 2009-11-06 13:47+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -101,27 +101,24 @@ msgid "Notifications"
 msgstr "Notificacións"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-#, fuzzy
 msgid ""
 "Top left\n"
 "Bottom left\n"
 "Top right\n"
 "Bottom right"
 msgstr ""
-"Marxes:\n"
-" Esquerda: %s %s\n"
-" Dereita: %s %s\n"
-" Superior: %s %s\n"
-" Inferior: %s %s"
+"Arriba á esquerda\n"
+"Abaixo á esquerda\n"
+"Arriba á dereita\n"
+"Abaixo á dereita"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
 msgstr "_Desaparecer despois de:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-#, fuzzy
 msgid "_Fade to transparent"
-msgstr "Primeiro plano a Transparente"
+msgstr "_Volver transparente"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Opacity:"
