@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-15 17:37-0800\n"
-"PO-Revision-Date: 2009-11-06 13:47+0100\n"
+"PO-Revision-Date: 2009-11-06 13:49+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -62,14 +62,12 @@ msgid "Display version information"
 msgstr "Mostrar a información da versión"
 
 #: ../xfce4-notifyd-config/main.c:288
-#, fuzzy
 msgid "Settings manager socket"
-msgstr "Conectador do xestor de configuración"
+msgstr "Socket do xestor de configuración"
 
 #: ../xfce4-notifyd-config/main.c:288
-#, fuzzy
 msgid "SOCKET_ID"
-msgstr "ID SOCKET"
+msgstr "ID_SOCKET"
 
 #: ../xfce4-notifyd-config/main.c:298
 #, c-format
