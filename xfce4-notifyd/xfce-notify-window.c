@@ -211,6 +211,8 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->fade_transparent = TRUE;
+    /* The summary widget needs to be initialized before style_set is called. gtk_widget_ensure_style calls style_set */
+    window->summary = gtk_label_new(NULL);
 
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
     gtk_window_stick(GTK_WINDOW(window));
@@ -257,7 +259,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(vbox);
     gtk_box_pack_start(GTK_BOX(tophbox), vbox, TRUE, TRUE, 0);
 
-    window->summary = gtk_label_new(NULL);
     gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
     gtk_misc_set_alignment(GTK_MISC(window->summary), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
