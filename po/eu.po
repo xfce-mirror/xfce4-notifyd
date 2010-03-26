@@ -1,0 +1,124 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# , 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-15 17:37-0800\n"
+"PO-Revision-Date: 2010-03-26 12:13+0100\n"
+"Last-Translator: \n"
+"Language-Team: Basque <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:230
+msgid "Xfce Notify Daemon"
+msgstr "Xfce berri-emate deabrua"
+
+#: ../xfce4-notifyd/main.c:53
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "\"%s\" aukera ezezaguna\n"
+
+#: ../xfce4-notifyd/main.c:62
+msgid "Unable to start notification daemon"
+msgstr "Ezin da berri-emate deabrua abiarazi"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:564
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr "Ezin da D-Bus saio bus-arekin konektatu"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:581
+#, c-format
+msgid "Another notification daemon is already running"
+msgstr "Beste berri-emate deabru bat dagoeneko martxan dago"
+
+#: ../xfce4-notifyd/xfce-notify-window.c:846
+msgid "image: "
+msgstr "irudia: "
+
+#: ../xfce4-notifyd-config/main.c:197
+msgid "Theme"
+msgstr "Gaia"
+
+#: ../xfce4-notifyd-config/main.c:232
+msgid "Settings daemon is unavailable"
+msgstr "Ezarpen deabrua ez dago erabilgarri"
+
+#: ../xfce4-notifyd-config/main.c:287
+msgid "Display version information"
+msgstr "Bistarazi bertsio argibideak"
+
+#: ../xfce4-notifyd-config/main.c:288
+msgid "Settings manager socket"
+msgstr "Ezarpena kudeatzaile socket-a"
+
+#: ../xfce4-notifyd-config/main.c:288
+msgid "SOCKET_ID"
+msgstr "SOCKET_ID"
+
+#: ../xfce4-notifyd-config/main.c:298
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "Idatzi '%s --help' laguntzarentzat."
+
+#: ../xfce4-notifyd-config/main.c:310
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr ""
+"GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera argitaratua\n"
+
+#: ../xfce4-notifyd-config/main.c:311
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Pertsonalizatu berri-emateak zure pantailan nola agertuko diren"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Default _position:"
+msgstr "Lehenetsitako _kokalekua:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr "Berri-emateak"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid ""
+"Top left\n"
+"Bottom left\n"
+"Top right\n"
+"Bottom right"
+msgstr ""
+"Goian ezkerrean\n"
+"Behean ezkerrean\n"
+"Goian eskuinean\n"
+"Behean eskuinean"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "_ezkutatzeko denbora:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Fade to transparent"
+msgstr "_desagertu transparentziaz"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Opacity:"
+msgstr "_Opakotasuna:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "segundo"
+
