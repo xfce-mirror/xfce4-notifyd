@@ -2,7 +2,7 @@
 # Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Christian Dywan <christian@twotoasts.de>, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Xfce-Benachrichtigungsdämon"
 #: ../xfce4-notifyd/main.c:53
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "Unbekannte Option \"%s\"\n"
+msgstr "Unbekannte Option »%s«\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
@@ -61,23 +61,22 @@ msgstr "Einstellungsverwaltungsanschluss"
 
 #: ../xfce4-notifyd-config/main.c:288
 msgid "SOCKET_ID"
-msgstr "ANSCHLUSS_KENNUNG"
+msgstr "SOCKET-NR"
 
 #: ../xfce4-notifyd-config/main.c:298
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "'%s --help' für Nutzungshinweise eingeben."
+msgstr "Geben Sie »%s --help« ein, um Hinweise zur Nutzung zu erhalten."
 
 #: ../xfce4-notifyd-config/main.c:310
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Veröffentlicht unter den Bedingungen der GNU General Public License"
-", version 2\n"
+msgstr "Veröffentlicht unter den Bedingungen der GNU General Public License, version 2\n"
 
 #: ../xfce4-notifyd-config/main.c:311
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Fehlerberichte bitte an %s.\n"
+msgstr "Fehlerberichte bitte an %s melden.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -107,7 +106,7 @@ msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr "_Verschwinde nach:"
+msgstr "_Ausblenden nach:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Fade to transparent"
