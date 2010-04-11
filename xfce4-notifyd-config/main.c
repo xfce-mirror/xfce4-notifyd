@@ -30,14 +30,13 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #include <dbus/dbus-glib.h>
 
 #include <xfconf/xfconf.h>
-#include <libxfcegui4/libxfcegui4.h>
+#include <libxfce4ui/libxfce4ui.h>
 
-#include "xfce4-notifyd-config.glade.h"
+#include "xfce4-notifyd-config.ui.h"
 
 /* unfortunately, currently we have to kill the daemon to
  * change themes.  this is only annoying because existing notifications
@@ -209,7 +208,7 @@ xfce4_notifyd_config_setup_treeview(GtkWidget *treeview,
 }
 
 static GtkWidget *
-xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
+xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 {
     XfconfChannel *channel;
     GtkWidget *dlg, *btn, *sbtn, *slider, *chk, *treeview, *combo;
@@ -218,11 +217,11 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
     GError *error = NULL;
     gchar *current_theme;
 
-    glade_xml_signal_autoconnect(gxml);
+    gtk_builder_connect_signals(builder, NULL);
 
-    dlg = glade_xml_get_widget(gxml, "notifyd_settings_dlg");
+    dlg = GTK_WIDGET(gtk_builder_get_object(builder, "notifyd_settings_dlg"));
+    btn = GTK_WIDGET(gtk_builder_get_object(builder, "close_btn"));
 
-    btn = glade_xml_get_widget(gxml, "close_btn");
     g_signal_connect_swapped(G_OBJECT(btn), "clicked",
                              G_CALLBACK(gtk_dialog_response), dlg);
 
@@ -238,22 +237,22 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
 
     channel = xfconf_channel_new("xfce4-notifyd");
 
-    sbtn = glade_xml_get_widget(gxml, "expire_timeout_sbtn");
+    sbtn = GTK_WIDGET(gtk_builder_get_object(builder, "expire_timeout_sbtn"));
     xfconf_g_property_bind(channel, "/expire-timeout", G_TYPE_INT,
                            G_OBJECT(sbtn), "value");
 
-    slider = glade_xml_get_widget(gxml, "opacity_slider");
+    slider = GTK_WIDGET(gtk_builder_get_object(builder, "opacity_slider"));
     g_signal_connect(G_OBJECT(slider), "format-value",
                      G_CALLBACK(xfce4_notifyd_slider_format_value), NULL);
     adj = gtk_range_get_adjustment(GTK_RANGE(slider));
     xfconf_g_property_bind(channel, "/initial-opacity", G_TYPE_DOUBLE,
                            G_OBJECT(adj), "value");
 
-    chk = glade_xml_get_widget(gxml, "fade_transparency_chk");
+    chk =  GTK_WIDGET(gtk_builder_get_object(builder, "fade_transparency_chk"));
     xfconf_g_property_bind(channel, "/fade-transparency", G_TYPE_BOOLEAN,
                            G_OBJECT(chk), "active");
 
-    treeview = glade_xml_get_widget(gxml, "themes_treeview");
+    treeview = GTK_WIDGET(gtk_builder_get_object(builder, "themes_treeview"));
     current_theme = xfconf_channel_get_string(channel, "/theme", "Default");
     xfce4_notifyd_config_setup_treeview(treeview, current_theme);
     g_free(current_theme);
@@ -266,7 +265,7 @@ xfce4_notifyd_config_setup_dialog(GladeXML *gxml)
                      G_CALLBACK(xfce4_notifyd_config_theme_changed),
                      treeview);
 
-    combo = glade_xml_get_widget(gxml, "position_combo");
+    combo = GTK_WIDGET(gtk_builder_get_object(builder, "position_combo"));
     xfconf_g_property_bind(channel, "/notify-location", G_TYPE_UINT,
                            G_OBJECT(combo), "active");
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == -1)
@@ -280,7 +279,7 @@ main(int argc,
      char **argv)
 {
     GtkWidget *settings_dialog = NULL;
-    GladeXML *gxml;
+    GtkBuilder *builder;
     gboolean opt_version = FALSE;
     GdkNativeWindow opt_socket_id = 0;
     GOptionEntry option_entries[] = {
@@ -313,15 +312,15 @@ main(int argc,
         return EXIT_SUCCESS;
     }
 
-    gxml = glade_xml_new_from_buffer(xfce4_notifyd_config_glade,
-                                     xfce4_notifyd_config_glade_length,
-                                     NULL, NULL);
-    if(G_UNLIKELY(!gxml)) {
+    builder = gtk_builder_new();
+    gtk_builder_add_from_string(builder, xfce4_notifyd_config_ui, xfce4_notifyd_config_ui_length, NULL);
+    if(G_UNLIKELY(!builder)) {
         g_error("Unable to read embedded UI definition file");
         return EXIT_FAILURE;
     }
 
-    settings_dialog = xfce4_notifyd_config_setup_dialog(gxml);
+    settings_dialog = xfce4_notifyd_config_setup_dialog(builder);
+
 
     if(opt_socket_id) {
         GtkWidget *plug, *plug_child;
@@ -331,17 +330,17 @@ main(int argc,
         g_signal_connect(G_OBJECT(plug), "delete-event",
                          G_CALLBACK(gtk_main_quit), NULL);
 
-        plug_child = glade_xml_get_widget(gxml, "plug-child");
+        plug_child = GTK_WIDGET(gtk_builder_get_object(builder, "plug-child"));
         gtk_widget_reparent(plug_child, plug);
         gtk_widget_show(plug_child);
 
         gdk_notify_startup_complete();
-        g_object_unref(G_OBJECT(gxml));
+        g_object_unref(G_OBJECT(builder));
         gtk_widget_destroy(settings_dialog);
 
         gtk_main();
     } else {
-        g_object_unref(G_OBJECT(gxml));
+        g_object_unref(G_OBJECT(builder));
 
         gtk_dialog_run(GTK_DIALOG(settings_dialog));
     }

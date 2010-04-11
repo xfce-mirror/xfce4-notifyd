@@ -30,13 +30,13 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 
 xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
 	xfce4-notifyd-config/main.c \
-	xfce4-notifyd-config/xfce4-notifyd-config.glade.h
+	xfce4-notifyd-config/xfce4-notifyd-config.ui.h
 
 common_cflags = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
-	$(LIBXFCEGUI4_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
 	$(DBUS_GLIB_CFLAGS) \
 	$(XFCONF_CFLAGS)
 
@@ -47,13 +47,12 @@ xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
-	$(common_cflags) \
-	$(LIBGLADE_CFLAGS)
+	$(common_cflags)
 
 common_ldadd = \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
-	$(LIBXFCEGUI4_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
 	$(DBUS_GLIB_LIBS) \
 	$(XFCONF_LIBS)
 
@@ -62,8 +61,7 @@ xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(LIBSEXY_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
-	$(common_ldadd) \
-	$(LIBGLADE_LIBS)
+	$(common_ldadd) 
 
 
 servicedir = $(datadir)/dbus-1/services
@@ -116,7 +114,7 @@ built_xfce4_notifyd += \
 	xfce4-notifyd/xfce-notify-enum-types.h
 
 built_xfce4_notifyd_config = \
-	xfce4-notifyd-config/xfce4-notifyd-config.glade.h
+	xfce4-notifyd-config/xfce4-notifyd-config.ui.h
 
 clean_xfce4_notifyd += \
 	xfce4-notifyd/stamp-xfce-notify-enum-types.h \
@@ -201,8 +199,8 @@ xfce4-notifyd/xfce-notify-enum-types.c: xfce4-notifyd/xfce-notify-window.h Makef
 	&& cp xfce4-notifyd/xgen-xnetc xfce4-notifyd/xfce-notify-enum-types.c \
 	&& rm -f xfce4-notifyd/xgen-xnetc
 
-xfce4-notifyd-config/xfce4-notifyd-config.glade.h: $(srcdir)/xfce4-notifyd-config/xfce4-notifyd-config.glade
-	$(EXO_CSOURCE) --static --name=xfce4_notifyd_config_glade $< >$@
+xfce4-notifyd-config/xfce4-notifyd-config.ui.h: $(srcdir)/xfce4-notifyd-config/xfce4-notifyd-config.glade
+	$(EXO_CSOURCE) --static --name=xfce4_notifyd_config_ui $< >$@
 
 endif
 

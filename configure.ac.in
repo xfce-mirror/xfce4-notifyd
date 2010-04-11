@@ -49,12 +49,11 @@ XDT_I18N([@LINGUAS@])
 
 dnl required
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
-XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.5.2svn-r26504])
+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.7.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [0.1.0svn-r26876])
-XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.14.0])
 XDT_CHECK_PACKAGE([DBUS], [dbus-1], [1.0.0])
 XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [0.72])
-XDT_CHECK_PACKAGE([LIBGLADE], [libglade-2.0], [2.6.0])
 
 XDT_CHECK_OPTIONAL_PACKAGE([LIBSEXY], [libsexy], [0.1.6], [libsexy],
                            [libsexy support (for clickable URLs) (default=yes)],

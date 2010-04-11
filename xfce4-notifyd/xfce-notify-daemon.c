@@ -30,7 +30,7 @@
 #endif
 
 #include <libxfce4util/libxfce4util.h>
-#include <libxfcegui4/libxfcegui4.h>
+#include <libxfce4ui/libxfce4ui.h>
 
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
@@ -800,7 +800,12 @@ notify_notify(XfceNotifyDaemon *xndaemon,
                         xfce_rc_set_group(rcfile, "Desktop Entry");
                         icon_file = xfce_rc_read_entry(rcfile, "Icon", NULL);
                         if(icon_file) {
-                            pix = xfce_themed_icon_load(icon_file, 32);
+                            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
+                                                           icon_file,
+                                                           32,
+                                                           GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                           NULL);
+
                             if(pix) {
                                 xfce_notify_window_set_icon_pixbuf(window, pix);
                                 g_object_unref(G_OBJECT(pix));

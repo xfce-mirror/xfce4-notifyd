@@ -28,7 +28,7 @@
 
 #include <math.h>
 
-#include <libxfcegui4/libxfcegui4.h>
+#include <libxfce4ui/libxfce4ui.h>
 
 #ifdef HAVE_LIBSEXY
 #include <libsexy/sexy.h>
@@ -748,7 +748,13 @@ xfce_notify_window_url_clicked(SexyUrlLabel *label,
     if(opener) {
         url_quoted = g_shell_quote(url);
         cmd = g_strdup_printf("%s %s", opener, url_quoted);
-        xfce_exec(cmd, FALSE, FALSE, NULL);
+        GError *error = NULL;
+        if(!g_spawn_command_line_async("cmd", &error)) {
+            xfce_dialog_show_error(NULL,
+                                   error,
+                                   _("%s could not be launched"), url);
+            g_error_free(error);
+        }
         g_free(url_quoted);
         g_free(cmd);
         g_free(opener);
@@ -1085,7 +1091,12 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
         GdkPixbuf *pix;
         
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
-        pix = xfce_themed_icon_load(icon_name, w);
+        pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
+                                       icon_name,
+                                       w,
+                                       GTK_ICON_LOOKUP_FORCE_SIZE,
+                                       NULL);
+
         if(pix) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pix);
             gtk_widget_show(window->icon_box);
