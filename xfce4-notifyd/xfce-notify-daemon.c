@@ -391,47 +391,62 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
 #endif
 }
 
-/* Gets the largest rectangle in src1 which does not contain src2. */
+/* Gets the largest rectangle in src1 which does not contain src2.
+ * src2 is totally included in src1. */
+/*
+ *                    1
+ *          ____________________
+ *          |            ^      |
+ *          |           d1      |
+ *      4   |         ___|_     | 2
+ *          | < d4  >|_____|<d2>|
+ *          |            ^      |
+ *          |___________d3______|
+ *
+ *                    3
+ */
 static void
 xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
                                GdkRectangle *src2,
                                GdkRectangle *dest)
 {
-    gint top = MAX(src2->y, src1->y);
-    gint left = MAX(src2->x, src1->x);
-    gint bottom = MAX(src2->height, src1->height) -
-                  MIN(src2->y + src2->height, src1->y + src1->height);
-    gint right = MAX(src2->width, src1->width) -
-               MIN(src2->x + src2->width, src1->x + src1->width);
-    gint medium_h = MAX(top, bottom);
-    gint medium_w = MAX(left ,right);
+    gint d1, d2, d3, d4; /* distance to the different sides of src1, see drawing above */
+    gint max;
 
-    if(medium_h >= medium_w) {
-        /* Height is largest */
-        if(top >= bottom) {
-            dest->x = src1->x;
-            dest->y = src1->y;
-            dest->width = src1->width;
-            dest->height = top + MIN(0, bottom);
-        } else {
-            dest->x = src1->x;
-            dest->y = src2->y + src2->height;
-            dest->width = src1->width;
-            dest->height = bottom + MIN(0, top);
-        }
-    } else {
-        /* Width is largest */
-        if(left >= right) {
-            dest->x = src1->x;
-            dest->y = src1->y;
-            dest->width = medium_w + MIN(0, right);
-            dest->height = src1->height;
-        } else {
-            dest->x = src2->x + src2->width;
-            dest->y = src1->y;
-            dest->width = medium_w + MIN(0, left);
-            dest->height = src1->height;
-        }
+    d1 = src2->y - src1->y;
+    d4 = src2->x - src1->x;
+    d2 = src1->width - d4 - src2->width;
+    d3 = src1->height - d1 - src2->height;
+
+    /* Get the max of rectangles implied by d1, d2, d3 and d4 */
+    max = MAX (d1 * src1->width, d2 * src1->height);
+    max = MAX (max, d3 * src1->width);
+    max = MAX (max, d4 * src1->height);
+
+    if (max == d1 * src1->width) {
+        dest->x = src1->x;
+        dest->y = src1->y;
+        dest->height = d1;
+        dest->width = src1->width;
+    }
+    else if (max == d2 * src1->height) {
+        dest->x = src2->x + src2->width;
+        dest->y = src1->y;
+        dest->width = d2;
+        dest->height = src1->height;
+    }
+    else if (max == d3 * src1->width) {
+        dest->x = src1->x;
+        dest->y = src2->y + src2->height;
+        dest->width = src1->width;
+        dest->height = d3;
+    }
+    else {
+        /* max == d4 * src1->height */
+        dest->x = src1->x;
+        dest->y = src1->y;
+        dest->height = src1->height;
+        dest->width = d4;
     }
 }
 
