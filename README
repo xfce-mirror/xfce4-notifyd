@@ -10,12 +10,11 @@ interface.
 
 Requirements:
 
-* gtk+ 2.10.0
-* libglade 2.6.0
+* gtk+ 2.14.0
 * dbus 1.0.0
 * dbus-glib 0.72
 * libxfce4util 4.4.0
-* libxfcegui4 4.5.2svn-r26594
+* libxfce4ui 4.7.0
 * xfconf 0.1.0svn-r26876
 * libsexy 0.1.6 (optional)
 

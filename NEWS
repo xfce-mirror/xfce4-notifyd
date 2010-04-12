@@ -26,6 +26,7 @@ Version 0.1.0git:
       there are multiple on the screen.  This also uses a custom workarea
       calculation to avoid placing notifications where docked windows have
       set struts (Jérôme Guelfucci, bug 5248).
+    * Port to libxfce4ui, drop libxfcegui4 dep (Romain Bouvier, bug 6375).
 
   Bugfixes:
     * Use correct COPYING file (GPLv2, not GPLv3).
