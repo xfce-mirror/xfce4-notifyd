@@ -1,0 +1,125 @@
+# Polish translations for xfce-notifyd package.
+# Polskie tłumaczenia dla pakietu xfce-notifyd.
+# Copyright (C) 2010 The Xfce development team.
+# This file is distributed under the same license as the xfce-notifyd package.
+# Tomasz Chudyk <chudyk@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notifyd\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-15 17:37-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Tomasz Chudyk <chudyk@gmail.com>\n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../xfce4-notifyd/main.c:50
+#: ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:230
+msgid "Xfce Notify Daemon"
+msgstr "Demon powiadomień Xfce"
+
+#: ../xfce4-notifyd/main.c:53
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "Nieznana opcja \"%s\"\n"
+
+#: ../xfce4-notifyd/main.c:62
+msgid "Unable to start notification daemon"
+msgstr "Nie można uruchomić demona powiadomień"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:564
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr "Nie można połączyć się z sesją D-Bus"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:581
+#, c-format
+msgid "Another notification daemon is already running"
+msgstr "Został już uruchominy inny demon powiadamiania"
+
+#: ../xfce4-notifyd/xfce-notify-window.c:846
+msgid "image: "
+msgstr "obraz:"
+
+#: ../xfce4-notifyd-config/main.c:197
+msgid "Theme"
+msgstr "Motyw"
+
+#: ../xfce4-notifyd-config/main.c:232
+msgid "Settings daemon is unavailable"
+msgstr "Demon menedżera ustawień jest niedostępny"
+
+#: ../xfce4-notifyd-config/main.c:287
+msgid "Display version information"
+msgstr "Wyświetla informacje o wersji"
+
+#: ../xfce4-notifyd-config/main.c:288
+msgid "Settings manager socket"
+msgstr "Określa gniazdo menedżera ustawień"
+
+#: ../xfce4-notifyd-config/main.c:288
+msgid "SOCKET_ID"
+msgstr "ID GNIAZDA"
+
+#: ../xfce4-notifyd-config/main.c:298
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "Proszę wpisać „%s --help” aby wypisać komunikat pomocy."
+
+#: ../xfce4-notifyd-config/main.c:310
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "Wydano na warunkach GNU General Public License, wersja 2\n"
+
+#: ../xfce4-notifyd-config/main.c:311
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Proszę zgłaszać błędy na adres %s.\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Konfiguruje ustwienia powiadamiania"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Default _position:"
+msgstr "_Pozycja:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr "Powiadomienia"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid ""
+"Top left\n"
+"Bottom left\n"
+"Top right\n"
+"Bottom right"
+msgstr ""
+"Góra, lewo\n"
+"Dół, lewo\n"
+"Góra, prawo\n"
+"Dół, prawo"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "_Ukruj po"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Fade to transparent"
+msgstr "Stopniowe _zanikanie"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#, fuzzy
+msgid "_Opacity:"
+msgstr "Widoczność:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "sekundach"
+
