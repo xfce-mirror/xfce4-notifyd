@@ -1,5 +1,4 @@
 # Uyghur translations for xfce4-notifyd package
-# xfce4-notifyd パッケージに対する英訳.
 # Copyright (C) 2008 THE xfce4-notifyd'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce4-notifyd package.
 # Gheyret T.Kenji <gheyret@gmail.com>, 2010.
@@ -21,30 +20,30 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:230
 msgid "Xfce Notify Daemon"
-msgstr ""
+msgstr "Xfce ئەسكەرتمە Daemon"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr ""
+msgstr "\"%s\" نامەلۇم تاللانما\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr ""
+msgstr "ئەسكەرتمە daemon نى قوزغاتقىلى بولمىدى"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:564
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr ""
+msgstr "D-Bus session باش لىنىيىسىگە باغلانغىلى بولمىدى"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:581
 #, c-format
 msgid "Another notification daemon is already running"
-msgstr ""
+msgstr "باشقا بىر ئەسكەرتمە daemon نى ئىجرا بۆلۈۋېتىپتۇ"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:846
 msgid "image: "
-msgstr ""
+msgstr "سۈرەت: "
 
 #: ../xfce4-notifyd-config/main.c:197
 msgid "Theme"
@@ -52,19 +51,19 @@ msgstr "ئۇسلۇب"
 
 #: ../xfce4-notifyd-config/main.c:232
 msgid "Settings daemon is unavailable"
-msgstr ""
+msgstr "تەڭشەك daemon نى يوق"
 
 #: ../xfce4-notifyd-config/main.c:287
 msgid "Display version information"
-msgstr ""
+msgstr "نەشر ئۇچۇرىنى كۆرسەت"
 
 #: ../xfce4-notifyd-config/main.c:288
 msgid "Settings manager socket"
-msgstr "manager socket نىڭ تەڭشەكلىرى"
+msgstr "باشقۇرغۇچى socket نىڭ تەڭشەكلىرى"
 
 #: ../xfce4-notifyd-config/main.c:288
 msgid "SOCKET_ID"
-msgstr ""
+msgstr "SOCKET_ID"
 
 #: ../xfce4-notifyd-config/main.c:298
 #, c-format
@@ -79,21 +78,21 @@ msgstr ""
 #: ../xfce4-notifyd-config/main.c:311
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr ""
+msgstr "كەمتۈكنى %s غا مەلۇم قىلىڭ.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr ""
+msgstr "ئەسكەرتمىلەرنىڭ كۆرۈنۈش ئۇسۇلىنى Customize قىل"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Default _position:"
-msgstr ""
+msgstr "كۆڭۈلدىكى ئورۇن(_P):"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
-msgstr ""
+msgstr "ئەسكەرتمىلەر"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid ""
@@ -102,10 +101,14 @@ msgid ""
 "Top right\n"
 "Bottom right"
 msgstr ""
+"ئۈستى سول\n"
+"ئاستى سول\n"
+"ئۈستى ئوڭ\n"
+"ئاستى ئوڭ"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr ""
+msgstr "غايىب بولغۇچە بولغان ۋاقىت:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Fade to transparent"
@@ -117,5 +120,5 @@ msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
-msgstr ""
+msgstr "سېكۇنت"
 
