@@ -24,7 +24,7 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:230
 msgid "Xfce Notify Daemon"
-msgstr "Демон нагадувань Xfce"
+msgstr "Демон повідомлень Xfce"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
@@ -38,12 +38,12 @@ msgstr "Не можу запустити демон повідомлень"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:564
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr ""
+msgstr "Не можу з’єднатися до буфера сесії D-Bus"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:581
 #, c-format
 msgid "Another notification daemon is already running"
-msgstr ""
+msgstr "Інший демон повідомлень вже запущено"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:846
 msgid "image: "
@@ -55,15 +55,15 @@ msgstr "Тема"
 
 #: ../xfce4-notifyd-config/main.c:232
 msgid "Settings daemon is unavailable"
-msgstr ""
+msgstr "Демон налаштувань не доступний"
 
 #: ../xfce4-notifyd-config/main.c:287
 msgid "Display version information"
-msgstr ""
+msgstr "Показати інформацію про версію"
 
 #: ../xfce4-notifyd-config/main.c:288
 msgid "Settings manager socket"
-msgstr ""
+msgstr "Сокет менеджера налаштувань"
 
 #: ../xfce4-notifyd-config/main.c:288
 msgid "SOCKET_ID"
@@ -72,26 +72,26 @@ msgstr "SOCKET_ID"
 #: ../xfce4-notifyd-config/main.c:298
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr ""
+msgstr "Напишіть '%s --help' для допомоги по використанню."
 
 #: ../xfce4-notifyd-config/main.c:310
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr ""
+msgstr "Розроблено згідно умов GNU General Public License, 2-га версія"
 
 #: ../xfce4-notifyd-config/main.c:311
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr ""
+msgstr "Будь-ласка, повідомте про помилку до %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr ""
+msgstr "Налаштуйте показ повідомлень на Вашому екрані"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Default _position:"
-msgstr ""
+msgstr "Типова _позиція:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
@@ -105,18 +105,22 @@ msgid ""
 "Top right\n"
 "Bottom right"
 msgstr ""
+"Зліва вверху\n"
+"Зліва внизу\n"
+"Справа вверху\n"
+"Справа внизу"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr ""
+msgstr "_Зникати після:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Fade to transparent"
-msgstr ""
+msgstr "_Стати прозорим"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Opacity:"
-msgstr ""
+msgstr "_Непрозорість:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
