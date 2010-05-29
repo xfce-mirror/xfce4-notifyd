@@ -77,7 +77,7 @@ msgstr "Напишіть '%s --help' для допомоги по викорис
 #: ../xfce4-notifyd-config/main.c:310
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Розроблено згідно умов GNU General Public License, 2-га версія"
+msgstr "Розроблено згідно умов GNU General Public License, 2-га версія\n"
 
 #: ../xfce4-notifyd-config/main.c:311
 #, c-format
