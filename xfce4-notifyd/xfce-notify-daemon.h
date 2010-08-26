@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 
 typedef struct _XfceNotifyDaemon  XfceNotifyDaemon;
 
-GType xfce_notify_daemon_get_type() G_GNUC_CONST;
+GType xfce_notify_daemon_get_type(void) G_GNUC_CONST;
 
 XfceNotifyDaemon *xfce_notify_daemon_new_unique(GError **error);
 

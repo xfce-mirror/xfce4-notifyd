@@ -47,6 +47,9 @@ AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
 dnl Check for i18n support
 XDT_I18N([@LINGUAS@])
 
+dnl check for x11
+XDT_CHECK_LIBX11_REQUIRE()
+
 dnl required
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.7.0])

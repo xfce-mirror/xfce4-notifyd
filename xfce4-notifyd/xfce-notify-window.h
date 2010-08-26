@@ -39,9 +39,9 @@ typedef enum
 
 typedef struct _XfceNotifyWindow  XfceNotifyWindow;
 
-GType xfce_notify_window_get_type() G_GNUC_CONST;
+GType xfce_notify_window_get_type(void) G_GNUC_CONST;
 
-GtkWidget *xfce_notify_window_new();
+GtkWidget *xfce_notify_window_new(void);
 
 GtkWidget *xfce_notify_window_new_full(const gchar *summary,
                                        const gchar *body,

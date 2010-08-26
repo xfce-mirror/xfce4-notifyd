@@ -44,7 +44,8 @@ common_cflags = \
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
-	$(LIBSEXY_CFLAGS)
+	$(LIBSEXY_CFLAGS) \
+	$(LIBX11_CFLAGS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
@@ -59,7 +60,8 @@ common_ldadd = \
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
-	$(LIBSEXY_LIBS)
+	$(LIBSEXY_LIBS) \
+	$(LIBX11_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) 
@@ -183,7 +185,7 @@ xfce4-notifyd/stamp-xfce-notify-enum-types.h: xfce4-notifyd/xfce-notify-window.h
 	( cd $(srcdir) && glib-mkenums \
 	        --fhead "#ifndef __XFCE_NOTIFY_ENUM_TYPES_H__\n#define __XFCE_NOTIFY_ENUM_TYPES_H__\n#include <glib-object.h>\nG_BEGIN_DECLS\n" \
 	        --fprod "/* enumerations from \"@filename@\" */\n" \
-	        --vhead "GType @enum_name@_get_type() G_GNUC_CONST;\n#define XFCE_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
+	        --vhead "GType @enum_name@_get_type(void) G_GNUC_CONST;\n#define XFCE_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
 	        --ftail "G_END_DECLS\n\n#endif /* __XFCE_NOTIFY_ENUM_TYPES_H__ */" \
 	        xfce4-notifyd/xfce-notify-window.h ) >> xfce4-notifyd/xgen-xneth \
 	&& ( cmp -s xfce4-notifyd/xgen-xneth xfce4-notifyd/xfce-notify-enum-types.h || cp xfce4-notifyd/xgen-xneth xfce4-notifyd/xfce-notify-enum-types.h ) \
