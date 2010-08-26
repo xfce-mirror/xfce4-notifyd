@@ -13,7 +13,8 @@ distclean_intltool = \
 	intltool-merge \
 	intltool-update
 
-libexec_PROGRAMS = xfce4-notifyd/xfce4-notifyd
+xfce4_notifyddir = $(libdir)/xfce4/notifyd
+xfce4_notifyd_PROGRAMS = xfce4-notifyd/xfce4-notifyd
 bin_PROGRAMS = xfce4-notifyd-config/xfce4-notifyd-config
 
 xfce4_notifyd_xfce4_notifyd_SOURCES = \
@@ -216,7 +217,7 @@ install-data-hook:
 	fi
 
 xfce4-notifyd/%.service: $(srcdir)/xfce4-notifyd/%.service.in Makefile
-	sed -e "s,\@libexecdir\@,$(libexecdir),g" < $< > $@
+	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
 distclean-local:
 	-rm -rf *.cache *~
