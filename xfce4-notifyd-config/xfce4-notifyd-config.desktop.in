@@ -7,5 +7,6 @@ Icon=xfce4-notifyd
 Terminal=false
 StartupNotify=true
 Type=Application
+OnlyShowIn=XFCE;
 Categories=X-XFCE;Settings;DesktopSettings;
 X-XfcePluggable=true
