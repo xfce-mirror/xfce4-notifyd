@@ -22,24 +22,25 @@ AC_INIT([xfce4-notifyd], [xfce4_notifyd_version],
 AC_PREREQ([2.59c])
 AC_CONFIG_SRCDIR([xfce4-notifyd/main.c])
 AC_CONFIG_HEADERS([config.h])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 dnl init automake
 AM_INIT_AUTOMAKE([1.10 dist-bzip2 subdir-objects])
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE()
 
 dnl check for UNIX variants
-AC_USE_SYSTEM_EXTENSIONS
+AC_USE_SYSTEM_EXTENSIONS()
 
 dnl check for basic programs
-AC_PROG_CC
-AM_PROG_CC_C_O
-AC_PROG_INSTALL
-IT_PROG_INTLTOOL([0.31], [no-xml])
-AM_GNU_GETTEXT_VERSION([0.11])
-AM_GLIB_GNU_GETTEXT
+AC_PROG_CC()
+AM_PROG_CC_C_O()
+AC_PROG_LD()
+AC_PROG_INSTALL()
+AC_PROG_INTLTOOL()
+AC_PROG_LIBTOOL()
 
 dnl check for standard header files
-AC_HEADER_STDC
+AC_HEADER_STDC()
 AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   sys/stat.h sys/time.h sys/types.h sys/wait.h \
                   unistd.h])
@@ -105,11 +106,10 @@ AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
                    [Set to the version of the freedesktop.org notifications spec we support])
 
 dnl check for debugging support
-XDT_FEATURE_DEBUG
+XDT_FEATURE_DEBUG()
 
-AC_CONFIG_FILES(
+AC_OUTPUT(
 [
     Makefile
     po/Makefile.in
 ])
-AC_OUTPUT
