@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 0.1.0git-20081126-6121e624\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-06 22:25+0900\n"
+"POT-Creation-Date: 2010-11-07 18:14+0100\n"
 "PO-Revision-Date: 2010-11-06 22:25+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -32,12 +32,12 @@ msgstr "不明なオプション \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "通知デーモンを開始できません"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1058
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus セッションバスに接続できません"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1075
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "他の通知デーモンがすでに起動しています"

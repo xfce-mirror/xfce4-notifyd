@@ -2,27 +2,28 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 04:08+0000\n"
+"POT-Creation-Date: 2010-11-07 18:14+0100\n"
 "PO-Revision-Date: 2010-05-24 00:21+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: UKRAINIAN <translate@linux.org.ua>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: UKRAINE\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:230
+#: ../xfce4-notifyd-config/main.c:229
 msgid "Xfce Notify Daemon"
 msgstr "Демон повідомлень Xfce"
 
@@ -35,80 +36,89 @@ msgstr "Невідомий параметр \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Не можу запустити демон повідомлень"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:564
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Не можу з’єднатися до буфера сесії D-Bus"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:581
-#, c-format
-msgid "Another notification daemon is already running"
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
+#, fuzzy, c-format
+msgid "Another notification xndaemon is already running"
 msgstr "Інший демон повідомлень вже запущено"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:846
+#: ../xfce4-notifyd/xfce-notify-window.c:756
+#, c-format
+msgid "%s could not be launched"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-window.c:857
 msgid "image: "
 msgstr "малюнок:"
 
-#: ../xfce4-notifyd-config/main.c:197
+#: ../xfce4-notifyd-config/main.c:196
 msgid "Theme"
 msgstr "Тема"
 
-#: ../xfce4-notifyd-config/main.c:232
+#: ../xfce4-notifyd-config/main.c:231
 msgid "Settings daemon is unavailable"
 msgstr "Демон налаштувань не доступний"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:286
 msgid "Display version information"
 msgstr "Показати інформацію про версію"
 
-#: ../xfce4-notifyd-config/main.c:288
+#: ../xfce4-notifyd-config/main.c:287
 msgid "Settings manager socket"
 msgstr "Сокет менеджера налаштувань"
 
-#: ../xfce4-notifyd-config/main.c:288
+#: ../xfce4-notifyd-config/main.c:287
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:298
+#: ../xfce4-notifyd-config/main.c:297
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Напишіть '%s --help' для допомоги по використанню."
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:309
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Розроблено згідно умов GNU General Public License, 2-га версія\n"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:310
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Будь-ласка, повідомте про помилку до %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Bottom left"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom right"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Налаштуйте показ повідомлень на Вашому екрані"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "Типова _позиція:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "Повідомлення"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-msgid ""
-"Top left\n"
-"Bottom left\n"
-"Top right\n"
-"Bottom right"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "Top left"
 msgstr ""
-"Зліва вверху\n"
-"Зліва внизу\n"
-"Справа вверху\n"
-"Справа внизу"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "Top right"
+msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
@@ -125,3 +135,14 @@ msgstr "_Непрозорість:"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "секунди"
+
+#~ msgid ""
+#~ "Top left\n"
+#~ "Bottom left\n"
+#~ "Top right\n"
+#~ "Bottom right"
+#~ msgstr ""
+#~ "Зліва вверху\n"
+#~ "Зліва внизу\n"
+#~ "Справа вверху\n"
+#~ "Справа внизу"

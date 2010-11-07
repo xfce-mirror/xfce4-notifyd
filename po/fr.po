@@ -2,22 +2,21 @@
 # Copyright (C) 2008 Brian Tarricone <bjt23@cornell.edu>
 # This file is distributed under the same license as the xfce4-notifyd package.
 # Maximilian Schleiss <maximilian@xfce.org>, 2008.
-
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-15 17:37-0800\n"
+"POT-Creation-Date: 2010-11-07 18:14+0100\n"
 "PO-Revision-Date: 2008-11-20 07:29+0100\n"
 "Last-Translator: Maximilian Schleiss <maximilian@xfce.org>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../xfce4-notifyd/main.c:50
-#: ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:230
+#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:229
 msgid "Xfce Notify Daemon"
 msgstr "Démon de notification Xfce"
 
@@ -30,80 +29,89 @@ msgstr "Option inconnue : \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Échec au démarrage du démon de notification"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:564
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Échec de connexion au bus de la session D-BUS"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:581
-#, c-format
-msgid "Another notification daemon is already running"
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
+#, fuzzy, c-format
+msgid "Another notification xndaemon is already running"
 msgstr "Un autre démon de notification est en cours d'exécution"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:846
+#: ../xfce4-notifyd/xfce-notify-window.c:756
+#, c-format
+msgid "%s could not be launched"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-window.c:857
 msgid "image: "
 msgstr "image : "
 
-#: ../xfce4-notifyd-config/main.c:197
+#: ../xfce4-notifyd-config/main.c:196
 msgid "Theme"
 msgstr "Thème"
 
-#: ../xfce4-notifyd-config/main.c:232
+#: ../xfce4-notifyd-config/main.c:231
 msgid "Settings daemon is unavailable"
 msgstr "Le démon des paramètres est absent"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:286
 msgid "Display version information"
 msgstr "Affiche les informations de version"
 
-#: ../xfce4-notifyd-config/main.c:288
+#: ../xfce4-notifyd-config/main.c:287
 msgid "Settings manager socket"
 msgstr "Socle du gestionnaire de paramètres"
 
-#: ../xfce4-notifyd-config/main.c:288
+#: ../xfce4-notifyd-config/main.c:287
 msgid "SOCKET_ID"
 msgstr "ID_SOCLE"
 
-#: ../xfce4-notifyd-config/main.c:298
+#: ../xfce4-notifyd-config/main.c:297
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "saisir '%s --help' pour plus d'aide."
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:309
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Publié sous les termes de la GNU General Public Lincese, verson 2\n"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:310
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Veuillez envoyer vos rapports de bogues à %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Bottom left"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom right"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Personnaliser les notifications système"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "_Position par défaut :"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "Notifications"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-msgid ""
-"Top left\n"
-"Bottom left\n"
-"Top right\n"
-"Bottom right"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "Top left"
 msgstr ""
-"Haut gauche\n"
-"Bas gauche\n"
-"Haut droite\n"
-"Bas droite"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "Top right"
+msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
@@ -121,3 +129,13 @@ msgstr "_Opacité :"
 msgid "seconds"
 msgstr "secondes"
 
+#~ msgid ""
+#~ "Top left\n"
+#~ "Bottom left\n"
+#~ "Top right\n"
+#~ "Bottom right"
+#~ msgstr ""
+#~ "Haut gauche\n"
+#~ "Bas gauche\n"
+#~ "Haut droite\n"
+#~ "Bas droite"
