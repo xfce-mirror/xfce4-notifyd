@@ -101,9 +101,9 @@ static GdkFilterReturn xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
 static void xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
                                            GdkRectangle *src2,
                                            GdkRectangle *dest);
-static gboolean xfce_notify_daemon_get_workarea(GdkScreen *screen,
-                                                guint monitor,
-                                                GdkRectangle *rect);
+static void xfce_notify_daemon_get_workarea(GdkScreen *screen,
+                                            guint monitor,
+                                            GdkRectangle *rect);
 static gboolean notify_get_capabilities(XfceNotifyDaemon *xndaemon,
                                         gchar ***OUT_capabilities,
                                         GError *error);
@@ -221,8 +221,7 @@ xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
         for(j = 0; j < nmonitor; j++) {
             GdkRectangle workarea;
 
-            if(!xfce_notify_daemon_get_workarea(screen, j, &workarea))
-                gdk_screen_get_monitor_geometry(screen, j, &workarea);
+            xfce_notify_daemon_get_workarea(screen, j, &workarea);
             xndaemon->monitors_workarea[screen_number][j] = workarea;
         }
     }
@@ -291,8 +290,8 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
         for(j = 0; j < nmonitor; j++) {
             GdkRectangle workarea;
 
-            if(!xfce_notify_daemon_get_workarea(screen, j, &workarea))
-              gdk_screen_get_monitor_geometry(screen, j, &workarea);
+            xfce_notify_daemon_get_workarea(screen, j, &workarea);
+
             xndaemon->monitors_workarea[i][j] = workarea;
         }
 
@@ -461,7 +460,7 @@ translate_origin(GdkRectangle *src1,
 
 /* Returns the workarea (largest non-panel/dock occupied rectangle) for a given
    monitor. */
-static gboolean
+static void
 xfce_notify_daemon_get_workarea(GdkScreen *screen,
                                 guint monitor_num,
                                 GdkRectangle *workarea)
@@ -474,9 +473,6 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
 
     monitor_xoff = workarea->x;
     monitor_yoff = workarea->y;
-
-    if(!workarea)
-        return FALSE;
 
     windows_list = gdk_screen_get_window_stack(screen);
 
@@ -503,8 +499,6 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
     }
 
     g_list_free(windows_list);
-
-    return TRUE;
 }
 
 static void
