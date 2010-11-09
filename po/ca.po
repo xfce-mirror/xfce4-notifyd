@@ -4,19 +4,19 @@
 # This file is distributed under the same license as the xfce-notifyd
 # package.
 # Carles Muñoz Gorriz <carlesmu@internautas.org>, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
+"POT-Creation-Date: 2010-11-08 11:03+0000\n"
 "PO-Revision-Date: 2008-11-16 09:17+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
@@ -39,14 +39,14 @@ msgid "Unable to connect to D-Bus session bus"
 msgstr "No s'ha pogut connectar al gestor de bus D-BUS"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1090
-#, fuzzy, c-format
+#, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Ja hi ha una altre dimoni de notificacions executant-se"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:756
 #, c-format
 msgid "%s could not be launched"
-msgstr ""
+msgstr "No s'ha pogut iniciar %s"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:857
 msgid "image: "
@@ -80,8 +80,7 @@ msgstr "Feu «%s --help» per veure l'ús."
 #: ../xfce4-notifyd-config/main.c:309
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr ""
-"Distribuït amb els termes de la «GNU General Public License», versió 2\n"
+msgstr "Distribuït amb els termes de la «GNU General Public License», versió 2\n"
 
 #: ../xfce4-notifyd-config/main.c:310
 #, c-format
@@ -90,11 +89,11 @@ msgstr "Aviseu dels errors a %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr ""
+msgstr "Part inferior esquerra"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr ""
+msgstr "Part inferior dreta"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -112,11 +111,11 @@ msgstr "Notificacions"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr ""
+msgstr "Part superior esquerra"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr ""
+msgstr "Part superior dreta"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"

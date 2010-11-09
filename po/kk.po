@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
+"POT-Creation-Date: 2010-11-08 05:03+0000\n"
 "PO-Revision-Date: 2010-03-20 13:00+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
-"Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: kk\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
@@ -37,14 +37,14 @@ msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus қызметімен байланыс орнату мүмкін емес"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1090
-#, fuzzy, c-format
+#, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Басқа хабарламалар қызметі қосулы тұр"
+msgstr "Басқа хабарламалар xndaemon қосулы тұр"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:756
 #, c-format
 msgid "%s could not be launched"
-msgstr ""
+msgstr "%s жөнелту мүмкін емес"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:857
 msgid "image: "
@@ -87,11 +87,11 @@ msgstr "Ақаулықтар жөнінде хабарласыңыз: <%s>.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr ""
+msgstr "Төменгі сол жақта"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr ""
+msgstr "Төменгі оң жақта"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -109,11 +109,11 @@ msgstr "Хабарламалар"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr ""
+msgstr "Үстіңгі сол жақта"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr ""
+msgstr "Үстіңгі оң жақта"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
