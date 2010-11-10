@@ -247,6 +247,9 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
     g_free(xndaemon->monitors_workarea[screen_number]);
 
     xndaemon->monitors_workarea[screen_number] = g_new0(GdkRectangle, new_nmonitor);
+    for(j = 0; j < new_nmonitor; j++)
+        xfce_notify_daemon_get_workarea(screen, j,
+                                        &(xndaemon->monitors_workarea[screen_number][j]));
 
     /* Initialize a new reserved rectangles array for screen */
     xndaemon->reserved_rectangles[screen_number] = g_new0(GList *, new_nmonitor);
