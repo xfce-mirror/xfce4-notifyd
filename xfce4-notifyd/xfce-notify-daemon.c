@@ -218,12 +218,9 @@ xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
 
         DBG("got _NET_WORKAREA change on rootwin!");
 
-        for(j = 0; j < nmonitor; j++) {
-            GdkRectangle workarea;
-
-            xfce_notify_daemon_get_workarea(screen, j, &workarea);
-            xndaemon->monitors_workarea[screen_number][j] = workarea;
-        }
+        for(j = 0; j < nmonitor; j++)
+            xfce_notify_daemon_get_workarea(screen, j,
+                                            &(xndaemon->monitors_workarea[screen_number][j]));
     }
 
     return GDK_FILTER_CONTINUE;
@@ -287,13 +284,9 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
         xndaemon->reserved_rectangles[i] = g_new0(GList *, nmonitor);
         xndaemon->monitors_workarea[i] = g_new0(GdkRectangle, nmonitor);
 
-        for(j = 0; j < nmonitor; j++) {
-            GdkRectangle workarea;
-
-            xfce_notify_daemon_get_workarea(screen, j, &workarea);
-
-            xndaemon->monitors_workarea[i][j] = workarea;
-        }
+        for(j = 0; j < nmonitor; j++)
+            xfce_notify_daemon_get_workarea(screen, j,
+                                            &(xndaemon->monitors_workarea[i][j]));
 
         /* Monitor root window changes */
         groot = gdk_screen_get_root_window(screen);
