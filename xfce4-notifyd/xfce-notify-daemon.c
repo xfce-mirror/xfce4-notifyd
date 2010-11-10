@@ -461,6 +461,7 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
                                 guint monitor_num,
                                 GdkRectangle *workarea)
 {
+    GdkDisplay *display;
     GList *windows_list, *l;
     gint monitor_xoff, monitor_yoff;
 
@@ -469,6 +470,11 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
 
     monitor_xoff = workarea->x;
     monitor_yoff = workarea->y;
+
+    /* Sync the display */
+    display = gdk_screen_get_display(screen);
+    gdk_display_sync(display);
+    gdk_window_process_all_updates();
 
     windows_list = gdk_screen_get_window_stack(screen);
 
