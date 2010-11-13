@@ -59,10 +59,6 @@ XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.14.0])
 XDT_CHECK_PACKAGE([DBUS], [dbus-1], [1.0.0])
 XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [0.72])
 
-XDT_CHECK_OPTIONAL_PACKAGE([LIBSEXY], [libsexy], [0.1.6], [libsexy],
-                           [libsexy support (for clickable URLs) (default=yes)],
-                           [yes])
-
 AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool])
 AS_IF([test -z "$DBUS_BINDING_TOOL"],
 [

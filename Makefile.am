@@ -44,7 +44,6 @@ common_cflags = \
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
-	$(LIBSEXY_CFLAGS) \
 	$(LIBX11_CFLAGS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
@@ -60,7 +59,6 @@ common_ldadd = \
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
-	$(LIBSEXY_LIBS) \
 	$(LIBX11_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \

@@ -30,10 +30,6 @@
 
 #include <libxfce4ui/libxfce4ui.h>
 
-#ifdef HAVE_LIBSEXY
-#include <libsexy/sexy.h>
-#endif
-
 #include "xfce-notify-window.h"
 #include "xfce-notify-enum-types.h"
 
@@ -122,12 +118,6 @@ static gboolean xfce_notify_window_fade_timeout(gpointer data);
 static void xfce_notify_window_button_clicked(GtkWidget *widget,
                                               gpointer user_data);
 
-#ifdef HAVE_LIBSEXY
-static void xfce_notify_window_url_clicked(SexyUrlLabel *label,
-                                           const gchar *url,
-                                           gpointer user_data);
-#endif
-
 static guint signals[N_SIGS] = { 0, };
 
 
@@ -206,7 +196,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GdkScreen *screen;
     GtkWidget *tophbox, *align, *vbox;
     gdouble border_radius = DEFAULT_RADIUS;
-    
+
     GTK_WINDOW(window)->type = GTK_WINDOW_TOPLEVEL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
@@ -263,18 +253,10 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_misc_set_alignment(GTK_MISC(window->summary), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
 
-#ifdef HAVE_LIBSEXY
-    window->body = sexy_url_label_new();
-#else
     window->body = gtk_label_new(NULL);
-#endif
     gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
     gtk_misc_set_alignment(GTK_MISC(window->body), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
-#ifdef HAVE_LIBSEXY
-    g_signal_connect(G_OBJECT(window->body), "url-activated",
-                     G_CALLBACK(xfce_notify_window_url_clicked), window);
-#endif
 
     window->button_box = gtk_hbutton_box_new();
     gtk_button_box_set_layout(GTK_BUTTON_BOX(window->button_box),
@@ -452,7 +434,7 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     }
 
     window->bg_path = cairo_copy_path(cr);
-    
+
     flat_path = cairo_copy_path_flat(cr);
     fill_rule = (cairo_get_fill_rule(cr) == CAIRO_FILL_RULE_WINDING
                  ? GDK_WINDING_RULE : GDK_EVEN_ODD_RULE);
@@ -733,36 +715,6 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
                   XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 }
 
-#ifdef HAVE_LIBSEXY
-static void
-xfce_notify_window_url_clicked(SexyUrlLabel *label,
-                               const gchar *url,
-                               gpointer user_data)
-{
-    gchar *opener, *url_quoted, *cmd = NULL;
-
-    if(!(opener = g_find_program_in_path("xdg-open")))
-        if(!(opener = g_find_program_in_path("exo-open")))
-            if(!(opener = g_find_program_in_path("gnome-open")))
-                opener = g_find_program_in_path("firefox");
-
-    if(opener) {
-        url_quoted = g_shell_quote(url);
-        cmd = g_strdup_printf("%s %s", opener, url_quoted);
-        GError *error = NULL;
-        if(!g_spawn_command_line_async("cmd", &error)) {
-            xfce_dialog_show_error(NULL,
-                                   error,
-                                   _("%s could not be launched"), url);
-            g_error_free(error);
-        }
-        g_free(url_quoted);
-        g_free(cmd);
-        g_free(opener);
-    }
-}
-#endif
-
 #define ELEM_B    GUINT_TO_POINTER(1)
 #define ELEM_I    GUINT_TO_POINTER(2)
 #define ELEM_U    GUINT_TO_POINTER(3)
@@ -825,7 +777,7 @@ xfce_notify_window_validate_escape_markup(const gchar *str)
                     g_warning("Bad markup in <a>: %s", str);
                     goto out_err;
                 }
-#ifdef HAVE_LIBSEXY
+#if GTK_CHECK_VERSION(2,16,0)
                 /* only support links with SexyUrlLabel*/
                 g_string_append_len(gstr, p, aend - p + 1);
 #endif
@@ -906,7 +858,7 @@ xfce_notify_window_validate_escape_markup(const gchar *str)
                                   elem_to_string(tmp));
                         goto out_err;
                     }
-#ifdef HAVE_LIBSEXY
+#if GTK_CHECK_VERSION(2,16,0)
                     g_string_append(gstr, "</a>");
 #endif
                     p += 4;
@@ -976,13 +928,13 @@ xfce_notify_window_new_with_actions(const gchar *summary,
     XfceNotifyWindow *window;
 
     window = g_object_new(XFCE_TYPE_NOTIFY_WINDOW, NULL);
-    
+
     xfce_notify_window_set_summary(window, summary);
     xfce_notify_window_set_body(window, body);
     xfce_notify_window_set_icon_name(window, icon_name);
     xfce_notify_window_set_expire_timeout(window, expire_timeout);
     xfce_notify_window_set_actions(window, actions);
-    
+
     return GTK_WIDGET(window);
 }
 
@@ -991,7 +943,7 @@ xfce_notify_window_set_summary(XfceNotifyWindow *window,
                                const gchar *summary)
 {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-    
+
     gtk_label_set_text(GTK_LABEL(window->summary), summary);
     if(summary && *summary) {
         gtk_widget_show(window->summary);
@@ -1013,17 +965,14 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
                             const gchar *body)
 {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-    
+
     if(body && *body) {
         gchar *markup = xfce_notify_window_validate_escape_markup(body);
         if(!markup)
             return;
-#ifdef HAVE_LIBSEXY
-        sexy_url_label_set_markup(SEXY_URL_LABEL(window->body), markup);
-#else
+
         gtk_label_set_markup(GTK_LABEL(window->body), markup);
-        gtk_label_set_use_markup(GTK_LABEL(window->body), TRUE);
-#endif
+
         gtk_widget_show(window->body);
         g_free(markup);
         window->has_body_text = TRUE;
@@ -1084,13 +1033,13 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
                                  const gchar *icon_name)
 {
     gboolean icon_set = FALSE;
-    
+
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if(icon_name && *icon_name) {
         gint w, h;
         GdkPixbuf *pix;
-        
+
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
         pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
                                        icon_name,
@@ -1105,7 +1054,7 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
             icon_set = TRUE;
         }
     }
-    
+
     if(!icon_set) {
         gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), NULL);
         gtk_widget_hide(window->icon_box);
