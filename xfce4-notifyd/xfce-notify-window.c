@@ -778,7 +778,7 @@ xfce_notify_window_validate_escape_markup(const gchar *str)
                     goto out_err;
                 }
 #if GTK_CHECK_VERSION(2,16,0)
-                /* only support links with SexyUrlLabel*/
+                /* only support links with gtk 2.16 */
                 g_string_append_len(gstr, p, aend - p + 1);
 #endif
                 p = aend + 1;
