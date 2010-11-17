@@ -6,3 +6,5 @@
 * find a way to completely ditch the old theme when switching to a new one --
   implemented workaround: kill daemon on theme change
 * prelight fill for close button circle?
+* add a widget to select the notification position?
+* add more possible notification positions (middle of edges)
