@@ -236,6 +236,8 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
     gint screen_number = gdk_screen_get_number(screen);
     gint old_nmonitor = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(screen), XND_N_MONITORS));
 
+    DBG("Got 'screen-changed' signal for screen %d", screen_number);
+
     /* Set the new number of monitors */
     g_object_set_qdata(G_OBJECT(screen), XND_N_MONITORS, GINT_TO_POINTER(new_nmonitor));
 
@@ -247,9 +249,11 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
     g_free(xndaemon->monitors_workarea[screen_number]);
 
     xndaemon->monitors_workarea[screen_number] = g_new0(GdkRectangle, new_nmonitor);
-    for(j = 0; j < new_nmonitor; j++)
+    for(j = 0; j < new_nmonitor; j++) {
+        DBG("Screen %d changed, updating workarea for monitor %d", screen_number, j);
         xfce_notify_daemon_get_workarea(screen, j,
                                         &(xndaemon->monitors_workarea[screen_number][j]));
+    }
 
     /* Initialize a new reserved rectangles array for screen */
     xndaemon->reserved_rectangles[screen_number] = g_new0(GList *, new_nmonitor);
@@ -465,6 +469,8 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
     GList *windows_list, *l;
     gint monitor_xoff, monitor_yoff;
 
+    DBG("Computing the workarea.");
+
     /* Defaults */
     gdk_screen_get_monitor_geometry(screen, monitor_num, workarea);
 
@@ -478,6 +484,9 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
 
     windows_list = gdk_screen_get_window_stack(screen);
 
+    if(!windows_list)
+        DBG("No windows in stack.");
+
     for(l = g_list_first(windows_list); l != NULL; l = g_list_next(l)) {
         GdkWindow *window = l->data;
 
@@ -485,6 +494,12 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
             GdkRectangle window_geom, intersection;
 
             gdk_window_get_frame_extents(window, &window_geom);
+
+            DBG("Got a dock window: x(%d), y(%d), w(%d), h(%d)",
+                window_geom.x,
+                window_geom.y,
+                window_geom.width,
+                window_geom.height);
 
             if(gdk_rectangle_intersect(workarea, &window_geom, &intersection)){
                 translate_origin(workarea, -monitor_xoff, -monitor_yoff);
