@@ -266,14 +266,11 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
 }
 
 static void
-xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
+xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
 {
     gint nscreen = gdk_display_get_n_screens(gdk_display_get_default());
     gint i;
 
-    xndaemon->active_notifications = g_tree_new_full(xfce_direct_compare,
-                                                   NULL, NULL,
-                                                   (GDestroyNotify)gtk_widget_destroy);
     xndaemon->reserved_rectangles = g_new(GList **, nscreen);
     xndaemon->monitors_workarea = g_new(GdkRectangle *, nscreen);
 
@@ -300,7 +297,15 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
         gdk_window_set_events(groot, gdk_window_get_events(groot) | GDK_PROPERTY_CHANGE_MASK);
         gdk_window_add_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
     }
+}
 
+static void
+xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
+{
+
+    xndaemon->active_notifications = g_tree_new_full(xfce_direct_compare,
+                                                   NULL, NULL,
+                                                   (GDestroyNotify)gtk_widget_destroy);
     xndaemon->last_notification_id = 1;
 }
 
@@ -531,7 +536,12 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GList *list;
     gboolean found = FALSE;
 
-    DBG("Size allocate called.");
+    DBG("Size allocate called for %d", xndaemon->last_notification_id);
+
+    if(xndaemon->last_notification_id == 2)
+        /* First time we place a notification, initialize the arrays needed for
+         * that (workarea, notification lists...). */
+        xfce_notify_daemon_init_placement_data(xndaemon);
 
     geom_tmp = xfce_notify_window_get_geometry(window);
     if(geom_tmp->width != 0 && geom_tmp->height != 0) {
