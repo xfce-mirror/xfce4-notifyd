@@ -63,6 +63,8 @@ struct _XfceNotifyDaemon
 
     gint changed_screen;
 
+    guint close_timeout;
+
     guint32 last_notification_id;
 };
 
@@ -104,6 +106,8 @@ static void xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
 static void xfce_notify_daemon_get_workarea(GdkScreen *screen,
                                             guint monitor,
                                             GdkRectangle *rect);
+static gboolean xfce_notify_daemon_close_timeout(gpointer data);
+
 static gboolean notify_get_capabilities(XfceNotifyDaemon *xndaemon,
                                         gchar ***OUT_capabilities,
                                         GError *error);
@@ -307,6 +311,10 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
                                                    NULL, NULL,
                                                    (GDestroyNotify)gtk_widget_destroy);
     xndaemon->last_notification_id = 1;
+
+    xndaemon->close_timeout =
+        g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
+                              xndaemon);
 }
 
 static void
@@ -773,6 +781,14 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
 
 
 static gboolean
+xfce_notify_daemon_close_timeout(gpointer data)
+{
+    notify_quit(XFCE_NOTIFY_DAEMON(data), NULL);
+
+    return FALSE;
+}
+
+static gboolean
 notify_get_capabilities(XfceNotifyDaemon *xndaemon,
                         gchar ***OUT_capabilities,
                         GError *error)
@@ -920,6 +936,14 @@ notify_notify(XfceNotifyDaemon *xndaemon,
         xfce_notify_window_unset_gauge_value(window);
 
     gtk_widget_realize(GTK_WIDGET(window));
+
+    /* Set a timeout to close xfce4-notifyd if it is idle for 10 minutes */
+    if(xndaemon->close_timeout)
+        g_source_remove(xndaemon->close_timeout);
+
+    xndaemon->close_timeout =
+        g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
+                              xndaemon);
 
     return TRUE;
 }
