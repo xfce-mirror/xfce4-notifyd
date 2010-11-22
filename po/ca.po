@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 11:03+0000\n"
+"POT-Creation-Date: 2010-11-22 17:03+0000\n"
 "PO-Revision-Date: 2008-11-16 09:17+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan\n"
@@ -33,22 +33,17 @@ msgstr "Opció desconeguda: «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "No s'ha pogut iniciar el dimoni de notificacions"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "No s'ha pogut connectar al gestor de bus D-BUS"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Ja hi ha una altre dimoni de notificacions executant-se"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:756
-#, c-format
-msgid "%s could not be launched"
-msgstr "No s'ha pogut iniciar %s"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
 msgstr "imatge:"
 
@@ -122,16 +117,23 @@ msgid "_Disappear after:"
 msgstr "_Desapareix després de:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Effect:"
+msgstr "_Efecte:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
 msgstr "D'_apagat a transparent"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
 msgstr "_Opacitat:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 msgid "seconds"
 msgstr "segons"
+
+#~ msgid "%s could not be launched"
+#~ msgstr "No s'ha pogut iniciar %s"
 
 #~ msgid ""
 #~ "Top left\n"
