@@ -135,7 +135,7 @@ msgstr "_Opakotasuna:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 msgid "_Preview"
-msgstr ""
+msgstr "_Aurreikuspena"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
