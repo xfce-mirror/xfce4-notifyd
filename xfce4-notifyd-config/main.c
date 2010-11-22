@@ -199,12 +199,34 @@ xfce4_notifyd_config_setup_treeview(GtkWidget *treeview,
 
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(ls), 0,
                                          GTK_SORT_ASCENDING);
-    
+
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
     if(gtk_list_store_iter_is_valid(ls, &current_theme_iter))
         gtk_tree_selection_select_iter(sel, &current_theme_iter);
 
     g_object_unref(G_OBJECT(ls));
+}
+
+static void
+xfce_notifyd_config_dialog_response(GtkWidget *dialog, gint response, gpointer unused)
+{
+  if (response == 0)
+      g_signal_stop_emission_by_name (dialog, "response");
+}
+
+static void
+xfce_notifyd_config_preview_clicked(GtkButton *button,
+                                    GtkWidget *dialog)
+{
+    GError *error = NULL;
+
+    if(!g_spawn_command_line_async(_("notify-send \"Notification Preview\""
+                                     " \"This is how notifications will look like\""),
+                                   &error)) {
+        xfce_dialog_show_error(GTK_WINDOW(dialog),
+                               error, _("Notification preview failed"));
+        g_error_free(error);
+    }
 }
 
 static GtkWidget *
@@ -220,10 +242,16 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_builder_connect_signals(builder, NULL);
 
     dlg = GTK_WIDGET(gtk_builder_get_object(builder, "notifyd_settings_dlg"));
-    btn = GTK_WIDGET(gtk_builder_get_object(builder, "close_btn"));
+    g_signal_connect(G_OBJECT(dlg), "response",
+                     G_CALLBACK(xfce_notifyd_config_dialog_response), NULL);
 
+    btn = GTK_WIDGET(gtk_builder_get_object(builder, "close_btn"));
     g_signal_connect_swapped(G_OBJECT(btn), "clicked",
                              G_CALLBACK(gtk_dialog_response), dlg);
+
+    btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
+    g_signal_connect(G_OBJECT(btn), "clicked",
+                     G_CALLBACK(xfce_notifyd_config_preview_clicked), dlg);
 
     if(!xfconf_init(&error)) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
@@ -270,7 +298,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                            G_OBJECT(combo), "active");
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(combo), GTK_CORNER_TOP_RIGHT);
-    
+
     return dlg;
 }
 
