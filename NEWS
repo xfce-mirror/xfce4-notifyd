@@ -2,7 +2,7 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.1.0git:
+Version 0.2.0:
 
   Features:
     * Added man page for xfce4-notifyd-config from Evgeni Golov.
@@ -27,6 +27,7 @@ Version 0.1.0git:
       calculation to avoid placing notifications where docked windows have
       set struts (Jérôme Guelfucci, bug 5248).
     * Port to libxfce4ui, drop libxfcegui4 dep (Romain Bouvier, bug 6375).
+    * Add a preview button to the preferences dialog.
 
   Bugfixes:
     * Use correct COPYING file (GPLv2, not GPLv3).
