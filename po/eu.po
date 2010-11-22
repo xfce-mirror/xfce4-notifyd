@@ -1,12 +1,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
-#, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-18 05:03+0000\n"
+"POT-Creation-Date: 2010-11-22 21:47+0000\n"
 "PO-Revision-Date: 2010-03-26 12:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Basque <kde-i18n-doc@kde.org>\n"
@@ -18,7 +17,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Xfce berri-emate deabrua"
 
@@ -49,33 +48,41 @@ msgstr "irudia: "
 msgid "Theme"
 msgstr "Gaia"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr "notify-send \"Berri-emate aurreikuspenak\" \"HAu da berri-emate batek duen itxura\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Berri-emate aurreikuspenak huts egin du"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Ezarpen deabrua ez dago erabilgarri"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Bistarazi bertsio argibideak"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "Ezarpena kudeatzaile socket-a"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Idatzi '%s --help' laguntzarentzat."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera argitaratua\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
@@ -127,6 +134,10 @@ msgid "_Opacity:"
 msgstr "_Opakotasuna:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "segundo"
 
