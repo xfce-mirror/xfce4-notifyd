@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 0.1.0git-20081126-6121e624\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
-"PO-Revision-Date: 2010-11-06 22:25+0900\n"
+"POT-Creation-Date: 2010-11-23 14:51+0900\n"
+"PO-Revision-Date: 2010-11-23 14:51+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
 "Language: ja\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 通知デーモン"
 
@@ -32,22 +32,17 @@ msgstr "不明なオプション \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "通知デーモンを開始できません"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus セッションバスに接続できません"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "他の通知デーモンがすでに起動しています"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:756
-#, c-format
-msgid "%s could not be launched"
-msgstr "%s を起動できませんでした"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
 msgstr "画像: "
 
@@ -55,34 +50,44 @@ msgstr "画像: "
 msgid "Theme"
 msgstr "テーマ"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr "notify-send \"通知プレビュー\" \"通知はこのように表示されます。\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "通知のプレビューに失敗しました"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "設定デーモンは使用できません"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "バージョン情報を表示する"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "設定マネージャソケット"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' と入力すると使用法が表示されます。"
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
 "GNU General Public License, version 2 の条項下でリリースされています。\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "バグは %s まで報告してください。\n"
@@ -122,16 +127,27 @@ msgid "_Disappear after:"
 msgstr "表示時間(_D):"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Effect:"
+msgstr "エフェクト(_E)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
 msgstr "フェードアウトして消える(_F)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
 msgstr "不透明度(_O):"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "プレビュー(_P)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "秒"
+
+#~ msgid "%s could not be launched"
+#~ msgstr "%s を起動できませんでした"
 
 #~ msgid ""
 #~ "Top left\n"
