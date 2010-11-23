@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-13 17:03+0000\n"
+"POT-Creation-Date: 2010-11-23 23:03+0000\n"
 "PO-Revision-Date: 2008-11-16 03:04+1\n"
 "Last-Translator: Christian Dywan <christian@twotoasts.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: de\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Xfce-Benachrichtigungsdämon"
 
@@ -30,22 +30,17 @@ msgstr "Unbekannte Option »%s«\n"
 msgid "Unable to start notification daemon"
 msgstr "Benachrichtigungsdämon konnte nicht gestartet werden"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1069
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Verbindung zu D-Bus-Sitzungsbus konnte nicht hergestellt werden"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1086
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, fuzzy, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Ein anderer Benachrichtigungsdämon läuft bereits"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:756
-#, c-format, fuzzy
-msgid "%s could not be launched"
-msgstr "%s konnte nicht gestartet werden"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
 msgstr "bild: "
 
@@ -53,33 +48,42 @@ msgstr "bild: "
 msgid "Theme"
 msgstr "Stil"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:227
+#, fuzzy
+msgid "Notification preview failed"
+msgstr "Benachrichtigungen"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Einstellungsdämon nicht verfügbar"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Versionsinformationen anzeigen"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "Einstellungsverwaltungsanschluss"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOCKET-NR"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Geben Sie »%s --help« ein, um Hinweise zur Nutzung zu erhalten."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Veröffentlicht unter den Bedingungen der GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fehlerberichte bitte an %s melden.\n"
@@ -123,16 +127,27 @@ msgid "_Disappear after:"
 msgstr "_Ausblenden nach:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Effect:"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
 msgstr "Ü_bergang zu dursichtig"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
 msgstr "_Deckkraft:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Vorschau"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "Sekunden"
+
+#~ msgid "%s could not be launched"
+#~ msgstr "%s konnte nicht gestartet werden"
 
 #~ msgid ""
 #~ "Top left\n"
