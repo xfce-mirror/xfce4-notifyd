@@ -20,7 +20,7 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
-msgstr "Xfce 通報幕後程式"
+msgstr "Xfce 通知幕後程式"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
@@ -29,7 +29,7 @@ msgstr "未知選項 \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr "無法啟動通報幕後程式"
+msgstr "無法啟動通知幕後程式"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
@@ -39,7 +39,7 @@ msgstr "無法連接至 D-Bus 工作階段匯流"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "另一個通報 xndaemon 已經在執行中"
+msgstr "另一個通知用 xndaemon 已經在執行中"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
@@ -51,11 +51,11 @@ msgstr "主題"
 
 #: ../xfce4-notifyd-config/main.c:223
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"通報預覽\" \"這就是通報看起來的樣子\""
+msgstr "notify-send \"通知預覽\" \"這就是通知看起來的樣子\""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
-msgstr "通報預覽失敗"
+msgstr "通知預覽失敗"
 
 #: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
@@ -99,7 +99,7 @@ msgstr "右下方"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr "自訂通報該如何在您螢幕上顯示"
+msgstr "自訂通知該如何在您螢幕上顯示"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
@@ -108,7 +108,7 @@ msgstr "預設位置(_P)："
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
-msgstr "通報"
+msgstr "通知"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
