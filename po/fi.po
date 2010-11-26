@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-11 11:03+0000\n"
-"PO-Revision-Date: 2010-11-11 17:36+0200\n"
+"POT-Creation-Date: 2010-11-22 23:03+0000\n"
+"PO-Revision-Date: 2010-11-23 11:36+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <xfce-i18n@xfce.org\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Xfce:n huomautuspalvelu"
 
@@ -31,22 +31,17 @@ msgstr "Tuntematon valitsin \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Huomautuspalvelua ei voi käynnistää"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1069
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus -istuntoväylään ei saa yhteyttä"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1086
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Toinen huomautuspalvelu on jo käynnissä"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:756
-#, c-format
-msgid "%s could not be launched"
-msgstr "Sovellusta %s ei voi käynnistää"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
 msgstr "kuva: "
 
@@ -54,33 +49,44 @@ msgstr "kuva: "
 msgid "Theme"
 msgstr "Teema"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr ""
+"notify-send \"Mallihuomautus\" \"Huomautukset näyttävät tältä.\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Mallihuomautusta ei voi näyttää"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Asetuspalveluun ei saa yhteyttä"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Näytä versiotiedot"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "Asetustenhallinnan pistoke"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "PISTOKE"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Saat käyttöohjeita komennolla \"%s --help\"."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Julkaistu GNU GPL -lisenssin version 2 ehtojen alaisuuteen\n"
+msgstr "Julkaistu GNU GPL -lisenssin version 2 ehdoilla\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ilmoita ohjelmavirheistä osoitteeseen %s.\n"
@@ -120,13 +126,21 @@ msgid "_Disappear after:"
 msgstr "_Katoamisviive:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Effect:"
+msgstr "_Tehoste:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
 msgstr "_Häivytä läpinäkyväksi"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
 msgstr "_Peittävyys:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Esikatselu"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "sekuntia"

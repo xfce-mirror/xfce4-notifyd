@@ -1,72 +1,73 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
+# traditional Chinese translation for xfce4-nofigyd.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-nofigyd package.
+# Cheng-Chia Tseng <pswo10680@gmail.com>, 2009.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: xfce4-nofigyd master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-22 21:47+0000\n"
-"PO-Revision-Date: 2010-03-26 12:13+0100\n"
-"Last-Translator: \n"
-"Language-Team: Basque <kde-i18n-doc@kde.org>\n"
+"POT-Creation-Date: 2010-11-22 23:03+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eu\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.0\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd/main.c:50
+#: ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
-msgstr "Xfce berri-emate deabrua"
+msgstr "Xfce 通知幕後程式"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "\"%s\" aukera ezezaguna\n"
+msgstr "未知選項 \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr "Ezin da berri-emate deabrua abiarazi"
+msgstr "無法啟動通知幕後程式"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr "Ezin da D-Bus saio bus-arekin konektatu"
+msgstr "無法連接至 D-Bus 工作階段匯流"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Beste berri-emate xndaemon deabru bat dagoeneko martxan dago"
+msgstr "另一個通知用 xndaemon 已經在執行中"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
-msgstr "irudia: "
+msgstr "影像："
 
 #: ../xfce4-notifyd-config/main.c:196
 msgid "Theme"
-msgstr "Gaia"
+msgstr "主題"
 
 #: ../xfce4-notifyd-config/main.c:223
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Berri-emate aurreikuspenak\" \"HAu da berri-emate batek duen itxura\""
+msgstr "notify-send \"通知預覽\" \"這就是通知看起來的樣子\""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
-msgstr "Berri-emate aurreikuspenak huts egin du"
+msgstr "通知預覽失敗"
 
 #: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
-msgstr "Ezarpen deabrua ez dago erabilgarri"
+msgstr "設定值幕後程式無法使用"
 
 #: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
-msgstr "Bistarazi bertsio argibideak"
+msgstr "顯示版本資訊"
 
 #: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
-msgstr "Ezarpena kudeatzaile socket-a"
+msgstr "設定值管理員 socket"
 
 #: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
@@ -75,79 +76,69 @@ msgstr "SOCKET_ID"
 #: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Idatzi '%s --help' laguntzarentzat."
+msgstr "輸入 '%s --help' 以瞭解用法。"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera argitaratua\n"
+msgstr "以 GNU General Public License 使用條款發布，第二版\n"
 
 #: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
+msgstr "請回報錯誤至 %s。\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr "Behean ezkerrean"
+msgstr "左下方"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr "Behean eskuinean"
+msgstr "右下方"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr "Pertsonalizatu berri-emateak zure pantailan nola agertuko diren"
+msgstr "自訂通知該如何在您螢幕上顯示"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
-msgstr "Lehenetsitako _kokalekua:"
+msgstr "預設位置(_P)："
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
-msgstr "Berri-emateak"
+msgstr "通知"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr "Goian  ezkerrean"
+msgstr "左上方"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr "Goian eskuinean"
+msgstr "右上方"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr "_ezkutatzeko denbora:"
+msgstr "多久後消失(_D)："
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Effect:"
-msgstr "_Efektua"
+msgstr "效果(_E)："
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
-msgstr "_desagertu transparentziaz"
+msgstr "淡化至透明(_F)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
-msgstr "_Opakotasuna:"
+msgstr "不透明度(_O)："
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 msgid "_Preview"
-msgstr "_Aurreikuspena"
+msgstr "預覽(_P)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
-msgstr "segundo"
+msgstr "秒"
 
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Goian ezkerrean\n"
-#~ "Behean ezkerrean\n"
-#~ "Goian eskuinean\n"
-#~ "Behean eskuinean"

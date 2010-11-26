@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-19 11:03+0000\n"
+"POT-Creation-Date: 2010-11-22 21:47+0000\n"
 "PO-Revision-Date: 2010-05-27 12:58-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: Portugal\n"
 "Language: \n"
 "X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: Portugal\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Serviço de notificação Xfce"
 
@@ -50,33 +50,41 @@ msgstr "imagem: "
 msgid "Theme"
 msgstr "Tema"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr "\"Antevisão da notificação\" \"A notificação irá ser assim\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Falha ao antever a notificação"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "As definições do serviço estão indisponíveis"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Mostrar informação de versão"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "\"Socket\" do gestor de definições"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Digite \"%s --help\" para utilização."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Licenciado sob os termos da GNU General Public License, versão 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Por favor, reporte erros em %s.\n"
@@ -128,6 +136,10 @@ msgid "_Opacity:"
 msgstr "_Opacidade:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Antevisão"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "segundos"
 

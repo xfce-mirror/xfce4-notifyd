@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-18 17:03+0000\n"
+"POT-Creation-Date: 2010-11-22 21:47+0000\n"
 "PO-Revision-Date: 2008-11-16 09:47+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-Country: DENMARK\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Beskeddæmon til Xfce"
 
@@ -51,33 +51,41 @@ msgstr "billede: "
 msgid "Theme"
 msgstr "Tema"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr "besked-sende \"Forhåndvisning af besked\" \"Det er som sådan en besked vil se ud\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Forhåndsvisning af besked fejlede"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Indstillingsdæmon er ikke tilgængelig"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Vis versionsinformation"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "Sokkel til indstillingshåndtering"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOKKEL-_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Tast '%s --help' for anvendelse."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Udgivet under betingelserne af GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapportér venligst fejl til %s.\n"
@@ -129,6 +137,10 @@ msgid "_Opacity:"
 msgstr "_Uigennemsigtighed:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Forhåndsvisning"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "sekunder"
 
