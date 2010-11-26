@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-20 23:03+0000\n"
+"POT-Creation-Date: 2010-11-26 11:03+0000\n"
 "PO-Revision-Date: 2008-11-20 07:29+0100\n"
 "Last-Translator: Maximilian Schleiss <maximilian@xfce.org>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: fr\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Démon de notification Xfce"
 
@@ -35,9 +35,9 @@ msgid "Unable to connect to D-Bus session bus"
 msgstr "Échec de connexion au bus de la session D-BUS"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1135
-#, fuzzy, c-format
+#, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Un autre démon de notification est en cours d'exécution"
+msgstr "Un autre démon de notification est déjà en cours d'exécution"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
@@ -47,33 +47,44 @@ msgstr "image : "
 msgid "Theme"
 msgstr "Thème"
 
-#: ../xfce4-notifyd-config/main.c:231
-msgid "Settings daemon is unavailable"
-msgstr "Le démon des paramètres est absent"
+#: ../xfce4-notifyd-config/main.c:223
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr ""
+"notify-send \"Notification\" \"Voila à quoi ressembleront les notifications \""
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Impossible d'afficher un aperçu des notifications"
+
+#: ../xfce4-notifyd-config/main.c:259
+msgid "Settings daemon is unavailable"
+msgstr "Le démon des paramètres est indisponible"
+
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Affiche les informations de version"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
-msgstr "Socle du gestionnaire de paramètres"
+msgstr "Socket du gestionnaire de paramètres"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
-msgstr "ID_SOCLE"
+msgstr "ID_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "saisir '%s --help' pour plus d'aide."
+msgstr "Utiliser '%s --help' pour plus d'aide."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Publié sous les termes de la GNU General Public Lincese, verson 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Veuillez envoyer vos rapports de bogues à %s.\n"
@@ -125,16 +136,9 @@ msgid "_Opacity:"
 msgstr "_Opacité :"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Aperçu"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "secondes"
-
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Haut gauche\n"
-#~ "Bas gauche\n"
-#~ "Haut droite\n"
-#~ "Bas droite"
