@@ -52,7 +52,7 @@ msgid ""
 "notify-send \"Notification Preview\" \"This is how notifications will look "
 "like\""
 msgstr ""
-"notify-send \"Notification\" \"Voila à quoi ressembleront les notifications \""
+"notify-send \"Aperçu de notification\" \"Voila à quoi ressembleront les notifications \""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
