@@ -2,7 +2,7 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.2.0:
+Version 0.2.0 (27 Nov 2010):
 
   Features:
     * Added man page for xfce4-notifyd-config from Evgeni Golov.
