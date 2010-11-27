@@ -333,7 +333,8 @@ main(int argc,
 
     if(G_UNLIKELY(opt_version)) {
         g_print("%s %s\n", G_LOG_DOMAIN, VERSION);
-        g_print("Copyright (c) 2008 Brian Tarricone <bjt23@cornell.edu>\n");
+        g_print("Copyright (c) 2010 Brian Tarricone <bjt23@cornell.edu>\n");
+        g_print("Copyright (c) 2010 Jérôme Guelfucci <jeromeg@xfce.org>\n");
         g_print(_("Released under the terms of the GNU General Public License, version 2\n"));
         g_print(_("Please report bugs to %s.\n"), PACKAGE_BUGREPORT);
 
