@@ -1041,7 +1041,11 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
         GdkPixbuf *pix;
 
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
-        pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
+
+        if(g_path_is_absolute(icon_name))
+          pix = gdk_pixbuf_new_from_file_at_size(icon_name, w, h, NULL);
+        else
+          pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
                                        icon_name,
                                        w,
                                        GTK_ICON_LOOKUP_FORCE_SIZE,
@@ -1056,7 +1060,7 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
     }
 
     if(!icon_set) {
-        gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), NULL);
+        gtk_image_clear(GTK_IMAGE(window->icon));
         gtk_widget_hide(window->icon_box);
     }
 
