@@ -2,6 +2,11 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.2.1 ( 2010):
+
+  Bugfixes:
+    * Fix loading of custom icons (bug #6895).
+
 Version 0.2.0 (27 Nov 2010):
 
   Features:
