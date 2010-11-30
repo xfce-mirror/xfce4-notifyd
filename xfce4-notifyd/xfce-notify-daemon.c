@@ -98,6 +98,7 @@ static gboolean notify_get_server_information(XfceNotifyDaemon *daemon,
                                               gchar **OUT_name,
                                               gchar **OUT_vendor,
                                               gchar **OUT_version,
+                                              gchar **OUT_spec_version,
                                               GError **error);
 
 static gboolean notify_quit(XfceNotifyDaemon *daemon,
@@ -415,11 +416,13 @@ notify_get_server_information(XfceNotifyDaemon *daemon,
                               gchar **OUT_name,
                               gchar **OUT_vendor,
                               gchar **OUT_version,
+                              gchar **OUT_spec_version,
                               GError **error)
 {
     *OUT_name = g_strdup("Xfce Notify Daemon");
     *OUT_vendor = g_strdup("Xfce");
     *OUT_version = g_strdup(VERSION);
+    *OUT_spec_version = g_strdup(NOTIFICATIONS_SPEC_VERSION);
 
     return TRUE;
 }
