@@ -128,12 +128,10 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
                                                     g_cclosure_marshal_VOID__UINT,
                                                     G_TYPE_NONE, 1,
                                                     G_TYPE_UINT);
-#if 0  /* it seems libnotify doesn't support the close-reason arg */
                                                     xfce_notify_marshal_VOID__UINT_UINT,
                                                     G_TYPE_NONE, 2,
                                                     G_TYPE_UINT,
                                                     G_TYPE_UINT);
-#endif
     signals[SIG_ACTION_INVOKED] = g_signal_new("action-invoked",
                                                XFCE_TYPE_NOTIFY_DAEMON,
                                                G_SIGNAL_RUN_LAST,
@@ -215,9 +213,7 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
 
     g_tree_remove(daemon->active_notifications, id_p);
     g_signal_emit(G_OBJECT(daemon), signals[SIG_NOTIFICATION_CLOSED], 0,
-                  GPOINTER_TO_UINT(id_p));
-    /* NOTE: libnotify doesn't support the close-reason argument to
-     * the signal.  not sure why. */
+                  GPOINTER_TO_UINT(id_p), reason);
 }
 
 static void
