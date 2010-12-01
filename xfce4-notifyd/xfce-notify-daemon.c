@@ -126,9 +126,6 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
                                                     G_SIGNAL_RUN_LAST,
                                                     0,
                                                     NULL, NULL,
-                                                    g_cclosure_marshal_VOID__UINT,
-                                                    G_TYPE_NONE, 1,
-                                                    G_TYPE_UINT);
                                                     xfce_notify_marshal_VOID__UINT_UINT,
                                                     G_TYPE_NONE, 2,
                                                     G_TYPE_UINT,
