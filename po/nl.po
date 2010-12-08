@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-08 19:26+0000\n"
+"POT-Creation-Date: 2010-12-08 19:37+0000\n"
 "PO-Revision-Date: 2009-08-15 14:59-0800\n"
 "Last-Translator: Auke Kok <auke-jan.h.kok@intel.com>\n"
 "Language-Team: Dutch\n"
@@ -39,7 +39,7 @@ msgid "Unable to connect to D-Bus session bus"
 msgstr "Kan niet met het D-Bus sessiebeheer verbinden"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1135
-#, fuzzy, c-format
+#, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Er is al een andere notificatie-daemon actief"
 
