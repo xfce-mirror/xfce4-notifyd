@@ -1,24 +1,24 @@
 # Norwegian Bokmal translations for xfce package.
 # Copyright (C) 2008 THE xfce'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce package.
-# Terje Uriansrud <terje@uriansrud.net>, 2008.
-#
+# Terje Uriansrud <terje@uriansrud.net>, 2010.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
+"POT-Creation-Date: 2010-12-09 05:05+0000\n"
 "PO-Revision-Date: 2008-11-16 09:14+0100\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Varsling"
 
@@ -31,22 +31,17 @@ msgstr "Ukjent valg \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Klarte ikke starte varsligsprosess"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Klarte ikke koble til D-Bus sesjonsbuss"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
-#, fuzzy, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "Varslingsprosess er allerede startet"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:756
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
 #, c-format
-msgid "%s could not be launched"
-msgstr ""
+msgid "Another notification xndaemon is already running"
+msgstr "En varslingsprosess er allerede startet"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
 msgstr "bilde: "
 
@@ -54,44 +49,52 @@ msgstr "bilde: "
 msgid "Theme"
 msgstr "Tema"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Forhåndsvisning av varsel feilet"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Varslingsprosess er ikke tilgjengelig"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Vis versjonsinformasjon"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "Innstillingsbehandlersokkel"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv inn '%s --help' for instruksjoner."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Utgitt under GNU General Public License, versjon 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:339
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapporter feil til %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr ""
+msgstr "Nede til venstre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr ""
+msgstr "Nede til høyre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -109,35 +112,32 @@ msgstr "Varsling"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr ""
+msgstr "Oppe til venstre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr ""
+msgstr "Oppe til høyre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
 msgstr "_Skjul etter:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Effect:"
+msgstr "_Effekt:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
 msgstr "_Ton ut som gjennomsiktig"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Opacity:"
-msgstr "_Ugjennomsiktighet"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "_Opacity:"
+msgstr "_Gjennomsiktighet"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Forhåndsvisning"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "sekunder"
-
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Øverst til venstre\n"
-#~ "Nederst til venstre\n"
-#~ "Øverst til høyre\n"
-#~ "Nederst til høyre"
