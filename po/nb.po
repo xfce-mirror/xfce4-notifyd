@@ -50,9 +50,8 @@ msgid "Theme"
 msgstr "Tema"
 
 #: ../xfce4-notifyd-config/main.c:223
-#, fuzzy
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr ""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
