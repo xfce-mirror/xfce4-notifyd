@@ -213,7 +213,8 @@ xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
     XPropertyEvent *xevt = (XPropertyEvent *)gxevent;
 
     if(xevt->type == PropertyNotify
-       && XInternAtom(xevt->display, "_NET_WORKAREA", False) == xevt->atom)
+       && XInternAtom(xevt->display, "_NET_WORKAREA", False) == xevt->atom
+       && xndaemon->monitors_workarea)
     {
         GdkScreen *screen = gdk_event_get_screen(event);
         int screen_number = gdk_screen_get_number (screen);
@@ -236,11 +237,19 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
 {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(user_data);
     gint j;
-    gint new_nmonitor = gdk_screen_get_n_monitors(screen);
-    gint screen_number = gdk_screen_get_number(screen);
-    gint old_nmonitor = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(screen), XND_N_MONITORS));
+    gint new_nmonitor;
+    gint screen_number;
+    gint old_nmonitor;
+
+    if(!xndaemon->monitors_workarea || !xndaemon->reserved_rectangles)
+        /* Placement data not initialized, don't update it */
+        return;
 
     DBG("Got 'screen-changed' signal for screen %d", screen_number);
+
+    new_nmonitor = gdk_screen_get_n_monitors(screen);
+    screen_number = gdk_screen_get_number(screen);
+    old_nmonitor = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(screen), XND_N_MONITORS));
 
     /* Set the new number of monitors */
     g_object_set_qdata(G_OBJECT(screen), XND_N_MONITORS, GINT_TO_POINTER(new_nmonitor));
@@ -311,6 +320,9 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
                                                    NULL, NULL,
                                                    (GDestroyNotify)gtk_widget_destroy);
     xndaemon->last_notification_id = 1;
+
+    xndaemon->reserved_rectangles = NULL;
+    xndaemon->monitors_workarea = NULL;
 
     xndaemon->close_timeout =
         g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
