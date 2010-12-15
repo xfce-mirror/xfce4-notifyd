@@ -2,19 +2,20 @@
 # Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Christian Dywan <christian@twotoasts.de>, 2008.
-# 
+# Fabian Nowak <timystery@arcor.de>, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-23 23:03+0000\n"
+"POT-Creation-Date: 2010-12-12 16:55+0100\n"
 "PO-Revision-Date: 2008-11-16 03:04+1\n"
-"Last-Translator: Christian Dywan <christian@twotoasts.de>\n"
+"Last-Translator: Fabian Nowak <timystery@arcor.de>\n"
 "Language-Team: German <de@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:257
@@ -30,13 +31,13 @@ msgstr "Unbekannte Option »%s«\n"
 msgid "Unable to start notification daemon"
 msgstr "Benachrichtigungsdämon konnte nicht gestartet werden"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1130
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Verbindung zu D-Bus-Sitzungsbus konnte nicht hergestellt werden"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
-#, fuzzy, c-format
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1147
+#, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Ein anderer Benachrichtigungsdämon läuft bereits"
 
@@ -49,13 +50,16 @@ msgid "Theme"
 msgstr "Stil"
 
 #: ../xfce4-notifyd-config/main.c:223
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
 msgstr ""
+"notify-send \"Benachrichtigungsvorschau\" \"So sehen Benachrichtigungen auss "
+"like\""
 
 #: ../xfce4-notifyd-config/main.c:227
-#, fuzzy
 msgid "Notification preview failed"
-msgstr "Benachrichtigungen"
+msgstr "Fehler bei der Benachrichtigungsvorschau"
 
 #: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
@@ -78,23 +82,23 @@ msgstr "SOCKET-NR"
 msgid "Type '%s --help' for usage."
 msgstr "Geben Sie »%s --help« ein, um Hinweise zur Nutzung zu erhalten."
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Veröffentlicht unter den Bedingungen der GNU General Public License, version 2\n"
+msgstr ""
+"Veröffentlicht unter den Bedingungen der GNU General Public License, version "
+"2\n"
 
-#: ../xfce4-notifyd-config/main.c:338
+#: ../xfce4-notifyd-config/main.c:339
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fehlerberichte bitte an %s melden.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-#, fuzzy
 msgid "Bottom left"
 msgstr "Unten links"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-#, fuzzy
 msgid "Bottom right"
 msgstr "Unten rechts"
 
@@ -113,12 +117,10 @@ msgid "Notifications"
 msgstr "Benachrichtigungen"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-#, fuzzy
 msgid "Top left"
 msgstr "Oben links"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-#, fuzzy
 msgid "Top right"
 msgstr "Oben rechts"
 
@@ -128,7 +130,7 @@ msgstr "_Ausblenden nach:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Effect:"
-msgstr ""
+msgstr "_Effekt:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"

@@ -1,73 +1,76 @@
-# Norwegian Bokmal translations for xfce package.
-# Copyright (C) 2008 THE xfce'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the xfce package.
-# Terje Uriansrud <terje@uriansrud.net>, 2010.
-# 
+# Czech translations for xfce4-notify package.
+# Copyright (C) 2010 THE xfce4-notify'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-notify package.
+# Michal Várady <miko.vaji@gmail.com>, 2010.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce 4-notifyd\n"
+"Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-09 23:05+0000\n"
-"PO-Revision-Date: 2008-11-16 09:14+0100\n"
-"Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
-"Language-Team: Norwegian Bokmal\n"
+"POT-Creation-Date: 2010-12-11 11:05+0000\n"
+"PO-Revision-Date: 2010-12-11 14:48+0100\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd/main.c:50
+#: ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
-msgstr "Xfce Varsling"
+msgstr "Služba oznamování pro prostředí Xfce"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "Ukjent valg \"%s\"\n"
+msgstr "Neznámá volba \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr "Klarte ikke starte varsligsprosess"
+msgstr "Nelze spustit službu pro oznamování"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1130
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr "Klarte ikke koble til D-Bus sesjonsbuss"
+msgstr "Nelze se připojit k relaci sběrnice D-Bus"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1147
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "En varslingsprosess er allerede startet"
+msgstr "Již je spuštěna jiná služba pro oznamování"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
-msgstr "bilde: "
+msgstr "Obrázek:"
 
 #: ../xfce4-notifyd-config/main.c:196
 msgid "Theme"
-msgstr "Tema"
+msgstr "Motiv"
 
 #: ../xfce4-notifyd-config/main.c:223
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Forhåndsvining av varsling\" \"Slik vil et varsel se ut\""
+msgstr "notify-send \"Náhled oznámení\" \"Takto budou oznámení vypadat\""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
-msgstr "Forhåndsvisning av varsel feilet"
+msgstr "Náhled oznámení se nezdařil"
 
 #: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
-msgstr "Varslingsprosess er ikke tilgjengelig"
+msgstr "Služba pro nastavení není dostupná"
 
 #: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
-msgstr "Vis versjonsinformasjon"
+msgstr "Zobrazit informace o verzi"
 
 #: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
-msgstr "Innstillingsbehandlersokkel"
+msgstr "Soket správce nastavení"
 
 #: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
@@ -76,68 +79,69 @@ msgstr "SOCKET_ID"
 #: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Skriv inn '%s --help' for instruksjoner."
+msgstr "Informace o použití získáte příkazem '%s --help'"
 
 #: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Utgitt under GNU General Public License, versjon 2\n"
+msgstr "Vydáno pod podmínkami licence  GNU General Public License, verze 2\n"
 
 #: ../xfce4-notifyd-config/main.c:339
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Rapporter feil til %s.\n"
+msgstr "Prosímte, abyste hlásili chyby na adresu %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr "Nede til venstre"
+msgstr "Vlevo dole"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr "Nede til høyre"
+msgstr "Vpravo dole"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr "Tilpass visning av varsler på skjermen din"
+msgstr "Upravte způsob, jakým se budou oznámení zobrazovat"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
-msgstr " _Plassering av varsel"
+msgstr "Výchozí _pozice:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
-msgstr "Varsling"
+msgstr "Oznámení"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr "Oppe til venstre"
+msgstr "Vlevo nahoře"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr "Oppe til høyre"
+msgstr "Vpravo nahoře"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr "_Skjul etter:"
+msgstr "_Zmizet po:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Effect:"
-msgstr "_Effekt:"
+msgstr "_Efekt:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
-msgstr "_Ton ut som gjennomsiktig"
+msgstr "_Zeslábnutí do průhlednosti"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
-msgstr "_Gjennomsiktighet"
+msgstr "_Neprůhlednost:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 msgid "_Preview"
-msgstr "_Forhåndsvisning"
+msgstr "Ná_hled"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
-msgstr "sekunder"
+msgstr "sekund"
+
