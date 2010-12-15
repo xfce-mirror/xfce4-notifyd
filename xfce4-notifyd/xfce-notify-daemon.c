@@ -245,11 +245,11 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
         /* Placement data not initialized, don't update it */
         return;
 
-    DBG("Got 'screen-changed' signal for screen %d", screen_number);
-
     new_nmonitor = gdk_screen_get_n_monitors(screen);
     screen_number = gdk_screen_get_number(screen);
     old_nmonitor = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(screen), XND_N_MONITORS));
+
+    DBG("Got 'screen-changed' signal for screen %d", screen_number);
 
     /* Set the new number of monitors */
     g_object_set_qdata(G_OBJECT(screen), XND_N_MONITORS, GINT_TO_POINTER(new_nmonitor));
