@@ -332,28 +332,32 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 static void
 xfce_notify_daemon_finalize(GObject *obj)
 {
-    gint nscreen = gdk_display_get_n_screens(gdk_display_get_default());
-    gint i, j;
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(obj);
 
-    for(i = 0; i < nscreen; ++i) {
-        GdkScreen *screen = gdk_display_get_screen(gdk_display_get_default(), i);
-        GdkWindow *groot = gdk_screen_get_root_window(screen);
-        gint nmonitor = gdk_screen_get_n_monitors(screen);
+    if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
+      gint nscreen, i, j;
 
-        gdk_window_remove_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
+      nscreen = gdk_display_get_n_screens(gdk_display_get_default());
 
-        for(j = 0; j < nmonitor; j++) {
-            if (xndaemon->reserved_rectangles[i][j])
-                g_list_free(xndaemon->reserved_rectangles[i][j]);
-        }
+      for(i = 0; i < nscreen; ++i) {
+          GdkScreen *screen = gdk_display_get_screen(gdk_display_get_default(), i);
+          GdkWindow *groot = gdk_screen_get_root_window(screen);
+          gint nmonitor = gdk_screen_get_n_monitors(screen);
 
-        g_free(xndaemon->reserved_rectangles[i]);
-        g_free(xndaemon->monitors_workarea[i]);
+          gdk_window_remove_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
+
+          for(j = 0; j < nmonitor; j++) {
+              if (xndaemon->reserved_rectangles[i][j])
+                  g_list_free(xndaemon->reserved_rectangles[i][j]);
+          }
+
+          g_free(xndaemon->reserved_rectangles[i]);
+          g_free(xndaemon->monitors_workarea[i]);
+      }
+
+      g_free(xndaemon->reserved_rectangles);
+      g_free(xndaemon->monitors_workarea);
     }
-
-    g_free(xndaemon->reserved_rectangles);
-    g_free(xndaemon->monitors_workarea);
 
     g_tree_destroy(xndaemon->active_notifications);
 
