@@ -2,22 +2,22 @@
 # Copyright (C) 2008 THE xfce'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xfce package.
 # padmawan <andhika.padmawan@gmail.com>, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
+"POT-Creation-Date: 2010-12-19 11:05+0000\n"
 "PO-Revision-Date: 2008-11-16 20:37+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
-"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Jurik Notifikasi Xfce"
 
@@ -30,22 +30,17 @@ msgstr "Opsi tak dikenal \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Tak dapat menjalankan jurik notifikasi"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Tak dapat menyambung ke bus sesi D-Bus"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
-#, fuzzy, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "Jurik notifikasi lainnya telah berjalan"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:756
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
 #, c-format
-msgid "%s could not be launched"
-msgstr ""
+msgid "Another notification xndaemon is already running"
+msgstr "Notifikasi xndaemon lainnya telah berjalan"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
 msgstr "citra:"
 
@@ -53,44 +48,52 @@ msgstr "citra:"
 msgid "Theme"
 msgstr "Tema"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr "notify-send \"Notification Preview\" \"Ini adalah bagaimana notifikasi akan tampak\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Pratilik notifikasi gagal"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Jurik pengaturan tak tersedia"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
 msgstr "Tampilkan informasi versi"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
 msgstr "Soket manajer pengaturan"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Ketik '%s --help' untuk penggunaan."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Dirilis di bawah Lisensi Publik Umum GNU, versi 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:339
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Silakan laporkan kutu ke %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr ""
+msgstr "Kiri bawah"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr ""
+msgstr "Kanan bawah"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -108,25 +111,33 @@ msgstr "Notifikasi"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr ""
+msgstr "Kiri atas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr ""
+msgstr "Kanan atas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
 msgstr "_Hilang setelah:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Effect:"
+msgstr "_Efek:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
 msgstr "_Pudar ke transparan"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
 msgstr "_Opasitas:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Preview"
+msgstr "_Pratilik"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
 msgstr "detik"
 
