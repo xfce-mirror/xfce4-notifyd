@@ -58,8 +58,7 @@ struct _XfceNotifyWindow
 
     gdouble normal_opacity;
 
-    guint32 fade_transparent:1,
-            icon_only:1,
+    guint32 icon_only:1,
             has_summary_text:1,
             has_body_text:1,
             has_actions;
@@ -200,7 +199,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GTK_WINDOW(window)->type = GTK_WINDOW_TOPLEVEL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
-    window->fade_transparent = TRUE;
     /* The summary widget needs to be initialized before style_set is called. gtk_widget_ensure_style calls style_set */
     window->summary = gtk_label_new(NULL);
 
@@ -271,9 +269,15 @@ xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 {
     if(window->expire_timeout) {
         GTimeVal ct;
+        gboolean fade_transparent;
+
         g_get_current_time(&ct);
+
+        fade_transparent =
+            gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW (window)));
+
         window->expire_start_timestamp = ct.tv_sec * 1000 + ct.tv_usec / 1000;
-        window->expire_id = g_timeout_add(window->fade_transparent
+        window->expire_id = g_timeout_add(fade_transparent
                                           ? window->expire_timeout - FADE_TIME
                                           : window->expire_timeout,
                                           xfce_notify_window_expire_timeout,
@@ -661,10 +665,14 @@ static gboolean
 xfce_notify_window_expire_timeout(gpointer data)
 {
     XfceNotifyWindow *window = data;
+    gboolean          fade_transparent;
 
     window->expire_id = 0;
 
-    if(window->fade_transparent) {
+    fade_transparent =
+        gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW(window)));
+
+    if(fade_transparent) {
         window->fade_id = g_timeout_add(FADE_CHANGE_TIMEOUT,
                                         xfce_notify_window_fade_timeout,
                                         window);
@@ -1200,27 +1208,6 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         window->bg_path = NULL;
         gtk_widget_queue_draw(GTK_WIDGET(window));
     }
-}
-
-void
-xfce_notify_window_set_fade_transparent(XfceNotifyWindow *window,
-                                        gboolean fade_transparent)
-{
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-
-    if(fade_transparent == window->fade_transparent)
-        return;
-
-    window->fade_transparent = !!fade_transparent;
-
-    /* if we're already realized, we don't actually do anything here */
-}
-
-gboolean
-xfce_notify_window_get_fade_transparent(XfceNotifyWindow *window)
-{
-    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), FALSE);
-    return window->fade_transparent;
 }
 
 void

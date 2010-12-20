@@ -50,7 +50,6 @@ struct _XfceNotifyDaemon
     GObject parent;
 
     gint expire_timeout;
-    gboolean fade_transparency;
     gdouble initial_opacity;
     GtkCornerType notify_location;
 
@@ -862,8 +861,6 @@ notify_notify(XfceNotifyDaemon *xndaemon,
         xfce_notify_window_set_body(window, body);
         xfce_notify_window_set_actions(window, actions);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
-        xfce_notify_window_set_fade_transparent(window,
-                                                xndaemon->fade_transparency);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
         *OUT_id = replaces_id;
@@ -872,8 +869,6 @@ notify_notify(XfceNotifyDaemon *xndaemon,
                                                                         app_icon,
                                                                         expire_timeout,
                                                                         actions));
-        xfce_notify_window_set_fade_transparent(window,
-                                                xndaemon->fade_transparency);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
         *OUT_id = xfce_notify_daemon_generate_id(xndaemon);
@@ -1102,9 +1097,6 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                  ? g_value_get_int(value) : -1;
         if(xndaemon->expire_timeout != -1)
             xndaemon->expire_timeout *= 1000;
-    } else if(!strcmp(property, "/fade-transparency")) {
-        xndaemon->fade_transparency = G_VALUE_TYPE(value)
-                                    ? g_value_get_boolean(value) : TRUE;
     } else if(!strcmp(property, "/initial-opacity")) {
         xndaemon->initial_opacity = G_VALUE_TYPE(value)
                                   ? g_value_get_double(value) : 0.9;
@@ -1175,9 +1167,6 @@ xfce_notify_daemon_load_config(XfceNotifyDaemon *xndaemon,
     if(xndaemon->expire_timeout != -1)
         xndaemon->expire_timeout *= 1000;
 
-    xndaemon->fade_transparency = xfconf_channel_get_bool(xndaemon->settings,
-                                                        "/fade-transparency",
-                                                        TRUE);
     xndaemon->initial_opacity = xfconf_channel_get_double(xndaemon->settings,
                                                         "/initial-opacity",
                                                         0.9);
