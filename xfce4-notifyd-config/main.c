@@ -233,7 +233,7 @@ static GtkWidget *
 xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 {
     XfconfChannel *channel;
-    GtkWidget *dlg, *btn, *sbtn, *slider, *chk, *treeview, *combo;
+    GtkWidget *dlg, *btn, *sbtn, *slider, *treeview, *combo;
     GtkAdjustment *adj;
     GtkTreeSelection *sel;
     GError *error = NULL;
@@ -275,10 +275,6 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     adj = gtk_range_get_adjustment(GTK_RANGE(slider));
     xfconf_g_property_bind(channel, "/initial-opacity", G_TYPE_DOUBLE,
                            G_OBJECT(adj), "value");
-
-    chk =  GTK_WIDGET(gtk_builder_get_object(builder, "fade_transparency_chk"));
-    xfconf_g_property_bind(channel, "/fade-transparency", G_TYPE_BOOLEAN,
-                           G_OBJECT(chk), "active");
 
     treeview = GTK_WIDGET(gtk_builder_get_object(builder, "themes_treeview"));
     current_theme = xfconf_channel_get_string(channel, "/theme", "Default");
