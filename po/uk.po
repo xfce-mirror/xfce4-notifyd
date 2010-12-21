@@ -55,7 +55,7 @@ msgstr "Тема"
 
 #: ../xfce4-notifyd-config/main.c:223
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr ""
+msgstr "notify-send \"Попередній перегляд повідомлення\" \"Так будуть виглядати повідомлення\""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
