@@ -1,77 +1,75 @@
-# SOME DESCRIPTIVE TITLE.
+# xfce4-notifyd en_GB translation.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# Jeff Bailes <thepizzaking@gmail.com>, 2010.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notify\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-21 05:05+0000\n"
-"PO-Revision-Date: 2010-05-24 00:21+0100\n"
-"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
-"Language-Team: UKRAINIAN <translate@linux.org.ua>\n"
+"POT-Creation-Date: 2010-12-19 05:05+0000\n"
+"PO-Revision-Date: 2010-12-19 20:30+1100\n"
+"Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
+"Language-Team: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Ukrainian\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: UKRAINE\n"
-"X-Generator: Pootle 1.1.0\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
-msgstr "Демон повідомлень Xfce"
+msgstr "Xfce Notify Daemon"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "Невідомий параметр \"%s\"\n"
+msgstr "Unknown option \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr "Не можу запустити демон повідомлень"
+msgstr "Unable to start notification daemon"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1134
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr "Не можу з’єднатися до буфера сесії D-Bus"
+msgstr "Unable to connect to D-Bus session bus"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1151
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Інший демон повідомлень xndaemon вже працює"
+msgstr "Another notification xndaemon is already running"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:809
 msgid "image: "
-msgstr "малюнок:"
+msgstr "image: "
 
 #: ../xfce4-notifyd-config/main.c:196
 msgid "Theme"
-msgstr "Тема"
+msgstr "Theme"
 
 #: ../xfce4-notifyd-config/main.c:223
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Попередній перегляд повідомлення\" \"Так будуть виглядати повідомлення\""
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
 
 #: ../xfce4-notifyd-config/main.c:227
 msgid "Notification preview failed"
-msgstr "Попередній перегляд повідомлення не вдався"
+msgstr "Notification preview failed"
 
 #: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
-msgstr "Демон налаштувань не доступний"
+msgstr "Settings daemon is unavailable"
 
 #: ../xfce4-notifyd-config/main.c:314
 msgid "Display version information"
-msgstr "Показати інформацію про версію"
+msgstr "Display version information"
 
 #: ../xfce4-notifyd-config/main.c:315
 msgid "Settings manager socket"
-msgstr "Сокет менеджера налаштувань"
+msgstr "Settings manager socket"
 
 #: ../xfce4-notifyd-config/main.c:315
 msgid "SOCKET_ID"
@@ -80,79 +78,68 @@ msgstr "SOCKET_ID"
 #: ../xfce4-notifyd-config/main.c:325
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Напишіть '%s --help' для допомоги по використанню."
+msgstr "Type '%s --help' for usage."
 
 #: ../xfce4-notifyd-config/main.c:338
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Розроблено згідно умов GNU General Public License, 2-га версія\n"
+msgstr "Released under the terms of the GNU General Public License, version 2\n"
 
 #: ../xfce4-notifyd-config/main.c:339
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Будь-ласка, повідомте про помилку до %s.\n"
+msgstr "Please report bugs to %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr "Внизу зліва"
+msgstr "Bottom left"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr "Внизу зправа"
+msgstr "Bottom right"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr "Налаштуйте показ повідомлень на Вашому екрані"
+msgstr "Customise how notifications appear on your screen"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
-msgstr "Типова _позиція:"
+msgstr "Default _position:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
-msgstr "Повідомлення"
+msgstr "Notifications"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr "Зверху зліва"
+msgstr "Top left"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr "Зверху зправа"
+msgstr "Top right"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr "_Зникати після:"
+msgstr "_Disappear after:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Effect:"
-msgstr "_Ефект:"
+msgstr "_Effect:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Fade to transparent"
-msgstr "_Стати прозорим"
+msgstr "_Fade to transparent"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "_Opacity:"
-msgstr "_Непрозорість:"
+msgstr "_Opacity:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 msgid "_Preview"
-msgstr "_Перегляд"
+msgstr "_Preview"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "seconds"
-msgstr "секунди"
-
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Зліва вверху\n"
-#~ "Зліва внизу\n"
-#~ "Справа вверху\n"
-#~ "Справа внизу"
+msgstr "seconds"
