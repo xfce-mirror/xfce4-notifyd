@@ -37,7 +37,7 @@ msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus oturum yoluna bağlanması olanaksız"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1143
-#, fuzzy, c-format
+#, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Bir başka bildiri servisi zaten çalışıyor"
 
