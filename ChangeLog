@@ -1,397 +1,1721 @@
-2009-06-07	Brian J. Tarricone <bjt23@cornell.edu>
+commit d2aabd0c4a692e5ef49865a9c5a736be82f56cfc
+Author: Mișu Moldovan <dumol@xfce.org>
+Date:   Tue Feb 1 21:30:31 2011 +0100
+
+    l10n: Initial Romanian translation
+    
+    New status: 27 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 72129730763622b76665be13c99bf9c67a4157a8
+Author: Özgür Kuru <ozgur@ozgurkuru.net>
+Date:   Wed Jan 12 20:36:31 2011 +0100
+
+    l10n: Updated Turkish (tr) translation to 96%
+    
+    New status: 26 messages complete with 0 fuzzies and 1 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit b4eb96b64a950f89ddccf12cb6260e3ed5a77a4e
+Author: Özgür Kuru <ozgur@ozgurkuru.net>
+Date:   Wed Jan 12 20:33:49 2011 +0100
+
+    l10n: Updated Turkish (tr) translation to 92%
+    
+    New status: 25 messages complete with 1 fuzzy and 1 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 6e8ce4f11d3c49ccf23f5e8bbc60a4aca00c4768
+Author: Piotr Sokół <psokol@jabster.pl>
+Date:   Mon Dec 27 11:44:07 2010 +0100
+
+    l10n: Updated Polish (pl) translation to 100%
+    
+    New status: 27 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 6e98556e02e7fb5cafd28a31a6f103928b2843fe
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Tue Dec 21 17:18:13 2010 +0100
+
+    l10n: Updated Galician (gl) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 6389a44679b18643ccffd11d9caea9a9f73a5a48
+Merge: ee52401 fb78c0c
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Tue Dec 21 16:59:20 2010 +0100
+
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
+
+commit fb78c0cfadc8132e61b023ab99a508142db45ef0
+Author: Dmitry Nikitin <luckas_fb@mail.ru>
+Date:   Tue Dec 21 11:45:23 2010 +0100
+
+    l10n: Updated Ukrainian (uk) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 96fac7eb0cc9c0f4152ee17f44fa184b02677337
+Author: Dmitry Nikitin <luckas_fb@mail.ru>
+Date:   Tue Dec 21 11:41:16 2010 +0100
+
+    l10n: Updated Ukrainian (uk) translation to 96%
+    
+    New status: 28 messages complete with 0 fuzzies and 1 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit ee52401ae610726a007b4b0712907a392d043110
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Dec 20 19:28:29 2010 +0100
+
+    Remove the option from the settings dialog.
+
+commit d4265988c27b3993a80e287868a0c2773fd48bf6
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Dec 20 19:25:36 2010 +0100
+
+    Remove fade to transparent option.
+    
+    Now we fade to transparent if we have a compositor.
+
+commit fe7e0b8a28c805e76f37c073c30540c79fb86f40
+Author: Andhika Padmawan <andhika.padmawan@gmail.com>
+Date:   Sun Dec 19 12:57:13 2010 +0100
+
+    l10n: Updated Indonesian (id) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit def239f143f5f6aaf717f7edecb7cd596444e426
+Author: Jeff Bailes <thepizzaking@gmail.com>
+Date:   Sun Dec 19 10:32:58 2010 +0100
+
+    l10n: en_GB translation.
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit aac0a7b316d57a7d033f50ebfb5fc3560fed1656
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Fri Dec 17 21:01:33 2010 +0100
+
+    Don't try to free the placement data if it wasn't initialized.
+
+commit 8709bcbddbb85ea7b76b93dd5dffc078b2fcf8e2
+Merge: 7036b64 5319c2a
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Dec 15 18:56:43 2010 +0100
+
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
+
+commit 7036b645317f5376332417e9f244c07718b01d5f
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Dec 15 18:56:29 2010 +0100
+
+    Fix not initialized variable used.
+
+commit 5319c2a447216236d67942cdd037752d6a6ba2a6
+Author: Fabian Nowak <timystery@arcor.de>
+Date:   Sun Dec 12 16:59:23 2010 +0100
+
+    l10n: Updated German (de) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* xfce4-notifyd/xfce-notify-daemon.c: Re-add support for the
-	  'reason' parameter to the NotificationChanged signal.
-	* configure.ac.in: Add a switch to toggle the old behavior.
+commit 5e475d25245edc72f96b8129da5b3d05a2801eee
+Author: Michal Várady <miko.vaji@gmail.com>
+Date:   Sat Dec 11 14:50:40 2010 +0100
 
-2008-11-26	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Initial Czech trsnaltion
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* xfce4-notifyd/xfce-notify-window.c: Don't set the legacy window
-	  shape when the widget is composited (fixes drawing artifacts with
-	  the curved corners).  Also simplify the painting code a bit when
-	  the widget is *not* composited; should be a little faster and will
-	  probably look better too.
+commit 8c650b806e9ab2540c1d89dabe1203c42344cdec
+Author: Terje Uriansrud <terje@uriansrud.net>
+Date:   Fri Dec 10 00:08:09 2010 +0100
 
-2008-11-26	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Updated Norwegian Bokmal (nb) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* configure.ac.in: Add 'git' version tag.
-	* xfce4-notifyd-config/xfce4-notifyd-config.1: Add man page,
-	  submitted by Evgeni Golov <sargentd@die-welt.net>.
+commit 6f3cf70227d1f785815b014fb0ee7fe650ef7218
+Merge: c7b151d 8128a91
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Thu Dec 9 13:26:30 2010 +0100
 
-2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
 
-	* configure.ac.in: Remove 'git' version tag for 0.1.0 release.
+commit c7b151d2b9023085a4a28305c06d10406bb49120
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Thu Dec 9 13:20:24 2010 +0100
 
-2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
+    Don't update the placement data if it was never initialized.
 
-	* {icons/48x48,xfce4-notifyd}/Makefile.am: Fix make distcheck.
+commit 8128a912033b24d809e8a150d048e478dfc229ea
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Dec 9 10:59:50 2010 +0100
 
-2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Updated Norwegian Bokmal (nb) translation to 96%
+    
+    New status: 28 messages complete with 0 fuzzies and 1 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* icons/48x48/xfce4-notifyd.png: Add app icon.
-	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: Set
-	  Icon= key.
-	* configure.ac.in,Makefile.am: Add icons subdir to build.
+commit f13ed420179be28423ec0438074acfa085de6703
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Dec 9 10:59:34 2010 +0100
 
-2008-11-24	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Updated Norwegian Bokmal (nb) translation to 96%
+    
+    New status: 28 messages complete with 1 fuzzy and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Fix dialog
-	  layout spacing and add scrolled window shadow.
+commit 29b507a25771cda498b1ab7cb5bd345df2aaf565
+Author: Nick Schermer <nick@xfce.org>
+Date:   Wed Dec 8 20:38:35 2010 +0100
 
-2008-11-21	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Updated Dutch (Flemish) (nl) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* Makefile.am: Add release targets.
+commit 15d595d51cfaa6eda5df6807bed2290ac9806585
+Author: Terje Uriansrud <terje@uriansrud.net>
+Date:   Wed Dec 8 20:35:06 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    Update translation.
 
-	* xfce4-notifyd-config/main.c: Remove a couple strings.
-	* po/xfce4-notifyd.pot: Update .pot file.
+commit 2218b10ad70b6bb24653c3d8e1388deb3540b70a
+Author: Nick Schermer <nick@xfce.org>
+Date:   Wed Dec 8 20:33:03 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Updated Dutch (Flemish) (nl) translation to 96%
+    
+    New status: 28 messages complete with 1 fuzzy and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* NEWS: Add NEWS file for first release.
-	* xfce4-notifyd-config/main.c: Sort items in the themes list.
+commit cf98de3625a0a47220b0d950b3eec21e88b30891
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Nov 29 23:42:36 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    Update NEWS file.
 
-	* xfce4-notifyd/{org.freedesktop.Notifications.service.in,Makefile.am}:
-	  Install xfce4-notifyd to $libexecdir instead of $bindir
+commit 2529fb74ca78c52e8c66620e10ad275373d988bb
+Author: Yves-Alexis Perez <corsac@debian.org>
+Date:   Mon Nov 29 23:39:20 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    Fix icon loading with path (bug #6895).
 
-	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Change window
-	  title to simply 'Notifications'
-	* po/xfce4-notifyd.pot: Update .pot file
+commit d795f604ed1a614b2c48fca26dfd965fd6ea9ad4
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 27 15:12:55 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    Re add git tag to version number
 
-	* xfce4-notifyd-config/Makefile.am, xfce4-notifyd-config/main.c,
-	  xfce4-notifyd-config/xfce4-notifyd-config.desktop.in,
-	  xfce4-notifyd-config/xfce4-notifyd-config.glade: make config dialog
-	  pluggable into xfce settings manager, add --version option
+commit f5819d43733d3c04f2a84699180532190d643e5e
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 27 14:53:10 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    Bump version
 
-	* README: add readme content
+commit 7caa6e07788a5fb4fc8bbc10429077a77d76ab77
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 27 14:21:48 2010 +0100
 
-2008-11-15	Brian J. Tarricone <bjt23@cornell.edu>
+    Update README
 
-	* xfce4-notifyd-config/xfce4-notifyd-config.glade: set spin buton
-	  page size to zero
+commit 822e51261b7348b57d79e6a18d79725b341cc4ea
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 27 14:21:23 2010 +0100
 
-2008-11-07	Brian J. Tarricone <bjt23@cornell.edu>
+    Add release date
 
-	* themes/Smoke/gtkrc: fix button colors in smoke theme
+commit 76547576f0d29d4c59f4b39561badfbe59842d4d
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 27 14:21:04 2010 +0100
 
-2008-09-21	Brian J. Tarricone <bjt23@cornell.edu>
+    Add myself to authors.
 
-	* xfce4-notifyd/Makefile.am, xfce4-notifyd/galago-dbus.xml,
-	  xfce4-notifyd/notify-dbus.xml, xfce4-notifyd/xfce-notify-daemon.c: 
-	  just because it's hosted on galago-project.org, doesn't mean
-	  anything.
+commit 218ba96d0c96804acdcfc98449a63be6988c1b66
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 27 14:20:37 2010 +0100
 
-2008-09-20	Brian J. Tarricone <bjt23@cornell.edu>
+    Update copyright
 
-	* xfce4-notifyd/xfce-notify-daemon.c: don't send the 2nd argument
-	  (close reason) with the NotificationClosed signal for some reason libnotify doesn't support it, so apps don't receive
-	  the signal.  lovely.
+commit 4e78aa0e9aaf2714bb2eac293381a3e288d9fd2b
+Author: Carles Muñoz Gorriz <carlesmu@internautas.org>
+Date:   Sat Nov 27 08:51:23 2010 +0100
 
-2008-09-05	Brian J. Tarricone <bjt23@cornell.edu>
+    l10n: Updated Catalan (Valencian) (ca) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
 
-	* autogen.sh: new git revision subst
+commit aadb01b3ad01f77e7ce7119b398380f86fe0d68e
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Fri Nov 26 14:26:32 2010 +0100
 
-2008-08-25	Brian J. Tarricone <bjt23@cornell.edu>
+    Improve translation
+
+commit 3ce061f63dcb894d2b3c16e734a970d1b7667714
+Merge: aef929b 0126f0d
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Fri Nov 26 13:52:23 2010 +0100
+
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
+
+commit aef929b4cc4e1341dedf85941bf9b883f187582c
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Fri Nov 26 13:52:07 2010 +0100
+
+    Update French translation
+
+commit 0126f0df1d06217bb9e97a1b1a776e06a5875f73
+Author: Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>
+Date:   Wed Nov 24 00:10:59 2010 +0100
+
+    l10n: Updated German (de) translation to 72%
+    
+    New status: 21 messages complete with 6 fuzzies and 2 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e41ff8aebe1c9face732c5130e236ca6972a0a86
+Author: Xu Meihong <mhuntxu@gmail.com>
+Date:   Tue Nov 23 16:47:01 2010 +0100
+
+    l10n: Updated Chinese (China) (zh_CN) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 7fe93ac5033c9179b055ba5155a92203dc05e4a0
+Author: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>
+Date:   Tue Nov 23 10:38:06 2010 +0100
+
+    l10n: Updated Finnish (fi) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 249d85567fa5fe7f8be00d554d09c55a8c4b8cee
+Author: Cristian Marchi <cri.penta@gmail.com>
+Date:   Tue Nov 23 08:10:12 2010 +0100
+
+    l10n: Updated Italian (it) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 70154cf1356eb9fa1287bef02249fb19eb0f285e
+Author: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>
+Date:   Tue Nov 23 07:29:46 2010 +0100
+
+    l10n: Updated Greek (el) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 7a95c6b1f7ab397261a15c26e36abc47a3b8d04a
+Author: Masato Hashimoto <hashimo@xfce.org>
+Date:   Tue Nov 23 06:53:34 2010 +0100
+
+    l10n: Updated Japanese (ja) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 5cc1676aacd904a6a7907f2288cdcd211759846f
+Author: Cheng-Chia Tseng <pswo10680@gmail.com>
+Date:   Tue Nov 23 06:02:39 2010 +0100
+
+    l10n: Updated Chinese (Taiwan) (zh_TW) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 219e2a1867edfec5139ad5a88455cec9528c6a60
+Author: Cheng-Chia Tseng <pswo10680@gmail.com>
+Date:   Tue Nov 23 05:23:28 2010 +0100
+
+    l10n: Updates to Traditional Chinese translation
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 32583a38a759c9c4f33dd91a3d3f6d7287ba0314
+Author: Bauzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Tue Nov 23 04:15:52 2010 +0100
+
+    l10n: Updated Kazakh (kk) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e00ad3a1f1fd27218fe715aa0c7abe754244127c
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Tue Nov 23 00:59:32 2010 +0100
+
+    l10n: Updated Hungarian (hu) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 2624a5e21535cbb473d9ca98765a5fe178a672c9
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Mon Nov 22 23:38:51 2010 +0100
+
+    l10n: Updated Danish (da) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 481a6ad7831035702cc4d153537f669ac6612be4
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Mon Nov 22 22:55:55 2010 +0100
+
+    l10n: Updated Portuguese (pt) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit dc86a4eeb265cc39d7ee61bf0caf70e0f72011ac
+Author: Piarres Beobide <pi@beobide.net>
+Date:   Mon Nov 22 22:54:29 2010 +0100
+
+    l10n: Updated Basque (eu) translation to 100%
+    
+    New status: 29 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit ba3aea9f98b9c98975cf41a5660104f7b13c15d0
+Author: Piarres Beobide <pi@beobide.net>
+Date:   Mon Nov 22 22:54:06 2010 +0100
+
+    l10n: Updated Basque (eu) translation to 96%
+    
+    New status: 28 messages complete with 0 fuzzies and 1 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit c2809ff828201ba4bed697cec6498475ab37e088
+Author: Harald Servat <redcrash@gmail.com>
+Date:   Mon Nov 22 22:40:25 2010 +0100
+
+    l10n: Updated Catalan (Valencian) (ca) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 649ce81ed6307bce68c70ceb902a125cb5dbcf5d
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Nov 22 21:43:11 2010 +0100
+
+    Update NEWS.
+
+commit b16951563a4912eb00e47938d30f04a44b8e86b7
+Merge: 65ec36e 0d84e53
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Nov 22 21:37:20 2010 +0100
+
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
+
+commit 65ec36e435150b8bb10d6b51fb618876d10714e8
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Nov 22 21:36:41 2010 +0100
+
+    Add a preview button in the preferences dialog (Bug #5319).
+
+commit 0d84e532550d049ef15cc8ea50f3e12d12f905c7
+Author: Xavier Devlamynck <magicrhesus@ouranos.be>
+Date:   Sun Nov 21 00:06:16 2010 +0100
+
+    l10n: Updated French (fr) translation to 96%
+    
+    New status: 25 messages complete with 1 fuzzy and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit a21528593aaafbb3450670d0cdf34ae4bcae0ff2
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Fri Nov 19 15:14:30 2010 +0100
+
+    l10n: Updated Portuguese (pt) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 09ea081bc28a5c5d0e9974b2f184390666a522b1
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Thu Nov 18 19:57:20 2010 +0100
+
+    l10n: Updated Danish (da) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit b22fad5bbdc89bc4fd1df4541809f1bbc231bf9b
+Author: Piarres Beobide <pi@beobide.net>
+Date:   Thu Nov 18 10:50:03 2010 +0100
+
+    l10n: Updated Basque (eu) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit ed069a02a1a0513ea9de2cf902688195aad7dd75
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 17 23:35:24 2010 +0100
+
+    Update TODO
+
+commit 9de3666c9bd0553c710fd740b4327f4bb03449a4
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 17 23:31:11 2010 +0100
+
+    First try at reworking the preferences window.
+    
+    Align the widgets with a table and tweak the margin/padding. More
+    changes to come.
+
+commit bb3cd9fe92e437795800229ee7cccf075a97744c
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 17 23:00:36 2010 +0100
+
+    Fix orientation for display of the dialog in glade.
+
+commit ff65228af4e9665f1cac6c45c0c852ca6c4bf4a0
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 17 22:34:42 2010 +0100
+
+    Close the daemon if it is idle for 10 minutes.
+    
+    Launching the daemon is not really ressource intensive so we can close
+    it if it is not used. We could maybe even put a shorter delay.
+
+commit 4e12936b2e31c0e28750e10326baee9ff7ed38ba
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 17 21:48:44 2010 +0100
+
+    Delay the initialization of the placement data.
+    
+    We compute the workareas and create the arrays when when show the first
+    notification. This fixes a bug where the workarea was not computed
+    correctly because it did not take the panels into account (because
+    gdk_screen_get_window_stack returns NULL during the first seconds of the
+    session).
+    
+    It also makes startup a little faster and saves some memory
+    when the daemon is not needed and just queried for its capacities.
+
+commit e66792394d573e0c6ff2559645aaeee118ef672a
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 17 18:34:34 2010 +0100
+
+    Add more debugging information
+
+commit e5d0a8f1c9ae8c5b49b95e00a46d7752a445892d
+Merge: 16e92c4 d7f308b
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 14 14:19:19 2010 +0100
+
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
+
+commit 16e92c4958479089cbc8782484d5000cf62fa0f4
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 14 14:18:56 2010 +0100
+
+    Remove remaining libsexy references.
+
+commit 3beb6c58d1faf745c38304e8bd213972c8d66db6
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Nov 13 11:49:35 2010 +0100
+
+    Remove libsexy dependency.
+    
+    Use links in GtkLabel instead, will only work with gtk 2.16.
+
+commit d7f308b0d8861d18ef1cebb9f8b83b053a81b248
+Author: Johannes Lips <johannes.lips@googlemail.com>
+Date:   Sat Nov 13 20:02:45 2010 +0100
+
+    l10n: Updated German (de) translation to 76%
+    
+    New status: 20 messages complete with 6 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 69f892e253ba7593ec543c3696690cb81bbd0305
+Author: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>
+Date:   Thu Nov 11 16:36:54 2010 +0100
+
+    l10n: Updated Finnish (fi) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 82f087355e7eb169a5c7c90139e8db9abd9f93a5
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 10 19:22:13 2010 +0100
+
+    Sync the display and the windows before computing the work area.
+
+commit 616ca760cb8bc549e538fe6a6d8aec2702c1d008
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 10 19:21:41 2010 +0100
+
+    Compute the new workarea on screen-change.
+
+commit c3866d82ffcf8d2019c7ab5bb5ec347695fc571e
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Wed Nov 10 19:21:26 2010 +0100
+
+    Remove useless temporary variable.
+
+commit 7f6ee0bf5e6213a4ca46af35e2aeb126b12bed7b
+Merge: f3a0b09 ba4a5b0
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Tue Nov 9 16:47:58 2010 +0100
+
+    Merge branch 'master' of ssh://git.xfce.org/git/apps/xfce4-notifyd
+
+commit f3a0b09f9de8c3637973673763411acfabce4442
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Tue Nov 9 16:44:38 2010 +0100
+
+    Remove boolean return for xfce_notify_daemon_get_workarea.
+    
+    It already has a fallback to get the monitor geometry, no need to do the
+    check twice. This fixes a weird bug were we end up with the monitor
+    geometry instead of the workarea and were xfce4-notifyd tries to place
+    the notifications over the panel which results in miss-aligned
+    notifications.
+
+commit ba4a5b0aa4de994c23fad3351282129c7602e168
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Tue Nov 9 10:50:06 2010 +0100
+
+    l10n: Updated Portuguese (pt) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e906a72505b5703d07d3f2d40e0935e71a445d72
+Author: Harald Servat <redcrash@gmail.com>
+Date:   Mon Nov 8 14:21:24 2010 +0100
+
+    l10n: Updated Catalan (Valencian) (ca) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 866f56aaf2dc76bcb550252f7cc072d631539763
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Mon Nov 8 13:45:53 2010 +0100
+
+    l10n: Updated Danish (da) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 12e99cfe78f2071634b3a4066656bea10cc72213
+Author: Bauzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Mon Nov 8 09:21:01 2010 +0100
+
+    l10n: Updated Kazakh (kk) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 578909ec42109b6cebac434366967f43881be8ef
+Author: Cristian Marchi <cri.penta@gmail.com>
+Date:   Sun Nov 7 19:41:13 2010 +0100
+
+    l10n: Updated Italian (it) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 7715634fad66f5e8b59cfe7af9e0fdd89f7494d3
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 7 18:21:56 2010 +0100
+
+    Remove pot file.
+
+commit ed9027f646783c3891e1b772dbae67a8661ffb30
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 7 18:16:45 2010 +0100
+
+    Remove LINGUAS file, we use @LINGUAS@.
+    
+    Update translations too to test the change.
+
+commit 7af8b4c949b5d07187c65c40e9db1d4f1df5d77c
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 7 14:19:44 2010 +0100
+
+    Remove some unneeded options in configure.ac.in.
+    
+    Remove the gettext stuff and enable silent build.
+
+commit bcf1c22d937a2827d805e96e20fb476cba7dc7a2
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 7 13:36:33 2010 +0100
+
+    Only show the menu item in Xfce (Bug  #6733).
+
+commit fd35bd18e84326c20d8e929ecd7edb7f6db7e6e3
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Nov 7 13:36:25 2010 +0100
+
+    Remove deprecated encoding key.
+
+commit 302332feb7d3a43dcaec49c4806be45d126d62de
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Tue Apr 13 00:05:25 2010 +0200
+
+    Fix to the workarea computation (Bug #6380).
+    
+    Simplify the function to compute the workarea to make it actually
+    understandable and usable.
+
+commit 384695c78ded2bff8cbc72c8366218a74df46665
+Author: Masato Hashimoto <cabezon.hashimoto@gmail.com>
+Date:   Sat Nov 6 14:31:22 2010 +0100
+
+    l10n: Updated Japanese (ja) translation to 100%
+    
+    New status: 26 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 246e4ab250376769632c1da79b9720763829fa94
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Aug 26 21:58:01 2010 +0200
+
+    Fix some comilation warnings.
+
+commit fd6cf48061d83b20e93ff9a4399dfd8301fd3f77
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Aug 26 21:53:07 2010 +0200
+
+    Move xfce4-notifyd to $(libdir)/xfce4/notifyd.
+
+commit 6bf731bc040f6c008421da365ce11e4a22b89b7a
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Sun May 30 00:29:36 2010 +0200
+
+    l10n: Updated Ukrainian (uk) translation to 100%
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 654cba54d998c8d48e54f9f9ee493fd619aaa18b
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Sat May 29 17:17:25 2010 +0200
+
+    l10n: Updated Ukrainian (uk) translation to None%
+    
+    New status: 0 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 0af8c5f8892d5a8012a2ad58d46c32820365fd51
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Sat May 29 17:09:31 2010 +0200
+
+    l10n: Updated Ukrainian (uk) translation to 36%
+    
+    New status: 8 messages complete with 0 fuzzies and 14 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 5615577ea41815c993eae7370ffd6e596ef82b01
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Sat May 29 17:07:17 2010 +0200
+
+    l10n: Ukrainian translation
+    
+    New status: 1 message complete with 0 fuzzies and 21 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit a73b8c34f81147175d72757b4219039a343c53e5
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Thu May 27 13:59:34 2010 +0200
+
+    l10n: Correction of language code from pt_PT to pt
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 4143196fa3f8f25834db0a263576864f00a76b61
+Author: Gheyret Kenji <gheyret@yahoo.com>
+Date:   Thu May 27 07:36:50 2010 +0200
+
+    l10n: Updated Uyghur (ug) translation to 86%
+    
+    New status: 19 messages complete with 0 fuzzies and 3 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit fb4998ac747388a64dcbec9406fd5efd745c8afd
+Author: Tomasz Chudyk <chudyk@gmail.com>
+Date:   Tue May 25 15:59:28 2010 +0200
+
+    l10n: Updates to Polish translation
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit a01b5f2bcc1213c77188a4f18c34b2a7ee512d26
+Author: Gheyret Kenji <gheyret@yahoo.com>
+Date:   Fri May 21 10:03:07 2010 +0200
+
+    l10n: Uyghur translation
+    
+    New status: 3 messages complete with 0 fuzzies and 19 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 4f39e2fb7a90c0d5ba00aff2ce25f5f760425afe
+Author: Tomasz Chudyk <chudyk@gmail.com>
+Date:   Thu May 20 16:38:12 2010 +0200
+
+    l10n: New Polish translation
+    
+    New status: 21 messages complete with 1 fuzzy and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit bc27407881f9150e51fb57984de9d9d776b9708d
+Author: Cristian Cozzolino <cristiancozzolino@libero.it>
+Date:   Tue May 4 17:23:22 2010 +0200
+
+    l10n: New Italian translation file
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 0d1cc1c70c0fb28b095c868abad9cc8f53e844d5
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Thu Nov 12 21:39:20 2009 +0100
+
+    Cache the workarea.
+
+commit 87e2f71e95310c4b53d8acd1bc05695ecae71780
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sun Dec 27 11:53:29 2009 +0100
+
+    Fix a segfault when using the summary-bold property.
+    
+    When initializing an XfceNotifyWindow, gtk_widget_ensure_style was
+    called before initializing window->summary. As a result, in
+    xfce_notify_window_style_set, gtk_widget_get_style returned a wrong
+    value (NULL) which caused a crash in pango_font_description_copy.
+    Initializing window->summary at the beginning of the init function
+    is enough to fix this.
+
+commit f23c20c4a3e80fbb7019bff1a842a64be68f242d
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sun Apr 11 17:52:46 2010 -0700
+
+    update NEWS and README
+
+commit f1169d86075b1ce972b173ed999ca6bcdad3f97f
+Author: Romain Bouvier <skunnyk@archlinux.fr>
+Date:   Sun Apr 11 17:30:08 2010 +0200
+
+    Port xfce4-notifyd to libxfce4ui and GtkBuilder
+
+commit 5b9e6a3f628b1f534eb3c56e97a3949fab931f23
+Author: A S  Alam <apreet.alam@gmail.com>
+Date:   Sun Apr 4 06:39:40 2010 +0200
+
+    l10n: Punjabi Translation Added
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e72f9ed1aea7331be9b6dc8ff22f25abb84d3e04
+Author: Danishka Navin <danishka@gmail.com>
+Date:   Fri Apr 2 18:37:56 2010 +0200
+
+    l10n: added Sinhala translation
+    
+    New status: 1 message complete with 0 fuzzies and 21 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit ab62ea0af332689c1b7ff5a283b9289272de3563
+Author: Fabian Nowak <timystery@arcor.de>
+Date:   Sun Mar 28 16:42:27 2010 +0200
+
+    l10n: Updated German (de) translation to 100%
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit f8535c8b84b7cfda2843731448948afabb5ab4a7
+Author: Piarres Beobide <pi@beobide.net>
+Date:   Fri Mar 26 12:15:03 2010 +0100
+
+    l10n: Basque translation
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit ebc862746a9a2d302c62771917c67141878fbb88
+Author: Bauzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Sat Mar 20 08:00:49 2010 +0100
+
+    l10n: New translation into Kazakh
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit fcd87a863c395200ce6ca58d8574e8f1ac50b9df
+Author: Robert Hartl <hartl.robert@gmail.com>
+Date:   Mon Mar 8 11:58:44 2010 +0100
+
+    l10n: Updated Slovak (sk) translation to 90%
+    
+    New status: 20 messages complete with 0 fuzzies and 2 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit b4349ccbbdff514ef3f8c226eef3b6ee1e539cab
+Author: Gabor Kelemen <kelemeng@gnome.hu>
+Date:   Fri Feb 5 23:54:27 2010 +0100
+
+    l10n: Initial Hungarian translation added
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 8fdeec616cd049d0455748651bdcf893af05f8e5
+Author: Denis Koryavov <dkoryavov@yandex.ru>
+Date:   Tue Jan 26 23:31:48 2010 +0100
+
+    l10n: Initial Russian (ru) translation
+    
+    New status: 22 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 2b3c1c7848275ca66b28769b7077ecc7df55fe9c
+Author: Daniel Nylander <po@danielnylander.se>
+Date:   Wed Dec 16 13:31:36 2009 +0000
+
+    l10n: Swedish translation added
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 4a04c8fe89653e0cbc86d29c488245db9c0ffb26
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Fri Nov 6 12:49:59 2009 +0000
+
+    l10n: Updates to Galician (gl) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 31235618d8aa66cd527764e62ffe244a3c90660e
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Fri Nov 6 12:47:20 2009 +0000
+
+    l10n: Updates to Galician (gl) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 0d8368a5ef8b97e7603d91450540fefe9e5c6e88
+Author: Robert Hartl <hartl.robert@gmail.com>
+Date:   Thu Nov 5 16:58:10 2009 +0000
+
+    l10n: Slovak translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 1222266a0bd642cc9916093d83037e5603c9a580
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 15:29:51 2009 -0700
+
+    coding style fixes
+
+commit 97c2823e99a9dcfd3d5bdaa38136ef5a59ebdbad
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 15:25:18 2009 -0700
+
+    update news and todo again
+
+commit 4ee827f8b1b386b0d286bcfbc5b29f66c017c374
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 15:19:30 2009 -0700
+
+    minor cleanups
+
+commit 0e96c46360e4b94b0930519c31d4f7c1ba26c54f
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Sat Oct 31 09:17:33 2009 +0100
+
+    Implement smart notification placement.
+
+commit 63a67a1aa3c97470fb416f7391932f541336168a
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 03:19:03 2009 -0700
+
+    update news and todo
+
+commit 5857f821ba4b0c1ea03ec11b7494c8e42af54aeb
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 02:59:16 2009 -0700
+
+    add support for the 'value' hint to show a gauge
+
+commit f756d429ce3737874b9e8eb32791520cce871320
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 02:17:51 2009 -0700
+
+    implement x-canonical-private-icon-only
+    
+    this is a special layout by canonical that shows just the icon, centered
+    in the notification.  we add extra pading to the left and right to make
+    the notification more visible.
+
+commit 29954e68952a0a5550f467e88480453afa6bbbfe
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Oct 31 02:03:09 2009 -0700
+
+    relayout the notification window and move close circle to top right
+
+commit b538e7e9d773d49b48b4ceff52909ac0e21a2915
+Author: Jérôme Guelfucci <jeromeg@xfce.org>
+Date:   Mon Oct 26 13:17:03 2009 +0100
+
+    Don't allow notifications to be moved.
+
+commit 9884628d26976afe1c676a0d25c107aa48e5c5d3
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Wed Oct 28 22:52:56 2009 -0700
+
+    add configure check for dbus-binding-tool
+
+commit faeda9c473b612d0ad879e15f304673b595dc4fc
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Wed Oct 28 22:46:33 2009 -0700
+
+    add spec_version OUT arg to GetServerInformation (bug 5602)
+    
+    also add configure switch to bring back the old behavior
+
+commit 10ee27ea551da22de71321155c6a897d44692a07
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Fri Oct 23 21:47:49 2009 -0700
+
+    check for exo-csource when --enable-maintainer-mode is passed (bug 5783)
+
+commit b0a1cd8d831986448acb8687c9c5533dd843fdcc
+Author: Xu Meihong <mhuntxu@gmail.com>
+Date:   Wed Oct 21 06:31:13 2009 +0000
+
+    l10n: Simplified Chinese translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 424e8a3fe531225149ca2fba7e597fc3c0c4fe02
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Sun Oct 18 13:42:58 2009 +0000
+
+    l10n: Created xfce4-notifyd galician translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 9aa93679b58db829248ef084f03b20f890c302e5
+Author: Rihards Prieditis <rprieditis@gmail.com>
+Date:   Fri Oct 16 17:02:36 2009 +0000
+
+    l10n: Added Latvian translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit dba1153a5ff5cf859ef8d4be7b92da0303204690
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sat Sep 19 02:03:54 2009 -0700
+
+    add summary-bold style property (bug 5773)
+
+commit caad017fc9891b64668feec5bc94412045b79801
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Fri Sep 18 13:36:40 2009 -0700
+
+    require xfce4-dev-tools 4.7.0
+
+commit 193245eee71db0ca76de4b83a82fd0f19fbccb61
+Author: Iñigo Varela <malditoastur@gmail.com>
+Date:   Thu Sep 3 11:19:09 2009 +0000
+
+    l10n: Upload Asturian translations
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 489e96d773687e2a2ad7d24b6d49622007f2e690
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Sat Aug 15 23:43:41 2009 +0000
+
+    l10n: Updates to Portuguese (Brazilian) (pt_BR) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 80462da8fc9907a668b7a2f906c37717a2a5cbe0
+Author: Og Maciel <ogmaciel@gnome.org>
+Date:   Sat Aug 15 23:41:27 2009 +0000
+
+    l10n: Added Brazilian Portuguese translations.
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 722c560ce71c5c295fe07a0c978e9707aba165f2
+Author: Auke Kok <sofar@foo-projects.org>
+Date:   Sat Aug 15 21:59:24 2009 +0000
+
+    l10n: Updates to Dutch (Flemish) (nl) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 5a2eab6f153da27fbd413fed41fb7b0806514c24
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Tue Aug 11 03:33:48 2009 -0700
+
+    add module description file
+
+commit 32b20f3af037fa3800824b0a977edbfb95ac4666
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Mon Jul 27 23:37:59 2009 -0700
+
+    add .gitignore, finally
+
+commit 0dfa597f2986a77187adece6e36d7446b0b62c4b
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Mon Jul 27 23:32:28 2009 -0700
+
+    rearrange stuff, fix use of the dist_ targets
+
+commit 1b2d369a364296fe477ab989a50e6ff413cb12fc
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Mon Jul 27 19:28:21 2009 -0700
+
+    rework build system.  no more recursive make, modernize configure.ac
+
+commit 3ea7a2e49968f17ba0033f0dc1819764abb5a946
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sun Jun 7 07:16:33 2009 -0700
+
+    fix a bundle of warnings
+
+commit eb5323414ce41b008a223d3da636c13ce6534b9f
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sun Jun 7 07:15:26 2009 -0700
+
+    repaint issues: redraw the entire widget after configure event
+
+commit 882f699b00be8d98d114f8dc7f83ab1b23a41b27
+Author: Brian J. Tarricone <brian@tarricone.org>
+Date:   Sun Jun 7 07:03:39 2009 -0700
+
+    use "new" NotificationClosed signature as supported by libnotify 0.4.5
+    
+    older versions of libnotify didn't properly support the 'reason'
+    parameter for the NotificationChanged signal, which causes memory leaks
+    in apps using libnotify.  libnotify 0.4.5 fixes this support, but of
+    course there's no way to test for this.  so the old behavior can be
+    re-enabled with the --enable-old-notification-changed-signature option
+    to configure.
+
+commit e9ea72aac0e90fd5d6766938f2f0e2a3696486fb
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Feb 23 12:23:23 2009 -0800
+
+    fix license file (gpl2 not gpl3)
+
+commit ef1fadc8c412b4b1f2563733756f44cc9274be39
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Dec 21 13:13:57 2008 -0800
+
+    	* ja.po: New translation from Masaton Hashimoto
+    	  <cabezon.hashimoto@gmail.com>.
+    	* LINGUAS: Add ja.
+
+commit 6121e624fa280050d0235081d99ffb36ba68f0e0
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Nov 26 16:34:20 2008 -0800
+
+    update NEWS and TODO
+
+commit de5f472d6f83418ef25c4d9ba8d5eba12d63aaa8
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Nov 26 16:25:07 2008 -0800
+
+    	* xfce4-notifyd/xfce-notify-window.c: Don't set the legacy window
+    	  shape when the widget is composited (fixes drawing artifacts with
+    	  the curved corners).  Also simplify the painting code a bit when
+    	  the widget is *not* composited; should be a little faster and will
+    	  probably look better too.
+
+commit 2d0675c11dd6b79a4e1b252c9b1f491bcc3397d8
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Nov 26 16:00:09 2008 -0800
+
+    	* configure.ac.in: Add 'git' version tag.
+    	* xfce4-notifyd-config/xfce4-notifyd-config.1: Add man page,
+    	  submitted by Evgeni Golov <sargentd@die-welt.net>.
+
+commit 60ac39fc5d2cbf057c9dcf300a2fb720ad559667
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Nov 26 15:50:41 2008 -0800
+
+    	* configure.ac.in: Remove 'git' version tag for 0.1.0 release.
+
+commit 84bdff0d426f24184c65f6b2ae663eb35384b08e
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Nov 24 13:55:27 2008 -0800
+
+    	* {icons/48x48,xfce4-notifyd}/Makefile.am: Fix make distcheck.
+
+commit 0a0137ba5fe505f84cfe91e9449b6288aefd92f1
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Nov 24 01:05:38 2008 -0800
+
+    	* icons/48x48/xfce4-notifyd.png: Add app icon.
+    	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: Set
+    	  Icon= key.
+    	* configure.ac.in,Makefile.am: Add icons subdir to build.
+
+commit c2b3b5b525d777613279b4b10ac8bee513228768
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Nov 24 01:03:37 2008 -0800
+
+    	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Fix dialog
+    	  layout spacing and add scrolled window shadow.
+
+commit fac11c4ffca5ebf55679a1c4784d99b1b1338b37
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri Nov 21 01:20:22 2008 -0800
+
+    	* fr.po: Improvement of one string from Mike Massonnet
+    	  <mmassonnet@gmail.com>
+
+commit d70ceda150144f566166106389aaee445219f4c0
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri Nov 21 01:13:58 2008 -0800
+
+    	* Makefile.am: Add release targets.
+
+commit 6a09e93646541f3c2b781e90273c055647931c73
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Nov 18 11:31:09 2008 -0800
+
+    	* pt_PT.po: New translation from Nuno Miguel <nunis@netcabo.pt>
+    	* LINGUAS: Add pt_PT.
+
+commit 11d5e7834b5377572b99fc3765933e22f8dc6042
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Nov 17 00:10:49 2008 -0800
+
+    	* da.po: New translation from Per Kongstad <p_kongstad@op.pl>
+    	* LINGUAS: Add da.
+
+commit 48893f7a826b0f861096e468c3477906884b153f
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Nov 16 18:07:54 2008 -0800
+
+    	* fr.po: New translation from Maximilian Schleiss <maximilian@xfce.org>
+    	* LINGUAS: Add fr.
+
+commit 76f3d7abde81834463497378ce3d95e83fe4cd2c
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Nov 16 13:43:51 2008 -0800
+
+    	* es.po: New translation from Abel Martín <abel.martin.ruiz@gmail.com>
+    	* LINGUAS: Add es.
+
+commit 85775482f1c0aea56053263c56ef422be2c9c15e
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Nov 16 13:22:54 2008 -0800
+
+    tabs to spaces
+
+commit caa3040b0b1f42be67394ae15a2e5c26c412e05e
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Nov 16 13:11:27 2008 -0800
+
+    	* ca.po: New translation from Carles Muñoz Gorriz <carlesmu@internautas.org>
+    	* de.po: New translation from Christian Dywan <christian@twotoasts.de>
+    	* el.po: New translation from Stavros Giannouris <stavrosg@hellug.gr>
+    	* fi.po: New translation from Jari Rahkonen <jari.rahkonen@pp1.inet.fi>
+    	* id.po: New translation from Andhika Padmawan <andhika.padmawan@gmail.com>
+    	* nb.po: New translation from Terje Uriansrud <terje@uriansrud.net>
+    	* nl.po: New translation from Vincent Tunru <projects@vinnl.nl>
+    	* sq.po: New translation from Besnik Bleta <besnik@programeshqip.org>
+    	* tr.po: New translation from Gökmen Görgen <gkmngrgn@gmail.com>
+    	* LINGUAS: Add ca, de, el, fi, id, nb, nl, sq, tr.
 
-	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: don't
-	  specify empty Icon=
+commit e08c93cb7161ad4324af6ac6e22e7e00f359d337
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 17:38:26 2008 -0800
 
-2008-08-25	Brian J. Tarricone <bjt23@cornell.edu>
+    	* xfce4-notifyd-config/main.c: Remove a couple strings.
+    	* po/xfce4-notifyd.pot: Update .pot file.
 
-	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: include
-	  notification settings in new xfce settings manager
+commit 35ef9187869413f18f48f93c75d06173c299e284
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 13:49:54 2008 -0800
 
-2008-08-13	Brian J. Tarricone <bjt23@cornell.edu>
+    	* NEWS: Add NEWS file for first release.
+    	* xfce4-notifyd-config/main.c: Sort items in the themes list.
 
-	* xfce4-notifyd/xfce-notify-daemon.c: add (untested) support for the
-	  'desktop_id' hint
+commit 111ca55b52e965407160a1a3c867187d01e35537
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 01:34:44 2008 -0800
 
-2008-08-06	Brian J. Tarricone <bjt23@cornell.edu>
+    	* xfce4-notifyd/{org.freedesktop.Notifications.service.in,Makefile.am}:
+    	  Install xfce4-notifyd to $libexecdir instead of $bindir
 
-	* xfce4-notifyd/xfce-notify-window.c: set correct type hint on
-	  notification windows
+commit 0686d68bffd516849b8139e6da7031076fc3151e
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 01:22:48 2008 -0800
 
-2008-08-05	Brian J. Tarricone <brian@cartman.(none)>
+    	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Change window
+    	  title to simply 'Notifications'
+    	* po/xfce4-notifyd.pot: Update .pot file
 
-	* configure.ac.in, themes/Default/Makefile.am,
-	  themes/Default/gtkrc, themes/Makefile.am: add explicit 'Default'
-	  theme
+commit 51e9851d766a9c57d31b74caef461da8f825aedd
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 01:17:09 2008 -0800
 
-2008-08-05	Brian J. Tarricone <brian@cartman.(none)>
+    add ChangeLog, created by git2cl
 
-	* configure.ac.in, themes/Smoke/Makefile.am, themes/Smoke/gtkrc,
-	  themes/Smoke/xfce-notify-4.0/Makefile.am,
-	  themes/Smoke/xfce-notify-4.0/gtkrc,
-	  themes/ZOMG-PONIES!/Makefile.am, themes/ZOMG-PONIES!/gtkrc,
-	  themes/ZOMG-PONIES!/xfce-notify-4.0/Makefile.am,
-	  themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc,
-	  xfce4-notifyd/xfce-notify-daemon.c: simplify themes/ dir
-	  structure... no need to have the full path in the srctree
+commit 22cb1aec943a1285c08371a8e2a13d55b77054cd
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 01:13:18 2008 -0800
 
-2008-08-03	Brian J. Tarricone <bjt23@cornell.edu>
+    make config dialog pluggable into xfce settings manager, add --version option
 
-	* xfce4-notifyd/xfce-notify-window.c: change how opacity/fading
-	  works
+commit 5dc62b8255227245905b6cc47ecd5fb8c6881905
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 00:38:23 2008 -0800
 
-2008-06-21	Brian J. Tarricone <bjt23@cornell.edu>
+    add readme content
 
-	* xfce4-notifyd/xfce-notify-window.c: dismiss notification when a
-	  button is pressed; ensure action ids are valid
+commit 1b74d42c568ab882b8810167ac41383bb055ac59
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Nov 15 00:37:45 2008 -0800
 
-2008-05-19	Brian J. Tarricone <bjt23@cornell.edu>
+    set spin buton page size to zero
 
-	* xfce4-notifyd/xfce-notify-window.c: whoops, don't free gtk
-	  internal data
+commit 71b05e063bec151be8b327fd55e5188ad1d5f63c
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri Nov 7 19:13:29 2008 -0800
 
-2008-05-19	Brian J. Tarricone <bjt23@cornell.edu>
+    fix button colors in smoke theme
 
-	* xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c: plug memleak
+commit 42c34d524ce5f633d26cd6f75128d3c6d36cd96b
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Sep 21 00:30:46 2008 -0700
 
-2008-05-18	Brian J. Tarricone <bjt23@cornell.edu>
+    just because it's hosted on galago-project.org, doesn't mean anything.
 
-	* xfce4-notifyd/Makefile.am, xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c,
-	  xfce4-notifyd/xfce-notify-window.h: clean up how notification
-	  closing works
+commit e5e86376c5824b74073ab1ab2a332ee9c3bb64fc
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Sep 20 19:13:04 2008 -0700
 
-2008-05-18	Brian J. Tarricone <bjt23@cornell.edu>
+    don't send the 2nd argument (close reason) with the NotificationClosed signal
+    
+    for some reason libnotify doesn't support it, so apps don't receive the
+    signal.  lovely.
 
-	* xfce4-notifyd/xfce-notify-window.c: don't use deprecated macro
+commit de5281bdc0ba0af94dfa2efad67165cf4e36bda0
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri Sep 5 14:04:08 2008 -0700
 
-2008-05-17	Brian J. Tarricone <bjt23@cornell.edu>
+    new git revision subst
 
-	* xfce4-notifyd/xfce-notify-daemon.c: force a size allocation when
-	  the notification is first shown
+commit a07edd26cd8af647f6b559356d62335a5c063888
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Aug 25 07:04:15 2008 -0700
 
-2008-05-16	Brian J. Tarricone <bjt23@cornell.edu>
+    don't specify empty Icon=
 
-	* xfce4-notifyd/xfce-notify-daemon.c: advertise body-hyperlinks
-	  capability if compiled with libsexy support
+commit d625d2882fbf01ef38e272a8bacf2d6c71b337df
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Aug 25 06:24:04 2008 -0700
 
-2008-05-16	Brian J. Tarricone <bjt23@cornell.edu>
+    include notification settings in new xfce settings manager
 
-	* xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c: good placement on multihead,
-	  possibly fix weird window sizing
+commit 63e0dfdaafc0c1e3df76864a8fc3e6aa2537a998
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Aug 13 00:45:01 2008 -0700
 
-2008-04-26	Brian J. Tarricone <bjt23@cornell.edu>
+    add (untested) support for the 'desktop_id' hint
 
-	* configure.ac.in, xfce4-notifyd/xfce-notify-daemon.c: require dev
-	  version of libxfcegui4 with libglade module
+commit 3f70dd34a2f440683c53220378cd39c835176fca
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Aug 6 23:12:35 2008 -0700
 
-2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
+    set correct type hint on notification windows
 
-	* xfce4-notifyd/xfce-notify-daemon.c: fix setting of
-	  fade_transparent and initial_opacity for notifications
+commit ead54fa0ace671f057dd4f6bee04d2be79527915
+Author: Brian J. Tarricone <brian@cartman.(none)>
+Date:   Tue Aug 5 12:35:22 2008 -0700
 
-2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
+    add explicit 'Default' theme
 
-	* xfce4-notifyd/xfce-notify-window.c: tweak spacing between the
-	  circular close button and the notification image
+commit 04d16257ffad55b96be9851a63db901f8687b012
+Author: Brian J. Tarricone <brian@cartman.(none)>
+Date:   Tue Aug 5 12:29:44 2008 -0700
 
-2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
+    simplify themes/ dir structure... no need to have the full path in the srctree
 
-	* TODO, xfce4-notifyd-config/main.c,
-	  xfce4-notifyd-config/xfce4-notifyd-config.glade,
-	  xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c: remove positioning hack, add
-	  pref to specify notification starting corner i'd still like to remember dragged positions, but this is a start
+commit d08b896f4036f44d5e293cf09f474dcffbf4bc52
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Aug 3 00:08:26 2008 -0700
 
-2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
+    change how opacity/fading works
 
-	* xfce4-notifyd/xfce-notify-window.c: somewhat hacky way of ensuring
-	  close button circle doesn't overlap image/text
+commit 48e453f27a068fa1f0f66ff4a2d8d15665ef50c9
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Jun 21 23:51:58 2008 -0700
 
-2008-04-24	Brian J. Tarricone <bjt23@cornell.edu>
+    dismiss notification when a button is pressed; ensure action ids are valid
 
-	* Makefile.am, po/ChangeLog, po/xfce4-notifyd.pot,
-	  xfce4-notifyd-config/Makefile.am,
-	  xfce4-notifyd-config/xfce4-notifyd-config.glade,
-	  xfce4-notifyd/Makefile.am, xfce4-notifyd/main.c: update-po, fix make
-	  distcheck
+commit 9b1814c031ec61c5d27524a6a35b02519b1b0e1a
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon May 19 21:44:21 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    whoops, don't free gtk internal data
 
-	* TODO, xfce4-notifyd/xfce-notify-window.c: allow dragging
-	  notifications around
+commit 17e3db6710ec8c0438e390a479d12ae94232b424
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon May 19 01:24:22 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    plug memleak
 
-	* TODO, xfce4-notifyd/xfce-notify-window.c: set some extra window
-	  hints
+commit ad3574c44c702a6b057c6d901f818fba26644552
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun May 18 19:42:24 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    clean up how notification closing works
 
-	* xfce4-notifyd/xfce-notify-window.c: be a little nicer on the CPU
-	  when updating window transparency
+commit 0c6c065e3d7f0b56d02c95d22affecac3057e20d
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun May 18 18:29:07 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    don't use deprecated macro
 
-	* xfce4-notifyd/xfce-notify-window.c: keep the close button circle
-	  in the window border
+commit 6c3f7245729a4ebcd893920e531bac33300b05b0
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat May 17 01:31:06 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    force a size allocation when the notification is first shown
 
-	* configure.ac.in, themes/Smoke/xfce-notify-4.0/gtkrc,
-	  themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc,
-	  xfce4-notifyd/Makefile.am, xfce4-notifyd/xfce-notify-window.c: 
-	  optional dep on libsexy for SexyUrlLabel for clickable notification
-	  body urls also tweak/update the themes a bit
+commit d15cd7f90161ebd020cac59b4efb799f774f0d0d
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri May 16 20:12:12 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    advertise body-hyperlinks capability if compiled with libsexy support
 
-	* xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c: partial fix for weird
-	  notification window sizing
+commit 888e677699d5bbe0fb8893a7db4761d8866f430e
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri May 16 01:35:03 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    good placement on multihead, possibly fix weird window sizing
 
-	* TODO, xfce4-notifyd-config/Makefile.am,
-	  xfce4-notifyd-config/main.c, xfce4-notifyd/galago-dbus.xml,
-	  xfce4-notifyd/xfce-notify-daemon.c: workaround: kill daemon on theme
-	  change
+commit 3b8f023ca031efcc3380b70979626ff031c6774e
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sat Apr 26 07:32:09 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    require dev version of libxfcegui4 with libglade module
 
-	* xfce4-notifyd/xfce-notify-window.c: fix the markup
-	  validation/escaping routine still don't support images or links, though
+commit a89d7ac52b04f50ae8fc0e7f89bd2a1b557140ae
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 24 03:12:07 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    fix setting of fade_transparent and initial_opacity for notifications
 
-	* xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c: add a close button on mouseover,
-	  use g_markup_printf_escaped() the close 'button' isn't perfect yet; i might want to add a prelight
-	  fill color, and it likely will overlap images, but that's ok for
-	  now.
+commit ab47c724bfe22f427b4c9c40fb43818d79c372fb
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 24 02:37:28 2008 -0700
 
-2008-04-23	Brian J. Tarricone <bjt23@cornell.edu>
+    tweak spacing between the circular close button and the notification image
 
-	* themes/Smoke/xfce-notify-4.0/gtkrc: add explicit button color in
-	  smoke theme
+commit 9903dc520e06ddda367f0810356b369f465670b9
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 24 02:15:40 2008 -0700
 
-2008-04-21	Brian J. Tarricone <bjt23@cornell.edu>
+    remove positioning hack, add pref to specify notification starting corner
+    
+    i'd still like to remember dragged positions, but this is a start
 
-	* configure.ac.in, xfce4-notifyd-config/main.c,
-	  xfce4-notifyd/xfce-notify-daemon.c: use new
-	  XfconfChannel::property-changed signal prototype and semantics
+commit e249b3ea8338344363c4f28bb44b38d4d9fddab7
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 24 00:32:24 2008 -0700
 
-2008-04-18	Brian J. Tarricone <bjt23@cornell.edu>
+    somewhat hacky way of ensuring close button circle doesn't overlap image/text
 
-	* TODO: update todo
+commit dea37b55a793a9b80e3f39c41611e12b62ea28e7
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 24 00:13:16 2008 -0700
 
-2008-04-17	Brian J. Tarricone <bjt23@cornell.edu>
+    update-po, fix make distcheck
 
-	* TODO, xfce4-notifyd/xfce-notify-window.c: remove useless fixme,
-	  set input shape mask on notification window
+commit 45f78aacd758d64e637a2cddfc18c27ba04c594f
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 23:48:01 2008 -0700
 
-2008-04-17	Brian J. Tarricone <bjt23@cornell.edu>
+    allow dragging notifications around
 
-	* themes/Smoke/xfce-notify-4.0/gtkrc, xfce4-notifyd-config/main.c,
-	  xfce4-notifyd-config/xfce4-notifyd-config.glade: make Smoke theme
-	  darker; hook up all the config dialog's UI elements
+commit bbbcd61e3fffa7d0dfc2e6f8d3ee0620088da835
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 23:22:07 2008 -0700
 
-2008-04-17	Brian J. Tarricone <bjt23@cornell.edu>
+    set some extra window hints
 
-	* xfce4-notifyd/xfce-notify-daemon.c,
-	  xfce4-notifyd/xfce-notify-window.c: attempt to fix initial sizing of
-	  notifications
+commit e475aeaba41da4e99bac7126117d200c8f8d4bac
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 23:08:27 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    be a little nicer on the CPU when updating window transparency
 
-	* TODO, xfce4-notifyd/xfce-notify-daemon.c: make all 'critical'
-	  notifications persistent
+commit ce85e9e1d78c02bbd1835e29058f89bacf3b8ae7
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 22:47:00 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    keep the close button circle in the window border
 
-	* xfce4-notifyd/xfce-notify-window.c: pixbuf might be null...
+commit eb37a70bb4dcd5a2c2f4cc08c3182219a7c27268
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 21:31:43 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    optional dep on libsexy for SexyUrlLabel for clickable notification body urls
+    
+    also tweak/update the themes a bit
 
-	* TODO, xfce4-notifyd/xfce-notify-window.c: scale down icon data
-	  sent over the wire if it's larger than our normal size
+commit 0c5a7d5ee8e17e8a99d8d98043dc1a0c365253b7
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 21:30:27 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    partial fix for weird notification window sizing
 
-	* autogen.sh: use most recent commit time as git version tag instead
-	  of hash
+commit 35649d697cb21d4a2cdc4a1824c25d5f9083835f
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 04:04:07 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    workaround: kill daemon on theme change
 
-	* Makefile.am, configure.ac.in, po/POTFILES.in,
-	  po/xfce4-notifyd.pot, xfce4-notifyd-config/Makefile.am,
-	  xfce4-notifyd-config/main.c,
-	  xfce4-notifyd-config/xfce4-notifyd-config.desktop.in,
-	  xfce4-notifyd-config/xfce4-notifyd-config.glade: add simple config
-	  dialog, not complete, hook up intltool, add .pot file
+commit d1f65abc8844a58e53549b94979dde8f2507f108
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 03:49:22 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    fix the markup validation/escaping routine
+    
+    still don't support images or links, though
 
-	* xfce4-notifyd/Makefile.am, xfce4-notifyd/main.c: clean up
-	  makefile, hook up i18n, add --version
+commit be75b9e655578bbcd8bcd15048443bbd6f5ff9e4
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 02:41:33 2008 -0700
 
-2008-04-15	Brian J. Tarricone <bjt23@cornell.edu>
+    add a close button on mouseover, use g_markup_printf_escaped()
+    
+    the close 'button' isn't perfect yet; i might want to add a prelight fill
+    color, and it likely will overlap images, but that's ok for now.
 
-	* xfce4-notifyd/xfce-notify-window.c: don't require the buttons to
-	  be the same size
+commit 485869051abfc8076bb2483576585480bfc84c05
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Wed Apr 23 02:39:42 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    add explicit button color in smoke theme
 
-	* TODO: add TODO file
+commit 55ac92187a8a7ae6da5519c490b824a1dc8b8f74
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 21 01:34:53 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    use new XfconfChannel::property-changed signal prototype and semantics
 
-	* xfce4-notifyd/xfce-notify-window.c: make rounded corners look not
-	  so ugly on non-composited screens
+commit 994e74a93661216e6f226725bf72e09970ecdd25
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Fri Apr 18 03:03:17 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    update todo
 
-	* xfce4-notifyd/xfce-notify-window.c: fix window redraw if
-	  notification contents change
+commit 4249e43b639946b4d096a56393106f6f61790026
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 17 20:17:52 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    remove useless fixme, set input shape mask on notification window
 
-	* xfce4-notifyd/xfce-notify-daemon.c: fix configurable default
-	  expiration timeout setting
+commit a0a1286400a1cdf28f52e3b06512cd73bc50e1c9
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 17 19:46:18 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    make Smoke theme darker; hook up all the config dialog's UI elements
 
-	* xfce4-notifyd/xfce-notify-daemon.c: fix icons that come over the
-	  wire
+commit 18abf3a674ee353a5985b94602f149aeba2e32a1
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Thu Apr 17 19:28:26 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    attempt to fix initial sizing of notifications
 
-	* themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc: use large comic sans
-	  font in ZOMG-PONIES! theme at stephan's suggestion
+commit bcc00ef2139d3d5f2148d5bbe923a47c14a75915
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 04:02:52 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    make all 'critical' notifications persistent
 
-	* configure.ac.in, themes/Makefile.am,
-	  themes/ZOMG-PONIES!/Makefile.am,
-	  themes/ZOMG-PONIES!/xfce-notify-4.0/Makefile.am,
-	  themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc: add ZOMG-PONIES! theme
-	  because i know how happy it will make moritz
+commit 83701867596a62626d4a813af15a449d517ba0b8
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 03:52:38 2008 -0700
 
-2008-04-14	Brian J. Tarricone <bjt23@cornell.edu>
+    pixbuf might be null...
 
-	* xfce4-notifyd/org.freedesktop.Notifications.service.in,
-	  xfce4-notifyd/xfce-notify-window.c: add missing dbus service file
+commit 0e872121fdd03a104b1c3268a78ecc07262bf325
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 03:51:12 2008 -0700
 
-2008-04-13	Brian J. Tarricone <bjt23@cornell.edu>
+    scale down icon data sent over the wire if it's larger than our normal size
 
-	* xfce4-notifyd/Makefile.am: fix marshal files being recreated on
-	  every make
+commit 204ab8af18b768ee9fce6f2819dcb78a87c741f8
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 02:59:56 2008 -0700
 
-2008-04-13	Brian J. Tarricone <bjt23@cornell.edu>
+    use most recent commit time as git version tag instead of hash
 
-	* initial commit... everything should more or less work
+commit 6026c0cb29b98f44c8145805e2fa7aa561542802
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 02:59:32 2008 -0700
 
+    add simple config dialog, not complete, hook up intltool, add .pot file
+
+commit 4b69b2e9c6e9228f2a19fa4b54a5750f6a27c4bc
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 02:54:18 2008 -0700
+
+    clean up makefile, hook up i18n, add --version
+
+commit bc341566f6e5b52cb5f10419bec1c093060265f4
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Tue Apr 15 01:36:46 2008 -0700
+
+    don't require the buttons to be the same size
+
+commit 1a1101249a70c304997b316332f8d11967a0b2d9
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 14:05:33 2008 -0700
+
+    add TODO file
+
+commit 21513ef1420cab3bc16b336ca47fc0ed4aa264ae
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 03:16:00 2008 -0700
+
+    make rounded corners look not so ugly on non-composited screens
+
+commit 5cb079be66d8612da54e00c1b7c4b5f92e164ead
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 02:55:46 2008 -0700
+
+    fix window redraw if notification contents change
+
+commit 4fe01e631ea504e5d857e7e91df5acf079f430cc
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 02:11:16 2008 -0700
+
+    fix configurable default expiration timeout setting
+
+commit c9830fb8e06d9af027463b95af08b742ad2abb2f
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 01:35:49 2008 -0700
+
+    fix icons that come over the wire
+
+commit 849b8dc9cd24a01061b30db58ff034e4d3455b89
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 00:39:22 2008 -0700
+
+    use large comic sans font in ZOMG-PONIES! theme at stephan's suggestion
+
+commit 73e1a8deccde529487632db124ae692fccbebc94
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 00:30:20 2008 -0700
+
+    add ZOMG-PONIES! theme because i know how happy it will make moritz
+
+commit 687ab08b3dac998a79028e1dc6129f69dc3deef7
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Mon Apr 14 00:09:30 2008 -0700
+
+    add missing dbus service file
+
+commit afb0aae62dbc1e36bad90e2a8f4edff29591f6eb
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Apr 13 23:25:40 2008 -0700
+
+    fix marshal files being recreated on every make
+
+commit ed4e314de3c15360a06a5956dbeb9e0bee1429ad
+Author: Brian J. Tarricone <bjt23@cornell.edu>
+Date:   Sun Apr 13 22:44:41 2008 -0700
+
+    initial commit... everything should more or less work

@@ -2,10 +2,13 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.2.1 ( 2010):
+Version 0.2.1 (02 Feb 2011):
 
-  Bugfixes:
     * Fix loading of custom icons (bug #6895).
+    * Fix crash introduced in 0.2.0 (bug #6929).
+    * Fade to transparent when screen is composited, remove the setting.
+    * Updated translations: Romanian, Turkish, Polish, Galician, Ukrainian,
+      Indonesian, English GB, German, Czech, Norwegian Bokmal and Dutch.
 
 Version 0.2.0 (27 Nov 2010):
 
