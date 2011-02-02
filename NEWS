@@ -2,6 +2,15 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.1.1:
+
+  * Repaint issues: redraw the entire widget after configure event.
+  * Don't set the legacy window shape when the widget is composited.
+  * Fix license file (gpl2 not gpl3).
+  * Add spec version to GetServerInformation.
+  * Send the reason argument.
+  * Remove deprecated encoding key from desktop files.
+
 Version 0.1.0:
 
   Initial release.  See TODO for known issues and unfinished features.
