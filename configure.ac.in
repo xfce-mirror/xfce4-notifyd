@@ -28,6 +28,14 @@ dnl init automake
 AM_INIT_AUTOMAKE([1.10 dist-bzip2 subdir-objects])
 AM_MAINTAINER_MODE()
 
+dnl set helper path prefix
+AC_ARG_WITH([helper-path-prefix],
+            [AC_HELP_STRING([--with-helper-path-prefix=PATH],
+                            [Path prefix under which helper executables will be installed (default: $libdir)])],
+            [HELPER_PATH_PREFIX="$withval"],
+            [HELPER_PATH_PREFIX="$libdir"])
+AC_SUBST([HELPER_PATH_PREFIX])
+
 dnl check for UNIX variants
 AC_USE_SYSTEM_EXTENSIONS()
 
