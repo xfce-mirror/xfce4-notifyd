@@ -990,6 +990,14 @@ notify_get_server_information(XfceNotifyDaemon *xndaemon,
     *OUT_spec_version = g_strdup(NOTIFICATIONS_SPEC_VERSION);
 #endif
 
+    /* Set a timeout to close xfce4-notifyd if it is idle for 10 minutes */
+    if(xndaemon->close_timeout)
+        g_source_remove(xndaemon->close_timeout);
+
+    xndaemon->close_timeout =
+        g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
+                              xndaemon);
+
     return TRUE;
 }
 
