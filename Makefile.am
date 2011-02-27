@@ -66,7 +66,7 @@ xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 
 
 servicedir = $(datadir)/dbus-1/services
-service_in_files = xfce4-notifyd/org.freedesktop.Notifications.service.in
+service_in_files = xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service.in
 service_DATA = $(service_in_files:.service.in=.service)
 
 dist_service = \
