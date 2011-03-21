@@ -2,23 +2,23 @@
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the xfce4-notifyd package.
 # Daniel Nylander <po@danielnylander.se>, 2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
+"POT-Creation-Date: 2011-03-21 05:04+0000\n"
 "PO-Revision-Date: 2009-12-16 14:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "Notifieringsdemon för Xfce"
 
@@ -31,22 +31,17 @@ msgstr "Okänd flagga \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Kunde inte starta notifieringsdemonen"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Kunde inte ansluta till D-Bus-sessionsbussen"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
-#, fuzzy, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "En annan notifieringsdemon körs redan"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:756
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
 #, c-format
-msgid "%s could not be launched"
-msgstr ""
+msgid "Another notification xndaemon is already running"
+msgstr "En annan xndaemon är redan igång"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:817
 msgid "image: "
 msgstr "bild: "
 
@@ -54,44 +49,52 @@ msgstr "bild: "
 msgid "Theme"
 msgstr "Tema"
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:223
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr "notify-send \"Förhandsvisning av notifiering\" \"Detta är hur notifieringar kommer att se ut\""
+
+#: ../xfce4-notifyd-config/main.c:227
+msgid "Notification preview failed"
+msgstr "Förhandsvisning av notifiering misslyckades"
+
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Inställningsdemonen är inte tillgänglig"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Visa versionsinformation"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Uttag för inställningshanterare"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv \"%s --help\" för användingshjälp."
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Utgiven under villkoren för GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapportera fel till %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr ""
+msgstr "Nedre vänster"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr ""
+msgstr "Nedre höger"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -109,27 +112,30 @@ msgstr "Notifieringar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top left"
-msgstr ""
+msgstr "Övre vänster"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Top right"
-msgstr ""
+msgstr "Övre höger"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
 msgstr "_Försvinn efter:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Fade to transparent"
-msgstr "_Tona ut till genomskinlig"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Opacity:"
 msgstr "_Opacitet:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Preview"
+msgstr "Förhan_dsvisa"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "sekunder"
+
+#~ msgid "_Fade to transparent"
+#~ msgstr "_Tona ut till genomskinlig"
 
 #~ msgid ""
 #~ "Top left\n"
