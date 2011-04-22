@@ -132,7 +132,7 @@ list_store_add_themes_in_dir(GtkListStore *ls,
 {
     GDir *dir;
     const gchar *file;
-    gchar buf[PATH_MAX];
+    gchar *filename;
 
     dir = g_dir_open(path, 0, NULL);
     if(!dir)
@@ -142,9 +142,10 @@ list_store_add_themes_in_dir(GtkListStore *ls,
         if(g_hash_table_lookup(themes_seen, file))
             continue;
 
-        g_snprintf(buf, sizeof(buf), "%s/%s/xfce-notify-4.0/gtkrc",
-                   path, file);
-        if(g_file_test(buf, G_FILE_TEST_IS_REGULAR)) {
+        filename =
+            g_build_filename(path, file, "xfce-notify-4.0", "gtkrc", NULL);
+
+        if(g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
             GtkTreeIter iter;
 
             gtk_list_store_append(ls, &iter);
@@ -155,6 +156,8 @@ list_store_add_themes_in_dir(GtkListStore *ls,
             if(!strcmp(file, current_theme))
                 memcpy(current_theme_iter, &iter, sizeof(iter));
         }
+
+        g_free(filename);
     }
 
     g_dir_close(dir);
