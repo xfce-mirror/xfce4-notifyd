@@ -70,16 +70,18 @@ xfce4_notifyd_slider_format_value(GtkScale *slider,
 }
 
 static void
-xfce4_notifyd_config_theme_treeview_changed(GtkTreeSelection *sel,
-                                            gpointer user_data)
+xfce4_notifyd_config_theme_combo_changed(GtkComboBox *theme_combo,
+                                         gpointer user_data)
 {
     XfconfChannel *channel = user_data;
-    GtkTreeModel *model = NULL;
+    GtkTreeModel *model;
     GtkTreeIter iter;
     gchar *theme = NULL;
 
-    if(!gtk_tree_selection_get_selected(sel, &model, &iter))
+    if(!gtk_combo_box_get_active_iter(theme_combo, &iter))
         return;
+
+    model = gtk_combo_box_get_model (theme_combo);
 
     gtk_tree_model_get(model, &iter, 0, &theme, -1);
     xfconf_channel_set_string(channel, "/theme", theme);
@@ -92,17 +94,15 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
                                    const GValue *value,
                                    gpointer user_data)
 {
-    GtkWidget *treeview = user_data;
+    GtkWidget *theme_combo = user_data;
     GtkListStore *ls;
-    GtkTreeSelection *sel;
     GtkTreeIter iter;
     gchar *theme;
     const gchar *new_theme;
 
     new_theme = G_VALUE_TYPE(value) ? g_value_get_string(value) : "Default";
 
-    sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-    ls = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview)));
+    ls = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(theme_combo)));
 
     for(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ls), &iter);
         gtk_list_store_iter_is_valid(ls, &iter);
@@ -110,7 +110,8 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
     {
         gtk_tree_model_get(GTK_TREE_MODEL(ls), &iter, 0, &theme, -1);
         if(!strcmp(theme, new_theme)) {
-            gtk_tree_selection_select_iter(sel, &iter);
+            gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
+                                          &iter);
             g_free(theme);
             xfce4_notifyd_config_kill_daemon();
             return;
@@ -120,7 +121,7 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
 
     gtk_list_store_append(ls, &iter);
     gtk_list_store_set(ls, &iter, 0, new_theme, -1);
-    gtk_tree_selection_select_iter(sel, &iter);
+    gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo), &iter);
 }
 
 static void
@@ -164,17 +165,14 @@ list_store_add_themes_in_dir(GtkListStore *ls,
 }
 
 static void
-xfce4_notifyd_config_setup_treeview(GtkWidget *treeview,
-                                    const gchar *current_theme)
+xfce4_notifyd_config_setup_theme_combo(GtkWidget *theme_combo,
+                                       const gchar *current_theme)
 {
     GtkListStore *ls;
     gchar *dirname, **dirnames;
     GHashTable *themes_seen;
     gint i;
-    GtkCellRenderer *render;
-    GtkTreeViewColumn *col;
     GtkTreeIter current_theme_iter;
-    GtkTreeSelection *sel;
 
     ls = gtk_list_store_new(1, G_TYPE_STRING);
     themes_seen = g_hash_table_new_full(g_str_hash, g_str_equal,
@@ -193,19 +191,11 @@ xfce4_notifyd_config_setup_treeview(GtkWidget *treeview,
 
     g_hash_table_destroy(themes_seen);
 
-    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(ls));
+    gtk_combo_box_set_model(GTK_COMBO_BOX(theme_combo), GTK_TREE_MODEL(ls));
 
-    render = gtk_cell_renderer_text_new();
-    col = gtk_tree_view_column_new_with_attributes(_("Theme"), render,
-                                                   "text", 0, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), col);
-
-    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(ls), 0,
-                                         GTK_SORT_ASCENDING);
-
-    sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
     if(gtk_list_store_iter_is_valid(ls, &current_theme_iter))
-        gtk_tree_selection_select_iter(sel, &current_theme_iter);
+        gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
+                                      &current_theme_iter);
 
     g_object_unref(G_OBJECT(ls));
 }
@@ -236,7 +226,7 @@ static GtkWidget *
 xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 {
     XfconfChannel *channel;
-    GtkWidget *dlg, *btn, *sbtn, *slider, *treeview, *combo;
+    GtkWidget *dlg, *btn, *sbtn, *slider, *theme_combo, *position_combo;
     GtkAdjustment *adj;
     GtkTreeSelection *sel;
     GError *error = NULL;
@@ -279,24 +269,23 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     xfconf_g_property_bind(channel, "/initial-opacity", G_TYPE_DOUBLE,
                            G_OBJECT(adj), "value");
 
-    treeview = GTK_WIDGET(gtk_builder_get_object(builder, "themes_treeview"));
+    theme_combo = GTK_WIDGET(gtk_builder_get_object(builder, "theme_combo"));
     current_theme = xfconf_channel_get_string(channel, "/theme", "Default");
-    xfce4_notifyd_config_setup_treeview(treeview, current_theme);
+    xfce4_notifyd_config_setup_theme_combo(theme_combo, current_theme);
     g_free(current_theme);
 
-    sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-    g_signal_connect(G_OBJECT(sel), "changed",
-                     G_CALLBACK(xfce4_notifyd_config_theme_treeview_changed),
+    g_signal_connect(G_OBJECT(theme_combo), "changed",
+                     G_CALLBACK(xfce4_notifyd_config_theme_combo_changed),
                      channel);
     g_signal_connect(G_OBJECT(channel), "property-changed::/theme",
                      G_CALLBACK(xfce4_notifyd_config_theme_changed),
-                     treeview);
+                     theme_combo);
 
-    combo = GTK_WIDGET(gtk_builder_get_object(builder, "position_combo"));
+    position_combo = GTK_WIDGET(gtk_builder_get_object(builder, "position_combo"));
     xfconf_g_property_bind(channel, "/notify-location", G_TYPE_UINT,
-                           G_OBJECT(combo), "active");
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(combo), GTK_CORNER_TOP_RIGHT);
+                           G_OBJECT(position_combo), "active");
+    if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
+        gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
 
     return dlg;
 }
