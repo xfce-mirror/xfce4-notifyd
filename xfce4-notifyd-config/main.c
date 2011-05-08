@@ -110,10 +110,21 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
     {
         gtk_tree_model_get(GTK_TREE_MODEL(ls), &iter, 0, &theme, -1);
         if(!strcmp(theme, new_theme)) {
+            GError *error = NULL;
+
             gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
                                           &iter);
             g_free(theme);
             xfce4_notifyd_config_kill_daemon();
+
+            if(!g_spawn_command_line_async(_("notify-send \"Notification Preview\""
+                                             " \"This is how notifications will look like\""),
+                                           &error)) {
+                xfce_dialog_show_error(GTK_WINDOW(gtk_widget_get_toplevel(theme_combo)),
+                                       error, _("Notification preview failed"));
+                g_error_free(error);
+            }
+
             return;
         }
         g_free(theme);
