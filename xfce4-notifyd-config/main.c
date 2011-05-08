@@ -239,7 +239,6 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     XfconfChannel *channel;
     GtkWidget *dlg, *btn, *sbtn, *slider, *theme_combo, *position_combo;
     GtkAdjustment *adj;
-    GtkTreeSelection *sel;
     GError *error = NULL;
     gchar *current_theme;
 
