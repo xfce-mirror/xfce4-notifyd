@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-21 05:04+0000\n"
+"POT-Creation-Date: 2011-05-21 22:05+0000\n"
 "PO-Revision-Date: 2009-12-16 14:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "Notifieringsdemon för Xfce"
 
@@ -45,45 +45,41 @@ msgstr "En annan xndaemon är redan igång"
 msgid "image: "
 msgstr "bild: "
 
-#: ../xfce4-notifyd-config/main.c:196
-msgid "Theme"
-msgstr "Tema"
-
-#: ../xfce4-notifyd-config/main.c:223
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
 msgstr "notify-send \"Förhandsvisning av notifiering\" \"Detta är hur notifieringar kommer att se ut\""
 
-#: ../xfce4-notifyd-config/main.c:227
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
 msgstr "Förhandsvisning av notifiering misslyckades"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
 msgstr "Inställningsdemonen är inte tillgänglig"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
 msgstr "Visa versionsinformation"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
 msgstr "Uttag för inställningshanterare"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:321
+#: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv \"%s --help\" för användingshjälp."
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Utgiven under villkoren för GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:335
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapportera fel till %s.\n"
@@ -97,42 +93,45 @@ msgid "Bottom right"
 msgstr "Nedre höger"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Customize how notifications appear on your screen"
-msgstr "Anpassa hur notifieringar ska visas på din skärm"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "Standard_position:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "Notifieringar"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Övre vänster"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
 msgstr "Övre höger"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
 msgstr "_Försvinn efter:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
 msgstr "_Opacitet:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
 msgstr "Förhan_dsvisa"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_Tema:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "sekunder"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Anpassa hur notifieringar ska visas på din skärm"
 
 #~ msgid "_Fade to transparent"
 #~ msgstr "_Tona ut till genomskinlig"
