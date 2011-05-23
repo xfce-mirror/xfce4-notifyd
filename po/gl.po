@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-21 11:05+0000\n"
+"POT-Creation-Date: 2011-05-23 10:04+0000\n"
 "PO-Revision-Date: 2009-11-06 13:49+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "Daemon de notificación de Xfce"
 
@@ -45,49 +45,45 @@ msgstr "Non se puido conectar ao bus de sesión de D-Bus"
 msgid "Another notification xndaemon is already running"
 msgstr "Xa se está executando outro daemon de notificación"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:809
+#: ../xfce4-notifyd/xfce-notify-window.c:817
 msgid "image: "
 msgstr "imaxe:"
 
-#: ../xfce4-notifyd-config/main.c:196
-msgid "Theme"
-msgstr "Tema"
-
-#: ../xfce4-notifyd-config/main.c:223
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
 msgstr "notify-send \"Previsualización de notificación\" \"Esta é a pinta que teñen as notificacións\""
 
-#: ../xfce4-notifyd-config/main.c:227
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
 msgstr "Produciuse un erro ao previsualizar a notificación"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
 msgstr "O daemon de configuración non está dispoñible"
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
 msgstr "Mostrar a información da versión"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
 msgstr "Socket do xestor de configuración"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
 msgstr "ID_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:325
+#: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Escriba '%s --help' para ver o modo de uso."
 
-#: ../xfce4-notifyd-config/main.c:338
+#: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Publicado baixo os termos da Licenza Pública Xeral de GNU, versión 2\n"
 
-#: ../xfce4-notifyd-config/main.c:339
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Por favor, comuníquelle os erros a %s.\n"
@@ -101,50 +97,51 @@ msgid "Bottom right"
 msgstr "Abaixo á dereita"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Customize how notifications appear on your screen"
-msgstr "Personalice como se mostran as notificacións na súa pantalla"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "_Posición predeterminada:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "Notificacións"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Arriba á esquerda"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
 msgstr "Arriba á dereita"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
 msgstr "_Desaparecer despois de:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Effect:"
-msgstr "_Efecto:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Fade to transparent"
-msgstr "_Volver transparente"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
 msgstr "_Opacidade:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
 msgstr "_Previsualización"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_Tema:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "segundos"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Personalice como se mostran as notificacións na súa pantalla"
+
+#~ msgid "_Effect:"
+#~ msgstr "_Efecto:"
+
+#~ msgid "_Fade to transparent"
+#~ msgstr "_Volver transparente"
 
 #~ msgid ""
 #~ "Top left\n"
