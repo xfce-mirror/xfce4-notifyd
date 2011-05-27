@@ -1,13 +1,14 @@
-# Dutch translations for xfce package.
-# Copyright (C) 2008 THE xfce'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the xfce package.
+# Dutch translations for the xfce4-notifyd package.
+# Copyright (C) The Xfce development team.
+# This file is distributed under the same license as the xfce4-notifyd package.
 # Vincent Tunru <projects@vinnl.nl>, 2008.
+# Pjotr, 2011.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce 4-notifyd\n"
+"Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-25 10:04+0000\n"
+"POT-Creation-Date: 2011-05-27 16:04+0000\n"
 "PO-Revision-Date: 2009-08-15 14:59-0800\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch\n"
@@ -83,8 +84,7 @@ msgstr "Type '%s --help' voor gebruikinstructies."
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
-"Vrijgegeven onder de voorwaarden van de GNU General Public License, versie "
-"2\n"
+"Vrijgegeven onder de voorwaarden der GNU General Public License, versie 2\n"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
@@ -130,7 +130,7 @@ msgstr "Vo_orbeeld"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
-msgstr "_Thema"
+msgstr "_Thema:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
