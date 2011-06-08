@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-22 21:47+0000\n"
+"POT-Creation-Date: 2011-06-08 16:04+0000\n"
 "PO-Revision-Date: 2010-03-26 12:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Basque <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "Xfce berri-emate deabrua"
 
@@ -30,59 +30,55 @@ msgstr "\"%s\" aukera ezezaguna\n"
 msgid "Unable to start notification daemon"
 msgstr "Ezin da berri-emate deabrua abiarazi"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1118
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Ezin da D-Bus saio bus-arekin konektatu"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1135
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Beste berri-emate xndaemon deabru bat dagoeneko martxan dago"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:809
+#: ../xfce4-notifyd/xfce-notify-window.c:817
 msgid "image: "
 msgstr "irudia: "
 
-#: ../xfce4-notifyd-config/main.c:196
-msgid "Theme"
-msgstr "Gaia"
-
-#: ../xfce4-notifyd-config/main.c:223
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
 msgstr "notify-send \"Berri-emate aurreikuspenak\" \"HAu da berri-emate batek duen itxura\""
 
-#: ../xfce4-notifyd-config/main.c:227
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
 msgstr "Berri-emate aurreikuspenak huts egin du"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
 msgstr "Ezarpen deabrua ez dago erabilgarri"
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
 msgstr "Bistarazi bertsio argibideak"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
 msgstr "Ezarpena kudeatzaile socket-a"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:325
+#: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Idatzi '%s --help' laguntzarentzat."
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera argitaratua\n"
 
-#: ../xfce4-notifyd-config/main.c:338
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
@@ -96,50 +92,51 @@ msgid "Bottom right"
 msgstr "Behean eskuinean"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Customize how notifications appear on your screen"
-msgstr "Pertsonalizatu berri-emateak zure pantailan nola agertuko diren"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "Lehenetsitako _kokalekua:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "Berri-emateak"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Goian  ezkerrean"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
 msgstr "Goian eskuinean"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
 msgstr "_ezkutatzeko denbora:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Effect:"
-msgstr "_Efektua"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Fade to transparent"
-msgstr "_desagertu transparentziaz"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
 msgstr "_Opakotasuna:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
 msgstr "_Aurreikuspena"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_Gaia:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "segundo"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Pertsonalizatu berri-emateak zure pantailan nola agertuko diren"
+
+#~ msgid "_Effect:"
+#~ msgstr "_Efektua"
+
+#~ msgid "_Fade to transparent"
+#~ msgstr "_desagertu transparentziaz"
 
 #~ msgid ""
 #~ "Top left\n"
