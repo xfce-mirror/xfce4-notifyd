@@ -8,17 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-27 16:04+0000\n"
-"PO-Revision-Date: 2009-08-15 14:59-0800\n"
+"POT-Creation-Date: 2011-06-16 10:05+0000\n"
+"PO-Revision-Date: 2011-06-16 12:12+0200\n"
 "Last-Translator: Pjotr\n"
-"Language-Team: Dutch\n"
+"Language-Team: Dutch (Flemish)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Dutch\n"
-"X-Poedit-Country: NETHERLANDS\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
@@ -69,11 +67,11 @@ msgstr "Versie-informatie weergeven"
 
 #: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
-msgstr "Instellingen-beheer-contactpunt"
+msgstr "Contactpunt voor instellingenbeheerder"
 
 #: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
-msgstr "SOCKET_ID"
+msgstr "CONTACTPUNT_ID"
 
 #: ../xfce4-notifyd-config/main.c:323
 #, c-format
@@ -89,7 +87,7 @@ msgstr ""
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Fouten graag in het Engels melden op %s.\n"
+msgstr "Fouten graag in het Engels melden aan %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
