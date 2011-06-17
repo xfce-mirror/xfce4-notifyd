@@ -1,15 +1,10 @@
-# Translation of xfce4-notifyd to Russian..
-# Copyright (C) 2006-2009 Xfce development team.
-# This file is distributed under the same license as the xfce4-notifyd
-# Denis Koryavov <dkoryavov@yandex.ru>, 2009.
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-17 04:04+0000\n"
-"PO-Revision-Date: 2009-11-25 12:49+0300\n"
-"Last-Translator: Denis Koryavov <dkoryavov@yandex.ru>\n"
+"PO-Revision-Date: 2011-06-17 12:23+0300\n"
+"Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +38,7 @@ msgstr "Другой сервис оповещений уже запущен"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:817
 msgid "image: "
-msgstr "изображение:"
+msgstr "изображение: "
 
 #: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
@@ -132,17 +127,3 @@ msgstr "секунд(ы)"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Настройка отображения оповещений на вашем экране"
-
-#~ msgid "_Fade to transparent"
-#~ msgstr "Постепенно дел_ать прозрачным"
-
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Сверху слева\n"
-#~ "Снизу слева\n"
-#~ "Сверху справа\n"
-#~ "Снизу справа"
