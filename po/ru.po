@@ -1,8 +1,9 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-17 04:04+0000\n"
+"POT-Creation-Date: 2011-06-21 10:05+0000\n"
 "PO-Revision-Date: 2011-06-17 12:23+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -110,7 +111,7 @@ msgstr "_Скрывать после:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
-msgstr "П_розрачность:"
+msgstr "_Непрозрачность:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
