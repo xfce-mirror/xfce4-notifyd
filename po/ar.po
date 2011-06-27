@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notifyd\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-27 22:04+0000\n"
+"PO-Revision-Date: 2011-06-27 23:38-0000\n"
+"Last-Translator: كريم اولاد الشلحة <herr.linux88@gmail.com>\n"
+"Language-Team: Arabic <herr.linux88@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Arabic\n"
+"X-Poedit-Country: Morocco\n"
+
+#: ../xfce4-notifyd/main.c:50
+#: ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:260
+msgid "Xfce Notify Daemon"
+msgstr ""
+
+#: ../xfce4-notifyd/main.c:53
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr ""
+
+#: ../xfce4-notifyd/main.c:62
+msgid "Unable to start notification daemon"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
+#, c-format
+msgid "Another notification xndaemon is already running"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-window.c:817
+msgid "image: "
+msgstr "صورة:"
+
+#: ../xfce4-notifyd-config/main.c:120
+#: ../xfce4-notifyd-config/main.c:227
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:124
+#: ../xfce4-notifyd-config/main.c:231
+msgid "Notification preview failed"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:262
+msgid "Settings daemon is unavailable"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:312
+msgid "Display version information"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:313
+msgid "Settings manager socket"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:313
+msgid "SOCKET_ID"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:323
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:336
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:337
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Bottom left"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom right"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "Default _position:"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "Top left"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "Top right"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "_Disappear after:"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Opacity:"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Preview"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_سمة:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "ثواني"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr ""
+
