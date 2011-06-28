@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-28 10:05+0000\n"
+"POT-Creation-Date: 2011-06-28 16:05+0000\n"
 "PO-Revision-Date: 2011-06-27 23:38-0000\n"
 "Last-Translator: كريم اولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic <herr.linux88@gmail.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
-msgstr ""
+msgstr "إشعارات إكسفس"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
@@ -29,17 +29,17 @@ msgstr "الخيار غير معروف \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr ""
+msgstr "غير قادر على بدء الإشعارات"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1134
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr ""
+msgstr "غير قادر على الإتصال بـD-Bus جلسة bus"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1151
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr ""
+msgstr "تطبيق إشعارات أخر قيد العمل حاليا"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:817
 msgid "image: "
@@ -47,7 +47,7 @@ msgstr "صورة:"
 
 #: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr ""
+msgstr "إرسال الإشعارات \"عرض الإشعار\" \"هكذا سوف تبدو الإشعارات\""
 
 #: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
@@ -55,7 +55,7 @@ msgstr "فشل معاينة الإخطار"
 
 #: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
-msgstr ""
+msgstr "إعدادات التطبيق غير متوفرة"
 
 #: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
@@ -77,7 +77,7 @@ msgstr "اكتب '%s -للمساعدة على الاستخدام."
 #: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr ""
+msgstr "صدر بموجب شروط الإصدار جنو العمومية ، نسخة 2\n"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
@@ -115,7 +115,7 @@ msgstr "تختفي بعد:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
-msgstr ""
+msgstr "_غموض :"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
