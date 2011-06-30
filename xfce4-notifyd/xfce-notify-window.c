@@ -33,13 +33,13 @@
 #include "xfce-notify-window.h"
 #include "xfce-notify-enum-types.h"
 
-#define DEFAULT_EXPIRE_TIMEOUT    10000
-#define DEFAULT_NORMAL_OPACITY        0.85
-#define FADE_TIME                   800
-#define FADE_CHANGE_TIMEOUT          50
-#define DEFAULT_RADIUS               10.0
-#define DEFAULT_BORDER_WIDTH          2.0
-#define BORDER                        6
+#define DEFAULT_EXPIRE_TIMEOUT 10000
+#define DEFAULT_NORMAL_OPACITY 0.85
+#define FADE_TIME              800
+#define FADE_CHANGE_TIMEOUT    50
+#define DEFAULT_RADIUS         10.0
+#define DEFAULT_BORDER_WIDTH   2.0
+#define BORDER                 6
 
 struct _XfceNotifyWindow
 {
