@@ -871,7 +871,7 @@ xfce_notify_window_validate_escape_markup(const gchar *str)
 #endif
                     p += 4;
                 } else {
-                    g_string_append(gstr, "&gt;");
+                    g_string_append(gstr, "&lt;");
                     p++;
                 }
             } else {
