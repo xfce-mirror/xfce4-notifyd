@@ -522,8 +522,11 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
         gdk_error_trap_push();
         type_hint = gdk_window_get_type_hint(window);
         gdk_flush();
-        if (gdk_error_trap_pop())
+
+        if (gdk_error_trap_pop()) {
+            DBG("Got invalid window in stack, could not get type hint");
             continue;
+        }
 
         if(type_hint == GDK_WINDOW_TYPE_HINT_DOCK) {
             GdkRectangle window_geom, intersection;
@@ -531,8 +534,11 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
             gdk_error_trap_push();
             gdk_window_get_frame_extents(window, &window_geom);
             gdk_flush();
-            if (gdk_error_trap_pop())
+
+            if (gdk_error_trap_pop()) {
+                DBG("Got invalid window in stack, could not get frame extents");
                 continue;
+            }
 
             DBG("Got a dock window: x(%d), y(%d), w(%d), h(%d)",
                 window_geom.x,
