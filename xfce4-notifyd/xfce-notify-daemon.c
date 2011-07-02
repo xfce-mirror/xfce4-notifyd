@@ -409,6 +409,21 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     xndaemon->reserved_rectangles[screen][monitor] = list;
 
     g_tree_remove(xndaemon->active_notifications, id_p);
+
+    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
+        /* All notifications expired */
+        /* Set a timeout to close xfce4-notifyd if it is idle
+         * for 10 minutes */
+
+        if(xndaemon->close_timeout)
+            g_source_remove(xndaemon->close_timeout);
+
+        xndaemon->close_timeout =
+            g_timeout_add_seconds(600,
+                                  (GSourceFunc) xfce_notify_daemon_close_timeout,
+                                  xndaemon);
+    }
+
 #ifdef USE_OLD_NOTIFICATION_CLOSED_SIGNATURE
     g_signal_emit(G_OBJECT(xndaemon), signals[SIG_NOTIFICATION_CLOSED], 0,
                   GPOINTER_TO_UINT(id_p));
@@ -838,6 +853,17 @@ notify_get_capabilities(XfceNotifyDaemon *xndaemon,
     (*OUT_capabilities)[i++] = g_strdup("x-canonical-private-icon-only");
     (*OUT_capabilities)[i++] = NULL;
 
+    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
+        /* No active notifications, reset the close timeout */
+        if(xndaemon->close_timeout)
+            g_source_remove(xndaemon->close_timeout);
+
+        xndaemon->close_timeout =
+            g_timeout_add_seconds(600,
+                                  (GSourceFunc) xfce_notify_daemon_close_timeout,
+                                  xndaemon);
+    }
+
     return TRUE;
 }
 
@@ -965,13 +991,11 @@ notify_notify(XfceNotifyDaemon *xndaemon,
 
     gtk_widget_realize(GTK_WIDGET(window));
 
-    /* Set a timeout to close xfce4-notifyd if it is idle for 10 minutes */
+    /* Remove close timeout as we display a new notification */
     if(xndaemon->close_timeout)
         g_source_remove(xndaemon->close_timeout);
 
-    xndaemon->close_timeout =
-        g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
-                              xndaemon);
+    xndaemon->close_timeout = 0;
 
     return TRUE;
 }
@@ -1007,13 +1031,16 @@ notify_get_server_information(XfceNotifyDaemon *xndaemon,
     *OUT_spec_version = g_strdup(NOTIFICATIONS_SPEC_VERSION);
 #endif
 
-    /* Set a timeout to close xfce4-notifyd if it is idle for 10 minutes */
-    if(xndaemon->close_timeout)
-        g_source_remove(xndaemon->close_timeout);
+    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
+        /* No active notifications, reset the close timeout */
+        if(xndaemon->close_timeout)
+            g_source_remove(xndaemon->close_timeout);
 
-    xndaemon->close_timeout =
-        g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
-                              xndaemon);
+        xndaemon->close_timeout =
+            g_timeout_add_seconds(600,
+                                  (GSourceFunc) xfce_notify_daemon_close_timeout,
+                                  xndaemon);
+    }
 
     return TRUE;
 }
