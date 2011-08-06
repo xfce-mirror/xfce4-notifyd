@@ -2,6 +2,21 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.2.2 (06 August 2011):
+
+    * New cleaner settings dialog with preview on theme change.
+    * Only initialize the close timeout when all notifications are closed
+      (bug #7467).
+    * Fix race with window becoming invalid (bug #7643).
+    * Fix typo in invalid markup escaping (bug #7773).
+    * Fix PATH_MAX beeing undefined on HURD (bug #7528).
+    * Rename dbus service file to avoid conflicts (bug #7335).
+    * Allow installation of the helpers in a custom location.
+    * Updated translations: Arabic, Basque, Brazilian, Castillan,
+      Chinese, Danish, Flemish, Galician, German, Indonesian, Italian,
+      Japanese, Romanian, Portuguese, Russian, Slovak, Spanish,
+      Swedish and Ukrainian.
+
 Version 0.2.1 (02 Feb 2011):
 
     * Fix loading of custom icons (bug #6895).
