@@ -846,9 +846,7 @@ notify_get_capabilities(XfceNotifyDaemon *xndaemon,
     (*OUT_capabilities)[i++] = g_strdup("actions");
     (*OUT_capabilities)[i++] = g_strdup("body");
     (*OUT_capabilities)[i++] = g_strdup("body-markup");
-#ifdef HAVE_LIBSEXY
     (*OUT_capabilities)[i++] = g_strdup("body-hyperlinks");
-#endif
     (*OUT_capabilities)[i++] = g_strdup("icon-static");
     (*OUT_capabilities)[i++] = g_strdup("x-canonical-private-icon-only");
     (*OUT_capabilities)[i++] = NULL;
