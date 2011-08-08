@@ -2,22 +2,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-28 16:05+0000\n"
-"PO-Revision-Date: 2011-06-27 23:38-0000\n"
-"Last-Translator: كريم اولاد الشلحة <herr.linux88@gmail.com>\n"
-"Language-Team: Arabic <herr.linux88@gmail.com>\n"
+"POT-Creation-Date: 2011-08-08 16:05+0000\n"
+"PO-Revision-Date: 2011-08-08 16:26-0000\n"
+"Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
+"Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Arabic\n"
 "X-Poedit-Country: Morocco\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd/main.c:50
+#: ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "إشعارات إكسفس"
@@ -31,12 +32,12 @@ msgstr "الخيار غير معروف \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "غير قادر على بدء الإشعارات"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1178
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "غير قادر على الإتصال بـD-Bus جلسة bus"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1195
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "تطبيق إشعارات أخر قيد العمل حاليا"
@@ -45,13 +46,15 @@ msgstr "تطبيق إشعارات أخر قيد العمل حاليا"
 msgid "image: "
 msgstr "صورة:"
 
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
+#: ../xfce4-notifyd-config/main.c:120
+#: ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
 msgstr "إرسال الإشعارات \"عرض الإشعار\" \"هكذا سوف تبدو الإشعارات\""
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:124
+#: ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
-msgstr "فشل معاينة الإخطار"
+msgstr "فشل معاينة الإشعار"
 
 #: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
@@ -132,3 +135,4 @@ msgstr "ثواني"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "تخصيص كيف تظهر الإخطارات على الشاشة"
+
