@@ -1,7 +1,9 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-06-21 10:05+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-17 10:05+0000\n"
 "PO-Revision-Date: 2011-07-12 22:00+0300\n"
 "Last-Translator: Artem Zolochevskiy <artem.zolochevskiy@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -11,8 +13,7 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../xfce4-notifyd/main.c:50
-#: ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "Сервис оповещений Xfce"
@@ -26,12 +27,12 @@ msgstr "Неизвестная настройка \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Не удалось запустить сервис оповещений"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1178
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Не удалось подключиться к системной шине D-Bus"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1195
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Другой сервис оповещений уже запущен"
@@ -40,13 +41,11 @@ msgstr "Другой сервис оповещений уже запущен"
 msgid "image: "
 msgstr "изображение: "
 
-#: ../xfce4-notifyd-config/main.c:120
-#: ../xfce4-notifyd-config/main.c:227
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
 msgstr "notify-send \"Пример оповещения\" \"Так будут выглядеть оповещения\""
 
-#: ../xfce4-notifyd-config/main.c:124
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
 msgstr "Вывод оповещения не удался"
 
@@ -79,7 +78,7 @@ msgstr "Распространяется на условиях лицензии 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Пожалуйста, сообщайте об ошибках в %s.\n"
+msgstr "Об ошибках сообщайте на %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
