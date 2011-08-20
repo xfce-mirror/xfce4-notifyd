@@ -234,6 +234,7 @@ release: gpg-sign
 	-rm $(PACKAGE)-$(VERSION).tar.gz
 
 #Tests
+if HAVE_LIBNOTIFY
 noinst_PROGRAMS = \
 	tests/test-text
 
@@ -247,3 +248,4 @@ tests_ldadd = \
 tests_test_text_SOURCES = tests/test-text.c
 tests_test_text_CFLAGS = $(tests_cflags)
 tests_test_text_LDADD = $(tests_ldadd)
+endif
