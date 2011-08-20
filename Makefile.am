@@ -62,7 +62,7 @@ xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(LIBX11_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
-	$(common_ldadd) 
+	$(common_ldadd)
 
 
 servicedir = $(datadir)/dbus-1/services
@@ -232,3 +232,18 @@ release: gpg-sign
 	-mkdir releases/
 	mv $(PACKAGE)-$(VERSION).tar.bz2* releases/
 	-rm $(PACKAGE)-$(VERSION).tar.gz
+
+#Tests
+noinst_PROGRAMS = \
+	tests/test-text
+
+tests_cflags = \
+	-I$(top_srcdir) \
+	$(LIBNOTIFY_CFLAGS)
+
+tests_ldadd = \
+	$(LIBNOTIFY_LIBS)
+
+tests_test_text_SOURCES = tests/test-text.c
+tests_test_text_CFLAGS = $(tests_cflags)
+tests_test_text_LDADD = $(tests_ldadd)
