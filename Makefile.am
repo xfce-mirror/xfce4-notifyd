@@ -237,7 +237,8 @@ release: gpg-sign
 if HAVE_LIBNOTIFY
 noinst_PROGRAMS = \
 	tests/test-text \
-	tests/test-positioning
+	tests/test-positioning \
+	tests/test-actions
 
 tests_cflags = \
 	-I$(top_srcdir) \
@@ -253,4 +254,8 @@ tests_test_text_LDADD = $(tests_ldadd)
 tests_test_positioning_SOURCES = tests/test-positioning.c
 tests_test_positioning_CFLAGS = $(tests_cflags)
 tests_test_positioning_LDADD = $(tests_ldadd)
+
+tests_test_actions_SOURCES = tests/test-actions.c
+tests_test_actions_CFLAGS = $(tests_cflags)
+tests_test_actions_LDADD = $(tests_ldadd)
 endif
