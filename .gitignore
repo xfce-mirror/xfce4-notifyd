@@ -10,10 +10,12 @@ Makefile.in
 aclocal.m4
 autom4te.cache
 compile
+config.guess
 config.h
 config.h.in
 config.log
 config.status
+config.sub
 configure
 configure.ac
 depcomp
@@ -21,6 +23,8 @@ install-sh
 intltool-extract.in
 intltool-merge.in
 intltool-update.in
+libtool
+ltmain.sh
 missing
 mkinstalldirs
 .deps
@@ -34,12 +38,15 @@ po/*.gmo
 
 xfce4-notifyd-config/xfce4-notifyd-config
 xfce4-notifyd-config/xfce4-notifyd-config.desktop
-xfce4-notifyd-config/xfce4-notifyd-config.glade.h
+xfce4-notifyd-config/xfce4-notifyd-config.ui.h
 
 xfce4-notifyd/notify-dbus.h
-xfce4-notifyd/org.freedesktop.Notifications.service
+xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service
 xfce4-notifyd/xfce-notify-enum-types.c
 xfce4-notifyd/xfce-notify-enum-types.h
 xfce4-notifyd/xfce-notify-marshal.c
 xfce4-notifyd/xfce-notify-marshal.h
 xfce4-notifyd/xfce4-notifyd
+
+tests/test-positioning
+tests/test-text
