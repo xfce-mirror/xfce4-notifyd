@@ -247,15 +247,15 @@ tests_cflags = \
 tests_ldadd = \
 	$(LIBNOTIFY_LIBS)
 
-tests_test_text_SOURCES = tests/test-text.c
-tests_test_text_CFLAGS = $(tests_cflags)
-tests_test_text_LDADD = $(tests_ldadd)
+tests_test_actions_SOURCES = tests/test-actions.c
+tests_test_actions_CFLAGS = $(tests_cflags)
+tests_test_actions_LDADD = $(tests_ldadd)
 
 tests_test_positioning_SOURCES = tests/test-positioning.c
 tests_test_positioning_CFLAGS = $(tests_cflags)
 tests_test_positioning_LDADD = $(tests_ldadd)
 
-tests_test_actions_SOURCES = tests/test-actions.c
-tests_test_actions_CFLAGS = $(tests_cflags)
-tests_test_actions_LDADD = $(tests_ldadd)
+tests_test_text_SOURCES = tests/test-text.c
+tests_test_text_CFLAGS = $(tests_cflags)
+tests_test_text_LDADD = $(tests_ldadd)
 endif
