@@ -48,5 +48,6 @@ xfce4-notifyd/xfce-notify-marshal.c
 xfce4-notifyd/xfce-notify-marshal.h
 xfce4-notifyd/xfce4-notifyd
 
+tests/test-actions
 tests/test-positioning
 tests/test-text
