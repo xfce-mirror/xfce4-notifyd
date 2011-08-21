@@ -17,4 +17,12 @@
       <gnome:userid>kelnos</gnome:userid>
     </foaf:Person>
   </maintainer>
+
+  <developer>
+    <foaf:Person>
+      <foaf:name>Jérôme Guelfucci</foaf:name>
+      <foaf:mbox>mailto:jeromeg@xfce.org</foaf:mbox>
+      <gnome:userid>jeromeg</gnome:userid>
+    </foaf:Person>
+  </developer>
 </Project>
