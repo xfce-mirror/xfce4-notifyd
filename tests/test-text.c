@@ -29,7 +29,12 @@ int main (int argc, char **argv)
 {
   NotifyNotification *notification;
 
-  notify_init ("Notification with text test");
+  if (!notify_init ("Notification with text test"))
+    {
+      g_error ("Failed to initialize libnotify.");
+
+      return EXIT_FAILURE;
+    }
 
   g_print ("%s", "Testing notification with text summary and body\n");
 

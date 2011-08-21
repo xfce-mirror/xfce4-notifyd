@@ -31,7 +31,12 @@ int main (int argc, char **argv)
 {
   gint i;
 
-  notify_init ("Test notification positioning");
+  if (!notify_init ("Test notification positioning"))
+    {
+      g_error ("Failed to initialize libnotify.");
+
+      return EXIT_FAILURE;
+    }
 
   g_print ("%s", "Testing notification positioning\n");
 
