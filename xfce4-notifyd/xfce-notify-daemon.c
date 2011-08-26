@@ -866,6 +866,13 @@ notify_get_capabilities(XfceNotifyDaemon *xndaemon,
 }
 
 static gboolean
+notify_show_window(gpointer window)
+{
+  gtk_widget_show(GTK_WIDGET(window));
+  return TRUE;
+}
+
+static gboolean
 notify_notify(XfceNotifyDaemon *xndaemon,
               const gchar *app_name,
               guint replaces_id,
@@ -929,7 +936,8 @@ notify_notify(XfceNotifyDaemon *xndaemon,
                          G_CALLBACK(xfce_notify_daemon_window_size_allocate),
                          xndaemon);
 
-        gtk_widget_show(GTK_WIDGET(window));
+        gtk_widget_realize(GTK_WIDGET(window));
+        g_idle_add(notify_show_window, window);
     }
 
     if(!app_icon || !*app_icon) {
