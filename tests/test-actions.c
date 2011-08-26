@@ -22,7 +22,9 @@
 #endif
 
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <stdlib.h>
+#include <string.h>
 #include <libnotify/notify.h>
 
 static void action1_callback (NotifyNotification *notification,
