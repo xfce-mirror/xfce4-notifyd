@@ -196,7 +196,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GtkWidget *tophbox, *align, *vbox;
     gdouble border_radius = DEFAULT_RADIUS;
 
-    GTK_WINDOW(window)->type = GTK_WINDOW_TOPLEVEL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     /* The summary widget needs to be initialized before style_set is called. gtk_widget_ensure_style calls style_set */
@@ -935,7 +934,8 @@ xfce_notify_window_new_with_actions(const gchar *summary,
 {
     XfceNotifyWindow *window;
 
-    window = g_object_new(XFCE_TYPE_NOTIFY_WINDOW, NULL);
+    window = g_object_new(XFCE_TYPE_NOTIFY_WINDOW,
+                          "type", GTK_WINDOW_TOPLEVEL, NULL);
 
     xfce_notify_window_set_summary(window, summary);
     xfce_notify_window_set_body(window, body);
