@@ -869,7 +869,7 @@ static gboolean
 notify_show_window(gpointer window)
 {
   gtk_widget_show(GTK_WIDGET(window));
-  return TRUE;
+  return FALSE;
 }
 
 static gboolean
