@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git version\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-12 17:17+0000\n"
+"POT-Creation-Date: 2011-09-12 22:05+0000\n"
 "PO-Revision-Date: 2008-11-16 12:00+0200\n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: tr\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Bildirme Servisi"
 
@@ -31,59 +31,55 @@ msgstr "Bilinmeyen seçenek, \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Bildiri servisinin başlaması olanaksız"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1126
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus oturum yoluna bağlanması olanaksız"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1143
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Bir başka bildiri servisi zaten çalışıyor"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:817
+#: ../xfce4-notifyd/xfce-notify-window.c:816
 msgid "image: "
 msgstr "Görüntü:"
 
-#: ../xfce4-notifyd-config/main.c:196
-msgid "Theme"
-msgstr "Tema"
-
-#: ../xfce4-notifyd-config/main.c:223
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:227
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
 msgstr "Bildiri ön izleme başarısız"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
 msgstr "Ayarlar servisi kullanılamaz durumda"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
 msgstr "Sürüm bilgisini göster"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
 msgstr "Ayarlar yöneticisi yuvası"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
 msgstr "YUVA _ID'Sİ"
 
-#: ../xfce4-notifyd-config/main.c:321
+#: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Kullanım seçenekleri için '%s --help' yazın."
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Genel Kamu Lisansı'nın ikinci sürümünün koşulları altında yayınlanmıştır\n"
 
-#: ../xfce4-notifyd-config/main.c:335
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Hatayı bize bildirin, %s.\n"
@@ -97,42 +93,45 @@ msgid "Bottom right"
 msgstr "Sağ Alt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Customize how notifications appear on your screen"
-msgstr "Bildirilerin görünümünü özelleştirin"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "Öntanımlı k_onum:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "Bildiriler"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Sol Üst"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
 msgstr "Sağ Üst"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
 msgstr "_Kaybolma:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
 msgstr "_Saydamsızlık"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
 msgstr "_Önizleme"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "Tema:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "saniye"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Bildirilerin görünümünü özelleştirin"
 
 #~ msgid "_Fade to transparent"
 #~ msgstr "_Saydamlığa geçme"
