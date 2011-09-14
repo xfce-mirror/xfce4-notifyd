@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: git version\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-12 22:05+0000\n"
+"POT-Creation-Date: 2011-09-14 10:05+0000\n"
 "PO-Revision-Date: 2008-11-16 12:00+0200\n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -47,7 +47,7 @@ msgstr "Görüntü:"
 
 #: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
 msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr ""
+msgstr "notify-send \"Bildirim Önizleme \" \"Bildirimler bu şekilde görünecek\""
 
 #: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
