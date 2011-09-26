@@ -718,7 +718,7 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
 
     g_signal_emit(G_OBJECT(window), signals[SIG_ACTION_INVOKED], 0,
                   action_id);
-    g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0,
+    g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
                   XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 }
 
