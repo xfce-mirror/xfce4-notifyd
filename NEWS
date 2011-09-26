@@ -2,6 +2,10 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.2.3git:
+
+    * Fix notifications not disappearing after clicking an action button.
+
 Version 0.2.2 (06 August 2011):
 
     * New cleaner settings dialog with preview on theme change.
