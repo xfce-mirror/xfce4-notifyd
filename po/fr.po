@@ -125,7 +125,7 @@ msgstr "_Aperçu"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
-msgstr "_Thème:"
+msgstr "_Thème :"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
@@ -134,9 +134,3 @@ msgstr "secondes"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Personnaliser les notifications système"
-
-#~ msgid "_Effect:"
-#~ msgstr "_Effet:"
-
-#~ msgid "_Fade to transparent"
-#~ msgstr "Disparaître en _transparence"
