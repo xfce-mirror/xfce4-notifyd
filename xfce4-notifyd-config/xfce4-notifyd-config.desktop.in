@@ -8,5 +8,5 @@ Terminal=false
 StartupNotify=true
 Type=Application
 OnlyShowIn=XFCE;
-Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
+Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;
 X-XfcePluggable=true
