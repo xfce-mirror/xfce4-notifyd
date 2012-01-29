@@ -3,13 +3,13 @@
 # This file is distributed under the same license as
 # the xfce4-notifyd package.
 # Hunt Xu <mhuntxu@gmail.com>, 2009, 2010.
-# Chipong Luo <chipong_l@yahoo.com>, 2011.
+# Chipong Luo <chipong_l@yahoo.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-09 04:02+0000\n"
+"POT-Creation-Date: 2012-01-28 21:00+0000\n"
 "PO-Revision-Date: 2010-11-23 23:43+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
@@ -30,17 +30,17 @@ msgstr "未知选项 “%s”\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr "无法启动通知守护进程"
+msgstr "未能启动通知守护进程"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1184
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr "无法连接至 D-Bus 会话总线"
+msgstr "未能与 D-Bus 会话总线连接"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1201
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "另一个通知守护进程已经在运行"
+msgstr "另一个通知 xndaemon 守护进程已经在运行"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:816
 msgid "image: "
@@ -70,17 +70,17 @@ msgstr "设置管理器套接字"
 
 #: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
-msgstr "SOCKETID(_I)"
+msgstr "套接字 ID(_I)"
 
 #: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "输入 ‘%s --help’ 获取使用说明。"
+msgstr "输入 ‘%s --help’ 获取用法。"
 
 #: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "以 GNU 通用公共许可协议第二版方式发布\n"
+msgstr "以 GNU 通用公共许可协议第二版发布\n"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
