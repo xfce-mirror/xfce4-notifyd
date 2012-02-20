@@ -13,6 +13,9 @@ distclean_intltool = \
 	intltool-merge \
 	intltool-update
 
+distuninstallcheck_listfiles = \ 
+	find . -type f -print | grep -v ./share/icons/hicolor/icon-theme.cache
+
 xfce4_notifyddir = $(HELPER_PATH_PREFIX)/xfce4/notifyd
 xfce4_notifyd_PROGRAMS = xfce4-notifyd/xfce4-notifyd
 bin_PROGRAMS = xfce4-notifyd-config/xfce4-notifyd-config
