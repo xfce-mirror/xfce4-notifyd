@@ -1,0 +1,141 @@
+# Korean translation for the xfce4-notifyd package.
+# Copyright (C) 2008-2012 Jérôme Guelfucci et al.
+# This file is distributed under the same license as the xfce4-notifyd package.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notifyd.master\n"
+"Report-Msgid-Bugs-To: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2012-02-27 16:51+0000\n"
+"PO-Revision-Date: 2012-02-28 05:04+0900\n"
+"Last-Translator: Seong-ho, Cho <darkcircle.0426@gmail.com>\n"
+"Language-Team: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>\n"
+"Language: Ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../xfce4-notifyd/main.c:50
+#: ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:260
+msgid "Xfce Notify Daemon"
+msgstr "Xfce 알림 데몬"
+
+#: ../xfce4-notifyd/main.c:53
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "알 수 없는 옵션 \"%s\"\n"
+
+#: ../xfce4-notifyd/main.c:62
+msgid "Unable to start notification daemon"
+msgstr "알림 데몬을 시작할 수 없습니다"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr "D-Bus 세션 버스에 연결할 수 없습니다"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
+#, c-format
+msgid "Another notification xndaemon is already running"
+msgstr "다른 알림 xfdaemon이 이미 실행중 입니다"
+
+#: ../xfce4-notifyd/xfce-notify-window.c:816
+msgid "image: "
+msgstr "이미지:"
+
+#: ../xfce4-notifyd-config/main.c:120
+#: ../xfce4-notifyd-config/main.c:227
+msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+msgstr "notify-send \"알림 미리보기\" \"이것은 어떻게 보여줄지에 대한 모습입니다\""
+
+#: ../xfce4-notifyd-config/main.c:124
+#: ../xfce4-notifyd-config/main.c:231
+msgid "Notification preview failed"
+msgstr "알림 미리보기에 실패했습니다"
+
+#: ../xfce4-notifyd-config/main.c:262
+msgid "Settings daemon is unavailable"
+msgstr "설정 데몬을 사용할 수 없습니다"
+
+#: ../xfce4-notifyd-config/main.c:312
+msgid "Display version information"
+msgstr "버전 정보 표시"
+
+#: ../xfce4-notifyd-config/main.c:313
+msgid "Settings manager socket"
+msgstr "설정 관리자 소켓"
+
+#: ../xfce4-notifyd-config/main.c:313
+msgid "SOCKET_ID"
+msgstr "SOCKET_ID"
+
+#: ../xfce4-notifyd-config/main.c:323
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "사용법을 보려면 '%s --help'를 입력합니다."
+
+#: ../xfce4-notifyd-config/main.c:336
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "GNU 일반 공중 사용허가서 버전 2에 따라 출시했습니다\n"
+
+#: ../xfce4-notifyd-config/main.c:337
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "%s(으)로 버그를 알려주시기 바랍니다.\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Bottom left"
+msgstr "하단 왼족"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom right"
+msgstr "하단 오른쪽"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "Default _position:"
+msgstr "기본 위치(_P):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr "알림"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "Top left"
+msgstr "상단 왼쪽"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "Top right"
+msgstr "상단 오른쪽"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "_Disappear after:"
+msgstr "다음시간 후 사라짐(_D):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Opacity:"
+msgstr "투명도(_O):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Preview"
+msgstr "미리보기(_P)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "테마(_T):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "초"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "알림을 화면에 어떻게 띄울 것인지 설정합니다"
+
