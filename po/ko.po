@@ -43,11 +43,11 @@ msgstr "D-Bus 세션 버스에 연결할 수 없습니다"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1201
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "다른 알림 xfdaemon이 이미 실행중 입니다"
+msgstr "다른 알림 xfdaemon이 이미 실행중입니다"
 
 #: ../xfce4-notifyd/xfce-notify-window.c:816
 msgid "image: "
-msgstr "이미지:"
+msgstr "그림:"
 
 #: ../xfce4-notifyd-config/main.c:120
 #: ../xfce4-notifyd-config/main.c:227
