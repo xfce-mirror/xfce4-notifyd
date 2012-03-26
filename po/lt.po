@@ -51,7 +51,7 @@ msgstr "atvaizdas:"
 msgid ""
 "notify-send \"Notification Preview\" \"This is how notifications will look "
 "like\""
-msgstr "pranešimas nusiųstas „Pranešimo peržiūra“ „Taip atrodys pranešimai“"
+msgstr "notify-send \"Pranešimo peržiūra\" \"Taip atrodys pranešimai\""
 
 #: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
 msgid "Notification preview failed"
