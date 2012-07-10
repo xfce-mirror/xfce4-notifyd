@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notifyd 0.1.0git-20081126-6121e624\n"
+"Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-07 18:14+0100\n"
 "PO-Revision-Date: 2008-12-11 22:21+0900\n"
@@ -117,7 +117,7 @@ msgstr "ئۈستى ئوڭ"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr "غايىب بولغۇچە بولغان ۋاقىت:"
+msgstr "غايىب بولغۇچە بولغان ۋاقىت(_D):"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Fade to transparent"
