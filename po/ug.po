@@ -1,24 +1,23 @@
-# Uyghur translations for xfce4-notifyd package
-# Copyright (C) 2008 THE xfce4-notifyd'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the xfce4-notifyd package.
-# Gheyret T.Kenji <gheyret@gmail.com>, 2010.
+# Uyghur translation for xfce4-notifyd.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gheyret Kenji <gheyret@gmail.com>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 18:14+0100\n"
-"PO-Revision-Date: 2008-12-11 22:21+0900\n"
-"Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
+"POT-Creation-Date: 2012-07-10 06:15+0000\n"
+"PO-Revision-Date: 2011-11-09 16:10+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:229
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
 msgstr "Xfce ئۇقتۇرۇش Daemon"
 
@@ -31,56 +30,57 @@ msgstr "نامەلۇم تاللانما «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "ئۇقتۇرۇش daemon نى قوزغاتقىلى بولمىدى"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1073
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus ئەڭگىمە باش لىنىيىسىگە باغلانغىلى بولمىدى"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1090
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "باشقا بىر xndaemon ئىجرا بۆلۈۋېتىپتۇ"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:756
-#, c-format
-msgid "%s could not be launched"
-msgstr "%s نى ئىجرا قىلغىلى بولمىدى"
-
-#: ../xfce4-notifyd/xfce-notify-window.c:857
+#: ../xfce4-notifyd/xfce-notify-window.c:816
 msgid "image: "
 msgstr "سۈرەت: "
 
-#: ../xfce4-notifyd-config/main.c:196
-msgid "Theme"
-msgstr "ئۆرنەك"
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+msgid "Notification preview failed"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
 msgstr "تەڭشەك daemon نى يوق"
 
-#: ../xfce4-notifyd-config/main.c:286
+#: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
 msgstr "نەشر ئۇچۇرىنى كۆرسەت"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
 msgstr "باشقۇرغۇچى سوكېتنىڭ تەڭشەكلىرى"
 
-#: ../xfce4-notifyd-config/main.c:287
+#: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:297
+#: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' كىرگۈزسە ئىشلىتىش ئۇسۇلىنى كۆرگىلى بولىدۇ"
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "مەزكۇر پروگرامما GNU General Public License, version 2 ئاساسىدا تارقىتىلغان\n"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:337
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "كەمتۈكنى %s غا مەلۇم قىلىڭ.\n"
@@ -94,50 +94,42 @@ msgid "Bottom right"
 msgstr "ئاستى ئوڭ"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Customize how notifications appear on your screen"
-msgstr "ئۇقتۇرۇشلارنىڭ كۆرۈنۈش ئۇسۇلىنى ئۆزلەشتۈر"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Default _position:"
 msgstr "كۆڭۈلدىكى ئورۇن(_P):"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Notifications"
 msgstr "ئۇقتۇرۇشلار"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "ئۈستى سول"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
 msgstr "ئۈستى ئوڭ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
 msgstr "غايىب بولغۇچە بولغان ۋاقىت(_D):"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Fade to transparent"
-msgstr "سۈزۈككە ئايلانسۇن(_F)"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
 msgstr "غۇۋالىقى(_O):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Preview"
+msgstr "ئالدىن كۆزەت(_P)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "ئۆرنەك(_T):"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "سېكۇنت"
 
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "ئۈستى سول\n"
-#~ "ئاستى سول\n"
-#~ "ئۈستى ئوڭ\n"
-#~ "ئاستى ئوڭ"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "ئۇقتۇرۇشلارنىڭ كۆرۈنۈش ئۇسۇلىنى ئۆزلەشتۈر"
