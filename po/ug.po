@@ -1,7 +1,7 @@
 # Uyghur translation for xfce4-notifyd.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Gheyret Kenji <gheyret@gmail.com>, YEAR.
+# Gheyret Kenji <gheyret@gmail.com>, 2012.
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
-msgstr "Xfce ئۇقتۇرۇش Daemon"
+msgstr "Xfce ئۇقتۇرۇش مۇئەككىلى"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
@@ -28,7 +28,7 @@ msgstr "نامەلۇم تاللانما «%s»\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
-msgstr "ئۇقتۇرۇش daemon نى قوزغاتقىلى بولمىدى"
+msgstr "ئۇقتۇرۇش مۇئەككىلىنى قوزغاتقىلى بولمىدى"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1184
 #, c-format
@@ -56,7 +56,7 @@ msgstr "ئۇقتۇرۇشنى ئالدىن كۆرۈش مەغلۇپ بولدى"
 
 #: ../xfce4-notifyd-config/main.c:262
 msgid "Settings daemon is unavailable"
-msgstr "تەڭشەك daemon نى يوق"
+msgstr "تەڭشەك مۇئەككىلى يوق"
 
 #: ../xfce4-notifyd-config/main.c:312
 msgid "Display version information"
@@ -79,7 +79,7 @@ msgstr "'%s --help' كىرگۈزسە ئىشلىتىش ئۇسۇلىنى كۆرگ�
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
-"مەزكۇر پروگرامما GNU General Public License, version 2 ئاساسىدا تارقىتىلغان\n"
+"مەزكۇر پروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
