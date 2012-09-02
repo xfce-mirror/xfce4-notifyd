@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-25 13:54+0000\n"
+"POT-Creation-Date: 2012-09-02 10:18+0000\n"
 "PO-Revision-Date: 2010-12-27 11:43+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -91,11 +91,11 @@ msgstr "Proszę zgłaszać błędy na adres %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr "Dół lewo"
+msgstr "Lewy dolny narożnik"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr "Dół prawo"
+msgstr "Prawy dolny narożnik"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Default _position:"
@@ -108,11 +108,11 @@ msgstr "Powiadomienia"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
-msgstr "Góra lewo"
+msgstr "Lewy górny narożnik"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
-msgstr "Góra prawo"
+msgstr "Prawy górny narożnik"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
@@ -128,7 +128,7 @@ msgstr "_Wyświetl podgląd"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
-msgstr "_Motyw:"
+msgstr "_Styl:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
