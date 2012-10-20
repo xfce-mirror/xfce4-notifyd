@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-28 00:59+0200\n"
+"PO-Revision-Date: 2012-07-28 00:59+0200\n"
+"Last-Translator: Саша Петровић <salepetronije@gmail.com>\n"
+"Language-Team: sr\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.7.0\n"
+
+#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
+#: ../xfce4-notifyd-config/main.c:260
+msgid "Xfce Notify Daemon"
+msgstr "Демон подешавања а-ИксФЦЕ"
+
+#: ../xfce4-notifyd/main.c:53
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "Непозната могућност „%s“\n"
+
+#: ../xfce4-notifyd/main.c:62
+msgid "Unable to start notification daemon"
+msgstr "Не могу да покренем обавештајну зону"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr "Не могу да ступим у везу са сабирницу сесије Д-сабирнице"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
+#, c-format
+msgid "Another notification xndaemon is already running"
+msgstr "Неки други управник потрошње је у погону"
+
+#: ../xfce4-notifyd/xfce-notify-window.c:816
+msgid "image: "
+msgstr "Одраз: "
+
+#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+msgid "Notification preview failed"
+msgstr "Преглед обавештења није успео"
+
+#: ../xfce4-notifyd-config/main.c:262
+msgid "Settings daemon is unavailable"
+msgstr "Демон подешења није доступан"
+
+#: ../xfce4-notifyd-config/main.c:312
+msgid "Display version information"
+msgstr "Прикажи податке о издању"
+
+#: ../xfce4-notifyd-config/main.c:313
+msgid "Settings manager socket"
+msgstr "Утичница управника подешавања"
+
+#: ../xfce4-notifyd-config/main.c:313
+msgid "SOCKET_ID"
+msgstr "ИБ УТИЧНИЦЕ"
+
+#: ../xfce4-notifyd-config/main.c:323
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "Упишите „%s --help“ за коришћење."
+
+#: ../xfce4-notifyd-config/main.c:336
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "Издато под одредбама Гнуове опште јавне лиценце, верзије 2\n"
+
+#: ../xfce4-notifyd-config/main.c:337
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Молим, пријавите грешке на %s.\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Bottom left"
+msgstr "Доле лево"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom right"
+msgstr "Доле десно"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "Default _position:"
+msgstr "Подразумевани положај:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr "Обавештења"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "Top left"
+msgstr "Горе лево"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "Top right"
+msgstr "Горе десно"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "_Disappear after:"
+msgstr "_Нестанак после:"
+
+# #-#-#-#-#  gimp-plug-ins.gimp-2-8.sr.po (gimp 2.6)  #-#-#-#-#
+#
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Opacity:"
+msgstr "_Непровидност:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Preview"
+msgstr "_Преглед"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_Тема:"
+
+# #-#-#-#-#  КОМПЕНДУМ_(2.умножак).po (zenity)  #-#-#-#-#
+# #-#-#-#-#  banshee.master.sr.po (0.11.0)  #-#-#-#-#
+# bug(goran) plural
+# #-#-#-#-#  banshee.stable-2.4.sr.po (0.11.0)  #-#-#-#-#
+# bug(goran) plural
+# #-#-#-#-#  evolution.gnome-3-4.sr.po (evolution)  #-#-#-#-#
+# bug: plural-forms
+# #-#-#-#-#  gimp-plug-ins.gimp-2-8.sr.po (gimp 2.6)  #-#-#-#-#
+#
+# #-#-#-#-#  gnome-panel.gnome-3-4.sr.po (gnome-panel)  #-#-#-#-#
+# bug: plural-forms
+# #-#-#-#-#  gnome-panel.master.sr.po (gnome-panel)  #-#-#-#-#
+# bug: plural-forms
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "секунди"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Прилагодите начин приказа обавештења на вашем приказа екрану"
