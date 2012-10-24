@@ -1,20 +1,20 @@
 # Uyghur translation for xfce4-notifyd.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Gheyret Kenji <gheyret@gmail.com>, 2012.
-# 
+# Gheyret Kenji <gheyret@gmail.com>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-26 02:06+0000\n"
+"POT-Creation-Date: 2012-10-24 03:30+0000\n"
 "PO-Revision-Date: 2011-11-09 16:10+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
@@ -78,8 +78,7 @@ msgstr "'%s --help' كىرگۈزسە ئىشلىتىش ئۇسۇلىنى كۆرگ�
 #: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr ""
-"مەزكۇر پروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
+msgstr "مەزكۇر پروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
