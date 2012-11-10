@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # mohammad <malham1@gmail.com>, 2012.
+# محمد الحرقان <malham1@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-20 21:09+0000\n"
-"PO-Revision-Date: 2012-05-21 00:44+0300\n"
-"Last-Translator: mohammad <malham1@gmail.com>\n"
+"POT-Creation-Date: 2012-11-10 12:48+0000\n"
+"PO-Revision-Date: 2012-11-10 20:34+0300\n"
+"Last-Translator: محمد الحرقان <malham1@gmail.com>\n"
 "Language-Team: http://www.vertaal.com.ar/files/factory/ar/list/\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +24,12 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Xfce Notify Daemon"
-msgstr "إشعارات برنامج إكسفس الخفي"
+msgstr "برنامج إشعارات إكسفس الخفي"
 
 #: ../xfce4-notifyd/main.c:53
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "الخيار غير معروف \"%s\"\n"
+msgstr "خيار غير معروف \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:62
 msgid "Unable to start notification daemon"
@@ -68,21 +69,21 @@ msgstr "عرض معلومات الإصدار"
 
 #: ../xfce4-notifyd-config/main.c:313
 msgid "Settings manager socket"
-msgstr "ضبط مدير المقابس"
+msgstr "مقبس مدير الإعدادات"
 
 #: ../xfce4-notifyd-config/main.c:313
 msgid "SOCKET_ID"
-msgstr "هوية المقبس"
+msgstr "مُعرف المقبس"
 
 #: ../xfce4-notifyd-config/main.c:323
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "اكتب '%s --help' للمساعدة على الاستخدام."
+msgstr "اكتب '%s --help' لدليل المستخدم."
 
 #: ../xfce4-notifyd-config/main.c:336
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "صدر بموجب شروط الإصدار جنو العمومية ، نسخة 2\n"
+msgstr "صدر بموجب شروط إصدار جنو العمومية ، نسخة 2\n"
 
 #: ../xfce4-notifyd-config/main.c:337
 #, c-format
@@ -120,7 +121,7 @@ msgstr "_تختفي بعد:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Opacity:"
-msgstr "_غموض:"
+msgstr "_الإعتام:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "_Preview"
@@ -136,4 +137,4 @@ msgstr "ثواني"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr "تخصيص كيف تظهر الإخطارات على الشاشة"
+msgstr "خصص كيف تظهر الإخطارات على الشاشة"
