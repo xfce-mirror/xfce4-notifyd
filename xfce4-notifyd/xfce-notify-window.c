@@ -108,9 +108,6 @@ static gboolean xfce_notify_window_button_release(GtkWidget *widget,
                                                   GdkEventButton *evt);
 static gboolean xfce_notify_window_configure_event(GtkWidget *widget,
                                                    GdkEventConfigure *evt);
-static void xfce_notify_window_style_set(GtkWidget *widget,
-                                         GtkStyle *previous_style);
-
 static gboolean xfce_notify_window_expire_timeout(gpointer data);
 static gboolean xfce_notify_window_fade_timeout(gpointer data);
 
@@ -138,7 +135,6 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->leave_notify_event = xfce_notify_window_enter_leave;
     widget_class->button_release_event = xfce_notify_window_button_release;
     widget_class->configure_event = xfce_notify_window_configure_event;
-    widget_class->style_set = xfce_notify_window_style_set;
 
     signals[SIG_CLOSED] = g_signal_new("closed",
                                        XFCE_TYPE_NOTIFY_WINDOW,
@@ -181,12 +177,6 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
                                                                 0.0, 8.0,
                                                                 DEFAULT_BORDER_WIDTH,
                                                                 G_PARAM_READABLE));
-    gtk_widget_class_install_style_property(widget_class,
-                                            g_param_spec_boolean("summary-bold",
-                                                                 "summary bold",
-                                                                 "whether or not to display the notification summary field in bold text",
-                                                                 FALSE,
-                                                                 G_PARAM_READABLE));
 }
 
 static void
@@ -198,8 +188,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
-    /* The summary widget needs to be initialized before style_set is called. gtk_widget_ensure_style calls style_set */
-    window->summary = gtk_label_new(NULL);
 
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
     gtk_window_stick(GTK_WINDOW(window));
@@ -246,11 +234,14 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(vbox);
     gtk_box_pack_start(GTK_BOX(tophbox), vbox, TRUE, TRUE, 0);
 
+    window->summary = gtk_label_new(NULL);
+    gtk_widget_set_name (window->summary, "summary");
     gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
     gtk_misc_set_alignment(GTK_MISC(window->summary), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
 
     window->body = gtk_label_new(NULL);
+    gtk_widget_set_name (window->body, "body");
     gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
     gtk_misc_set_alignment(GTK_MISC(window->body), 0.0, 0.0);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
@@ -641,27 +632,6 @@ xfce_notify_window_configure_event(GtkWidget *widget,
     gtk_widget_queue_draw(widget);
 
     return ret;
-}
-
-static void
-xfce_notify_window_style_set(GtkWidget *widget,
-                             GtkStyle *previous_style)
-{
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-    gboolean summary_bold = FALSE;
-    GtkStyle *style;
-    PangoFontDescription *pfd;
-
-    gtk_widget_style_get(widget,
-                         "summary-bold", &summary_bold,
-                         NULL);
-    if(summary_bold) {
-        style = gtk_widget_get_style(window->summary);
-        pfd = pango_font_description_copy(style->font_desc);
-        pango_font_description_set_weight(pfd, PANGO_WEIGHT_BOLD);
-        gtk_widget_modify_font(window->summary, pfd);
-        pango_font_description_free(pfd);
-    }
 }
 
 
