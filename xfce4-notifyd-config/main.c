@@ -117,6 +117,8 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
             g_free(theme);
             xfce4_notifyd_config_kill_daemon();
 
+            /* TRANSLATORS: notify-send is a command name in the following string,
+             * it must not be translated. */
             if(!g_spawn_command_line_async(_("notify-send \"Notification Preview\""
                                              " \"This is how notifications will look like\""),
                                            &error)) {
