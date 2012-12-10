@@ -4,8 +4,15 @@
 
 Version 0.2.3git:
 
-    * Fix notifications not disappearing after clicking an action button.
+  Features:
     * Add a category to the settings dialog for Xfce4 Settings Manager.
+    * Add widget names to summary ("summary") and body ("body") widgets
+      to allow easier theming. Remove the redundant / buggy summary-bold
+      style property (bug #8431).
+      Themes will have to be updated accordingly.
+
+  Bugs fixed:
+    * Fix notifications not disappearing after clicking an action button.
     * Handle timeout correctly when smaller than fading time (bug #8580).
     * Parse body with g_markup_escape_text which allows us to handle
       span attributes missused by some clients and to parse strings with
