@@ -399,6 +399,12 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
 {
     GtkWidget *widget = GTK_WIDGET(window);
     gdouble radius = DEFAULT_RADIUS;
+    gdouble border_width = DEFAULT_BORDER_WIDTH;
+
+    /* this secifies the padding from the edges in order to make
+     * sure the border completely fits into the drawing area */
+    gdouble padding = 0.0;
+
     cairo_path_t *flat_path;
     GdkRegion *region;
     GdkFillRule fill_rule;
@@ -411,24 +417,27 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
 
     gtk_widget_style_get(widget,
                          "border-radius", &radius,
+                         "border-width", &border_width,
                          NULL);
+
+    padding = border_width / 2.0;
 
     if(radius < 0.1) {
         cairo_rectangle(cr, 0, 0, widget->allocation.width,
                         widget->allocation.height);
     } else {
-        cairo_move_to(cr, 0, radius);
-        cairo_arc(cr, radius, radius, radius, M_PI, 3.0*M_PI/2.0);
-        cairo_line_to(cr, widget->allocation.width - radius, 0);
-        cairo_arc(cr, widget->allocation.width - radius, radius, radius,
+        cairo_move_to(cr, padding, radius + padding);
+        cairo_arc(cr, radius + padding, radius + padding, radius, M_PI, 3.0*M_PI/2.0);
+        cairo_line_to(cr, widget->allocation.width - radius - padding, padding);
+        cairo_arc(cr, widget->allocation.width - radius - padding, radius + padding, radius,
                   3.0*M_PI/2.0, 0.0);
-        cairo_line_to(cr, widget->allocation.width,
-                      widget->allocation.height - radius);
-        cairo_arc(cr, widget->allocation.width - radius,
-                  widget->allocation.height - radius, radius,
+        cairo_line_to(cr, widget->allocation.width - padding,
+                      widget->allocation.height - radius - padding);
+        cairo_arc(cr, widget->allocation.width - radius - padding,
+                  widget->allocation.height - radius - padding, radius,
                   0.0, M_PI/2.0);
-        cairo_line_to(cr, radius, widget->allocation.height);
-        cairo_arc(cr, radius, widget->allocation.height - radius, radius,
+        cairo_line_to(cr, radius + padding, widget->allocation.height - padding);
+        cairo_arc(cr, radius + padding, widget->allocation.height - radius - padding, radius,
                   M_PI/2.0, M_PI);
         cairo_close_path(cr);
     }
@@ -503,10 +512,16 @@ xfce_notify_window_expose(GtkWidget *widget,
         GdkColor *border_color = NULL;
         gdouble border_width = DEFAULT_BORDER_WIDTH;
 
+        /* this secifies the padding from the edges in order to make sure the
+         * border completely fits into the dranwing area */
+        gdouble padding = 0.0;
+
         gtk_widget_style_get(widget,
                              "border-color", &border_color,
                              "border-width", &border_width,
                              NULL);
+
+        padding = border_width / 2.0;
 
         cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
         if(border_color)
@@ -522,7 +537,7 @@ xfce_notify_window_expose(GtkWidget *widget,
             cairo_path_t *flat_path;
             GdkFillRule fill_rule;
 
-            cairo_arc(cr, widget->allocation.width - 12., 12., 7.5, 0., 2*M_PI);
+            cairo_arc(cr, widget->allocation.width - 12.0 - padding, 12.0 + padding, 7.5, 0., 2*M_PI);
             window->close_btn_path = cairo_copy_path(cr);
 
             flat_path = cairo_copy_path_flat(cr);
@@ -536,11 +551,11 @@ xfce_notify_window_expose(GtkWidget *widget,
         cairo_set_line_width(cr, 1.5);
         cairo_stroke(cr);
 
-        cairo_move_to(cr, widget->allocation.width - 8., 8.);
-        cairo_line_to(cr, widget->allocation.width - 16., 16.);
+        cairo_move_to(cr, widget->allocation.width - 8.0 - padding, 8.0 + padding);
+        cairo_line_to(cr, widget->allocation.width - 16.0 - padding, 16.0 + padding);
         cairo_stroke(cr);
-        cairo_move_to(cr, widget->allocation.width - 16., 8.);
-        cairo_line_to(cr, widget->allocation.width - 8., 16.);
+        cairo_move_to(cr, widget->allocation.width - 16.0 - padding, 8.0 + padding);
+        cairo_line_to(cr, widget->allocation.width - 8.0 - padding, 16.0 + padding);
         cairo_stroke(cr);
     }
 
