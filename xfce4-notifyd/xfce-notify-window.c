@@ -740,14 +740,10 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if(body && *body) {
-        gchar *markup = g_markup_escape_text (body, -1);
-        if(!markup)
-            return;
-
-        gtk_label_set_markup(GTK_LABEL(window->body), markup);
+        gtk_label_set_markup(GTK_LABEL(window->body), body);
 
         gtk_widget_show(window->body);
-        g_free(markup);
+
         window->has_body_text = TRUE;
     } else {
         gtk_label_set_markup(GTK_LABEL(window->body), "");
