@@ -18,6 +18,8 @@ Version 0.2.3git:
       span attributes missused by some clients and to parse strings with
       "unusual" caracters such as & (bug #7773, #8187).
     * Respect border-width when drawing the notification (bug #9475).
+    * Do not kill notification daemon to apply new theme. Instead, handle
+      style updates of existing notifications.
 
 Version 0.2.2 (06 August 2011):
 
