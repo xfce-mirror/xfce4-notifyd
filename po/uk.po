@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-17 16:04+0000\n"
+"POT-Creation-Date: 2013-01-18 20:39+0000\n"
 "PO-Revision-Date: 2010-05-24 00:21+0100\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: UKRAINIAN <translate@linux.org.ua>\n"
@@ -21,69 +21,76 @@ msgstr ""
 "X-Poedit-Country: UKRAINE\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:238
 msgid "Xfce Notify Daemon"
 msgstr "Демон повідомлень Xfce"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Невідомий параметр \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "Не можу запустити демон повідомлень"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Не вдалося встановити нову тему"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Не можу з’єднатися до буфера сесії D-Bus"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Інший демон повідомлень xndaemon вже працює"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:817
-msgid "image: "
-msgstr "малюнок:"
+#. TRANSLATORS: notify-send is a command name in the following string,
+#. * it must not be translated.
+#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
+msgstr ""
+"notify-send \"Попередній перегляд повідомлення\" \"Так будуть виглядати "
+"повідомлення\""
 
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Попередній перегляд повідомлення\" \"Так будуть виглядати повідомлення\""
-
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
 msgid "Notification preview failed"
 msgstr "Попередній перегляд повідомлення не вдався"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:240
 msgid "Settings daemon is unavailable"
 msgstr "Демон налаштувань не доступний"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:290
 msgid "Display version information"
 msgstr "Показати інформацію про версію"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "Settings manager socket"
 msgstr "Сокет менеджера налаштувань"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:301
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Напишіть '%s --help' для допомоги по використанню."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:314
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Розроблено згідно умов GNU General Public License, 2-га версія\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:315
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Будь-ласка, повідомте про помилку до %s.\n"
@@ -136,6 +143,9 @@ msgstr "секунди"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Налаштуйте показ повідомлень на Вашому екрані"
+
+#~ msgid "image: "
+#~ msgstr "малюнок:"
 
 #~ msgid "_Effect:"
 #~ msgstr "_Ефект:"
