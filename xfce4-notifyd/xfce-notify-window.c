@@ -53,8 +53,6 @@ struct _XfceNotifyWindow
 
     gboolean mouse_hover;
     cairo_path_t *bg_path;
-    cairo_path_t *close_btn_path;
-    GdkRegion *close_btn_region;
 
     gdouble normal_opacity;
 
@@ -322,16 +320,6 @@ xfce_notify_window_unrealize(GtkWidget *widget)
         cairo_path_destroy(window->bg_path);
         window->bg_path = NULL;
     }
-
-    if(window->close_btn_path) {
-        cairo_path_destroy(window->close_btn_path);
-        window->close_btn_path = NULL;
-    }
-
-    if(window->close_btn_region) {
-        gdk_region_destroy(window->close_btn_region);
-        window->close_btn_region = NULL;
-    }
 }
 
 static inline GdkRegion *
@@ -507,21 +495,14 @@ xfce_notify_window_expose(GtkWidget *widget,
         }
     }
 
-
     if(window->mouse_hover) {
         GdkColor *border_color = NULL;
         gdouble border_width = DEFAULT_BORDER_WIDTH;
-
-        /* this secifies the padding from the edges in order to make sure the
-         * border completely fits into the dranwing area */
-        gdouble padding = 0.0;
 
         gtk_widget_style_get(widget,
                              "border-color", &border_color,
                              "border-width", &border_width,
                              NULL);
-
-        padding = border_width / 2.0;
 
         cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
         if(border_color)
@@ -530,32 +511,6 @@ xfce_notify_window_expose(GtkWidget *widget,
             cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
         cairo_set_line_width(cr, border_width);
 
-        cairo_stroke(cr);
-
-        /* draw a circle with an X in it */
-        if(!window->close_btn_path) {
-            cairo_path_t *flat_path;
-            GdkFillRule fill_rule;
-
-            cairo_arc(cr, widget->allocation.width - 12.0 - padding, 12.0 + padding, 7.5, 0., 2*M_PI);
-            window->close_btn_path = cairo_copy_path(cr);
-
-            flat_path = cairo_copy_path_flat(cr);
-            fill_rule = (cairo_get_fill_rule(cr) == CAIRO_FILL_RULE_WINDING
-                         ? GDK_WINDING_RULE : GDK_EVEN_ODD_RULE);
-            window->close_btn_region = xfce_gdk_region_from_cairo_flat_path(flat_path,
-                                                                            fill_rule);
-            cairo_path_destroy(flat_path);
-        } else
-            cairo_append_path(cr, window->close_btn_path);
-        cairo_set_line_width(cr, 1.5);
-        cairo_stroke(cr);
-
-        cairo_move_to(cr, widget->allocation.width - 8.0 - padding, 8.0 + padding);
-        cairo_line_to(cr, widget->allocation.width - 16.0 - padding, 16.0 + padding);
-        cairo_stroke(cr);
-        cairo_move_to(cr, widget->allocation.width - 16.0 - padding, 8.0 + padding);
-        cairo_line_to(cr, widget->allocation.width - 8.0 - padding, 16.0 + padding);
         cairo_stroke(cr);
     }
 
@@ -604,15 +559,6 @@ static gboolean
 xfce_notify_window_button_release(GtkWidget *widget,
                                   GdkEventButton *evt)
 {
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-
-    if(!window->close_btn_region
-       || !gdk_region_point_in(window->close_btn_region, evt->x, evt->y))
-    {
-        g_signal_emit(G_OBJECT(widget), signals[SIG_ACTION_INVOKED], 0,
-                      "default");
-    }
-
     g_signal_emit(G_OBJECT(widget), signals[SIG_CLOSED], 0,
                   XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 
@@ -632,16 +578,6 @@ xfce_notify_window_configure_event(GtkWidget *widget,
     if(window->bg_path) {
         cairo_path_destroy(window->bg_path);
         window->bg_path = NULL;
-    }
-
-    if(window->close_btn_path) {
-        cairo_path_destroy(window->close_btn_path);
-        window->close_btn_path = NULL;
-    }
-
-    if(window->close_btn_region) {
-        gdk_region_destroy(window->close_btn_region);
-        window->close_btn_region = NULL;
     }
 
     gtk_widget_queue_draw(widget);
