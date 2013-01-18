@@ -1119,23 +1119,54 @@ static void
 xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
                              const gchar *theme)
 {
-    gchar *file, **files;
+    GError *error = NULL;
+    gchar  *file, **files;
+    gchar  *string;
+    gchar  *temp_theme_file;
+
+    DBG("New theme: %s", theme);
+
+    /* See main.c for an explanation on how the theming works and why
+     * we use this temp file including the real file */
+
+    temp_theme_file = g_build_path(G_DIR_SEPARATOR_S, g_get_user_cache_dir(),
+                                   "xfce4-notifyd-theme.rc", NULL);
 
     /* old-style ~/.themes ... */
     file = g_build_filename(xfce_get_homedir(), ".themes", theme,
                             "xfce-notify-4.0", "gtkrc", NULL);
     if(g_file_test(file, G_FILE_TEST_EXISTS)) {
-        gtk_rc_parse(file);
+        string = g_strconcat("include \"", file, "\"", NULL);
+        if (!g_file_set_contents (temp_theme_file, string, -1, &error)) {
+            xfce_dialog_show_error (NULL, error,
+                                    _("Failed to set new theme"));
+            g_error_free (error);
+        }
+        else
+            gtk_rc_reparse_all ();
+
         g_free(file);
+        g_free(string);
+        g_free(temp_theme_file);
+
         return;
     }
     g_free(file);
 
     file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtkrc", NULL);
     files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
-    if(files[0])
-        gtk_rc_parse(files[0]);
 
+    string = g_strconcat("include \"", files[0], "\"", NULL);
+    if (!g_file_set_contents (temp_theme_file, string, -1, &error)) {
+        xfce_dialog_show_error (NULL, error,
+                                _("Failed to set new theme"));
+        g_error_free (error);
+    }
+    else
+        gtk_rc_reparse_all ();
+
+    g_free(string);
+    g_free(temp_theme_file);
     g_free(file);
     g_strfreev(files);
 }

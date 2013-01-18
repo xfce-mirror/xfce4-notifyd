@@ -38,29 +38,6 @@
 
 #include "xfce4-notifyd-config.ui.h"
 
-/* unfortunately, currently we have to kill the daemon to
- * change themes.  this is only annoying because existing notifications
- * will get killed */
-static void
-xfce4_notifyd_config_kill_daemon(void)
-{
-    DBusGConnection *dbus_conn;
-    DBusGProxy *proxy;
-
-    dbus_conn = dbus_g_bus_get(DBUS_BUS_SESSION, NULL);
-    if(!dbus_conn)
-        return;
-
-    proxy = dbus_g_proxy_new_for_name(dbus_conn,
-                                      "org.freedesktop.Notifications",
-                                      "/org/freedesktop/Notifications",
-                                      "org.xfce.Notifyd");
-    dbus_g_proxy_call_no_reply(proxy, "Quit", G_TYPE_INVALID);
-
-    g_object_unref(G_OBJECT(proxy));
-    dbus_g_connection_unref(dbus_conn);
-}
-
 static gchar *
 xfce4_notifyd_slider_format_value(GtkScale *slider,
                                   gdouble value,
@@ -115,7 +92,6 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
             gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
                                           &iter);
             g_free(theme);
-            xfce4_notifyd_config_kill_daemon();
 
             /* TRANSLATORS: notify-send is a command name in the following string,
              * it must not be translated. */
