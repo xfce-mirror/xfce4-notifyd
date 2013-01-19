@@ -68,5 +68,24 @@ int main (int argc, char **argv)
 
   g_object_unref (notification);
 
+  g_print ("%s", "Testing notification with markup in the body\n");
+
+  notification = notify_notification_new ("Markup support",
+                                          "<i>Italic</i>\n"
+                                          "<b>Bold</b>\n"
+                                          "<u>Underlined</u>\n"
+                                          "<a href=\"http://www.xfce.org\">Xfce Web site</a>",
+                                          NULL);
+
+  if (!notify_notification_show (notification, NULL))
+    {
+      g_error ("Failed");
+      g_object_unref (notification);
+
+      return EXIT_FAILURE;
+    }
+
+  g_object_unref (notification);
+
   return EXIT_SUCCESS;
 }
