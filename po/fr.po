@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-06 17:03+0000\n"
+"POT-Creation-Date: 2013-01-19 07:21+0000\n"
 "PO-Revision-Date: 2008-11-20 07:29+0100\n"
 "Last-Translator: Maximilian Schleiss <maximilian@xfce.org>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
@@ -15,35 +15,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:238
 msgid "Xfce Notify Daemon"
 msgstr "Démon de notification Xfce"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Option inconnue : \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "Échec au démarrage du démon de notification"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Impossible de définir un nouveau thème"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Échec de connexion au bus de la session D-BUS"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Un autre démon de notification est déjà en cours d'exécution"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:816
-msgid "image: "
-msgstr "image : "
-
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
+#. TRANSLATORS: notify-send is a command name in the following string,
+#. * it must not be translated.
+#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
 msgid ""
 "notify-send \"Notification Preview\" \"This is how notifications will look "
 "like\""
@@ -51,37 +54,37 @@ msgstr ""
 "notify-send \"Aperçu de notification\" \"Voila à quoi ressembleront les "
 "notifications \""
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
 msgid "Notification preview failed"
 msgstr "Impossible d'afficher un aperçu des notifications"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:240
 msgid "Settings daemon is unavailable"
 msgstr "Le démon des paramètres est indisponible"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:290
 msgid "Display version information"
 msgstr "Affiche les informations de version"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "Settings manager socket"
 msgstr "Socket du gestionnaire de paramètres"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "SOCKET_ID"
 msgstr "ID_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:301
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Utiliser '%s --help' pour plus d'aide."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:314
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Publié sous les termes de la GNU General Public Lincese, verson 2\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:315
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Veuillez envoyer vos rapports de bogues à %s.\n"
@@ -134,3 +137,6 @@ msgstr "secondes"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Personnaliser les notifications système"
+
+#~ msgid "image: "
+#~ msgstr "image : "
