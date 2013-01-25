@@ -2,85 +2,89 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret Kenji <gheyret@gmail.com>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-24 03:30+0000\n"
+"POT-Creation-Date: 2013-01-24 21:06+0000\n"
 "PO-Revision-Date: 2011-11-09 16:10+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:238
 msgid "Xfce Notify Daemon"
 msgstr "Xfce ئۇقتۇرۇش مۇئەككىلى"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "نامەلۇم تاللانما «%s»\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "ئۇقتۇرۇش مۇئەككىلىنى قوزغاتقىلى بولمىدى"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "يېڭى ئۆرنەكنى بەلگىلەش مەغلۇپ بولدى"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus ئەڭگىمە باش لىنىيىسىگە باغلانغىلى بولمىدى"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "باشقا بىر xndaemon ئىجرا بۆلۈۋېتىپتۇ"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:816
-msgid "image: "
-msgstr "سۈرەت: "
-
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
+#. TRANSLATORS: notify-send is a command name in the following string,
+#. * it must not be translated.
+#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
 msgid ""
 "notify-send \"Notification Preview\" \"This is how notifications will look "
 "like\""
 msgstr "notify-send «ئۇقتۇرۇشنى ئالدىن كۆرۈش» «ئۇقتۇرۇش ياخشى كۆرۈندىمۇ»"
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
 msgid "Notification preview failed"
 msgstr "ئۇقتۇرۇشنى ئالدىن كۆرۈش مەغلۇپ بولدى"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:240
 msgid "Settings daemon is unavailable"
 msgstr "تەڭشەك مۇئەككىلى يوق"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:290
 msgid "Display version information"
 msgstr "نەشر ئۇچۇرىنى كۆرسەت"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "Settings manager socket"
 msgstr "باشقۇرغۇچى سوكېتنىڭ تەڭشەكلىرى"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:301
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' كىرگۈزسە ئىشلىتىش ئۇسۇلىنى كۆرگىلى بولىدۇ"
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:314
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "مەزكۇر پروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
+msgstr ""
+"مەزكۇر پروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:315
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "كەمتۈكنى %s غا مەلۇم قىلىڭ.\n"
@@ -133,3 +137,6 @@ msgstr "سېكۇنت"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "ئۇقتۇرۇشلارنىڭ كۆرۈنۈش ئۇسۇلىنى ئۆزلەشتۈر"
+
+#~ msgid "image: "
+#~ msgstr "سۈرەت: "
