@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-04 23:03+0000\n"
+"POT-Creation-Date: 2013-01-27 13:18+0000\n"
 "PO-Revision-Date: 2010-02-05 23:53+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
@@ -18,72 +18,75 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:238
 msgid "Xfce Notify Daemon"
 msgstr "Xfce értesítési démon"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Ismeretlen kapcsoló: „%s”\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "Az értesítési démon nem indítható"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Az új téma beállítása meghiúsult"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Nem lehet csatlakozni a D-Bus munkamenetbuszhoz"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Már fut egy másik értesítési démon"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:816
-msgid "image: "
-msgstr "kép: "
-
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
+#. TRANSLATORS: notify-send is a command name in the following string,
+#. * it must not be translated.
+#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
 msgid ""
 "notify-send \"Notification Preview\" \"This is how notifications will look "
 "like\""
 msgstr "notify-send \"Értesítés előnézete\" \"Így fog kinézni az értesítés\""
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
 msgid "Notification preview failed"
 msgstr "Az értesítés előnézete meghiúsult"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:240
 msgid "Settings daemon is unavailable"
 msgstr "A beállításdémon nem érhető el"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:290
 msgid "Display version information"
 msgstr "Verzióinformációk megjelenítése"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "Settings manager socket"
 msgstr "Beállításkezelő foglalat"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "SOCKET_ID"
 msgstr "FOGLALAT_AZONOSÍTÓ"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:301
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Segítségért adja ki az „%s --help” parancsot."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:314
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
 "Kiadva a GNU General Public License 2-es verziójának feltételei szerint\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:315
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "A hibákat itt jelentse: %s\n"
@@ -136,6 +139,9 @@ msgstr "másodperc"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "A képernyőn megjelenő értesítések megjelenésének személyre szabása"
+
+#~ msgid "image: "
+#~ msgstr "kép: "
 
 #~ msgid "_Effect:"
 #~ msgstr "_Effektus:"
