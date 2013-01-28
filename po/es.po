@@ -132,7 +132,7 @@ msgstr "_Previsualizar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
-msgstr "_Tema"
+msgstr "_Tema:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
