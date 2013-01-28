@@ -25,7 +25,7 @@ msgstr "Xfce 通知幕後程式"
 #: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "未知選項 \"%s\"\n"
+msgstr "未知選項「%s」\n"
 
 #: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
@@ -34,7 +34,7 @@ msgstr "無法啟動通知幕後程式"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1142
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1162
 msgid "Failed to set new theme"
-msgstr "設定新主題失敗"
+msgstr "新主題設定失敗"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
