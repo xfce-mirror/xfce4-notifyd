@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-08 04:05+0000\n"
+"POT-Creation-Date: 2013-03-04 10:39+0000\n"
 "PO-Revision-Date: 2010-03-20 13:00+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -17,69 +17,74 @@ msgstr ""
 "Language: kk\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:238
 msgid "Xfce Notify Daemon"
 msgstr "Xfce хабарламалар қызметі"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Белгісіз опция \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "Хабарламалар қызметін жөнелту мүмкін емес"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1178
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Жаңа теманы қолдану сәтсіз"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "D-Bus қызметімен байланыс орнату мүмкін емес"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1195
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Басқа хабарламалар xndaemon қосулы тұр"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:817
-msgid "image: "
-msgstr "сурет: "
-
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
+#. TRANSLATORS: notify-send is a command name in the following string,
+#. * it must not be translated.
+#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
+msgid ""
+"notify-send \"Notification Preview\" \"This is how notifications will look "
+"like\""
 msgstr "notify-send \"Сынау хабарламасы\" \"Хабарламалар осындай болады\""
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
 msgid "Notification preview failed"
 msgstr "Сынау хабарламасын көрсету сәтсіз"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:240
 msgid "Settings daemon is unavailable"
 msgstr "Баптаулар қызметі қолжетерсіз"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:290
 msgid "Display version information"
 msgstr "Display version information"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:291
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:301
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Көмек үшін '%s --help' енгізіңіз."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:314
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, 2-ші нұсқасы аясында жарияланған\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:315
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ақаулықтар жөнінде хабарласыңыз: <%s>.\n"
@@ -132,6 +137,9 @@ msgstr "секунд"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Хабарламалар көрсетілуін таңдаңыз"
+
+#~ msgid "image: "
+#~ msgstr "сурет: "
 
 #~ msgid "_Effect:"
 #~ msgstr "_Эффект:"
