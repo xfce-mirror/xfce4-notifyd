@@ -39,6 +39,7 @@
 #define FADE_CHANGE_TIMEOUT    50
 #define DEFAULT_RADIUS         10.0
 #define DEFAULT_BORDER_WIDTH   2.0
+#define DEFAULT_PADDING        14.0
 #define BORDER                 6
 
 struct _XfceNotifyWindow
@@ -175,6 +176,13 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
                                                                 0.0, 8.0,
                                                                 DEFAULT_BORDER_WIDTH,
                                                                 G_PARAM_READABLE));
+    gtk_widget_class_install_style_property(widget_class,
+                                            g_param_spec_double("padding",
+                                                                "padding",
+                                                                "the padding of the text/icon to the notification's border",
+                                                                0.0, 30.0,
+                                                                DEFAULT_PADDING,
+                                                                G_PARAM_READABLE));
 }
 
 static void
@@ -182,7 +190,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 {
     GdkScreen *screen;
     GtkWidget *tophbox, *align, *vbox;
-    gdouble border_radius = DEFAULT_RADIUS;
+    gdouble padding = DEFAULT_PADDING;
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
@@ -211,11 +219,11 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
     gtk_widget_ensure_style(GTK_WIDGET(window));
     gtk_widget_style_get(GTK_WIDGET(window),
-                         "border-radius", &border_radius,
+                         "padding", &padding,
                          NULL);
 
     tophbox = gtk_hbox_new(FALSE, BORDER);
-    gtk_container_set_border_width(GTK_CONTAINER(tophbox), border_radius + 4);
+    gtk_container_set_border_width(GTK_CONTAINER(tophbox), padding);
     gtk_widget_show(tophbox);
     gtk_container_add(GTK_CONTAINER(window), tophbox);
 
@@ -389,9 +397,9 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     gdouble radius = DEFAULT_RADIUS;
     gdouble border_width = DEFAULT_BORDER_WIDTH;
 
-    /* this secifies the padding from the edges in order to make
+    /* this secifies the border_padding from the edges in order to make
      * sure the border completely fits into the drawing area */
-    gdouble padding = 0.0;
+    gdouble border_padding = 0.0;
 
     cairo_path_t *flat_path;
     GdkRegion *region;
@@ -408,25 +416,33 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
                          "border-width", &border_width,
                          NULL);
 
-    padding = border_width / 2.0;
+    border_padding = border_width / 2.0;
 
     if(radius < 0.1) {
         cairo_rectangle(cr, 0, 0, widget->allocation.width,
                         widget->allocation.height);
     } else {
-        cairo_move_to(cr, padding, radius + padding);
-        cairo_arc(cr, radius + padding, radius + padding, radius, M_PI, 3.0*M_PI/2.0);
-        cairo_line_to(cr, widget->allocation.width - radius - padding, padding);
-        cairo_arc(cr, widget->allocation.width - radius - padding, radius + padding, radius,
+        cairo_move_to(cr, border_padding, radius + border_padding);
+        cairo_arc(cr, radius + border_padding,
+                  radius + border_padding, radius,
+                  M_PI, 3.0*M_PI/2.0);
+        cairo_line_to(cr,
+                      widget->allocation.width - radius - border_padding,
+                      border_padding);
+        cairo_arc(cr,
+                  widget->allocation.width - radius - border_padding,
+                  radius + border_padding, radius,
                   3.0*M_PI/2.0, 0.0);
-        cairo_line_to(cr, widget->allocation.width - padding,
-                      widget->allocation.height - radius - padding);
-        cairo_arc(cr, widget->allocation.width - radius - padding,
-                  widget->allocation.height - radius - padding, radius,
-                  0.0, M_PI/2.0);
-        cairo_line_to(cr, radius + padding, widget->allocation.height - padding);
-        cairo_arc(cr, radius + padding, widget->allocation.height - radius - padding, radius,
-                  M_PI/2.0, M_PI);
+        cairo_line_to(cr, widget->allocation.width - border_padding,
+                      widget->allocation.height - radius - border_padding);
+        cairo_arc(cr, widget->allocation.width - radius - border_padding,
+                  widget->allocation.height - radius - border_padding,
+                  radius, 0.0, M_PI/2.0);
+        cairo_line_to(cr, radius + border_padding,
+                      widget->allocation.height - border_padding);
+        cairo_arc(cr, radius + border_padding,
+                  widget->allocation.height - radius - border_padding,
+                  radius, M_PI/2.0, M_PI);
         cairo_close_path(cr);
     }
 
