@@ -163,6 +163,13 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
                                                                G_PARAM_READABLE));
 
     gtk_widget_class_install_style_property(widget_class,
+                                            g_param_spec_boxed("border-color-hover",
+                                                               "border color hover",
+                                                               "the color of the border when hovering the notification",
+                                                               GDK_TYPE_COLOR,
+                                                               G_PARAM_READABLE));
+
+    gtk_widget_class_install_style_property(widget_class,
                                             g_param_spec_double("border-radius",
                                                                 "border radius",
                                                                 "the radius of the window border's curved corners",
@@ -173,6 +180,13 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
                                             g_param_spec_double("border-width",
                                                                 "border width",
                                                                 "the width of the notification's border",
+                                                                0.0, 8.0,
+                                                                DEFAULT_BORDER_WIDTH,
+                                                                G_PARAM_READABLE));
+    gtk_widget_class_install_style_property(widget_class,
+                                            g_param_spec_double("border-width-hover",
+                                                                "border width hover",
+                                                                "the width of the border when hovering the notification",
                                                                 0.0, 8.0,
                                                                 DEFAULT_BORDER_WIDTH,
                                                                 G_PARAM_READABLE));
@@ -411,10 +425,17 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
 
     gtk_widget_size_request(GTK_WIDGET(window), &req);
 
-    gtk_widget_style_get(widget,
-                         "border-radius", &radius,
-                         "border-width", &border_width,
-                         NULL);
+    if (!window->mouse_hover) {
+        gtk_widget_style_get(widget,
+                             "border-radius", &radius,
+                             "border-width", &border_width,
+                             NULL);
+    } else {
+        gtk_widget_style_get(widget,
+                             "border-radius", &radius,
+                             "border-width-hover", &border_width,
+                             NULL);
+    }
 
     border_padding = border_width / 2.0;
 
@@ -477,6 +498,8 @@ xfce_notify_window_expose(GtkWidget *widget,
     cairo_t *cr;
     GList *children, *l;
     cairo_path_t *bg_path;
+    GdkColor *border_color = NULL;
+    gdouble border_width = DEFAULT_BORDER_WIDTH;
 
     if(evt->count != 0)
         return FALSE;
@@ -512,24 +535,25 @@ xfce_notify_window_expose(GtkWidget *widget,
     }
 
     if(window->mouse_hover) {
-        GdkColor *border_color = NULL;
-        gdouble border_width = DEFAULT_BORDER_WIDTH;
-
+        gtk_widget_style_get(widget,
+                             "border-color-hover", &border_color,
+                             "border-width-hover", &border_width,
+                             NULL);
+    } else {
         gtk_widget_style_get(widget,
                              "border-color", &border_color,
                              "border-width", &border_width,
                              NULL);
-
-        cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
-        if(border_color)
-            gdk_cairo_set_source_color(cr, border_color);
-        else
-            cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
-        cairo_set_line_width(cr, border_width);
-
-        cairo_stroke(cr);
     }
 
+    cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
+    if(border_color)
+        gdk_cairo_set_source_color(cr, border_color);
+    else
+        cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
+    cairo_set_line_width(cr, border_width);
+
+    cairo_stroke(cr);
     cairo_destroy(cr);
 
     children = gtk_container_get_children(GTK_CONTAINER(widget));
