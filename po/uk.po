@@ -33,7 +33,7 @@ msgstr "Невідомий параметр \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
-msgstr "Не можу запустити демон повідомлень"
+msgstr "Не можу запустити демон сповіщень"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1142
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1162
@@ -48,7 +48,7 @@ msgstr "Не можу з’єднатися до буфера сесії D-Bus"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Інший демон повідомлень xndaemon вже працює"
+msgstr "Інший демон сповіщень xndaemon вже працює"
 
 #: ../xfce4-notifyd-config/main.c:57
 msgid "Notification Preview"
@@ -146,7 +146,7 @@ msgstr "секунди"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
-msgstr "Налаштуйте показ повідомлень на Вашому екрані"
+msgstr "Налаштуйте показ сповіщень на Вашому екрані"
 
 #~ msgid "image: "
 #~ msgstr "малюнок:"
