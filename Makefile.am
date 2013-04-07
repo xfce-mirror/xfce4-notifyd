@@ -52,6 +52,7 @@ xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
+	$(LIBNOTIFY_CFLAGS) \
 	$(common_cflags)
 
 common_ldadd = \
@@ -66,7 +67,8 @@ xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(LIBX11_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
-	$(common_ldadd)
+	$(common_ldadd) \
+	$(LIBNOTIFY_LIBS)
 
 
 servicedir = $(datadir)/dbus-1/services
@@ -238,7 +240,6 @@ release: gpg-sign
 	-rm $(PACKAGE)-$(VERSION).tar.gz
 
 #Tests
-if HAVE_LIBNOTIFY
 noinst_PROGRAMS = \
 	tests/test-text \
 	tests/test-positioning \
@@ -262,4 +263,3 @@ tests_test_positioning_LDADD = $(tests_ldadd)
 tests_test_text_SOURCES = tests/test-text.c
 tests_test_text_CFLAGS = $(tests_cflags)
 tests_test_text_LDADD = $(tests_ldadd)
-endif

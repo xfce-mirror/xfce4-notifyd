@@ -35,8 +35,45 @@
 
 #include <xfconf/xfconf.h>
 #include <libxfce4ui/libxfce4ui.h>
+#include <libnotify/notify.h>
 
 #include "xfce4-notifyd-config.ui.h"
+
+static void
+xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
+                                               const char         *action,
+                                               gpointer            unused)
+{
+  /* Don't do anything, we just have a button to show its style */
+}
+
+static void
+xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window)
+{
+    NotifyNotification *notification;
+    GError             *error = NULL;
+
+    notification =
+        notify_notification_new(_("Notification Preview"),
+                                _("This is how notifications will look like"),
+                                NULL);
+
+    notify_notification_add_action(notification,
+                                   "button",
+                                   _("Button"),
+                                   (NotifyActionCallback) xfce_notifyd_config_show_notification_callback,
+                                   NULL,
+                                   NULL);
+
+    if (!notify_notification_show(notification, &error)) {
+        xfce_dialog_show_error(parent_window, error,
+                               _("Notification preview failed"));
+
+        g_error_free(error);
+    }
+
+    g_object_unref(notification);
+}
 
 static gchar *
 xfce4_notifyd_slider_format_value(GtkScale *slider,
@@ -87,21 +124,12 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
     {
         gtk_tree_model_get(GTK_TREE_MODEL(ls), &iter, 0, &theme, -1);
         if(!strcmp(theme, new_theme)) {
-            GError *error = NULL;
 
             gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
                                           &iter);
             g_free(theme);
 
-            /* TRANSLATORS: notify-send is a command name in the following string,
-             * it must not be translated. */
-            if(!g_spawn_command_line_async(_("notify-send \"Notification Preview\""
-                                             " \"This is how notifications will look like\""),
-                                           &error)) {
-                xfce_dialog_show_error(GTK_WINDOW(gtk_widget_get_toplevel(theme_combo)),
-                                       error, _("Notification preview failed"));
-                g_error_free(error);
-            }
+            xfce_notifyd_config_show_notification_preview(GTK_WINDOW(gtk_widget_get_toplevel(theme_combo)));
 
             return;
         }
@@ -200,15 +228,7 @@ static void
 xfce_notifyd_config_preview_clicked(GtkButton *button,
                                     GtkWidget *dialog)
 {
-    GError *error = NULL;
-
-    if(!g_spawn_command_line_async(_("notify-send \"Notification Preview\""
-                                     " \"This is how notifications will look like\""),
-                                   &error)) {
-        xfce_dialog_show_error(GTK_WINDOW(dialog),
-                               error, _("Notification preview failed"));
-        g_error_free(error);
-    }
+    xfce_notifyd_config_show_notification_preview(GTK_WINDOW(dialog));
 }
 
 static GtkWidget *
@@ -317,6 +337,11 @@ main(int argc,
         return EXIT_SUCCESS;
     }
 
+    if (!notify_init ("Xfce4-notifyd settings")) {
+      g_error ("Failed to initialize libnotify.");
+      return EXIT_FAILURE;
+    }
+
     builder = gtk_builder_new();
     gtk_builder_add_from_string(builder, xfce4_notifyd_config_ui, xfce4_notifyd_config_ui_length, NULL);
     if(G_UNLIKELY(!builder)) {
@@ -325,7 +350,6 @@ main(int argc,
     }
 
     settings_dialog = xfce4_notifyd_config_setup_dialog(builder);
-
 
     if(opt_socket_id) {
         GtkWidget *plug, *plug_child;
@@ -349,6 +373,9 @@ main(int argc,
 
         gtk_dialog_run(GTK_DIALOG(settings_dialog));
     }
+
+    notify_uninit();
+    xfconf_shutdown();
 
     return EXIT_SUCCESS;
 }

@@ -4,6 +4,9 @@
 
 Version 0.2.3git:
 
+  libnotify is now required as a dependency to build a test suite and to
+  show improved notification previews.
+
   Features:
     * Add a category to the settings dialog for Xfce4 Settings Manager.
     * Add widget names to summary ("summary") and body ("body") widgets
@@ -20,6 +23,7 @@ Version 0.2.3git:
     * Respect border-width when drawing the notification (bug #9475).
     * Do not kill notification daemon to apply new theme. Instead, handle
       style updates of existing notifications.
+    * Show a button in the notification preview (bug #9982).
 
 Version 0.2.2 (06 August 2011):
 
