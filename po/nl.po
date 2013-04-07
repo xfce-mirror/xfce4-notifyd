@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-20 10:06+0000\n"
+"POT-Creation-Date: 2013-04-07 13:12+0000\n"
 "PO-Revision-Date: 2011-09-08 12:12+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:238
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Notify achtergronddienst"
 
@@ -47,47 +47,51 @@ msgstr "Kan niet met het D-Bus-sessiebeheer verbinden"
 msgid "Another notification xndaemon is already running"
 msgstr "Er is al een andere melddienst actief"
 
-#. TRANSLATORS: notify-send is a command name in the following string,
-#. * it must not be translated.
-#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
-msgid ""
-"notify-send \"Notification Preview\" \"This is how notifications will look "
-"like\""
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Voorbeeldweergave van melding"
+
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
 msgstr ""
 "notify-send \\ \"Meldingvoorbeeld \" \\ \"Zo zien meldingen er dus uit\""
 
-#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Knop"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Meldingvoorbeeld weergeven mislukt"
 
-#: ../xfce4-notifyd-config/main.c:240
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Instellingendienst is niet beschikbaar"
 
-#: ../xfce4-notifyd-config/main.c:290
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Versie-informatie weergeven"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Contactpunt voor instellingenbeheerder"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "CONTACTPUNT_ID"
 
-#: ../xfce4-notifyd-config/main.c:301
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Type '%s --help' voor gebruikinstructies."
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
 "Vrijgegeven onder de voorwaarden der GNU General Public License, versie 2\n"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fouten graag melden aan %s.\n"
