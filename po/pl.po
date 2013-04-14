@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 03:18+0000\n"
+"POT-Creation-Date: 2013-04-14 11:27+0000\n"
 "PO-Revision-Date: 2010-12-27 11:43+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2));\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:238
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Demon powiadomień Xfce"
 
@@ -48,46 +48,50 @@ msgstr "Nie można połączyć z sesją D-Bus"
 msgid "Another notification xndaemon is already running"
 msgstr "Uruchomiono już innego demona powiadamiania"
 
-#. TRANSLATORS: notify-send is a command name in the following string,
-#. * it must not be translated.
-#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
-msgid ""
-"notify-send \"Notification Preview\" \"This is how notifications will look "
-"like\""
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Podgląd powiadomienia"
+
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
 msgstr ""
 "notify-send \"Podgląd powiadomienia\" \"Tak będą wyglądać powiadomienia\""
 
-#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Przycisk"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Nie udało się wyświetlić podglądu powiadomienia"
 
-#: ../xfce4-notifyd-config/main.c:240
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Demon menedżera ustawień jest niedostępny"
 
-#: ../xfce4-notifyd-config/main.c:290
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Wyświetla informacje o wersji"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Określa gniazdo menedżera ustawień"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "ID_GNIAZDA"
 
-#: ../xfce4-notifyd-config/main.c:301
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Proszę wprowadzić „%s --help”, aby wypisać komunikat pomocy."
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Wydano na warunkach GNU General Public License, wersja 2\n"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Proszę zgłaszać błędy na adres %s.\n"
