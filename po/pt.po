@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-10 16:06+0000\n"
+"POT-Creation-Date: 2013-04-14 16:51+0000\n"
 "PO-Revision-Date: 2012-04-13 13:06+0100\n"
 "Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: \n"
@@ -62,7 +62,7 @@ msgstr "Botão"
 
 #: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
-msgstr "Falha ao pré-visualizar a notificação"
+msgstr "Falha ao pré-visualizar notificação"
 
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
