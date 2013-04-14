@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-07 16:48+0000\n"
+"POT-Creation-Date: 2013-04-14 11:27+0000\n"
 "PO-Revision-Date: 2011-02-01 22:29+0200\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Virtaal 0.6.1\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:238
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Serviciul de notificări Xfce"
 
@@ -47,45 +47,49 @@ msgstr "Încercarea de conectare la sesiunea D-Bus a eșuat"
 msgid "Another notification xndaemon is already running"
 msgstr "Un alt serviciu xndaemon de notificare este deja pornit"
 
-#. TRANSLATORS: notify-send is a command name in the following string,
-#. * it must not be translated.
-#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
-msgid ""
-"notify-send \"Notification Preview\" \"This is how notifications will look "
-"like\""
-msgstr "notify-send \"Notificare de test\" \"Așa vor arăta notificările\""
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Previzualizare a notificării"
 
-#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
+msgstr "Așa vor arăta notificările"
+
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Buton"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Previzualizarea notificării de test a eșuat"
 
-#: ../xfce4-notifyd-config/main.c:240
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Demonul opțiunilor Xfce nu este disponibil"
 
-#: ../xfce4-notifyd-config/main.c:290
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Arată detaliile versiunii"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Socket al managerului opțiunilor"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "ID_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:301
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Încercați „%s --help” pentru detalii de utilizare."
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Publicat în termenii licenței GPL, versiunea 2\n"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Raportați problemele la %s.\n"
