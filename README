@@ -16,6 +16,7 @@ Requirements:
 * libxfce4util 4.4.0
 * libxfce4ui 4.7.0
 * xfconf 4.6
+* libnotify 0.7
 
 Additionally, I'd recommend use with a compositing manager running; in that
 case xfce4-notifyd will look a bit nicer and will be semi-transparent and
