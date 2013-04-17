@@ -1,0 +1,146 @@
+# Croatian translations for xfce4-notifyd package
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-notifyd package.
+# Ivica Kolić <ikoli@yahoo.com>, 2013.
+# 
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-notifyd \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-17 09:39+0000\n"
+"PO-Revision-Date: 2013-04-17 16:46+0200\n"
+"Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
+"Language-Team: hrvatski <ikoli@yahoo.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:258
+msgid "Xfce Notify Daemon"
+msgstr ""
+
+#: ../xfce4-notifyd/main.c:77
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "Nepoznata opcija \"%s\"\n"
+
+#: ../xfce4-notifyd/main.c:86
+msgid "Unable to start notification daemon"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Neuspjelo postavljanje nove teme"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
+#, c-format
+msgid "Another notification xndaemon is already running"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Pregled obavijesti"
+
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
+msgstr "Ovako će obavijesti izgledati"
+
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Dugme"
+
+#: ../xfce4-notifyd-config/main.c:70
+msgid "Notification preview failed"
+msgstr "Neuspjeli pregled obavijesti"
+
+#: ../xfce4-notifyd-config/main.c:260
+msgid "Settings daemon is unavailable"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:310
+msgid "Display version information"
+msgstr "Prikaži informaciju o verziji"
+
+#: ../xfce4-notifyd-config/main.c:311
+msgid "Settings manager socket"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:311
+msgid "SOCKET_ID"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:321
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "Upišite '%s --help' za upotrebu."
+
+#: ../xfce4-notifyd-config/main.c:334
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:335
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Molim prijavite probleme  %s\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Bottom left"
+msgstr "Dolje lijevo"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom right"
+msgstr "Dolje desno"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "Default _position:"
+msgstr "Zadana _pozicija"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Notifications"
+msgstr "Obavijesti"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "Top left"
+msgstr "Gore lijevo"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "Top right"
+msgstr "Gore desno"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "_Disappear after:"
+msgstr "_Nestani nakon:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Opacity:"
+msgstr "_Neprozirnost:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "_Preview"
+msgstr "_Pregled"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_Tema:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "sekunde"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Customize how notifications appear on your screen"
+msgstr "Prilagodite kako će se obavijesti prikazivati na vašem ekranu"
