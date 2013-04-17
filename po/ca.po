@@ -4,12 +4,12 @@
 # This file is distributed under the same license as the xfce-notifyd
 # package.
 # Carles Muñoz Gorriz <carlesmu@internautas.org>, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-11 10:05+0000\n"
+"POT-Creation-Date: 2013-04-17 09:39+0000\n"
 "PO-Revision-Date: 2011-08-11 17:30+0100\n"
 "Last-Translator: Pol Ruzafa <kiari62@gmail.com>\n"
 "Language-Team: Catalan\n"
@@ -21,72 +21,81 @@ msgstr ""
 "X-Poedit-Language: Catalan\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../xfce4-notifyd/main.c:50
-#: ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Dimoni de notificacions de Xfce"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Opció desconeguda: «%s»\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "No s'ha pogut iniciar el dimoni de notificacions"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1178
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Ha fallat l'enviament del tema"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "No s'ha pogut connectar al gestor de bus D-BUS"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1195
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Ja hi ha una altre dimoni de notificacions executant-se"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:817
-msgid "image: "
-msgstr "imatge:"
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Vista prèvia de la notificació"
 
-#: ../xfce4-notifyd-config/main.c:120
-#: ../xfce4-notifyd-config/main.c:227
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send «Previsualització de notificació» «Així és com es veuran les notificacions»"
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
+msgstr ""
+"notify-send «Previsualització de notificació» «Així és com es veuran les "
+"notificacions»"
 
-#: ../xfce4-notifyd-config/main.c:124
-#: ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Botó"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Ha fallat la previsualització de notificacions"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "El dimoni d'ajustaments no està disponible"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Mostra la informació de la versió"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Sòcol del gestor d'ajustaments"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Feu «%s --help» per veure l'ús."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Distribuït amb els termes de la «GNU General Public License», versió 2\n"
+msgstr ""
+"Distribuït amb els termes de la «GNU General Public License», versió 2\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Aviseu dels errors a %s.\n"
@@ -130,7 +139,7 @@ msgstr "_Previsualitza"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
-msgstr "Tema:"
+msgstr "_Tema:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
@@ -139,6 +148,9 @@ msgstr "segons"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Personalitza com es mostren les notificacions"
+
+#~ msgid "image: "
+#~ msgstr "imatge:"
 
 #~ msgid "_Effect:"
 #~ msgstr "_Efecte:"
