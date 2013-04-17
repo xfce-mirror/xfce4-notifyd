@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-21 12:51+0000\n"
+"POT-Creation-Date: 2013-04-17 04:15+0000\n"
 "PO-Revision-Date: 2010-03-26 12:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Basque <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:238
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Xfce berri-emate deabrua"
 
@@ -45,49 +45,53 @@ msgstr "Ezin da D-Bus saio bus-arekin konektatu"
 msgid "Another notification xndaemon is already running"
 msgstr "Beste berri-emate xndaemon deabru bat dagoeneko martxan dago"
 
-#. TRANSLATORS: notify-send is a command name in the following string,
-#. * it must not be translated.
-#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
-msgid ""
-"notify-send \"Notification Preview\" \"This is how notifications will look "
-"like\""
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Berri-emate aurreikuspena"
+
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
 msgstr ""
 "notify-send \"Berri-emate aurreikuspenak\" \"HAu da berri-emate batek duen "
 "itxura\""
 
-#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Behean"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Berri-emate aurreikuspenak huts egin du"
 
-#: ../xfce4-notifyd-config/main.c:240
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Ezarpen deabrua ez dago erabilgarri"
 
-#: ../xfce4-notifyd-config/main.c:290
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Bistarazi bertsio argibideak"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Ezarpena kudeatzaile socket-a"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:301
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Idatzi '%s --help' laguntzarentzat."
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr ""
 "GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera "
 "argitaratua\n"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
