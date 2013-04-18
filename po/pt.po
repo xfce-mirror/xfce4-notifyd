@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Nuno Miguel <nunomgue@gmail.com>, 2008-2012.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 16:51+0000\n"
-"PO-Revision-Date: 2012-04-13 13:06+0100\n"
+"PO-Revision-Date: 2013-04-18 18:03+0100\n"
 "Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Language: pt\n"
 "X-Poedit-Language: Portuguese\n"
 
-#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd/main.c:74
+#: ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Serviço de notificações do Xfce"
@@ -53,8 +54,7 @@ msgstr "Antevisão da notificação"
 
 #: ../xfce4-notifyd-config/main.c:58
 msgid "This is how notifications will look like"
-msgstr ""
-"notify-send \"Antevisão da notificação\" \"A notificação irá ser assim\""
+msgstr "As notificações serão assim"
 
 #: ../xfce4-notifyd-config/main.c:63
 msgid "Button"
@@ -83,7 +83,7 @@ msgstr "SOCKET_ID"
 #: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Digite \"%s --help\" para instruções de utilização."
+msgstr "Digite '%s --help' para instruções de utilização."
 
 #: ../xfce4-notifyd-config/main.c:334
 #, c-format
@@ -97,11 +97,11 @@ msgstr "Por favor reporte os erros em %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Bottom left"
-msgstr "Inferior esquerdo"
+msgstr "Em baixo à esquerda"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "Bottom right"
-msgstr "Direita inferior"
+msgstr "Em baixo à direita"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Default _position:"
@@ -114,11 +114,11 @@ msgstr "Notificações"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
-msgstr "Esquerda superior"
+msgstr "Em cima à esquerda"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Top right"
-msgstr "Direita superior"
+msgstr "Em cima à direita"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Disappear after:"
