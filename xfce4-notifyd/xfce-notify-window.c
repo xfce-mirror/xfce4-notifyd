@@ -527,11 +527,7 @@ xfce_notify_window_expose(GtkWidget *widget,
         gdk_cairo_set_source_color(cr, &style->bg[GTK_STATE_NORMAL]);
         cairo_fill(cr);
 
-        if(window->mouse_hover) {
-            /* but be sure to set the curved path because the code
-            * below needs it */
-            cairo_append_path(cr, bg_path);
-        }
+        cairo_append_path(cr, bg_path);
     }
 
     if(window->mouse_hover) {
