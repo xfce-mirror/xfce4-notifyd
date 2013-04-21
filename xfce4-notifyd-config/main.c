@@ -56,7 +56,7 @@ xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window)
     notification =
         notify_notification_new(_("Notification Preview"),
                                 _("This is how notifications will look like"),
-                                NULL);
+                                "xfce4-notifyd");
 
     notify_notification_add_action(notification,
                                    "button",
