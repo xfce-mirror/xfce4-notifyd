@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-23 07:39+0000\n"
+"POT-Creation-Date: 2013-04-23 06:03+0000\n"
 "PO-Revision-Date: 2010-11-23 23:43+0800\n"
 "Last-Translator: Chipong Luo <chipong.luo@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n-cn@xfce.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:238
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 提示守护进程"
 
@@ -48,45 +48,49 @@ msgstr "未能与 D-Bus 会话总线连接"
 msgid "Another notification xndaemon is already running"
 msgstr "另一个通知 xndaemon 守护进程已经在运行"
 
-#. TRANSLATORS: notify-send is a command name in the following string,
-#. * it must not be translated.
-#: ../xfce4-notifyd-config/main.c:98 ../xfce4-notifyd-config/main.c:205
-msgid ""
-"notify-send \"Notification Preview\" \"This is how notifications will look "
-"like\""
-msgstr "notify-send “通知预览” “通知看起来会像这个样子”"
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "通知预览"
 
-#: ../xfce4-notifyd-config/main.c:102 ../xfce4-notifyd-config/main.c:209
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
+msgstr "通知看起来会像这个样子"
+
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "按钮"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "无法预览通知"
 
-#: ../xfce4-notifyd-config/main.c:240
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "设置守护进程无效"
 
-#: ../xfce4-notifyd-config/main.c:290
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "显示版本信息"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "设置管理器套接字"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "套接字 ID(_I)"
 
-#: ../xfce4-notifyd-config/main.c:301
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "输入 ‘%s --help’ 获取用法。"
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "以 GNU 通用公共许可协议第二版发布\n"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "请向 %s 报告缺陷。\n"
