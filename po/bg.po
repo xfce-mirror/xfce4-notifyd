@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-notifyd 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 11:45+0000\n"
-"PO-Revision-Date: 2013-02-11 15:38+0200\n"
+"POT-Creation-Date: 2013-04-27 13:18+0000\n"
+"PO-Revision-Date: 2013-04-27 17:48+0200\n"
 "Last-Translator: Kiril Kirilov (Cybercop) <cybercop_montana@abv.bg>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "Language: bg\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../xfce4-notifyd/main.c:74
 #: ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:238
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Демон за уведомления в Xfce"
 
@@ -46,45 +46,49 @@ msgstr "Неуспех при свързване с D-Bus"
 msgid "Another notification xndaemon is already running"
 msgstr "Вече е стартиран друг демон за уведомления"
 
-#. TRANSLATORS: notify-send is a command name in the following string,
-#. * it must not be translated.
-#: ../xfce4-notifyd-config/main.c:98
-#: ../xfce4-notifyd-config/main.c:205
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Предварителен преглед на уведомленията\" \"Така ще изглеждат уведомленията\""
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Преглед на уведомление"
 
-#: ../xfce4-notifyd-config/main.c:102
-#: ../xfce4-notifyd-config/main.c:209
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
+msgstr "Така ще изглеждат уведомленията"
+
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Бутон"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Предварителният преглед на уведомленията е неуспешен"
 
-#: ../xfce4-notifyd-config/main.c:240
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Демонът за настройките е недостъпен"
 
-#: ../xfce4-notifyd-config/main.c:290
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Показване на информация за версията"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Гнездо за мениджъра на настройките"
 
-#: ../xfce4-notifyd-config/main.c:291
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:301
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Въведете '%s --help' за потебителско ръководство."
 
-#: ../xfce4-notifyd-config/main.c:314
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Разпространява се под условията на GNU General Public License версия 2\n"
 
-#: ../xfce4-notifyd-config/main.c:315
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Моля, докладвайте грешки на %s.\n"
