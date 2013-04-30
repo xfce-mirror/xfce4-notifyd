@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce 4-notifyd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-28 10:05+0000\n"
+"POT-Creation-Date: 2013-04-30 11:30+0000\n"
 "PO-Revision-Date: 2008-11-16 20:37+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -16,69 +16,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Jurik Notifikasi Xfce"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Opsi tak dikenal \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
 msgstr "Tak dapat menjalankan jurik notifikasi"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1134
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Gagal menetapkan tema baru"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
 msgstr "Tak dapat menyambung ke bus sesi D-Bus"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1151
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
 msgstr "Notifikasi xndaemon lainnya telah berjalan"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:817
-msgid "image: "
-msgstr "citra:"
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Pratilik Notifikasi"
 
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
-msgid "notify-send \"Notification Preview\" \"This is how notifications will look like\""
-msgstr "notify-send \"Notification Preview\" \"Ini adalah bagaimana notifikasi akan tampak\""
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is how notifications will look like"
+msgstr ""
+"notify-send \"Notification Preview\" \"Ini adalah bagaimana notifikasi akan "
+"tampak\""
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Tombol"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
 msgstr "Pratilik notifikasi gagal"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Jurik pengaturan tak tersedia"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Tampilkan informasi versi"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Soket manajer pengaturan"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Ketik '%s --help' untuk penggunaan."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Dirilis di bawah Lisensi Publik Umum GNU, versi 2\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Silakan laporkan kutu ke %s.\n"
@@ -131,6 +142,9 @@ msgstr "detik"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Customize how notifications appear on your screen"
 msgstr "Sesuaikan bagaimana notifikasi tampak di layar anda"
+
+#~ msgid "image: "
+#~ msgstr "citra:"
 
 #~ msgid "_Effect:"
 #~ msgstr "_Efek:"
