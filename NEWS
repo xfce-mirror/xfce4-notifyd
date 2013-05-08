@@ -2,6 +2,14 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.2.4 (08 May 2013):
+
+  Bugs fixed:
+    * Fix border drawing when compositing is disabled (bug #10021).
+
+  Updated translations: Bulgarian, Chinese (China), Chinese (Taiwan),
+  Flemish and Indonesian.
+
 Version 0.2.3 (21 April 2013):
 
   libnotify is now required as a dependency to build a test suite and to
