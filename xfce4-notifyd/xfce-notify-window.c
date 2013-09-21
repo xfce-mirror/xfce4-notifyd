@@ -626,10 +626,10 @@ xfce_notify_window_configure_event(GtkWidget *widget,
 static gboolean
 xfce_notify_window_expire_timeout(gpointer data)
 {
-    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(data), FALSE);
-
     XfceNotifyWindow *window = data;
     gboolean          fade_transparent;
+
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(data), FALSE);
 
     window->expire_id = 0;
 
@@ -652,11 +652,12 @@ xfce_notify_window_expire_timeout(gpointer data)
 static gboolean
 xfce_notify_window_fade_timeout(gpointer data)
 {
+    XfceNotifyWindow *window = data;
+    gdouble op;
+
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(data), FALSE);
 
-    XfceNotifyWindow *window = data;
-    gdouble op = gtk_window_get_opacity(GTK_WINDOW(window));
-
+    op = gtk_window_get_opacity(GTK_WINDOW(window));
     op -= window->op_change_delta;
     if(op < 0.0)
         op = 0.0;
@@ -677,10 +678,12 @@ static void
 xfce_notify_window_button_clicked(GtkWidget *widget,
                                   gpointer user_data)
 {
+    XfceNotifyWindow *window;
+    gchar *action_id;
+
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(user_data));
 
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(user_data);
-    gchar *action_id;
+    window = XFCE_NOTIFY_WINDOW(user_data);
 
     action_id = g_object_get_data(G_OBJECT(widget), "--action-id");
     g_assert(action_id);
