@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Pjotr123 <pjotrvertaalt@gmail.com>, 2013
 # Vincent Tunru <projects@vinnl.nl>, 2008
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 20:38+0200\n"
-"PO-Revision-Date: 2013-09-19 14:29+0000\n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-10-28 10:24+0000\n"
 "Last-Translator: Pjotr123 <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/xfce/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -52,8 +53,8 @@ msgid "Notification Preview"
 msgstr "Voorbeeldweergave van melding"
 
 #: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
-msgstr "Zo zien meldingen er dus uit"
+msgid "This is what notifications will look like"
+msgstr "Meldingen zullen er zo uit komen te zien"
 
 #: ../xfce4-notifyd-config/main.c:63
 msgid "Button"
