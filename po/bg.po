@@ -1,23 +1,25 @@
-# Bulgarian translations for xfce4-notifyd package.
-# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Kiril Kirilov (Cybercop) <cybercop_montana@abv.bg>, 2012.
-#
+# 
+# Translators:
+# cybercop <cybercop_montana@abv.bg>, 2012
+# cybercop <cybercop_montana@abv.bg>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notifyd 1.0\n"
+"Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-27 13:18+0000\n"
-"PO-Revision-Date: 2013-04-27 17:48+0200\n"
-"Last-Translator: Kiril Kirilov (Cybercop) <cybercop_montana@abv.bg>\n"
-"Language-Team: Bulgarian <bg@li.org>\n"
-"Language: bg\n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-10-28 08:54+0000\n"
+"Last-Translator: cybercop <cybercop_montana@abv.bg>\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/xfce/language/bg/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../xfce4-notifyd/main.c:74
-#: ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
 msgstr "Демон за уведомления в Xfce"
@@ -51,8 +53,8 @@ msgid "Notification Preview"
 msgstr "Преглед на уведомление"
 
 #: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
-msgstr "Така ще изглеждат уведомленията"
+msgid "This is what notifications will look like"
+msgstr "Уведомлението ще изглежда по този начин"
 
 #: ../xfce4-notifyd-config/main.c:63
 msgid "Button"
@@ -94,41 +96,41 @@ msgid "Please report bugs to %s.\n"
 msgstr "Моля, докладвайте грешки на %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Bottom left"
-msgstr "Долу вляво"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom right"
-msgstr "Долу вдясно"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Default _position:"
-msgstr "Разположение по подразбиране:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Notifications"
-msgstr "Уведомления"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Горе вляво"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom left"
+msgstr "Долу вляво"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Top right"
 msgstr "Горе вдясно"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Disappear after:"
-msgstr "Скриване след:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "Bottom right"
+msgstr "Долу вдясно"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Уведомления"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "_Preview"
+msgstr "Преглед"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Opacity:"
 msgstr "Непрозрачност:"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "Скриване след:"
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Preview"
-msgstr "Преглед"
+msgid "Default _position:"
+msgstr "Разположение по подразбиране:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
@@ -138,9 +140,6 @@ msgstr "Тема:"
 msgid "seconds"
 msgstr "секунди"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "Настройване на изгледа на уведомленията на екрана"
-
-#~ msgid "image: "
-#~ msgstr "изображение: "
