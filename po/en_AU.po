@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 20:38+0200\n"
-"PO-Revision-Date: 2013-07-29 09:09+0000\n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-10-30 03:27+0000\n"
 "Last-Translator: k3lt01 <keltoiboy@gmail.com>\n"
 "Language-Team: English (Australia) (http://www.transifex.com/projects/p/xfce/language/en_AU/)\n"
 "MIME-Version: 1.0\n"
@@ -52,8 +52,8 @@ msgid "Notification Preview"
 msgstr "Notification Preview"
 
 #: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
-msgstr "This is how notifications will look like"
+msgid "This is what notifications will look like"
+msgstr "This is what notifications will look like"
 
 #: ../xfce4-notifyd-config/main.c:63
 msgid "Button"
