@@ -1,23 +1,24 @@
-# Polish translations for xfce-notifyd package.
-# Polskie tłumaczenia dla pakietu xfce-notifyd.
-# Copyright (C) 2010 The Xfce development team.
-# This file is distributed under the same license as the xfce-notifyd package.
-# Tomasz Chudyk <chudyk@gmail.com>, 2010.
-# Piotr Sokół <psokol@jabster.pl>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
+# Piotr Sokół <psokol@jabster.pl>, 2010
+# Piotr Strębski <strebski@o2.pl>, 2013
+# Tomasz Chudyk <chudyk@gmail.com>, 2010
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notifyd 0.2.0\n"
+"Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-14 11:27+0000\n"
-"PO-Revision-Date: 2010-12-27 11:43+0100\n"
-"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
-"Language-Team: Polish <>\n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-11-02 19:28+0000\n"
+"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/xfce/language/pl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2));\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
@@ -53,9 +54,8 @@ msgid "Notification Preview"
 msgstr "Podgląd powiadomienia"
 
 #: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
-msgstr ""
-"notify-send \"Podgląd powiadomienia\" \"Tak będą wyglądać powiadomienia\""
+msgid "This is what notifications will look like"
+msgstr "Tak będą wyglądać powiadomienia"
 
 #: ../xfce4-notifyd-config/main.c:63
 msgid "Button"
@@ -97,41 +97,41 @@ msgid "Please report bugs to %s.\n"
 msgstr "Proszę zgłaszać błędy na adres %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Bottom left"
-msgstr "Lewy dolny narożnik"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom right"
-msgstr "Prawy dolny narożnik"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Default _position:"
-msgstr "_Położenie:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Notifications"
-msgstr "Powiadomienia"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Lewy górny narożnik"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom left"
+msgstr "Lewy dolny narożnik"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Top right"
 msgstr "Prawy górny narożnik"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Disappear after:"
-msgstr "_Ukrywanie po upływie:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "Bottom right"
+msgstr "Prawy dolny narożnik"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Powiadomienia"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "_Preview"
+msgstr "_Wyświetl podgląd"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Opacity:"
 msgstr "_Nieprzezroczystość:"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "_Ukrywanie po upływie:"
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Preview"
-msgstr "_Wyświetl podgląd"
+msgid "Default _position:"
+msgstr "_Położenie:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
@@ -141,23 +141,6 @@ msgstr "_Styl:"
 msgid "seconds"
 msgstr "sekund"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "Konfiguruje ustwienia powiadamiania"
-
-#~ msgid "image: "
-#~ msgstr "obraz:"
-
-#~ msgid "_Fade to transparent"
-#~ msgstr "Stopniowe _zanikanie"
-
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Góra, lewo\n"
-#~ "Dół, lewo\n"
-#~ "Góra, prawo\n"
-#~ "Dół, prawo"
