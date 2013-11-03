@@ -1,21 +1,22 @@
-# xfce4-notifyd to kazakh.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010.
 # 
+# Translators:
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010,2013
 msgid ""
 msgstr ""
-"Project-Id-Version: trunk\n"
+"Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-16 06:39+0000\n"
-"PO-Revision-Date: 2010-03-20 13:00+0600\n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-11-03 07:14+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
-"Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
+"Language-Team: Kazakh (http://www.transifex.com/projects/p/xfce/language/kk/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: kk\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
@@ -51,7 +52,7 @@ msgid "Notification Preview"
 msgstr "Хабарламаны алдын-ала қарау"
 
 #: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
+msgid "This is what notifications will look like"
 msgstr "Хабарламалар осындай болады"
 
 #: ../xfce4-notifyd-config/main.c:63
@@ -94,41 +95,41 @@ msgid "Please report bugs to %s.\n"
 msgstr "Ақаулықтар жөнінде хабарласыңыз: <%s>.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Bottom left"
-msgstr "Төменгі сол жақта"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom right"
-msgstr "Төменгі оң жақта"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Default _position:"
-msgstr "Не_гізгі орналасуы:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Notifications"
-msgstr "Хабарламалар"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Үстіңгі сол жақта"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom left"
+msgstr "Төменгі сол жақта"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Top right"
 msgstr "Үстіңгі оң жақта"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Disappear after:"
-msgstr "_Кейін жасыру:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "Bottom right"
+msgstr "Төменгі оң жақта"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Хабарламалар"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "_Preview"
+msgstr "А_лдын-ала қарау"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Opacity:"
 msgstr "_Мөлдірлілігі:"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "_Кейін жасыру:"
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Preview"
-msgstr "А_лдын-ала қарау"
+msgid "Default _position:"
+msgstr "Не_гізгі орналасуы:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
@@ -138,29 +139,6 @@ msgstr "_Тема:"
 msgid "seconds"
 msgstr "секунд"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "Хабарламалар көрсетілуін таңдаңыз"
-
-#~ msgid "image: "
-#~ msgstr "сурет: "
-
-#~ msgid "_Effect:"
-#~ msgstr "_Эффект:"
-
-#~ msgid "_Fade to transparent"
-#~ msgstr "Епт_еп мөлдір қылу"
-
-#~ msgid "%s could not be launched"
-#~ msgstr "%s жөнелту мүмкін емес"
-
-#~ msgid ""
-#~ "Top left\n"
-#~ "Bottom left\n"
-#~ "Top right\n"
-#~ "Bottom right"
-#~ msgstr ""
-#~ "Сол жақ жоғары\n"
-#~ "Сол жақ төмен\n"
-#~ "Оң жақ жоғары\n"
-#~ "Оң жақ төмен"
