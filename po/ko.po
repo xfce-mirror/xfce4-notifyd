@@ -1,24 +1,22 @@
-# Korean translation for the xfce4-notifyd package.
-# Copyright (C) 2008-2012 Jérôme Guelfucci et al.
-# This file is distributed under the same license as the xfce4-notifyd package.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012-2013.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
+# Darkcircle <darkcircle.0426@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notifyd.master\n"
+"Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-12 16:15+0000\n"
-"PO-Revision-Date: 2013-01-24 05:02+0900\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
-"Language-Team: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-11-04 17:24+0000\n"
+"Last-Translator: Darkcircle <darkcircle.0426@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/xfce/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Korean\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: KOREA, REPUBLIC OF\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
@@ -54,9 +52,8 @@ msgid "Notification Preview"
 msgstr "알림 미리보기"
 
 #: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
-msgstr ""
-"notify-send \"알림 미리보기\" \"이것은 어떻게 보여줄지에 대한 모습입니다\""
+msgid "This is what notifications will look like"
+msgstr "표시될 알림의 모습입니다"
 
 #: ../xfce4-notifyd-config/main.c:63
 msgid "Button"
@@ -98,41 +95,41 @@ msgid "Please report bugs to %s.\n"
 msgstr "%s(으)로 버그를 알려주십시오.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Bottom left"
-msgstr "하단 왼족"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom right"
-msgstr "하단 오른쪽"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Default _position:"
-msgstr "기본 위치(_P):"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Notifications"
-msgstr "알림"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "상단 왼쪽"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom left"
+msgstr "하단 왼족"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Top right"
 msgstr "상단 오른쪽"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Disappear after:"
-msgstr "다음시간 후 사라짐(_D):"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "Bottom right"
+msgstr "하단 오른쪽"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "알림"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "_Preview"
+msgstr "미리보기(_P)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Opacity:"
 msgstr "투명도(_O):"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "다음시간 후 사라짐(_D):"
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Preview"
-msgstr "미리보기(_P)"
+msgid "Default _position:"
+msgstr "기본 위치(_P):"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
@@ -142,9 +139,6 @@ msgstr "테마(_T):"
 msgid "seconds"
 msgstr "초"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "알림을 화면에 어떻게 띄울 것인지 설정합니다"
-
-#~ msgid "image: "
-#~ msgstr "그림:"
