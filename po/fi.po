@@ -1,127 +1,135 @@
-# Finnish translations for xfce4-notifyd package.
-# Copyright (C) 2008 Brian J. Tarricone
-# This file is distributed under the same license as the xfce-notifyd package.
-# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2008-2012.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce4-notifyd\n"
+"Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-12 09:39+0000\n"
-"PO-Revision-Date: 2012-04-12 16:55+0300\n"
-"Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
-"Language-Team: Finnish <xfce-i18n@xfce.org\n"
-"Language: \n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-11-11 21:26+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/xfce/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../xfce4-notifyd/main.c:50 ../xfce4-notifyd/main.c:60
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
-msgstr "Xfce:n huomautuspalvelu"
+msgstr "Xfce:n ilmoituspalvelu"
 
-#: ../xfce4-notifyd/main.c:53
+#: ../xfce4-notifyd/main.c:77
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Tuntematon valitsin \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:62
+#: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
-msgstr "Huomautuspalvelua ei voi käynnistää"
+msgstr "Ilmoituspalvelua ei voi käynnistää"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1184
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Uuden teeman asettaminen epäonnistui"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
 msgid "Unable to connect to D-Bus session bus"
-msgstr "D-Bus -istuntoväylään ei saa yhteyttä"
+msgstr "D-Bus-istuntoväylään ei saa yhteyttä"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1201
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Toinen huomautuspalvelu on jo käynnissä"
+msgstr "Toinen ilmoituspalvelu on jo käynnissä"
 
-#: ../xfce4-notifyd/xfce-notify-window.c:816
-msgid "image: "
-msgstr "kuva: "
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Ilmoituksen esikatselu"
 
-#: ../xfce4-notifyd-config/main.c:120 ../xfce4-notifyd-config/main.c:227
-msgid ""
-"notify-send \"Notification Preview\" \"This is how notifications will look "
-"like\""
-msgstr "notify-send \"Mallihuomautus\" \"Huomautukset näyttävät tältä.\""
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is what notifications will look like"
+msgstr "Tältä ilmoitus näyttää"
 
-#: ../xfce4-notifyd-config/main.c:124 ../xfce4-notifyd-config/main.c:231
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Painike"
+
+#: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
-msgstr "Mallihuomautusta ei voi näyttää"
+msgstr "Ilmoituksen esikatselua ei voi näyttää"
 
-#: ../xfce4-notifyd-config/main.c:262
+#: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
 msgstr "Asetuspalveluun ei saa yhteyttä"
 
-#: ../xfce4-notifyd-config/main.c:312
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
 msgstr "Näytä versiotiedot"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
 msgstr "Asetustenhallinnan pistoke"
 
-#: ../xfce4-notifyd-config/main.c:313
+#: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
 msgstr "PISTOKE"
 
-#: ../xfce4-notifyd-config/main.c:323
+#: ../xfce4-notifyd-config/main.c:321
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Saat käyttöohjeita komennolla \"%s --help\"."
 
-#: ../xfce4-notifyd-config/main.c:336
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Julkaistu GNU GPL -lisenssin version 2 ehdoilla\n"
 
-#: ../xfce4-notifyd-config/main.c:337
+#: ../xfce4-notifyd-config/main.c:335
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ilmoita ohjelmavirheistä osoitteeseen %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Bottom left"
-msgstr "Vasen alakulma"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom right"
-msgstr "Oikea alakulma"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Default _position:"
-msgstr "_Oletussijainti:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Notifications"
-msgstr "Huomautukset"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "Top left"
 msgstr "Vasen yläkulma"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom left"
+msgstr "Vasen alakulma"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "Top right"
 msgstr "Oikea yläkulma"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Disappear after:"
-msgstr "_Katoamisviive:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "Bottom right"
+msgstr "Oikea alakulma"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Ilmoitukset"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "_Preview"
+msgstr "_Esikatselu"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Opacity:"
 msgstr "_Peittävyys:"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "_Katoamisviive:"
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "_Preview"
-msgstr "_Esikatselu"
+msgid "Default _position:"
+msgstr "_Oletussijainti:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
@@ -131,6 +139,6 @@ msgstr "_Teema"
 msgid "seconds"
 msgstr "sekuntia"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Mukauta näytöllesi ilmestyvien huomautusten toimintaa"
+msgstr "Mukauta näytöllesi ilmestyvien ilmoitusten toimintaa"
