@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Cedric31 <cvalmary@yahoo.fr>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Apps\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-27 18:31+0100\n"
+"PO-Revision-Date: 2013-12-05 07:21+0000\n"
+"Last-Translator: Cedric31 <cvalmary@yahoo.fr>\n"
+"Language-Team: Occitan (post 1500) (http://www.transifex.com/projects/p/xfce/language/oc/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: oc\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
+#: ../xfce4-notifyd-config/main.c:258
+msgid "Xfce Notify Daemon"
+msgstr "Demòni de notificacion Xfce"
+
+#: ../xfce4-notifyd/main.c:77
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "Opcion desconeguda : « %s »\n"
+
+#: ../xfce4-notifyd/main.c:86
+msgid "Unable to start notification daemon"
+msgstr "Fracàs a l'aviada del demòni de notificacion"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
+msgid "Failed to set new theme"
+msgstr "Impossible de definir un tèma novèl"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
+#, c-format
+msgid "Unable to connect to D-Bus session bus"
+msgstr "Fracàs de connexion al bus de la sesilha D-BUS"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
+#, c-format
+msgid "Another notification xndaemon is already running"
+msgstr "Un autre demòni de notificacion es ja en cors d'execucion"
+
+#: ../xfce4-notifyd-config/main.c:57
+msgid "Notification Preview"
+msgstr "Apercebut de las notificacions"
+
+#: ../xfce4-notifyd-config/main.c:58
+msgid "This is what notifications will look like"
+msgstr "Es a qué las notificacions se semblaràn"
+
+#: ../xfce4-notifyd-config/main.c:63
+msgid "Button"
+msgstr "Boton"
+
+#: ../xfce4-notifyd-config/main.c:70
+msgid "Notification preview failed"
+msgstr "Impossible d'afichar un apercebut de las notificacions"
+
+#: ../xfce4-notifyd-config/main.c:260
+msgid "Settings daemon is unavailable"
+msgstr "Los paramètres demòni son pas disponibles"
+
+#: ../xfce4-notifyd-config/main.c:310
+msgid "Display version information"
+msgstr "Aficha las informacions de version"
+
+#: ../xfce4-notifyd-config/main.c:311
+msgid "Settings manager socket"
+msgstr "Socket del gestionari de paramètres"
+
+#: ../xfce4-notifyd-config/main.c:311
+msgid "SOCKET_ID"
+msgstr "ID_SOCKET"
+
+#: ../xfce4-notifyd-config/main.c:321
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "Picar '%s --help' per mai d'ajuda."
+
+#: ../xfce4-notifyd-config/main.c:334
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "Publicat jols tèrmes de la GNU General Public License, verson 2\n"
+
+#: ../xfce4-notifyd-config/main.c:335
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Se vos plai, senhalatz los bugs a <%s>.\n\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "Top left"
+msgstr "Superior esquèrre"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "Bottom left"
+msgstr "Inferior esquèrre"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "Top right"
+msgstr "Superior drech"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "Bottom right"
+msgstr "Inferior drech"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Notificacions"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "_Preview"
+msgstr "_Apercebut"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "_Opacity:"
+msgstr "_Opacitat :"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Disappear after:"
+msgstr "_Desaparéisser aprèp :"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "Default _position:"
+msgstr "_Posicion per defaut :"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Theme:"
+msgstr "_Tèma :"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "seconds"
+msgstr "segondas"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Customize how notifications appear on your screen"
+msgstr "Personalizar lo biais que las notificacions apareisson sus vòstre ecran"
