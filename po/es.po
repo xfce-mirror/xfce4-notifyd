@@ -4,15 +4,15 @@
 # 
 # Translators:
 #  <abel.martin.ruiz@gmail.com>, 2008
-# Pablo Lezaeta <prflr88@gmail.com>, 2013
+# Pablo Lezaeta <prflr88@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2013-10-28 20:01+0000\n"
+"PO-Revision-Date: 2014-05-19 05:13+0000\n"
 "Last-Translator: Pablo Lezaeta <prflr88@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/xfce/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
-msgstr "Servicio de notificación de Xfce"
+msgstr "Demonio de notificación de Xfce"
 
 #: ../xfce4-notifyd/main.c:77
 #, c-format
@@ -31,12 +31,12 @@ msgstr "La opción «%s» es desconocida\n"
 
 #: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
-msgstr "No se pudo inicializar el servicio de notificación"
+msgstr "No se pudo inicializar el demonio de notificación"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1142
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1162
 msgid "Failed to set new theme"
-msgstr "Falló al establecer el tema nuevo"
+msgstr "No se pudo establecer el tema nuevo"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1215
 #, c-format
@@ -46,11 +46,11 @@ msgstr "No se pudo conectar al bus de sesión D-Bus"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Ya hay otro servicio de notificación ejecutándose"
+msgstr "Ya hay otro demonio de notificación ejecutándose"
 
 #: ../xfce4-notifyd-config/main.c:57
 msgid "Notification Preview"
-msgstr "Previsualización de notificación"
+msgstr "Previsualización de la notificación"
 
 #: ../xfce4-notifyd-config/main.c:58
 msgid "This is what notifications will look like"
@@ -62,7 +62,7 @@ msgstr "Botón"
 
 #: ../xfce4-notifyd-config/main.c:70
 msgid "Notification preview failed"
-msgstr "Falló la previsualización de la notificación"
+msgstr "No se pudo realizar la previsualización de la notificación"
 
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
@@ -74,11 +74,11 @@ msgstr "Mostrar información de versión"
 
 #: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
-msgstr "Socket del gestor de configuración"
+msgstr "«Socket» del gestor de configuración"
 
 #: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
-msgstr "SOCKET_ID"
+msgstr "_ID DEL «SOCKET»"
 
 #: ../xfce4-notifyd-config/main.c:321
 #, c-format
@@ -142,4 +142,4 @@ msgstr "segundos"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Personalice cómo aparecen las notificaciones en la pantalla"
+msgstr "Personalice como aparecen las notificaciones en pantalla"
