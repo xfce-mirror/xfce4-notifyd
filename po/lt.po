@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2015-03-12 08:14+0000\n"
+"PO-Revision-Date: 2015-04-08 22:15+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Rodyti versijos informaciją"
 
 #: ../xfce4-notifyd-config/main.c:311
 msgid "Settings manager socket"
-msgstr "Nustatymų tvarkyklės lizdas"
+msgstr "Nustatymų tvarkytuvės lizdas"
 
 #: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
