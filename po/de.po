@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2015-03-04 22:25+0000\n"
+"PO-Revision-Date: 2015-04-30 13:00+0000\n"
 "Last-Translator: Tobias Bannert <tobannert@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/xfce-apps/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgstr "Ausblenden _nach:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Default _position:"
-msgstr "Standard_position:"
+msgstr "_Standardposition:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
