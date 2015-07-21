@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2015-04-08 22:15+0000\n"
+"PO-Revision-Date: 2015-07-21 14:43+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
 msgid "Xfce Notify Daemon"
-msgstr "Xfce pranešimų demonas"
+msgstr "Xfce pranešimų tarnyba"
 
 #: ../xfce4-notifyd/main.c:77
 #, c-format
@@ -31,7 +31,7 @@ msgstr "Nežinoma parinktis „%s“\n"
 
 #: ../xfce4-notifyd/main.c:86
 msgid "Unable to start notification daemon"
-msgstr "Nepavyko paleisti pranešimų demono"
+msgstr "Nepavyko paleisti pranešimų tarnybos"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1142
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1162
@@ -66,7 +66,7 @@ msgstr "Pranešimų peržiūra nepavyko"
 
 #: ../xfce4-notifyd-config/main.c:260
 msgid "Settings daemon is unavailable"
-msgstr "Nustatymų demonas neprieinamas"
+msgstr "Nustatymų tarnyba neprieinama"
 
 #: ../xfce4-notifyd-config/main.c:310
 msgid "Display version information"
