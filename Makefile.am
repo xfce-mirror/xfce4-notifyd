@@ -74,16 +74,20 @@ xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
 	$(LIBNOTIFY_LIBS)
 
-
 servicedir = $(datadir)/dbus-1/services
 service_in_files = xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service.in
 service_DATA = $(service_in_files:.service.in=.service)
 
+systemd_userdir = $(prefix)/lib/systemd/user
+systemd_user_in_files = xfce4-notifyd/xfce4-notifyd.service.in
+systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
+
 dist_service = \
 	$(service_in_files) \
+	$(systemd_user_in_files) \
 	xfce4-notifyd/notify-dbus.xml \
 	xfce4-notifyd/xfce-notify-marshal.list
-distclean_service = $(service_DATA)
+distclean_service = $(service_DATA) $(systemd_user_DATA)
 
 dist_man1_MANS = \
 	xfce4-notifyd-config/xfce4-notifyd-config.1
