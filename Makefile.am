@@ -22,7 +22,8 @@ bin_PROGRAMS = xfce4-notifyd-config/xfce4-notifyd-config
 
 xfce4_notifyd_xfce4_notifyd_SOURCES = \
 	xfce4-notifyd/main.c \
-	xfce4-notifyd/notify-dbus.h \
+	xfce4-notifyd/xfce-notify-gbus.c \
+	xfce4-notifyd/xfce-notify-gbus.h \
 	xfce4-notifyd/xfce-notify-daemon.c \
 	xfce4-notifyd/xfce-notify-daemon.h \
 	xfce4-notifyd/xfce-notify-enum-types.c \
@@ -42,13 +43,14 @@ common_cflags = \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
-	$(DBUS_GLIB_CFLAGS) \
 	$(XFCONF_CFLAGS)
 
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
-	$(LIBX11_CFLAGS)
+	$(LIBX11_CFLAGS) \
+	$(GIO_CFLAGS) \
+	$(GIO_UNIX_CFLAGS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
@@ -59,12 +61,13 @@ common_ldadd = \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
-	$(DBUS_GLIB_LIBS) \
-	$(XFCONF_LIBS)
+	$(XFCONF_LIBS) \
+	$(GIO_LIBS) \
+	$(GIO_UNIX_LIBS)
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
-	$(LIBX11_LIBS)
+	$(LIBX11_LIBS) 
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
@@ -107,7 +110,8 @@ zomgponiesthemedir = $(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
 dist_zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtkrc
 
 built_xfce4_notifyd = \
-	xfce4-notifyd/notify-dbus.h
+	xfce4-notifyd/xfce-notify-gbus.c \
+	xfce4-notifyd/xfce-notify-gbus.h
 
 clean_xfce4_notifyd = \
 	$(built_xfce4_notifyd)
@@ -158,18 +162,13 @@ DISTCLEANFILES = \
 	$(distclean_intltool) \
 	$(distclean_service)
 
-xfce4-notifyd/notify-dbus.h: $(srcdir)/xfce4-notifyd/notify-dbus.xml Makefile
-if USE_OLD_GET_SERVER_INFORMATION_SIGNATURE
-	$(AM_V_GEN) (\
-	sed -e 's,<arg direction="out" name="spec_version" type="s"/>,,' $< > $(<F).tmp \
-	&& $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=notify $(<F).tmp > $@ \
-	&& rm -f $(<F).tmp \
-	)
-else
-	$(AM_V_GEN) (\
-	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=notify $< > $@ \
-	)
-endif
+xfce4-notifyd/xfce-notify-gbus.h:
+xfce4-notifyd/xfce-notify-gbus.c: $(srcdir)/xfce4-notifyd/notify-dbus.xml Makefile
+	$(AM_V_GEN) $(GDBUS_CODEGEN) \
+	--interface-prefix org.freedesktop.Notifications \
+	--c-namespace XfceNotify 	\
+	--generate-c-code xfce4-notifyd/xfce-notify-gbus \
+	$(srcdir)/xfce4-notifyd/notify-dbus.xml
 
 if MAINTAINER_MODE
 

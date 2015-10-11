@@ -2,7 +2,7 @@
 
 <node name="/org/freedesktop/Notifications">
     <interface name="org.freedesktop.Notifications">
-        
+       <annotation name="org.gtk.GDBus.C.Name" value="GBus" /> 
         <method name="GetCapabilities">
             <arg direction="out" name="capabilities" type="as"/>
         </method>

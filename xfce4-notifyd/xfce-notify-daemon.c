@@ -1,8 +1,10 @@
+/* vi:set et ai sw=4 sts=4 ts=4: */
 /*
  *  xfce4-notifyd
  *
  *  Copyright (c) 2008-2009 Brian Tarricone <bjt23@cornell.edu>
  *  Copyright (c) 2009 Jérôme Guelfucci <jeromeg@xfce.org>
+ *  Copyright (c) 2015 Ali Abdallah    <ali@xfce.org>
  *
  *  The workarea per monitor code is taken from
  *  http://trac.galago-project.org/attachment/ticket/5/10-nd-improve-multihead-support.patch
@@ -33,10 +35,11 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include <gdk/gdkx.h>
+#include <gio/gio.h>
 
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
 #include <xfconf/xfconf.h>
+
+#include "xfce-notify-gbus.h"
 
 #include "xfce-notify-daemon.h"
 #include "xfce-notify-window.h"
@@ -47,13 +50,14 @@
 
 struct _XfceNotifyDaemon
 {
-    GObject parent;
+	XfceNotifyGBusSkeleton parent;
 
+	XfceNotifyOrgXfceNotifyd *xfce_iface_skeleton;
     gint expire_timeout;
+    guint bus_name_id;
     gdouble initial_opacity;
     GtkCornerType notify_location;
 
-    DBusGConnection *dbus_conn;
     XfconfChannel *settings;
 
     GTree *active_notifications;
@@ -69,15 +73,10 @@ struct _XfceNotifyDaemon
 
 typedef struct
 {
-    GObjectClass parent;
+	XfceNotifyGBusSkeletonClass  parent;
+
 } XfceNotifyDaemonClass;
 
-enum
-{
-    SIG_NOTIFICATION_CLOSED = 0,
-    SIG_ACTION_INVOKED,
-    N_SIGS,
-};
 
 enum
 {
@@ -92,6 +91,7 @@ static void xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                                           gpointer value,
                                                           gpointer data);
 static void xfce_notify_daemon_finalize(GObject *obj);
+static void  xfce_notify_daemon_constructed(GObject *obj);
 
 static GQuark xfce_notify_daemon_get_n_monitors_quark(void);
 
@@ -105,45 +105,48 @@ static void xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
 static void xfce_notify_daemon_get_workarea(GdkScreen *screen,
                                             guint monitor,
                                             GdkRectangle *rect);
+static void daemon_quit (XfceNotifyDaemon *xndaemon);
 static gboolean xfce_notify_daemon_close_timeout(gpointer data);
 
-static gboolean notify_get_capabilities(XfceNotifyDaemon *xndaemon,
-                                        gchar ***OUT_capabilities,
-                                        GError *error);
-static gboolean notify_notify(XfceNotifyDaemon *xndaemon,
-                              const gchar *app_name,
-                              guint replaces_id,
-                              const gchar *app_icon,
-                              const gchar *summary,
-                              const gchar *body,
-                              const gchar **actions,
-                              GHashTable *hints,
-                              gint expire_timeout,
-                              guint *OUT_id,
-                              GError **error);
-static gboolean notify_close_notification(XfceNotifyDaemon *xndaemon,
-                                          guint id,
-                                          GError **error);
-static gboolean notify_get_server_information(XfceNotifyDaemon *xndaemon,
-                                              gchar **OUT_name,
-                                              gchar **OUT_vendor,
-                                              gchar **OUT_version,
-#ifndef USE_OLD_GET_SERVER_INFORMATION_SIGNATURE
-                                              gchar **OUT_spec_version,
-#endif
-                                              GError **error);
 
-static gboolean notify_quit(XfceNotifyDaemon *xndaemon,
-                            GError **error);
+static GdkPixbuf *notify_pixbuf_from_image_data(GVariant *image_data);
 
-static GdkPixbuf *notify_pixbuf_from_image_data(const GValue *image_data);
-
-#include "notify-dbus.h"
-
-static guint signals[N_SIGS] = { 0, };
+/* DBus method callbacks  forward declarations */
+static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
+                                		 GDBusMethodInvocation   *invocation,
+                                         XfceNotifyDaemon *xndaemon);
 
 
-G_DEFINE_TYPE(XfceNotifyDaemon, xfce_notify_daemon, G_TYPE_OBJECT)
+static gboolean notify_notify (XfceNotifyGBus *skeleton,
+                               GDBusMethodInvocation   *invocation,
+                               const gchar *app_name,
+                               guint replaces_id,
+                               const gchar *app_icon,
+                               const gchar *summary,
+                               const gchar *body,
+                               const gchar **actions,
+                               GVariant *hints,
+                               gint expire_timeout,
+                               XfceNotifyDaemon *xndaemon);
+
+
+static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
+                                		   GDBusMethodInvocation   *invocation,
+                                           guint id,
+                                           XfceNotifyDaemon *xndaemon);
+
+
+static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
+                                			   GDBusMethodInvocation *invocation,
+                                               XfceNotifyDaemon *xndaemon);
+
+
+static gboolean notify_quit (XfceNotifyOrgXfceNotifyd *skeleton,
+                             GDBusMethodInvocation   *invocation,
+                             XfceNotifyDaemon *xndaemon);
+
+
+G_DEFINE_TYPE(XfceNotifyDaemon, xfce_notify_daemon, XFCE_NOTIFY_TYPE_GBUS_SKELETON)
 
 
 static void
@@ -152,37 +155,9 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
     GObjectClass *gobject_class = (GObjectClass *)klass;
 
     gobject_class->finalize = xfce_notify_daemon_finalize;
-
-    signals[SIG_NOTIFICATION_CLOSED] = g_signal_new("notification-closed",
-                                                    XFCE_TYPE_NOTIFY_DAEMON,
-                                                    G_SIGNAL_RUN_LAST,
-                                                    0,
-                                                    NULL, NULL,
-#ifdef USE_OLD_NOTIFICATION_CLOSED_SIGNATURE
-                                                    g_cclosure_marshal_VOID__UINT,
-                                                    G_TYPE_NONE, 1,
-                                                    G_TYPE_UINT
-#else  /* libnotify 0.4.5 adds support */
-                                                    xfce_notify_marshal_VOID__UINT_UINT,
-                                                    G_TYPE_NONE, 2,
-                                                    G_TYPE_UINT,
-                                                    G_TYPE_UINT
-#endif
-                                                    );
-
-    signals[SIG_ACTION_INVOKED] = g_signal_new("action-invoked",
-                                               XFCE_TYPE_NOTIFY_DAEMON,
-                                               G_SIGNAL_RUN_LAST,
-                                               0,
-                                               NULL, NULL,
-                                               xfce_notify_marshal_VOID__UINT_STRING,
-                                               G_TYPE_NONE, 2,
-                                               G_TYPE_UINT,
-                                               G_TYPE_STRING);
-
-    dbus_g_object_type_install_info(G_TYPE_FROM_CLASS(klass),
-                                    &dbus_glib_notify_object_info);
+    gobject_class->constructed = xfce_notify_daemon_constructed;
 }
+
 
 static gint
 xfce_direct_compare(gconstpointer a,
@@ -191,6 +166,7 @@ xfce_direct_compare(gconstpointer a,
 {
     return (gint)((gchar *)a - (gchar *)b);
 }
+
 
 static GQuark
 xfce_notify_daemon_get_n_monitors_quark(void)
@@ -311,13 +287,93 @@ xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
     }
 }
 
+
+static void 
+xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
+                                  const gchar *name,
+                                  gpointer user_data)
+{
+	XfceNotifyDaemon *xndaemon;
+	GError *error = NULL;
+	gboolean exported;
+	
+
+	xndaemon = XFCE_NOTIFY_DAEMON(user_data);
+	
+	exported =  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (xndaemon), 
+	                                              connection,
+                                               	  "/org/freedesktop/Notifications", 
+												  &error);
+  	if (exported)
+  	{
+		/* Connect dbus signals callbacks */
+		g_signal_connect (xndaemon, "handle-notify",
+		                  G_CALLBACK(notify_notify), xndaemon);
+		
+		g_signal_connect (xndaemon, "handle-get-capabilities",
+		                  G_CALLBACK(notify_get_capabilities), xndaemon);
+		
+		g_signal_connect (xndaemon, "handle-get-server-information",
+		                  G_CALLBACK(notify_get_server_information), xndaemon);
+
+		g_signal_connect (xndaemon, "handle-close-notification",
+		                  G_CALLBACK(notify_close_notification), xndaemon);
+  	}
+	else
+	{
+		g_warning ("Failed to export interface: %s", error->message);
+      	g_error_free (error);
+      	gtk_main_quit ();
+	}
+
+	xndaemon->xfce_iface_skeleton  = xfce_notify_org_xfce_notifyd_skeleton_new();	
+	exported =  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton), 
+	                                              connection,
+	                                              "/org/freedesktop/Notifications",
+												  &error);
+ 	if (exported)
+  		g_signal_connect (xndaemon->xfce_iface_skeleton, "handle-quit",
+		              	  G_CALLBACK(notify_quit), xndaemon);
+	else
+	{
+  		g_warning ("Failed to export interface: %s", error->message);
+      	g_error_free (error);
+      	gtk_main_quit ();	
+	}
+}
+
+static void
+xfce_notify_bus_name_lost_cb (GDBusConnection *connection,
+                      		  const gchar     *name,
+                      		  gpointer         user_data)
+{
+	g_print (_("Another notification daemon is running, exiting\n"));
+	daemon_quit(XFCE_NOTIFY_DAEMON(user_data));
+}
+
+static void xfce_notify_daemon_constructed (GObject *obj) 
+{
+	XfceNotifyDaemon *self;
+
+	self  = XFCE_NOTIFY_DAEMON (obj);
+
+  	self->bus_name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+	                                    "org.freedesktop.Notifications", 
+                                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                        xfce_notify_bus_name_acquired_cb, 
+                                        NULL,
+                                        xfce_notify_bus_name_lost_cb, 
+                                        self, 
+                                        NULL);
+}
+
 static void
 xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
-{
-
+{	
     xndaemon->active_notifications = g_tree_new_full(xfce_direct_compare,
-                                                   NULL, NULL,
-                                                   (GDestroyNotify)gtk_widget_destroy);
+                                                   	 NULL, NULL,
+                                                   	 (GDestroyNotify)gtk_widget_destroy);
+		
     xndaemon->last_notification_id = 1;
 
     xndaemon->reserved_rectangles = NULL;
@@ -332,6 +388,23 @@ static void
 xfce_notify_daemon_finalize(GObject *obj)
 {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(obj);
+	GDBusConnection *connection;
+
+	connection = g_dbus_interface_skeleton_get_connection(G_DBUS_INTERFACE_SKELETON(xndaemon));
+	
+	
+	if ( g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndaemon),
+	                                              connection))
+	{
+    	g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon));
+	}
+
+	if (xndaemon->xfce_iface_skeleton && 
+	    g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton),
+	                                             connection))
+	{
+    	g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton));
+	}
 
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
       gint nscreen, i, j;
@@ -363,9 +436,6 @@ xfce_notify_daemon_finalize(GObject *obj)
     if(xndaemon->settings)
         g_object_unref(xndaemon->settings);
 
-    if(xndaemon->dbus_conn)
-        dbus_g_connection_unref(xndaemon->dbus_conn);
-
     G_OBJECT_CLASS(xfce_notify_daemon_parent_class)->finalize(obj);
 }
 
@@ -388,8 +458,10 @@ xfce_notify_daemon_window_action_invoked(XfceNotifyWindow *window,
     XfceNotifyDaemon *xndaemon = user_data;
     guint id = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(window),
                                                   "--notify-id"));
-    g_signal_emit(G_OBJECT(xndaemon), signals[SIG_ACTION_INVOKED], 0,
-                  id, action);
+
+	xfce_notify_gbus_emit_action_invoked (XFCE_NOTIFY_GBUS(xndaemon),
+	                                      id,
+	                                      action);
 }
 
 static void
@@ -409,7 +481,6 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     xndaemon->reserved_rectangles[screen][monitor] = list;
 
     g_tree_remove(xndaemon->active_notifications, id_p);
-
     if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
         /* All notifications expired */
         /* Set a timeout to close xfce4-notifyd if it is idle
@@ -424,13 +495,9 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
                                   xndaemon);
     }
 
-#ifdef USE_OLD_NOTIFICATION_CLOSED_SIGNATURE
-    g_signal_emit(G_OBJECT(xndaemon), signals[SIG_NOTIFICATION_CLOSED], 0,
-                  GPOINTER_TO_UINT(id_p));
-#else  /* added to libnotify 0.4.5 */
-    g_signal_emit(G_OBJECT(xndaemon), signals[SIG_NOTIFICATION_CLOSED], 0,
-                  GPOINTER_TO_UINT(id_p), (guint)reason);
-#endif
+	xfce_notify_gbus_emit_notification_closed (XFCE_NOTIFY_GBUS(xndaemon),
+	                                           GPOINTER_TO_UINT(id_p), 
+	                                           (guint)reason);
 }
 
 /* Gets the largest rectangle in src1 which does not contain src2.
@@ -827,31 +894,20 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
 }
 
 
-static gboolean
-xfce_notify_daemon_close_timeout(gpointer data)
+
+static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
+                                		 GDBusMethodInvocation   *invocation,
+                                         XfceNotifyDaemon *xndaemon)
 {
-    notify_quit(XFCE_NOTIFY_DAEMON(data), NULL);
-
-    return FALSE;
-}
-
-static gboolean
-notify_get_capabilities(XfceNotifyDaemon *xndaemon,
-                        gchar ***OUT_capabilities,
-                        GError *error)
-{
-    gint i = 0;
-
-    *OUT_capabilities = g_new(gchar *, 7);
-    (*OUT_capabilities)[i++] = g_strdup("actions");
-    (*OUT_capabilities)[i++] = g_strdup("body");
-    (*OUT_capabilities)[i++] = g_strdup("body-markup");
-    (*OUT_capabilities)[i++] = g_strdup("body-hyperlinks");
-    (*OUT_capabilities)[i++] = g_strdup("icon-static");
-    (*OUT_capabilities)[i++] = g_strdup("x-canonical-private-icon-only");
-    (*OUT_capabilities)[i++] = NULL;
-
-    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
+	const gchar *const capabilities[] =
+  	{
+    	"actions", "body", "body-hyperlinks", "body-markup", "icon-static",
+    	"x-canonical-private-icon-only", NULL
+  	};
+	
+	xfce_notify_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
+    
+	if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
         /* No active notifications, reset the close timeout */
         if(xndaemon->close_timeout)
             g_source_remove(xndaemon->close_timeout);
@@ -865,38 +921,84 @@ notify_get_capabilities(XfceNotifyDaemon *xndaemon,
     return TRUE;
 }
 
+
 static gboolean
-notify_show_window(gpointer window)
+notify_show_window (gpointer window)
 {
-  gtk_widget_show(GTK_WIDGET(window));
-  return FALSE;
+  	gtk_widget_show(GTK_WIDGET(window));
+  	return FALSE;
 }
 
-static gboolean
-notify_notify(XfceNotifyDaemon *xndaemon,
-              const gchar *app_name,
-              guint replaces_id,
-              const gchar *app_icon,
-              const gchar *summary,
-              const gchar *body,
-              const gchar **actions,
-              GHashTable *hints,
-              gint expire_timeout,
-              guint *OUT_id,
-              GError **error)
+
+static gboolean notify_notify (XfceNotifyGBus *skeleton,
+                               GDBusMethodInvocation   *invocation,
+                               const gchar *app_name,
+                               guint replaces_id,
+                               const gchar *app_icon,
+                               const gchar *summary,
+                               const gchar *body,
+                               const gchar **actions,
+                               GVariant *hints,
+                               gint expire_timeout,
+                               XfceNotifyDaemon *xndaemon)
 {
-    XfceNotifyWindow *window;
+ 	XfceNotifyWindow *window;
     GdkPixbuf *pix;
-    GValue *urgency_data, *value_data;
+    GVariant *image_data = NULL;
+    const gchar *desktop_id = NULL;	    
+    gint value_hint = 0;
+    gboolean value_hint_set = FALSE;
+    gboolean x_canonical = FALSE;
+    GVariant *item;
+    GVariantIter iter;
+    guint OUT_id;
 
-    if((urgency_data = g_hash_table_lookup(hints, "urgency"))
-       && G_VALUE_HOLDS(urgency_data, G_TYPE_UCHAR)
-       && g_value_get_uchar(urgency_data) == URGENCY_CRITICAL)
+	g_variant_iter_init (&iter, hints);
+	
+    while ((item = g_variant_iter_next_value (&iter))) 
     {
-        /* don't expire urgent notifications */
-        expire_timeout = 0;
+        const char *key;
+        GVariant   *value;
+		
+        g_variant_get (item,
+                       "{sv}",
+                       &key,
+                   	   &value);
+        
+        if (g_strcmp0 (key, "urgency") == 0)
+	    {
+		    if (g_variant_is_of_type (value, G_VARIANT_TYPE_BYTE) &&
+			   	(g_variant_get_byte(value) == URGENCY_CRITICAL))
+			{
+     			/* don't expire urgent notifications */
+        		expire_timeout = 0;
+			}
+		}
+        else if ((g_strcmp0 (key, "image_data") == 0) ||
+                 (g_strcmp0 (key, "icon_data") == 0)  ||
+                 (g_strcmp0 (key, "image-data") == 0) ||
+                 (g_strcmp0 (key, "icon-data") == 0))
+	    {
+		    image_data = value;
+		}
+        else if ((g_strcmp0 (key, "desktop_entry") == 0) ||
+         		 (g_strcmp0 (key, "desktop-entry") == 0))
+	    {
+		    if (g_variant_is_of_type (value, G_VARIANT_TYPE_STRING))
+			    desktop_id = g_variant_get_string (value, NULL);
+		}
+       	else if (g_strcmp0 (key, "value") == 0)
+	    {
+		    if (g_variant_is_of_type (value, G_VARIANT_TYPE_INT32))
+			{
+				value_hint = g_variant_get_int32 (value);
+       			value_hint_set = TRUE;
+			}
+		}
+		else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
+			x_canonical = TRUE;
     }
-
+    
     if(expire_timeout == -1)
         expire_timeout = xndaemon->expire_timeout;
 
@@ -911,7 +1013,7 @@ notify_notify(XfceNotifyDaemon *xndaemon,
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
-        *OUT_id = replaces_id;
+        OUT_id = replaces_id;
     } else {
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
@@ -919,12 +1021,12 @@ notify_notify(XfceNotifyDaemon *xndaemon,
                                                                         actions));
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
-        *OUT_id = xfce_notify_daemon_generate_id(xndaemon);
+        OUT_id = xfce_notify_daemon_generate_id(xndaemon);
         g_object_set_data(G_OBJECT(window), "--notify-id",
-                          GUINT_TO_POINTER(*OUT_id));
+                          GUINT_TO_POINTER(OUT_id));
 
         g_tree_insert(xndaemon->active_notifications,
-                      GUINT_TO_POINTER(*OUT_id), window);
+                      GUINT_TO_POINTER(OUT_id), window);
 
         g_signal_connect(G_OBJECT(window), "action-invoked",
                          G_CALLBACK(xfce_notify_daemon_window_action_invoked),
@@ -941,9 +1043,6 @@ notify_notify(XfceNotifyDaemon *xndaemon,
     }
 
     if(!app_icon || !*app_icon) {
-        GValue *image_data = g_hash_table_lookup(hints, "image_data");
-        if(!image_data)
-            image_data = g_hash_table_lookup(hints, "icon_data");
         if(image_data) {
             pix = notify_pixbuf_from_image_data(image_data);
             if(pix) {
@@ -951,11 +1050,10 @@ notify_notify(XfceNotifyDaemon *xndaemon,
                 g_object_unref(G_OBJECT(pix));
             }
         } else {
-            GValue *desktop_id = g_hash_table_lookup(hints, "desktop_id");
             if(desktop_id) {
                 gchar *resource = g_strdup_printf("applications%c%s.desktop",
                                                   G_DIR_SEPARATOR,
-                                                  g_value_get_string(desktop_id));
+                                                  desktop_id);
                 XfceRc *rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
                                                      resource, TRUE);
                 if(rcfile) {
@@ -983,16 +1081,11 @@ notify_notify(XfceNotifyDaemon *xndaemon,
         }
     }
 
-    if(g_hash_table_lookup(hints, "x-canonical-private-icon-only"))
-        xfce_notify_window_set_icon_only(window, TRUE);
+    xfce_notify_window_set_icon_only(window, x_canonical);
+    
+    if(value_hint_set)
+        xfce_notify_window_set_gauge_value(window, value_hint);
     else
-        xfce_notify_window_set_icon_only(window, FALSE);
-
-    if((value_data = g_hash_table_lookup(hints, "value"))
-       && G_VALUE_HOLDS_INT(value_data))
-    {
-        xfce_notify_window_set_gauge_value(window, g_value_get_int(value_data));
-    } else
         xfce_notify_window_unset_gauge_value(window);
 
     gtk_widget_realize(GTK_WIDGET(window));
@@ -1002,41 +1095,39 @@ notify_notify(XfceNotifyDaemon *xndaemon,
         g_source_remove(xndaemon->close_timeout);
 
     xndaemon->close_timeout = 0;
+    xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
 
-    return TRUE;
+    return TRUE;	
 }
 
-static gboolean
-notify_close_notification(XfceNotifyDaemon *xndaemon,
-                          guint id,
-                          GError **error)
+
+static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
+                                		   GDBusMethodInvocation   *invocation,
+                                           guint id,
+                                           XfceNotifyDaemon *xndaemon)
 {
-    XfceNotifyWindow *window = g_tree_lookup(xndaemon->active_notifications,
+ 	XfceNotifyWindow *window = g_tree_lookup(xndaemon->active_notifications,
                                              GUINT_TO_POINTER(id));
 
     if(window)
         xfce_notify_window_closed(window, XFCE_NOTIFY_CLOSE_REASON_CLIENT);
+	
+	xfce_notify_gbus_complete_close_notification(skeleton, invocation);
 
     return TRUE;
 }
 
-static gboolean
-notify_get_server_information(XfceNotifyDaemon *xndaemon,
-                              gchar **OUT_name,
-                              gchar **OUT_vendor,
-                              gchar **OUT_version,
-#ifndef USE_OLD_GET_SERVER_INFORMATION_SIGNATURE
-                              gchar **OUT_spec_version,
-#endif
-                              GError **error)
+static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
+                                			   GDBusMethodInvocation   *invocation,
+                                               XfceNotifyDaemon *xndaemon)
 {
-    *OUT_name = g_strdup("Xfce Notify Daemon");
-    *OUT_vendor = g_strdup("Xfce");
-    *OUT_version = g_strdup(VERSION);
-#ifndef USE_OLD_GET_SERVER_INFORMATION_SIGNATURE
-    *OUT_spec_version = g_strdup(NOTIFICATIONS_SPEC_VERSION);
-#endif
-
+    xfce_notify_gbus_complete_get_server_information(skeleton,
+													 invocation,
+													 "Xfce Notify Daemon",
+													 "Xfce",
+													 VERSION,
+													 NOTIFICATIONS_SPEC_VERSION);
+	
     if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
         /* No active notifications, reset the close timeout */
         if(xndaemon->close_timeout)
@@ -1051,63 +1142,72 @@ notify_get_server_information(XfceNotifyDaemon *xndaemon,
     return TRUE;
 }
 
-static gboolean
-notify_quit(XfceNotifyDaemon *xndaemon,
-            GError **error)
+
+static void daemon_quit (XfceNotifyDaemon *xndaemon)
 {
-    gint i, main_level = gtk_main_level();
+ 	gint i, main_level = gtk_main_level();
     for(i = 0; i < main_level; ++i)
         gtk_main_quit();
+}
+
+
+static gboolean notify_quit (XfceNotifyOrgXfceNotifyd *skeleton,
+                             GDBusMethodInvocation   *invocation,
+                             XfceNotifyDaemon *xndaemon)
+{
+	xfce_notify_org_xfce_notifyd_complete_quit (skeleton, invocation);
+	daemon_quit(xndaemon);
     return TRUE;
 }
 
 
 
+static gboolean
+xfce_notify_daemon_close_timeout(gpointer data)
+{
+    daemon_quit (XFCE_NOTIFY_DAEMON(data));
+    return FALSE;
+}
+
+
 static GdkPixbuf *
-notify_pixbuf_from_image_data(const GValue *image_data)
+notify_pixbuf_from_image_data(GVariant *image_data)
 {
     GdkPixbuf *pix = NULL;
-    GType struct_gtype;
     gint32 width, height, rowstride, bits_per_sample, channels;
     gboolean has_alpha;
-    GArray *pixel_array;
+    GVariant *pixel_data;
     gsize correct_len;
-
-    struct_gtype = dbus_g_type_get_struct("GValueArray", G_TYPE_INT,
-                                          G_TYPE_INT, G_TYPE_INT,
-                                          G_TYPE_BOOLEAN, G_TYPE_INT,
-                                          G_TYPE_INT,
-                                          DBUS_TYPE_G_UCHAR_ARRAY,
-                                          G_TYPE_INVALID);
-    if(!G_VALUE_HOLDS(image_data, struct_gtype)) {
-        g_message("Image data is not the correct type");
-        return NULL;
-    }
-
-    if(!dbus_g_type_struct_get(image_data,
-                               0, &width,
-                               1, &height,
-                               2, &rowstride,
-                               3, &has_alpha,
-                               4, &bits_per_sample,
-                               5, &channels,
-                               6, &pixel_array,
-                               G_MAXUINT))
+	guchar *data;
+	
+	if (!g_variant_is_of_type (image_data, G_VARIANT_TYPE ("(iiibiiay)"))) 
     {
-        g_message("Unable to retrieve image data struct members");
-        return NULL;
-    }
+      	g_warning ("Image data is not the correct type");
+        return NULL;   
+	}
+
+	g_variant_get (image_data,
+                   "(iiibii@ay)",
+                   &width,
+                   &height,
+                   &rowstride,
+                   &has_alpha,
+                   &bits_per_sample,
+                   &channels,
+                   &pixel_data);
 
     correct_len = (height - 1) * rowstride + width
                   * ((channels * bits_per_sample + 7) / 8);
-    if(correct_len != pixel_array->len) {
-        g_message("Pixel data length (%d) did not match expected value (%u)",
-                  pixel_array->len, (guint)correct_len);
+    if(correct_len != g_variant_get_size (pixel_data)) {
+        g_message ("Pixel data length (%lu) did not match expected value (%u)",
+                   g_variant_get_size (pixel_data), (guint)correct_len);
         return NULL;
     }
+    
+    data = (guchar *) g_memdup (g_variant_get_data (pixel_data),
+                                g_variant_get_size (pixel_data));
 
-    pix = gdk_pixbuf_new_from_data(g_memdup(pixel_array->data,
-                                            pixel_array->len),
+    pix = gdk_pixbuf_new_from_data(data,
                                    GDK_COLORSPACE_RGB, has_alpha,
                                    bits_per_sample, width, height,
                                    rowstride,
@@ -1201,50 +1301,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
     }
 }
 
-static gboolean
-xfce_notify_daemon_start(XfceNotifyDaemon *xndaemon,
-                         GError **error)
-{
-    int ret;
-    DBusError derror;
-
-    xndaemon->dbus_conn = dbus_g_bus_get(DBUS_BUS_SESSION, error);
-    if(G_UNLIKELY(!xndaemon->dbus_conn)) {
-        if(error && !*error) {
-            g_set_error(error, DBUS_GERROR, DBUS_GERROR_FAILED,
-                        _("Unable to connect to D-Bus session bus"));
-        }
-        return FALSE;
-    }
-
-    dbus_error_init(&derror);
-    ret = dbus_bus_request_name(dbus_g_connection_get_connection(xndaemon->dbus_conn),
-                                "org.freedesktop.Notifications",
-                                DBUS_NAME_FLAG_DO_NOT_QUEUE,
-                                &derror);
-    if(DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER != ret) {
-        if(dbus_error_is_set(&derror)) {
-            if(error)
-                dbus_set_g_error(error, &derror);
-            dbus_error_free(&derror);
-        } else if(error) {
-            g_set_error(error, DBUS_GERROR, DBUS_GERROR_FAILED,
-                        _("Another notification xndaemon is already running"));
-        }
-
-        return FALSE;
-    }
-
-    dbus_g_connection_register_g_object(xndaemon->dbus_conn,
-                                        "/org/freedesktop/Notifications",
-                                        G_OBJECT(xndaemon));
-
-    return TRUE;
-}
 
 static gboolean
-xfce_notify_daemon_load_config(XfceNotifyDaemon *xndaemon,
-                               GError **error)
+xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
+                               	GError **error)
 {
     gchar *theme;
 
@@ -1285,8 +1345,7 @@ xfce_notify_daemon_new_unique(GError **error)
 {
     XfceNotifyDaemon *xndaemon = g_object_new(XFCE_TYPE_NOTIFY_DAEMON, NULL);
 
-    if(!xfce_notify_daemon_start(xndaemon, error)
-       || !xfce_notify_daemon_load_config(xndaemon, error))
+    if(!xfce_notify_daemon_load_config(xndaemon, error))
     {
         g_object_unref(G_OBJECT(xndaemon));
         return NULL;
