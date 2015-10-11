@@ -411,7 +411,10 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     GtkWidget *widget = GTK_WIDGET(window);
     gdouble radius = DEFAULT_RADIUS;
     gdouble border_width = DEFAULT_BORDER_WIDTH;
+	GtkAllocation widget_allocation ;
 
+	gtk_widget_get_allocation (widget, &widget_allocation);
+	
     /* this secifies the border_padding from the edges in order to make
      * sure the border completely fits into the drawing area */
     gdouble border_padding = 0.0;
@@ -441,29 +444,29 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
     border_padding = border_width / 2.0;
 
     if(radius < 0.1) {
-        cairo_rectangle(cr, 0, 0, widget->allocation.width,
-                        widget->allocation.height);
+        cairo_rectangle(cr, 0, 0, widget_allocation.width,
+                        widget_allocation.height);
     } else {
         cairo_move_to(cr, border_padding, radius + border_padding);
         cairo_arc(cr, radius + border_padding,
                   radius + border_padding, radius,
                   M_PI, 3.0*M_PI/2.0);
         cairo_line_to(cr,
-                      widget->allocation.width - radius - border_padding,
+                      widget_allocation.width - radius - border_padding,
                       border_padding);
         cairo_arc(cr,
-                  widget->allocation.width - radius - border_padding,
+                  widget_allocation.width - radius - border_padding,
                   radius + border_padding, radius,
                   3.0*M_PI/2.0, 0.0);
-        cairo_line_to(cr, widget->allocation.width - border_padding,
-                      widget->allocation.height - radius - border_padding);
-        cairo_arc(cr, widget->allocation.width - radius - border_padding,
-                  widget->allocation.height - radius - border_padding,
+        cairo_line_to(cr, widget_allocation.width - border_padding,
+                      widget_allocation.height - radius - border_padding);
+        cairo_arc(cr, widget_allocation.width - radius - border_padding,
+                  widget_allocation.height - radius - border_padding,
                   radius, 0.0, M_PI/2.0);
         cairo_line_to(cr, radius + border_padding,
-                      widget->allocation.height - border_padding);
+                      widget_allocation.height - border_padding);
         cairo_arc(cr, radius + border_padding,
-                  widget->allocation.height - radius - border_padding,
+                  widget_allocation.height - radius - border_padding,
                   radius, M_PI/2.0, M_PI);
         cairo_close_path(cr);
     }
@@ -479,10 +482,10 @@ xfce_notify_window_ensure_bg_path(XfceNotifyWindow *window,
      * the shape might further constrain the window, and because the
      * path flattening isn't an exact science, it looks ugly. */
     if(!gtk_widget_is_composited(widget))
-        gdk_window_shape_combine_region(widget->window, region, 0, 0);
+        gdk_window_shape_combine_region(gtk_widget_get_window(widget), region, 0, 0);
     /* however, of course always set the input shape; it doesn't matter
      * if this is a pixel or two off here and there */
-    gdk_window_input_shape_combine_region(widget->window, region, 0, 0);
+    gdk_window_input_shape_combine_region(gtk_widget_get_window(widget), region, 0, 0);
     gdk_region_destroy(region);
 
     cairo_new_path(cr);
@@ -505,7 +508,7 @@ xfce_notify_window_expose(GtkWidget *widget,
     if(evt->count != 0)
         return FALSE;
 
-    cr = gdk_cairo_create(widget->window);
+    cr = gdk_cairo_create(gtk_widget_get_window(widget));
     bg_path = xfce_notify_window_ensure_bg_path(window, cr);
 
     /* the idea here is we only do the fancy semi-transparent shaped

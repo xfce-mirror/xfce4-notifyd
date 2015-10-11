@@ -59,11 +59,12 @@ main(int argc,
      * update notifications' style.
      *
      * This has to be done before gtk_init. */
-
+	/*
     temp_theme_file = g_build_path(G_DIR_SEPARATOR_S, g_get_user_cache_dir(),
                                    "xfce4-notifyd-theme.rc", NULL);
 
     gtk_rc_add_default_file(temp_theme_file);
+	*/
 
     gtk_init(&argc, &argv);
 

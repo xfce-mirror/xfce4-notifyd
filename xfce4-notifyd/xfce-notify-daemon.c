@@ -1219,21 +1219,22 @@ static void
 xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
                              const gchar *theme)
 {
+   /* 
     GError *error = NULL;
     gchar  *file, **files;
     gchar  *string;
     gchar  *temp_theme_file;
 
     DBG("New theme: %s", theme);
-
+    */
     /* See main.c for an explanation on how the theming works and why
      * we use this temp file including the real file */
-
+/*
     temp_theme_file = g_build_path(G_DIR_SEPARATOR_S, g_get_user_cache_dir(),
                                    "xfce4-notifyd-theme.rc", NULL);
-
+*/
     /* old-style ~/.themes ... */
-    file = g_build_filename(xfce_get_homedir(), ".themes", theme,
+/*    file = g_build_filename(xfce_get_homedir(), ".themes", theme,
                             "xfce-notify-4.0", "gtkrc", NULL);
     if(g_file_test(file, G_FILE_TEST_EXISTS)) {
         string = g_strconcat("include \"", file, "\"", NULL);
@@ -1269,6 +1270,7 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
     g_free(temp_theme_file);
     g_free(file);
     g_strfreev(files);
+    */
 }
 
 

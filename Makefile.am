@@ -41,41 +41,38 @@ common_cflags = \
 	-I$(builddir)	\
 	-DLOCALEDIR=\"$(localedir)\" \
 	$(LIBXFCE4UTIL_CFLAGS) \
-	$(XFCONF_CFLAGS)
+	$(XFCONF_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(GTK3_CFLAGS)
 
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
 	$(LIBX11_CFLAGS) \
 	$(GIO_CFLAGS) \
-	$(GIO_UNIX_CFLAGS) \
-	$(GTK_CFLAGS) \
-	$(LIBXFCE4UI_CFLAGS)
+	$(GIO_UNIX_CFLAGS)
 	
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
 	$(LIBNOTIFY_CFLAGS) \
-	$(LIBXFCE4UI2_CFLAGS) \
-	$(GTK3_CFLAGS) \
 	$(common_cflags)
 
 common_ldadd = \
 	$(LIBXFCE4UTIL_LIBS) \
-	$(XFCONF_LIBS)
+	$(XFCONF_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(GTK3_LIBS)
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
 	$(LIBX11_LIBS)	\
 	$(GIO_LIBS) \
-	$(GIO_UNIX_LIBS) \
-	$(LIBXFCE4UI_LIBS)
+	$(GIO_UNIX_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
-	$(LIBXFCE4UI2_LIBS) \
-	$(LIBNOTIFY_LIBS) \
-	$(GTK3_LIBS)
+	$(LIBNOTIFY_LIBS)
 
 
 servicedir = $(datadir)/dbus-1/services
