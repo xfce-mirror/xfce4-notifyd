@@ -30,6 +30,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gtk/gtkx.h>
 
 #include <dbus/dbus-glib.h>
 
@@ -256,10 +257,10 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 
     if(!xfconf_init(&error)) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
-                            GTK_STOCK_DIALOG_ERROR,
+                            "dialog-error",
                             _("Settings daemon is unavailable"),
                             error->message,
-                            GTK_STOCK_QUIT, GTK_RESPONSE_ACCEPT,
+                            "application-exit", GTK_RESPONSE_ACCEPT,
                             NULL);
         exit(EXIT_FAILURE);
     }
@@ -305,7 +306,7 @@ main(int argc,
     GtkWidget *settings_dialog = NULL;
     GtkBuilder *builder;
     gboolean opt_version = FALSE;
-    GdkNativeWindow opt_socket_id = 0;
+    gint32 opt_socket_id = 0;
     GOptionEntry option_entries[] = {
         { "version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version, N_("Display version information"), NULL },
         { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET_ID") },
@@ -360,7 +361,7 @@ main(int argc,
                          G_CALLBACK(gtk_main_quit), NULL);
 
         plug_child = GTK_WIDGET(gtk_builder_get_object(builder, "plug-child"));
-        gtk_widget_reparent(plug_child, plug);
+        gtk_container_add (GTK_CONTAINER(plug), plug_child);
         gtk_widget_show(plug_child);
 
         gdk_notify_startup_complete();
