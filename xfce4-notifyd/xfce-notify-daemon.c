@@ -258,14 +258,14 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
 static void
 xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
 {
-    gint nscreen = gdk_display_get_n_screens(gdk_display_get_default());
+    gint nscreen = 1;
     gint i;
 
     xndaemon->reserved_rectangles = g_new(GList **, nscreen);
     xndaemon->monitors_workarea = g_new(GdkRectangle *, nscreen);
 
     for(i = 0; i < nscreen; ++i) {
-        GdkScreen *screen = gdk_display_get_screen(gdk_display_get_default(), i);
+        GdkScreen *screen = gdk_screen_get_default();
         gint nmonitor = gdk_screen_get_n_monitors(screen);
         GdkWindow *groot;
         int j;
@@ -416,10 +416,10 @@ xfce_notify_daemon_finalize(GObject *obj)
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
       gint nscreen, i, j;
 
-      nscreen = gdk_display_get_n_screens(gdk_display_get_default());
+      nscreen = 1;
 
       for(i = 0; i < nscreen; ++i) {
-          GdkScreen *screen = gdk_display_get_screen(gdk_display_get_default(), i);
+          GdkScreen *screen = gdk_screen_get_default ();
           GdkWindow *groot = gdk_screen_get_root_window(screen);
           gint nmonitor = gdk_screen_get_n_monitors(screen);
 
@@ -661,9 +661,14 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 {
     XfceNotifyDaemon *xndaemon = user_data;
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-    GdkScreen *screen = NULL;
+    GdkScreen *p_screen = NULL;
+    GdkScreen *widget_screen;
+    GdkDisplay *display;
+    GdkDeviceManager *device_manager;
+	GdkDevice *pointer;
     gint x, y, monitor, screen_n, max_width;
     GdkRectangle *geom_tmp, geom, initial, widget_geom;
+    
     GList *list;
     gboolean found = FALSE;
 
@@ -688,9 +693,16 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         xndaemon->reserved_rectangles[screen_n][monitor] = old_list;
     }
 
-    gdk_display_get_pointer(gdk_display_get_default(), &screen, &x, &y, NULL);
-    monitor = gdk_screen_get_monitor_at_point(screen, x, y);
-    screen_n = gdk_screen_get_number (screen);
+    /* All these calls are, well to get replace the deprecated
+     * gdk_display_get_pointer function! Go GTK...*/
+    widget_screen = gtk_widget_get_screen (widget);
+    display = gdk_screen_get_display (widget_screen);
+	device_manager = gdk_display_get_device_manager (display);
+	pointer = gdk_device_manager_get_client_pointer (device_manager);
+    gdk_device_get_position (pointer, &p_screen, &x, &y);
+    
+    monitor = gdk_screen_get_monitor_at_point(p_screen, x, y);
+    screen_n = gdk_screen_get_number (p_screen);
 
     DBG("We are on the monitor %i, screen %i", monitor, screen_n);
 
@@ -699,7 +711,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     DBG("Workarea: (%i,%i), width: %i, height:%i",
         geom.x, geom.y, geom.width, geom.height);
 
-    gtk_window_set_screen(GTK_WINDOW(widget), screen);
+    gtk_window_set_screen(GTK_WINDOW(widget), p_screen);
 
     /* Set initial geometry */
     initial.width = allocation->width;
@@ -937,6 +949,7 @@ notify_show_window (gpointer window)
   	gtk_widget_show(GTK_WIDGET(window));
   	return FALSE;
 }
+
 
 static void
 add_and_propagate_css_provider (GtkWidget *widget, GtkStyleProvider *provider)
