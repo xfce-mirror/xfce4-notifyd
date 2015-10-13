@@ -162,7 +162,7 @@ list_store_add_themes_in_dir(GtkListStore *ls,
             continue;
 
         filename =
-            g_build_filename(path, file, "xfce-notify-4.0", "gtkrc", NULL);
+            g_build_filename(path, file, "xfce-notify-4.0", "gtk.css", NULL);
 
         if(g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
             GtkTreeIter iter;
