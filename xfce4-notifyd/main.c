@@ -61,10 +61,10 @@ main(int argc,
     xndaemon = xfce_notify_daemon_new_unique(&error);
     if(!xndaemon) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
-                            GTK_STOCK_DIALOG_ERROR,
+                            "dialog-error",
                             _("Unable to start notification daemon"),
                             error->message,
-                            GTK_STOCK_QUIT, GTK_RESPONSE_ACCEPT,
+                            "application-exit", GTK_RESPONSE_ACCEPT,
                             NULL);
         g_error_free(error);
         return 1;

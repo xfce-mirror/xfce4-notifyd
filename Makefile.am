@@ -102,13 +102,13 @@ dist_icons48_DATA = icons/48x48/xfce4-notifyd.png
 theme_dir = $(datadir)/themes
 
 defaultthemedir = $(theme_dir)/Default/xfce-notify-4.0
-dist_defaulttheme_DATA = themes/Default/gtkrc
+dist_defaulttheme_DATA = themes/Default/gtk.css
 
 smokethemedir = $(theme_dir)/Smoke/xfce-notify-4.0
-dist_smoketheme_DATA = themes/Smoke/gtkrc
+dist_smoketheme_DATA = themes/Smoke/gtk.css
 
 zomgponiesthemedir = $(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
-dist_zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtkrc
+dist_zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtk.css
 
 built_xfce4_notifyd = \
 	xfce4-notifyd/xfce-notify-gbus.c \

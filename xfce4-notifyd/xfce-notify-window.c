@@ -1016,7 +1016,8 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
 
         box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
         gtk_widget_show(box);
-        g_object_set(box, "margin-top", 2, NULL);
+        
+        g_object_set(box, "valign", GTK_ALIGN_CENTER, NULL);
         gtk_box_pack_start(GTK_BOX(window->content_box), box, TRUE, TRUE, 0);
 
         window->gauge = gtk_progress_bar_new();
