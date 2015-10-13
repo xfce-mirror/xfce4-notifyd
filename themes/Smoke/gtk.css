@@ -1,4 +1,4 @@
-GtkWindow#XfceNotifyWindow {
+#XfceNotifyWindow {
 	
     background-color: #4d4d4d;
     border-radius: 20px;
@@ -8,21 +8,21 @@ GtkWindow#XfceNotifyWindow {
 	padding: 20px;
 }
 
-GtkWindow#XfceNotifyWindow:hover {
+#XfceNotifyWindow:hover {
 	border-width: 3px;
  	border-color : #ffffff;
 }
 
-GtkWindow#XfceNotifyWindow GtkLabel {
+#XfceNotifyWindow GtkLabel {
 	color: #ffffff;
  	-GtkWidget-link-color:#a7a7a7;
 }
 
-GtkWindow#XfceNotifyWindow GtkLabel#summay {
+#XfceNotifyWindow GtkLabel#summay {
 	font : Bold;
 }
 
-GtkWindow#XfceNotifyWindow GtkButton {
+#XfceNotifyWindow GtkButton {
 
  	border-image: none;
  	background-image: none;
@@ -30,7 +30,7 @@ GtkWindow#XfceNotifyWindow GtkButton {
     color: #ffffff;
 }
 
-GtkWindow#XfceNotifyWindow GtkButton:hover {
+#XfceNotifyWindow GtkButton:hover {
  
  	border-image: none;
  	background-image: none;
