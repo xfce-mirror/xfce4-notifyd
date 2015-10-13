@@ -41,31 +41,9 @@ main(int argc,
 {
     XfceNotifyDaemon *xndaemon;
     GError *error = NULL;
-    gchar  *temp_theme_file;
 
     xfconf_init(NULL);
-
-    /* For theming we need to rely on a trick.
-     *
-     * We can't use gtk_rc_parse to parse theme files because if we do
-     * so they get added to the list of rc files for Gtk widgets. Then,
-     * the next time you update the theme and parse a new GtkRc file,
-     * you still have the old values if the new theme does not override
-     * them.
-     *
-     * Thus, we create a temp file that we add to the list of default
-     * GtkRc files. This file will only contain an include to the actual
-     * theme file. That way we only have to call gtk_rc_reparse_all to
-     * update notifications' style.
-     *
-     * This has to be done before gtk_init. */
-	/*
-    temp_theme_file = g_build_path(G_DIR_SEPARATOR_S, g_get_user_cache_dir(),
-                                   "xfce4-notifyd-theme.rc", NULL);
-
-    gtk_rc_add_default_file(temp_theme_file);
-	*/
-
+ 	
     gtk_init(&argc, &argv);
 
     xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
@@ -93,10 +71,6 @@ main(int argc,
     }
 
     gtk_main();
-
-    /* Remove the temp file for themes */
-    g_unlink(temp_theme_file);
-    g_free(temp_theme_file);
 
     g_object_unref(G_OBJECT(xndaemon));
 

@@ -50,14 +50,17 @@
 
 struct _XfceNotifyDaemon
 {
-	XfceNotifyGBusSkeleton parent;
+    XfceNotifyGBusSkeleton parent;
 
-	XfceNotifyOrgXfceNotifyd *xfce_iface_skeleton;
+    XfceNotifyOrgXfceNotifyd *xfce_iface_skeleton;
     gint expire_timeout;
     guint bus_name_id;
     gdouble initial_opacity;
     GtkCornerType notify_location;
-
+    
+    GtkCssProvider *css_provider;
+    gboolean css_parsed;
+    
     XfconfChannel *settings;
 
     GTree *active_notifications;
@@ -378,6 +381,8 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 
     xndaemon->reserved_rectangles = NULL;
     xndaemon->monitors_workarea = NULL;
+    xndaemon->css_provider = NULL;
+    xndaemon->css_parsed = FALSE;
 
     xndaemon->close_timeout =
         g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
@@ -405,6 +410,9 @@ xfce_notify_daemon_finalize(GObject *obj)
 	{
     	g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton));
 	}
+	
+	if (xndaemon->css_provider)
+	    g_object_unref (xndaemon->css_provider);
 
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
       gint nscreen, i, j;
@@ -929,6 +937,34 @@ notify_show_window (gpointer window)
   	return FALSE;
 }
 
+static void
+apply_css (GtkWidget *widget, GtkStyleProvider *provider)
+{
+  gtk_style_context_add_provider (gtk_widget_get_style_context (widget), provider, G_MAXUINT);
+  if (GTK_IS_CONTAINER (widget))
+    gtk_container_forall (GTK_CONTAINER (widget), (GtkCallback) apply_css, provider);
+}
+
+
+static void
+xfce_notify_daemon_active_css_theme (XfceNotifyDaemon *xndaemon)
+{
+    
+    GdkScreen *screen;
+    
+    g_return_if_fail(xndaemon->css_provider != NULL);
+    g_return_if_fail(xndaemon->css_parsed == TRUE);
+
+    screen = gdk_display_get_default_screen (gdk_display_get_default());
+ 
+    gtk_style_context_add_provider_for_screen 
+        (screen,
+		 GTK_STYLE_PROVIDER (xndaemon->css_provider),
+		 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+        ); 
+    gtk_style_context_reset_widgets (gdk_screen_get_default ());
+}
+
 
 static gboolean notify_notify (XfceNotifyGBus *skeleton,
                                GDBusMethodInvocation   *invocation,
@@ -1219,58 +1255,46 @@ static void
 xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
                              const gchar *theme)
 {
-   /* 
     GError *error = NULL;
     gchar  *file, **files;
-    gchar  *string;
-    gchar  *temp_theme_file;
 
     DBG("New theme: %s", theme);
-    */
-    /* See main.c for an explanation on how the theming works and why
-     * we use this temp file including the real file */
-/*
-    temp_theme_file = g_build_path(G_DIR_SEPARATOR_S, g_get_user_cache_dir(),
-                                   "xfce4-notifyd-theme.rc", NULL);
-*/
-    /* old-style ~/.themes ... */
-/*    file = g_build_filename(xfce_get_homedir(), ".themes", theme,
-                            "xfce-notify-4.0", "gtkrc", NULL);
-    if(g_file_test(file, G_FILE_TEST_EXISTS)) {
-        string = g_strconcat("include \"", file, "\"", NULL);
-        if (!g_file_set_contents (temp_theme_file, string, -1, &error)) {
-            xfce_dialog_show_error (NULL, error,
-                                    _("Failed to set new theme"));
-            g_error_free (error);
+    
+    file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtk.css", NULL);
+    
+    files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
+    
+    if (files && files[0])
+    {
+        gboolean css_parsed;
+        if (xndaemon->css_provider)
+            g_object_unref (xndaemon->css_provider);
+    
+        xndaemon->css_provider = gtk_css_provider_new();
+        xndaemon->css_parsed = 
+            gtk_css_provider_load_from_path (xndaemon->css_provider, 
+                                             files[0],
+                                             &error);
+        if (xndaemon->css_parsed)
+        {
+            g_print ("Settings css theme %s\n", theme);
+            xfce_notify_daemon_active_css_theme (xndaemon);
         }
         else
-            gtk_rc_reparse_all ();
-
-        g_free(file);
-        g_free(string);
-        g_free(temp_theme_file);
-
-        return;
-    }
-    g_free(file);
-
-    file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtkrc", NULL);
-    files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
-
-    string = g_strconcat("include \"", files[0], "\"", NULL);
-    if (!g_file_set_contents (temp_theme_file, string, -1, &error)) {
-        xfce_dialog_show_error (NULL, error,
-                                _("Failed to set new theme"));
-        g_error_free (error);
+        {
+            g_warning ("Faild to parse css file : %s\n", error->message);
+            g_error_free (error);
+            g_object_unref (xndaemon->css_provider);
+            xndaemon->css_provider = NULL;
+        }   
+        
+        g_strfreev(files);
     }
     else
-        gtk_rc_reparse_all ();
-
-    g_free(string);
-    g_free(temp_theme_file);
+    {
+        g_warning ("theme '%s' is not found anywhere is user themes directories", theme);
+    }
     g_free(file);
-    g_strfreev(files);
-    */
 }
 
 
