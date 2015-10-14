@@ -69,7 +69,7 @@ struct _XfceNotifyWindow
     GtkWidget *summary;
     GtkWidget *body;
     GtkWidget *button_box;
-	
+
     guint64 expire_start_timestamp;
     guint expire_id;
     guint fade_id;
@@ -129,8 +129,8 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
 
     widget_class->realize = xfce_notify_window_realize;
     widget_class->unrealize = xfce_notify_window_unrealize;
-	
-   	widget_class->draw = xfce_notify_window_draw;
+
+    widget_class->draw = xfce_notify_window_draw;
     widget_class->enter_notify_event = xfce_notify_window_enter_leave;
     widget_class->leave_notify_event = xfce_notify_window_enter_leave;
     widget_class->button_release_event = xfce_notify_window_button_release;
@@ -175,7 +175,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
-	
+
     gtk_widget_set_name (GTK_WIDGET(window), "XfceNotifyWindow");
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
     gtk_window_stick(GTK_WINDOW(window));
@@ -188,18 +188,18 @@ xfce_notify_window_init(XfceNotifyWindow *window)
                              GDK_WINDOW_TYPE_HINT_NOTIFICATION);
     gtk_container_set_border_width(GTK_CONTAINER(window), 0);
     gtk_widget_set_app_paintable(GTK_WIDGET(window), TRUE);
-	
+
     gtk_widget_add_events(GTK_WIDGET(window),
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
                           | GDK_POINTER_MOTION_MASK);
 
     screen = gtk_widget_get_screen(GTK_WIDGET(window));
     if(gdk_screen_is_composited(screen)) {
-     	GdkVisual *visual = gdk_screen_get_rgba_visual (screen);
-  		if (visual == NULL)
-    		visual = gdk_screen_get_system_visual (screen);
-		
-  		gtk_widget_set_visual (GTK_WIDGET(window), visual);    
+        GdkVisual *visual = gdk_screen_get_rgba_visual (screen);
+        if (visual == NULL)
+            visual = gdk_screen_get_system_visual (screen);
+
+        gtk_widget_set_visual (GTK_WIDGET(window), visual);    
     }
 
     gtk_widget_style_get(GTK_WIDGET(window),
@@ -315,17 +315,17 @@ static inline int
 get_max_border_width (GtkStyleContext *context, 
                       GtkStateFlags state)
 {
- 	GtkBorder border_width;
-	gint border_width_max;
-	
- 	gtk_style_context_get_border (context, 
-	                              state, 
-	                              &border_width);
+    GtkBorder border_width;
+    gint border_width_max;
     
-	border_width_max = MAX(border_width.left, 
-	                       MAX(border_width.top, 
-	                           MAX(border_width.bottom, border_width.right)));
-	return border_width_max;
+    gtk_style_context_get_border (context, 
+                                  state, 
+                                  &border_width);
+    
+    border_width_max = MAX(border_width.left, 
+                           MAX(border_width.top, 
+                               MAX(border_width.bottom, border_width.right)));
+    return border_width_max;
 }
 
 
@@ -337,20 +337,20 @@ xfce_notify_window_draw_rectangle (XfceNotifyWindow *window,
     gint radius = DEFAULT_RADIUS;
     GtkStateFlags state = GTK_STATE_FLAG_NORMAL;
     gint border_width;
-	GtkAllocation widget_allocation ;
-	GtkStyleContext *context;
-	
+    GtkAllocation widget_allocation ;
+    GtkStyleContext *context;
+    
     /* this secifies the border_padding from the edges in order to make
      * sure the border completely fits into the drawing area */
     gdouble border_padding = 0.0;
 
-	gtk_widget_get_allocation (widget, &widget_allocation);
-	
-	/* Load the css style information for hover aka prelight */
- 	if (window->mouse_hover) 
-		state = GTK_STATE_FLAG_PRELIGHT;
+    gtk_widget_get_allocation (widget, &widget_allocation);
+    
+    /* Load the css style information for hover aka prelight */
+    if (window->mouse_hover) 
+        state = GTK_STATE_FLAG_PRELIGHT;
 
-	context = gtk_widget_get_style_context (widget);
+    context = gtk_widget_get_style_context (widget);
     gtk_style_context_get (context,
                            state,
                            "border-radius", &radius,
@@ -358,7 +358,7 @@ xfce_notify_window_draw_rectangle (XfceNotifyWindow *window,
         
     border_width = get_max_border_width (context, state);
     border_padding = border_width / 2.0;
-	
+    
     if(radius < 0.1) {
         cairo_rectangle(cr, 0, 0, widget_allocation.width,
                         widget_allocation.height);
@@ -392,56 +392,56 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
                                          cairo_t *cr)
 {
     GtkStyleContext *context;
-   	GdkRGBA         *border_color, *bg_color;
-	gint  border_width;
- 	GtkStateFlags state;
-	double radius;
+    GdkRGBA         *border_color, *bg_color;
+    gint  border_width;
+    GtkStateFlags state;
+    double radius;
     cairo_t         *cr2;
     cairo_surface_t *surface;
     cairo_region_t  *region;
     GtkAllocation    allocation;
-	
-	XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
+
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
     gtk_widget_get_allocation (widget, &allocation);
     
-	/* Create a similar surface as of cr */
+    /* Create a similar surface as of cr */
     surface = cairo_surface_create_similar (cairo_get_target (cr),
                                             CAIRO_CONTENT_COLOR_ALPHA,
                                             allocation.width,
                                             allocation.height);
     cr2 = cairo_create (surface);
-	
+    
     /* Fill first with a transparent background */
     cairo_rectangle (cr2, 0, 0, allocation.width, allocation.height);
     cairo_set_source_rgba (cr2, 0.5, 0.5, 0.5, 0.0);
     cairo_fill (cr2);
-	
-	/* Draw a rounded rectangle */
+    
+    /* Draw a rounded rectangle */
     xfce_notify_window_draw_rectangle (window, cr2);
     
-	state = GTK_STATE_FLAG_NORMAL;
-	/* Load the css style information for hover aka prelight */
- 	if (window->mouse_hover) 
-		state = GTK_STATE_FLAG_PRELIGHT;
-	
-	/* Get the style context to get style properties */
+    state = GTK_STATE_FLAG_NORMAL;
+    /* Load the css style information for hover aka prelight */
+    if (window->mouse_hover) 
+        state = GTK_STATE_FLAG_PRELIGHT;
+
+    /* Get the style context to get style properties */
     context = gtk_widget_get_style_context (widget);
-	gtk_style_context_get (context, 
-	                       state,
-	                       "border-color", &border_color,
+    gtk_style_context_get (context, 
+                           state,
+                           "border-color", &border_color,
                            "background-color", &bg_color,
                            "border-radius", &radius,
-	                       NULL);
+                           NULL);
 
-	/* Draw the background, getting its color from the style context*/
+    /* Draw the background, getting its color from the style context*/
     cairo_set_source_rgba (cr2, 
                            bg_color->red, bg_color->green, bg_color->blue,
                            1.0);
     cairo_fill_preserve (cr2);
     gdk_rgba_free (bg_color);
     
-	/* Now draw the border */
+    /* Now draw the border */
     border_width = get_max_border_width (context, state);
     cairo_set_source_rgba (cr2, 
                            border_color->red, border_color->green, border_color->blue,
@@ -450,10 +450,10 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
     cairo_stroke (cr2);
     gdk_rgba_free (border_color);
 
-	/* Enough, everything we need has been written on the surface */
+    /* Enough, everything we need has been written on the surface */
     cairo_destroy (cr2);
-	
-	/* Set the surface drawn by cr2, to cr */
+
+    /* Set the surface drawn by cr2, to cr */
     cairo_save (cr);
     cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
     cairo_set_source_surface (cr, surface, 0, 0);
@@ -462,7 +462,7 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
     
     region = gdk_cairo_region_create_from_surface (surface);
     if(!gtk_widget_is_composited(widget))
-	  	gtk_widget_shape_combine_region(widget, region);
+        gtk_widget_shape_combine_region(widget, region);
 
     /* however, of course always set the input shape; it doesn't matter
      * if this is a pixel or two off here and there */
@@ -703,7 +703,7 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
         window->has_body_text = FALSE;
     }
 
-	if(gtk_widget_get_realized(GTK_WIDGET(window)))
+    if(gtk_widget_get_realized(GTK_WIDGET(window)))
         gtk_widget_queue_draw(GTK_WIDGET(window));
 }
 
@@ -914,7 +914,7 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         g_free(cur_button_text_escaped);
     }
 
-	if(gtk_widget_get_realized(GTK_WIDGET(window)))
+    if(gtk_widget_get_realized(GTK_WIDGET(window)))
         gtk_widget_queue_draw(GTK_WIDGET(window));
 }
 
@@ -974,7 +974,7 @@ xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
                       "halign", GTK_ALIGN_CENTER,
                       NULL);
     } else {
-     	g_object_set (window->icon_box,
+        g_object_set (window->icon_box,
                       "halign", GTK_ALIGN_START,
                       NULL);
         gtk_widget_set_size_request(window->icon_box, -1, -1);
