@@ -1,5 +1,5 @@
 #XfceNotifyWindow {
-	
+
     background-color: #ff69b4;
     border-radius: 10px;
     border-color : #ffff00;
@@ -9,22 +9,22 @@
 
 
 #XfceNotifyWindow GtkLabel {
-	font : Comic Sans MS 26;
+    font : Comic Sans MS 26;
     color: #ffff00;
     -GtkWidget-link-color:#c17800;
 }
 
 
 #XfceNotifyWindow GtkButton {
- 	border-image: none;
- 	background-image: none;
+    border-image: none;
+    background-image: none;
     background-color : #9400d3;
 }
 
 
 #XfceNotifyWindow GtkButton:hover {
- 	border-image: none;
- 	background-image: none;
+    border-image: none;
+    background-image: none;
     background-color : #5e0086;
 }
 

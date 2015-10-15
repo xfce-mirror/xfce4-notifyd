@@ -1089,9 +1089,8 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         }
         else
         {
-            /* FIXME: This sets the fallback theme, not the current theme */
             add_and_propagate_css_provider (GTK_WIDGET(window), 
-                                            GTK_STYLE_PROVIDER(gtk_css_provider_get_default()),
+                                            GTK_STYLE_PROVIDER(xndaemon->css_provider),
                                             GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
         }
             
