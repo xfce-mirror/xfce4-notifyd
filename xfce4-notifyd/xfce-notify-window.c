@@ -359,7 +359,7 @@ xfce_notify_window_draw_rectangle (XfceNotifyWindow *window,
     border_width = get_max_border_width (context, state);
     border_padding = border_width / 2.0;
     
-    if(radius < 0.1) {
+    if(radius < 1) {
         cairo_rectangle(cr, 0, 0, widget_allocation.width,
                         widget_allocation.height);
     } else {
@@ -520,7 +520,6 @@ static gboolean
 xfce_notify_window_configure_event(GtkWidget *widget,
                                    GdkEventConfigure *evt)
 {
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
     gboolean ret;
 	
     ret = GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->configure_event(widget,

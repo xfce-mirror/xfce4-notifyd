@@ -373,8 +373,6 @@ static void xfce_notify_daemon_constructed (GObject *obj)
 static void
 xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 {
-    GtkWidgetPath *widget_path;	
-    
     xndaemon->active_notifications = g_tree_new_full(xfce_direct_compare,
                                                      NULL, NULL,
                                                      (GDestroyNotify)gtk_widget_destroy);
