@@ -949,7 +949,6 @@ notify_show_window (gpointer window)
     return FALSE;
 }
 
-
 static void
 add_and_propagate_css_provider (GtkWidget *widget, GtkStyleProvider *provider, guint priority)
 {
@@ -968,6 +967,54 @@ add_and_propagate_css_provider (GtkWidget *widget, GtkStyleProvider *provider, g
     }
 }
 
+static void 
+notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, gboolean redraw) 
+{
+    GtkStyleContext *context; 
+    
+    context = gtk_widget_get_style_context (GTK_WIDGET(window));
+        
+    if (!xndaemon->is_default_theme)
+    {
+        if (gtk_style_context_has_class (context, "osd"))
+            gtk_style_context_remove_class (context, "osd");
+        if (gtk_style_context_has_class (context, "app-notification"))
+            gtk_style_context_remove_class (context, "app-notification");
+            
+        add_and_propagate_css_provider (GTK_WIDGET(window), 
+                                        GTK_STYLE_PROVIDER(xndaemon->css_provider),
+                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
+    else
+    {
+        /* These classes are normally defined in themes */
+        if (!gtk_style_context_has_class (context, "osd"))
+            gtk_style_context_add_class (context, "osd");
+        
+        if (!gtk_style_context_has_class (context, "app-notification"))
+            gtk_style_context_add_class (context, "app-notification");
+            
+        /* Contains few style definition, use it as a fallback */
+        add_and_propagate_css_provider (GTK_WIDGET(window), 
+                                        GTK_STYLE_PROVIDER(xndaemon->css_provider),
+                                        GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
+    }
+ 
+    if (redraw)
+    {
+        gtk_widget_reset_style (window);
+        gtk_widget_queue_draw (window);
+    }
+}
+
+static gboolean
+notify_update_theme_foreach (gpointer key, gpointer value, gpointer data)
+{
+    XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(data);
+    GtkWidget *window = GTK_WIDGET(value);
+    
+    notify_update_theme_for_window (xndaemon, window, TRUE);
+}
 
 static gboolean notify_notify (XfceNotifyGBus *skeleton,
                                GDBusMethodInvocation   *invocation,
@@ -1054,6 +1101,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
 
         OUT_id = replaces_id;
     } else {
+        GtkStyleContext *context;
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
                                                                         expire_timeout,
@@ -1079,19 +1127,8 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
 
         gtk_widget_realize(GTK_WIDGET(window));
         
-        if (!xndaemon->is_default_theme)
-        {
-            add_and_propagate_css_provider (GTK_WIDGET(window), 
-                                            GTK_STYLE_PROVIDER(xndaemon->css_provider),
-                                            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-        }
-        else
-        {
-            add_and_propagate_css_provider (GTK_WIDGET(window), 
-                                            GTK_STYLE_PROVIDER(xndaemon->css_provider),
-                                            GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
-        }
-            
+        notify_update_theme_for_window (xndaemon, GTK_WIDGET(window), FALSE);
+
         g_idle_add(notify_show_window, window);
     }
 
@@ -1296,6 +1333,11 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
             g_warning ("Faild to parse css file : %s\n", error->message);
             g_error_free (error);
         }
+        else
+            g_tree_foreach (xndaemon->active_notifications,
+                            (GTraverseFunc)notify_update_theme_foreach,
+                            xndaemon);
+            
         g_strfreev(files);
     }
     else

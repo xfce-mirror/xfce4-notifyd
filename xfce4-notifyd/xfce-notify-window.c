@@ -359,33 +359,37 @@ xfce_notify_window_draw_rectangle (XfceNotifyWindow *window,
     border_width = get_max_border_width (context, state);
     border_padding = border_width / 2.0;
     
-    if(radius < 1) {
-        cairo_rectangle(cr, 0, 0, widget_allocation.width,
-                        widget_allocation.height);
-    } else {
-        cairo_move_to(cr, border_padding, radius + border_padding);
-        cairo_arc(cr, radius + border_padding,
-                  radius + border_padding, radius,
-                  M_PI, 3.0*M_PI/2.0);
-        cairo_line_to(cr,
-                      widget_allocation.width - radius - border_padding,
-                      border_padding);
-        cairo_arc(cr,
-                  widget_allocation.width - radius - border_padding,
-                  radius + border_padding, radius,
-                  3.0*M_PI/2.0, 0.0);
-        cairo_line_to(cr, widget_allocation.width - border_padding,
-                      widget_allocation.height - radius - border_padding);
-        cairo_arc(cr, widget_allocation.width - radius - border_padding,
-                  widget_allocation.height - radius - border_padding,
-                  radius, 0.0, M_PI/2.0);
-        cairo_line_to(cr, radius + border_padding,
-                      widget_allocation.height - border_padding);
-        cairo_arc(cr, radius + border_padding,
-                  widget_allocation.height - radius - border_padding,
-                  radius, M_PI/2.0, M_PI);
-        cairo_close_path(cr);
+    /* Always use a small rounded corners. This should not be necessary in 
+     * theory, as Adwaita defined border-radius: 0 0 6px 6px; for the 
+     * app-notification and osd css classes. The problem is that Gtk for some
+     * reason gets the border-radius as gint and not as GtkBorder. Getting 
+     * this way the first value only, which is 0. */
+    if ( radius == 0 ) {
+        radius = 6;
     }
+    
+    cairo_move_to(cr, border_padding, radius + border_padding);
+    cairo_arc(cr, radius + border_padding,
+              radius + border_padding, radius,
+              M_PI, 3.0*M_PI/2.0);
+    cairo_line_to(cr,
+                  widget_allocation.width - radius - border_padding,
+                  border_padding);
+    cairo_arc(cr,
+              widget_allocation.width - radius - border_padding,
+              radius + border_padding, radius,
+              3.0*M_PI/2.0, 0.0);
+    cairo_line_to(cr, widget_allocation.width - border_padding,
+                  widget_allocation.height - radius - border_padding);
+    cairo_arc(cr, widget_allocation.width - radius - border_padding,
+              widget_allocation.height - radius - border_padding,
+              radius, 0.0, M_PI/2.0);
+    cairo_line_to(cr, radius + border_padding,
+                  widget_allocation.height - border_padding);
+    cairo_arc(cr, radius + border_padding,
+              widget_allocation.height - radius - border_padding,
+              radius, M_PI/2.0, M_PI);
+    cairo_close_path(cr);
 }
 
 static gboolean xfce_notify_window_draw (GtkWidget *widget,
@@ -395,7 +399,6 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
     GdkRGBA         *border_color, *bg_color;
     gint  border_width;
     GtkStateFlags state;
-    double radius;
     cairo_t         *cr2;
     cairo_surface_t *surface;
     cairo_region_t  *region;
@@ -431,7 +434,6 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
                            state,
                            "border-color", &border_color,
                            "background-color", &bg_color,
-                           "border-radius", &radius,
                            NULL);
 
     /* Draw the background, getting its color from the style context*/
