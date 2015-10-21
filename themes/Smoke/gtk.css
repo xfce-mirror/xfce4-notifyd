@@ -15,7 +15,7 @@
 
 #XfceNotifyWindow GtkLabel {
     color: #ffffff;
-    GtkWidget-link-color:#a7a7a7;
+    -GtkWidget-link-color:#a7a7a7;
 }
 
 #XfceNotifyWindow GtkLabel#summay {
