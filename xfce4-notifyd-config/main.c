@@ -32,8 +32,6 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
-#include <dbus/dbus-glib.h>
-
 #include <xfconf/xfconf.h>
 #include <libxfce4ui/libxfce4ui.h>
 #include <libnotify/notify.h>
