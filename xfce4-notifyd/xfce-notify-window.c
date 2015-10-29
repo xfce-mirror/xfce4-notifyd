@@ -318,9 +318,11 @@ get_max_border_width (GtkStyleContext *context,
     GtkBorder border_width;
     gint border_width_max;
     
+    gtk_style_context_save (context);
     gtk_style_context_get_border (context, 
                                   state, 
                                   &border_width);
+    gtk_style_context_restore (context);
     
     border_width_max = MAX(border_width.left, 
                            MAX(border_width.top, 
@@ -351,11 +353,18 @@ xfce_notify_window_draw_rectangle (XfceNotifyWindow *window,
         state = GTK_STATE_FLAG_PRELIGHT;
 
     context = gtk_widget_get_style_context (widget);
+    /* This is something completely counterintuitive, 
+     * but in Gtk >= 3.18 calling gtk_style_context_get
+     * with a state that is different from the current widget state, causes
+     * the widget to redraw itself. Resulting in a storm of draw callbacks. 
+     * See : https://bugzilla.gnome.org/show_bug.cgi?id=756524 */
+    gtk_style_context_save (context);
     gtk_style_context_get (context,
                            state,
                            "border-radius", &radius,
                            NULL);
-        
+    gtk_style_context_restore (context);
+    
     border_width = get_max_border_width (context, state);
     border_padding = border_width / 2.0;
     
@@ -430,12 +439,14 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
 
     /* Get the style context to get style properties */
     context = gtk_widget_get_style_context (widget);
+    gtk_style_context_save (context);
     gtk_style_context_get (context, 
                            state,
                            "border-color", &border_color,
                            "background-color", &bg_color,
                            NULL);
-
+    gtk_style_context_restore (context);
+    
     /* Draw the background, getting its color from the style context*/
     cairo_set_source_rgba (cr2, 
                            bg_color->red, bg_color->green, bg_color->blue,
