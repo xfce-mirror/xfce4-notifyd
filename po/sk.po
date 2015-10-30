@@ -6,13 +6,14 @@
 # Robert Hartl <hartl.robert@gmail.com>, 2010
 # Slavko <linux@slavino.sk>, 2015
 # Tomáš Vadina <tomasvadina+transifex@cryptolab.net>, 2011
+# Tomáš Vadina <tomasvadina+transifex@cryptolab.net>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2015-10-22 19:09+0000\n"
-"Last-Translator: Slavko <linux@slavino.sk>\n"
+"PO-Revision-Date: 2015-10-30 10:34+0000\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/xfce/xfce-apps/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +80,7 @@ msgstr "Soket správcu nastavení"
 
 #: ../xfce4-notifyd-config/main.c:311
 msgid "SOCKET_ID"
-msgstr "SOCKET_ID"
+msgstr "ID SOKETU"
 
 #: ../xfce4-notifyd-config/main.c:321
 #, c-format
@@ -123,15 +124,15 @@ msgstr "_Náhľad"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Opacity:"
-msgstr "N_epriehľadnosť:"
+msgstr "Priehľadn_osť:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Disappear after:"
-msgstr "_Zmizne po:"
+msgstr "_Skryť po:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Default _position:"
-msgstr "Predvolené _umiestnenie:"
+msgstr "Predvolená _pozícia:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
@@ -139,7 +140,7 @@ msgstr "_Motív"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
-msgstr "sekúnd"
+msgstr "sekundách"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
