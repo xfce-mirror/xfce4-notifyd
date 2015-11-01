@@ -653,12 +653,13 @@ xfce_notify_daemon_get_workarea(GdkScreen *screen,
     g_list_free(windows_list);
 }
 
-
 static void
-xfce_notify_daemon_window_set_pos (XfceNotifyDaemon *xndaemon,
-                                   XfceNotifyWindow *window)
+xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
+                                        GtkAllocation *allocation,
+                                        gpointer user_data)
 {
-    GtkWidget *widget = GTK_WIDGET(window);
+    XfceNotifyDaemon *xndaemon = user_data;
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
     GdkScreen *p_screen = NULL;
     GdkScreen *widget_screen;
     GdkDisplay *display;
@@ -666,16 +667,12 @@ xfce_notify_daemon_window_set_pos (XfceNotifyDaemon *xndaemon,
     GdkDevice *pointer;
     gint x, y, monitor, screen_n, max_width;
     GdkRectangle *geom_tmp, geom, initial, widget_geom;
-    GtkAllocation allocation;
-    GtkRequisition req;
+    
     GList *list;
     gboolean found = FALSE;
 
     DBG("Size allocate called for %d", xndaemon->last_notification_id);
 
-    gtk_widget_get_allocation (widget, &allocation);
-    gtk_widget_get_preferred_size (widget, NULL, &req);
-    
     if(xndaemon->last_notification_id == 2)
         /* First time we place a notification, initialize the arrays needed for
          * that (workarea, notification lists...). */
@@ -716,8 +713,8 @@ xfce_notify_daemon_window_set_pos (XfceNotifyDaemon *xndaemon,
     gtk_window_set_screen(GTK_WINDOW(widget), p_screen);
 
     /* Set initial geometry */
-    initial.width = req.width;
-    initial.height = req.height;
+    initial.width = allocation->width;
+    initial.height = allocation->height;
 
     switch(xndaemon->notify_location) {
         case GTK_CORNER_TOP_LEFT:
@@ -726,15 +723,15 @@ xfce_notify_daemon_window_set_pos (XfceNotifyDaemon *xndaemon,
             break;
         case GTK_CORNER_BOTTOM_LEFT:
             initial.x = geom.x + SPACE;
-            initial.y = geom.y + geom.height - req.height - SPACE;
+            initial.y = geom.y + geom.height - allocation->height - SPACE;
             break;
         case GTK_CORNER_TOP_RIGHT:
-            initial.x = geom.x + geom.width - req.width - SPACE;
+            initial.x = geom.x + geom.width - allocation->width - SPACE;
             initial.y = geom.y + SPACE;
             break;
         case GTK_CORNER_BOTTOM_RIGHT:
-            initial.x = geom.x + geom.width - req.width - SPACE;
-            initial.y = geom.y + geom.height - req.height - SPACE;
+            initial.x = geom.x + geom.width - allocation->width - SPACE;
+            initial.y = geom.y + geom.height - allocation->height - SPACE;
             break;
         default:
             g_warning("Invalid notify location: %d", xndaemon->notify_location);
@@ -893,14 +890,6 @@ xfce_notify_daemon_window_set_pos (XfceNotifyDaemon *xndaemon,
 
 
 static void
-xfce_notify_daemon_window_size_allocate (GtkWidget *widget,
-                                         GtkAllocation *allocation,
-                                         gpointer user_data)
-{
-    xfce_notify_daemon_window_set_pos (XFCE_NOTIFY_DAEMON(user_data), XFCE_NOTIFY_WINDOW(widget));
-}
-
-static void
 xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                               gpointer value,
                                               gpointer data)
@@ -921,7 +910,7 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
     allocation.width = width;
     allocation.height = height;
 
-    xfce_notify_daemon_window_set_pos (xndaemon, window);
+    xfce_notify_daemon_window_size_allocate(GTK_WIDGET(window), &allocation, xndaemon);
 }
 
 
@@ -950,6 +939,14 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
     }
 
     return TRUE;
+}
+
+
+static gboolean
+notify_show_window (gpointer window)
+{
+    gtk_widget_show(GTK_WIDGET(window));
+    return FALSE;
 }
 
 static void
@@ -1104,6 +1101,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
 
         OUT_id = replaces_id;
     } else {
+        GtkStyleContext *context;
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
                                                                         expire_timeout,
@@ -1123,15 +1121,15 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         g_signal_connect(G_OBJECT(window), "closed",
                          G_CALLBACK(xfce_notify_daemon_window_closed),
                          xndaemon);
-        
-        gtk_widget_show (GTK_WIDGET(window));
-        xfce_notify_daemon_window_set_pos (xndaemon, window);
-        
         g_signal_connect(G_OBJECT(window), "size-allocate",
                          G_CALLBACK(xfce_notify_daemon_window_size_allocate),
                          xndaemon);
-                         
+
+        gtk_widget_realize(GTK_WIDGET(window));
+        
         notify_update_theme_for_window (xndaemon, GTK_WIDGET(window), FALSE);
+
+        g_idle_add(notify_show_window, window);
     }
 
     if(!app_icon || !*app_icon) {
@@ -1179,6 +1177,8 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         xfce_notify_window_set_gauge_value(window, value_hint);
     else
         xfce_notify_window_unset_gauge_value(window);
+
+    gtk_widget_realize(GTK_WIDGET(window));
 
     /* Remove close timeout as we display a new notification */
     if(xndaemon->close_timeout)
