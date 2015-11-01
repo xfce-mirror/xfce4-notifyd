@@ -667,17 +667,19 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GdkDevice *pointer;
     gint x, y, monitor, screen_n, max_width;
     GdkRectangle *geom_tmp, geom, initial, widget_geom;
-    
     GList *list;
     gboolean found = FALSE;
+    static gboolean placement_data_initialized = FALSE;
 
     DBG("Size allocate called for %d", xndaemon->last_notification_id);
 
-    if(xndaemon->last_notification_id == 2)
+    if (placement_data_initialized == FALSE) {
         /* First time we place a notification, initialize the arrays needed for
          * that (workarea, notification lists...). */
         xfce_notify_daemon_init_placement_data(xndaemon);
-
+        placement_data_initialized = TRUE;
+    }
+    
     geom_tmp = xfce_notify_window_get_geometry(window);
     if(geom_tmp->width != 0 && geom_tmp->height != 0) {
         /* Notification has already been placed previously. Not sure if that
