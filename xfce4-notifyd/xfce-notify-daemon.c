@@ -1313,39 +1313,43 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
 {
     GError *error = NULL;
     gchar  *file, **files;
+    gboolean css_parsed;
     
     DBG("New theme: %s", theme);
     
-    file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtk.css", NULL);
+    file = g_build_filename(xfce_get_homedir(), ".themes", theme,
+                            "xfce-notify-4.0", "gtk.css", NULL);
     
     xndaemon->is_default_theme = (g_strcmp0("Default", theme) == 0);
-
-    files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
     
-    if (files && files[0])
-    {
-        gboolean css_parsed;
+    if (!g_file_test(file, G_FILE_TEST_EXISTS)) {
         
-        css_parsed = 
-            gtk_css_provider_load_from_path (xndaemon->css_provider, 
-                                             files[0],
-                                             &error);
-        if (!css_parsed)
+        g_free (file);
+        file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtk.css", NULL);
+        files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
+        if (!files || !files[0])
         {
-            g_warning ("Faild to parse css file : %s\n", error->message);
-            g_error_free (error);
+            g_warning ("theme '%s' is not found anywhere is user themes directories", theme);
+            return;
         }
-        else
-            g_tree_foreach (xndaemon->active_notifications,
-                            (GTraverseFunc)notify_update_theme_foreach,
-                            xndaemon);
-            
+        file = g_strdup (files[0]);
         g_strfreev(files);
     }
-    else
+    
+    css_parsed = 
+        gtk_css_provider_load_from_path (xndaemon->css_provider, 
+                                         file,
+                                         &error);
+    if (!css_parsed)
     {
-        g_warning ("theme '%s' is not found anywhere is user themes directories", theme);
+        g_warning ("Faild to parse css file : %s\n", error->message);
+        g_error_free (error);
     }
+    else
+        g_tree_foreach (xndaemon->active_notifications,
+                        (GTraverseFunc)notify_update_theme_foreach,
+                        xndaemon);
+    
     g_free(file);
 }
 
