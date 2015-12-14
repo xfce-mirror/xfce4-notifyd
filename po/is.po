@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Sveinn í Felli <sv1@fellsnet.is>, 2014
 # Sveinn í Felli <sveinki@nett.is>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2013-12-06 09:07+0000\n"
+"PO-Revision-Date: 2015-12-14 12:16+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic (http://www.transifex.com/projects/p/xfce/language/is/)\n"
+"Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-apps/language/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 #: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
 #: ../xfce4-notifyd-config/main.c:258
