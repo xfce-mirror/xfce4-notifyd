@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2016-05-02 14:49+0000\n"
+"PO-Revision-Date: 2016-05-02 19:21+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-apps/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "No s'ha pogut connectar al gestor de bus D-BUS"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:1232
 #, c-format
 msgid "Another notification xndaemon is already running"
-msgstr "Ja hi ha una altre dimoni de notificacions executant-se"
+msgstr "Ja hi ha un altre dimoni de notificacions executant-se"
 
 #: ../xfce4-notifyd-config/main.c:57
 msgid "Notification Preview"
