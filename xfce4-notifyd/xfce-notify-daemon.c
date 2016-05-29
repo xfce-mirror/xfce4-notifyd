@@ -57,10 +57,10 @@ struct _XfceNotifyDaemon
     guint bus_name_id;
     gdouble initial_opacity;
     GtkCornerType notify_location;
-    
+
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
-    
+
     XfconfChannel *settings;
 
     GTree *active_notifications;
@@ -291,7 +291,7 @@ xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
 }
 
 
-static void 
+static void
 xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
                                   const gchar *name,
                                   gpointer user_data)
@@ -299,23 +299,23 @@ xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
     XfceNotifyDaemon *xndaemon;
     GError *error = NULL;
     gboolean exported;
-    
+
 
     xndaemon = XFCE_NOTIFY_DAEMON(user_data);
 
-    exported =  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (xndaemon), 
+    exported =  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (xndaemon),
                                                   connection,
-                                                  "/org/freedesktop/Notifications", 
+                                                  "/org/freedesktop/Notifications",
                                                   &error);
     if (exported)
     {
         /* Connect dbus signals callbacks */
         g_signal_connect (xndaemon, "handle-notify",
                           G_CALLBACK(notify_notify), xndaemon);
-        
+
         g_signal_connect (xndaemon, "handle-get-capabilities",
                           G_CALLBACK(notify_get_capabilities), xndaemon);
-        
+
         g_signal_connect (xndaemon, "handle-get-server-information",
                           G_CALLBACK(notify_get_server_information), xndaemon);
 
@@ -329,8 +329,8 @@ xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
         gtk_main_quit ();
     }
 
-    xndaemon->xfce_iface_skeleton  = xfce_notify_org_xfce_notifyd_skeleton_new();	
-    exported =  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton), 
+    xndaemon->xfce_iface_skeleton  = xfce_notify_org_xfce_notifyd_skeleton_new();
+    exported =  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton),
                                                   connection,
                                                   "/org/freedesktop/Notifications",
                                                   &error);
@@ -354,19 +354,19 @@ xfce_notify_bus_name_lost_cb (GDBusConnection *connection,
     daemon_quit(XFCE_NOTIFY_DAEMON(user_data));
 }
 
-static void xfce_notify_daemon_constructed (GObject *obj) 
+static void xfce_notify_daemon_constructed (GObject *obj)
 {
     XfceNotifyDaemon *self;
 
     self  = XFCE_NOTIFY_DAEMON (obj);
 
     self->bus_name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                        "org.freedesktop.Notifications", 
+                                        "org.freedesktop.Notifications",
                                         G_BUS_NAME_OWNER_FLAGS_REPLACE,
-                                        xfce_notify_bus_name_acquired_cb, 
+                                        xfce_notify_bus_name_acquired_cb,
                                         NULL,
-                                        xfce_notify_bus_name_lost_cb, 
-                                        self, 
+                                        xfce_notify_bus_name_lost_cb,
+                                        self,
                                         NULL);
 }
 
@@ -380,10 +380,10 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
     xndaemon->last_notification_id = 1;
     xndaemon->reserved_rectangles = NULL;
     xndaemon->monitors_workarea = NULL;
-    
+
     /* CSS Styling provider  */
     xndaemon->css_provider = gtk_css_provider_new ();
-    
+
     xndaemon->close_timeout =
         g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
                               xndaemon);
@@ -404,13 +404,13 @@ xfce_notify_daemon_finalize(GObject *obj)
         g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon));
     }
 
-    if (xndaemon->xfce_iface_skeleton && 
+    if (xndaemon->xfce_iface_skeleton &&
         g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton),
                                                  connection))
     {
     g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton));
     }
-    
+
 
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
       gint nscreen, i, j;
@@ -504,7 +504,7 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     }
 
     xfce_notify_gbus_emit_notification_closed (XFCE_NOTIFY_GBUS(xndaemon),
-                                               GPOINTER_TO_UINT(id_p), 
+                                               GPOINTER_TO_UINT(id_p),
                                                (guint)reason);
 }
 
@@ -679,7 +679,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         xfce_notify_daemon_init_placement_data(xndaemon);
         placement_data_initialized = TRUE;
     }
-    
+
     geom_tmp = xfce_notify_window_get_geometry(window);
     if(geom_tmp->width != 0 && geom_tmp->height != 0) {
         /* Notification has already been placed previously. Not sure if that
@@ -701,7 +701,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     device_manager = gdk_display_get_device_manager (display);
     pointer = gdk_device_manager_get_client_pointer (device_manager);
     gdk_device_get_position (pointer, &p_screen, &x, &y);
-    
+
     monitor = gdk_screen_get_monitor_at_point(p_screen, x, y);
     screen_n = gdk_screen_get_number (p_screen);
 
@@ -926,9 +926,9 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
         "actions", "body", "body-hyperlinks", "body-markup", "icon-static",
         "x-canonical-private-icon-only", NULL
     };
-    
+
     xfce_notify_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
-    
+
     if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
         /* No active notifications, reset the close timeout */
         if(xndaemon->close_timeout)
@@ -955,9 +955,9 @@ static void
 add_and_propagate_css_provider (GtkWidget *widget, GtkStyleProvider *provider, guint priority)
 {
     GList *children, *l;
-    
+
     gtk_style_context_add_provider (gtk_widget_get_style_context (widget), provider, priority);
-    
+
     if (GTK_IS_CONTAINER (widget))
     {
         children = gtk_container_get_children(GTK_CONTAINER(widget));
@@ -969,21 +969,21 @@ add_and_propagate_css_provider (GtkWidget *widget, GtkStyleProvider *provider, g
     }
 }
 
-static void 
-notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, gboolean redraw) 
+static void
+notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, gboolean redraw)
 {
-    GtkStyleContext *context; 
-    
+    GtkStyleContext *context;
+
     context = gtk_widget_get_style_context (GTK_WIDGET(window));
-        
+
     if (!xndaemon->is_default_theme)
     {
         if (gtk_style_context_has_class (context, "osd"))
             gtk_style_context_remove_class (context, "osd");
         if (gtk_style_context_has_class (context, "app-notification"))
             gtk_style_context_remove_class (context, "app-notification");
-            
-        add_and_propagate_css_provider (GTK_WIDGET(window), 
+
+        add_and_propagate_css_provider (GTK_WIDGET(window),
                                         GTK_STYLE_PROVIDER(xndaemon->css_provider),
                                         GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
@@ -992,16 +992,16 @@ notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, g
         /* These classes are normally defined in themes */
         if (!gtk_style_context_has_class (context, "osd"))
             gtk_style_context_add_class (context, "osd");
-        
+
         if (!gtk_style_context_has_class (context, "app-notification"))
             gtk_style_context_add_class (context, "app-notification");
-            
+
         /* Contains few style definition, use it as a fallback */
-        add_and_propagate_css_provider (GTK_WIDGET(window), 
+        add_and_propagate_css_provider (GTK_WIDGET(window),
                                         GTK_STYLE_PROVIDER(xndaemon->css_provider),
                                         GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
     }
- 
+
     if (redraw)
     {
         gtk_widget_reset_style (window);
@@ -1014,8 +1014,10 @@ notify_update_theme_foreach (gpointer key, gpointer value, gpointer data)
 {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(data);
     GtkWidget *window = GTK_WIDGET(value);
-    
+
     notify_update_theme_for_window (xndaemon, window, TRUE);
+
+    return FALSE;
 }
 
 static gboolean notify_notify (XfceNotifyGBus *skeleton,
@@ -1033,7 +1035,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     XfceNotifyWindow *window;
     GdkPixbuf *pix;
     GVariant *image_data = NULL;
-    const gchar *desktop_id = NULL;	    
+    const gchar *desktop_id = NULL;
     gint value_hint = 0;
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
@@ -1042,17 +1044,17 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     guint OUT_id;
 
     g_variant_iter_init (&iter, hints);
-    
-    while ((item = g_variant_iter_next_value (&iter))) 
+
+    while ((item = g_variant_iter_next_value (&iter)))
     {
         const char *key;
         GVariant   *value;
-        
+
         g_variant_get (item,
                        "{sv}",
                        &key,
                    	   &value);
-        
+
         if (g_strcmp0 (key, "urgency") == 0)
         {
             if (g_variant_is_of_type (value, G_VARIANT_TYPE_BYTE) &&
@@ -1086,7 +1088,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
             x_canonical = TRUE;
     }
-    
+
     if(expire_timeout == -1)
         expire_timeout = xndaemon->expire_timeout;
 
@@ -1103,7 +1105,6 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
 
         OUT_id = replaces_id;
     } else {
-        GtkStyleContext *context;
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
                                                                         expire_timeout,
@@ -1128,7 +1129,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
                          xndaemon);
 
         gtk_widget_realize(GTK_WIDGET(window));
-        
+
         notify_update_theme_for_window (xndaemon, GTK_WIDGET(window), FALSE);
 
         g_idle_add(notify_show_window, window);
@@ -1174,7 +1175,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     }
 
     xfce_notify_window_set_icon_only(window, x_canonical);
-    
+
     if(value_hint_set)
         xfce_notify_window_set_gauge_value(window, value_hint);
     else
@@ -1203,7 +1204,7 @@ static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
 
     if(window)
         xfce_notify_window_closed(window, XFCE_NOTIFY_CLOSE_REASON_CLIENT);
-    
+
     xfce_notify_gbus_complete_close_notification(skeleton, invocation);
 
     return TRUE;
@@ -1271,11 +1272,11 @@ notify_pixbuf_from_image_data(GVariant *image_data)
     GVariant *pixel_data;
     gsize correct_len;
     guchar *data;
-    
-    if (!g_variant_is_of_type (image_data, G_VARIANT_TYPE ("(iiibiiay)"))) 
+
+    if (!g_variant_is_of_type (image_data, G_VARIANT_TYPE ("(iiibiiay)")))
     {
         g_warning ("Image data is not the correct type");
-        return NULL;   
+        return NULL;
     }
 
     g_variant_get (image_data,
@@ -1295,7 +1296,7 @@ notify_pixbuf_from_image_data(GVariant *image_data)
                    g_variant_get_size (pixel_data), (guint)correct_len);
         return NULL;
     }
-    
+
     data = (guchar *) g_memdup (g_variant_get_data (pixel_data),
                                 g_variant_get_size (pixel_data));
 
@@ -1314,16 +1315,16 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
     GError *error = NULL;
     gchar  *file, **files;
     gboolean css_parsed;
-    
+
     DBG("New theme: %s", theme);
-    
+
     file = g_build_filename(xfce_get_homedir(), ".themes", theme,
                             "xfce-notify-4.0", "gtk.css", NULL);
-    
+
     xndaemon->is_default_theme = (g_strcmp0("Default", theme) == 0);
-    
+
     if (!g_file_test(file, G_FILE_TEST_EXISTS)) {
-        
+
         g_free (file);
         file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtk.css", NULL);
         files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
@@ -1335,9 +1336,9 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
         file = g_strdup (files[0]);
         g_strfreev(files);
     }
-    
-    css_parsed = 
-        gtk_css_provider_load_from_path (xndaemon->css_provider, 
+
+    css_parsed =
+        gtk_css_provider_load_from_path (xndaemon->css_provider,
                                          file,
                                          &error);
     if (!css_parsed)
@@ -1349,7 +1350,7 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
         g_tree_foreach (xndaemon->active_notifications,
                         (GTraverseFunc)notify_update_theme_foreach,
                         xndaemon);
-    
+
     g_free(file);
 }
 
