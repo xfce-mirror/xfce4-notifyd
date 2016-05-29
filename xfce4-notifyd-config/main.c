@@ -359,8 +359,11 @@ main(int argc,
                          G_CALLBACK(gtk_main_quit), NULL);
 
         plug_child = GTK_WIDGET(gtk_builder_get_object(builder, "plug-child"));
+
+        /* In the glade file, plug_child has parent, so remove it first */
+        gtk_container_remove (GTK_CONTAINER(gtk_widget_get_parent(plug_child)), plug_child);
         gtk_container_add (GTK_CONTAINER(plug), plug_child);
-        gtk_widget_show(plug_child);
+        gtk_widget_set_valign (plug_child, GTK_ALIGN_START);
 
         gdk_notify_startup_complete();
         g_object_unref(G_OBJECT(builder));
