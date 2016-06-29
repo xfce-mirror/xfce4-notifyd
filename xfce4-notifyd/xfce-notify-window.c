@@ -229,11 +229,13 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->summary = gtk_label_new(NULL);
     gtk_widget_set_name (window->summary, "summary");
     gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
+    gtk_label_set_xalign (GTK_LABEL(window->summary), 0);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
 
     window->body = gtk_label_new(NULL);
     gtk_widget_set_name (window->body, "body");
     gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
+    gtk_label_set_xalign (GTK_LABEL(window->body), 0);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
 
     window->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
