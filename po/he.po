@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Elishai Eliyahu <e1907@mm.st>, 2016
 # GenghisKhan <genghiskhan@gmx.ca>, 2014
 # GenghisKhan <genghiskhan@gmx.ca>, 2012
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2014
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2016-03-01 15:35+0000\n"
-"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
+"POT-Creation-Date: 2016-06-30 00:31+0200\n"
+"PO-Revision-Date: 2016-06-30 15:17+0000\n"
+"Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-apps/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,78 +21,68 @@ msgstr ""
 "Language: he\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:258
+#: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
+#: ../xfce4-notifyd-config/main.c:257
 msgid "Xfce Notify Daemon"
 msgstr "שדון התראה Xfce"
 
-#: ../xfce4-notifyd/main.c:77
+#: ../xfce4-notifyd/main.c:56
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "אפשרות לא מוכרת \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:86
+#: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
 msgstr "לא ניתן להתחיל שדון התראה"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
-msgid "Failed to set new theme"
-msgstr "הגדרת העיצוב החדש נכשלה"
-
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
+#: ../xfce4-notifyd/xfce-notify-daemon.c:353
 #, c-format
-msgid "Unable to connect to D-Bus session bus"
-msgstr "לא ניתן להתחבר אל אפיק סשן D-Bus"
+msgid "Another notification daemon is running, exiting\n"
+msgstr "תהליך רקע להודעה נוסף פועל, יוצא\n"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
-#, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "התראה אחרת xndaemon כבר מורצת כעת"
-
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:56
 msgid "Notification Preview"
 msgstr "תצוגה מקדימה של ההתראה"
 
-#: ../xfce4-notifyd-config/main.c:58
+#: ../xfce4-notifyd-config/main.c:57
 msgid "This is what notifications will look like"
 msgstr "כך ייראו ההתראות"
 
-#: ../xfce4-notifyd-config/main.c:63
+#: ../xfce4-notifyd-config/main.c:62
 msgid "Button"
 msgstr "כפתור"
 
-#: ../xfce4-notifyd-config/main.c:70
+#: ../xfce4-notifyd-config/main.c:69
 msgid "Notification preview failed"
 msgstr "Notification preview failed"
 
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd-config/main.c:259
 msgid "Settings daemon is unavailable"
 msgstr "Settings daemon is unavailable"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:309
 msgid "Display version information"
 msgstr "Display version information"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:310
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:310
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:321
+#: ../xfce4-notifyd-config/main.c:320
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Type '%s --help' for usage."
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:333
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "משוחרר תחת התנאים של הרישיון הציבורי הכללי של GNU, גרסה 2\n"
 
-#: ../xfce4-notifyd-config/main.c:335
+#: ../xfce4-notifyd-config/main.c:334
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "נא לדווח על בעיות אל %s.\n"
@@ -122,24 +113,24 @@ msgid "_Preview"
 msgstr "ה_צגה"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Opacity:"
-msgstr "_אטימות:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Disappear after:"
-msgstr "הי_עלם כעבור:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "Default _position:"
-msgstr "ת_נוחה שגרתית:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "_Theme:"
 msgstr "_מוטיב:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "Default _position:"
+msgstr "ת_נוחה שגרתית:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "seconds"
 msgstr "שניות"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "_Disappear after:"
+msgstr "הי_עלם כעבור:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "_Opacity:"
+msgstr "_אטימות:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
