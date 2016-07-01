@@ -2,8 +2,15 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.3.90 (13 October 2015):
-   Ported to gdbus and gtk3
+Version 0.3.0 (30 June 2016):
+  Ported to gdbus and Gtk+3
+  Bumped Dependencies (libxfce4ui 4.12, Gtk+3.14)
+  Features:
+    * Better theming capabilities
+
+  Bugs fixed:
+    * The preview button now shows even when the dialog is plugged in
+      the xfce4-settings-manager
 
 Version 0.2.4 (08 May 2013):
 
