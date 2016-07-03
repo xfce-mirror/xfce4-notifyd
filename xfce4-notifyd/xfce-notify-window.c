@@ -769,17 +769,18 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
 
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
-    if(icon_name && *icon_name) {
+    if (icon_name && *icon_name) {
         gint w, h;
         GdkPixbuf *pix;
 
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
 
-        if(g_path_is_absolute(icon_name))
+        if (g_path_is_absolute(icon_name)) {
           pix = gdk_pixbuf_new_from_file_at_size(icon_name, w, h, NULL);
-        else if(g_str_has_prefix (icon_name, "file://")) {
+        }
+        else if (g_str_has_prefix (icon_name, "file://")) {
             filename = g_filename_from_uri(icon_name, NULL, NULL);
-            if(filename)
+            if (filename)
               pix = gdk_pixbuf_new_from_file_at_size(filename, w, h, NULL);
             g_free(filename);
           }
@@ -789,22 +790,21 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
                                            w,
                                            GTK_ICON_LOOKUP_FORCE_SIZE,
                                            NULL);
-
-            if(pix) {
-                gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pix);
-                gtk_widget_show(window->icon_box);
-                g_object_unref(G_OBJECT(pix));
-                icon_set = TRUE;
-            }
+        }
+        if(pix) {
+            gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pix);
+            gtk_widget_show(window->icon_box);
+            g_object_unref(G_OBJECT(pix));
+            icon_set = TRUE;
         }
     }
 
-    if(!icon_set) {
+    if (!icon_set) {
         gtk_image_clear(GTK_IMAGE(window->icon));
         gtk_widget_hide(window->icon_box);
     }
 
-    if(gtk_widget_get_realized(GTK_WIDGET(window)))
+    if (gtk_widget_get_realized(GTK_WIDGET(window)))
         gtk_widget_queue_draw(GTK_WIDGET(window));
 }
 
