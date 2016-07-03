@@ -171,6 +171,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 {
     GdkScreen *screen;
     GtkWidget *tophbox, *vbox;
+    gint screen_width;
     gdouble padding = DEFAULT_PADDING;
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
@@ -202,6 +203,11 @@ xfce_notify_window_init(XfceNotifyWindow *window)
         gtk_widget_set_visual (GTK_WIDGET(window), visual);
     }
 
+    /* Use the screen width to get a maximum width for the notification bubble.
+       This assumes that a character is 10px wide and we want a third of the
+       screen as maximum width. */
+    screen_width = gdk_screen_get_width (screen) / 30;
+
     gtk_widget_style_get(GTK_WIDGET(window),
                          "padding", &padding,
                          NULL);
@@ -228,12 +234,14 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
     window->summary = gtk_label_new(NULL);
     gtk_widget_set_name (window->summary, "summary");
+    gtk_label_set_max_width_chars (GTK_LABEL(window->summary), screen_width);
     gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
     gtk_label_set_xalign (GTK_LABEL(window->summary), 0);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
 
     window->body = gtk_label_new(NULL);
     gtk_widget_set_name (window->body, "body");
+    gtk_label_set_max_width_chars (GTK_LABEL(window->body), screen_width);
     gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
     gtk_label_set_xalign (GTK_LABEL(window->body), 0);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
