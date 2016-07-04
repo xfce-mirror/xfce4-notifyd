@@ -879,6 +879,12 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
             g_source_remove(window->expire_id);
             window->expire_id = 0;
         }
+        if(window->fade_id) {
+            g_source_remove(window->fade_id);
+            window->fade_id = 0;
+        }
+        gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
+
         xfce_notify_window_start_expiration (window);
     }
 }
