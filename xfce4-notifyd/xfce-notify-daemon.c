@@ -663,7 +663,6 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GdkScreen *p_screen = NULL;
     GdkScreen *widget_screen;
     GdkDisplay *display;
-    GdkDeviceManager *device_manager;
     GdkDevice *pointer;
     gint x, y, monitor, screen_n, max_width;
     GdkRectangle *geom_tmp, geom, initial, widget_geom;
@@ -698,8 +697,15 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
      * gdk_display_get_pointer function! Go GTK...*/
     widget_screen = gtk_widget_get_screen (widget);
     display = gdk_screen_get_display (widget_screen);
-    device_manager = gdk_display_get_device_manager (display);
+
+#if GTK_CHECK_VERSION (3, 20, 0)
+    GdkSeat *seat = gdk_display_get_default_seat (gdk_display_get_default());
+    pointer = gdk_seat_get_pointer (seat);
+#else
+    GdkDeviceManager *device_manager = gdk_display_get_device_manager (display);
     pointer = gdk_device_manager_get_client_pointer (device_manager);
+#endif
+
     gdk_device_get_position (pointer, &p_screen, &x, &y);
 
     monitor = gdk_screen_get_monitor_at_point(p_screen, x, y);
@@ -1436,4 +1442,3 @@ xfce_notify_daemon_new_unique(GError **error)
 
     return xndaemon;
 }
-
