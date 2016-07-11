@@ -99,16 +99,20 @@ gtk_update_icon_cache = gtk-update-icon-cache -f -t $(icon_dir)
 icons48dir = $(icon_dir)/48x48/apps
 dist_icons48_DATA = icons/48x48/xfce4-notifyd.png
 
-theme_dir = $(datadir)/themes
+if HAVE_GTK_320
+theme_dir = gtk-3.20
+else
+theme_dir = gtk-3.0
+endif
 
-defaultthemedir = $(theme_dir)/Default/xfce-notify-4.0
-dist_defaulttheme_DATA = themes/Default/gtk.css
+defaultthemedir = $(datadir)/themes/$(theme_dir)/Default/xfce-notify-4.0
+dist_defaulttheme_DATA = themes/$(theme_dir)/Default/gtk.css
 
-smokethemedir = $(theme_dir)/Smoke/xfce-notify-4.0
-dist_smoketheme_DATA = themes/Smoke/gtk.css
+smokethemedir = $(datadir)/themes/$(theme_dir)/Smoke/xfce-notify-4.0
+dist_smoketheme_DATA = themes/$(theme_dir)/Smoke/gtk.css
 
-zomgponiesthemedir = $(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
-dist_zomgponiestheme_DATA = themes/ZOMG-PONIES!/gtk.css
+zomgponiesthemedir = $(datadir)/themes/$(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
+dist_zomgponiestheme_DATA = themes/$(theme_dir)/ZOMG-PONIES!/gtk.css
 
 built_xfce4_notifyd = \
 	xfce4-notifyd/xfce-notify-gbus.c \
