@@ -218,7 +218,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(tophbox);
     gtk_container_add(GTK_CONTAINER(window), tophbox);
 
-    window->icon_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+    window->icon_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_set_border_width(GTK_CONTAINER(window->icon_box), 0);
     gtk_box_pack_start(GTK_BOX(tophbox), window->icon_box, FALSE, TRUE, 0);
 
@@ -715,7 +715,6 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
 
     if(body && *body) {
         gtk_label_set_markup(GTK_LABEL(window->body), body);
-
         gtk_widget_show(window->body);
 
         window->has_body_text = TRUE;
