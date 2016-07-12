@@ -51,7 +51,7 @@ xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	$(LIBX11_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(GIO_UNIX_CFLAGS)
-	
+
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
@@ -105,13 +105,13 @@ else
 theme_dir = gtk-3.0
 endif
 
-defaultthemedir = $(datadir)/themes/$(theme_dir)/Default/xfce-notify-4.0
+defaultthemedir = $(datadir)/themes/Default/xfce-notify-4.0
 dist_defaulttheme_DATA = themes/$(theme_dir)/Default/gtk.css
 
-smokethemedir = $(datadir)/themes/$(theme_dir)/Smoke/xfce-notify-4.0
+smokethemedir = $(datadir)/themes/Smoke/xfce-notify-4.0
 dist_smoketheme_DATA = themes/$(theme_dir)/Smoke/gtk.css
 
-zomgponiesthemedir = $(datadir)/themes/$(theme_dir)/ZOMG-PONIES!/xfce-notify-4.0
+zomgponiesthemedir = $(datadir)/themes/ZOMG-PONIES!/xfce-notify-4.0
 dist_zomgponiestheme_DATA = themes/$(theme_dir)/ZOMG-PONIES!/gtk.css
 
 built_xfce4_notifyd = \
