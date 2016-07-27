@@ -12,7 +12,7 @@ Requirements:
 
 * gtk+ 3.14.0
 * glib-2.0 (gdbus) 2.42
-* libxfce4util 4.10.0
+* libxfce4util 4.12.0
 * libxfce4ui 4.12.0
 * xfconf 4.10
 * libnotify 0.7
@@ -49,12 +49,14 @@ changeable.
 
 Theming:
 
-Xfce4-notifyd uses gtk's standard theming system.  You can create new themes
-by creating a normal gtkrc file.  See the example included themes for details
-of how to reference the various widgets present in a normal notification
-dialog.  You'll want to put your gtkrc file in
-$HOME/.themes/THEMENAME/xfce4-notify-4.0 and then start up the configuration
-dialog to set the theme.  If you think you've come up with a cool theme,
-feel free to send it to me, and I'll be happy to include it in the next
-release.  For themes shipped with xfce4-notifyd, I require all parts of them
-to be redistributable under the terms of a license compatible with the GPLv2.
+Xfce4-notifyd uses Gtk+'s standard theming system. By default it will use the
+"app-notification" or "osd" classes of your Gtk+ theme. If you want to override
+the default notifications style of your theme by referencing the
+"#XfceNotifyWindow" widget name or you can either create a separate standalone
+theme (see the examples provided, e.g. "ZOMG-PONIES!").
+You'll want to put your gtk css file in $HOME/.themes/THEMENAME/xfce4-notify-4.0
+and then start up the configuration dialog to set the theme. If you think
+you've come up with a cool theme, feel free to send it to me, and I'll be happy
+to include it in the next release. For themes shipped with xfce4-notifyd, I
+require all parts of them to be redistributable under the terms of a license
+compatible with the GPLv2.

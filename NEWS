@@ -2,15 +2,26 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.3.0 (30 June 2016):
-  Ported to gdbus and Gtk+3
+Version 0.3.0 (27 July 2016):
+  Ported to gdbus and Gtk+3 by Ali Abdallah
   Bumped Dependencies (libxfce4ui 4.12, Gtk+3.14)
+
   Features:
     * Better theming capabilities
+    * Add a systemd user unit corresponding to the D-Bus session
+      service (Bug #12238)
 
   Bugs fixed:
     * The preview button now shows even when the dialog is plugged in
       the xfce4-settings-manager
+    * On update reset fade as well (Bug #11858)
+
+  Updated translations: Arabic, Asturian, Bulgarian, Catalan, Chinese
+  (China), Chinese (Taiwan), Croatian, Czech, Danish, Dutch (Flemish),
+  English (Australia), Finnish, French, German, Greek, Hebrew, Hungarian,
+  Icelandic, Indonesian, Italian, Japanese, Kazakh, Korean, Lithuanian,
+  Norwegian Bokmål, Polish, Portuguese, Portuguese (Brazilian), Russian,
+  Serbian, Slovak, Slovenian, Spanish, Swedish, Turkish, Ukrainian, Uyghur
 
 Version 0.2.4 (08 May 2013):
 
@@ -25,7 +36,7 @@ Version 0.2.3 (21 April 2013):
   libnotify is now required as a dependency to build a test suite and to
   show improved notification previews.
 
-  Features:
+  Features:o   
     * Add a category to the settings dialog for Xfce4 Settings Manager.
     * Add widget names to summary ("summary") and body ("body") widgets
       to allow easier theming. Remove the redundant / buggy summary-bold
