@@ -230,11 +230,17 @@ xfce_notifyd_config_preview_clicked(GtkButton *button,
     xfce_notifyd_config_show_notification_preview(GTK_WINDOW(dialog));
 }
 
+static void xfce4_notifyd_show_help(GtkButton *button,
+                                    GtkWidget *dialog)
+{
+    xfce_dialog_show_help_with_version(GTK_WINDOW(dialog), "notifyd", "start", NULL, NULL);
+}
+
 static GtkWidget *
 xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 {
     XfconfChannel *channel;
-    GtkWidget *dlg, *btn, *sbtn, *slider, *theme_combo, *position_combo;
+    GtkWidget *dlg, *btn, *sbtn, *slider, *theme_combo, *position_combo, *help_button;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
@@ -293,6 +299,10 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                            G_OBJECT(position_combo), "active");
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
+
+    help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
+    g_signal_connect(G_OBJECT(help_button), "clicked",
+                     G_CALLBACK(xfce4_notifyd_show_help), dlg);
 
     return dlg;
 }
