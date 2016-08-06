@@ -10,3 +10,5 @@ Type=Application
 OnlyShowIn=XFCE;
 Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
 X-XfcePluggable=true
+X-XfceHelpComponent=notifyd
+X-XfceHelpPage=start
