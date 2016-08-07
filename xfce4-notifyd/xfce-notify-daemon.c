@@ -57,6 +57,7 @@ struct _XfceNotifyDaemon
     guint bus_name_id;
     gdouble initial_opacity;
     GtkCornerType notify_location;
+    gboolean do_fadeout;
 
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
@@ -1182,6 +1183,8 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 
+    xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout);
+
     if(value_hint_set)
         xfce_notify_window_set_gauge_value(window, value_hint);
     else
@@ -1387,6 +1390,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->notify_location = G_VALUE_TYPE(value)
                                   ? g_value_get_uint(value)
                                   : GTK_CORNER_TOP_RIGHT;
+    } else if(!strcmp(property, "/do-fadeout")) {
+        xndaemon->do_fadeout = G_VALUE_TYPE(value)
+                               ? g_value_get_boolean(value)
+                               : TRUE;
     }
 }
 
@@ -1417,6 +1424,9 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     xndaemon->notify_location = xfconf_channel_get_uint(xndaemon->settings,
                                                       "/notify-location",
                                                       GTK_CORNER_TOP_RIGHT);
+
+    xndaemon->do_fadeout = xfconf_channel_get_bool(xndaemon->settings,
+                                                "/do-fadeout", TRUE);
 
     g_signal_connect(G_OBJECT(xndaemon->settings), "property-changed",
                      G_CALLBACK(xfce_notify_daemon_settings_changed),

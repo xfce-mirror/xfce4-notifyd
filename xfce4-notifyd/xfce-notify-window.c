@@ -36,6 +36,7 @@
 
 #define DEFAULT_EXPIRE_TIMEOUT 10000
 #define DEFAULT_NORMAL_OPACITY 0.85
+#define DEFAULT_DO_FADEOUT        TRUE
 #define FADE_TIME              800
 #define FADE_CHANGE_TIMEOUT    50
 #define DEFAULT_RADIUS         10
@@ -75,6 +76,7 @@ struct _XfceNotifyWindow
     guint fade_id;
     guint op_change_steps;
     gdouble op_change_delta;
+    gboolean do_fadeout;
 };
 
 typedef struct
@@ -176,6 +178,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
+    window->do_fadeout = DEFAULT_DO_FADEOUT;
 
     gtk_widget_set_name (GTK_WIDGET(window), "XfceNotifyWindow");
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
@@ -491,7 +494,6 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
      * if this is a pixel or two off here and there */
     gtk_widget_input_shape_combine_region(widget, region);
 
-    cairo_surface_destroy (surface);
     cairo_region_destroy (region);
 
     GTK_WIDGET_CLASS (xfce_notify_window_parent_class)->draw (widget, cr);
@@ -569,7 +571,7 @@ xfce_notify_window_expire_timeout(gpointer data)
     fade_transparent =
         gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW(window)));
 
-    if(fade_transparent) {
+    if(fade_transparent && window->do_fadeout) {
         window->fade_id = g_timeout_add(FADE_CHANGE_TIMEOUT,
                                         xfce_notify_window_fade_timeout,
                                         window);
@@ -1079,6 +1081,15 @@ xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window)
         if(window->has_actions)
             gtk_widget_show(window->button_box);
     }
+}
+
+void
+xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
+                               gboolean do_fadeout)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    window->do_fadeout = do_fadeout;
 }
 
 void
