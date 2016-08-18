@@ -1352,7 +1352,7 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
                                          &error);
     if (!css_parsed)
     {
-        g_warning ("Faild to parse css file : %s\n", error->message);
+        g_warning ("Failed to parse css file: %s", error->message);
         g_error_free (error);
     }
     else
