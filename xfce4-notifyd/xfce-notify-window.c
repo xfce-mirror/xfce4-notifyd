@@ -36,7 +36,7 @@
 
 #define DEFAULT_EXPIRE_TIMEOUT 10000
 #define DEFAULT_NORMAL_OPACITY 0.85
-#define DEFAULT_DO_FADEOUT        TRUE
+#define DEFAULT_DO_FADEOUT     TRUE
 #define FADE_TIME              800
 #define FADE_CHANGE_TIMEOUT    50
 #define DEFAULT_RADIUS         10

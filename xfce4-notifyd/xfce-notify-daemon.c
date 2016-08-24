@@ -59,6 +59,7 @@ struct _XfceNotifyDaemon
     GtkCornerType notify_location;
     gboolean do_fadeout;
     gboolean primary_monitor;
+    gboolean do_not_disturb;
 
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
@@ -121,6 +122,11 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
                                 		 GDBusMethodInvocation   *invocation,
                                          XfceNotifyDaemon *xndaemon);
 
+static void notify_update_known_applications (XfconfChannel *channel,
+                                              gchar *app_name);
+
+static gboolean notify_application_is_muted (XfconfChannel *channel,
+                                             gchar *new_app_name);
 
 static gboolean notify_notify (XfceNotifyGBus *skeleton,
                                GDBusMethodInvocation   *invocation,
@@ -1033,23 +1039,91 @@ notify_update_theme_foreach (gpointer key, gpointer value, gpointer data)
     return FALSE;
 }
 
-static gboolean notify_notify (XfceNotifyGBus *skeleton,
-                               GDBusMethodInvocation   *invocation,
-                               const gchar *app_name,
-                               guint replaces_id,
-                               const gchar *app_icon,
-                               const gchar *summary,
-                               const gchar *body,
-                               const gchar **actions,
-                               GVariant *hints,
-                               gint expire_timeout,
-                               XfceNotifyDaemon *xndaemon)
+static void
+notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
+{
+    GPtrArray *known_applications;
+    GValue *val;
+
+    val = g_new0 (GValue, 1);
+    g_value_init (val, G_TYPE_STRING);
+    g_value_take_string (val, new_app_name);
+
+    known_applications = xfconf_channel_get_arrayv (channel, "/applications/known_applications");
+    /* No known applications, initialize the application log */
+    if (known_applications == NULL || known_applications->len < 1) {
+        GPtrArray *array;
+        array = g_ptr_array_sized_new (1);
+        g_ptr_array_add (array, val);
+        if (!xfconf_channel_set_arrayv (channel, "/applications/known_applications", array))
+            g_warning ("Could not initialize the application log: %s", new_app_name);
+        xfconf_array_free (array);
+    }
+    /* Add the new application to the list unless it's already known */
+    else {
+        guint i;
+        gboolean application_is_known = FALSE;
+        /* Check if the application is actually unknown */
+        for (i = 0; i < known_applications->len; i++) {
+            GValue *known_application;
+            known_application = g_ptr_array_index (known_applications, i);
+            if (g_str_match_string (new_app_name, g_value_get_string (known_application), FALSE) == TRUE) {
+                application_is_known = TRUE;
+                break;
+            }
+        }
+        if (application_is_known == FALSE) {
+            g_ptr_array_add (known_applications, val);
+            if (!xfconf_channel_set_arrayv (channel, "/applications/known_applications", known_applications))
+                g_warning ("Could not add a new application to the log: %s", new_app_name);
+        }
+    }
+    xfconf_array_free (known_applications);
+}
+
+static gboolean
+notify_application_is_muted (XfconfChannel *channel, gchar *new_app_name)
+{
+    GPtrArray *muted_applications;
+    guint i;
+
+    muted_applications = xfconf_channel_get_arrayv (channel, "/applications/muted_applications");
+
+    /* Check whether this application should be muted */
+    if (muted_applications != NULL) {
+        for (i = 0; i < muted_applications->len; i++) {
+            GValue *muted_application;
+            muted_application = g_ptr_array_index (muted_applications, i);
+            if (g_str_match_string (new_app_name, g_value_get_string (muted_application), FALSE) == TRUE) {
+                g_warning ("Muted application: %s", new_app_name);
+                return TRUE;
+            }
+        }
+    }
+    g_warning ("Found no match for %s", new_app_name);
+    xfconf_array_free (muted_applications);
+    return FALSE;
+}
+
+static gboolean
+notify_notify (XfceNotifyGBus *skeleton,
+               GDBusMethodInvocation   *invocation,
+               const gchar *app_name,
+               guint replaces_id,
+               const gchar *app_icon,
+               const gchar *summary,
+               const gchar *body,
+               const gchar **actions,
+               GVariant *hints,
+               gint expire_timeout,
+               XfceNotifyDaemon *xndaemon)
 {
     XfceNotifyWindow *window;
     GdkPixbuf *pix = NULL;
     GVariant *image_data = NULL;
     const gchar *image_path = NULL;
     const gchar *desktop_id = NULL;
+    gchar *new_app_name;
     gint value_hint = 0;
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
@@ -1058,6 +1132,9 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     guint OUT_id;
 
     g_variant_iter_init (&iter, hints);
+
+    new_app_name = g_strdup (app_name);
+    notify_update_known_applications (xndaemon->settings, new_app_name);
 
     while ((item = g_variant_iter_next_value (&iter)))
     {
@@ -1112,6 +1189,20 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
 
     if(expire_timeout == -1)
         expire_timeout = xndaemon->expire_timeout;
+
+    /* Only suppress notifications which are not marked as urgent in the "Do not disturb" mode  */
+    if (xndaemon->do_not_disturb == TRUE || notify_application_is_muted (xndaemon->settings, new_app_name) == TRUE)
+    {
+        if(xndaemon->close_timeout)
+            g_source_remove(xndaemon->close_timeout);
+
+        xndaemon->close_timeout = 0;
+
+        xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
+        return TRUE;
+        g_warning ("DND");
+    }
+    g_free (new_app_name);
 
     if(replaces_id
        && (window = g_tree_lookup(xndaemon->active_notifications,
@@ -1418,6 +1509,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->primary_monitor = G_VALUE_TYPE(value)
                                     ? g_value_get_boolean(value)
                                     : TRUE;
+    } else if(!strcmp(property, "/do-not-disturb")) {
+        xndaemon->do_not_disturb = G_VALUE_TYPE(value)
+                                 ? g_value_get_boolean(value)
+                                 : FALSE;
     }
 }
 
@@ -1453,6 +1548,12 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                                 "/do-fadeout", TRUE);
     xndaemon->primary_monitor = xfconf_channel_get_bool(xndaemon->settings,
                                                         "/primary-monitor", FALSE);
+
+    xndaemon->do_not_disturb = xfconf_channel_get_bool(xndaemon->settings,
+                                                       "/do-not-disturb",
+                                                       FALSE);
+    /* Clean up old notifications from the backlog */
+    xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 
     g_signal_connect(G_OBJECT(xndaemon->settings), "property-changed",
                      G_CALLBACK(xfce_notify_daemon_settings_changed),
