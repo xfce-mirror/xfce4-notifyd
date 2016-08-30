@@ -1040,7 +1040,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
                                XfceNotifyDaemon *xndaemon)
 {
     XfceNotifyWindow *window;
-    GdkPixbuf *pix;
+    GdkPixbuf *pix = NULL;
     GVariant *image_data = NULL;
     const gchar *desktop_id = NULL;
     gint value_hint = 0;

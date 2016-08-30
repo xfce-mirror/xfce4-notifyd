@@ -782,7 +782,7 @@ xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
 
     if (icon_name && *icon_name) {
         gint w, h;
-        GdkPixbuf *pix;
+        GdkPixbuf *pix = NULL;
 
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
 
