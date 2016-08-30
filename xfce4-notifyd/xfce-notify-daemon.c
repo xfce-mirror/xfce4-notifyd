@@ -662,9 +662,14 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     XfceNotifyDaemon *xndaemon = user_data;
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
     GdkScreen *p_screen = NULL;
+    GdkDevice *pointer;
+#if GTK_CHECK_VERSION (3, 20, 0)
+    GdkSeat *seat;
+#else
     GdkScreen *widget_screen;
     GdkDisplay *display;
-    GdkDevice *pointer;
+    GdkDeviceManager *device_manager;
+#endif
     gint x, y, monitor, screen_n, max_width;
     GdkRectangle *geom_tmp, geom, initial, widget_geom;
     GList *list;
@@ -694,17 +699,13 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         xndaemon->reserved_rectangles[screen_n][monitor] = old_list;
     }
 
-    /* All these calls are, well to get replace the deprecated
-     * gdk_display_get_pointer function! Go GTK...*/
-    widget_screen = gtk_widget_get_screen (widget);
-    display = gdk_screen_get_display (widget_screen);
-
 #if GTK_CHECK_VERSION (3, 20, 0)
-    GdkSeat *seat = gdk_display_get_default_seat (gdk_display_get_default());
+    seat = gdk_display_get_default_seat (gdk_display_get_default());
     pointer = gdk_seat_get_pointer (seat);
 #else
-    GdkDeviceManager *device_manager = gdk_display_get_device_manager (display);
-    pointer = gdk_device_manager_get_client_pointer (device_manager);
+    widget_screen = gtk_widget_get_screen (widget);
+    display = gdk_screen_get_display (widget_screen);
+    device_manager = gdk_display_get_device_manager (display);
 #endif
 
     gdk_device_get_position (pointer, &p_screen, &x, &y);
