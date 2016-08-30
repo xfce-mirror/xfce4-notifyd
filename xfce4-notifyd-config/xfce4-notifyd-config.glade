@@ -130,7 +130,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="preview_button">
-                        <property name="label" translatable="yes">_Preview</property>
+                        <property name="label" translatable="yes">Show Notification _Preview</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
