@@ -494,6 +494,7 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
      * if this is a pixel or two off here and there */
     gtk_widget_input_shape_combine_region(widget, region);
 
+    cairo_surface_destroy (surface);
     cairo_region_destroy (region);
 
     GTK_WIDGET_CLASS (xfce_notify_window_parent_class)->draw (widget, cr);
