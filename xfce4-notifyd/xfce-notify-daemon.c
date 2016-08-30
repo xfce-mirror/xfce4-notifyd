@@ -1095,6 +1095,8 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         }
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
             x_canonical = TRUE;
+
+        g_variant_unref (item);
     }
 
     if(expire_timeout == -1)
@@ -1150,6 +1152,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
                 xfce_notify_window_set_icon_pixbuf(window, pix);
                 g_object_unref(G_OBJECT(pix));
             }
+            g_variant_unref(image_data);
         } else {
             if(desktop_id) {
                 gchar *resource = g_strdup_printf("applications%c%s.desktop",
