@@ -118,6 +118,14 @@ dist_smoketheme_DATA = themes/$(theme_dir)/Smoke/gtk.css
 zomgponiesthemedir = $(datadir)/themes/ZOMG-PONIES!/xfce-notify-4.0
 dist_zomgponiestheme_DATA = themes/$(theme_dir)/ZOMG-PONIES!/gtk.css
 
+dist_themes = \
+	themes/gtk-3.0/Default/gtk.css \
+	themes/gtk-3.0/Smoke/gtk.css \
+	themes/gtk-3.0/ZOMG-PONIES!/gtk.css \
+	themes/gtk-3.20/Default/gtk.css \
+	themes/gtk-3.20/Smoke/gtk.css \
+	themes/gtk-3.20/ZOMG-PONIES!/gtk.css
+
 built_xfce4_notifyd = \
 	xfce4-notifyd/xfce-notify-gbus.c \
 	xfce4-notifyd/xfce-notify-gbus.h
@@ -154,7 +162,8 @@ dist_noinst_DATA = \
 	$(dist_misc) \
 	$(dist_intltool) \
 	$(dist_service) \
-	$(dist_xfce4_notifyd_config)
+	$(dist_xfce4_notifyd_config) \
+	$(dist_themes)
 
 dist_noinst_SCRIPTS = \
 	$(dist_autogen)
