@@ -38,6 +38,9 @@
 
 #include "xfce4-notifyd-config.ui.h"
 
+#define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"
+#define MUTED_APPLICATIONS_PROP       "/applications/muted_applications"
+
 static void
 xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
                                                const char         *action,
@@ -273,7 +276,7 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
     const gchar *application_name;
     gchar *new_app_name;
 
-    muted_applications = xfconf_channel_get_arrayv (channel, "/applications/muted_applications");
+    muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
     if (muted_applications == NULL)
         muted_applications = g_ptr_array_new ();
 
@@ -302,7 +305,7 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
     else
         g_ptr_array_add (muted_applications, val);
 
-    if (!xfconf_channel_set_arrayv (channel, "/applications/muted_applications", muted_applications))
+    if (!xfconf_channel_set_arrayv (channel, MUTED_APPLICATIONS_PROP, muted_applications))
         g_warning ("Could not add %s to the list of muted applications.", new_app_name);
 
     xfconf_array_free (muted_applications);
@@ -345,6 +348,82 @@ xfce4_notifyd_switch_activated (GtkSwitch *mute_switch,
                                     channel);
 }
 
+static void
+listbox_remove_all (GtkWidget *widget, gpointer user_data)
+{
+    GtkWidget *container = user_data;
+    gtk_container_remove (GTK_CONTAINER (container), widget);
+}
+
+static void
+xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
+                               const gchar *property,
+                               const GValue *value,
+                               gpointer user_data)
+{
+    GtkWidget *known_applications_listbox = user_data;
+    GtkWidget *hbox;
+    GtkWidget *label;
+    GtkWidget *mute_switch;
+    GtkWidget *separator;
+    GtkCallback func = listbox_remove_all;
+    GPtrArray *known_applications;
+    GPtrArray *muted_applications;
+    GValue *known_application;
+    guint i, j;
+
+    known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
+    muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
+
+    /* TODO: Check the old list versus the new one and only add/remove rows
+             as needed instead instead of cleaning up the whole widget */
+    /* Clean up the list and re-fill it */
+    gtk_container_foreach (GTK_CONTAINER (known_applications_listbox), func, known_applications_listbox);
+
+    if (known_applications != NULL) {
+        for (i = 0; i < known_applications->len; i++) {
+            known_application = g_ptr_array_index (known_applications, i);
+            hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+            label = gtk_label_new (g_value_get_string (known_application));
+            gtk_label_set_xalign (GTK_LABEL (label), 0);
+            mute_switch = gtk_switch_new ();
+            gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+            gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
+            gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
+            gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
+            /* Set correct initial value as to whether an application is muted */
+            if (muted_applications != NULL) {
+                for (j = 0; j < muted_applications->len; j++) {
+                    GValue *muted_application;
+                    muted_application = g_ptr_array_index (muted_applications, j);
+                    if (g_str_match_string (g_value_get_string (muted_application), g_value_get_string (known_application), FALSE) == TRUE) {
+                        gtk_switch_set_active (GTK_SWITCH (mute_switch), FALSE);
+                        break;
+                    }
+                    else
+                        continue;
+                }
+            }
+            g_signal_connect (G_OBJECT (mute_switch), "state-set", G_CALLBACK (xfce4_notifyd_switch_activated), channel);
+        }
+    }
+    xfconf_array_free (known_applications);
+    xfconf_array_free (muted_applications);
+    gtk_widget_show_all (known_applications_listbox);
+}
+
+static void
+xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
+                                        gboolean state,
+                                        gpointer user_data)
+{
+    GtkWidget *do_not_disturb_info = user_data;
+
+    gtk_revealer_set_reveal_child (GTK_REVEALER (do_not_disturb_info),
+                                    gtk_switch_get_active (GTK_SWITCH (do_not_disturb_switch)));
+    gtk_switch_set_active (GTK_SWITCH (do_not_disturb_switch), state);
+}
+
 static void xfce4_notifyd_show_help(GtkButton *button,
                                     GtkWidget *dialog)
 {
@@ -363,14 +442,12 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *position_combo;
     GtkWidget *help_button;
     GtkWidget *known_applications_listbox;
-    GtkWidget *no_known_apps_label;
+    GtkWidget *placeholder_label;
     GtkWidget *do_not_disturb_switch;
+    GtkWidget *do_not_disturb_info;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
-    GPtrArray *known_applications;
-    GPtrArray *muted_applications;
-    guint i, j;
 
     gtk_builder_connect_signals(builder, NULL);
 
@@ -427,56 +504,38 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
 
-    do_not_disturb_switch = GTK_WIDGET(gtk_builder_get_object(builder, "do_not_disturb"));
-    xfconf_g_property_bind(channel, "/do-not-disturb", G_TYPE_BOOLEAN,
-                           G_OBJECT(do_not_disturb_switch), "active");
+    do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
+    xfconf_g_property_bind (channel, "/do-not-disturb", G_TYPE_BOOLEAN,
+                            G_OBJECT (do_not_disturb_switch), "active");
+    /* Manually control the revealer for the infobar because of https://bugzilla.gnome.org/show_bug.cgi?id=710888 */
+    do_not_disturb_info = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb_info"));
+    gtk_revealer_set_reveal_child (GTK_REVEALER (do_not_disturb_info),
+                                   gtk_switch_get_active (GTK_SWITCH (do_not_disturb_switch)));
+    g_signal_connect (G_OBJECT (do_not_disturb_switch), "state-set",
+                      G_CALLBACK (xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
 
     known_applications_listbox = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_listbox"));
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
-    /* TODO: Make label nicer (markup)*/
-    /* TODO: Monitor xfconf for changes and update list */
-    no_known_apps_label = gtk_label_new ("Currently there are no known applications that send notifications.\nAs soon as an application sends a notification, it will appear in this list.");
-    gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), no_known_apps_label);
-    /* FIXME: Handle non-existing channel for known apps */
-    known_applications = xfconf_channel_get_arrayv (channel, "/applications/known_applications");
-    muted_applications = xfconf_channel_get_arrayv (channel, "/applications/muted_applications");
-    if (known_applications != NULL) {
-        for (i = 0; i < known_applications->len; i++) {
-            GValue *known_application;
-            GtkWidget *hbox, *label, *mute_switch, *separator;
-            known_application = g_ptr_array_index(known_applications, i);
-            hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-            label = gtk_label_new (g_value_get_string (known_application));
-            gtk_label_set_xalign (GTK_LABEL (label), 0);
-            mute_switch = gtk_switch_new ();
-            gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
-            gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
-            gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
-            gtk_list_box_prepend (GTK_LIST_BOX (known_applications_listbox), hbox);
-            /* Set correct initial value as to whether an application is muted */
-            if (muted_applications != NULL) {
-                for (j = 0; j < muted_applications->len; j++) {
-                    GValue *muted_application;
-                    muted_application = g_ptr_array_index (muted_applications, j);
-                    if (g_str_match_string (g_value_get_string (muted_application), g_value_get_string (known_application), FALSE) == TRUE) {
-                        gtk_switch_set_active (GTK_SWITCH (mute_switch), FALSE);
-                        break;
-                    }
-                    else
-                        continue;
-                }
-            }
-            /* TODO: Connect a callback to the state-set signal of the switch to toggle mute */
-            g_signal_connect (G_OBJECT (mute_switch), "state-set", G_CALLBACK (xfce4_notifyd_switch_activated), channel);
-        }
-    }
-    xfconf_array_free (known_applications);
-    xfconf_array_free (muted_applications);
-    gtk_widget_show (no_known_apps_label);
-    gtk_widget_show_all (known_applications_listbox);
+
+    placeholder_label = gtk_label_new ("");
+    gtk_label_set_markup (GTK_LABEL (placeholder_label),"<b>Currently there are no known applications.</b>\nAs soon as an application sends a notification\nit will appear in this list.");
+    gtk_label_set_justify (GTK_LABEL (placeholder_label), GTK_JUSTIFY_CENTER);
+    gtk_widget_set_sensitive (placeholder_label, FALSE);
+    gtk_widget_set_margin_start (placeholder_label, 24);
+    gtk_widget_set_margin_end (placeholder_label, 24);
+    gtk_widget_set_margin_top (placeholder_label, 24);
+    gtk_widget_set_margin_bottom (placeholder_label, 24);
+
+    /* Initialize the list of known applications */
+    xfce4_notifyd_known_applications_changed (channel, KNOWN_APPLICATIONS_PROP, NULL, known_applications_listbox);
+    gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
+    gtk_widget_show_all (placeholder_label);
     g_signal_connect (G_OBJECT (known_applications_listbox), "row-activated",
                       G_CALLBACK (xfce4_notifyd_row_activated),
                       channel);
+    g_signal_connect (G_OBJECT (channel),
+                      "property-changed::" KNOWN_APPLICATIONS_PROP,
+                      G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
     g_signal_connect(G_OBJECT(help_button), "clicked",

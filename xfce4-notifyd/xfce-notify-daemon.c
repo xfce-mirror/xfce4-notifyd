@@ -1044,13 +1044,16 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
 {
     GPtrArray *known_applications;
     GValue *val;
+    gint index = 0;
+    gint index_before = 0;
+    gint index_after = 0;
 
     val = g_new0 (GValue, 1);
     g_value_init (val, G_TYPE_STRING);
     g_value_take_string (val, new_app_name);
 
     known_applications = xfconf_channel_get_arrayv (channel, "/applications/known_applications");
-    /* No known applications, initialize the application log */
+    /* No known applications, initialize the channel and property */
     if (known_applications == NULL || known_applications->len < 1) {
         GPtrArray *array;
         array = g_ptr_array_sized_new (1);
@@ -1067,13 +1070,18 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
         for (i = 0; i < known_applications->len; i++) {
             GValue *known_application;
             known_application = g_ptr_array_index (known_applications, i);
-            if (g_str_match_string (new_app_name, g_value_get_string (known_application), FALSE) == TRUE) {
+            /* Remember where to put the application in alphabetical order */
+            if (g_ascii_strcasecmp (g_value_get_string (known_application), new_app_name) < 0)
+                index = i + 1;
+            /* Just to be sure that we've found the exact same application don't ignore the case when comparing strings here */
+            else if (g_strcmp0 (new_app_name, g_value_get_string (known_application)) == 0) {
                 application_is_known = TRUE;
                 break;
             }
         }
+        /* Unknown application, add it in alphabetical order */
         if (application_is_known == FALSE) {
-            g_ptr_array_add (known_applications, val);
+            g_ptr_array_insert (known_applications, index, val);
             if (!xfconf_channel_set_arrayv (channel, "/applications/known_applications", known_applications))
                 g_warning ("Could not add a new application to the log: %s", new_app_name);
         }
@@ -1095,12 +1103,11 @@ notify_application_is_muted (XfconfChannel *channel, gchar *new_app_name)
             GValue *muted_application;
             muted_application = g_ptr_array_index (muted_applications, i);
             if (g_str_match_string (new_app_name, g_value_get_string (muted_application), FALSE) == TRUE) {
-                g_warning ("Muted application: %s", new_app_name);
                 return TRUE;
             }
         }
     }
-    g_warning ("Found no match for %s", new_app_name);
+
     xfconf_array_free (muted_applications);
     return FALSE;
 }
@@ -1190,19 +1197,25 @@ notify_notify (XfceNotifyGBus *skeleton,
     if(expire_timeout == -1)
         expire_timeout = xndaemon->expire_timeout;
 
-    /* Only suppress notifications which are not marked as urgent in the "Do not disturb" mode  */
-    if (xndaemon->do_not_disturb == TRUE || notify_application_is_muted (xndaemon->settings, new_app_name) == TRUE)
+    /* Don't show notification bubbles in the "Do not disturb" mode or if the
+       application has been muted by the user. Exceptions are "urgent"
+       notifications which do not expire. */
+    if (expire_timeout != 0)
     {
-        if(xndaemon->close_timeout)
-            g_source_remove(xndaemon->close_timeout);
+        if (xndaemon->do_not_disturb == TRUE ||
+            notify_application_is_muted (xndaemon->settings, new_app_name) == TRUE)
+        {
+            /* Reset the close timeout since we're processing a new notification,
+               even if we're not showing a notification bubble */
+            if(xndaemon->close_timeout)
+                g_source_remove(xndaemon->close_timeout);
 
-        xndaemon->close_timeout = 0;
+            xndaemon->close_timeout = 0;
 
-        xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
-        return TRUE;
-        g_warning ("DND");
+            xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
+            return TRUE;
+        }
     }
-    g_free (new_app_name);
 
     if(replaces_id
        && (window = g_tree_lookup(xndaemon->active_notifications,
