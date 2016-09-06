@@ -112,6 +112,9 @@ endif
 defaultthemedir = $(datadir)/themes/Default/xfce-notify-4.0
 dist_defaulttheme_DATA = themes/$(theme_dir)/Default/gtk.css
 
+retrothemedir = $(datadir)/themes/Retro/xfce-notify-4.0
+dist_retrotheme_DATA = themes/$(theme_dir)/Retro/gtk.css
+
 smokethemedir = $(datadir)/themes/Smoke/xfce-notify-4.0
 dist_smoketheme_DATA = themes/$(theme_dir)/Smoke/gtk.css
 
