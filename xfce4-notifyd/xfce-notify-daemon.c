@@ -47,6 +47,8 @@
 
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
+#define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"
+#define MUTED_APPLICATIONS_PROP       "/applications/muted_applications"
 
 struct _XfceNotifyDaemon
 {
@@ -1052,13 +1054,13 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
     g_value_init (val, G_TYPE_STRING);
     g_value_take_string (val, new_app_name);
 
-    known_applications = xfconf_channel_get_arrayv (channel, "/applications/known_applications");
+    known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     /* No known applications, initialize the channel and property */
     if (known_applications == NULL || known_applications->len < 1) {
         GPtrArray *array;
         array = g_ptr_array_sized_new (1);
         g_ptr_array_add (array, val);
-        if (!xfconf_channel_set_arrayv (channel, "/applications/known_applications", array))
+        if (!xfconf_channel_set_arrayv (channel, KNOWN_APPLICATIONS_PROP, array))
             g_warning ("Could not initialize the application log: %s", new_app_name);
         xfconf_array_free (array);
     }
@@ -1082,7 +1084,7 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
         /* Unknown application, add it in alphabetical order */
         if (application_is_known == FALSE) {
             g_ptr_array_insert (known_applications, index, val);
-            if (!xfconf_channel_set_arrayv (channel, "/applications/known_applications", known_applications))
+            if (!xfconf_channel_set_arrayv (channel, KNOWN_APPLICATIONS_PROP, known_applications))
                 g_warning ("Could not add a new application to the log: %s", new_app_name);
         }
     }
@@ -1095,7 +1097,7 @@ notify_application_is_muted (XfconfChannel *channel, gchar *new_app_name)
     GPtrArray *muted_applications;
     guint i;
 
-    muted_applications = xfconf_channel_get_arrayv (channel, "/applications/muted_applications");
+    muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
 
     /* Check whether this application should be muted */
     if (muted_applications != NULL) {
