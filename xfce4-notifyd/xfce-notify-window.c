@@ -1016,7 +1016,8 @@ xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
 
 void
 xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
-                                   gint value)
+                                   gint value,
+                                   GtkCssProvider *css_provider)
 {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
@@ -1056,6 +1057,9 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
         gtk_widget_set_size_request(window->gauge, width, -1);
         gtk_widget_show(window->gauge);
         gtk_container_add(GTK_CONTAINER(box), window->gauge);
+        gtk_style_context_add_provider (gtk_widget_get_style_context (window->gauge),
+                                        GTK_STYLE_PROVIDER (css_provider),
+                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(window->gauge),

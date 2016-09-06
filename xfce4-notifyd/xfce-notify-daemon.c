@@ -1191,7 +1191,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout);
 
     if(value_hint_set)
-        xfce_notify_window_set_gauge_value(window, value_hint);
+        xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);
     else
         xfce_notify_window_unset_gauge_value(window);
 

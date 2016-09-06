@@ -94,7 +94,8 @@ void xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
                                       gboolean icon_only);
 
 void xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
-                                        gint value);
+                                        gint value,
+                                        GtkCssProvider *css_provider);
 void xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window);
 
 void xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
