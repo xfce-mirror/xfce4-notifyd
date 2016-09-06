@@ -1,3 +1,178 @@
+commit 46b813f1eea4fc0db7b68d1657cabea799157f6c
+Author: Michał Górny <mgorny@gentoo.org>
+Date:   Wed Aug 31 07:01:05 2016 +0200
+
+    Fix including both GTK+ themes in dist (Bug #12737)
+    
+    Signed-off-by: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+
+commit dfb514e1740c924cc5ee28c7b4b2d4bf36d65c25
+Author: ToZ <tony.paulic@gmail.com>
+Date:   Tue Aug 30 14:44:28 2016 +0200
+
+    Unreference gvariants (Bug #12777)
+
+commit 8ca3434fd03a63ac8b626c9d0c036571000217cd
+Author: ToZ <tony.paulic@gmail.com>
+Date:   Tue Aug 30 14:42:51 2016 +0200
+
+    Cleanup Gtk3.20 ifdefs (Bug #12777)
+
+commit 0760b5cf3137d08893acaf8cb47f8ccb2f747a31
+Author: ToZ <tony.paulic@gmail.com>
+Date:   Tue Aug 30 13:30:20 2016 +0200
+
+    Fix uninitialized pixbufs
+
+commit ab314bc51a8f46a16bf0cf1058a04cd624c5be04
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Aug 30 13:28:02 2016 +0200
+
+    Reintroduce memleak fix
+    
+    Was accidentally dropped in commit 0addd8092ca37033bff2e560b5cb6453ca339d7d
+    and originally introduced in commit 26e04bf1d493e3cc6cfa28a4b010d6d74e3176a8
+
+commit 96a3dff460fe33ad764184b12ff9809357985716
+Author: Michael Findlay <translate@cobber-linux.org>
+Date:   Mon Aug 22 06:31:31 2016 +0200
+
+    I18n: Update translation en_AU (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit e630b090f66ca3f61f375fc0b3ff04908d55d04d
+Author: Unit 193 <unit193@ubuntu.com>
+Date:   Wed Aug 17 20:59:29 2016 -0400
+
+    Correct typo in warning message.
+    
+    Signed-off-by: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+
+commit 4a061eb8eb65fd4547a50af19f23085ea200d51b
+Author: Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>
+Date:   Tue Aug 16 00:30:55 2016 +0200
+
+    I18n: Update translation es (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 3638f78b24db59e3fa6edf41ab957d1ffe313451
+Author: Lovro Kudelić <lovro.kudelic@outlook.com>
+Date:   Sat Aug 13 00:30:53 2016 +0200
+
+    I18n: Update translation hr (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 95e7cc2bffd8d36e48969295598cccb2b8140445
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Thu Aug 11 00:25:15 2016 +0200
+
+    Add set_do_fadeout to the header file
+
+commit dbf814e94f9c97c84c200bfcfc722cb4a2eabebe
+Author: Lovro Kudelić <lovro.kudelic@outlook.com>
+Date:   Tue Aug 9 12:31:45 2016 +0200
+
+    I18n: Update translation hr (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 951eb314649ca926432896656ab8cfa7e9cab46f
+Author: Påvel Nicklasson <pavelnicklasson@bahnhof.se>
+Date:   Sun Aug 7 18:31:36 2016 +0200
+
+    I18n: Update translation sv (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 6f564fcd229a1d5a0350525afcc42390c97771a3
+Author: Mingcong Bai <jeffbai@aosc.xyz>
+Date:   Sun Aug 7 12:31:03 2016 +0200
+
+    I18n: Update translation zh_CN (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 0addd8092ca37033bff2e560b5cb6453ca339d7d
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Aug 7 12:29:19 2016 +0200
+
+    Add a hidden option 'do-fadeout' (Bug #11341)
+
+commit 8c13c7a8f7c5d7ea2cacb6586a5bacdb0b8bb3f1
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Aug 7 00:10:21 2016 +0200
+
+    Also show link to help in plugged settings dialog
+
+commit 05f71d274538ae8b8d441d53456693098bd50e6f
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Aug 7 00:03:25 2016 +0200
+
+    Add a help button to the settings dialog and fix subtitle
+
+commit 26e04bf1d493e3cc6cfa28a4b010d6d74e3176a8
+Author: ToZ <tony.paulic@gmail.com>
+Date:   Sat Aug 6 23:25:13 2016 +0200
+
+    Fix a memory leak (Bug #12733)
+
+commit 0c80c15a634b72461eb5147d3417e9b6c3660864
+Author: Seong-ho Cho <darkcircle.0426@gmail.com>
+Date:   Thu Aug 4 18:31:19 2016 +0200
+
+    I18n: Update translation ko (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit b4b7a3dca72e6ad070941e12e866bdf202a5e0a6
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Tue Aug 2 00:31:14 2016 +0200
+
+    I18n: Update translation uk (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 8407f9d8e194cf7171d60cef6ce36b2dae29f55a
+Author: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date:   Fri Jul 29 06:31:16 2016 +0200
+
+    I18n: Update translation ja (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit b9c31f7c5e53b1f08a6f975fceb9476be277b785
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Wed Jul 27 23:08:42 2016 +0200
+
+    Back to development
+
+commit 29bc28e3c52b39f53c7cdcdd4481c572c3f051fd
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Wed Jul 27 23:03:01 2016 +0200
+
+    Updates for release
+
 commit cf683fa5636e276d2f592bcd9bacb4efb04e79f0
 Author: Simon McVittie <simon.mcvittie@collabora.co.uk>
 Date:   Wed Sep 30 14:24:49 2015 +0100

@@ -2,6 +2,23 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.3.1 (06 September 2016):
+  Bugfix release
+
+  Features:
+    * Add a help button which links to the new docs page
+
+  Bugs fixed:
+    * Fix a memory leak (Bug #12733)
+    * Add a hidden option 'do-fadeout' (Bug #11341)
+    * Correct typo in warning message.
+    * Unreference gvariants, Cleanup Gtk3.20 ifdefs, Fix uninitialized
+      pixbufs (Bug #12777)
+    * Fix including both GTK+ themes in dist (Bug #12737)
+
+  Updated translations: Chinese (China), Croatian, English (Australia),
+  Japanese, Korean, Spanish, Swedish, Ukrainian
+
 Version 0.3.0 (27 July 2016):
   Ported to gdbus and Gtk+3 by Ali Abdallah
   Bumped Dependencies (libxfce4ui 4.12, Gtk+3.14)
