@@ -109,6 +109,9 @@ else
 theme_dir = gtk-3.0
 endif
 
+brightthemedir = $(datadir)/themes/Bright/xfce-notify-4.0
+dist_brighttheme_DATA = themes/$(theme_dir)/Bright/gtk.css
+
 defaultthemedir = $(datadir)/themes/Default/xfce-notify-4.0
 dist_defaulttheme_DATA = themes/$(theme_dir)/Default/gtk.css
 

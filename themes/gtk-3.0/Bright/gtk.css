@@ -1,0 +1,53 @@
+#XfceNotifyWindow {
+    background-color: #f2f1f1;
+    border-radius: 10px;
+    border: 1px solid #686868;
+    padding: 20px;
+}
+
+#XfceNotifyWindow:hover {
+    background-color: shade(#f9edbe, 0.98);
+}
+
+#XfceNotifyWindow GtkLabel {
+    color: #686868;
+}
+
+#XfceNotifyWindow GtkLabel#summary {
+    font: Bold;
+}
+
+#XfceNotifyWindow GtkButton {
+    font: Bold;
+    border: 1px solid shade(#686868, 1.15);
+    box-shadow: none;
+    background-image: none;
+    background-color: #f2f1f1;
+    color: #686868;
+}
+
+#XfceNotifyWindow GtkButton:hover {
+    box-shadow: none;
+    background-image: none;
+    background-color: #e4e4e4;
+    color: #686868;
+}
+
+#XfceNotifyWindow GtkProgressBar {
+    min-height: 6px;
+    border-radius: 3px;
+}
+
+#XfceNotifyWindow GtkProgressBar .progressbar {
+    background-image: none;
+    background-color: #f1f1f1;
+}
+
+#XfceNotifyWindow GtkProgressBar .trough {
+    background-image: linear-gradient(to bottom,
+                                      shade(#ddd, 2.85),
+                                      shade(#ddd, 3.25)
+                                      );
+    border: 1px solid shade(#ddd, 1.1);
+    border-radius: 3px;
+}
