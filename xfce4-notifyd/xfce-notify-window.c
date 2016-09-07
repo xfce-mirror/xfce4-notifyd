@@ -772,51 +772,55 @@ xfce_notify_window_get_last_screen(XfceNotifyWindow *window)
 }
 
 void
-xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
-                                 const gchar *icon_name)
+xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
+                                  const gchar *icon_name)
 {
     gboolean icon_set = FALSE;
     gchar *filename;
 
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+    g_return_if_fail (XFCE_IS_NOTIFY_WINDOW (window));
 
     if (icon_name && *icon_name) {
         gint w, h;
         GdkPixbuf *pix = NULL;
 
-        gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
+        gtk_icon_size_lookup (GTK_ICON_SIZE_DIALOG, &w, &h);
 
-        if (g_path_is_absolute(icon_name)) {
-          pix = gdk_pixbuf_new_from_file_at_size(icon_name, w, h, NULL);
+        if (g_path_is_absolute (icon_name)) {
+          pix = gdk_pixbuf_new_from_file_at_size (icon_name, w, h, NULL);
         }
         else if (g_str_has_prefix (icon_name, "file://")) {
-            filename = g_filename_from_uri(icon_name, NULL, NULL);
+            filename = g_filename_from_uri (icon_name, NULL, NULL);
             if (filename)
-              pix = gdk_pixbuf_new_from_file_at_size(filename, w, h, NULL);
-            g_free(filename);
-          }
-        else {
-            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
-                                           icon_name,
-                                           w,
-                                           GTK_ICON_LOOKUP_FORCE_SIZE,
-                                           NULL);
+              pix = gdk_pixbuf_new_from_file_at_size (filename, w, h, NULL);
+            g_free (filename);
         }
-        if(pix) {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pix);
-            gtk_widget_show(window->icon_box);
-            g_object_unref(G_OBJECT(pix));
+        else if (gtk_icon_theme_has_icon (gtk_icon_theme_get_default(), icon_name)) {
+            gtk_image_set_from_icon_name (GTK_IMAGE (window->icon),
+                                          icon_name, GTK_ICON_SIZE_DIALOG);
+            /* As -symbolic icons use GTK_ICON_SIZE_MENU by default, we have to make
+               sure that SIZE_DIALOG (48px) is used */
+            gtk_image_set_pixel_size (GTK_IMAGE (window->icon), w);
+            icon_set = TRUE;
+        }
+        else
+            g_warning ("The icon could not be found: %s", icon_name);
+        if (pix) {
+            gtk_image_set_from_pixbuf (GTK_IMAGE (window->icon), pix);
+            g_object_unref (G_OBJECT (pix));
             icon_set = TRUE;
         }
     }
 
-    if (!icon_set) {
-        gtk_image_clear(GTK_IMAGE(window->icon));
-        gtk_widget_hide(window->icon_box);
+    if (icon_set)
+        gtk_widget_show (window->icon_box);
+    else {
+        gtk_image_clear (GTK_IMAGE (window->icon));
+        gtk_widget_hide (window->icon_box);
     }
 
-    if (gtk_widget_get_realized(GTK_WIDGET(window)))
-        gtk_widget_queue_draw(GTK_WIDGET(window));
+    if (gtk_widget_get_realized (GTK_WIDGET (window)))
+        gtk_widget_queue_draw (GTK_WIDGET (window));
 }
 
 void
