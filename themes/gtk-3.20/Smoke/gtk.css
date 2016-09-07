@@ -12,7 +12,6 @@
 
 #XfceNotifyWindow label {
     color: #ffffff;
-    -GtkWidget-link-color: #a7a7a7;
 }
 
 #XfceNotifyWindow label#summary {
