@@ -21,3 +21,21 @@
     background-image: none;
     background-color : #5e0086;
 }
+
+#XfceNotifyWindow progressbar {
+    border-radius: 3px;
+}
+
+#XfceNotifyWindow progressbar progress {
+    min-height: 16px;
+    background-image: none;
+    background-color: shade(#ffff00, 1.2);
+}
+
+#XfceNotifyWindow progressbar trough {
+    min-height: 16px;
+    background-image: none;
+    background-color: #5e0086;
+    border: 1px solid shade(#5e0086, 0.6);
+    border-radius: 3px;
+}
