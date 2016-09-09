@@ -13,6 +13,10 @@
     -GtkWidget-link-color:#c17800;
 }
 
+#XfceNotifyWindow GtkLabel#summary {
+    font : Bold;
+}
+
 #XfceNotifyWindow GtkButton {
     border-image: none;
     background-image: none;

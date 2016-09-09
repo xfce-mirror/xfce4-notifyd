@@ -10,6 +10,10 @@
     color: #ffff00;
 }
 
+#XfceNotifyWindow label#summary {
+    font: Bold;
+}
+
 #XfceNotifyWindow button {
     border-style: none;
     background-image: none;
