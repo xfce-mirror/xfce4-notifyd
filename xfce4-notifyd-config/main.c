@@ -150,6 +150,7 @@ list_store_add_themes_in_dir(GtkListStore *ls,
     GDir *dir;
     const gchar *file;
     gchar *filename;
+    gchar *old_filename = NULL;
 
     dir = g_dir_open(path, 0, NULL);
     if(!dir)
@@ -162,10 +163,18 @@ list_store_add_themes_in_dir(GtkListStore *ls,
         filename =
             g_build_filename(path, file, "xfce-notify-4.0", "gtk.css", NULL);
 
-        if(g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+        if (g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
             GtkTreeIter iter;
+            if (old_filename != NULL) {
+                if (g_ascii_strcasecmp (old_filename, filename) < 0)
+                    gtk_list_store_append(ls, &iter);
+                else
+                    gtk_list_store_prepend(ls, &iter);
+                g_free (old_filename);
+            }
+            else
+                gtk_list_store_append(ls, &iter);
 
-            gtk_list_store_append(ls, &iter);
             gtk_list_store_set(ls, &iter, 0, file, -1);
             g_hash_table_insert(themes_seen, g_strdup(file),
                                 GUINT_TO_POINTER(1));
@@ -174,8 +183,10 @@ list_store_add_themes_in_dir(GtkListStore *ls,
                 memcpy(current_theme_iter, &iter, sizeof(iter));
         }
 
+        old_filename = g_strdup (filename);
         g_free(filename);
     }
+    g_free (old_filename);
 
     g_dir_close(dir);
 }
