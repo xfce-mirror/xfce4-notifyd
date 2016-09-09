@@ -1,3 +1,109 @@
+commit 7152f48b200ccb515948bf5f3936334916bc2526
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 23:27:10 2016 +0200
+
+    Settings Dialog: Sort the themes alphabetically
+
+commit 70e97e8f09ee4920bc00faeb06f155a7771e2541
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 23:12:43 2016 +0200
+
+    Make the summary bold in ZOMG-PONIES!
+
+commit cd3d7e038cb6b8c084cf13b7a42946b243c402ba
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 23:02:11 2016 +0200
+
+    Add progressbar theming to ZOMG-PONIES!
+
+commit 51b7bf8cafec7f5521b85c19f7d4b96a0b093c45
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 23:00:31 2016 +0200
+
+    Drop superfluous g_warning
+
+commit f145d516c42e09a5fb337f8694bc0f44dd69f029
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 22:51:23 2016 +0200
+
+    Check for better icon fallbacks
+    
+    This is especially nice when e.g. an application requests a symbolic
+    icon and the theme doesn't have one, then we still find and display a
+    fallback.
+
+commit e5ab4edb98cf21f8b260c12d0b0f40a377ac3c23
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 22:05:45 2016 +0200
+
+    Tweaks to the Bright theme
+
+commit 2b1d081061112e2c3ce8dcb7cfd671833e87a61d
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 21:53:09 2016 +0200
+
+    Prepare themes for usage of symbolic icons
+
+commit fd609b6e87a3f68ecd0e6767973bb6b75aa86eb4
+Author: Marcin XD <m4sk1n@o2.pl>
+Date:   Thu Sep 8 18:31:06 2016 +0200
+
+    I18n: Update translation pl (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 73f5f323efd27ccb02a21623a8ccc6bade0bd37d
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Thu Sep 8 00:37:12 2016 +0200
+
+    Small fixes in Default and Smoke themes
+
+commit ef228ea987c165a6880b43fd4b87efd228694156
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Wed Sep 7 23:31:58 2016 +0200
+
+    Add support for symbolic icons
+
+commit 1a9f531b3643431f7f289bfbf2275d3742935a2a
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Wed Sep 7 00:36:44 2016 +0200
+
+    Fix progressbars not being styled correctly
+
+commit 472e6144a5ea7b595340ba4a6f490211f6ddf1c6
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Sep 6 22:52:30 2016 +0200
+
+    Add a new theme: Bright
+
+commit c5ec8e7d04c458b382df6b02271763c56471fc54
+Author: Olivier Duchateau <duchateau.olivierd@gmail.com>
+Date:   Tue Sep 6 19:44:59 2016 +0000
+
+    Fix client pointer with Gtk+ < 3.20 (Bug #12823)
+    
+    Signed-off-by: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+
+commit 0c7ca55610bcc38c9593cd5613a3084795b09f0c
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Sep 6 15:39:32 2016 +0200
+
+    Add a new theme: Retro (old yellow)
+
+commit 04e488e5bf5f0483133f98dcfe2f98465c9a2b0a
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Sep 6 15:32:04 2016 +0200
+
+    Back to development
+
+commit d8010fab2423869c843829e2c91e087d4f23b279
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Sep 6 15:26:46 2016 +0200
+
+    Updates for release
+
 commit 46b813f1eea4fc0db7b68d1657cabea799157f6c
 Author: Michał Górny <mgorny@gentoo.org>
 Date:   Wed Aug 31 07:01:05 2016 +0200

@@ -2,6 +2,21 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.3.2 (06 September 2016):
+  This release fixes a showstopper regression for Gtk<=3.18 users where
+  no notifications would be displayed (Bug #12823).
+
+  Features:
+    * Add support for symbolic icons
+    * Add two new themes: Bright and Retro
+    * Improvements to the existing themes
+
+  Bugs fixed:
+    * Fix client pointer with Gtk+ < 3.20 (Bug #12823)
+    * Sort the themes alphabetically in the Settings Dialog
+
+  Updated translations: Polish
+
 Version 0.3.1 (06 September 2016):
   Bugfix release
 
