@@ -8,8 +8,9 @@
 }
 
 
-#XfceNotifyWindow GtkLabel {
-    font : Comic Sans MS 26;
+#XfceNotifyWindow GtkLabel,
+#XfceNotifyWindow GtkImage {
+    font : Comic Sans MS 22;
     color: #ffff00;
     -GtkWidget-link-color:#c17800;
 }
@@ -27,4 +28,3 @@
     background-image: none;
     background-color : #5e0086;
 }
-

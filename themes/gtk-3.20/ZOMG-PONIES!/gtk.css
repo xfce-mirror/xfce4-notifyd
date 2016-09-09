@@ -4,10 +4,10 @@
     border: 6px solid #ffff00;
 }
 
-#XfceNotifyWindow label {
-    font : Comic Sans MS 26;
+#XfceNotifyWindow label,
+#XfceNotifyWindow image {
+    font : Comic Sans MS 22;
     color: #ffff00;
-    -GtkWidget-link-color:#c17800;
 }
 
 #XfceNotifyWindow button {
@@ -21,4 +21,3 @@
     background-image: none;
     background-color : #5e0086;
 }
-

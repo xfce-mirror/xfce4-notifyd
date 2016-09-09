@@ -9,7 +9,8 @@
     background-color: shade(#f2f1f1, 0.98);
 }
 
-#XfceNotifyWindow label {
+#XfceNotifyWindow label,
+#XfceNotifyWindow image {
     color: #686868;
 }
 

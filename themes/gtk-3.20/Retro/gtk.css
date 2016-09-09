@@ -10,7 +10,8 @@
     border-color: shade(#f9edbe, 0.5);
 }
 
-#XfceNotifyWindow label {
+#XfceNotifyWindow label,
+#XfceNotifyWindow image {
     color: #555555;
 }
 

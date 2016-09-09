@@ -10,7 +10,8 @@
     border-color: shade(#f9edbe, 0.5);
 }
 
-#XfceNotifyWindow GtkLabel {
+#XfceNotifyWindow GtkLabel,
+#XfceNotifyWindow GtkImage {
     color: #555555;
 }
 
