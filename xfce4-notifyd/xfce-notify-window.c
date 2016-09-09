@@ -801,7 +801,7 @@ xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
             gtk_image_set_from_gicon (GTK_IMAGE (window->icon), icon, GTK_ICON_SIZE_DIALOG);
             icon_set = TRUE;
         }
-            g_warning ("The icon could not be found: %s", icon_name);
+
         if (pix) {
             gtk_image_set_from_pixbuf (GTK_IMAGE (window->icon), pix);
             g_object_unref (G_OBJECT (pix));
