@@ -441,6 +441,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *theme_combo;
     GtkWidget *position_combo;
     GtkWidget *help_button;
+    GtkWidget *known_applications_scrolled_window;
     GtkWidget *known_applications_listbox;
     GtkWidget *placeholder_label;
     GtkWidget *do_not_disturb_switch;
@@ -514,7 +515,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     g_signal_connect (G_OBJECT (do_not_disturb_switch), "state-set",
                       G_CALLBACK (xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
 
-    known_applications_listbox = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_listbox"));
+    known_applications_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_scrolled_window"));
+    known_applications_listbox = gtk_list_box_new ();
+    gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
 
     placeholder_label = gtk_label_new ("");
