@@ -52,7 +52,8 @@ GtkWidget *xfce_notify_window_new_with_actions(const gchar *summary,
                                                const gchar *body,
                                                const gchar *icon_name,
                                                gint expire_timeout,
-                                               const gchar **actions);
+                                               const gchar **actions,
+                                               GtkCssProvider *css_provider);
 
 void xfce_notify_window_set_summary(XfceNotifyWindow *window,
                                     const gchar *summary);
@@ -80,7 +81,8 @@ void xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
                                            gint expire_timeout);
 
 void xfce_notify_window_set_actions(XfceNotifyWindow *window,
-                                    const gchar **actions);
+                                    const gchar **actions,
+                                    GtkCssProvider *css_provider);
 
 void xfce_notify_window_set_fade_transparent(XfceNotifyWindow *window,
                                              gboolean fade_transparent);

@@ -656,7 +656,7 @@ elem_to_string(gconstpointer elem_p)
 GtkWidget *
 xfce_notify_window_new(void)
 {
-    return xfce_notify_window_new_with_actions(NULL, NULL, NULL, -1, NULL);
+    return xfce_notify_window_new_with_actions(NULL, NULL, NULL, -1, NULL, NULL);
 }
 
 GtkWidget *
@@ -668,6 +668,7 @@ xfce_notify_window_new_full(const gchar *summary,
     return xfce_notify_window_new_with_actions(summary, body,
                                                icon_name,
                                                expire_timeout,
+                                               NULL,
                                                NULL);
 }
 
@@ -676,7 +677,8 @@ xfce_notify_window_new_with_actions(const gchar *summary,
                                     const gchar *body,
                                     const gchar *icon_name,
                                     gint expire_timeout,
-                                    const gchar **actions)
+                                    const gchar **actions,
+                                    GtkCssProvider *css_provider)
 {
     XfceNotifyWindow *window;
 
@@ -687,7 +689,7 @@ xfce_notify_window_new_with_actions(const gchar *summary,
     xfce_notify_window_set_body(window, body);
     xfce_notify_window_set_icon_name(window, icon_name);
     xfce_notify_window_set_expire_timeout(window, expire_timeout);
-    xfce_notify_window_set_actions(window, actions);
+    xfce_notify_window_set_actions(window, actions, css_provider);
 
     return GTK_WIDGET(window);
 }
@@ -896,7 +898,8 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
 
 void
 xfce_notify_window_set_actions(XfceNotifyWindow *window,
-                               const gchar **actions)
+                               const gchar **actions,
+                               GtkCssProvider *css_provider)
 {
     gint i;
     GList *children, *l;
@@ -943,6 +946,9 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         gtk_label_set_use_markup(GTK_LABEL(lbl), TRUE);
         gtk_widget_show(lbl);
         gtk_container_add(GTK_CONTAINER(btn), lbl);
+        gtk_style_context_add_provider (gtk_widget_get_style_context (btn),
+                                        GTK_STYLE_PROVIDER (css_provider),
+                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         g_free(cur_button_text_escaped);
     }

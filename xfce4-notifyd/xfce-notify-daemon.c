@@ -1110,7 +1110,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         xfce_notify_window_set_icon_name(window, app_icon);
         xfce_notify_window_set_summary(window, summary);
         xfce_notify_window_set_body(window, body);
-        xfce_notify_window_set_actions(window, actions);
+        xfce_notify_window_set_actions(window, actions, xndaemon->css_provider);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
@@ -1119,7 +1119,8 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
                                                                         expire_timeout,
-                                                                        actions));
+                                                                        actions,
+                                                                        xndaemon->css_provider));
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
         OUT_id = xfce_notify_daemon_generate_id(xndaemon);
