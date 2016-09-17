@@ -927,6 +927,13 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
 
         if(!cur_button_text || !cur_action_id || !*cur_action_id)
             break;
+        /* Gnome applications seem to send a "default" action which often has no
+           label or text, because it is intended to be executed when clicking
+           the notification window.
+           See https://developer.gnome.org/notification-spec/
+           As we do not support this for the moment we hide buttons without labels. */
+        if (g_strcmp0 (cur_button_text, "") == 0)
+            continue;
 
         btn = gtk_button_new();
         g_object_set_data_full(G_OBJECT(btn), "--action-id",
