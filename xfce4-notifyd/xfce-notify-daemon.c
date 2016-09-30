@@ -1044,6 +1044,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     XfceNotifyWindow *window;
     GdkPixbuf *pix = NULL;
     GVariant *image_data = NULL;
+    const gchar *image_path = NULL;
     const gchar *desktop_id = NULL;
     gint value_hint = 0;
     gboolean value_hint_set = FALSE;
@@ -1079,6 +1080,11 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
                  (g_strcmp0 (key, "icon-data") == 0))
         {
             image_data = value;
+        }
+        else if ((g_strcmp0 (key, "image-path") == 0) ||
+                 (g_strcmp0 (key, "image_path") == 0))
+        {
+            image_path = g_variant_get_string (value, NULL);
         }
         else if ((g_strcmp0 (key, "desktop_entry") == 0) ||
                  (g_strcmp0 (key, "desktop-entry") == 0))
@@ -1147,15 +1153,19 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         g_idle_add(notify_show_window, window);
     }
 
-    if(!app_icon || !*app_icon) {
-        if(image_data) {
+    if (!app_icon || !*app_icon) {
+        if (image_data) {
             pix = notify_pixbuf_from_image_data(image_data);
             if(pix) {
                 xfce_notify_window_set_icon_pixbuf(window, pix);
                 g_object_unref(G_OBJECT(pix));
             }
             g_variant_unref(image_data);
-        } else {
+        }
+        else if (image_path) {
+            xfce_notify_window_set_icon_name (window, image_path);
+        }
+        else {
             if(desktop_id) {
                 gchar *resource = g_strdup_printf("applications%c%s.desktop",
                                                   G_DIR_SEPARATOR,
