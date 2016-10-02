@@ -1,3 +1,120 @@
+commit e0a0d29aaa5070037ef6f712ccfbd1211f12c823
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 22:34:10 2016 +0200
+
+    Updates for release
+
+commit 2a50894b027badc4f38775d676bd6553611809e3
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 21:57:02 2016 +0200
+
+    Improve icon tests
+
+commit ac5444b7b44da266a806dde48e37c0d050c8b8d3
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 17:03:42 2016 +0200
+
+    Make icon-size of fallback consistent with all other notifications
+
+commit 01d1a5921edfbb3fefb8c69f43b5390ddb7f90bc
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 17:02:17 2016 +0200
+
+    Fix priorities of icon handling according to the fd.o spec
+    
+    This means: image-data > image-path > app_icon
+    For more read here: https://developer.gnome.org/notification-spec/#id2776582
+
+commit 0ea05c64b3d00b848e524d0e616f2ec37683c964
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 16:16:32 2016 +0200
+
+    Fix build problem with icon-tests
+
+commit 57f63fe78fc867031b7962480ad8a10efaad5b7a
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 13:54:24 2016 +0200
+
+    Add tests for notifications with icons
+
+commit 806524033f39bcb8444a5aa7b2a6f9ea323317ed
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 30 22:25:06 2016 +0200
+
+    Support image-path hint of the fd.o spec (Bug #7846)
+
+commit 865fa2d291787886d7c1591bb2fa4753027fcc40
+Author: abuyop <abuyop@gmail.com>
+Date:   Sat Sep 24 18:31:32 2016 +0200
+
+    I18n: Update translation ms (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit b59320b7c37ce44399b6d2fcc0672805b27e9a24
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sat Sep 17 05:48:02 2016 +0200
+
+    Don't show notification buttons without text (Bug #12834)
+
+commit fa449113e758f762cbff94c9af623f18d99ea831
+Author: Anonymous <noreply@xfce.org>
+Date:   Fri Sep 16 18:31:16 2016 +0200
+
+    I18n: Update translation lt (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 47d331198b6d16c076313a2808470d7b904fd6ed
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Sep 12 18:17:14 2016 +0200
+
+    Fix theming for callback button in notifications (Bug #12841)
+
+commit 89be47061d2f7b3cd3ac1623597e4c6ba9dadb97
+Author: Ivica  Kolić <ikoli@yahoo.com>
+Date:   Tue Sep 13 12:31:14 2016 +0200
+
+    I18n: Update translation hr (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 288c5bfa0fee8edd09157539bd6f4641bf3b2da7
+Author: Theppitak Karoonboonyanan <theppitak@gmail.com>
+Date:   Mon Sep 12 12:31:08 2016 +0200
+
+    I18n: Update translation th (100%).
+    
+    27 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit fbff1626ffc6452329137da996b177ff4fd73ec5
+Author: Olivier Duchateau <duchateau.olivierd@gmail.com>
+Date:   Sat Sep 10 06:17:42 2016 +0000
+
+    Fix missing Gtk+ themes path in dist_themes variable (Bug #12831)
+    
+    Signed-off-by: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+
+commit 7f9c8f1700330404ca90da3e3814e12b514dfd56
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sat Sep 10 00:04:07 2016 +0200
+
+    Back to development
+
+commit 6a2e8676e7ed75385ed9163c5243878ff9c08992
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Fri Sep 9 23:31:05 2016 +0200
+
+    Updates for release
+
 commit 7152f48b200ccb515948bf5f3936334916bc2526
 Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
 Date:   Fri Sep 9 23:27:10 2016 +0200

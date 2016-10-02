@@ -2,6 +2,19 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.3.3 (02 October 2016):
+  This is a bugfix release. It also extends the tests to icons.
+
+  Bugs fixed:
+    * Fix missing Gtk+ themes path in dist_themes variable (Bug #12831)
+    * Fix theming for callback button in notifications (Bug #12841)
+    * Don't show notification buttons without text (Bug #12834)
+    * Support image-path hint of the fd.o spec (Bug #7846)
+    * Fix priorities of icon handling according to the fd.o spec
+    * Make icon-size of fallback consistent with all other notifications
+
+  Updated translations: Croatian, Lithuanian, Malay, Thai
+
 Version 0.3.2 (06 September 2016):
   This release fixes a showstopper regression for Gtk<=3.18 users where
   no notifications would be displayed (Bug #12823).
