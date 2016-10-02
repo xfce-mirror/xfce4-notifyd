@@ -10,7 +10,7 @@ m4_define([xfce4_notifyd_version_major], [0])
 m4_define([xfce4_notifyd_version_minor], [3])
 m4_define([xfce4_notifyd_version_micro], [3])
 m4_define([xfce4_notifyd_version_build], [@REVISION@])
-m4_define([xfce4_notifyd_version_tag], [])
+m4_define([xfce4_notifyd_version_tag], [git])
 m4_define([xfce4_notifyd_version], [xfce4_notifyd_version_major().xfce4_notifyd_version_minor().xfce4_notifyd_version_micro()ifelse(xfce4_notifyd_version_tag(), [git], [xfce4_notifyd_version_tag()-xfce4_notifyd_version_build()], [xfce4_notifyd_version_tag()])])
 
 m4_define([notifications_spec_version], [0.9])
