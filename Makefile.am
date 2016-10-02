@@ -294,7 +294,8 @@ dist-hook: ChangeLog
 noinst_PROGRAMS = \
 	tests/test-text \
 	tests/test-positioning \
-	tests/test-actions
+	tests/test-actions \
+	tests/test-icons
 
 tests_cflags = \
 	-I$(top_srcdir) \
@@ -302,6 +303,15 @@ tests_cflags = \
 
 tests_ldadd = \
 	$(LIBNOTIFY_LIBS)
+
+icon_tests_cflags = \
+	-I$(builddir)	\
+	$(GTK3_CFLAGS)  \
+	$(tests_cflags)
+
+icon_tests_ldadd = \
+	$(GTK3_LIBS)   \
+	$(tests_ldadd)
 
 tests_test_actions_SOURCES = tests/test-actions.c
 tests_test_actions_CFLAGS = $(tests_cflags)
@@ -314,3 +324,7 @@ tests_test_positioning_LDADD = $(tests_ldadd)
 tests_test_text_SOURCES = tests/test-text.c
 tests_test_text_CFLAGS = $(tests_cflags)
 tests_test_text_LDADD = $(tests_ldadd)
+
+tests_test_icons_SOURCES = tests/test-icons.c
+tests_test_icons_CFLAGS = $(icon_tests_cflags)
+tests_test_icons_LDADD = $(icon_tests_ldadd)
