@@ -31,9 +31,15 @@
 #endif
 
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <stdlib.h>
 #include <libnotify/notify.h>
 #include <gtk/gtk.h>
+
+#define IMAGE_DATA "applications-internet"
+#define IMAGE_PATH "applications-games"
+#define APP_ICON "applications-graphics"
+#define SYMBOLIC_ICON "audio-volume-medium-symbolic"
 
 static gboolean
 show_notification (NotifyNotification *notification) {
@@ -52,6 +58,7 @@ int main (int argc, char **argv)
 {
     NotifyNotification *notification;
     GdkPixbuf *image_data;
+    gchar test_body[60];
 
     if (!notify_init ("Notification with icon tests"))
     {
@@ -63,27 +70,37 @@ int main (int argc, char **argv)
     gtk_init(&argc, &argv);
 
     image_data = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-                                           "xfce4-notifyd", 48,
+                                           IMAGE_DATA, 48,
                                            GTK_ICON_LOOKUP_GENERIC_FALLBACK, NULL);
 
-    g_print ("%s", "Testing notification with app_icon parameter\n");
+    g_print ("%s\n * %s\n * %s\n * %s\n * %s\n\n",
+             "The following icons are required in your icon-theme for these tests to work:",
+             APP_ICON, IMAGE_DATA, IMAGE_PATH, SYMBOLIC_ICON
+            );
+
+    g_print ("General icon tests:\n");
+
+    g_print ("%s", " * Testing notification with app_icon parameter\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", APP_ICON);
     notification = notify_notification_new ("Test app_icon support",
-                                            "Does it work?",
-                                            "xfce4-notifyd");
+                                            test_body,
+                                            APP_ICON);
     show_notification (notification);
 
-    g_print ("%s", "Testing notification with the image-path hint\n");
+    g_print ("%s", " * Testing notification with the image-path hint\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_PATH);
     notification = notify_notification_new ("Test 'image-path' hint support",
-                                            "Does it work?",
+                                            test_body,
                                             NULL);
     notify_notification_set_hint_string (notification,
                                          "image-path",
-                                         "xfce4-notifyd");
+                                         IMAGE_PATH);
     show_notification (notification);
 
-    g_print ("%s", "Testing notification with the image-data hint\n");
+    g_print ("%s", " * Testing notification with the image-data hint\n\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
     notification = notify_notification_new ("Test 'image-data' and 'image_data' hint support",
-                                            "Does it work?",
+                                            test_body,
                                             NULL);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
@@ -91,49 +108,55 @@ int main (int argc, char **argv)
     /* The priority tests are stll dummies. Need to decide whether to ship our own
        icons for testing or whether to use standard named icons and hope that they're
        installed or available in the currently selected theme and its fallbacks. */
-    g_print ("%s", "Testing priorities with app_icon versus image-path\n");
+    g_print ("Icon priority tests:\n");
+    g_print ("%s", " * Testing priorities with app_icon versus image-path\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_PATH);
     notification = notify_notification_new ("Test priorities: app_icon vs. image-path",
-                                            "image-path should be shown.",
-                                            "xfce4-notifyd");
+                                            test_body,
+                                            APP_ICON);
     notify_notification_set_hint_string (notification,
                                          "image-path",
-                                         "xfce4-notifyd");
+                                         IMAGE_PATH);
     show_notification (notification);
 
-    g_print ("%s", "Testing priorities with app_icon versus image-data\n");
+    g_print ("%s", " * Testing priorities with app_icon versus image-data\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
     notification = notify_notification_new ("Test priorities: app_icon vs. image-data",
-                                            "image-data should be shown.",
-                                            "xfce4-notifyd");
+                                            test_body,
+                                            APP_ICON);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
 
-    g_print ("%s", "Testing priorities with image-path versus image-data\n");
+    g_print ("%s", " * Testing priorities with image-path versus image-data\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
     notification = notify_notification_new ("Test priorities: image-path vs. image-data",
-                                            "image-data should be shown.",
+                                            test_body,
                                             NULL);
     notify_notification_set_hint_string (notification,
                                          "image-path",
-                                         "xfce4-notifyd");
+                                         IMAGE_PATH);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
 
-    g_print ("%s", "Testing priorities with app_icon vs. image-path vs. image-data\n");
+    g_print ("%s", " * Testing priorities with app_icon vs. image-path vs. image-data\n\n");
+    g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
     notification = notify_notification_new ("Test priorities: app_icon vs. image-path vs. image-data",
-                                            "image-data should be shown.",
-                                            "xfce4-notifyd");
+                                            test_body,
+                                            APP_ICON);
     notify_notification_set_hint_string (notification,
                                          "image-path",
-                                         "xfce4-notifyd");
+                                         IMAGE_PATH);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
 
-    g_print ("%s", "Testing support for symbolic icons (partly depends on currently selected theme)\n");
+    g_print ("%s", "Testing support for symbolic icons:\n * This test partly depends on the capabilities of your currently selected notifyd and icon theme.\n");
     notification = notify_notification_new ("Test support for symbolic icons",
                                             "Is it correctly colored?",
-                                            "xfce4-notifyd-symbolic");
+                                            SYMBOLIC_ICON);
     show_notification (notification);
 
-    g_object_unref (image_data);
+    if (image_data)
+        g_object_unref (image_data);
 
     return EXIT_SUCCESS;
 }
