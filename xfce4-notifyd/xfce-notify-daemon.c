@@ -1113,7 +1113,6 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
        && (window = g_tree_lookup(xndaemon->active_notifications,
                                   GUINT_TO_POINTER(replaces_id))))
     {
-        xfce_notify_window_set_icon_name(window, app_icon);
         xfce_notify_window_set_summary(window, summary);
         xfce_notify_window_set_body(window, body);
         xfce_notify_window_set_actions(window, actions, xndaemon->css_provider);
@@ -1153,47 +1152,48 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
         g_idle_add(notify_show_window, window);
     }
 
-    if (!app_icon || !*app_icon) {
-        if (image_data) {
-            pix = notify_pixbuf_from_image_data(image_data);
-            if(pix) {
-                xfce_notify_window_set_icon_pixbuf(window, pix);
-                g_object_unref(G_OBJECT(pix));
-            }
-            g_variant_unref(image_data);
+    if (image_data) {
+        pix = notify_pixbuf_from_image_data(image_data);
+        if(pix) {
+            xfce_notify_window_set_icon_pixbuf(window, pix);
+            g_object_unref(G_OBJECT(pix));
         }
-        else if (image_path) {
-            xfce_notify_window_set_icon_name (window, image_path);
-        }
-        else {
-            if(desktop_id) {
-                gchar *resource = g_strdup_printf("applications%c%s.desktop",
-                                                  G_DIR_SEPARATOR,
-                                                  desktop_id);
-                XfceRc *rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
-                                                     resource, TRUE);
-                if(rcfile) {
-                    if(xfce_rc_has_group(rcfile, "Desktop Entry")) {
-                        const gchar *icon_file;
-                        xfce_rc_set_group(rcfile, "Desktop Entry");
-                        icon_file = xfce_rc_read_entry(rcfile, "Icon", NULL);
-                        if(icon_file) {
-                            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
-                                                           icon_file,
-                                                           32,
-                                                           GTK_ICON_LOOKUP_FORCE_SIZE,
-                                                           NULL);
+        g_variant_unref(image_data);
+    }
+    else if (image_path) {
+        xfce_notify_window_set_icon_name (window, image_path);
+    }
+    else if (app_icon) {
+        xfce_notify_window_set_icon_name(window, app_icon);
+    }
+    else {
+        if(desktop_id) {
+            gchar *resource = g_strdup_printf("applications%c%s.desktop",
+                                              G_DIR_SEPARATOR,
+                                              desktop_id);
+            XfceRc *rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
+                                                 resource, TRUE);
+            if(rcfile) {
+                if(xfce_rc_has_group(rcfile, "Desktop Entry")) {
+                    const gchar *icon_file;
+                    xfce_rc_set_group(rcfile, "Desktop Entry");
+                    icon_file = xfce_rc_read_entry(rcfile, "Icon", NULL);
+                    if(icon_file) {
+                        pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
+                                                       icon_file,
+                                                       32,
+                                                       GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                       NULL);
 
-                            if(pix) {
-                                xfce_notify_window_set_icon_pixbuf(window, pix);
-                                g_object_unref(G_OBJECT(pix));
-                            }
+                        if(pix) {
+                            xfce_notify_window_set_icon_pixbuf(window, pix);
+                            g_object_unref(G_OBJECT(pix));
                         }
                     }
-                    xfce_rc_close(rcfile);
                 }
-                g_free(resource);
+                xfce_rc_close(rcfile);
             }
+            g_free(resource);
         }
     }
 
