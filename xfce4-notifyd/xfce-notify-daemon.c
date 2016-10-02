@@ -1181,7 +1181,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
                     if(icon_file) {
                         pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
                                                        icon_file,
-                                                       32,
+                                                       GTK_ICON_SIZE_DIALOG,
                                                        GTK_ICON_LOOKUP_FORCE_SIZE,
                                                        NULL);
 
