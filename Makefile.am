@@ -305,12 +305,11 @@ tests_ldadd = \
 	$(LIBNOTIFY_LIBS)
 
 icon_tests_cflags = \
-	-I$(builddir)	\
-	$(GTK3_CFLAGS)  \
+	$(common_cflags)  \
 	$(tests_cflags)
 
 icon_tests_ldadd = \
-	$(GTK3_LIBS)   \
+	$(common_ldadd)   \
 	$(tests_ldadd)
 
 tests_test_actions_SOURCES = tests/test-actions.c
