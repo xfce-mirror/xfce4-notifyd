@@ -1167,7 +1167,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
     else if (image_path) {
         xfce_notify_window_set_icon_name (window, image_path);
     }
-    else if (app_icon) {
+    else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
         xfce_notify_window_set_icon_name(window, app_icon);
     }
     else {
@@ -1185,7 +1185,7 @@ static gboolean notify_notify (XfceNotifyGBus *skeleton,
                     if(icon_file) {
                         pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
                                                        icon_file,
-                                                       GTK_ICON_SIZE_DIALOG,
+                                                       48,
                                                        GTK_ICON_LOOKUP_FORCE_SIZE,
                                                        NULL);
 
