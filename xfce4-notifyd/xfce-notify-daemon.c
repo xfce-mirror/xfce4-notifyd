@@ -1142,9 +1142,6 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     g_variant_iter_init (&iter, hints);
 
-    new_app_name = g_strdup (app_name);
-    notify_update_known_applications (xndaemon->settings, new_app_name);
-
     while ((item = g_variant_iter_next_value (&iter)))
     {
         const char *key;
@@ -1195,6 +1192,13 @@ notify_notify (XfceNotifyGBus *skeleton,
 
         g_variant_unref (item);
     }
+
+    if (desktop_id)
+        new_app_name = g_strdup (desktop_id);
+    else
+        new_app_name = g_strdup (app_name);
+
+    notify_update_known_applications (xndaemon->settings, new_app_name);
 
     if(expire_timeout == -1)
         expire_timeout = xndaemon->expire_timeout;
