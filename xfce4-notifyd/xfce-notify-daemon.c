@@ -58,6 +58,7 @@ struct _XfceNotifyDaemon
     gdouble initial_opacity;
     GtkCornerType notify_location;
     gboolean do_fadeout;
+    gboolean primary_monitor;
 
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
@@ -663,10 +664,10 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
     GdkScreen *p_screen = NULL;
     GdkDevice *pointer;
+    GdkScreen *widget_screen;
 #if GTK_CHECK_VERSION (3, 20, 0)
     GdkSeat *seat;
 #else
-    GdkScreen *widget_screen;
     GdkDisplay *display;
     GdkDeviceManager *device_manager;
 #endif
@@ -699,11 +700,11 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         xndaemon->reserved_rectangles[screen_n][monitor] = old_list;
     }
 
+    widget_screen = gtk_widget_get_screen (widget);
 #if GTK_CHECK_VERSION (3, 20, 0)
     seat = gdk_display_get_default_seat (gdk_display_get_default());
     pointer = gdk_seat_get_pointer (seat);
 #else
-    widget_screen = gtk_widget_get_screen (widget);
     display = gdk_screen_get_display (widget_screen);
     device_manager = gdk_display_get_device_manager (display);
     pointer = gdk_device_manager_get_client_pointer (device_manager);
@@ -711,7 +712,10 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 
     gdk_device_get_position (pointer, &p_screen, &x, &y);
 
-    monitor = gdk_screen_get_monitor_at_point(p_screen, x, y);
+    if (xndaemon->primary_monitor == TRUE)
+        monitor = gdk_screen_get_primary_monitor(widget_screen);
+    else
+        monitor = gdk_screen_get_monitor_at_point(p_screen, x, y);
     screen_n = gdk_screen_get_number (p_screen);
 
     DBG("We are on the monitor %i, screen %i", monitor, screen_n);
@@ -1410,6 +1414,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->do_fadeout = G_VALUE_TYPE(value)
                                ? g_value_get_boolean(value)
                                : TRUE;
+    } else if(!strcmp(property, "/primary-monitor")) {
+        xndaemon->primary_monitor = G_VALUE_TYPE(value)
+                                    ? g_value_get_boolean(value)
+                                    : TRUE;
     }
 }
 
@@ -1443,6 +1451,8 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
 
     xndaemon->do_fadeout = xfconf_channel_get_bool(xndaemon->settings,
                                                 "/do-fadeout", TRUE);
+    xndaemon->primary_monitor = xfconf_channel_get_bool(xndaemon->settings,
+                                                        "/primary-monitor", FALSE);
 
     g_signal_connect(G_OBJECT(xndaemon->settings), "property-changed",
                      G_CALLBACK(xfce_notify_daemon_settings_changed),
