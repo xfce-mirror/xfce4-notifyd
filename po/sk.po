@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-30 00:31+0200\n"
-"PO-Revision-Date: 2016-06-30 20:25+0000\n"
+"POT-Creation-Date: 2016-10-04 00:30+0200\n"
+"PO-Revision-Date: 2016-10-04 20:01+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/xfce/xfce-apps/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:468
 msgid "Xfce Notify Daemon"
 msgstr "Démon oznámení v Xfce"
 
@@ -36,54 +36,54 @@ msgstr "Neznáma voľba \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Nemožno spustiť démona oznámení"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:353
+#: ../xfce4-notifyd/xfce-notify-daemon.c:363
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Iný démon oznámení je už spustený. Ukončuje sa.\n"
 
-#: ../xfce4-notifyd-config/main.c:56
+#: ../xfce4-notifyd-config/main.c:59
 msgid "Notification Preview"
 msgstr "Ukážka upozornenia"
 
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:60
 msgid "This is what notifications will look like"
 msgstr "Takto bude vyzerať upozornenie"
 
-#: ../xfce4-notifyd-config/main.c:62
+#: ../xfce4-notifyd-config/main.c:65
 msgid "Button"
 msgstr "Tlačidlo"
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:72
 msgid "Notification preview failed"
 msgstr "Náhľad oznámenia zlyhal"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:470
 msgid "Settings daemon is unavailable"
 msgstr "Nastavenia démona nie sú k dispozícii"
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:559
 msgid "Display version information"
 msgstr "Zobrazí informácie o verzii"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:560
 msgid "Settings manager socket"
 msgstr "Soket správcu nastavení"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:560
 msgid "SOCKET_ID"
 msgstr "ID SOKETU"
 
-#: ../xfce4-notifyd-config/main.c:320
+#: ../xfce4-notifyd-config/main.c:570
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Informácie o použití získate príkazom '%s --help'."
 
-#: ../xfce4-notifyd-config/main.c:333
+#: ../xfce4-notifyd-config/main.c:585
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vydané pod GNU General Public License verzie 2\n"
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:586
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prosím, oznámte nájdené chyby na <%s>.\n"
@@ -110,29 +110,52 @@ msgid "Notifications"
 msgstr "Oznámenia"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "_Náhľad"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Theme:"
-msgstr "_Motív"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "Default _position:"
-msgstr "Predvolená _pozícia:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "seconds"
-msgstr "sekundách"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Disappear after:"
-msgstr "_Skryť po:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
-msgid "_Opacity:"
-msgstr "Priehľadn_osť:"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "Prispôsobiť spôsob upozornenia na obrazovke"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "Show Notification _Preview"
+msgstr "Zobraziť _ukážku upozornenia"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Theme:"
+msgstr "_Motív"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "Default _position:"
+msgstr "Predvolená _pozícia:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "seconds"
+msgstr "sekundách"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "_Disappear after:"
+msgstr "_Skryť po:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Opacity:"
+msgstr "Priehľadn_osť:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Appearance"
+msgstr "Vzhľad"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "Do not disturb"
+msgstr "Nevyrušovať"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "<b>Show notifications for</b>"
+msgstr "<b>Zobraziť upozornenia pre</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+msgid ""
+"<b>Currently no notifications are shown</b>\n"
+"except for messages marked as urgent."
+msgstr "<b>Momentálne nie sú zobrazené žiadne oznámenia,</b>\nokrem správ označených ako dôležité."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "Applications"
+msgstr "Aplikácie"
