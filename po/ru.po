@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-30 00:31+0200\n"
-"PO-Revision-Date: 2016-07-07 16:51+0000\n"
+"POT-Creation-Date: 2016-10-04 00:30+0200\n"
+"PO-Revision-Date: 2016-10-05 09:20+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:468
 msgid "Xfce Notify Daemon"
 msgstr "Сервис оповещений Xfce"
 
@@ -34,54 +34,54 @@ msgstr "Неизвестная настройка \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Не удалось запустить сервис оповещений"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:353
+#: ../xfce4-notifyd/xfce-notify-daemon.c:363
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Другой сервис оповещений уже запущен, выходим\n"
 
-#: ../xfce4-notifyd-config/main.c:56
+#: ../xfce4-notifyd-config/main.c:59
 msgid "Notification Preview"
 msgstr "Просмотр оповещения"
 
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:60
 msgid "This is what notifications will look like"
 msgstr "Так будут выглядеть оповещения"
 
-#: ../xfce4-notifyd-config/main.c:62
+#: ../xfce4-notifyd-config/main.c:65
 msgid "Button"
 msgstr "Кнопка"
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:72
 msgid "Notification preview failed"
 msgstr "Просмотр оповещения не удался"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:470
 msgid "Settings daemon is unavailable"
 msgstr "Сервис настроек недоступен"
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:559
 msgid "Display version information"
 msgstr "Отобразить информацию о версии"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:560
 msgid "Settings manager socket"
 msgstr "Сокет менеджера настроек"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:560
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:320
+#: ../xfce4-notifyd-config/main.c:570
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Введите '%s --help' для получения справки."
 
-#: ../xfce4-notifyd-config/main.c:333
+#: ../xfce4-notifyd-config/main.c:585
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Распространяется на условиях лицензии GNU General Public License версии 2\n"
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:586
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Об ошибках сообщайте на %s.\n"
@@ -108,29 +108,52 @@ msgid "Notifications"
 msgstr "Оповещения"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "_Показать"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Theme:"
-msgstr "_Тема:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "Default _position:"
-msgstr "_Расположение:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "seconds"
-msgstr "секунд(ы)"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Disappear after:"
-msgstr "_Скрывать после:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
-msgid "_Opacity:"
-msgstr "_Непрозрачность:"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "Настройка отображения оповещений на вашем экране"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "Show Notification _Preview"
+msgstr "_Просматривать оповещения"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Theme:"
+msgstr "_Тема:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "Default _position:"
+msgstr "_Расположение:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "seconds"
+msgstr "секунд(ы)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "_Disappear after:"
+msgstr "_Скрывать после:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Opacity:"
+msgstr "_Непрозрачность:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Appearance"
+msgstr "Внешний вид"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "Do not disturb"
+msgstr "Не беспокоить"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "<b>Show notifications for</b>"
+msgstr "<b>Показывать оповещения для</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+msgid ""
+"<b>Currently no notifications are shown</b>\n"
+"except for messages marked as urgent."
+msgstr "<b>Сейчас нет оповещений</b>\nза исключением срочных сообщений."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "Applications"
+msgstr "Приложения"
