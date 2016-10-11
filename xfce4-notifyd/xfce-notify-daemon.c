@@ -43,6 +43,7 @@
 
 #include "xfce-notify-daemon.h"
 #include "xfce-notify-window.h"
+#include "xfce-notify-log.h"
 #include "xfce-notify-marshal.h"
 
 #define SPACE 16
@@ -1217,6 +1218,8 @@ notify_notify (XfceNotifyGBus *skeleton,
                 g_source_remove(xndaemon->close_timeout);
 
             xndaemon->close_timeout = 0;
+
+            xfce_notify_log_insert_line (new_app_name);
 
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
             return TRUE;
