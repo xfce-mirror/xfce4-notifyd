@@ -4,6 +4,7 @@
 # 
 # Translators:
 #  <abel.martin.ruiz@gmail.com>, 2008
+# Manolo Díaz <diaz.manolo@gmail.com>, 2016
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2013-2014
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-04 00:30+0200\n"
-"PO-Revision-Date: 2016-10-04 07:06+0000\n"
+"PO-Revision-Date: 2016-10-12 10:19+0000\n"
 "Last-Translator: Manolo Díaz <diaz.manolo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +58,7 @@ msgstr "No se pudo mostrar una vista previa de la notificación"
 
 #: ../xfce4-notifyd-config/main.c:470
 msgid "Settings daemon is unavailable"
-msgstr "La configuración del servicio no está disponible"
+msgstr "El servicio de configuraciones no está disponible"
 
 #: ../xfce4-notifyd-config/main.c:559
 msgid "Display version information"
