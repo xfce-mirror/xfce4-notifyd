@@ -28,6 +28,8 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 	xfce4-notifyd/xfce-notify-daemon.h \
 	xfce4-notifyd/xfce-notify-enum-types.c \
 	xfce4-notifyd/xfce-notify-enum-types.h \
+	xfce4-notifyd/xfce-notify-log.c \
+	xfce4-notifyd/xfce-notify-log.h \
 	xfce4-notifyd/xfce-notify-marshal.c \
 	xfce4-notifyd/xfce-notify-marshal.h \
 	xfce4-notifyd/xfce-notify-window.c \
@@ -35,6 +37,8 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 
 xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
 	xfce4-notifyd-config/main.c \
+	xfce4-notifyd/xfce-notify-log.c \
+	xfce4-notifyd/xfce-notify-log.h \
 	xfce4-notifyd-config/xfce4-notifyd-config.ui.h
 
 common_cflags = \

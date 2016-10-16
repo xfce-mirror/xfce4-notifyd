@@ -63,6 +63,7 @@ struct _XfceNotifyDaemon
     gboolean do_fadeout;
     gboolean primary_monitor;
     gboolean do_not_disturb;
+    gboolean notification_log;
 
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
@@ -1219,8 +1220,6 @@ notify_notify (XfceNotifyGBus *skeleton,
 
             xndaemon->close_timeout = 0;
 
-            xfce_notify_log_insert_line (new_app_name);
-
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
             return TRUE;
         }
@@ -1281,7 +1280,7 @@ notify_notify (XfceNotifyGBus *skeleton,
         xfce_notify_window_set_icon_name (window, image_path);
     }
     else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
-        xfce_notify_window_set_icon_name(window, app_icon);
+        xfce_notify_window_set_icon_name (window, app_icon);
     }
     else {
         if(desktop_id) {
@@ -1313,6 +1312,14 @@ notify_notify (XfceNotifyGBus *skeleton,
             g_free(resource);
         }
     }
+
+    // for a complete notification we need:
+    // summary, body, app_icon, expire_timeout, actions
+    // TODO: icons need to be handled, app_icon is bad - what shall be done with image_data??
+    if (xndaemon->notification_log == TRUE)
+        xfce_notify_log_insert (summary, body, app_icon, expire_timeout, actions);
+    else
+        g_warning ("log deactivated");
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 
@@ -1535,6 +1542,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->do_not_disturb = G_VALUE_TYPE(value)
                                  ? g_value_get_boolean(value)
                                  : FALSE;
+    } else if(!strcmp(property, "/notification-log")) {
+        xndaemon->notification_log = G_VALUE_TYPE(value)
+                                     ? g_value_get_boolean(value)
+                                     : FALSE;
     }
 }
 
@@ -1568,12 +1579,17 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
 
     xndaemon->do_fadeout = xfconf_channel_get_bool(xndaemon->settings,
                                                 "/do-fadeout", TRUE);
+
     xndaemon->primary_monitor = xfconf_channel_get_bool(xndaemon->settings,
                                                         "/primary-monitor", FALSE);
 
     xndaemon->do_not_disturb = xfconf_channel_get_bool(xndaemon->settings,
                                                        "/do-not-disturb",
                                                        FALSE);
+
+    xndaemon->notification_log = xfconf_channel_get_bool(xndaemon->settings,
+                                                         "/notification-log",
+                                                         FALSE);
     /* Clean up old notifications from the backlog */
     xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 

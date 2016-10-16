@@ -36,6 +36,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <libnotify/notify.h>
 
+#include "xfce4-notifyd/xfce-notify-log.h"
 #include "xfce4-notifyd-config.ui.h"
 
 #define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"
@@ -365,7 +366,6 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GtkWidget *hbox;
     GtkWidget *label;
     GtkWidget *mute_switch;
-    GtkWidget *separator;
     GtkCallback func = listbox_remove_all;
     GPtrArray *known_applications;
     GPtrArray *muted_applications;
@@ -428,6 +428,89 @@ xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
     gtk_switch_set_active (GTK_SWITCH (do_not_disturb_switch), state);
 }
 
+
+static void
+xfce4_notifyd_log_activated (GtkSwitch *log_switch,
+                             gboolean state,
+                             gpointer user_data)
+{
+    GtkWidget *log_tab = user_data;
+
+    if (state == TRUE)
+        gtk_widget_show (log_tab);
+    else
+        gtk_widget_hide (log_tab);
+    gtk_switch_set_active (GTK_SWITCH (log_switch), state);
+}
+
+static void
+xfce4_notifyd_log_populate (GtkWidget *log_listbox)
+{
+    GKeyFile *notify_log;
+    GtkCallback func = listbox_remove_all;
+    gint i;
+
+    gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
+    notify_log = xfce_notify_log_get();
+
+    if (notify_log) {
+        gchar **groups;
+        groups = g_key_file_get_groups (notify_log, NULL);
+
+        /* Do this asynchronously in a separate thread */
+        for (i = 0; groups && groups[i]; i += 1) {
+            GtkWidget *grid, *box;
+            GtkWidget *summary, *body, *app_icon, *expire_timeout;
+            const gchar *group = groups[i];
+            const char *format = "<b>\%s</b>";
+            const char *tooltip_format = "<b>\%s</b>: \%s";
+            char *markup;
+
+            markup = g_markup_printf_escaped (format, g_key_file_get_string (notify_log, group, "summary", NULL));
+            summary = gtk_label_new (NULL);
+            gtk_label_set_markup (GTK_LABEL (summary), markup);
+            gtk_label_set_xalign (GTK_LABEL (summary), 0);
+            g_free (markup);
+            body = gtk_label_new (g_key_file_get_string (notify_log, group, "body", NULL));
+            gtk_label_set_xalign (GTK_LABEL (body), 0);
+            gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
+            app_icon = gtk_image_new_from_icon_name (g_key_file_get_string (notify_log, group, "app_icon", NULL), GTK_ICON_SIZE_LARGE_TOOLBAR);
+            gtk_widget_set_margin_start (app_icon, 3);
+            expire_timeout = gtk_label_new (g_key_file_get_string (notify_log, group, "expire-timeout", NULL));
+            // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
+            grid = gtk_grid_new ();
+            gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+            gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (app_icon), 0, 0 , 1, 2);
+
+            /* Handle icon-only notifications */
+            if (g_strcmp0 (g_key_file_get_string (notify_log, group, "body", NULL), "") == 0) {
+                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
+                gtk_widget_set_tooltip_text (grid, group);
+            }
+            else {
+                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
+                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
+                markup = g_strdup_printf (tooltip_format, group, g_key_file_get_string (notify_log, group, "body", NULL));
+                gtk_widget_set_tooltip_markup (grid, markup);
+                g_free (markup);
+            }
+            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, -1);
+        }
+        g_key_file_free (notify_log);
+    }
+
+    gtk_widget_show_all (log_listbox);
+}
+
+static void xfce_notify_clear_log_button_clicked (GtkButton *button, gpointer user_data) {
+    GtkWidget *log_listbox = user_data;
+    GtkCallback func = listbox_remove_all;
+
+    /* Clear the log file and empty the listbox widget */
+    gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
+    xfce_notify_log_clear();
+}
+
 static void xfce4_notifyd_show_help(GtkButton *button,
                                     GtkWidget *dialog)
 {
@@ -445,14 +528,21 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *theme_combo;
     GtkWidget *position_combo;
     GtkWidget *help_button;
+    GtkWidget *notify_notebook;
     GtkWidget *known_applications_scrolled_window;
     GtkWidget *known_applications_listbox;
     GtkWidget *placeholder_label;
     GtkWidget *do_not_disturb_switch;
     GtkWidget *do_not_disturb_info;
+    GtkWidget *log_switch;
+    GtkWidget *log_tab;
+    GtkWidget *log_scrolled_window;
+    GtkWidget *log_listbox;
+    GtkWidget *clear_log_button;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
+    GKeyFile *notification_log;
 
     gtk_builder_connect_signals(builder, NULL);
 
@@ -543,6 +633,23 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     g_signal_connect (G_OBJECT (channel),
                       "property-changed::" KNOWN_APPLICATIONS_PROP,
                       G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
+
+    notify_notebook = GTK_WIDGET (gtk_builder_get_object (builder, "notify_notebook"));
+    log_tab = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notify_notebook), -1);
+    log_switch = GTK_WIDGET (gtk_builder_get_object (builder, "log_switch"));
+    xfconf_g_property_bind (channel, "/notification-log", G_TYPE_BOOLEAN,
+                            G_OBJECT (log_switch), "active");
+    g_signal_connect (G_OBJECT (log_switch), "state-set",
+                      G_CALLBACK (xfce4_notifyd_log_activated), log_tab);
+    log_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "log_scrolled_window"));
+    log_listbox = gtk_list_box_new ();
+    gtk_container_add (GTK_CONTAINER (log_scrolled_window), log_listbox);
+    gtk_list_box_set_header_func (GTK_LIST_BOX (log_listbox), display_header_func, NULL, NULL);
+    xfce4_notifyd_log_populate (log_listbox);
+
+    clear_log_button = GTK_WIDGET (gtk_builder_get_object (builder, "clear_log_button"));
+    g_signal_connect (G_OBJECT (clear_log_button), "clicked",
+                      G_CALLBACK (xfce_notify_clear_log_button_clicked), log_listbox);
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
     g_signal_connect(G_OBJECT(help_button), "clicked",

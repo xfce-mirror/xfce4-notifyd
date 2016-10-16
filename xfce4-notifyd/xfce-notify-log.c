@@ -35,44 +35,81 @@
 
 #include "xfce-notify-log.h"
 
-gchar **
+GKeyFile *
 xfce_notify_log_get (void)
 {
-    gchar **lines = NULL;
-    gchar *notify_log = NULL;
-    gchar *contents = NULL;
-    gsize length = 0;
+    GKeyFile *notify_log;
+    gchar *notify_log_path = NULL;
 
-    notify_log = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
+    notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
 
-    if (notify_log && g_file_get_contents (notify_log, &contents, &length, NULL))
+    if (notify_log_path)
     {
-        lines = g_strsplit (contents, "\n", -1);
-        g_free (contents);
+        notify_log = g_key_file_new ();
+        if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, NULL) == FALSE)
+            return NULL;
     }
+    else
+        return NULL;
+    g_free (notify_log_path);
 
-    g_free (notify_log);
-
-    return lines;
+    return notify_log;
 }
 
-void xfce_notify_log_insert_line (const gchar *line)
+void xfce_notify_log_insert (const gchar *summary,
+                             const gchar *body,
+                             const gchar *app_icon,
+                             gint expire_timeout,
+                             const gchar **actions)
 {
-    gchar *notify_log = NULL;
+    GKeyFile *notify_log;
+    gchar *notify_log_path;
+    const gchar *timeout;
+    const gchar *group;
+    gchar **groups;
+    gint i;
+    gint j = 0;
+    GDateTime *now;
+    gchar *timestamp;
+    int current_time;
 
-    notify_log = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
-                                              XFCE_NOTIFY_LOG_FILE, TRUE);
+    notify_log_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                   XFCE_NOTIFY_LOG_FILE, TRUE);
 
-    if (notify_log)
+    if (notify_log_path)
     {
-        FILE *f;
-        f = fopen (notify_log, "a");
-        fprintf (f, "%s\n", line);
-        fclose (f);
-        g_free (notify_log);
+        notify_log = g_key_file_new ();
+        if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, NULL) == FALSE)
+        {
+            g_warning ("No file found in cache, creating a new log.");
+        }
+
+        now = g_date_time_new_now_local ();
+        timestamp = g_date_time_format (now, "%F-%T");
+        group = g_strdup_printf ("%s", timestamp);
+
+        g_key_file_set_value (notify_log, group, "summary", summary);
+        g_key_file_set_value (notify_log, group, "body", body);
+        g_key_file_set_value (notify_log, group, "app_icon", app_icon);
+        timeout = g_strdup_printf ("%d", expire_timeout);
+        g_key_file_set_value (notify_log, group, "expire-timeout", timeout);
+        for (i = 0; actions && actions[i]; i += 2) {
+            const gchar *cur_action_id = actions[i];
+            const gchar *cur_button_text = actions[i+1];
+            gchar *action_id_num = g_strdup_printf ("%s-%d", "action-id", j);
+            gchar *action_label_num = g_strdup_printf ("%s-%d", "action-label", j);
+            g_key_file_set_value (notify_log, group, action_id_num, cur_action_id);
+            g_key_file_set_value (notify_log, group, action_label_num, cur_button_text);
+            j++;
+        }
+
+        g_key_file_save_to_file (notify_log, notify_log_path, NULL);
+        g_key_file_free (notify_log);
     }
     else
         g_warning ("Unable to open cache file");
+
+    g_free (notify_log_path);
 }
 
 void xfce_notify_log_clear (void)
