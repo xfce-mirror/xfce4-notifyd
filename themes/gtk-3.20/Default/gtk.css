@@ -7,5 +7,5 @@
 }
 
 #XfceNotifyWindow label#summary {
-    font: Bold;
+    font-weight: Bold;
 }

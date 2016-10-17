@@ -6,12 +6,13 @@
 
 #XfceNotifyWindow label,
 #XfceNotifyWindow image {
-    font : Comic Sans MS 22;
+    font-family: Comic Sans MS;
+    font-size: 22;
     color: #ffff00;
 }
 
 #XfceNotifyWindow label#summary {
-    font: Bold;
+    font-weight: Bold;
 }
 
 #XfceNotifyWindow button {
