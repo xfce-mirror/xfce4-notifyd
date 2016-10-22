@@ -1138,6 +1138,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     gint value_hint = 0;
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
+    gboolean transient = FALSE;
     GVariant *item;
     GVariantIter iter;
     guint OUT_id;
@@ -1189,6 +1190,8 @@ notify_notify (XfceNotifyGBus *skeleton,
                 value_hint_set = TRUE;
             }
         }
+        else if (g_strcmp0 (key, "transient") == 0)
+            transient = TRUE;
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
             x_canonical = TRUE;
 
@@ -1220,8 +1223,8 @@ notify_notify (XfceNotifyGBus *skeleton,
 
             xndaemon->close_timeout = 0;
 
-
-            if (xndaemon->notification_log == TRUE)
+            /* Notifications marked as transient won't be logged */
+            if (xndaemon->notification_log == TRUE && transient == FALSE)
                 xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
 
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
@@ -1320,7 +1323,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     // for a complete notification we need:
     // app_name, summary, body, app_icon, expire_timeout, actions
     // TODO: icons need to be handled, app_icon is bad - what shall be done with image_data??
-    if (xndaemon->notification_log == TRUE)
+    if (xndaemon->notification_log == TRUE && transient == FALSE)
         xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
 
     xfce_notify_window_set_icon_only(window, x_canonical);
