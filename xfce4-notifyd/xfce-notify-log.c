@@ -56,7 +56,8 @@ xfce_notify_log_get (void)
     return notify_log;
 }
 
-void xfce_notify_log_insert (const gchar *summary,
+void xfce_notify_log_insert (const gchar *app_name,
+                             const gchar *summary,
                              const gchar *body,
                              const gchar *app_icon,
                              gint expire_timeout,
@@ -87,6 +88,7 @@ void xfce_notify_log_insert (const gchar *summary,
         timestamp = g_date_time_format (now, "%FT%T");
         group = g_strdup_printf ("%s", timestamp);
 
+        g_key_file_set_value (notify_log, group, "app_name", app_name);
         g_key_file_set_value (notify_log, group, "summary", summary);
         g_key_file_set_value (notify_log, group, "body", body);
         g_key_file_set_value (notify_log, group, "app_icon", app_icon);

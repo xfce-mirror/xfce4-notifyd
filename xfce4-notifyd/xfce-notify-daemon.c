@@ -1222,7 +1222,7 @@ notify_notify (XfceNotifyGBus *skeleton,
 
 
             if (xndaemon->notification_log == TRUE)
-                xfce_notify_log_insert (summary, body, app_icon, expire_timeout, actions);
+                xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
 
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
             return TRUE;
@@ -1318,10 +1318,10 @@ notify_notify (XfceNotifyGBus *skeleton,
     }
 
     // for a complete notification we need:
-    // summary, body, app_icon, expire_timeout, actions
+    // app_name, summary, body, app_icon, expire_timeout, actions
     // TODO: icons need to be handled, app_icon is bad - what shall be done with image_data??
     if (xndaemon->notification_log == TRUE)
-        xfce_notify_log_insert (summary, body, app_icon, expire_timeout, actions);
+        xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 

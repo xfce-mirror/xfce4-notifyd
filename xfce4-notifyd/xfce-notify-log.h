@@ -24,11 +24,12 @@
 #define XFCE_NOTIFY_LOG_FILE "xfce4/notifyd/log"
 
 GKeyFile   *xfce_notify_log_get (void);
-void    xfce_notify_log_insert (const gchar *summary,
-                             const gchar *body,
-                             const gchar *app_icon,
-                             gint expire_timeout,
-                             const gchar **actions);
+void    xfce_notify_log_insert (const gchar *app_name,
+                                const gchar *summary,
+                                const gchar *body,
+                                const gchar *app_icon,
+                                gint expire_timeout,
+                                const gchar **actions);
 void    xfce_notify_log_clear (void);
 
 #endif /* __XFCE_NOTIFY_LOG_H_ */
