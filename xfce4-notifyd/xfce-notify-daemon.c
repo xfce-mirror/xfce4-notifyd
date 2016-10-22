@@ -1220,6 +1220,7 @@ notify_notify (XfceNotifyGBus *skeleton,
 
             xndaemon->close_timeout = 0;
 
+
             if (xndaemon->notification_log == TRUE)
                 xfce_notify_log_insert (summary, body, app_icon, expire_timeout, actions);
 

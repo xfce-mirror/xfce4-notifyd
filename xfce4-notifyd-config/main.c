@@ -310,8 +310,6 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
         g_warning ("Could not add %s to the list of muted applications.", new_app_name);
 
     xfconf_array_free (muted_applications);
-    /* FIXME: why does this cause a segfault? */
-    //g_free (new_app_name);
 }
 
 static void
@@ -449,12 +447,19 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
     GKeyFile *notify_log;
     GtkCallback func = listbox_remove_all;
     gint i;
+    GDateTime *today;
+    gchar *timestamp;
+
+    today = g_date_time_new_now_local ();
+    timestamp = g_date_time_format (today, "%F");
 
     gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
     notify_log = xfce_notify_log_get();
 
     if (notify_log) {
         gchar **groups;
+        gboolean yesterday = FALSE;
+
         groups = g_key_file_get_groups (notify_log, NULL);
 
         /* Do this asynchronously in a separate thread */
@@ -465,6 +470,16 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
             const char *format = "<b>\%s</b>";
             const char *tooltip_format = "<b>\%s</b>: \%s";
             char *markup;
+
+            if (g_str_match_string(timestamp, group, FALSE) == TRUE && yesterday == FALSE) {
+                GtkWidget *header;
+                header = gtk_label_new ("Yesterday and before");
+                gtk_widget_set_sensitive (header, FALSE);
+                gtk_widget_set_margin_top (header, 3);
+                gtk_widget_set_margin_bottom (header, 3);
+                gtk_list_box_insert (GTK_LIST_BOX (log_listbox), header, 0);
+                yesterday = TRUE;
+            }
 
             markup = g_markup_printf_escaped (format, g_key_file_get_string (notify_log, group, "summary", NULL));
             summary = gtk_label_new (NULL);
@@ -494,12 +509,22 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
                 gtk_widget_set_tooltip_markup (grid, markup);
                 g_free (markup);
             }
-            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, -1);
+            /* Only show the first 100 notifications from the log */
+            if (i <= 100)
+                gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
+            else
+                return;
         }
         g_key_file_free (notify_log);
     }
 
     gtk_widget_show_all (log_listbox);
+}
+
+static void
+xfce4_notifyd_log_refresh (GtkButton *button, gpointer user_data) {
+    GtkWidget *log_listbox = user_data;
+    xfce4_notifyd_log_populate (log_listbox);
 }
 
 static void xfce_notify_clear_log_button_clicked (GtkButton *button, gpointer user_data) {
@@ -515,6 +540,21 @@ static void xfce4_notifyd_show_help(GtkButton *button,
                                     GtkWidget *dialog)
 {
     xfce_dialog_show_help_with_version(GTK_WINDOW(dialog), "notifyd", "start", NULL, NULL);
+}
+
+GtkWidget *
+placeholder_label_new (gchar *place_holder_text)
+{
+    GtkWidget *label;
+    label = gtk_label_new ("");
+    gtk_label_set_markup (GTK_LABEL (label), place_holder_text);
+    gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_CENTER);
+    gtk_widget_set_sensitive (label, FALSE);
+    gtk_widget_set_margin_start (label, 24);
+    gtk_widget_set_margin_end (label, 24);
+    gtk_widget_set_margin_top (label, 24);
+    gtk_widget_set_margin_bottom (label, 24);
+    return label;
 }
 
 static GtkWidget *
@@ -539,6 +579,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *log_scrolled_window;
     GtkWidget *log_listbox;
     GtkWidget *clear_log_button;
+    GtkWidget *refresh_log_button;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
@@ -614,15 +655,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
 
-    placeholder_label = gtk_label_new ("");
-    gtk_label_set_markup (GTK_LABEL (placeholder_label),"<b>Currently there are no known applications.</b>\nAs soon as an application sends a notification\nit will appear in this list.");
-    gtk_label_set_justify (GTK_LABEL (placeholder_label), GTK_JUSTIFY_CENTER);
-    gtk_widget_set_sensitive (placeholder_label, FALSE);
-    gtk_widget_set_margin_start (placeholder_label, 24);
-    gtk_widget_set_margin_end (placeholder_label, 24);
-    gtk_widget_set_margin_top (placeholder_label, 24);
-    gtk_widget_set_margin_bottom (placeholder_label, 24);
-
+    placeholder_label = placeholder_label_new ("<big><b>Currently there are no known applications.</b></big>"
+                                                "\nAs soon as an application sends a notification"
+                                                "\nit will appear in this list.");
     /* Initialize the list of known applications */
     xfce4_notifyd_known_applications_changed (channel, KNOWN_APPLICATIONS_PROP, NULL, known_applications_listbox);
     gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
@@ -645,11 +680,18 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     log_listbox = gtk_list_box_new ();
     gtk_container_add (GTK_CONTAINER (log_scrolled_window), log_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (log_listbox), display_header_func, NULL, NULL);
+    placeholder_label = placeholder_label_new ("<big><b>Empty log</b></big>"
+                                               "\nSo far no notifications have been logged.");
+    gtk_list_box_set_placeholder (GTK_LIST_BOX (log_listbox), placeholder_label);
+    gtk_widget_show_all (placeholder_label);
     xfce4_notifyd_log_populate (log_listbox);
 
     clear_log_button = GTK_WIDGET (gtk_builder_get_object (builder, "clear_log_button"));
     g_signal_connect (G_OBJECT (clear_log_button), "clicked",
                       G_CALLBACK (xfce_notify_clear_log_button_clicked), log_listbox);
+    refresh_log_button = GTK_WIDGET (gtk_builder_get_object (builder, "refresh_log_button"));
+    g_signal_connect (G_OBJECT (refresh_log_button), "clicked",
+                      G_CALLBACK (xfce4_notifyd_log_refresh), log_listbox);
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
     g_signal_connect(G_OBJECT(help_button), "clicked",

@@ -71,7 +71,6 @@ void xfce_notify_log_insert (const gchar *summary,
     gint j = 0;
     GDateTime *now;
     gchar *timestamp;
-    int current_time;
 
     notify_log_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                    XFCE_NOTIFY_LOG_FILE, TRUE);
@@ -85,7 +84,7 @@ void xfce_notify_log_insert (const gchar *summary,
         }
 
         now = g_date_time_new_now_local ();
-        timestamp = g_date_time_format (now, "%F-%T");
+        timestamp = g_date_time_format (now, "%FT%T");
         group = g_strdup_printf ("%s", timestamp);
 
         g_key_file_set_value (notify_log, group, "summary", summary);
