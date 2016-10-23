@@ -469,8 +469,19 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
             const gchar *group = groups[i];
             const char *format = "<b>\%s</b>";
             const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
+            const char *tooltip_format_simple = "<b>\%s</b> - \%s";
             char *markup;
             gchar *app_name;
+            gchar *tooltip_timestamp;
+            GTimeVal tv;
+            GDateTime *log_timestamp;
+
+            if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
+                if (log_timestamp = g_date_time_new_from_timeval_local (&tv)) {
+                    tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
+                    g_date_time_unref(log_timestamp);
+                }
+            }
 
             if (g_str_match_string(timestamp, group, FALSE) == TRUE && yesterday == FALSE) {
                 GtkWidget *header;
@@ -503,18 +514,21 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
             /* Handle icon-only notifications */
             if (g_strcmp0 (g_key_file_get_string (notify_log, group, "body", NULL), "") == 0) {
                 gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
+                markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
             }
             else {
                 gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
                 gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
+                markup = g_strdup_printf (tooltip_format, app_name, tooltip_timestamp, g_key_file_get_string (notify_log, group, "body", NULL));
             }
-            markup = g_strdup_printf (tooltip_format, app_name, group, g_key_file_get_string (notify_log, group, "body", NULL));
+
             gtk_widget_set_tooltip_markup (grid, markup);
             g_free (markup);
             /* Only show the first 100 notifications from the log */
             if (i <= 100)
                 gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
             else
+            /* TODO: Show a warning in the UI that only the first 100 are shown */
                 return;
         }
         g_key_file_free (notify_log);
