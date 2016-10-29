@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-04 00:30+0200\n"
-"PO-Revision-Date: 2016-10-05 09:20+0000\n"
+"PO-Revision-Date: 2016-10-29 14:11+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr "Настройка отображения оповещений на ва
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "Show Notification _Preview"
-msgstr "_Просматривать оповещения"
+msgstr "_Показать пример оповещения"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "_Theme:"
