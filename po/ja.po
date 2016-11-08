@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-30 00:31+0200\n"
-"PO-Revision-Date: 2016-07-29 00:17+0000\n"
+"POT-Creation-Date: 2016-10-04 00:30+0200\n"
+"PO-Revision-Date: 2016-11-08 07:00+0000\n"
 "Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-apps/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:468
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 通知デーモン"
 
@@ -32,54 +32,54 @@ msgstr "不明なオプション \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "通知デーモンを開始できません"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:353
+#: ../xfce4-notifyd/xfce-notify-daemon.c:363
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "他の通知デーモンが起動しているため、終了します。\n"
 
-#: ../xfce4-notifyd-config/main.c:56
+#: ../xfce4-notifyd-config/main.c:59
 msgid "Notification Preview"
 msgstr "通知プレビュー"
 
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:60
 msgid "This is what notifications will look like"
 msgstr "通知はこのように表示されます。"
 
-#: ../xfce4-notifyd-config/main.c:62
+#: ../xfce4-notifyd-config/main.c:65
 msgid "Button"
 msgstr "ボタン"
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:72
 msgid "Notification preview failed"
 msgstr "通知のプレビューに失敗しました"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:470
 msgid "Settings daemon is unavailable"
 msgstr "設定デーモンは使用できません"
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:559
 msgid "Display version information"
 msgstr "バージョン情報を表示する"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:560
 msgid "Settings manager socket"
 msgstr "設定マネージャーソケット"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:560
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:320
+#: ../xfce4-notifyd-config/main.c:570
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' と入力すると使用法が表示されます。"
 
-#: ../xfce4-notifyd-config/main.c:333
+#: ../xfce4-notifyd-config/main.c:585
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, version 2 の条項下でリリースされています。\n"
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:586
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "バグは %s まで報告してください。\n"
@@ -106,29 +106,52 @@ msgid "Notifications"
 msgstr "通知"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "プレビュー(_P)"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Theme:"
-msgstr "テーマ(_T):"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "Default _position:"
-msgstr "デフォルトの位置(_P):"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "seconds"
-msgstr "秒"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Disappear after:"
-msgstr "表示時間(_D):"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
-msgid "_Opacity:"
-msgstr "不透明度(_O):"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
 msgstr "画面上にどのように通知するか設定します"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "Show Notification _Preview"
+msgstr "通知のプレビューを表示する(_P)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "_Theme:"
+msgstr "テーマ(_T):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "Default _position:"
+msgstr "デフォルトの位置(_P):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "seconds"
+msgstr "秒"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "_Disappear after:"
+msgstr "表示時間(_D):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Opacity:"
+msgstr "不透明度(_O):"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Appearance"
+msgstr "外観"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "Do not disturb"
+msgstr "邪魔をしないでください"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "<b>Show notifications for</b>"
+msgstr "<b>通知を表示</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+msgid ""
+"<b>Currently no notifications are shown</b>\n"
+"except for messages marked as urgent."
+msgstr "緊急としてマークされたメッセージを除いて、<b>現在、通知は表示されません。</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "Applications"
+msgstr "アプリケーション"
