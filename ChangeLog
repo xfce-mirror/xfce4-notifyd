@@ -1,4 +1,356 @@
-commit e0a0d29aaa5070037ef6f712ccfbd1211f12c823
+commit e725359147176f639f04516a7783a0b9b59df1eb
+Author: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date:   Tue Nov 8 12:30:59 2016 +0100
+
+    I18n: Update translation ja (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 1a08d3d1d651eb44b198e7d4ade2304092a4ca06
+Author: André Miranda <andre42m@gmail.com>
+Date:   Wed Nov 2 00:31:02 2016 +0100
+
+    I18n: Update translation pt_BR (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit b21605fdf907991aa7d94dd28ed484bf371cd038
+Author: Igor <f2404@yandex.ru>
+Date:   Sat Oct 29 18:31:09 2016 +0200
+
+    I18n: Update translation ru (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit d529315a3fd2f307dcd560e6ed88f36a77b6b18a
+Author: Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Wed Oct 26 18:31:46 2016 +0200
+
+    I18n: Update translation kk (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 1f2c17cfd63362107af3790e7fe0ef11f2dd262c
+Author: 玉堂白鹤 <yjwork@qq.com>
+Date:   Tue Oct 25 12:30:56 2016 +0200
+
+    I18n: Update translation zh_CN (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit d5ebc93a1d0bcbc418218a0345572bf316571fc1
+Author: Ivica  Kolić <ikoli@yahoo.com>
+Date:   Tue Oct 25 00:31:04 2016 +0200
+
+    I18n: Update translation hr (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 9b110a748a9087c67d15f3838faf6a85d3c3aff6
+Author: André Miranda <andre42m@gmail.com>
+Date:   Sun Oct 23 00:30:55 2016 +0200
+
+    I18n: Update translation pt_BR (96%).
+    
+    31 translated messages, 1 untranslated message.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 7263cc80c2a0c83b36e6d04baac9202bbe42035b
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Tue Oct 18 06:30:58 2016 +0200
+
+    I18n: Update translation uk (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 2c544bcc8505ec93a6f2c3fff443e9bd8c13c78b
+Author: Christian Hesse <mail@eworm.de>
+Date:   Tue Oct 18 00:17:41 2016 +0200
+
+    Fix theming issues with Gtk 3.22
+    
+    This also works in Gtk 3.20 but maybe not in all older releases of
+    Gtk3, hence it's not backported to the older theme versions.
+
+commit 326dc2bc7d5201ff910e50989fa1f8632b217ce4
+Author: Nuno Miguel <nunomgue@gmail.com>
+Date:   Sat Oct 15 18:31:03 2016 +0200
+
+    I18n: Update translation pt (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 08b801f32cedd45b2550b98d61f6c15dd1b8a493
+Author: Tobias Bannert <tobannert@gmail.com>
+Date:   Thu Oct 13 12:31:09 2016 +0200
+
+    I18n: Update translation de (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 328baa78b110497beac4ffb8cfbd19e907b95276
+Author: Manolo Díaz <diaz.manolo@gmail.com>
+Date:   Wed Oct 12 12:30:55 2016 +0200
+
+    I18n: Update translation es (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 295eb55d272480ad27561ffe4a3db202068d3002
+Author: Michael Findlay <translate@cobber-linux.org>
+Date:   Mon Oct 10 06:30:57 2016 +0200
+
+    I18n: Update translation en_AU (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 2aadf4bd77b52397c5e9b3c08594f9dce8cc1cd8
+Author: Marcin XD <m4sk1n@o2.pl>
+Date:   Mon Oct 10 00:31:03 2016 +0200
+
+    I18n: Update translation pl (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 9d903e726eeb8033ed20cd931e1fe01e0728f510
+Author: Puretech <terjemah.puretech@gmail.com>
+Date:   Sun Oct 9 06:31:14 2016 +0200
+
+    I18n: Update translation ms (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit ae92b68692c3e3eed7fcd98a257f8682c4225dd5
+Author: GenghisKhan <genghiskhan@gmx.ca>
+Date:   Sat Oct 8 12:30:59 2016 +0200
+
+    I18n: Update translation he (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit b8ac69665b8a405b109a1db7633fe9e64ceb0fd9
+Author: André Miranda <andre42m@gmail.com>
+Date:   Fri Oct 7 18:30:58 2016 +0200
+
+    I18n: Update translation pt_BR (87%).
+    
+    28 translated messages, 4 untranslated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 0be5e28adf0f2e5c9f7026ec62d7920348d64d55
+Author: Elishai Eliyahu <e1907@mm.st>
+Date:   Fri Oct 7 12:30:56 2016 +0200
+
+    I18n: Update translation he (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 23e051c30d28bc4ea47a42cda6aebd3ae72a2e29
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Wed Oct 5 23:22:55 2016 +0200
+
+    Improve infobar layout
+
+commit 1d5ecb1a02a7c4d5d4294ad660824c53be81a9cb
+Author: Lovro Kudelić <lovro.kudelic@outlook.com>
+Date:   Wed Oct 5 18:30:56 2016 +0200
+
+    I18n: Update translation hr (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit e2555bf7ae6f34ff95567c0cf1e78ec467bc17ba
+Author: Igor <f2404@yandex.ru>
+Date:   Wed Oct 5 12:30:55 2016 +0200
+
+    I18n: Update translation ru (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 0b33f7964afd7300daa3c6e434882ac154003dc2
+Author: Dušan Kazik <prescott66@gmail.com>
+Date:   Wed Oct 5 00:30:57 2016 +0200
+
+    I18n: Update translation sk (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 3e4f8112e301ed678e3a70404ae15adbc87f2e73
+Author: Kiril Kirilov <cybercop_montana@abv.bg>
+Date:   Wed Oct 5 00:30:57 2016 +0200
+
+    I18n: Update translation bg (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit f2c5e95a97b488cc4e0706d862dfd2f85530ae4f
+Author: Jeff Huang <s8321414@gmail.com>
+Date:   Tue Oct 4 18:30:57 2016 +0200
+
+    I18n: Update translation zh_TW (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit fdb5f73471e91d4fd971d87217f4a078b2913c79
+Author: Yannick Le Guen <leguen.yannick@gmail.com>
+Date:   Tue Oct 4 18:30:57 2016 +0200
+
+    I18n: Update translation fr (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 7037a218be55b73fe41a94565f41a846aa7c3f9d
+Author: Michal Várady <miko.vaji@gmail.com>
+Date:   Tue Oct 4 18:30:57 2016 +0200
+
+    I18n: Update translation cs (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 41aef915f9ac76e2dad44285131c5cadb3e5d0b1
+Author: Pjotr <pjotrvertaalt@gmail.com>
+Date:   Tue Oct 4 12:30:54 2016 +0200
+
+    I18n: Update translation nl (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 945e84ae97c92731e422e760a38b34a0548fce42
+Author: Anonymous <noreply@xfce.org>
+Date:   Tue Oct 4 12:30:54 2016 +0200
+
+    I18n: Update translation lt (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit a88f4f97e8cedcf1a243fc6a0f61f53b10f854e7
+Author: Manolo Díaz <diaz.manolo@gmail.com>
+Date:   Tue Oct 4 12:30:54 2016 +0200
+
+    I18n: Update translation es (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 3da07a5801001e9a907db3e03f1fe0e47eed886a
+Author: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+Date:   Tue Oct 4 12:30:54 2016 +0200
+
+    I18n: Update translation ca (100%).
+    
+    32 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit bb19f22e029eadf05fdd7626605a5b698f8782eb
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Oct 3 23:20:07 2016 +0200
+
+    Handle remembering notifications which send desktop_id and empty app_name
+
+commit f7cc3959d877e17205229b3364758ca87f6e9e20
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Sep 11 14:03:31 2016 +0200
+
+    Put Known Apps Listbox in a ScrolledWindow and improve Infobar
+
+commit 1570a1752dfe6ec062e58f4c927323f0b76e3121
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Sep 6 14:39:05 2016 +0200
+
+    Define the xfconf props as constants
+
+commit 718a47b4374f27f79d609da1c2da97005b27602a
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Sep 5 18:20:34 2016 +0200
+
+    Fix handling of known applications
+
+commit 6817c9abbb4bab1b63cb4029c8e3ce622dc51fb1
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Tue Aug 30 13:23:04 2016 +0200
+
+    Make preview button label text more verbose
+
+commit 546b583dfc7e6677986f3c69c6605704ef05cf74
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Wed Aug 24 20:31:15 2016 +0200
+
+    Add do-not-disturb mode and per-application settings
+
+commit 1beddc2ca7787daf9c58b3cc7038ffbcb3f5cc83
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Oct 3 23:17:44 2016 +0200
+
+    Fix fallback icon-size again and empty app_icon strings
+    
+    This should fix notifications of e.g. Gnome Software not showing an
+    application icon.
+
+commit cf948aac5f14dc4a408b41764bb729444787d464
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Oct 3 22:45:11 2016 +0200
+
+    Add hidden option "primary-monitor" to set screen for notifications (Bug #10003)
+
+commit 1c29aa085f15a33972c4b58ea94ce4efc5ad4fc3
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Sun Oct 2 22:42:20 2016 +0200
+
+    Back to development
+
+commit 53167fab219131f69617d0a2b7a2011df7a2b8a4
 Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
 Date:   Sun Oct 2 22:34:10 2016 +0200
 
@@ -4656,9 +5008,9 @@ commit ef1fadc8c412b4b1f2563733756f44cc9274be39
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sun Dec 21 13:13:57 2008 -0800
 
-    	* ja.po: New translation from Masaton Hashimoto
-    	  <cabezon.hashimoto@gmail.com>.
-    	* LINGUAS: Add ja.
+            * ja.po: New translation from Masaton Hashimoto
+              <cabezon.hashimoto@gmail.com>.
+            * LINGUAS: Add ja.
 
 commit 6121e624fa280050d0235081d99ffb36ba68f0e0
 Author: Brian J. Tarricone <bjt23@cornell.edu>
@@ -4670,88 +5022,88 @@ commit de5f472d6f83418ef25c4d9ba8d5eba12d63aaa8
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Wed Nov 26 16:25:07 2008 -0800
 
-    	* xfce4-notifyd/xfce-notify-window.c: Don't set the legacy window
-    	  shape when the widget is composited (fixes drawing artifacts with
-    	  the curved corners).  Also simplify the painting code a bit when
-    	  the widget is *not* composited; should be a little faster and will
-    	  probably look better too.
+            * xfce4-notifyd/xfce-notify-window.c: Don't set the legacy window
+              shape when the widget is composited (fixes drawing artifacts with
+              the curved corners).  Also simplify the painting code a bit when
+              the widget is *not* composited; should be a little faster and will
+              probably look better too.
 
 commit 2d0675c11dd6b79a4e1b252c9b1f491bcc3397d8
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Wed Nov 26 16:00:09 2008 -0800
 
-    	* configure.ac.in: Add 'git' version tag.
-    	* xfce4-notifyd-config/xfce4-notifyd-config.1: Add man page,
-    	  submitted by Evgeni Golov <sargentd@die-welt.net>.
+            * configure.ac.in: Add 'git' version tag.
+            * xfce4-notifyd-config/xfce4-notifyd-config.1: Add man page,
+              submitted by Evgeni Golov <sargentd@die-welt.net>.
 
 commit 60ac39fc5d2cbf057c9dcf300a2fb720ad559667
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Wed Nov 26 15:50:41 2008 -0800
 
-    	* configure.ac.in: Remove 'git' version tag for 0.1.0 release.
+            * configure.ac.in: Remove 'git' version tag for 0.1.0 release.
 
 commit 84bdff0d426f24184c65f6b2ae663eb35384b08e
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Mon Nov 24 13:55:27 2008 -0800
 
-    	* {icons/48x48,xfce4-notifyd}/Makefile.am: Fix make distcheck.
+            * {icons/48x48,xfce4-notifyd}/Makefile.am: Fix make distcheck.
 
 commit 0a0137ba5fe505f84cfe91e9449b6288aefd92f1
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Mon Nov 24 01:05:38 2008 -0800
 
-    	* icons/48x48/xfce4-notifyd.png: Add app icon.
-    	* xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: Set
-    	  Icon= key.
-    	* configure.ac.in,Makefile.am: Add icons subdir to build.
+            * icons/48x48/xfce4-notifyd.png: Add app icon.
+            * xfce4-notifyd-config/xfce4-notifyd-config.desktop.in: Set
+              Icon= key.
+            * configure.ac.in,Makefile.am: Add icons subdir to build.
 
 commit c2b3b5b525d777613279b4b10ac8bee513228768
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Mon Nov 24 01:03:37 2008 -0800
 
-    	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Fix dialog
-    	  layout spacing and add scrolled window shadow.
+            * xfce4-notifyd-config/xfce4-notifyd-config.glade: Fix dialog
+              layout spacing and add scrolled window shadow.
 
 commit fac11c4ffca5ebf55679a1c4784d99b1b1338b37
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Fri Nov 21 01:20:22 2008 -0800
 
-    	* fr.po: Improvement of one string from Mike Massonnet
-    	  <mmassonnet@gmail.com>
+            * fr.po: Improvement of one string from Mike Massonnet
+              <mmassonnet@gmail.com>
 
 commit d70ceda150144f566166106389aaee445219f4c0
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Fri Nov 21 01:13:58 2008 -0800
 
-    	* Makefile.am: Add release targets.
+            * Makefile.am: Add release targets.
 
 commit 6a09e93646541f3c2b781e90273c055647931c73
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Tue Nov 18 11:31:09 2008 -0800
 
-    	* pt_PT.po: New translation from Nuno Miguel <nunis@netcabo.pt>
-    	* LINGUAS: Add pt_PT.
+            * pt_PT.po: New translation from Nuno Miguel <nunis@netcabo.pt>
+            * LINGUAS: Add pt_PT.
 
 commit 11d5e7834b5377572b99fc3765933e22f8dc6042
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Mon Nov 17 00:10:49 2008 -0800
 
-    	* da.po: New translation from Per Kongstad <p_kongstad@op.pl>
-    	* LINGUAS: Add da.
+            * da.po: New translation from Per Kongstad <p_kongstad@op.pl>
+            * LINGUAS: Add da.
 
 commit 48893f7a826b0f861096e468c3477906884b153f
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sun Nov 16 18:07:54 2008 -0800
 
-    	* fr.po: New translation from Maximilian Schleiss <maximilian@xfce.org>
-    	* LINGUAS: Add fr.
+            * fr.po: New translation from Maximilian Schleiss <maximilian@xfce.org>
+            * LINGUAS: Add fr.
 
 commit 76f3d7abde81834463497378ce3d95e83fe4cd2c
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sun Nov 16 13:43:51 2008 -0800
 
-    	* es.po: New translation from Abel Martín <abel.martin.ruiz@gmail.com>
-    	* LINGUAS: Add es.
+            * es.po: New translation from Abel Martín <abel.martin.ruiz@gmail.com>
+            * LINGUAS: Add es.
 
 commit 85775482f1c0aea56053263c56ef422be2c9c15e
 Author: Brian J. Tarricone <bjt23@cornell.edu>
@@ -4763,45 +5115,45 @@ commit caa3040b0b1f42be67394ae15a2e5c26c412e05e
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sun Nov 16 13:11:27 2008 -0800
 
-    	* ca.po: New translation from Carles Muñoz Gorriz <carlesmu@internautas.org>
-    	* de.po: New translation from Christian Dywan <christian@twotoasts.de>
-    	* el.po: New translation from Stavros Giannouris <stavrosg@hellug.gr>
-    	* fi.po: New translation from Jari Rahkonen <jari.rahkonen@pp1.inet.fi>
-    	* id.po: New translation from Andhika Padmawan <andhika.padmawan@gmail.com>
-    	* nb.po: New translation from Terje Uriansrud <terje@uriansrud.net>
-    	* nl.po: New translation from Vincent Tunru <projects@vinnl.nl>
-    	* sq.po: New translation from Besnik Bleta <besnik@programeshqip.org>
-    	* tr.po: New translation from Gökmen Görgen <gkmngrgn@gmail.com>
-    	* LINGUAS: Add ca, de, el, fi, id, nb, nl, sq, tr.
+            * ca.po: New translation from Carles Muñoz Gorriz <carlesmu@internautas.org>
+            * de.po: New translation from Christian Dywan <christian@twotoasts.de>
+            * el.po: New translation from Stavros Giannouris <stavrosg@hellug.gr>
+            * fi.po: New translation from Jari Rahkonen <jari.rahkonen@pp1.inet.fi>
+            * id.po: New translation from Andhika Padmawan <andhika.padmawan@gmail.com>
+            * nb.po: New translation from Terje Uriansrud <terje@uriansrud.net>
+            * nl.po: New translation from Vincent Tunru <projects@vinnl.nl>
+            * sq.po: New translation from Besnik Bleta <besnik@programeshqip.org>
+            * tr.po: New translation from Gökmen Görgen <gkmngrgn@gmail.com>
+            * LINGUAS: Add ca, de, el, fi, id, nb, nl, sq, tr.
 
 commit e08c93cb7161ad4324af6ac6e22e7e00f359d337
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sat Nov 15 17:38:26 2008 -0800
 
-    	* xfce4-notifyd-config/main.c: Remove a couple strings.
-    	* po/xfce4-notifyd.pot: Update .pot file.
+            * xfce4-notifyd-config/main.c: Remove a couple strings.
+            * po/xfce4-notifyd.pot: Update .pot file.
 
 commit 35ef9187869413f18f48f93c75d06173c299e284
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sat Nov 15 13:49:54 2008 -0800
 
-    	* NEWS: Add NEWS file for first release.
-    	* xfce4-notifyd-config/main.c: Sort items in the themes list.
+            * NEWS: Add NEWS file for first release.
+            * xfce4-notifyd-config/main.c: Sort items in the themes list.
 
 commit 111ca55b52e965407160a1a3c867187d01e35537
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sat Nov 15 01:34:44 2008 -0800
 
-    	* xfce4-notifyd/{org.freedesktop.Notifications.service.in,Makefile.am}:
-    	  Install xfce4-notifyd to $libexecdir instead of $bindir
+            * xfce4-notifyd/{org.freedesktop.Notifications.service.in,Makefile.am}:
+              Install xfce4-notifyd to $libexecdir instead of $bindir
 
 commit 0686d68bffd516849b8139e6da7031076fc3151e
 Author: Brian J. Tarricone <bjt23@cornell.edu>
 Date:   Sat Nov 15 01:22:48 2008 -0800
 
-    	* xfce4-notifyd-config/xfce4-notifyd-config.glade: Change window
-    	  title to simply 'Notifications'
-    	* po/xfce4-notifyd.pot: Update .pot file
+            * xfce4-notifyd-config/xfce4-notifyd-config.glade: Change window
+              title to simply 'Notifications'
+            * po/xfce4-notifyd.pot: Update .pot file
 
 commit 51e9851d766a9c57d31b74caef461da8f825aedd
 Author: Brian J. Tarricone <bjt23@cornell.edu>

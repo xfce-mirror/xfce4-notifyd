@@ -2,6 +2,24 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.3.4 (09 November 2016):
+  This is a feature release.
+
+  Features:
+    * "Do not disturb" mode
+    * Notification-muting on a per application level
+
+  Bugs fixed:
+    * Add hidden option "primary-monitor" to set screen for notifications
+      (Bug #10003)
+    * Fix theming issues with Gtk 3.22
+
+  Updated translations: Bulgarian, Catalan, Chinese (China), Chinese
+  (Taiwan), Croatian, Czech, Dutch (Flemish), English (Australia), French,
+  German, Hebrew, Kazakh, Lithuanian, Malay, Polish, Portuguese, Portuguese
+  (Brazilian), Russian, Slovak, Spanish, Ukrainian
+
+
 Version 0.3.3 (02 October 2016):
   This is a bugfix release. It also extends the tests to icons.
 
