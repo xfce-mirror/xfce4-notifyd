@@ -385,7 +385,11 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             known_application = g_ptr_array_index (known_applications, i);
             hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
             label = gtk_label_new (g_value_get_string (known_application));
+#if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (label), 0);
+#else
+            gtk_widget_set_halign (label, GTK_ALIGN_START);
+#endif
             mute_switch = gtk_switch_new ();
             gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
