@@ -4,93 +4,83 @@
 # 
 # Translators:
 # Cristian Cozzolino <cristiancozzolino@libero.it>, 2010
-# cri <cri.penta@gmail.com>, 2013
+# Cristian Marchi <cri.penta@gmail.com>, 2013,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2013-10-28 19:28+0000\n"
-"Last-Translator: cri <cri.penta@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/xfce/language/it/)\n"
+"POT-Creation-Date: 2016-10-04 00:30+0200\n"
+"PO-Revision-Date: 2016-12-24 14:24+0000\n"
+"Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:258
+#: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
+#: ../xfce4-notifyd-config/main.c:468
 msgid "Xfce Notify Daemon"
 msgstr "Demone di notifica di Xfce"
 
-#: ../xfce4-notifyd/main.c:77
+#: ../xfce4-notifyd/main.c:56
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Opzione sconosciuta \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:86
+#: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
 msgstr "Impossibile avviare il demone di notifica"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
-msgid "Failed to set new theme"
-msgstr "Impossibile impostare il nuovo tema"
-
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
+#: ../xfce4-notifyd/xfce-notify-daemon.c:363
 #, c-format
-msgid "Unable to connect to D-Bus session bus"
-msgstr "Impossibile connettersi al bus di sessione D-Bus"
+msgid "Another notification daemon is running, exiting\n"
+msgstr "Un altro demone di notifica è già in esecuzione; uscita\n"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
-#, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "Un altro xndaemon di notifica è già in esecuzione"
-
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:59
 msgid "Notification Preview"
 msgstr "Anteprima notifica"
 
-#: ../xfce4-notifyd-config/main.c:58
+#: ../xfce4-notifyd-config/main.c:60
 msgid "This is what notifications will look like"
 msgstr "\"Ecco come appariranno le notifiche\""
 
-#: ../xfce4-notifyd-config/main.c:63
+#: ../xfce4-notifyd-config/main.c:65
 msgid "Button"
 msgstr "Pulsante"
 
-#: ../xfce4-notifyd-config/main.c:70
+#: ../xfce4-notifyd-config/main.c:72
 msgid "Notification preview failed"
 msgstr "L'anteprima della notifica non è riuscita"
 
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd-config/main.c:470
 msgid "Settings daemon is unavailable"
 msgstr "Il demone delle impostazioni non è disponibile"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:559
 msgid "Display version information"
 msgstr "Visualizza le informazioni sulla versione"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:560
 msgid "Settings manager socket"
 msgstr "Socket del gestore delle impostazioni"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:560
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:321
+#: ../xfce4-notifyd-config/main.c:570
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Digitare \"%s --help\" per informazioni sull'uso."
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:585
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Rilasciato nei termini della licenza GNU General Public License, versione 2\n"
 
-#: ../xfce4-notifyd-config/main.c:335
+#: ../xfce4-notifyd-config/main.c:586
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Segnalare eventuali errori a %s.\n"
@@ -117,29 +107,52 @@ msgid "Notifications"
 msgstr "Notifiche"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "_Anteprima"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Customize how notifications appear on your screen"
+msgstr "Personalizzazione del modo in cui le notifiche appaiono sullo schermo"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Opacity:"
-msgstr "_Opacità:"
+msgid "Show Notification _Preview"
+msgstr "Mostra l'ante_prima della notifica"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Disappear after:"
-msgstr "Fai _sparire dopo:"
+msgid "_Theme:"
+msgstr "_Tema:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Default _position:"
 msgstr "_Posizione predefinita:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Theme:"
-msgstr "_Tema:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "seconds"
 msgstr "secondi"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Customize how notifications appear on your screen"
-msgstr "Personalizzazione del modo in cui le notifiche appaiono sullo schermo"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "_Disappear after:"
+msgstr "Fai _sparire dopo:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+msgid "_Opacity:"
+msgstr "_Opacità:"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Appearance"
+msgstr "Aspetto"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "Do not disturb"
+msgstr "Non disturbare"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "<b>Show notifications for</b>"
+msgstr "<b>Mostra notifiche per</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+msgid ""
+"<b>Currently no notifications are shown</b>\n"
+"except for messages marked as urgent."
+msgstr "<b>Attualmente non è mostrata alcuna notifica</b>\nal di fuori dei messaggi identificati come urgenti."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "Applications"
+msgstr "Applicazioni"
