@@ -617,6 +617,8 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *log_listbox;
     GtkWidget *clear_log_button;
     GtkWidget *refresh_log_button;
+    GtkWidget *primary_monitor;
+    GtkWidget *do_fadeout;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
@@ -678,6 +680,15 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
 
+    primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
+    xfconf_g_property_bind(channel, "/primary-monitor", G_TYPE_BOOLEAN,
+                           G_OBJECT(primary_monitor), "active");
+
+    do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));
+    xfconf_g_property_bind(channel, "/do-fadeout", G_TYPE_BOOLEAN,
+                          G_OBJECT(do_fadeout), "active");
+
+
     do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
     xfconf_g_property_bind (channel, "/do-not-disturb", G_TYPE_BOOLEAN,
                             G_OBJECT (do_not_disturb_switch), "active");
@@ -706,7 +717,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     g_signal_connect (G_OBJECT (channel),
                       "property-changed::" KNOWN_APPLICATIONS_PROP,
                       G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
-// TODO: Properly initialize fadeout switch
+
     /* Notification log settings */
     notify_notebook = GTK_WIDGET (gtk_builder_get_object (builder, "notify_notebook"));
     log_widgets.log_tab = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notify_notebook), -1);

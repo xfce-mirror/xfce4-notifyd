@@ -306,7 +306,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="primary_switch">
+                      <object class="GtkSwitch" id="primary_monitor">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">end</property>
@@ -573,7 +573,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="switch2">
+                      <object class="GtkSwitch" id="do_fadeout">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">end</property>
