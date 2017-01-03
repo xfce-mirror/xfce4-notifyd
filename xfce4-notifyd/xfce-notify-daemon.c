@@ -64,6 +64,8 @@ struct _XfceNotifyDaemon
     gboolean primary_monitor;
     gboolean do_not_disturb;
     gboolean notification_log;
+    gint log_level;
+    gint log_level_apps;
 
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
@@ -1142,6 +1144,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     GVariant *item;
     GVariantIter iter;
     guint OUT_id;
+    gboolean application_is_muted = FALSE;
 
     g_variant_iter_init (&iter, hints);
 
@@ -1208,13 +1211,14 @@ notify_notify (XfceNotifyGBus *skeleton,
     if(expire_timeout == -1)
         expire_timeout = xndaemon->expire_timeout;
 
+    application_is_muted = notify_application_is_muted (xndaemon->settings, new_app_name);
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
        notifications which do not expire. */
     if (expire_timeout != 0)
     {
         if (xndaemon->do_not_disturb == TRUE ||
-            notify_application_is_muted (xndaemon->settings, new_app_name) == TRUE)
+            application_is_muted == TRUE)
         {
             /* Reset the close timeout since we're processing a new notification,
                even if we're not showing a notification bubble */
@@ -1223,9 +1227,18 @@ notify_notify (XfceNotifyGBus *skeleton,
 
             xndaemon->close_timeout = 0;
 
-            /* Notifications marked as transient won't be logged */
-            if (xndaemon->notification_log == TRUE && transient == FALSE)
-                xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
+            /* Notifications marked as transient will never be logged */
+            if (xndaemon->notification_log == TRUE &&
+                transient == FALSE) {
+                /* Either log in DND mode or always for muted apps */
+                if (xndaemon->log_level == 1 && xndaemon->do_not_disturb == TRUE ||
+                    xndaemon->log_level == 2)
+                      /* Log either all, all except muted or only muted applications */
+                      if (xndaemon->log_level_apps == 0 ||
+                          xndaemon->log_level_apps == 1 && application_is_muted == FALSE ||
+                          xndaemon->log_level_apps == 2 && application_is_muted == TRUE)
+                          xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
+            }
 
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
             return TRUE;
@@ -1323,7 +1336,10 @@ notify_notify (XfceNotifyGBus *skeleton,
     // for a complete notification we need:
     // app_name, summary, body, app_icon, expire_timeout, actions
     // TODO: icons need to be handled, app_icon is bad - what shall be done with image_data??
-    if (xndaemon->notification_log == TRUE && transient == FALSE)
+    if (xndaemon->notification_log == TRUE &&
+        xndaemon->log_level == 2 &&
+        xndaemon->log_level_apps <= 1 &&
+        transient == FALSE)
         xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
 
     xfce_notify_window_set_icon_only(window, x_canonical);
@@ -1551,6 +1567,14 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->notification_log = G_VALUE_TYPE(value)
                                      ? g_value_get_boolean(value)
                                      : FALSE;
+    } else if(!strcmp(property, "/log-level")) {
+        xndaemon->log_level = G_VALUE_TYPE(value)
+                                  ? g_value_get_uint(value)
+                                  : 0;
+    } else if(!strcmp(property, "/log-level-apps")) {
+        xndaemon->log_level_apps = G_VALUE_TYPE(value)
+                                  ? g_value_get_uint(value)
+                                  : 0;
     }
 }
 
@@ -1595,6 +1619,12 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     xndaemon->notification_log = xfconf_channel_get_bool(xndaemon->settings,
                                                          "/notification-log",
                                                          FALSE);
+    xndaemon->log_level = xfconf_channel_get_uint(xndaemon->settings,
+                                                        "/log-level",
+                                                        FALSE);
+    xndaemon->log_level_apps = xfconf_channel_get_uint(xndaemon->settings,
+                                                        "/log-level-apps",
+                                                        FALSE);
     /* Clean up old notifications from the backlog */
     xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 

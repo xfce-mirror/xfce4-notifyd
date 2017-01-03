@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.14"/>
   <requires lib="libxfce4ui-2" version="4.12"/>
@@ -21,6 +21,40 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-clear</property>
+  </object>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">never</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">during "Do not disturb"</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">always</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="liststore2">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">all</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">all except muted</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">only muted</col>
+      </row>
+    </data>
   </object>
   <object class="GtkListStore" id="model1">
     <columns>
@@ -121,30 +155,6 @@
                     <property name="row_spacing">6</property>
                     <property name="column_spacing">12</property>
                     <child>
-                      <object class="GtkSwitch" id="primary_switch">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="primary_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">By default the notification bubbles will be shown on the display on which the mouse pointer is located.</property>
-                        <property name="label" translatable="yes">Always show notifications on primary display</property>
-                        <property name="ellipsize">end</property>
-                        <property name="xalign">0</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkLabel" id="do_not_disturb_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -161,6 +171,7 @@
                       <object class="GtkSwitch" id="do_not_disturb">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="halign">end</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -171,7 +182,6 @@
                       <object class="GtkRevealer" id="do_not_disturb_info">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="transition_type">none</property>
                         <property name="reveal_child">True</property>
                         <child>
                           <object class="GtkInfoBar" id="infobar1">
@@ -216,11 +226,10 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkLabel" id="label10">
+                                      <object class="GtkLabel" id="infobar_label">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;Currently no notifications are shown&lt;/b&gt;
-except for messages marked as urgent.</property>
+                                        <property name="label" translatable="yes">&lt;b&gt;Currently only urgent notifications are shown.&lt;/b&gt;</property>
                                         <property name="use_markup">True</property>
                                         <property name="ellipsize">end</property>
                                         <property name="xalign">0</property>
@@ -261,7 +270,34 @@ except for messages marked as urgent.</property>
                       <object class="GtkLabel" id="log_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Enable notification log</property>
+                        <property name="margin_top">1</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Notification log&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="log_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">end</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="primary_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">By default the notification bubbles will be shown on the display on which the mouse pointer is located.</property>
+                        <property name="label" translatable="yes">Always show notifications on primary display</property>
+                        <property name="ellipsize">end</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
@@ -270,13 +306,77 @@ except for messages marked as urgent.</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="log_switch">
+                      <object class="GtkSwitch" id="primary_switch">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="halign">end</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="log_level_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="label" translatable="yes">Log notifications</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="log_level_apps_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">12</property>
+                        <property name="label" translatable="yes">Log applications</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="log_level">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="model">liststore1</property>
+                        <property name="popup_fixed_width">False</property>
+                        <property name="active_id">1</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="renderer2"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="log_level_apps">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="model">liststore2</property>
+                        <property name="active_id">0</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="renderer4"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">5</property>
                       </packing>
                     </child>
                   </object>
@@ -346,10 +446,11 @@ except for messages marked as urgent.</property>
                     </child>
                     <child>
                       <object class="GtkComboBox" id="theme_combo">
+                        <property name="name">theme</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkCellRendererText" id="renderer2"/>
+                          <object class="GtkCellRendererText" id="renderer1"/>
                           <attributes>
                             <attribute name="text">0</attribute>
                           </attributes>
@@ -379,7 +480,7 @@ except for messages marked as urgent.</property>
                         <property name="can_focus">False</property>
                         <property name="model">model1</property>
                         <child>
-                          <object class="GtkCellRendererText" id="renderer1"/>
+                          <object class="GtkCellRendererText" id="renderer3"/>
                           <attributes>
                             <attribute name="text">0</attribute>
                           </attributes>
