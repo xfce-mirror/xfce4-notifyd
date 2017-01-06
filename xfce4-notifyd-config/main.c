@@ -44,12 +44,11 @@
 
 typedef struct
 {
-  GtkWidget *log_tab;
-  GtkWidget *log_level;
-  GtkWidget *log_level_label;
-  GtkWidget *log_level_apps;
-  GtkWidget *log_level_apps_label;
-  GtkWidget *infobar_label;
+    GtkWidget *log_level;
+    GtkWidget *log_level_label;
+    GtkWidget *log_level_apps;
+    GtkWidget *log_level_apps_label;
+    GtkWidget *infobar_label;
 } NotificationLogWidgets;
 
 static void
@@ -459,18 +458,12 @@ xfce4_notifyd_log_activated (GtkSwitch *log_switch,
     const char *format = "<b>Currently only urgent notifications are shown.</b>\nNotification logging is \%s.";
     char *markup;
 
-    markup = g_markup_printf_escaped (format, state ? "enabled" : "disabled");
-
-    if (state == TRUE)
-        gtk_widget_show (log_widgets->log_tab);
-    else
-        gtk_widget_hide (log_widgets->log_tab);
-
     gtk_switch_set_state (GTK_SWITCH (log_switch), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_label), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps_label), state);
+    markup = g_markup_printf_escaped (format, state ? "enabled" : "disabled");
     gtk_label_set_markup (GTK_LABEL (log_widgets->infobar_label), markup);
     g_free (markup);
 }
@@ -618,14 +611,12 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *theme_combo;
     GtkWidget *position_combo;
     GtkWidget *help_button;
-    GtkWidget *notify_notebook;
     GtkWidget *known_applications_scrolled_window;
     GtkWidget *known_applications_listbox;
     GtkWidget *placeholder_label;
     GtkWidget *do_not_disturb_switch;
     GtkWidget *do_not_disturb_info;
     GtkWidget *log_switch;
-    GtkWidget *log_tab;
     GtkWidget *log_scrolled_window;
     GtkWidget *log_listbox;
     GtkWidget *clear_log_button;
@@ -732,8 +723,6 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                       G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
 
     /* Notification log settings */
-    notify_notebook = GTK_WIDGET (gtk_builder_get_object (builder, "notify_notebook"));
-    log_widgets.log_tab = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notify_notebook), -1);
     log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
     log_widgets.log_level_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_label"));
     log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
