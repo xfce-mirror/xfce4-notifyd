@@ -444,7 +444,7 @@
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">_Theme:</property>
+                        <property name="label" translatable="yes">_Theme</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">0</property>
                       </object>
@@ -474,7 +474,7 @@
                       <object class="GtkLabel" id="label3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Default _position:</property>
+                        <property name="label" translatable="yes">Default _position</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">0</property>
                       </object>
@@ -546,7 +546,7 @@
                       <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">_Disappear after:</property>
+                        <property name="label" translatable="yes">_Disappear after</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">expire_timeout_sbtn</property>
                         <property name="xalign">0</property>
@@ -560,7 +560,7 @@
                       <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">_Opacity:</property>
+                        <property name="label" translatable="yes">_Opacity</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">0</property>
                       </object>
@@ -573,7 +573,7 @@
                       <object class="GtkLabel" id="label13">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Fade out:</property>
+                        <property name="label" translatable="yes">Fade out</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
