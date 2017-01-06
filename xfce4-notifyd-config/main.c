@@ -45,7 +45,6 @@
 typedef struct
 {
     GtkWidget *log_level;
-    GtkWidget *log_level_label;
     GtkWidget *log_level_apps;
     GtkWidget *log_level_apps_label;
     GtkWidget *infobar_label;
@@ -460,7 +459,6 @@ xfce4_notifyd_log_activated (GtkSwitch *log_switch,
 
     gtk_switch_set_state (GTK_SWITCH (log_switch), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level), state);
-    gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_label), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps_label), state);
     markup = g_markup_printf_escaped (format, state ? "enabled" : "disabled");
@@ -619,6 +617,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *log_switch;
     GtkWidget *log_scrolled_window;
     GtkWidget *log_listbox;
+    GtkToolbar *log_toolbar;
+    GtkToolItem *log_clear_toolbar_btn;
+    GtkToolItem *log_refresh_toolbar_btn;
     GtkWidget *clear_log_button;
     GtkWidget *refresh_log_button;
     GtkWidget *primary_monitor;
@@ -723,8 +724,8 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                       G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
 
     /* Notification log settings */
+    log_toolbar = GTK_TOOLBAR (gtk_builder_get_object (builder, "log_toolbar"));
     log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
-    log_widgets.log_level_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_label"));
     log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
     log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
     log_widgets.infobar_label = GTK_WIDGET (gtk_builder_get_object (builder, "infobar_label"));
@@ -761,6 +762,13 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     refresh_log_button = GTK_WIDGET (gtk_builder_get_object (builder, "refresh_log_button"));
     g_signal_connect (G_OBJECT (refresh_log_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_refresh), log_listbox);
+    log_clear_toolbar_btn = gtk_tool_item_new ();
+    gtk_container_add (GTK_CONTAINER(log_clear_toolbar_btn), clear_log_button);
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_toolbar_btn), 0);
+    log_refresh_toolbar_btn = gtk_tool_item_new ();
+    gtk_container_add (GTK_CONTAINER(log_refresh_toolbar_btn), refresh_log_button);
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_toolbar_btn), 1);
+    gtk_widget_show_all (GTK_WIDGET(log_toolbar));
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
     g_signal_connect(G_OBJECT(help_button), "clicked",
