@@ -638,9 +638,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     g_signal_connect_swapped(G_OBJECT(btn), "clicked",
                              G_CALLBACK(gtk_dialog_response), dlg);
 
-    btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
-    g_signal_connect(G_OBJECT(btn), "clicked",
-                     G_CALLBACK(xfce_notifyd_config_preview_clicked), dlg);
+    help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
+    g_signal_connect(G_OBJECT(help_button), "clicked",
+                    G_CALLBACK(xfce4_notifyd_show_help), dlg);
 
     if(!xfconf_init(&error)) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
@@ -654,22 +654,29 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 
     channel = xfconf_channel_new("xfce4-notifyd");
 
-    sbtn = GTK_WIDGET(gtk_builder_get_object(builder, "expire_timeout_sbtn"));
-    xfconf_g_property_bind(channel, "/expire-timeout", G_TYPE_INT,
-                           G_OBJECT(sbtn), "value");
+    /**************
+        GENERAL   *
+     **************/
+    // Behavior
+    do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
+    xfconf_g_property_bind (channel, "/do-not-disturb", G_TYPE_BOOLEAN,
+                            G_OBJECT (do_not_disturb_switch), "active");
+    /* Manually control the revealer for the infobar because of https://bugzilla.gnome.org/show_bug.cgi?id=710888 */
+    do_not_disturb_info = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb_info"));
+    gtk_revealer_set_reveal_child (GTK_REVEALER (do_not_disturb_info),
+                                   gtk_switch_get_active (GTK_SWITCH (do_not_disturb_switch)));
+    g_signal_connect (G_OBJECT (do_not_disturb_switch), "state-set",
+                      G_CALLBACK (xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
 
-    slider = GTK_WIDGET(gtk_builder_get_object(builder, "opacity_slider"));
-    g_signal_connect(G_OBJECT(slider), "format-value",
-                     G_CALLBACK(xfce4_notifyd_slider_format_value), NULL);
-    adj = gtk_range_get_adjustment(GTK_RANGE(slider));
-    xfconf_g_property_bind(channel, "/initial-opacity", G_TYPE_DOUBLE,
-                           G_OBJECT(adj), "value");
+    primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
+    xfconf_g_property_bind(channel, "/primary-monitor", G_TYPE_UINT,
+                           G_OBJECT(primary_monitor), "active");
 
+    // Appearance
     theme_combo = GTK_WIDGET(gtk_builder_get_object(builder, "theme_combo"));
     current_theme = xfconf_channel_get_string(channel, "/theme", "Default");
     xfce4_notifyd_config_setup_theme_combo(theme_combo, current_theme);
     g_free(current_theme);
-
     g_signal_connect(G_OBJECT(theme_combo), "changed",
                      G_CALLBACK(xfce4_notifyd_config_theme_combo_changed),
                      channel);
@@ -683,25 +690,28 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
 
-    primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
-    xfconf_g_property_bind(channel, "/primary-monitor", G_TYPE_UINT,
-                           G_OBJECT(primary_monitor), "active");
+    slider = GTK_WIDGET(gtk_builder_get_object(builder, "opacity_slider"));
+    g_signal_connect(G_OBJECT(slider), "format-value",
+                     G_CALLBACK(xfce4_notifyd_slider_format_value), NULL);
+    adj = gtk_range_get_adjustment(GTK_RANGE(slider));
+    xfconf_g_property_bind(channel, "/initial-opacity", G_TYPE_DOUBLE,
+                           G_OBJECT(adj), "value");
+
+    sbtn = GTK_WIDGET(gtk_builder_get_object(builder, "expire_timeout_sbtn"));
+    xfconf_g_property_bind(channel, "/expire-timeout", G_TYPE_INT,
+                           G_OBJECT(sbtn), "value");
 
     do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));
     xfconf_g_property_bind(channel, "/do-fadeout", G_TYPE_BOOLEAN,
                           G_OBJECT(do_fadeout), "active");
 
+    btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
+    g_signal_connect(G_OBJECT(btn), "clicked",
+                     G_CALLBACK(xfce_notifyd_config_preview_clicked), dlg);
 
-    do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
-    xfconf_g_property_bind (channel, "/do-not-disturb", G_TYPE_BOOLEAN,
-                            G_OBJECT (do_not_disturb_switch), "active");
-    /* Manually control the revealer for the infobar because of https://bugzilla.gnome.org/show_bug.cgi?id=710888 */
-    do_not_disturb_info = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb_info"));
-    gtk_revealer_set_reveal_child (GTK_REVEALER (do_not_disturb_info),
-                                   gtk_switch_get_active (GTK_SWITCH (do_not_disturb_switch)));
-    g_signal_connect (G_OBJECT (do_not_disturb_switch), "state-set",
-                      G_CALLBACK (xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
-
+    /*******************
+        APPLICATIONS   *
+     *******************/
     known_applications_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_scrolled_window"));
     known_applications_listbox = gtk_list_box_new ();
     gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
@@ -721,8 +731,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                       "property-changed::" KNOWN_APPLICATIONS_PROP,
                       G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
 
-    /* Notification log settings */
-    log_toolbar = GTK_TOOLBAR (gtk_builder_get_object (builder, "log_toolbar"));
+    /**********
+        LOG   *
+     **********/
     log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
     log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
     log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
@@ -754,6 +765,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_widget_show_all (placeholder_label);
     xfce4_notifyd_log_populate (log_listbox);
 
+    log_toolbar = GTK_TOOLBAR (gtk_builder_get_object (builder, "log_toolbar"));
     log_refresh_button = gtk_tool_button_new (NULL, _("Refresh"));
     gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 0);
     g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
@@ -763,10 +775,6 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     g_signal_connect (G_OBJECT (log_clear_button), "clicked",
                       G_CALLBACK (xfce_notify_log_clear_button_clicked), log_listbox);
     gtk_widget_show_all (GTK_WIDGET(log_toolbar));
-
-    help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
-    g_signal_connect(G_OBJECT(help_button), "clicked",
-                     G_CALLBACK(xfce4_notifyd_show_help), dlg);
 
     return dlg;
 }
