@@ -379,7 +379,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GPtrArray *muted_applications;
     GValue *known_application;
     guint i, j;
-    gchar *icon_name;
+    const gchar *icon_name;
 
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
