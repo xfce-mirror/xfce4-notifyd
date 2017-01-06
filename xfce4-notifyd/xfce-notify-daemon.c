@@ -1231,8 +1231,8 @@ notify_notify (XfceNotifyGBus *skeleton,
             if (xndaemon->notification_log == TRUE &&
                 transient == FALSE) {
                 /* Either log in DND mode or always for muted apps */
-                if (xndaemon->log_level == 1 && xndaemon->do_not_disturb == TRUE ||
-                    xndaemon->log_level == 2)
+                if (xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE ||
+                    xndaemon->log_level == 1)
                       /* Log either all, all except muted or only muted applications */
                       if (xndaemon->log_level_apps == 0 ||
                           xndaemon->log_level_apps == 1 && application_is_muted == FALSE ||
@@ -1337,7 +1337,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     // app_name, summary, body, app_icon, expire_timeout, actions
     // TODO: icons need to be handled, app_icon is bad - what shall be done with image_data??
     if (xndaemon->notification_log == TRUE &&
-        xndaemon->log_level == 2 &&
+        xndaemon->log_level == 1 &&
         xndaemon->log_level_apps <= 1 &&
         transient == FALSE)
         xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
@@ -1621,10 +1621,10 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                                          FALSE);
     xndaemon->log_level = xfconf_channel_get_uint(xndaemon->settings,
                                                         "/log-level",
-                                                        FALSE);
+                                                        0);
     xndaemon->log_level_apps = xfconf_channel_get_uint(xndaemon->settings,
                                                         "/log-level-apps",
-                                                        FALSE);
+                                                        0);
     /* Clean up old notifications from the backlog */
     xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 

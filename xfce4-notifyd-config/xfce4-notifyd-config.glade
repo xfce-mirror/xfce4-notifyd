@@ -24,10 +24,7 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">never</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">during "Do not disturb"</col>
+        <col id="0" translatable="yes">only during "Do not disturb"</col>
       </row>
       <row>
         <col id="0" translatable="yes">always</col>

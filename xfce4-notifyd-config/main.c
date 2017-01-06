@@ -754,15 +754,14 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_widget_show_all (placeholder_label);
     xfce4_notifyd_log_populate (log_listbox);
 
-    log_clear_button = gtk_tool_button_new (NULL, _("Clear"));
-    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_button), 0);
-    g_signal_connect (G_OBJECT (log_clear_button), "clicked",
-                      G_CALLBACK (xfce_notify_log_clear_button_clicked), log_listbox);
-
     log_refresh_button = gtk_tool_button_new (NULL, _("Refresh"));
-    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 1);
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 0);
     g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_refresh), log_listbox);
+    log_clear_button = gtk_tool_button_new (NULL, _("Clear"));
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_button), 1);
+    g_signal_connect (G_OBJECT (log_clear_button), "clicked",
+                      G_CALLBACK (xfce_notify_log_clear_button_clicked), log_listbox);
     gtk_widget_show_all (GTK_WIDGET(log_toolbar));
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
