@@ -17,18 +17,6 @@
     <property name="page_increment">0.10000000000000001</property>
     <property name="page_size">0.01</property>
   </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-clear</property>
-  </object>
-  <object class="GtkButton" id="clear_log_button">
-    <property name="label" translatable="yes">Clear log</property>
-    <property name="visible">True</property>
-    <property name="can_focus">True</property>
-    <property name="receives_default">True</property>
-    <property name="image">image2</property>
-  </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
       <!-- column-name gchararray -->
@@ -764,11 +752,5 @@
     <action-widgets>
       <action-widget response="1">close_btn</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkButton" id="refresh_log_button">
-    <property name="label" translatable="yes">Refresh</property>
-    <property name="visible">True</property>
-    <property name="can_focus">True</property>
-    <property name="receives_default">True</property>
   </object>
 </interface>

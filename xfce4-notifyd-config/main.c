@@ -568,7 +568,7 @@ xfce4_notifyd_log_refresh (GtkButton *button, gpointer user_data) {
     xfce4_notifyd_log_populate (log_listbox);
 }
 
-static void xfce_notify_clear_log_button_clicked (GtkButton *button, gpointer user_data) {
+static void xfce_notify_log_clear_button_clicked (GtkButton *button, gpointer user_data) {
     GtkWidget *log_listbox = user_data;
     GtkCallback func = listbox_remove_all;
 
@@ -618,10 +618,8 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *log_scrolled_window;
     GtkWidget *log_listbox;
     GtkToolbar *log_toolbar;
-    GtkToolItem *log_clear_toolbar_btn;
-    GtkToolItem *log_refresh_toolbar_btn;
-    GtkWidget *clear_log_button;
-    GtkWidget *refresh_log_button;
+    GtkToolItem *log_clear_button;
+    GtkToolItem *log_refresh_button;
     GtkWidget *primary_monitor;
     GtkWidget *do_fadeout;
     GtkAdjustment *adj;
@@ -756,18 +754,15 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_widget_show_all (placeholder_label);
     xfce4_notifyd_log_populate (log_listbox);
 
-    clear_log_button = GTK_WIDGET (gtk_builder_get_object (builder, "clear_log_button"));
-    g_signal_connect (G_OBJECT (clear_log_button), "clicked",
-                      G_CALLBACK (xfce_notify_clear_log_button_clicked), log_listbox);
-    refresh_log_button = GTK_WIDGET (gtk_builder_get_object (builder, "refresh_log_button"));
-    g_signal_connect (G_OBJECT (refresh_log_button), "clicked",
+    log_clear_button = gtk_tool_button_new (NULL, _("Clear"));
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_button), 0);
+    g_signal_connect (G_OBJECT (log_clear_button), "clicked",
+                      G_CALLBACK (xfce_notify_log_clear_button_clicked), log_listbox);
+
+    log_refresh_button = gtk_tool_button_new (NULL, _("Refresh"));
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 1);
+    g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_refresh), log_listbox);
-    log_clear_toolbar_btn = gtk_tool_item_new ();
-    gtk_container_add (GTK_CONTAINER(log_clear_toolbar_btn), clear_log_button);
-    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_toolbar_btn), 0);
-    log_refresh_toolbar_btn = gtk_tool_item_new ();
-    gtk_container_add (GTK_CONTAINER(log_refresh_toolbar_btn), refresh_log_button);
-    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_toolbar_btn), 1);
     gtk_widget_show_all (GTK_WIDGET(log_toolbar));
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
