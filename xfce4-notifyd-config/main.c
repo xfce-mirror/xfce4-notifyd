@@ -686,7 +686,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
         gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
 
     primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
-    xfconf_g_property_bind(channel, "/primary-monitor", G_TYPE_BOOLEAN,
+    xfconf_g_property_bind(channel, "/primary-monitor", G_TYPE_UINT,
                            G_OBJECT(primary_monitor), "active");
 
     do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));

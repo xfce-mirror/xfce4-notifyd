@@ -63,6 +63,20 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="liststore3">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">display with mouse pointer</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">primary display</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkListStore" id="model1">
     <columns>
       <!-- column-name gchararray -->
@@ -509,44 +523,36 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox">
+                      <object class="GtkComboBox" id="primary_monitor">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="model">liststore3</property>
+                        <property name="active_id">1</property>
                         <child>
-                          <object class="GtkLabel" id="primary_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">By default the notification bubbles will be shown on the display on which the mouse pointer is located.</property>
-                            <property name="margin_left">12</property>
-                            <property name="label" translatable="yes">Always show notifications on primary display</property>
-                            <property name="ellipsize">end</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
+                          <object class="GtkCellRendererText" id="renderer5"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
                         </child>
-                        <child>
-                          <object class="GtkSwitch" id="primary_monitor">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="halign">end</property>
-                            <property name="valign">center</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="primary_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">By default the notification bubbles will be shown on the display on which the mouse pointer is located.</property>
+                        <property name="margin_left">12</property>
+                        <property name="label" translatable="yes">Show notifications on</property>
+                        <property name="ellipsize">end</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">2</property>
-                        <property name="width">2</property>
                       </packing>
                     </child>
                     <child>
@@ -644,7 +650,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="model">liststore1</property>
-                        <property name="popup_fixed_width">False</property>
                         <property name="active_id">1</property>
                         <child>
                           <object class="GtkCellRendererText" id="renderer2"/>

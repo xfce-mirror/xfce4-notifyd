@@ -61,9 +61,9 @@ struct _XfceNotifyDaemon
     gdouble initial_opacity;
     GtkCornerType notify_location;
     gboolean do_fadeout;
-    gboolean primary_monitor;
     gboolean do_not_disturb;
     gboolean notification_log;
+    gint primary_monitor;
     gint log_level;
     gint log_level_apps;
 
@@ -724,7 +724,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 
     gdk_device_get_position (pointer, &p_screen, &x, &y);
 
-    if (xndaemon->primary_monitor == TRUE)
+    if (xndaemon->primary_monitor == 1)
         monitor = gdk_screen_get_primary_monitor(widget_screen);
     else
         monitor = gdk_screen_get_monitor_at_point(p_screen, x, y);
@@ -1557,8 +1557,8 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                : TRUE;
     } else if(!strcmp(property, "/primary-monitor")) {
         xndaemon->primary_monitor = G_VALUE_TYPE(value)
-                                    ? g_value_get_boolean(value)
-                                    : TRUE;
+                                    ? g_value_get_uint(value)
+                                    : 0;
     } else if(!strcmp(property, "/do-not-disturb")) {
         xndaemon->do_not_disturb = G_VALUE_TYPE(value)
                                  ? g_value_get_boolean(value)
@@ -1609,8 +1609,8 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     xndaemon->do_fadeout = xfconf_channel_get_bool(xndaemon->settings,
                                                 "/do-fadeout", TRUE);
 
-    xndaemon->primary_monitor = xfconf_channel_get_bool(xndaemon->settings,
-                                                        "/primary-monitor", FALSE);
+    xndaemon->primary_monitor = xfconf_channel_get_uint(xndaemon->settings,
+                                                        "/primary-monitor", 0);
 
     xndaemon->do_not_disturb = xfconf_channel_get_bool(xndaemon->settings,
                                                        "/do-not-disturb",
