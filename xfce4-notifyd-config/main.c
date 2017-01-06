@@ -373,12 +373,14 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GtkWidget *known_applications_listbox = user_data;
     GtkWidget *hbox;
     GtkWidget *label;
+    GtkWidget *icon;
     GtkWidget *mute_switch;
     GtkCallback func = listbox_remove_all;
     GPtrArray *known_applications;
     GPtrArray *muted_applications;
     GValue *known_application;
     guint i, j;
+    gchar *icon_name;
 
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
@@ -393,6 +395,16 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             known_application = g_ptr_array_index (known_applications, i);
             hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
             label = gtk_label_new (g_value_get_string (known_application));
+            icon_name = g_value_get_string (known_application);
+            if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
+                icon = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
+            else if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), g_ascii_strdown(icon_name, -1), 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
+                icon = gtk_image_new_from_icon_name (g_ascii_strdown(icon_name, -1), GTK_ICON_SIZE_MENU);
+            else {
+                icon = gtk_image_new ();
+                gtk_image_set_pixel_size (GTK_IMAGE(icon), 16);
+            }
+
 #if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (label), 0);
 #else
@@ -400,6 +412,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
 #endif
             mute_switch = gtk_switch_new ();
             gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+            gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, TRUE, 3);
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
             gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
             gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
