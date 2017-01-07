@@ -621,6 +621,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkToolbar *log_toolbar;
     GtkToolItem *log_clear_button;
     GtkToolItem *log_refresh_button;
+    GtkWidget *icon;
     GtkWidget *primary_monitor;
     GtkWidget *do_fadeout;
     GtkAdjustment *adj;
@@ -767,11 +768,15 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     xfce4_notifyd_log_populate (log_listbox);
 
     log_toolbar = GTK_TOOLBAR (gtk_builder_get_object (builder, "log_toolbar"));
-    log_refresh_button = gtk_tool_button_new (NULL, _("Refresh"));
+    icon = gtk_image_new_from_icon_name ("view-refresh-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    log_refresh_button = gtk_tool_button_new (icon, _("Refresh"));
+    gtk_widget_set_tooltip_text (GTK_WIDGET (log_refresh_button), _("Refresh the notification log"));
     gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 0);
     g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_refresh), log_listbox);
-    log_clear_button = gtk_tool_button_new (NULL, _("Clear"));
+    icon = gtk_image_new_from_icon_name ("edit-clear-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    log_clear_button = gtk_tool_button_new (icon, _("Clear"));
+    gtk_widget_set_tooltip_text (GTK_WIDGET (log_clear_button), _("Clear the notification log"));
     gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_button), 1);
     g_signal_connect (G_OBJECT (log_clear_button), "clicked",
                       G_CALLBACK (xfce_notify_log_clear_button_clicked), log_listbox);
