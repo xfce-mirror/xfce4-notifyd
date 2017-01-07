@@ -569,6 +569,15 @@ xfce4_notifyd_log_refresh (GtkButton *button, gpointer user_data) {
     xfce4_notifyd_log_populate (log_listbox);
 }
 
+static void
+xfce4_notifyd_log_open (GtkButton *button, gpointer user_data) {
+    gchar *notify_log_path = NULL;
+
+    notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
+    if (!g_app_info_launch_default_for_uri (g_strdup_printf("file://%s", notify_log_path), NULL, NULL))
+        g_warning ("Could not open the log file: %s", notify_log_path);
+}
+
 static void xfce_notify_log_clear_button_clicked (GtkButton *button, gpointer user_data) {
     GtkWidget *log_listbox = user_data;
     GtkCallback func = listbox_remove_all;
@@ -621,6 +630,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkToolbar *log_toolbar;
     GtkToolItem *log_clear_button;
     GtkToolItem *log_refresh_button;
+    GtkToolItem *log_open_button;
     GtkWidget *icon;
     GtkWidget *primary_monitor;
     GtkWidget *do_fadeout;
@@ -774,10 +784,16 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 0);
     g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_refresh), log_listbox);
+    icon = gtk_image_new_from_icon_name ("document-open-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    log_open_button = gtk_tool_button_new (icon, _("Open"));
+    gtk_widget_set_tooltip_text (GTK_WIDGET (log_open_button), _("Open the notification log in an external editor"));
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_open_button), 1);
+    g_signal_connect (G_OBJECT (log_open_button), "clicked",
+                      G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
     icon = gtk_image_new_from_icon_name ("edit-clear-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
     log_clear_button = gtk_tool_button_new (icon, _("Clear"));
     gtk_widget_set_tooltip_text (GTK_WIDGET (log_clear_button), _("Clear the notification log"));
-    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_button), 1);
+    gtk_toolbar_insert(log_toolbar, GTK_TOOL_ITEM(log_clear_button), 2);
     g_signal_connect (G_OBJECT (log_clear_button), "clicked",
                       G_CALLBACK (xfce_notify_log_clear_button_clicked), log_listbox);
     gtk_widget_show_all (GTK_WIDGET(log_toolbar));
