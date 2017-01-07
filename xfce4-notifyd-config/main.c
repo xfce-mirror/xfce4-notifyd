@@ -290,9 +290,9 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
         muted_applications = g_ptr_array_new ();
 
     application_box = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (selected_application_row)), 0));
-    application_label = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 0));
+    application_label = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 1));
     application_name = gtk_label_get_text (GTK_LABEL(application_label));
-    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 1));
+    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 2));
     muted = gtk_switch_get_active (GTK_SWITCH (mute_switch));
 
     val = g_new0 (GValue, 1);
@@ -330,7 +330,7 @@ xfce4_notifyd_row_activated (GtkListBox *known_applications_listbox,
     gboolean muted;
 
     application_box = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (selected_application_row)), 0));
-    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 1));
+    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 2));
     muted = !gtk_switch_get_active (GTK_SWITCH (mute_switch));
     gtk_switch_set_active (GTK_SWITCH (mute_switch), muted);
 }
@@ -409,6 +409,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             gtk_widget_set_halign (label, GTK_ALIGN_START);
 #endif
             mute_switch = gtk_switch_new ();
+            gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
             gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
             gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, TRUE, 3);
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
