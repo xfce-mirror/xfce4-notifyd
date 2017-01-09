@@ -86,8 +86,8 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Notifications</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">500</property>
-    <property name="default_height">500</property>
+    <property name="default_width">550</property>
+    <property name="default_height">600</property>
     <property name="icon_name">xfce4-notifyd</property>
     <property name="type_hint">dialog</property>
     <property name="subtitle" translatable="yes">Customize how notifications appear on your screen</property>
