@@ -41,6 +41,7 @@
 
 #define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP       "/applications/muted_applications"
+#define LOG_DISPLAY_LIMIT             100
 
 typedef struct
 {
@@ -468,6 +469,15 @@ xfce4_notifyd_log_activated (GtkSwitch *log_switch,
 }
 
 static void
+xfce4_notifyd_log_open (GtkButton *button, gpointer user_data) {
+    gchar *notify_log_path = NULL;
+
+    notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
+    if (!g_app_info_launch_default_for_uri (g_strdup_printf("file://%s", notify_log_path), NULL, NULL))
+        g_warning ("Could not open the log file: %s", notify_log_path);
+}
+
+static void
 xfce4_notifyd_log_populate (GtkWidget *log_listbox)
 {
     GKeyFile *notify_log;
@@ -475,7 +485,8 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
     gint i;
     GDateTime *today;
     gchar *timestamp;
-    GtkWidget *limit;
+    gchar *limit_label;
+    GtkWidget *limit_button;
 
     today = g_date_time_new_now_local ();
     timestamp = g_date_time_format (today, "%F");
@@ -491,9 +502,9 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
 
         /* TODO: Do this asynchronously in a separate thread */
         for (i = 0; groups && groups[i]; i += 1) {
-            /* Only show the first 100 notifications from the log */
-            if (i <= 100) {
-                GtkWidget *grid, *box;
+            /* Only show the first n notifications from the log */
+            if (i <= LOG_DISPLAY_LIMIT) {
+                GtkWidget *grid;
                 GtkWidget *summary, *body, *app_icon, *expire_timeout;
                 const gchar *group = groups[i];
                 const char *format = "<b>\%s</b>";
@@ -557,12 +568,15 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
                 gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
             }
         }
-        if (i > 101) {
-            limit = gtk_label_new (g_strdup_printf("Showing 100 of %d notifications.", i - 1));
-            gtk_widget_set_sensitive (limit, FALSE);
-            gtk_widget_set_margin_top (limit, 3);
-            gtk_widget_set_margin_bottom (limit, 3);
-            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit, 101);
+        if (i > (LOG_DISPLAY_LIMIT + 1)) {
+            limit_label = g_strdup_printf("Showing %d of %d notifications. Click to open full log.", LOG_DISPLAY_LIMIT, i - 1);
+            limit_button = gtk_button_new_with_label (limit_label);
+            gtk_widget_set_margin_bottom (limit_button, 3);
+            gtk_widget_set_margin_top (limit_button, 3);
+            gtk_button_set_relief (GTK_BUTTON (limit_button), GTK_RELIEF_NONE);
+            g_signal_connect (G_OBJECT (limit_button), "clicked",
+                              G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
+            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit_button, LOG_DISPLAY_LIMIT + 1);
             g_key_file_free (notify_log);
         }
     }
@@ -574,15 +588,6 @@ static void
 xfce4_notifyd_log_refresh (GtkButton *button, gpointer user_data) {
     GtkWidget *log_listbox = user_data;
     xfce4_notifyd_log_populate (log_listbox);
-}
-
-static void
-xfce4_notifyd_log_open (GtkButton *button, gpointer user_data) {
-    gchar *notify_log_path = NULL;
-
-    notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
-    if (!g_app_info_launch_default_for_uri (g_strdup_printf("file://%s", notify_log_path), NULL, NULL))
-        g_warning ("Could not open the log file: %s", notify_log_path);
 }
 
 static void xfce_notify_log_clear_button_clicked (GtkButton *button, gpointer user_data) {
