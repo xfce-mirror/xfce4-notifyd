@@ -784,7 +784,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_container_add (GTK_CONTAINER (log_scrolled_window), log_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (log_listbox), display_header_func, NULL, NULL);
     placeholder_label = placeholder_label_new ("<big><b>Empty log</b></big>"
-                                               "\nSo far no notifications have been logged.");
+                                               "\nNo notifications have been logged yet.");
     gtk_list_box_set_placeholder (GTK_LIST_BOX (log_listbox), placeholder_label);
     gtk_widget_show_all (placeholder_label);
     xfce4_notifyd_log_populate (log_listbox);
