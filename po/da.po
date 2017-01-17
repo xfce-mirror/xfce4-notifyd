@@ -5,13 +5,13 @@
 # Translators:
 # Aputsiak Niels Janussen <aj@isit.gl>, 2013
 # Per Kongstad <p_kongstad@op.pl>, 2008
-# scootergrisen, 2016
+# scootergrisen, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-04 00:30+0200\n"
-"PO-Revision-Date: 2016-12-08 05:31+0000\n"
+"PO-Revision-Date: 2017-01-17 13:27+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "SOKKEL-_ID"
 #: ../xfce4-notifyd-config/main.c:570
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Tast '%s --help' for anvendelse."
+msgstr "Skriv \"%s --help\" for anvendelse."
 
 #: ../xfce4-notifyd-config/main.c:585
 #, c-format
@@ -100,7 +100,7 @@ msgstr "Øverst til højre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "Bottom right"
-msgstr "Bund til højre"
+msgstr "Nederst til højre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
@@ -152,7 +152,7 @@ msgstr "<b>Vis beskeder for</b>"
 msgid ""
 "<b>Currently no notifications are shown</b>\n"
 "except for messages marked as urgent."
-msgstr "<b>På nuværende tidspunkt vises ingen beskeder</b>\nundtagen meddelelser markeret som vigtig."
+msgstr "<b>På nuværende tidspunkt vises ingen beskeder</b>\nundtagen meddelelser som er mærket vigtig."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "Applications"
