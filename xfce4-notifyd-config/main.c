@@ -523,7 +523,7 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
                     }
                 }
 
-                if (g_str_match_string (timestamp, group, FALSE) == TRUE && yesterday == FALSE) {
+                if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {
                     GtkWidget *header;
                     header = gtk_label_new ("Yesterday and before");
                     gtk_widget_set_sensitive (header, FALSE);
