@@ -41,10 +41,10 @@
         <col id="0" translatable="yes">all</col>
       </row>
       <row>
-        <col id="0" translatable="yes">all except muted</col>
+        <col id="0" translatable="yes">all except blocked</col>
       </row>
       <row>
-        <col id="0" translatable="yes">only muted</col>
+        <col id="0" translatable="yes">only blocked</col>
       </row>
     </data>
   </object>
@@ -90,7 +90,7 @@
     <property name="default_height">600</property>
     <property name="icon_name">xfce4-notifyd</property>
     <property name="type_hint">dialog</property>
-    <property name="subtitle" translatable="yes">Customize how notifications appear on your screen</property>
+    <property name="subtitle" translatable="yes">Customize your notification settings</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
@@ -283,18 +283,16 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="preview_button">
-                        <property name="label" translatable="yes">Show Notification _Preview</property>
-                        <property name="use_action_appearance">False</property>
+                        <property name="label" translatable="yes">Show _Preview</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="margin_left">12</property>
+                        <property name="margin_top">6</property>
                         <property name="use_underline">True</property>
                       </object>
                       <packing>
-                        <property name="left_attach">0</property>
+                        <property name="left_attach">1</property>
                         <property name="top_attach">9</property>
-                        <property name="width">2</property>
                       </packing>
                     </child>
                     <child>
@@ -547,6 +545,9 @@
                     <child>
                       <placeholder/>
                     </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
                     <property name="name">general</property>
@@ -566,7 +567,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_bottom">6</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Show notifications for&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Show or block notifications per application&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="xalign">0</property>
                       </object>
