@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012
-# Moo, 2015-2016
+# Moo, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 00:30+0200\n"
-"PO-Revision-Date: 2016-11-12 06:34+0000\n"
+"POT-Creation-Date: 2017-01-30 00:30+0100\n"
+"PO-Revision-Date: 2017-01-30 11:03+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:468
+#: ../xfce4-notifyd-config/main.c:670
 msgid "Xfce Notify Daemon"
 msgstr "Xfce pranešimų tarnyba"
 
@@ -33,126 +33,213 @@ msgstr "Nežinoma parinktis „%s“\n"
 msgid "Unable to start notification daemon"
 msgstr "Nepavyko paleisti pranešimų tarnybos"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:363
+#: ../xfce4-notifyd/xfce-notify-daemon.c:367
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Yra vykdoma kita pranešimų tarnyba, išeinama\n"
 
-#: ../xfce4-notifyd-config/main.c:59
+#: ../xfce4-notifyd-config/main.c:69
 msgid "Notification Preview"
 msgstr "Pranešimų peržiūra"
 
-#: ../xfce4-notifyd-config/main.c:60
+#: ../xfce4-notifyd-config/main.c:70
 msgid "This is what notifications will look like"
 msgstr "Štai kaip atrodys pranešimai"
 
-#: ../xfce4-notifyd-config/main.c:65
+#: ../xfce4-notifyd-config/main.c:75
 msgid "Button"
 msgstr "Mygtukas"
 
-#: ../xfce4-notifyd-config/main.c:72
+#: ../xfce4-notifyd-config/main.c:82
 msgid "Notification preview failed"
 msgstr "Pranešimų peržiūra nepavyko"
 
-#: ../xfce4-notifyd-config/main.c:470
+#: ../xfce4-notifyd-config/main.c:672
 msgid "Settings daemon is unavailable"
 msgstr "Nustatymų tarnyba neprieinama"
 
-#: ../xfce4-notifyd-config/main.c:559
+#: ../xfce4-notifyd-config/main.c:794
+msgid "Refresh"
+msgstr "Įkelti iš naujo"
+
+#: ../xfce4-notifyd-config/main.c:795
+msgid "Refresh the notification log"
+msgstr "Iš naujo įkelti pranešimų žurnalą"
+
+#: ../xfce4-notifyd-config/main.c:800
+msgid "Open"
+msgstr "Atverti"
+
+#: ../xfce4-notifyd-config/main.c:801
+msgid "Open the notification log in an external editor"
+msgstr "Atverti pranešimų žurnalą išoriniame redaktoriuje"
+
+#: ../xfce4-notifyd-config/main.c:806
+msgid "Clear"
+msgstr "Išvalyti"
+
+#: ../xfce4-notifyd-config/main.c:807
+msgid "Clear the notification log"
+msgstr "Išvalyti pranešimų žurnalą"
+
+#: ../xfce4-notifyd-config/main.c:825
 msgid "Display version information"
 msgstr "Rodyti versijos informaciją"
 
-#: ../xfce4-notifyd-config/main.c:560
+#: ../xfce4-notifyd-config/main.c:826
 msgid "Settings manager socket"
 msgstr "Nustatymų tvarkytuvės lizdas"
 
-#: ../xfce4-notifyd-config/main.c:560
+#: ../xfce4-notifyd-config/main.c:826
 msgid "SOCKET_ID"
 msgstr "LIZDO_ID"
 
-#: ../xfce4-notifyd-config/main.c:570
+#: ../xfce4-notifyd-config/main.c:836
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Pabandykite „%s --help“, jei norite daugiau informacijos."
 
-#: ../xfce4-notifyd-config/main.c:585
+#: ../xfce4-notifyd-config/main.c:851
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Išleista pagal GNU General Public License sąlygas, versija 2\n"
 
-#: ../xfce4-notifyd-config/main.c:586
+#: ../xfce4-notifyd-config/main.c:852
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Apie klaidas pranešti %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "only during \"Do not disturb\""
+msgstr "tik \"Netrukdyti\" veiksenos metu"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "always"
+msgstr "visada"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "all"
+msgstr "visus"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "all except blocked"
+msgstr "visus, išskyrus užblokuotus"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "only blocked"
+msgstr "tik užblokuotus"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "display with mouse pointer"
+msgstr "ekrane su pelės žymekliu"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "primary display"
+msgstr "pirminiame ekrane"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
 msgstr "Viršuje kairėje"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Bottom left"
 msgstr "Apačioje kairėje"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "Top right"
 msgstr "Viršuje dešinėje"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
 msgstr "Apačioje dešinėje"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
 msgstr "Pranešimai"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Customize how notifications appear on your screen"
-msgstr "Tinkinti kaip atrodys pranešimai jūsų ekrane"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Customize your notification settings"
+msgstr "Tinkinti savo pranešimų nustatymus"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "Show Notification _Preview"
-msgstr "Rodyti pranešimo _peržiūrą"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>Šiuo metu rodomi tik skubūs pranešimai.</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Theme:"
-msgstr "_Tema:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "Show _Preview"
+msgstr "Rodyti _peržiūrą"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "Default _position:"
-msgstr "Numatytoji _vieta:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "seconds"
 msgstr "sekundžių"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
-msgid "_Disappear after:"
-msgstr "_Išnykti po:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+msgid "_Disappear after"
+msgstr "_Išnykti po"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
-msgid "_Opacity:"
-msgstr "_Nepermatomumas:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "_Opacity"
+msgstr "_Nepermatomumas"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
-msgid "Appearance"
-msgstr "Išvaizda"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+msgid "Fade out"
+msgstr "Laipsniškai išnykti"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+msgid "Default _position"
+msgstr "Numatytoji _vieta"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Theme"
+msgstr "_Tema"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Do not disturb"
 msgstr "Netrukdyti"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "<b>Show notifications for</b>"
-msgstr "<b>Rodyti pranešimus, skirtus</b>"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+msgid "<b>Behavior</b>"
+msgstr "<b>Elgsena</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+msgid "<b>Appearance</b>"
+msgstr "<b>Išvaizda</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid ""
-"<b>Currently no notifications are shown</b>\n"
-"except for messages marked as urgent."
-msgstr "<b>Šiuo metu nėra rodomi jokie pranešimai,</b>\nišskyrus tuos, kurie yra pažymėti kaip skubūs."
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "Pagal numatymą, pranešimų burbulai bus rodomi ekrane, kuriame yra pelės žymeklis."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+msgid "Show notifications on"
+msgstr "Rodyti pranešimus"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "General"
+msgstr "Bendra"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+msgid "<b>Show or block notifications per application</b>"
+msgstr "<b>Rodyti ar blokuoti pranešimus atskiroms programoms</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Applications"
 msgstr "Programos"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+msgid "Log notifications"
+msgstr "Registruoti pranešimus"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid "Log applications"
+msgstr "Registruoti programas"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Log"
+msgstr "Žurnalas"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Customize how notifications appear on your screen"
+msgstr "Tinkinti kaip atrodys pranešimai jūsų ekrane"
