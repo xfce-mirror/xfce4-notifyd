@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-01-31 10:01+0000\n"
+"PO-Revision-Date: 2017-01-31 16:54+0000\n"
 "Last-Translator: Charles Monzat <superboa@hotmail.fr>\n"
 "Language-Team: French (http://www.transifex.com/xfce/xfce-apps/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "Show _Preview"
-msgstr ""
+msgstr "Afficher un _aperçu"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "seconds"
@@ -179,7 +179,7 @@ msgstr "secondes"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "_Disappear after"
-msgstr ""
+msgstr "_Disparaître après"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "_Opacity"
