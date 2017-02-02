@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-02-02 17:00+0000\n"
+"PO-Revision-Date: 2017-02-02 19:37+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-apps/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgstr "bare blokkerte?"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr ""
+msgstr "skjerm med musepeker"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
@@ -165,7 +165,7 @@ msgstr "Tilpass med dine varslingsinnstillinger"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr ""
+msgstr "<b>Bare varsler som haster blir vist.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "Show _Preview"
@@ -185,7 +185,7 @@ msgstr "_Dekkevne"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "Fade out"
-msgstr ""
+msgstr "Ton ut"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "Default _position"
@@ -211,7 +211,7 @@ msgstr "<b>Utseende</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr ""
+msgstr "Som forvalg vil varslingsbobla bli vist på skjermen der musepekeren er."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "Show notifications on"
@@ -223,7 +223,7 @@ msgstr "Generelt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid "<b>Show or block notifications per application</b>"
-msgstr ""
+msgstr "<b>Vis eller blokker varsler for hvert program</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Applications"
