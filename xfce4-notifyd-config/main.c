@@ -497,88 +497,87 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
     if (notify_log) {
         gchar **groups;
         gboolean yesterday = FALSE;
+        gsize num_groups;
 
-        groups = g_key_file_get_groups (notify_log, NULL);
+        groups = g_key_file_get_groups (notify_log, &num_groups);
 
-        /* TODO: Do this asynchronously in a separate thread */
-        for (i = 0; groups && groups[i]; i += 1) {
-            /* Only show the first n notifications from the log */
-            if (i <= LOG_DISPLAY_LIMIT) {
-                GtkWidget *grid;
-                GtkWidget *summary, *body, *app_icon, *expire_timeout;
-                const gchar *group = groups[i];
-                const char *format = "<b>\%s</b>";
-                const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
-                const char *tooltip_format_simple = "<b>\%s</b> - \%s";
-                char *markup;
-                gchar *app_name;
-                gchar *tooltip_timestamp;
-                GTimeVal tv;
-                GDateTime *log_timestamp;
+        /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
+        for (i = GPOINTER_TO_UINT(num_groups) - LOG_DISPLAY_LIMIT; groups && groups[i]; i += 1) {
+            GtkWidget *grid;
+            GtkWidget *summary, *body, *app_icon, *expire_timeout;
+            const gchar *group = groups[i];
+            const char *format = "<b>\%s</b>";
+            const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
+            const char *tooltip_format_simple = "<b>\%s</b> - \%s";
+            char *markup;
+            gchar *app_name;
+            gchar *tooltip_timestamp;
+            GTimeVal tv;
+            GDateTime *log_timestamp;
 
-                if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
-                    if (log_timestamp = g_date_time_new_from_timeval_local (&tv)) {
-                        tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
-                        g_date_time_unref(log_timestamp);
-                    }
+            if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
+                if (log_timestamp = g_date_time_new_from_timeval_local (&tv)) {
+                    tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
+                    g_date_time_unref(log_timestamp);
                 }
-
-                if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {
-                    GtkWidget *header;
-                    header = gtk_label_new ("Yesterday and before");
-                    gtk_widget_set_sensitive (header, FALSE);
-                    gtk_widget_set_margin_top (header, 3);
-                    gtk_widget_set_margin_bottom (header, 3);
-                    gtk_list_box_insert (GTK_LIST_BOX (log_listbox), header, 0);
-                    yesterday = TRUE;
-                }
-
-                app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
-                markup = g_markup_printf_escaped (format, g_key_file_get_string (notify_log, group, "summary", NULL));
-                summary = gtk_label_new (NULL);
-                gtk_label_set_markup (GTK_LABEL (summary), markup);
-                gtk_label_set_xalign (GTK_LABEL (summary), 0);
-                g_free (markup);
-                body = gtk_label_new (g_key_file_get_string (notify_log, group, "body", NULL));
-                gtk_label_set_xalign (GTK_LABEL (body), 0);
-                gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
-                app_icon = gtk_image_new_from_icon_name (g_key_file_get_string (notify_log, group, "app_icon", NULL), GTK_ICON_SIZE_LARGE_TOOLBAR);
-                gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
-                gtk_widget_set_margin_start (app_icon, 3);
-                expire_timeout = gtk_label_new (g_key_file_get_string (notify_log, group, "expire-timeout", NULL));
-                // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
-                grid = gtk_grid_new ();
-                gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
-                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (app_icon), 0, 0 , 1, 2);
-
-                /* Handle icon-only notifications */
-                if (g_strcmp0 (g_key_file_get_string (notify_log, group, "body", NULL), "") == 0) {
-                    gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
-                    markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
-                }
-                else {
-                    gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
-                    gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
-                    markup = g_strdup_printf (tooltip_format, app_name, tooltip_timestamp, g_key_file_get_string (notify_log, group, "body", NULL));
-                }
-
-                gtk_widget_set_tooltip_markup (grid, markup);
-                g_free (markup);
-
-                gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
             }
+
+            if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {
+                GtkWidget *header;
+                header = gtk_label_new ("Yesterday and before");
+                gtk_widget_set_sensitive (header, FALSE);
+                gtk_widget_set_margin_top (header, 3);
+                gtk_widget_set_margin_bottom (header, 3);
+                gtk_list_box_insert (GTK_LIST_BOX (log_listbox), header, 0);
+                yesterday = TRUE;
+            }
+
+            app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
+            markup = g_markup_printf_escaped (format, g_key_file_get_string (notify_log, group, "summary", NULL));
+            summary = gtk_label_new (NULL);
+            gtk_label_set_markup (GTK_LABEL (summary), markup);
+            gtk_label_set_xalign (GTK_LABEL (summary), 0);
+            g_free (markup);
+            body = gtk_label_new (g_key_file_get_string (notify_log, group, "body", NULL));
+            gtk_label_set_xalign (GTK_LABEL (body), 0);
+            gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
+            app_icon = gtk_image_new_from_icon_name (g_key_file_get_string (notify_log, group, "app_icon", NULL),
+                                                     GTK_ICON_SIZE_LARGE_TOOLBAR);
+            gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
+            gtk_widget_set_margin_start (app_icon, 3);
+            expire_timeout = gtk_label_new (g_key_file_get_string (notify_log, group, "expire-timeout", NULL));
+            // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
+            grid = gtk_grid_new ();
+            gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+            gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (app_icon), 0, 0 , 1, 2);
+
+            /* Handle icon-only notifications */
+            if (g_strcmp0 (g_key_file_get_string (notify_log, group, "body", NULL), "") == 0) {
+                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
+                markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
+            }
+            else {
+                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
+                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
+                markup = g_strdup_printf (tooltip_format, app_name, tooltip_timestamp,
+                                          g_key_file_get_string (notify_log, group, "body", NULL));
+            }
+
+            gtk_widget_set_tooltip_markup (grid, markup);
+            g_free (markup);
+
+            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
         }
-        if (i > (LOG_DISPLAY_LIMIT + 1)) {
-            limit_label = g_strdup_printf("Showing %d of %d notifications. Click to open full log.", LOG_DISPLAY_LIMIT, i - 1);
-            limit_button = gtk_button_new_with_label (limit_label);
-            gtk_widget_set_margin_bottom (limit_button, 3);
-            gtk_widget_set_margin_top (limit_button, 3);
-            gtk_button_set_relief (GTK_BUTTON (limit_button), GTK_RELIEF_NONE);
-            g_signal_connect (G_OBJECT (limit_button), "clicked",
-                              G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
-            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit_button, LOG_DISPLAY_LIMIT + 1);
-            g_key_file_free (notify_log);
-        }
+        limit_label = g_strdup_printf("Showing %d of %d notifications. Click to open full log.",
+                                      LOG_DISPLAY_LIMIT, GPOINTER_TO_UINT(num_groups));
+        limit_button = gtk_button_new_with_label (limit_label);
+        gtk_widget_set_margin_bottom (limit_button, 3);
+        gtk_widget_set_margin_top (limit_button, 3);
+        gtk_button_set_relief (GTK_BUTTON (limit_button), GTK_RELIEF_NONE);
+        g_signal_connect (G_OBJECT (limit_button), "clicked",
+                          G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
+        gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit_button, LOG_DISPLAY_LIMIT + 1);
+        g_key_file_free (notify_log);
     }
 
     gtk_widget_show_all (log_listbox);
