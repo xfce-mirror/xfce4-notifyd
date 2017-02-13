@@ -2,6 +2,24 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.3.5 (13 February 2017):
+  This is a feature release.
+
+  Features:
+    * Notification log ("persistence" according to fd.o spec)
+    * Rework settings dialog and include more options
+
+  Bugs fixed:
+    * Fix height of settings dialog when plugged
+    * Fix compilation on 3.14
+
+  Updated translations: Bulgarian, Chinese (China), Chinese (Taiwan),
+  Croatian, Czech, Danish, Dutch (Flemish), Finnish, French, German,
+  Icelandic, Italian, Korean, Lithuanian, Norwegian Bokmål, Polish,
+  Portuguese, Portuguese (Brazilian), Russian, Serbian, Slovak, Spanish,
+  Swedish, Ukrainian
+
+
 Version 0.3.4 (09 November 2016):
   This is a feature release.
 
