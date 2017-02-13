@@ -498,11 +498,15 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
         gchar **groups;
         gboolean yesterday = FALSE;
         gsize num_groups;
+        int log_length;
 
         groups = g_key_file_get_groups (notify_log, &num_groups);
+        log_length = GPOINTER_TO_UINT(num_groups) - LOG_DISPLAY_LIMIT;
+        if (log_length < 0)
+            log_length = 0;
 
         /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
-        for (i = GPOINTER_TO_UINT(num_groups) - LOG_DISPLAY_LIMIT; groups && groups[i]; i += 1) {
+        for (i = log_length; groups && groups[i]; i += 1) {
             GtkWidget *grid;
             GtkWidget *summary, *body, *app_icon, *expire_timeout;
             const gchar *group = groups[i];
@@ -568,15 +572,17 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
 
             gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
         }
-        limit_label = g_strdup_printf("Showing %d of %d notifications. Click to open full log.",
-                                      LOG_DISPLAY_LIMIT, GPOINTER_TO_UINT(num_groups));
-        limit_button = gtk_button_new_with_label (limit_label);
-        gtk_widget_set_margin_bottom (limit_button, 3);
-        gtk_widget_set_margin_top (limit_button, 3);
-        gtk_button_set_relief (GTK_BUTTON (limit_button), GTK_RELIEF_NONE);
-        g_signal_connect (G_OBJECT (limit_button), "clicked",
-                          G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
-        gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit_button, LOG_DISPLAY_LIMIT + 1);
+        if (log_length > 0) {
+            limit_label = g_strdup_printf("Showing %d of %d notifications. Click to open full log.",
+                                          LOG_DISPLAY_LIMIT, GPOINTER_TO_UINT(num_groups));
+            limit_button = gtk_button_new_with_label (limit_label);
+            gtk_widget_set_margin_bottom (limit_button, 3);
+            gtk_widget_set_margin_top (limit_button, 3);
+            gtk_button_set_relief (GTK_BUTTON (limit_button), GTK_RELIEF_NONE);
+            g_signal_connect (G_OBJECT (limit_button), "clicked",
+                              G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
+            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit_button, LOG_DISPLAY_LIMIT + 1);
+        }
         g_key_file_free (notify_log);
     }
 
