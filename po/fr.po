@@ -7,15 +7,15 @@
 # jc1 <jc1.quebecos@gmail.com>, 2013
 # Maximilian Schleiss <maximilian@xfce.org>, 2008
 # Towinet, 2017
-# Urien Desterres <urien.desterres@gmail.com>, 2014
+# Urien Desterres <urien.desterres@gmail.com>, 2014,2017
 # Yannick Le Guen <leguen.yannick@gmail.com>, 2014,2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-02-12 21:40+0000\n"
-"Last-Translator: Towinet\n"
+"PO-Revision-Date: 2017-02-13 21:09+0000\n"
+"Last-Translator: Urien Desterres <urien.desterres@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/xfce/xfce-apps/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,11 +64,11 @@ msgstr "Le démon des paramètres est indisponible"
 
 #: ../xfce4-notifyd-config/main.c:794
 msgid "Refresh"
-msgstr "Rafraîchir"
+msgstr "Rafraichir"
 
 #: ../xfce4-notifyd-config/main.c:795
 msgid "Refresh the notification log"
-msgstr "Actualiser le journal de notification"
+msgstr "Actualiser le journal des notifications"
 
 #: ../xfce4-notifyd-config/main.c:800
 msgid "Open"
@@ -76,7 +76,7 @@ msgstr "Ouvrir"
 
 #: ../xfce4-notifyd-config/main.c:801
 msgid "Open the notification log in an external editor"
-msgstr "Ouvrir le journal de notification dans un éditeur externe"
+msgstr "Ouvrir le journal des notifications dans un éditeur externe"
 
 #: ../xfce4-notifyd-config/main.c:806
 msgid "Clear"
@@ -84,7 +84,7 @@ msgstr "Effacer"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Clear the notification log"
-msgstr "Vider le journal de notification"
+msgstr "Effacer le journal des notifications"
 
 #: ../xfce4-notifyd-config/main.c:825
 msgid "Display version information"
@@ -180,7 +180,7 @@ msgstr "secondes"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "_Disappear after"
-msgstr "_Disparaître après"
+msgstr "_Disparaitre après"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "_Opacity"
@@ -188,7 +188,7 @@ msgstr "_Opacité"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "Fade out"
-msgstr ""
+msgstr "Fermeture en fondu"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "Default _position"
@@ -234,15 +234,15 @@ msgstr "Applications"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "Log notifications"
-msgstr "Notifications de journal"
+msgstr "Consigner les notifications"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "Log applications"
-msgstr ""
+msgstr "Consigner les applications"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Log"
-msgstr ""
+msgstr "Journal"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
