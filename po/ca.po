@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-02-14 11:06+0000\n"
+"PO-Revision-Date: 2017-02-14 14:31+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-apps/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -133,7 +133,7 @@ msgstr "només les bloquejades"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "mostra amb el punter del ratolí"
+msgstr "pantalla amb el punter del ratolí"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
@@ -162,7 +162,7 @@ msgstr "Notificacions"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
-msgstr "Personalitzeu els ajusts de la vostra notificació"
+msgstr "Personalitzeu els ajusts de les vostres notificacions"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid "<b>Currently only urgent notifications are shown.</b>"
@@ -212,11 +212,11 @@ msgstr "<b>Aparença</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Per defecte, les bombolles de notificació es mostraran en pantalla en la qual es troba el punter del ratolí."
+msgstr "Per defecte, les bombolles de notificació es mostraran en la pantalla que es troba el punter del ratolí."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "Show notifications on"
-msgstr "Mostra les notificacions del"
+msgstr "Mostra les notificacions en la"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "General"
@@ -224,7 +224,7 @@ msgstr "General"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>Mostra o bloqueja les notificacions per aplicació</b>"
+msgstr "<b>Mostra o bloqueja les notificacions en funció de l'aplicació</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Applications"
@@ -232,15 +232,15 @@ msgstr "Aplicacions"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "Log notifications"
-msgstr "Registra les notificacions"
+msgstr "Enregistrament de les notificacions"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "Log applications"
-msgstr "Registra les aplicacions"
+msgstr "Enregistrament de les aplicacions"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Log"
-msgstr "Registra"
+msgstr "Registre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
