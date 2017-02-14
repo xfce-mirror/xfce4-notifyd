@@ -5,14 +5,14 @@
 # Translators:
 # Carles Muñoz Gorriz <carlesmu@internautas.org>, 2008
 # Davidmp <medipas@gmail.com>, 2016
-# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016-2017
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 00:30+0200\n"
-"PO-Revision-Date: 2016-10-04 08:18+0000\n"
+"POT-Creation-Date: 2017-01-30 00:30+0100\n"
+"PO-Revision-Date: 2017-02-14 11:06+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-apps/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:468
+#: ../xfce4-notifyd-config/main.c:670
 msgid "Xfce Notify Daemon"
 msgstr "Dimoni de notificacions de Xfce"
 
@@ -35,126 +35,213 @@ msgstr "Opció desconeguda: «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "No s'ha pogut iniciar el dimoni de notificacions"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:363
+#: ../xfce4-notifyd/xfce-notify-daemon.c:367
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Ja hi ha un altre dimoni de notificacions executant-se, se surt\n"
 
-#: ../xfce4-notifyd-config/main.c:59
+#: ../xfce4-notifyd-config/main.c:69
 msgid "Notification Preview"
 msgstr "Vista prèvia de la notificació"
 
-#: ../xfce4-notifyd-config/main.c:60
+#: ../xfce4-notifyd-config/main.c:70
 msgid "This is what notifications will look like"
 msgstr "Així és com es veuran les notificacions"
 
-#: ../xfce4-notifyd-config/main.c:65
+#: ../xfce4-notifyd-config/main.c:75
 msgid "Button"
 msgstr "Botó"
 
-#: ../xfce4-notifyd-config/main.c:72
+#: ../xfce4-notifyd-config/main.c:82
 msgid "Notification preview failed"
 msgstr "Ha fallat la vista prèvia de la notificació"
 
-#: ../xfce4-notifyd-config/main.c:470
+#: ../xfce4-notifyd-config/main.c:672
 msgid "Settings daemon is unavailable"
 msgstr "El dimoni d'ajusts no està disponible"
 
-#: ../xfce4-notifyd-config/main.c:559
+#: ../xfce4-notifyd-config/main.c:794
+msgid "Refresh"
+msgstr "Refresca"
+
+#: ../xfce4-notifyd-config/main.c:795
+msgid "Refresh the notification log"
+msgstr "Refresca el registre de notificacions"
+
+#: ../xfce4-notifyd-config/main.c:800
+msgid "Open"
+msgstr "Obre"
+
+#: ../xfce4-notifyd-config/main.c:801
+msgid "Open the notification log in an external editor"
+msgstr "Obre el registre de notificacions en un editor extern"
+
+#: ../xfce4-notifyd-config/main.c:806
+msgid "Clear"
+msgstr "Neteja"
+
+#: ../xfce4-notifyd-config/main.c:807
+msgid "Clear the notification log"
+msgstr "Neteja el registre de notificacions"
+
+#: ../xfce4-notifyd-config/main.c:825
 msgid "Display version information"
 msgstr "Mostra la informació de la versió"
 
-#: ../xfce4-notifyd-config/main.c:560
+#: ../xfce4-notifyd-config/main.c:826
 msgid "Settings manager socket"
 msgstr "Sòcol del gestor d'ajusts"
 
-#: ../xfce4-notifyd-config/main.c:560
+#: ../xfce4-notifyd-config/main.c:826
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:570
+#: ../xfce4-notifyd-config/main.c:836
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Feu «%s --help» per veure l'ús."
+msgstr "Teclegeu «%s --help» per a l'ús."
 
-#: ../xfce4-notifyd-config/main.c:585
+#: ../xfce4-notifyd-config/main.c:851
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Distribuït amb els termes de la «GNU General Public License», versió 2\n"
+msgstr "Publicat sota els termes de la «GNU General Public License», versió 2\n"
 
-#: ../xfce4-notifyd-config/main.c:586
+#: ../xfce4-notifyd-config/main.c:852
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Aviseu dels errors a %s.\n"
+msgstr "Informeu els errors a %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "only during \"Do not disturb\""
+msgstr "només amb «No molestar»"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "always"
+msgstr "sempre"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "all"
+msgstr "totes"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "all except blocked"
+msgstr "totes excepte les bloquejades"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "only blocked"
+msgstr "només les bloquejades"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "display with mouse pointer"
+msgstr "mostra amb el punter del ratolí"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "primary display"
+msgstr "pantalla primària"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
 msgstr "Part superior esquerra"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Bottom left"
 msgstr "Part inferior esquerra"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "Top right"
 msgstr "Part superior dreta"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
 msgstr "Part inferior dreta"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
 msgstr "Notificacions"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Customize how notifications appear on your screen"
-msgstr "Personalitzeu com es mostren les notificacions"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Customize your notification settings"
+msgstr "Personalitzeu els ajusts de la vostra notificació"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "Show Notification _Preview"
-msgstr "Mostra la vista _prèvia de la notificació"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>Actualment només es mostren les notificacions urgents.</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Theme:"
-msgstr "_Tema:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "Show _Preview"
+msgstr "Mostra la vista _prèvia"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "Default _position:"
-msgstr "_Posició predeterminada:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "seconds"
 msgstr "segons"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
-msgid "_Disappear after:"
-msgstr "_Desapareix després de:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+msgid "_Disappear after"
+msgstr "_Desapareix després de"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
-msgid "_Opacity:"
-msgstr "_Opacitat:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "_Opacity"
+msgstr "_Opacitat"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
-msgid "Appearance"
-msgstr "Aparença"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+msgid "Fade out"
+msgstr "Esvaïment"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+msgid "Default _position"
+msgstr "_Posició predeterminada"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Theme"
+msgstr "_Tema"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Do not disturb"
 msgstr "No molestar"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "<b>Show notifications for</b>"
-msgstr "<b>Mostra les notificacions per</b>"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+msgid "<b>Behavior</b>"
+msgstr "<b>Comportament</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+msgid "<b>Appearance</b>"
+msgstr "<b>Aparença</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid ""
-"<b>Currently no notifications are shown</b>\n"
-"except for messages marked as urgent."
-msgstr "<b>Actualment no es mostra cap notificació</b>\namb l'excepció dels missatges marcats com a urgents."
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "Per defecte, les bombolles de notificació es mostraran en pantalla en la qual es troba el punter del ratolí."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+msgid "Show notifications on"
+msgstr "Mostra les notificacions del"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "General"
+msgstr "General"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+msgid "<b>Show or block notifications per application</b>"
+msgstr "<b>Mostra o bloqueja les notificacions per aplicació</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Applications"
 msgstr "Aplicacions"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+msgid "Log notifications"
+msgstr "Registra les notificacions"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid "Log applications"
+msgstr "Registra les aplicacions"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Log"
+msgstr "Registra"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Customize how notifications appear on your screen"
+msgstr "Personalitzeu com es mostren les notificacions"
