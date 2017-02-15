@@ -540,10 +540,18 @@ xfce4_notifyd_log_populate (GtkWidget *log_listbox)
             markup = g_markup_printf_escaped (format, g_key_file_get_string (notify_log, group, "summary", NULL));
             summary = gtk_label_new (NULL);
             gtk_label_set_markup (GTK_LABEL (summary), markup);
+#if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (summary), 0);
+#else
+            gtk_widget_set_halign (summary, GTK_ALIGN_START);
+#endif
             g_free (markup);
             body = gtk_label_new (g_key_file_get_string (notify_log, group, "body", NULL));
+#if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (body), 0);
+#else
+            gtk_widget_set_halign (body, GTK_ALIGN_START);
+#endif
             gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
             app_icon = gtk_image_new_from_icon_name (g_key_file_get_string (notify_log, group, "app_icon", NULL),
                                                      GTK_ICON_SIZE_LARGE_TOOLBAR);
