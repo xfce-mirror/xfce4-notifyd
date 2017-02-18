@@ -124,7 +124,8 @@ void xfce_notify_log_clear (void)
     {
         FILE *f;
         f = fopen (notify_log, "w");
-        fclose (f);
+        if (f)
+            fclose (f);
         g_free (notify_log);
     }
 }
