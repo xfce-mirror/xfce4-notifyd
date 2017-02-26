@@ -399,11 +399,15 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             icon_name = g_value_get_string (known_application);
             if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
                 icon = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
-            else if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), g_ascii_strdown(icon_name, -1), 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
-                icon = gtk_image_new_from_icon_name (g_ascii_strdown(icon_name, -1), GTK_ICON_SIZE_MENU);
             else {
-                icon = gtk_image_new ();
-                gtk_image_set_pixel_size (GTK_IMAGE(icon), 16);
+                gchar *icon_name_new = g_ascii_strdown (icon_name, -1);
+                if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_new, 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
+                    icon = gtk_image_new_from_icon_name (icon_name_new, GTK_ICON_SIZE_MENU);
+                else {
+                    icon = gtk_image_new ();
+                    gtk_image_set_pixel_size (GTK_IMAGE(icon), 16);
+                }
+                g_free (icon_name_new);
             }
 
 #if GTK_CHECK_VERSION (3, 16, 0)
@@ -472,11 +476,15 @@ xfce4_notifyd_log_activated (GtkSwitch *log_switch,
 
 static void
 xfce4_notifyd_log_open (GtkButton *button, gpointer user_data) {
-    gchar *notify_log_path = NULL;
+    gchar *notify_log_path;
 
     notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
-    if (!g_app_info_launch_default_for_uri (g_strdup_printf("file://%s", notify_log_path), NULL, NULL))
-        g_warning ("Could not open the log file: %s", notify_log_path);
+    if (notify_log_path) {
+        gchar *uri = g_strdup_printf ("file://%s", notify_log_path);
+        if (!g_app_info_launch_default_for_uri (uri, NULL, NULL))
+            g_warning ("Could not open the log file: %s", notify_log_path);
+        g_free (uri);
+    }
 }
 
 static void
