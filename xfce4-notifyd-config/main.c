@@ -405,7 +405,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                     icon = gtk_image_new_from_icon_name (icon_name_new, GTK_ICON_SIZE_MENU);
                 else {
                     icon = gtk_image_new ();
-                    gtk_image_set_pixel_size (GTK_IMAGE(icon), 16);
+                    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
                 }
                 g_free (icon_name_new);
             }
@@ -484,6 +484,7 @@ xfce4_notifyd_log_open (GtkButton *button, gpointer user_data) {
         if (!g_app_info_launch_default_for_uri (uri, NULL, NULL))
             g_warning ("Could not open the log file: %s", notify_log_path);
         g_free (uri);
+        g_free (notify_log_path);
     }
 }
 
