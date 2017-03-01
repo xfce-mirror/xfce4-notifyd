@@ -528,6 +528,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             char *markup;
             gchar *app_name;
             gchar *tooltip_timestamp;
+            gchar *tmp;
             GTimeVal tv;
             GDateTime *log_timestamp;
 
@@ -549,7 +550,9 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             }
 
             app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
-            markup = g_markup_printf_escaped (format, g_key_file_get_string (notify_log, group, "summary", NULL));
+            tmp = g_key_file_get_string (notify_log, group, "summary", NULL);
+            markup = g_markup_printf_escaped (format, tmp);
+            g_free (tmp);
             summary = gtk_label_new (NULL);
             gtk_label_set_markup (GTK_LABEL (summary), markup);
 #if GTK_CHECK_VERSION (3, 16, 0)
@@ -558,34 +561,41 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             gtk_widget_set_halign (summary, GTK_ALIGN_START);
 #endif
             g_free (markup);
-            body = gtk_label_new (g_key_file_get_string (notify_log, group, "body", NULL));
+            tmp = g_key_file_get_string (notify_log, group, "body", NULL);
+            body = gtk_label_new (tmp);
+            g_free (tmp);
 #if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (body), 0);
 #else
             gtk_widget_set_halign (body, GTK_ALIGN_START);
 #endif
             gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
-            app_icon = gtk_image_new_from_icon_name (g_key_file_get_string (notify_log, group, "app_icon", NULL),
-                                                     GTK_ICON_SIZE_LARGE_TOOLBAR);
+            tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
+            app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
+            g_free (tmp);
             gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
             gtk_widget_set_margin_start (app_icon, 3);
-            expire_timeout = gtk_label_new (g_key_file_get_string (notify_log, group, "expire-timeout", NULL));
+            tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
+            expire_timeout = gtk_label_new (tmp);
+            g_free (tmp);
             // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
             grid = gtk_grid_new ();
             gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
             gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (app_icon), 0, 0 , 1, 2);
 
             /* Handle icon-only notifications */
-            if (g_strcmp0 (g_key_file_get_string (notify_log, group, "body", NULL), "") == 0) {
+            tmp = g_key_file_get_string (notify_log, group, "body", NULL);
+            if (g_strcmp0 (tmp, "") == 0) {
                 gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
                 markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
             }
             else {
                 gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
                 gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
-                markup = g_strdup_printf (tooltip_format, app_name, tooltip_timestamp,
-                                          g_key_file_get_string (notify_log, group, "body", NULL));
+                markup = g_strdup_printf (tooltip_format, app_name, tooltip_timestamp, tmp);
             }
+            g_free (tmp);
+            g_free (app_name);
 
             gtk_widget_set_tooltip_markup (grid, markup);
             g_free (markup);
@@ -603,6 +613,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
                               G_CALLBACK (xfce4_notifyd_log_open), log_listbox);
             gtk_list_box_insert (GTK_LIST_BOX (log_listbox), limit_button, LOG_DISPLAY_LIMIT + 1);
         }
+        g_strfreev (groups);
         g_key_file_free (notify_log);
     }
 
