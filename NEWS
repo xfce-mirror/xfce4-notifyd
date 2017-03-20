@@ -2,6 +2,19 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.3.6 (20 March 2017):
+  This is a bugfix release. Thanks to Mattias and Igor!
+
+  Bugs fixed:
+    * Fix memory leaks in log viewer (Bug #13400)
+    * Fix a couple of memory leaks in notifyd-config (Bug #13386)
+    * Update log toolbar buttons sensitivity (Bug #13365)
+    * Fix compilation on Gtk3.14
+
+  Updated translations: Catalan, French, Greek, Hebrew, Kazakh, Lithuanian,
+  Polish, Serbian
+
+
 Version 0.3.5 (13 February 2017):
   This is a feature release.
 

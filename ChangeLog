@@ -1,3 +1,170 @@
+commit 36c19dec2df40d81ac496788e162770ac38c33d0
+Author: abuyop <abuyop@gmail.com>
+Date:   Sat Mar 18 12:31:15 2017 +0100
+
+    I18n: Update translation ms (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 833ec45a3cd7a0b483e483154567599329ce8494
+Author: Apóstolos Papaðimitríu <apostolos.papadimitriu@gmail.com>
+Date:   Sat Mar 4 06:31:27 2017 +0100
+
+    I18n: Update translation el (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 1e1b6b9cf9cee1e5355a3e5746950a63c16a15bd
+Author: Igor <f2404@yandex.ru>
+Date:   Wed Mar 1 14:50:53 2017 +0300
+
+    Fix memory leaks in log viewer (Bug #13400)
+
+commit 7fd7a436e9b661af32a0a781c16206c2e7cb2512
+Author: Elishai Eliyahu <e1907@mm.st>
+Date:   Tue Feb 28 12:31:23 2017 +0100
+
+    I18n: Update translation he (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 415cd921717dff745eaf8dc01d32f1c1772dee42
+Author: Igor <f2404@yandex.ru>
+Date:   Mon Feb 27 22:56:52 2017 +0100
+
+    Fix another small memleak (Bug #13386)
+
+commit 16660fa212641ea15871e792744cc97f03c91968
+Author: Igor <f2404@yandex.ru>
+Date:   Sun Feb 26 23:21:41 2017 +0100
+
+    Fix a couple of memory leaks in notifyd-config (Bug #13386)
+
+commit 4ae77c091721a03233e3d30546f918f96276a41b
+Author: Igor <f2404@yandex.ru>
+Date:   Sun Feb 26 20:31:13 2017 +0300
+
+    Update log toolbar buttons sensitivity (Bug #13365)
+    
+    "Open log" button is insensitive when log file doesn't exist.
+    "Clear log" button is insensitive when log contains no entries.
+
+commit 7954500435b5632566b20cbef86ea21bfdc33382
+Author: m4sk1n <m4sk1n@o2.pl>
+Date:   Fri Feb 24 00:31:08 2017 +0100
+
+    I18n: Update translation pl (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 99baa8900c28fdd4e4a8c612e0780cc8274741b7
+Author: Саша Петровић <salepetronije@gmail.com>
+Date:   Thu Feb 23 18:30:53 2017 +0100
+
+    I18n: Update translation sr (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit b87332b6891d8688759a3d781fb62b361c1b0d8d
+Author: Piotr Sokół <psokol.l10n@gmail.com>
+Date:   Wed Feb 22 18:31:04 2017 +0100
+
+    I18n: Update translation pl (92%).
+    
+    50 translated messages, 4 untranslated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit f8691b209d17748a768a5ce199a2f05890acd78e
+Author: Igor <f2404@yandex.ru>
+Date:   Sat Feb 18 21:13:45 2017 +0300
+
+    Fix segfault on clearing empty log (Bug #13365)
+
+commit 14bc649550be86cb8a32a3e62b741d35a77a2314
+Author: Anonymous <noreply@xfce.org>
+Date:   Sat Feb 18 00:31:15 2017 +0100
+
+    I18n: Update translation lt (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit e9a7e3dbbbf5f18ca94b20272a3f0d5827dc7877
+Author: Matias De lellis <mati86dl@gmail.com>
+Date:   Wed Feb 15 16:49:07 2017 -0300
+
+    Fix compilation on Gtk3.14
+    
+    Signed-off-by: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+
+commit 1097233c1572dfa09589edd3bbc22a3657b4c6e1
+Author: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+Date:   Tue Feb 14 18:31:40 2017 +0100
+
+    I18n: Update translation ca (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 3c99c68e2c27fd38e68363e3a79f1190275910c9
+Author: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+Date:   Tue Feb 14 12:31:05 2017 +0100
+
+    I18n: Update translation ca (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 4328d68dc702e98427d86e22dda24a575db3c85c
+Author: Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Tue Feb 14 06:31:54 2017 +0100
+
+    I18n: Update translation kk (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 7ed0ccf106f2bd741649a491baced344245d748b
+Author: Anonymous <noreply@xfce.org>
+Date:   Tue Feb 14 00:31:08 2017 +0100
+
+    I18n: Update translation lt (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit 363db3937b77bfb50544120d670ae7aa533899c0
+Author: Urien Desterres <urien.desterres@gmail.com>
+Date:   Tue Feb 14 00:31:08 2017 +0100
+
+    I18n: Update translation fr (100%).
+    
+    54 translated messages.
+    
+    Transifex (https://www.transifex.com/projects/p/xfce/).
+
+commit a8b0bbb280fa04118c4951e8620b7a17264c0bcb
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Feb 13 22:18:18 2017 +0100
+
+    Back to development
+
 commit bfc56bbfbc14ff09308e51f1d417b04697fd5514
 Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
 Date:   Mon Feb 13 22:10:33 2017 +0100
