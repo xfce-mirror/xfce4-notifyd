@@ -78,8 +78,6 @@ struct _XfceNotifyDaemon
 
     gint changed_screen;
 
-    guint close_timeout;
-
     guint32 last_notification_id;
 };
 
@@ -118,8 +116,6 @@ static void xfce_notify_daemon_get_workarea(GdkScreen *screen,
                                             guint monitor,
                                             GdkRectangle *rect);
 static void daemon_quit (XfceNotifyDaemon *xndaemon);
-static gboolean xfce_notify_daemon_close_timeout(gpointer data);
-
 
 static GdkPixbuf *notify_pixbuf_from_image_data(GVariant *image_data);
 
@@ -397,10 +393,6 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 
     /* CSS Styling provider  */
     xndaemon->css_provider = gtk_css_provider_new ();
-
-    xndaemon->close_timeout =
-        g_timeout_add_seconds(600, (GSourceFunc) xfce_notify_daemon_close_timeout,
-                              xndaemon);
 }
 
 static void
@@ -503,19 +495,6 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     xndaemon->reserved_rectangles[screen][monitor] = list;
 
     g_tree_remove(xndaemon->active_notifications, id_p);
-    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
-        /* All notifications expired */
-        /* Set a timeout to close xfce4-notifyd if it is idle
-         * for 10 minutes */
-
-        if(xndaemon->close_timeout)
-            g_source_remove(xndaemon->close_timeout);
-
-        xndaemon->close_timeout =
-            g_timeout_add_seconds(600,
-                                  (GSourceFunc) xfce_notify_daemon_close_timeout,
-                                  xndaemon);
-    }
 
     xfce_notify_gbus_emit_notification_closed (XFCE_NOTIFY_GBUS(xndaemon),
                                                GPOINTER_TO_UINT(id_p),
@@ -954,17 +933,6 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
 
     xfce_notify_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
 
-    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
-        /* No active notifications, reset the close timeout */
-        if(xndaemon->close_timeout)
-            g_source_remove(xndaemon->close_timeout);
-
-        xndaemon->close_timeout =
-            g_timeout_add_seconds(600,
-                                  (GSourceFunc) xfce_notify_daemon_close_timeout,
-                                  xndaemon);
-    }
-
     return TRUE;
 }
 
@@ -1220,13 +1188,6 @@ notify_notify (XfceNotifyGBus *skeleton,
         if (xndaemon->do_not_disturb == TRUE ||
             application_is_muted == TRUE)
         {
-            /* Reset the close timeout since we're processing a new notification,
-               even if we're not showing a notification bubble */
-            if(xndaemon->close_timeout)
-                g_source_remove(xndaemon->close_timeout);
-
-            xndaemon->close_timeout = 0;
-
             /* Notifications marked as transient will never be logged */
             if (xndaemon->notification_log == TRUE &&
                 transient == FALSE) {
@@ -1353,11 +1314,6 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     gtk_widget_realize(GTK_WIDGET(window));
 
-    /* Remove close timeout as we display a new notification */
-    if(xndaemon->close_timeout)
-        g_source_remove(xndaemon->close_timeout);
-
-    xndaemon->close_timeout = 0;
     xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
 
     return TRUE;
@@ -1391,17 +1347,6 @@ static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
                                                      VERSION,
                                                      NOTIFICATIONS_SPEC_VERSION);
 
-    if (g_tree_nnodes(xndaemon->active_notifications) == 0) {
-        /* No active notifications, reset the close timeout */
-        if(xndaemon->close_timeout)
-            g_source_remove(xndaemon->close_timeout);
-
-        xndaemon->close_timeout =
-            g_timeout_add_seconds(600,
-                                  (GSourceFunc) xfce_notify_daemon_close_timeout,
-                                  xndaemon);
-    }
-
     return TRUE;
 }
 
@@ -1421,15 +1366,6 @@ static gboolean notify_quit (XfceNotifyOrgXfceNotifyd *skeleton,
     xfce_notify_org_xfce_notifyd_complete_quit (skeleton, invocation);
     daemon_quit(xndaemon);
     return TRUE;
-}
-
-
-
-static gboolean
-xfce_notify_daemon_close_timeout(gpointer data)
-{
-    daemon_quit (XFCE_NOTIFY_DAEMON(data));
-    return FALSE;
 }
 
 
