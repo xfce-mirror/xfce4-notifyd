@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-02-17 20:16+0000\n"
+"PO-Revision-Date: 2017-04-13 13:49+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Xfce pranešimų tarnyba"
 #: ../xfce4-notifyd/main.c:56
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "Nežinoma parinktis „%s“\n"
+msgstr "Nežinomas parametras „%s“\n"
 
 #: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
