@@ -5,14 +5,14 @@
 # Translators:
 # Cristian Cozzolino <cristiancozzolino@libero.it>, 2010
 # Cristian Marchi <cri.penta@gmail.com>, 2013,2016
-# Enrico <allin@infinito.it>, 2017
+# Enrico B. <enricobe@hotmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-04-24 16:31+0000\n"
-"Last-Translator: Enrico <allin@infinito.it>\n"
+"PO-Revision-Date: 2017-04-24 16:33+0000\n"
+"Last-Translator: Enrico B. <enricobe@hotmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr "Aggiorna"
 
 #: ../xfce4-notifyd-config/main.c:795
 msgid "Refresh the notification log"
-msgstr "Aggiorna il log delle notifiche"
+msgstr "Aggiorna il registro delle notifiche"
 
 #: ../xfce4-notifyd-config/main.c:800
 msgid "Open"
@@ -73,7 +73,7 @@ msgstr "Apri"
 
 #: ../xfce4-notifyd-config/main.c:801
 msgid "Open the notification log in an external editor"
-msgstr "Apri il log delle notifiche in un editor esterno"
+msgstr "Apri il registro delle notifiche in un programma esterno"
 
 #: ../xfce4-notifyd-config/main.c:806
 msgid "Clear"
@@ -81,7 +81,7 @@ msgstr "Pulisci"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Clear the notification log"
-msgstr "Svuota il log delle notifiche"
+msgstr "Svuota il registro delle notifiche"
 
 #: ../xfce4-notifyd-config/main.c:825
 msgid "Display version information"
@@ -231,15 +231,15 @@ msgstr "Applicazioni"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "Log notifications"
-msgstr ""
+msgstr "Registra le notifiche"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "Log applications"
-msgstr ""
+msgstr "Registra applicazioni"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Log"
-msgstr ""
+msgstr "Registro"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
