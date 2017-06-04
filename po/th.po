@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2013
-# Theppitak Karoonboonyanan <theppitak@gmail.com>, 2016
+# Theppitak Karoonboonyanan <theppitak@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-30 00:31+0200\n"
-"PO-Revision-Date: 2016-09-12 07:27+0000\n"
+"POT-Creation-Date: 2017-01-30 00:30+0100\n"
+"PO-Revision-Date: 2017-06-04 09:50+0000\n"
 "Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/xfce/xfce-apps/language/th/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:257
+#: ../xfce4-notifyd-config/main.c:670
 msgid "Xfce Notify Daemon"
 msgstr "ดีมอนแจ้งเหตุของ Xfce"
 
@@ -33,102 +33,212 @@ msgstr "ไม่รู้จักตัวเลือก \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "ไม่สามารถเปิดทำงานดีมอนแจ้งเหตุได้"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:353
+#: ../xfce4-notifyd/xfce-notify-daemon.c:367
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "มีดีมอนแจ้งเหตุอีกตัวหนึ่งทำงานอยู่ก่อนแล้ว ขอจบการทำงาน\n"
 
-#: ../xfce4-notifyd-config/main.c:56
+#: ../xfce4-notifyd-config/main.c:69
 msgid "Notification Preview"
 msgstr "ตัวอย่างการแจ้งเหตุ"
 
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:70
 msgid "This is what notifications will look like"
 msgstr "นี่คือรูปแบบการแจ้งเหตุที่จะเป็น"
 
-#: ../xfce4-notifyd-config/main.c:62
+#: ../xfce4-notifyd-config/main.c:75
 msgid "Button"
 msgstr "ปุ่ม"
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:82
 msgid "Notification preview failed"
 msgstr "แสดงตัวอย่างการแจ้งเหตุไม่สำเร็จ"
 
-#: ../xfce4-notifyd-config/main.c:259
+#: ../xfce4-notifyd-config/main.c:672
 msgid "Settings daemon is unavailable"
 msgstr "ไม่มีดีมอนค่าตั้งอยู่"
 
-#: ../xfce4-notifyd-config/main.c:309
+#: ../xfce4-notifyd-config/main.c:794
+msgid "Refresh"
+msgstr "ปรับแสดง"
+
+#: ../xfce4-notifyd-config/main.c:795
+msgid "Refresh the notification log"
+msgstr "ปรับแสดงเนื้อหาปูมการแจ้งเหตุ"
+
+#: ../xfce4-notifyd-config/main.c:800
+msgid "Open"
+msgstr "เปิด"
+
+#: ../xfce4-notifyd-config/main.c:801
+msgid "Open the notification log in an external editor"
+msgstr "เปิดปูมการแจ้งเหตุด้วยเครื่องมือแก้ไขภายนอก"
+
+#: ../xfce4-notifyd-config/main.c:806
+msgid "Clear"
+msgstr "ล้าง"
+
+#: ../xfce4-notifyd-config/main.c:807
+msgid "Clear the notification log"
+msgstr "ล้างปูมการแจ้งเหตุ"
+
+#: ../xfce4-notifyd-config/main.c:825
 msgid "Display version information"
 msgstr "แสดงข้อมูลรุ่น"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:826
 msgid "Settings manager socket"
 msgstr "ซ็อกเก็ตของโปรแกรมจัดการค่าตั้ง"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:826
 msgid "SOCKET_ID"
 msgstr "หมายเลขซ็อกเก็ต"
 
-#: ../xfce4-notifyd-config/main.c:320
+#: ../xfce4-notifyd-config/main.c:836
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "สั่ง '%s --help' เพื่อดูวิธีใช้"
 
-#: ../xfce4-notifyd-config/main.c:333
+#: ../xfce4-notifyd-config/main.c:851
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "เผยแพร่ภายใต้เงื่อนไขของ GNU General Public License รุ่นที่ 2\n"
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:852
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "หากพบปัญหา กรุณารายงานที่ %s\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "only during \"Do not disturb\""
+msgstr "ระหว่าง \"ห้ามรบกวน\" เท่านั้น"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "always"
+msgstr "เสมอ"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "all"
+msgstr "ทั้งหมด"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "all except blocked"
+msgstr "ทั้งหมดยกเว้นที่ปิดกั้น"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "only blocked"
+msgstr "เฉพาะที่ปิดกั้นเท่านั้น"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "display with mouse pointer"
+msgstr "จอแสดงผลที่ตัวชี้เมาส์วางอยู่"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "primary display"
+msgstr "จอแสดงผลหลัก"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
 msgstr "บนซ้าย"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Bottom left"
 msgstr "ล่างซ้าย"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "Top right"
 msgstr "บนขวา"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
 msgstr "ล่างขวา"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
 msgstr "การแจ้งเหตุ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "ตัว_อย่าง"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Customize your notification settings"
+msgstr "ปรับแต่งการแจ้งเหตุ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Theme:"
-msgstr "ชุดตกแต่_ง:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>ขณะนี้จะแสดงเฉพาะการแจ้งเหตุที่เร่งด่วนเท่านั้น</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "Default _position:"
-msgstr "_ตำแหน่งปริยาย:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "Show _Preview"
+msgstr "แ_สดงตัวอย่าง"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "seconds"
 msgstr "วินาที"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Disappear after:"
-msgstr "_หายไปหลังจาก:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+msgid "_Disappear after"
+msgstr "_หายไปหลังจาก"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
-msgid "_Opacity:"
-msgstr "ความ_ทึบแสง:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "_Opacity"
+msgstr "ความ_ทึบแสง"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+msgid "Fade out"
+msgstr "ค่อยๆ จางหาย"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+msgid "Default _position"
+msgstr "ตำแห_น่งปริยาย"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Theme"
+msgstr "ชุด_ตกแต่ง"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+msgid "Do not disturb"
+msgstr "ห้ามรบกวน"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+msgid "<b>Behavior</b>"
+msgstr "<b>พฤติกรรม</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+msgid "<b>Appearance</b>"
+msgstr "<b>รูปปรากฏ</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+msgid ""
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "โดบปกติแล้ว กรอบผุดแจ้งเหตุจะแสดงบนจอแสดงผลที่ตัวชี้เมาส์วางอยู่"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+msgid "Show notifications on"
+msgstr "แสดงการแจ้งเหตุที่"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "General"
+msgstr "ทั่วไป"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+msgid "<b>Show or block notifications per application</b>"
+msgstr "<b>แสดงหรือปิดกั้นการแจ้งเหตุเป็นรายโปรแกรม</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+msgid "Applications"
+msgstr "โปรแกรม"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+msgid "Log notifications"
+msgstr "บันทึกปูมการแจ้งเหตุ"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid "Log applications"
+msgstr "บันทึกปูมสำหรับโปรแกรม"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Log"
+msgstr "ปูม"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
