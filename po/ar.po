@@ -5,140 +5,241 @@
 # Translators:
 # محمد الحرقان <malham1@gmail.com>, 2012
 # محمد الحرقان <malham1@gmail.com>, 2012-2013
+# وجدي أبو سلطان, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2014-12-07 16:43+0000\n"
-"Last-Translator: عبدالله رضوان <abbodmar@gmail.com>\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/xfce-apps/language/ar/)\n"
+"POT-Creation-Date: 2017-01-30 00:30+0100\n"
+"PO-Revision-Date: 2017-07-09 18:14+0000\n"
+"Last-Translator: وجدي أبو سلطان\n"
+"Language-Team: Arabic (http://www.transifex.com/xfce/xfce-apps/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:258
+#: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
+#: ../xfce4-notifyd-config/main.c:670
 msgid "Xfce Notify Daemon"
 msgstr "برنامج إشعارات إكسفس الخفي"
 
-#: ../xfce4-notifyd/main.c:77
+#: ../xfce4-notifyd/main.c:56
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "خيار غير معروف \"%s\"\n"
 
-#: ../xfce4-notifyd/main.c:86
+#: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
 msgstr "لا يمكن تشغيل عارض التنبيهات"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
-msgid "Failed to set new theme"
-msgstr "فشل تعيين السمة الجديدة"
-
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
+#: ../xfce4-notifyd/xfce-notify-daemon.c:367
 #, c-format
-msgid "Unable to connect to D-Bus session bus"
-msgstr "غير قادر على الإتصال بـD-Bus جلسة bus"
+msgid "Another notification daemon is running, exiting\n"
+msgstr ""
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
-#, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "تطبيق تنبيهات أخر قيد العمل حاليا"
-
-#: ../xfce4-notifyd-config/main.c:57
+#: ../xfce4-notifyd-config/main.c:69
 msgid "Notification Preview"
 msgstr "عرض التنبيهات"
 
-#: ../xfce4-notifyd-config/main.c:58
+#: ../xfce4-notifyd-config/main.c:70
 msgid "This is what notifications will look like"
 msgstr "هكذا ستكون الإخطارات"
 
-#: ../xfce4-notifyd-config/main.c:63
+#: ../xfce4-notifyd-config/main.c:75
 msgid "Button"
 msgstr "زر"
 
-#: ../xfce4-notifyd-config/main.c:70
+#: ../xfce4-notifyd-config/main.c:82
 msgid "Notification preview failed"
 msgstr "فشل في معاينة الإشعار"
 
-#: ../xfce4-notifyd-config/main.c:260
+#: ../xfce4-notifyd-config/main.c:672
 msgid "Settings daemon is unavailable"
 msgstr "إعدادات التطبيق غير متوفرة"
 
-#: ../xfce4-notifyd-config/main.c:310
+#: ../xfce4-notifyd-config/main.c:794
+msgid "Refresh"
+msgstr "انعش"
+
+#: ../xfce4-notifyd-config/main.c:795
+msgid "Refresh the notification log"
+msgstr "انعش سجل التنبيهات"
+
+#: ../xfce4-notifyd-config/main.c:800
+msgid "Open"
+msgstr "افتح"
+
+#: ../xfce4-notifyd-config/main.c:801
+msgid "Open the notification log in an external editor"
+msgstr "افتح سجل التنبيهات في محرر خارجي"
+
+#: ../xfce4-notifyd-config/main.c:806
+msgid "Clear"
+msgstr "امسح"
+
+#: ../xfce4-notifyd-config/main.c:807
+msgid "Clear the notification log"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:825
 msgid "Display version information"
 msgstr "عرض معلومات الإصدار"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:826
 msgid "Settings manager socket"
 msgstr "مقبس مدير الإعدادات"
 
-#: ../xfce4-notifyd-config/main.c:311
+#: ../xfce4-notifyd-config/main.c:826
 msgid "SOCKET_ID"
 msgstr "مُعرف المقبس"
 
-#: ../xfce4-notifyd-config/main.c:321
+#: ../xfce4-notifyd-config/main.c:836
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "اكتب '%s --help' لدليل المستخدم."
 
-#: ../xfce4-notifyd-config/main.c:334
+#: ../xfce4-notifyd-config/main.c:851
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "صدر بموجب شروط إصدار جنو العمومية ، نسخة 2\n"
 
-#: ../xfce4-notifyd-config/main.c:335
+#: ../xfce4-notifyd-config/main.c:852
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "الرجاء كتابة تقرير علة إلى %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "only during \"Do not disturb\""
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "always"
+msgstr "دائماً"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "all"
+msgstr "الجميع"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "all except blocked"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "only blocked"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "display with mouse pointer"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "primary display"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
 msgstr "أعلى اليسار"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Bottom left"
 msgstr "أسفل اليسار"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "Top right"
 msgstr "أعلى اليمين"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
 msgstr "أسفل اليمين"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
 msgstr "تنبيهات"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "_معاينة"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Customize your notification settings"
+msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Opacity:"
-msgstr "_الإعتام:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Disappear after:"
-msgstr "_تختفي بعد:"
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "Show _Preview"
+msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "Default _position:"
-msgstr "الموقع الافتراضي:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Theme:"
-msgstr "_سمة:"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "seconds"
 msgstr "ثواني"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+msgid "_Disappear after"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "_Opacity"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+msgid "Fade out"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+msgid "Default _position"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Theme"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+msgid "Do not disturb"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+msgid "<b>Behavior</b>"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+msgid "<b>Appearance</b>"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+msgid ""
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+msgid "Show notifications on"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "General"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+msgid "<b>Show or block notifications per application</b>"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+msgid "Applications"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+msgid "Log notifications"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid "Log applications"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Log"
+msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
