@@ -645,6 +645,25 @@ static void xfce4_notifyd_show_help(GtkButton *button,
     xfce_dialog_show_help_with_version(GTK_WINDOW(dialog), "notifyd", "start", NULL, NULL);
 }
 
+static void xfce_notify_bus_name_appeared_cb (GDBusConnection *connection,
+                                              const gchar *name,
+                                              const gchar *name_owner,
+                                              gpointer user_data)
+{
+    GtkWidget  *notifyd_running = user_data;
+
+    gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), FALSE);
+}
+
+static void xfce_notify_bus_name_vanished_cb (GDBusConnection *connection,
+                                              const gchar *name,
+                                              gpointer user_data)
+{
+    GtkWidget *notifyd_running = user_data;
+
+    gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), TRUE);
+}
+
 GtkWidget *
 placeholder_label_new (gchar *place_holder_text)
 {
@@ -857,9 +876,11 @@ main(int argc,
      char **argv)
 {
     GtkWidget *settings_dialog = NULL;
+    GtkWidget *notifyd_running;
     GtkBuilder *builder;
     gboolean opt_version = FALSE;
     gint32 opt_socket_id = 0;
+    guint watch_handle_id;
     GOptionEntry option_entries[] = {
         { "version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version, N_("Display version information"), NULL },
         { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET_ID") },
@@ -907,6 +928,15 @@ main(int argc,
 
     settings_dialog = xfce4_notifyd_config_setup_dialog(builder);
 
+    notifyd_running = GTK_WIDGET (gtk_builder_get_object (builder, "notifyd_running"));
+    watch_handle_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                        "org.freedesktop.Notifications",
+                                        G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                        xfce_notify_bus_name_appeared_cb,
+                                        xfce_notify_bus_name_vanished_cb,
+                                        notifyd_running,
+                                        NULL);
+
     if(opt_socket_id) {
         GtkWidget *plug, *plug_child;
 
@@ -932,6 +962,7 @@ main(int argc,
         gtk_dialog_run(GTK_DIALOG(settings_dialog));
     }
 
+    g_bus_unwatch_name (watch_handle_id);
     notify_uninit();
     xfconf_shutdown();
 
