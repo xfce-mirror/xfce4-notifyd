@@ -728,7 +728,15 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if(body && *body) {
-        gtk_label_set_markup(GTK_LABEL(window->body), body);
+        if (pango_parse_markup (body, -1, 0, NULL, NULL, NULL, NULL)) {
+            gtk_label_set_markup (GTK_LABEL (window->body), body);
+        } else {
+            gchar *tmp;
+
+            tmp = g_markup_escape_text (body, -1);
+            gtk_label_set_text (GTK_LABEL (window->body), body);
+            g_free (tmp);
+        }
         gtk_widget_show(window->body);
 
         window->has_body_text = TRUE;
