@@ -1,14 +1,16 @@
 Xfce Notify Daemon
+==================
 
 The Xfce Notify Daemon (xfce4-notifyd for short) is a smallish program that
 implements the "server-side" portion of the Freedesktop desktop notifications
-specification.  Applications that wish to pop up a notification bubble in
+specification. Applications that wish to pop up a notification bubble in
 a standard way can implicitly make use of xfce4-notifyd to do so by
 sending standard messages over D-Bus using the org.freedesktop.Notifications
 interface.
 
 
 Requirements:
+-------------
 
 * gtk+ 3.14.0
 * glib-2.0 (gdbus) 2.42
@@ -17,30 +19,32 @@ Requirements:
 * xfconf 4.10
 * libnotify 0.7
 
-Additionally, I'd recommend use with a compositing manager running; in that
-case xfce4-notifyd will look a bit nicer and will be semi-transparent and
-will fade out, and other nice pretty things.  This isn't required by any
-means, of course.
+Additionally, having a compositing manager running is recommended; in that
+case xfce4-notifyd will optionally look a bit nicer and will be
+semi-transparent and will fade out, and other nice pretty things.
+This isn't required by any means, of course.
 
 
 Installation:
+-------------
 
 The usual:
 
-./configure
-make
-make install
+    ./configure
+    make
+    make install
 
 should work just fine.  Pass --prefix=/path/to/wherever to install in a
 location other than /usr/local.
 
 In order for xfce4-notifyd to be started automatically, you must have a
 <servicedir> directive in your D-Bus session configuration file.  If you
-install xfce4-notifyd to a standard prefix (like /usr), you shouldn't need
+install xfce4-notifyd to a standard prefix (like /usr), you shouldn't have
 to worry about this.
 
 
 Configuration:
+--------------
 
 Run xfce4-notifyd-config to display the settings dialog.  There aren't any
 other tunables; if you don't see it in the settings dialog, it's not
@@ -48,6 +52,7 @@ changeable.
 
 
 Theming:
+--------
 
 Xfce4-notifyd uses Gtk+'s standard theming system. By default it will use the
 "app-notification" or "osd" classes of your Gtk+ theme. If you want to override
