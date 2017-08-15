@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Elishai Eliyahu <e1907@mm.st>, 2016-2017
-# GenghisKhan <genghiskhan@gmx.ca>, 2014,2016
+# GenghisKhan <genghiskhan@gmx.ca>, 2014,2016-2017
 # GenghisKhan <genghiskhan@gmx.ca>, 2012
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-02-28 10:29+0000\n"
-"Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
+"POT-Creation-Date: 2017-08-15 06:31+0200\n"
+"PO-Revision-Date: 2017-08-15 12:18+0000\n"
+"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-apps/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:670
+#: ../xfce4-notifyd-config/main.c:727
 msgid "Xfce Notify Daemon"
 msgstr "שדון התראה Xfce"
 
@@ -35,78 +35,78 @@ msgstr "אפשרות לא מוכרת \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "לא ניתן להתחיל שדון התראה"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:367
+#: ../xfce4-notifyd/xfce-notify-daemon.c:363
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "תהליך רקע להודעה נוסף פועל, יוצא\n"
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:71
 msgid "Notification Preview"
 msgstr "תצוגה מקדימה של ההתראה"
 
-#: ../xfce4-notifyd-config/main.c:70
+#: ../xfce4-notifyd-config/main.c:72
 msgid "This is what notifications will look like"
 msgstr "כך ייראו ההתראות"
 
-#: ../xfce4-notifyd-config/main.c:75
+#: ../xfce4-notifyd-config/main.c:77
 msgid "Button"
 msgstr "כפתור"
 
-#: ../xfce4-notifyd-config/main.c:82
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Notification preview failed"
 msgstr "Notification preview failed"
 
-#: ../xfce4-notifyd-config/main.c:672
+#: ../xfce4-notifyd-config/main.c:729
 msgid "Settings daemon is unavailable"
 msgstr "Settings daemon is unavailable"
 
-#: ../xfce4-notifyd-config/main.c:794
+#: ../xfce4-notifyd-config/main.c:850
 msgid "Refresh"
 msgstr "רענן"
 
-#: ../xfce4-notifyd-config/main.c:795
+#: ../xfce4-notifyd-config/main.c:851
 msgid "Refresh the notification log"
 msgstr "רענן את יומן ההודעות"
 
-#: ../xfce4-notifyd-config/main.c:800
+#: ../xfce4-notifyd-config/main.c:856
 msgid "Open"
 msgstr "פתח"
 
-#: ../xfce4-notifyd-config/main.c:801
+#: ../xfce4-notifyd-config/main.c:857
 msgid "Open the notification log in an external editor"
 msgstr "פתח את יומן ההודעות בעורך חיצוני"
 
-#: ../xfce4-notifyd-config/main.c:806
+#: ../xfce4-notifyd-config/main.c:862
 msgid "Clear"
 msgstr "נקה"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:863
 msgid "Clear the notification log"
 msgstr "נקה את יומן ההודעות"
 
-#: ../xfce4-notifyd-config/main.c:825
+#: ../xfce4-notifyd-config/main.c:885
 msgid "Display version information"
 msgstr "Display version information"
 
-#: ../xfce4-notifyd-config/main.c:826
+#: ../xfce4-notifyd-config/main.c:886
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../xfce4-notifyd-config/main.c:826
+#: ../xfce4-notifyd-config/main.c:886
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:836
+#: ../xfce4-notifyd-config/main.c:896
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Type '%s --help' for usage."
 
-#: ../xfce4-notifyd-config/main.c:851
+#: ../xfce4-notifyd-config/main.c:911
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "משוחרר תחת התנאים של הרישיון הציבורי הכללי של GNU, גרסה 2\n"
 
-#: ../xfce4-notifyd-config/main.c:852
+#: ../xfce4-notifyd-config/main.c:912
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "נא לדווח על בעיות אל %s.\n"
@@ -165,80 +165,85 @@ msgid "Customize your notification settings"
 msgstr "התאם אישית את הגדרות ההודעות שלך"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid ""
+"The notification service is not running. No notifications will be shown."
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>כרגע מוצגות רק הודעות דחופות.</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
 msgstr "הצג _תצוגה מקדימה"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "seconds"
 msgstr "שניות"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "_Disappear after"
 msgstr "_היעלם אחרי"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "_Opacity"
 msgstr "_אטימות"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "Fade out"
 msgstr "טשטוש"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "Default _position"
 msgstr "_מיקום ברירת מחדל"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "_Theme"
 msgstr "_ערכת נושא"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "Do not disturb"
 msgstr "אל תפריע"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "<b>Behavior</b>"
 msgstr "<b>התנהגות</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "<b>Appearance</b>"
 msgstr "<b>הופעה</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "כברירת מחדל בועות ההודעות יוצגו בתצוגה שבה ממוקם סמן העכבר."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "Show notifications on"
 msgstr "הצג הודעות על"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid "General"
 msgstr "כללי"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
-msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>הצג או חסום הודעות לפי ישום</b>"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+msgid "<b>Show or block notifications per application</b>"
+msgstr "<b>הצג או חסום הודעות לפי יישום</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "Applications"
 msgstr "אפליקציות"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "Log notifications"
 msgstr "רשום הודעות ביומן"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
-msgid "Log applications"
-msgstr "רשום ישומים ביומן"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Log applications"
+msgstr "רשום יישומים ביומן"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log"
 msgstr "יומן"
 
