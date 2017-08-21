@@ -88,19 +88,19 @@ void xfce_notify_log_insert (const gchar *app_name,
         timestamp = g_date_time_format (now, "%FT%T");
         group = g_strdup_printf ("%s", timestamp);
 
-        g_key_file_set_value (notify_log, group, "app_name", app_name);
-        g_key_file_set_value (notify_log, group, "summary", summary);
-        g_key_file_set_value (notify_log, group, "body", body);
-        g_key_file_set_value (notify_log, group, "app_icon", app_icon);
+        g_key_file_set_string (notify_log, group, "app_name", app_name);
+        g_key_file_set_string (notify_log, group, "summary", summary);
+        g_key_file_set_string (notify_log, group, "body", body);
+        g_key_file_set_string (notify_log, group, "app_icon", app_icon);
         timeout = g_strdup_printf ("%d", expire_timeout);
-        g_key_file_set_value (notify_log, group, "expire-timeout", timeout);
+        g_key_file_set_string (notify_log, group, "expire-timeout", timeout);
         for (i = 0; actions && actions[i]; i += 2) {
             const gchar *cur_action_id = actions[i];
             const gchar *cur_button_text = actions[i+1];
             gchar *action_id_num = g_strdup_printf ("%s-%d", "action-id", j);
             gchar *action_label_num = g_strdup_printf ("%s-%d", "action-label", j);
-            g_key_file_set_value (notify_log, group, action_id_num, cur_action_id);
-            g_key_file_set_value (notify_log, group, action_label_num, cur_button_text);
+            g_key_file_set_string (notify_log, group, action_id_num, cur_action_id);
+            g_key_file_set_string (notify_log, group, action_label_num, cur_button_text);
             j++;
         }
 
