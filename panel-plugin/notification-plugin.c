@@ -171,7 +171,7 @@ notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
 {
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), TRUE);
   gtk_menu_popup_at_widget (GTK_MENU (notification_plugin->menu), notification_plugin->button,
-                            GDK_GRAVITY_NORTH_WEST, GDK_GRAVITY_NORTH_WEST, NULL);
+                            GDK_GRAVITY_SOUTH_WEST, GDK_GRAVITY_NORTH_WEST, NULL);
   xfce_panel_plugin_register_menu (notification_plugin->plugin,
                                    GTK_MENU (notification_plugin->menu));
 }

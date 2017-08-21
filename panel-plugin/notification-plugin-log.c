@@ -152,7 +152,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       g_free (tmp);
       gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 16);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-      gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM(mi), app_icon);
+      gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), app_icon);
 G_GNUC_END_IGNORE_DEPRECATIONS
 
       tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
