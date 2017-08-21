@@ -22,18 +22,20 @@
 
 G_BEGIN_DECLS
 
+#include <xfconf/xfconf.h>
+
 #define ICON_NAME "preferences-system-notifications"
 
 /* plugin structure */
 typedef struct
 {
     XfcePanelPlugin *plugin;
+    XfconfChannel   *channel;
 
     /* panel widgets */
     GtkWidget       *button;
     GtkWidget       *image;
     GtkWidget       *menu;
-    GtkMenuPositionFunc   menu_position_func;
 
     /* sample settings */
     gchar           *setting1;

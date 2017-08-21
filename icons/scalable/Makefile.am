@@ -2,7 +2,9 @@
 
 iconsdir = $(datadir)/icons/hicolor/scalable/apps
 icons_DATA =								\
-	xfce4-sample-plugin.svg
+	notification-disabled-symbolic.svg		\
+	notification-new-symbolic.svg			\
+	notification-symbolic.svg
 
 EXTRA_DIST =								\
 	$(icons_DATA)

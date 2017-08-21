@@ -25,6 +25,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <xfconf/xfconf.h>
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4panel/xfce-panel-plugin.h>
 
@@ -130,22 +131,41 @@ notification_plugin_read (NotificationPlugin *notification_plugin)
 
 
 
+static void
+dnd_toggled_cb (GtkCheckMenuItem *checkmenuitem,
+                gpointer          user_data)
+{
+  NotificationPlugin *notification_plugin = user_data;
+
+  if (gtk_check_menu_item_get_active (checkmenuitem))
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image), "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+  else
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image), "notification-symbolic", GTK_ICON_SIZE_MENU);
+}
+
+
+
 GtkWidget *
-notification_plugin_menu_new ()
+notification_plugin_menu_new (NotificationPlugin *notification_plugin)
 {
   GtkWidget *menu;
   GtkWidget *mi;
   GtkWidget *label;
 
   menu = gtk_menu_new ();
+
   /* Footer items */
   mi = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-  mi = gtk_menu_item_new ();
-  label = gtk_label_new_with_mnemonic (_("_Settings..."));
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-  gtk_container_add (GTK_CONTAINER (mi), GTK_WIDGET (label));
+
+  /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
+  mi = gtk_check_menu_item_new_with_mnemonic (_("_Do not disturb"));
+  xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
+                          G_OBJECT (mi), "active");
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  g_signal_connect (mi, "toggled",
+                    G_CALLBACK (dnd_toggled_cb), notification_plugin);
+
   /* Show all the items */
   gtk_widget_show_all (GTK_WIDGET (menu));
   return menu;
@@ -157,8 +177,6 @@ void
 notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
 {
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), TRUE);
-  gtk_menu_set_screen (GTK_MENU (notification_plugin->menu),
-                       gtk_widget_get_screen (notification_plugin->button));
   gtk_menu_popup_at_widget (GTK_MENU (notification_plugin->menu), notification_plugin->button,
                             GDK_GRAVITY_NORTH_WEST, GDK_GRAVITY_NORTH_WEST, NULL);
   xfce_panel_plugin_register_menu (notification_plugin->plugin,
@@ -195,30 +213,31 @@ static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotificationPlugin   *notification_plugin;
-  GtkOrientation  orientation;
-  GtkWidget      *label;
+  GError *error = NULL;
 
   /* allocate memory for the plugin structure */
   notification_plugin = panel_slice_new0 (NotificationPlugin);
-
-  /* pointer to plugin */
   notification_plugin->plugin = panel_plugin;
 
   /* read the user settings */
   notification_plugin_read (notification_plugin);
 
+  /* xfconf */
+  xfconf_init (NULL);
+  notification_plugin->channel = xfconf_channel_new ("xfce4-notifyd");
+
   /* create some panel widgets */
   xfce_panel_plugin_set_small (panel_plugin, TRUE);
   notification_plugin->button = xfce_panel_create_toggle_button ();
   gtk_widget_set_tooltip_text (GTK_WIDGET (notification_plugin->button), _("Notifications"));
-  notification_plugin->image = gtk_image_new_from_icon_name (ICON_NAME, GTK_ICON_SIZE_MENU);
+  notification_plugin->image = gtk_image_new_from_icon_name ("notification-symbolic", GTK_ICON_SIZE_MENU);
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
   gtk_container_add (GTK_CONTAINER (panel_plugin), notification_plugin->button);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "xfce4-notification-plugin");
 
   /* create the menu */
-  notification_plugin->menu = notification_plugin_menu_new ();
+  notification_plugin->menu = notification_plugin_menu_new (notification_plugin);
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->menu), "xfce4-notification-plugin-menu");
 
   g_signal_connect (notification_plugin->button, "button-press-event",
@@ -233,7 +252,7 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
 
 static void
 notification_plugin_free (XfcePanelPlugin *plugin,
-             NotificationPlugin    *notification_plugin)
+                          NotificationPlugin    *notification_plugin)
 {
   GtkWidget *dialog;
 
@@ -256,22 +275,17 @@ notification_plugin_free (XfcePanelPlugin *plugin,
 
 
 static gboolean
-notification_plugin_size_changed (XfcePanelPlugin *plugin,
-                     gint             size,
-                     NotificationPlugin    *notification_plugin)
+notification_plugin_size_changed (XfcePanelPlugin       *plugin,
+                                  gint                   size,
+                                  NotificationPlugin    *notification_plugin)
 {
-  GtkOrientation orientation;
+  gint icon_size;
 
-  /* get the orientation of the plugin */
-  orientation = xfce_panel_plugin_get_orientation (plugin);
+  size /= xfce_panel_plugin_get_nrows (notification_plugin->plugin);
+  gtk_widget_set_size_request (GTK_WIDGET (notification_plugin->button), size, size);
+  icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (plugin));
+  gtk_image_set_pixel_size (GTK_IMAGE (notification_plugin->image), icon_size);
 
-  /* set the widget size */
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    gtk_widget_set_size_request (GTK_WIDGET (plugin), -1, size);
-  else
-    gtk_widget_set_size_request (GTK_WIDGET (plugin), size, -1);
-
-  /* we handled the orientation */
   return TRUE;
 }
 
