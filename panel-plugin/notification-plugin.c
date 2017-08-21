@@ -276,7 +276,9 @@ notification_plugin_size_changed (XfcePanelPlugin       *plugin,
 
   size /= xfce_panel_plugin_get_nrows (notification_plugin->plugin);
   gtk_widget_set_size_request (GTK_WIDGET (notification_plugin->button), size, size);
+#if LIBXFCE4PANEL_CHECK_VERSION (4,13,0)
   icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (plugin));
+#endif
   gtk_image_set_pixel_size (GTK_IMAGE (notification_plugin->image), icon_size);
 
   return TRUE;
@@ -297,8 +299,7 @@ notification_plugin_construct (XfcePanelPlugin *plugin)
 
   /* add the button to the panel */
   gtk_container_add (GTK_CONTAINER (plugin), notification_plugin->button);
-
-  /* show the panel's right-click menu on this ebox */
+  /* show the panel's right-click menu */
   xfce_panel_plugin_add_action_widget (plugin, notification_plugin->button);
 
   /* connect plugin signals */
