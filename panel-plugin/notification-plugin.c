@@ -131,16 +131,20 @@ notification_plugin_read (NotificationPlugin *notification_plugin)
 
 
 GtkWidget *
-notification_plugin_menu_new (/* arguments */)
+notification_plugin_menu_new ()
 {
   GtkWidget *menu;
   GtkWidget *mi;
+  GtkWidget *label;
 
   menu = gtk_menu_new ();
   /* Footer items */
   mi = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-  mi = gtk_menu_item_new_with_label ("This is a notification.");
+  mi = gtk_menu_item_new ();
+  label = gtk_label_new_with_mnemonic (_("_Settings..."));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_container_add (GTK_CONTAINER (mi), GTK_WIDGET (label));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   /* Show all the items */
   gtk_widget_show_all (GTK_WIDGET (menu));
@@ -155,9 +159,8 @@ notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), TRUE);
   gtk_menu_set_screen (GTK_MENU (notification_plugin->menu),
                        gtk_widget_get_screen (notification_plugin->button));
-  gtk_menu_popup (GTK_MENU (notification_plugin->menu), NULL, NULL,
-                  notification_plugin->menu_position_func, notification_plugin,
-                  0, gtk_get_current_event_time ());
+  gtk_menu_popup_at_widget (GTK_MENU (notification_plugin->menu), notification_plugin->button,
+                            GDK_GRAVITY_NORTH_WEST, GDK_GRAVITY_NORTH_WEST, NULL);
   xfce_panel_plugin_register_menu (notification_plugin->plugin,
                                    GTK_MENU (notification_plugin->menu));
 }
@@ -188,66 +191,6 @@ cb_menu_deactivate (GtkMenuShell *menu,
 
 
 
-static void
-my_plugin_position_menu (GtkMenu *menu,
-                         gint *x,
-                         gint *y,
-                         gboolean *push_in,
-                         NotificationPlugin *notification_plugin)
-{
-  gboolean above = TRUE;
-  gint button_width, button_height;
-  GtkRequisition minimum_size;
-  GtkRequisition natural_size;
-  XfceScreenPosition screen_position;
-
-  g_return_if_fail (XFCE_IS_PANEL_PLUGIN (notification_plugin->plugin));
-
-  screen_position = xfce_panel_plugin_get_screen_position (notification_plugin->plugin);
-  gtk_widget_get_size_request (notification_plugin->button, &button_width, &button_height);
-  gtk_widget_get_preferred_size (GTK_WIDGET (menu), &minimum_size, &natural_size);
-  gdk_window_get_origin (gtk_widget_get_window (GTK_WIDGET (notification_plugin->plugin)), x, y);
-
-  switch (screen_position)
-    {
-      case XFCE_SCREEN_POSITION_NW_H:
-      case XFCE_SCREEN_POSITION_N:
-      case XFCE_SCREEN_POSITION_NE_H:
-        above = FALSE;
-      case XFCE_SCREEN_POSITION_SW_H:
-      case XFCE_SCREEN_POSITION_S:
-      case XFCE_SCREEN_POSITION_SE_H:
-        if (above)
-          /* Show menu above */
-          *y -= minimum_size.height;
-        else
-          /* Show menu below */
-          *y += button_height;
-
-        if (*x + minimum_size.width > gdk_screen_width ())
-          /* Adjust horizontal position */
-          *x = gdk_screen_width () - minimum_size.width;
-
-        break;
-
-      default:
-        if (*x + button_width + minimum_size.width > gdk_screen_width ())
-          /* Show menu on the right */
-          *x -= minimum_size.width;
-        else
-          /* Show menu on the left */
-          *x += button_width;
-
-        if (*y + minimum_size.height > gdk_screen_height ())
-          /* Adjust vertical position */
-          *y = gdk_screen_height () - minimum_size.height;
-
-        break;
-    }
-}
-
-
-
 static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
@@ -264,11 +207,6 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   /* read the user settings */
   notification_plugin_read (notification_plugin);
 
-  /* get the current orientation */
-  orientation = xfce_panel_plugin_get_orientation (panel_plugin);
-
-  notification_plugin->menu_position_func = (GtkMenuPositionFunc)my_plugin_position_menu;
-
   /* create some panel widgets */
   xfce_panel_plugin_set_small (panel_plugin, TRUE);
   notification_plugin->button = xfce_panel_create_toggle_button ();
@@ -281,6 +219,7 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
 
   /* create the menu */
   notification_plugin->menu = notification_plugin_menu_new ();
+  gtk_widget_set_name (GTK_WIDGET (notification_plugin->menu), "xfce4-notification-plugin-menu");
 
   g_signal_connect (notification_plugin->button, "button-press-event",
                     G_CALLBACK (cb_button_pressed), notification_plugin);
@@ -312,17 +251,6 @@ notification_plugin_free (XfcePanelPlugin *plugin,
 
   /* free the plugin structure */
   panel_slice_free (NotificationPlugin, notification_plugin);
-}
-
-
-
-static void
-notification_plugin_orientation_changed (XfcePanelPlugin *plugin,
-                            GtkOrientation   orientation,
-                            NotificationPlugin    *notification_plugin)
-{
-  /* change the orienation of the box */
-  gtk_orientable_set_orientation(GTK_ORIENTABLE(notification_plugin->button), orientation);
 }
 
 
@@ -375,9 +303,6 @@ notification_plugin_construct (XfcePanelPlugin *plugin)
 
   g_signal_connect (G_OBJECT (plugin), "size-changed",
                     G_CALLBACK (notification_plugin_size_changed), notification_plugin);
-
-  g_signal_connect (G_OBJECT (plugin), "orientation-changed",
-                    G_CALLBACK (notification_plugin_orientation_changed), notification_plugin);
 
   /* show the configure menu item and connect signal */
   xfce_panel_plugin_menu_show_configure (plugin);
