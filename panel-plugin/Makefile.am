@@ -17,7 +17,9 @@ libnotification_plugin_la_SOURCES = \
 	notification-plugin.c \
 	notification-plugin.h \
 	notification-plugin-dialogs.c \
-	notification-plugin-dialogs.h
+	notification-plugin-dialogs.h \
+	notification-plugin-log.c \
+	notification-plugin-log.h
 
 libnotification_plugin_la_CFLAGS = \
 	$(LIBXFCE4UTIL_CFLAGS) \

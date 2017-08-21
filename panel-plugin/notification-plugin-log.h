@@ -17,40 +17,15 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __NOTIFICATION_PLUGIN_H__
-#define __NOTIFICATION_PLUGIN_H__
+#ifndef __NOTIFICATION_PLUGIN_LOG_H_
+#define __NOTIFICATION_PLUGIN_LOG_H_
 
-G_BEGIN_DECLS
+#include <gtk/gtk.h>
+#include "notification-plugin.h"
 
-#include <xfconf/xfconf.h>
+#define XFCE_NOTIFY_LOG_FILE "xfce4/notifyd/log"
+#define LOG_DISPLAY_LIMIT    10
 
-#define ICON_NAME "preferences-system-notifications"
+void notification_plugin_menu_populate (NotificationPlugin *notification_plugin);
 
-/* plugin structure */
-typedef struct
-{
-    XfcePanelPlugin *plugin;
-    XfconfChannel   *channel;
-
-    /* panel widgets */
-    GtkWidget       *button;
-    GtkWidget       *image;
-    GtkWidget       *menu;
-
-    /* sample settings */
-    gchar           *setting1;
-    gint             setting2;
-    gboolean         setting3;
-}
-NotificationPlugin;
-
-
-
-void notification_plugin_save (XfcePanelPlugin    *plugin,
-                               NotificationPlugin *notification_plugin);
-void dnd_toggled_cb           (GtkCheckMenuItem   *checkmenuitem,
-                               gpointer            user_data);
-
-G_END_DECLS
-
-#endif /* !__NOTIFICATION_PLUGIN_H__ */
+#endif /* __NOTIFICATION_PLUGIN_LOG_H_ */

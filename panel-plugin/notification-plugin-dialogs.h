@@ -1,4 +1,4 @@
-/*  $Id$
+/*  xfce4-notification-plugin
  *
  *  Copyright (C) 2017 Simon Steinbeiss <simon@xfce.org>
  *

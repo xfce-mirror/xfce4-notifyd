@@ -1,4 +1,4 @@
-/*  $Id$
+/*  xfce4-notification-plugin
  *
  *  Copyright (C) 2017 Simon Steinbeiss <simon@xfce.org>
  *
@@ -31,6 +31,7 @@
 
 #include "notification-plugin.h"
 #include "notification-plugin-dialogs.h"
+#include "notification-plugin-log.h"
 
 /* default settings */
 #define DEFAULT_SETTING1 NULL
@@ -131,16 +132,18 @@ notification_plugin_read (NotificationPlugin *notification_plugin)
 
 
 
-static void
+void
 dnd_toggled_cb (GtkCheckMenuItem *checkmenuitem,
                 gpointer          user_data)
 {
   NotificationPlugin *notification_plugin = user_data;
 
   if (gtk_check_menu_item_get_active (checkmenuitem))
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image), "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
   else
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image), "notification-symbolic", GTK_ICON_SIZE_MENU);
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
 }
 
 
@@ -148,27 +151,17 @@ dnd_toggled_cb (GtkCheckMenuItem *checkmenuitem,
 GtkWidget *
 notification_plugin_menu_new (NotificationPlugin *notification_plugin)
 {
-  GtkWidget *menu;
   GtkWidget *mi;
   GtkWidget *label;
 
-  menu = gtk_menu_new ();
-
-  /* Footer items */
-  mi = gtk_separator_menu_item_new ();
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-
-  /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
-  mi = gtk_check_menu_item_new_with_mnemonic (_("_Do not disturb"));
-  xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
-                          G_OBJECT (mi), "active");
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-  g_signal_connect (mi, "toggled",
-                    G_CALLBACK (dnd_toggled_cb), notification_plugin);
+  notification_plugin->menu = gtk_menu_new ();
+  /* connect signal on show to update the items */
+  g_signal_connect_swapped (notification_plugin->menu, "show", G_CALLBACK (notification_plugin_menu_populate),
+                            notification_plugin);
 
   /* Show all the items */
-  gtk_widget_show_all (GTK_WIDGET (menu));
-  return menu;
+  gtk_widget_show_all (GTK_WIDGET (notification_plugin->menu));
+  return notification_plugin->menu;
 }
 
 
