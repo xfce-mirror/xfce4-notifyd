@@ -119,7 +119,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       /* only show notifications from today
       if (g_ascii_strncasecmp (timestamp, group, 10) == 0)
         break; */
-      mi = gtk_menu_item_new ();
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+      mi = gtk_image_menu_item_new ();
+G_GNUC_END_IGNORE_DEPRECATIONS
 
       if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
         if (log_timestamp = g_date_time_new_from_timeval_local (&tv)) {
@@ -149,14 +151,17 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_MENU);
       g_free (tmp);
       gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 16);
-      gtk_widget_set_margin_start (app_icon, 3);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+      gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM(mi), app_icon);
+G_GNUC_END_IGNORE_DEPRECATIONS
+
       tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
       expire_timeout = gtk_label_new (tmp);
       g_free (tmp);
 
       grid = gtk_grid_new ();
       gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
-      gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (app_icon), 0, 0 , 1, 2);
+
 
       /* Handle icon-only notifications */
       tmp = g_key_file_get_string (notify_log, group, "body", NULL);
