@@ -3,6 +3,7 @@
 iconsdir = $(datadir)/icons/hicolor/scalable/apps
 icons_DATA =								\
 	notification-disabled-symbolic.svg		\
+	notification-disabled-new-symbolic.svg	\
 	notification-new-symbolic.svg			\
 	notification-symbolic.svg
 

@@ -213,8 +213,12 @@ notification_plugin_log_file_changed (GFileMonitor     *monitor,
 
   if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
   {
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-new-symbolic", GTK_ICON_SIZE_MENU);
+    if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
+      gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                    "notification-disabled-new-symbolic", GTK_ICON_SIZE_MENU);
+    else
+      gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                    "notification-new-symbolic", GTK_ICON_SIZE_MENU);
   }
 }
 
@@ -243,7 +247,11 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   xfce_panel_plugin_set_small (panel_plugin, TRUE);
   notification_plugin->button = xfce_panel_create_toggle_button ();
   gtk_widget_set_tooltip_text (GTK_WIDGET (notification_plugin->button), _("Notifications"));
-  notification_plugin->image = gtk_image_new_from_icon_name ("notification-symbolic", GTK_ICON_SIZE_MENU);
+  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
+    notification_plugin->image = gtk_image_new_from_icon_name ("notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+  else
+    notification_plugin->image = gtk_image_new_from_icon_name ("notification-symbolic", GTK_ICON_SIZE_MENU);
+
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
   gtk_container_add (GTK_CONTAINER (panel_plugin), notification_plugin->button);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));

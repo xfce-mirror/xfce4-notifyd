@@ -90,10 +90,6 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   /* Clean up the list and re-fill it */
   gtk_container_foreach (GTK_CONTAINER (menu), func, menu);
 
-  /* Reset the notitication status icon since all items are now read */
-  gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                "notification-symbolic", GTK_ICON_SIZE_MENU);
-
   notify_log = xfce_notify_log_get();
 
   if (notify_log) {
@@ -203,6 +199,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
                           G_OBJECT (mi), "active");
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+
+  /* Reset the notification status icon since all items are now read */
+  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+  else
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
   g_signal_connect (mi, "toggled",
                     G_CALLBACK (dnd_toggled_cb), notification_plugin);
   gtk_widget_show (mi);
