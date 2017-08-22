@@ -202,11 +202,31 @@ cb_menu_deactivate (GtkMenuShell *menu,
 
 
 
+static void
+notification_plugin_log_file_changed (GFileMonitor     *monitor,
+                                       GFile            *file,
+                                       GFile            *other_file,
+                                       GFileMonitorEvent event_type,
+                                       gpointer          user_data)
+{
+  NotificationPlugin    *notification_plugin = user_data;
+
+  if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
+  {
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-new-symbolic", GTK_ICON_SIZE_MENU);
+  }
+}
+
+
+
 static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
-  NotificationPlugin   *notification_plugin;
-  GError *error = NULL;
+  NotificationPlugin    *notification_plugin;
+  GFile                 *log_file;
+  GFileMonitor          *log_file_monitor;
+  gchar                 *notify_log_path = NULL;
 
   /* allocate memory for the plugin structure */
   notification_plugin = panel_slice_new0 (NotificationPlugin);
@@ -237,6 +257,13 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                     G_CALLBACK (cb_button_pressed), notification_plugin);
   g_signal_connect (notification_plugin->menu, "deactivate",
                     G_CALLBACK (cb_menu_deactivate), notification_plugin);
+
+  /* start monitoring the log file for changes */
+  notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
+  log_file = g_file_new_for_path (notify_log_path);
+  log_file_monitor = g_file_monitor_file (log_file, G_FILE_MONITOR_NONE, NULL, NULL);
+  g_signal_connect (log_file_monitor, "changed",
+                    G_CALLBACK (notification_plugin_log_file_changed), notification_plugin);
 
   return notification_plugin;
 }

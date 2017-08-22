@@ -90,6 +90,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   /* Clean up the list and re-fill it */
   gtk_container_foreach (GTK_CONTAINER (menu), func, menu);
 
+  /* Reset the notitication status icon since all items are now read */
+  gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                "notification-symbolic", GTK_ICON_SIZE_MENU);
+
   notify_log = xfce_notify_log_get();
 
   if (notify_log) {
