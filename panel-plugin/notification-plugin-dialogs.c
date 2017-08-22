@@ -31,7 +31,7 @@
 #include "notification-plugin-dialogs.h"
 
 /* the website url */
-#define PLUGIN_WEBSITE "http://goodies.xfce.org/projects/panel-plugins/xfce4-sample-plugin"
+#define PLUGIN_WEBSITE "https://docs.xfce.org/apps/notifyd/start"
 
 
 
