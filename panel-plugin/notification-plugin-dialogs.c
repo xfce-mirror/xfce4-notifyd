@@ -1,6 +1,6 @@
 /*  xfce4-notification-plugin
  *
- *  Copyright (C) 2017 Simon Steinbeiss <simon@xfce.org>
+ *  Copyright (C) 2017 Simon Steinbeiß <simon@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -120,7 +120,7 @@ notification_plugin_about (XfcePanelPlugin *plugin)
                          "program-name",           PACKAGE_NAME,
                          "comments",               _("This is the notification plugin"),
                          "website",                PLUGIN_WEBSITE,
-                         "copyright",              _("Copyright \xc2\xa9 2017 Simon Steinbeiss\n"),
+                         "copyright",              _("Copyright \xc2\xa9 2017 Simon Steinbeiß\n"),
                          "authors",                auth,
                          NULL);
 }
