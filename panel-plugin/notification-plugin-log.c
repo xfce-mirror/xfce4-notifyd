@@ -138,6 +138,8 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       summary = gtk_label_new (NULL);
       gtk_label_set_markup (GTK_LABEL (summary), markup);
       gtk_label_set_xalign (GTK_LABEL (summary), 0);
+      gtk_label_set_ellipsize (GTK_LABEL (summary), PANGO_ELLIPSIZE_END);
+      gtk_label_set_max_width_chars (GTK_LABEL (summary), 40);
       g_free (markup);
 
       tmp = g_key_file_get_string (notify_log, group, "body", NULL);
