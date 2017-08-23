@@ -23,9 +23,6 @@
 #include <gtk/gtk.h>
 #include "notification-plugin.h"
 
-#define XFCE_NOTIFY_LOG_FILE "xfce4/notifyd/log"
-#define LOG_DISPLAY_LIMIT    10
-
 void notification_plugin_menu_populate (NotificationPlugin *notification_plugin);
 
 #endif /* __NOTIFICATION_PLUGIN_LOG_H_ */

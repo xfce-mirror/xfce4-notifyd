@@ -30,105 +30,15 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 
 #include "notification-plugin.h"
-#include "notification-plugin-dialogs.h"
 #include "notification-plugin-log.h"
-
-/* default settings */
-#define DEFAULT_SETTING1 NULL
-#define DEFAULT_SETTING2 1
-#define DEFAULT_SETTING3 FALSE
-
-
+#include "notification-plugin-dialogs.h"
 
 /* prototypes */
 static void
 notification_plugin_construct (XfcePanelPlugin *panel_plugin);
 
-
 /* register the plugin */
 XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
-
-
-
-void
-notification_plugin_save (XfcePanelPlugin *plugin,
-                          NotificationPlugin    *notification_plugin)
-{
-  XfceRc *rc;
-  gchar  *file;
-
-  /* get the config file location */
-  file = xfce_panel_plugin_save_location (plugin, TRUE);
-
-  if (G_UNLIKELY (file == NULL))
-    {
-       DBG ("Failed to open config file");
-       return;
-    }
-
-  /* open the config file, read/write */
-  rc = xfce_rc_simple_open (file, FALSE);
-  g_free (file);
-
-  if (G_LIKELY (rc != NULL))
-    {
-      /* save the settings */
-      DBG(".");
-      if (notification_plugin->setting1)
-        xfce_rc_write_entry    (rc, "setting1", notification_plugin->setting1);
-
-      xfce_rc_write_int_entry  (rc, "setting2", notification_plugin->setting2);
-      xfce_rc_write_bool_entry (rc, "setting3", notification_plugin->setting3);
-
-      /* close the rc file */
-      xfce_rc_close (rc);
-    }
-}
-
-
-
-static void
-notification_plugin_read (NotificationPlugin *notification_plugin)
-{
-  XfceRc      *rc;
-  gchar       *file;
-  const gchar *value;
-
-  /* get the plugin config file location */
-  file = xfce_panel_plugin_save_location (notification_plugin->plugin, TRUE);
-
-  if (G_LIKELY (file != NULL))
-    {
-      /* open the config file, readonly */
-      rc = xfce_rc_simple_open (file, TRUE);
-
-      /* cleanup */
-      g_free (file);
-
-      if (G_LIKELY (rc != NULL))
-        {
-          /* read the settings */
-          value = xfce_rc_read_entry (rc, "setting1", DEFAULT_SETTING1);
-          notification_plugin->setting1 = g_strdup (value);
-
-          notification_plugin->setting2 = xfce_rc_read_int_entry (rc, "setting2", DEFAULT_SETTING2);
-          notification_plugin->setting3 = xfce_rc_read_bool_entry (rc, "setting3", DEFAULT_SETTING3);
-
-          /* cleanup */
-          xfce_rc_close (rc);
-
-          /* leave the function, everything went well */
-          return;
-        }
-    }
-
-  /* something went wrong, apply default values */
-  DBG ("Applying default settings");
-
-  notification_plugin->setting1 = g_strdup (DEFAULT_SETTING1);
-  notification_plugin->setting2 = DEFAULT_SETTING2;
-  notification_plugin->setting3 = DEFAULT_SETTING3;
-}
 
 
 
@@ -236,9 +146,6 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   notification_plugin = panel_slice_new0 (NotificationPlugin);
   notification_plugin->plugin = panel_plugin;
 
-  /* read the user settings */
-  notification_plugin_read (notification_plugin);
-
   /* xfconf */
   xfconf_init (NULL);
   notification_plugin->channel = xfconf_channel_new ("xfce4-notifyd");
@@ -291,10 +198,6 @@ notification_plugin_free (XfcePanelPlugin *plugin,
 
   /* destroy the panel widgets */
   gtk_widget_destroy (notification_plugin->button);
-
-  /* cleanup the settings */
-  if (G_LIKELY (notification_plugin->setting1 != NULL))
-    g_free (notification_plugin->setting1);
 
   /* free the plugin structure */
   panel_slice_free (NotificationPlugin, notification_plugin);

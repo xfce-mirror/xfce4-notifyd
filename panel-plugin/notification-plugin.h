@@ -24,7 +24,10 @@ G_BEGIN_DECLS
 
 #include <xfconf/xfconf.h>
 
-#define ICON_NAME "xfce4-notifyd"
+#define ICON_NAME                 "xfce4-notifyd"
+#define XFCE_NOTIFY_LOG_FILE      "xfce4/notifyd/log"
+#define SETTING_LOG_DISPLAY_LIMIT "/plugin/log-display-limit"
+#define DEFAULT_LOG_DISPLAY_LIMIT 10
 
 /* plugin structure */
 typedef struct
@@ -36,11 +39,6 @@ typedef struct
     GtkWidget       *button;
     GtkWidget       *image;
     GtkWidget       *menu;
-
-    /* sample settings */
-    gchar           *setting1;
-    gint             setting2;
-    gboolean         setting3;
 }
 NotificationPlugin;
 

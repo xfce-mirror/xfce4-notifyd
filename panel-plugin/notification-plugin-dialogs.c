@@ -24,10 +24,12 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
+#include <xfconf/xfconf.h>
 #include <libxfce4ui/libxfce4ui.h>
 #include <libxfce4panel/xfce-panel-plugin.h>
 
 #include "notification-plugin.h"
+#include "notification-plugin-log.h"
 #include "notification-plugin-dialogs.h"
 
 /* the website url */
@@ -69,10 +71,13 @@ notification_plugin_configure_response (GtkWidget    *dialog,
 
 
 void
-notification_plugin_configure (XfcePanelPlugin *plugin,
-                  NotificationPlugin    *notification_plugin)
+notification_plugin_configure (XfcePanelPlugin      *plugin,
+                               NotificationPlugin   *notification_plugin)
 {
   GtkWidget *dialog;
+  GtkWidget *box, *spin, *label;
+  GtkAdjustment *adjustment;
+  gdouble log_display_limit;
 
   /* block the plugin menu */
   xfce_panel_plugin_block_menu (plugin);
@@ -84,12 +89,22 @@ notification_plugin_configure (XfcePanelPlugin *plugin,
                                                 "gtk-help", GTK_RESPONSE_HELP,
                                                 "gtk-close", GTK_RESPONSE_OK,
                                                 NULL);
-
-  /* center dialog on the screen */
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-
-  /* set dialog icon */
   gtk_window_set_icon_name (GTK_WINDOW (dialog), ICON_NAME);
+  gtk_widget_show (dialog);
+
+  log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
+                                              SETTING_LOG_DISPLAY_LIMIT, DEFAULT_LOG_DISPLAY_LIMIT);
+  adjustment = gtk_adjustment_new (log_display_limit, 0.0, 100.0, 1.0, 5.0, 0.0);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  gtk_container_add_with_properties (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+						                         box, "expand", TRUE, "fill", TRUE, NULL);
+  label = gtk_label_new (_("Number of notifications to show: "));
+  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (label), TRUE, FALSE, 0);
+  spin = gtk_spin_button_new (adjustment, 1.0, 0);
+  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (spin), FALSE, FALSE, 0);
+  xfconf_g_property_bind (notification_plugin->channel, "/plugin/log-display-limit", G_TYPE_INT,
+                          G_OBJECT (spin), "value");
 
   /* link the dialog to the plugin, so we can destroy it when the plugin
    * is closed, but the dialog is still open */
@@ -98,9 +113,7 @@ notification_plugin_configure (XfcePanelPlugin *plugin,
   /* connect the reponse signal to the dialog */
   g_signal_connect (G_OBJECT (dialog), "response",
                     G_CALLBACK(notification_plugin_configure_response), notification_plugin);
-
-  /* show the entire dialog */
-  gtk_widget_show (dialog);
+  gtk_widget_show_all (box);
 }
 
 

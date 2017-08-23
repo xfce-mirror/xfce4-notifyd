@@ -95,9 +95,14 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   if (notify_log) {
     gchar **groups;
     int log_length;
+    int log_display_limit;
 
     groups = g_key_file_get_groups (notify_log, &num_groups);
-    log_length = GPOINTER_TO_UINT(num_groups) - LOG_DISPLAY_LIMIT;
+    log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
+                                                SETTING_LOG_DISPLAY_LIMIT, -1);
+    if (log_display_limit == -1)
+      log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
+    log_length = GPOINTER_TO_UINT(num_groups) - log_display_limit;
     if (log_length < 0)
       log_length = 0;
 
