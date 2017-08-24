@@ -42,10 +42,6 @@ typedef struct
 }
 NotificationPlugin;
 
-
-
-void notification_plugin_save (XfcePanelPlugin    *plugin,
-                               NotificationPlugin *notification_plugin);
 void dnd_toggled_cb           (GtkCheckMenuItem   *checkmenuitem,
                                gpointer            user_data);
 

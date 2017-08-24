@@ -244,9 +244,6 @@ notification_plugin_construct (XfcePanelPlugin *plugin)
   g_signal_connect (G_OBJECT (plugin), "free-data",
                     G_CALLBACK (notification_plugin_free), notification_plugin);
 
-  g_signal_connect (G_OBJECT (plugin), "save",
-                    G_CALLBACK (notification_plugin_save), notification_plugin);
-
   g_signal_connect (G_OBJECT (plugin), "size-changed",
                     G_CALLBACK (notification_plugin_size_changed), notification_plugin);
 

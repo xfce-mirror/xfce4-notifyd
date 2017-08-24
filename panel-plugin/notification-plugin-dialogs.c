@@ -60,9 +60,6 @@ notification_plugin_configure_response (GtkWidget    *dialog,
       /* unlock the panel menu */
       xfce_panel_plugin_unblock_menu (notification_plugin->plugin);
 
-      /* save the plugin */
-      notification_plugin_save (notification_plugin->plugin, notification_plugin);
-
       /* destroy the properties dialog */
       gtk_widget_destroy (dialog);
     }
