@@ -93,7 +93,7 @@ cb_button_pressed (GtkButton *button,
                    GdkEventButton *event,
                    NotificationPlugin *notification_plugin)
 {
-  if (event->button != 1 && !(event->state & GDK_CONTROL_MASK))
+  if (event->button != 1)
     return FALSE;
   if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)))
     notification_plugin_popup_menu (notification_plugin);
