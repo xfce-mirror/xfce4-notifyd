@@ -63,15 +63,16 @@ notification_plugin_menu_new (NotificationPlugin *notification_plugin)
 {
   GtkWidget *mi;
   GtkWidget *label;
+  GtkWidget *menu;
 
-  notification_plugin->menu = gtk_menu_new ();
+  menu = gtk_menu_new ();
   /* connect signal on show to update the items */
-  g_signal_connect_swapped (notification_plugin->menu, "show", G_CALLBACK (notification_plugin_menu_populate),
+  g_signal_connect_swapped (menu, "show", G_CALLBACK (notification_plugin_menu_populate),
                             notification_plugin);
 
   /* Show all the items */
-  gtk_widget_show_all (GTK_WIDGET (notification_plugin->menu));
-  return notification_plugin->menu;
+  gtk_widget_show_all (GTK_WIDGET (menu));
+  return menu;
 }
 
 
@@ -166,6 +167,7 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
 
   /* create the menu */
   notification_plugin->menu = notification_plugin_menu_new (notification_plugin);
+  gtk_menu_attach_to_widget (GTK_MENU (notification_plugin->menu), notification_plugin->button, NULL);
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->menu), "xfce4-notification-plugin-menu");
 
   g_signal_connect (notification_plugin->button, "button-press-event",
