@@ -40,6 +40,25 @@
 
 
 
+static void
+notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
+                                          gpointer     user_data)
+{
+  GAppInfo *app_info;
+  GError   *error = NULL;
+
+  app_info = g_app_info_create_from_commandline ("xfce4-notifyd-config", "Notification Settings",
+                                                 G_APP_INFO_CREATE_NONE, NULL);
+  if (!g_app_info_launch (app_info, NULL, NULL, &error)) {
+    if (error != NULL) {
+      g_warning ("xfce4-notifyd-config could not be launched. %s", error->message);
+      g_error_free (error);
+    }
+  }
+}
+
+
+
 GKeyFile *
 xfce_notify_log_get (void)
 {
@@ -206,6 +225,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
                           G_OBJECT (mi), "active");
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  gtk_widget_show (mi);
 
   /* Reset the notification status icon since all items are now read */
   if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
@@ -216,5 +236,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
                                   "notification-symbolic", GTK_ICON_SIZE_MENU);
   g_signal_connect (mi, "toggled",
                     G_CALLBACK (dnd_toggled_cb), notification_plugin);
+
+  mi = gtk_menu_item_new_with_mnemonic (_("_Notification settings..."));
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);
+  g_signal_connect (mi, "activate", G_CALLBACK (notification_plugin_settings_activate_cb),
+                    notification_plugin);
 }
