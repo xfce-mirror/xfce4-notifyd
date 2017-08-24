@@ -115,10 +115,15 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     gchar **groups;
     int log_length;
     int log_display_limit;
+    gboolean log_only_today;
 
     groups = g_key_file_get_groups (notify_log, &num_groups);
     log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
+    log_only_today = xfconf_channel_get_bool (notification_plugin->channel,
+                                              SETTING_LOG_ONLY_TODAY, FALSE);
+    if (log_only_today)
+      g_warning ("only today.");
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
     log_length = GPOINTER_TO_UINT(num_groups) - log_display_limit;
@@ -140,9 +145,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       GTimeVal tv;
       GDateTime *log_timestamp;
 
-      /* only show notifications from today
-      if (g_ascii_strncasecmp (timestamp, group, 10) == 0)
-        break; */
+      /* optionally only show notifications from today */
+      if (log_only_today == TRUE)
+        if (g_ascii_strncasecmp (timestamp, group, 10) != 0)
+          continue;
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       mi = gtk_image_menu_item_new ();
 G_GNUC_END_IGNORE_DEPRECATIONS

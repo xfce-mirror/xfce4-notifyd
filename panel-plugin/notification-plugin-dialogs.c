@@ -46,7 +46,6 @@ notification_plugin_configure_response (GtkWidget    *dialog,
 
   if (response == GTK_RESPONSE_HELP)
     {
-      /* show help */
       result = g_spawn_command_line_async ("exo-open --launch WebBrowser " PLUGIN_WEBSITE, NULL);
 
       if (G_UNLIKELY (result == FALSE))
@@ -54,13 +53,8 @@ notification_plugin_configure_response (GtkWidget    *dialog,
     }
   else
     {
-      /* remove the dialog data from the plugin */
       g_object_set_data (G_OBJECT (notification_plugin->plugin), "dialog", NULL);
-
-      /* unlock the panel menu */
       xfce_panel_plugin_unblock_menu (notification_plugin->plugin);
-
-      /* destroy the properties dialog */
       gtk_widget_destroy (dialog);
     }
 }
@@ -72,7 +66,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
                                NotificationPlugin   *notification_plugin)
 {
   GtkWidget *dialog;
-  GtkWidget *box, *spin, *label;
+  GtkWidget *grid, *spin, *label, *check;
   GtkAdjustment *adjustment;
   gdouble log_display_limit;
 
@@ -80,7 +74,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   xfce_panel_plugin_block_menu (plugin);
 
   /* create the dialog */
-  dialog = xfce_titled_dialog_new_with_buttons (_("Notification Plugin"),
+  dialog = xfce_titled_dialog_new_with_buttons (_("Notification Plugin Settings"),
                                                 GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (plugin))),
                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
                                                 "gtk-help", GTK_RESPONSE_HELP,
@@ -93,24 +87,39 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
                                               SETTING_LOG_DISPLAY_LIMIT, DEFAULT_LOG_DISPLAY_LIMIT);
   adjustment = gtk_adjustment_new (log_display_limit, 0.0, 100.0, 1.0, 5.0, 0.0);
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  grid = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+  gtk_widget_set_margin_start (grid, 12);
+  gtk_widget_set_margin_end (grid, 12);
+  gtk_widget_set_margin_top (grid, 12);
+  gtk_widget_set_margin_bottom (grid, 12);
   gtk_container_add_with_properties (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
-						                         box, "expand", TRUE, "fill", TRUE, NULL);
-  label = gtk_label_new (_("Number of notifications to show: "));
-  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (label), TRUE, FALSE, 0);
+						                         grid, "expand", TRUE, "fill", TRUE, NULL);
+  label = gtk_label_new (_("Number of notifications to show"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 0, 1, 1);
   spin = gtk_spin_button_new (adjustment, 1.0, 0);
-  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (spin), FALSE, FALSE, 0);
-  xfconf_g_property_bind (notification_plugin->channel, "/plugin/log-display-limit", G_TYPE_INT,
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (spin), 1, 0, 1, 1);
+  xfconf_g_property_bind (notification_plugin->channel, SETTING_LOG_DISPLAY_LIMIT, G_TYPE_INT,
                           G_OBJECT (spin), "value");
+
+  label = gtk_label_new (_("Only show notifications from today"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 1, 1, 1);
+  check = gtk_switch_new ();
+  gtk_widget_set_halign (check, GTK_ALIGN_END);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (check), 1, 1, 1, 1);
+  xfconf_g_property_bind (notification_plugin->channel, SETTING_LOG_ONLY_TODAY, G_TYPE_BOOLEAN,
+                          G_OBJECT (check), "active");
 
   /* link the dialog to the plugin, so we can destroy it when the plugin
    * is closed, but the dialog is still open */
   g_object_set_data (G_OBJECT (plugin), "dialog", dialog);
 
-  /* connect the reponse signal to the dialog */
   g_signal_connect (G_OBJECT (dialog), "response",
                     G_CALLBACK(notification_plugin_configure_response), notification_plugin);
-  gtk_widget_show_all (box);
+  gtk_widget_show_all (grid);
 }
 
 

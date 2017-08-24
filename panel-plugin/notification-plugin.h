@@ -28,6 +28,7 @@ G_BEGIN_DECLS
 #define XFCE_NOTIFY_LOG_FILE      "xfce4/notifyd/log"
 #define SETTING_LOG_DISPLAY_LIMIT "/plugin/log-display-limit"
 #define DEFAULT_LOG_DISPLAY_LIMIT 10
+#define SETTING_LOG_ONLY_TODAY    "/plugin/log-only-today"
 
 /* plugin structure */
 typedef struct
