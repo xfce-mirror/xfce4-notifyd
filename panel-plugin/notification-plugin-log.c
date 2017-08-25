@@ -209,7 +209,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       g_free (tmp);
       g_free (app_name);
 
-      gtk_widget_set_tooltip_markup (grid, markup);
+      gtk_widget_set_tooltip_markup (mi, markup);
       g_free (markup);
 
       gtk_widget_show_all (grid);
