@@ -113,6 +113,32 @@ cb_menu_deactivate (GtkMenuShell *menu,
 
 
 
+static gboolean
+cb_menu_size_allocate_next (NotificationPlugin *notification_plugin)
+{
+  gtk_menu_reposition (GTK_MENU (notification_plugin->menu));
+  notification_plugin->menu_size_allocate_next_handler = 0;
+
+  return G_SOURCE_REMOVE;
+}
+
+
+
+static void
+cb_menu_size_allocate (GtkWidget          *menu,
+                       GdkRectangle       *allocation,
+                       NotificationPlugin *notification_plugin)
+{
+  if (notification_plugin->menu_size_allocate_next_handler != 0)
+    g_source_remove (notification_plugin->menu_size_allocate_next_handler);
+
+  /* defer gtk_menu_reposition call since it may not work in size event handler */
+  notification_plugin->menu_size_allocate_next_handler =
+    g_idle_add ((GSourceFunc)cb_menu_size_allocate_next, notification_plugin);
+}
+
+
+
 static void
 notification_plugin_log_file_changed (GFileMonitor     *monitor,
                                        GFile            *file,
@@ -174,6 +200,8 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                     G_CALLBACK (cb_button_pressed), notification_plugin);
   g_signal_connect (notification_plugin->menu, "deactivate",
                     G_CALLBACK (cb_menu_deactivate), notification_plugin);
+  g_signal_connect (notification_plugin->menu, "size-allocate",
+                    G_CALLBACK (cb_menu_size_allocate), notification_plugin);
 
   /* start monitoring the log file for changes */
   notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
@@ -200,6 +228,10 @@ notification_plugin_free (XfcePanelPlugin *plugin,
 
   /* destroy the panel widgets */
   gtk_widget_destroy (notification_plugin->button);
+
+  /* remove deferred size allocation handler */
+  if (notification_plugin->menu_size_allocate_next_handler != 0)
+    g_source_remove (notification_plugin->menu_size_allocate_next_handler);
 
   /* free the plugin structure */
   panel_slice_free (NotificationPlugin, notification_plugin);

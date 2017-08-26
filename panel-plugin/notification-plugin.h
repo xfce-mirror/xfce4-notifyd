@@ -41,6 +41,9 @@ typedef struct
     GtkWidget       *button;
     GtkWidget       *image;
     GtkWidget       *menu;
+
+    /* handlers */
+    guint            menu_size_allocate_next_handler;
 }
 NotificationPlugin;
 
