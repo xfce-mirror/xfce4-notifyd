@@ -102,6 +102,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gchar *timestamp;
   gsize num_groups = 0;
   GtkCallback func = notification_plugin_menu_clear;
+  GdkPixbuf *pixbuf = NULL;
+  gchar *notify_log_icon_folder;
+  gchar *notify_log_icon_path;
 
   today = g_date_time_new_now_local ();
   timestamp = g_date_time_format (today, "%F");
@@ -110,6 +113,8 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gtk_container_foreach (GTK_CONTAINER (menu), func, menu);
 
   notify_log = xfce_notify_log_get();
+  notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                          XFCE_NOTIFY_ICON_PATH, TRUE);
 
   if (notify_log) {
     gchar **groups;
@@ -180,9 +185,19 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       gtk_label_set_max_width_chars (GTK_LABEL (body), 40);
 
       tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
-      app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_MENU);
+      notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
+      if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS))
+      {
+          pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
+                                                      16, 16, FALSE, NULL);
+          app_icon = gtk_image_new_from_pixbuf (pixbuf);
+      }
+      else
+      {
+          app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
+          gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 16);
+      }
       g_free (tmp);
-      gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 16);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), app_icon);
 G_GNUC_END_IGNORE_DEPRECATIONS
