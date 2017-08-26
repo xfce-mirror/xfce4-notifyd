@@ -1059,6 +1059,7 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
         }
     }
     xfconf_array_free (known_applications);
+    g_free(val);
 }
 
 static gboolean
@@ -1101,7 +1102,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     GdkPixbuf *pix = NULL;
     GVariant *image_data = NULL;
     const gchar *image_path = NULL;
-    const gchar *desktop_id = NULL;
+    gchar *desktop_id = NULL;
     gchar *new_app_name;
     gint value_hint = 0;
     gboolean value_hint_set = FALSE;
@@ -1116,7 +1117,7 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     while ((item = g_variant_iter_next_value (&iter)))
     {
-        const char *key;
+        gchar *key;
         GVariant   *value;
 
         g_variant_get (item,
@@ -1132,24 +1133,31 @@ notify_notify (XfceNotifyGBus *skeleton,
                 /* don't expire urgent notifications */
                 expire_timeout = 0;
             }
+            g_variant_unref(value);
         }
         else if ((g_strcmp0 (key, "image_data") == 0) ||
                  (g_strcmp0 (key, "icon_data") == 0)  ||
                  (g_strcmp0 (key, "image-data") == 0) ||
                  (g_strcmp0 (key, "icon-data") == 0))
         {
+            if (image_data) {
+                g_variant_unref(image_data);
+            }
             image_data = value;
         }
         else if ((g_strcmp0 (key, "image-path") == 0) ||
                  (g_strcmp0 (key, "image_path") == 0))
         {
             image_path = g_variant_get_string (value, NULL);
+            g_variant_unref(value);
         }
         else if ((g_strcmp0 (key, "desktop_entry") == 0) ||
                  (g_strcmp0 (key, "desktop-entry") == 0))
         {
             if (g_variant_is_of_type (value, G_VARIANT_TYPE_STRING))
-                desktop_id = g_variant_get_string (value, NULL);
+                desktop_id = g_variant_dup_string (value, NULL);
+
+            g_variant_unref(value);
         }
         else if (g_strcmp0 (key, "value") == 0)
         {
@@ -1158,14 +1166,29 @@ notify_notify (XfceNotifyGBus *skeleton,
                 value_hint = g_variant_get_int32 (value);
                 value_hint_set = TRUE;
             }
+            g_variant_unref(value);
         }
         else if (g_strcmp0 (key, "transient") == 0)
+        {
             transient = TRUE;
+            g_variant_unref(value);
+        }
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
+        {
             x_canonical = TRUE;
+            g_variant_unref(value);
+        }
         else if (g_strcmp0 (key, "urgency") == 0)
+        {
             g_warning ("the urgency bit is set");
+            g_variant_unref(value);
+        }
+        else
+        {
+            g_variant_unref(value);
+        }
 
+        g_free(key);
         g_variant_unref (item);
     }
 
@@ -1204,6 +1227,8 @@ notify_notify (XfceNotifyGBus *skeleton,
             }
 
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
+            g_variant_unref(image_data);
+            g_free(desktop_id);
             return TRUE;
         }
     }
@@ -1257,7 +1282,6 @@ notify_notify (XfceNotifyGBus *skeleton,
             xfce_notify_window_set_icon_pixbuf(window, pix);
             g_object_unref(G_OBJECT(pix));
         }
-        g_variant_unref(image_data);
     }
     else if (image_path) {
         xfce_notify_window_set_icon_name (window, image_path);
@@ -1316,6 +1340,12 @@ notify_notify (XfceNotifyGBus *skeleton,
     gtk_widget_realize(GTK_WIDGET(window));
 
     xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
+
+    g_free(new_app_name);
+    if (image_data)
+        g_variant_unref(image_data);
+    if (desktop_id)
+        g_free(desktop_id);
 
     return TRUE;
 }
@@ -1390,6 +1420,7 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
         g_free (file);
         file = g_strconcat("themes/", theme, "/xfce-notify-4.0/gtk.css", NULL);
         files = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, file);
+        g_free(file);
         if (!files || !files[0])
         {
             g_warning ("theme '%s' is not found anywhere is user themes directories", theme);

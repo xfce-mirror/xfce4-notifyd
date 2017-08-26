@@ -577,17 +577,16 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
             tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
             notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
-            if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS))
-            {
+            if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
                 pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
                                                             24, 24, FALSE, NULL);
                 app_icon = gtk_image_new_from_pixbuf (pixbuf);
-            }
-            else
-            {
+                g_object_unref(pixbuf);
+            } else {
                 app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
                 gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
             }
+            g_free (notify_log_icon_path);
             g_free (tmp);
             gtk_widget_set_margin_start (app_icon, 3);
             tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
@@ -631,6 +630,8 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
         g_strfreev (groups);
         g_key_file_free (notify_log);
     }
+
+    g_free(notify_log_icon_folder);
 
     gtk_widget_show_all (log_listbox);
 
