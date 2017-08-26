@@ -117,8 +117,6 @@ static void xfce_notify_daemon_get_workarea(GdkScreen *screen,
                                             GdkRectangle *rect);
 static void daemon_quit (XfceNotifyDaemon *xndaemon);
 
-static GdkPixbuf *notify_pixbuf_from_image_data(GVariant *image_data);
-
 /* DBus method callbacks  forward declarations */
 static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
                                 		 GDBusMethodInvocation   *invocation,
@@ -1165,6 +1163,8 @@ notify_notify (XfceNotifyGBus *skeleton,
             transient = TRUE;
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
             x_canonical = TRUE;
+        else if (g_strcmp0 (key, "urgency") == 0)
+            g_warning ("the urgency bit is set");
 
         g_variant_unref (item);
     }
@@ -1198,7 +1198,9 @@ notify_notify (XfceNotifyGBus *skeleton,
                       if (xndaemon->log_level_apps == 0 ||
                           xndaemon->log_level_apps == 1 && application_is_muted == FALSE ||
                           xndaemon->log_level_apps == 2 && application_is_muted == TRUE)
-                          xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
+                          xfce_notify_log_insert (new_app_name, summary, body,
+                                                  image_data, image_path, app_icon,
+                                                  expire_timeout, actions);
             }
 
             xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
@@ -1294,14 +1296,13 @@ notify_notify (XfceNotifyGBus *skeleton,
         }
     }
 
-    // for a complete notification we need:
-    // app_name, summary, body, app_icon, expire_timeout, actions
-    // TODO: icons need to be handled, app_icon is bad - what shall be done with image_data??
     if (xndaemon->notification_log == TRUE &&
         xndaemon->log_level == 1 &&
         xndaemon->log_level_apps <= 1 &&
         transient == FALSE)
-        xfce_notify_log_insert (new_app_name, summary, body, app_icon, expire_timeout, actions);
+        xfce_notify_log_insert (new_app_name, summary, body,
+                                image_data, image_path, app_icon,
+                                expire_timeout, actions);
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 
@@ -1368,51 +1369,6 @@ static gboolean notify_quit (XfceNotifyOrgXfceNotifyd *skeleton,
     return TRUE;
 }
 
-
-static GdkPixbuf *
-notify_pixbuf_from_image_data(GVariant *image_data)
-{
-    GdkPixbuf *pix = NULL;
-    gint32 width, height, rowstride, bits_per_sample, channels;
-    gboolean has_alpha;
-    GVariant *pixel_data;
-    gsize correct_len;
-    guchar *data;
-
-    if (!g_variant_is_of_type (image_data, G_VARIANT_TYPE ("(iiibiiay)")))
-    {
-        g_warning ("Image data is not the correct type");
-        return NULL;
-    }
-
-    g_variant_get (image_data,
-                   "(iiibii@ay)",
-                   &width,
-                   &height,
-                   &rowstride,
-                   &has_alpha,
-                   &bits_per_sample,
-                   &channels,
-                   &pixel_data);
-
-    correct_len = (height - 1) * rowstride + width
-                  * ((channels * bits_per_sample + 7) / 8);
-    if(correct_len != g_variant_get_size (pixel_data)) {
-        g_message ("Pixel data length (%lu) did not match expected value (%u)",
-                   g_variant_get_size (pixel_data), (guint)correct_len);
-        return NULL;
-    }
-
-    data = (guchar *) g_memdup (g_variant_get_data (pixel_data),
-                                g_variant_get_size (pixel_data));
-
-    pix = gdk_pixbuf_new_from_data(data,
-                                   GDK_COLORSPACE_RGB, has_alpha,
-                                   bits_per_sample, width, height,
-                                   rowstride,
-                                   (GdkPixbufDestroyNotify)g_free, NULL);
-    return pix;
-}
 
 static void
 xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,

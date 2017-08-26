@@ -31,9 +31,56 @@
 
 #include <libxfce4util/libxfce4util.h>
 
+#include <gdk/gdkx.h>
 #include <glib.h>
 
+#include "xfce-notify-daemon.h"
 #include "xfce-notify-log.h"
+
+GdkPixbuf *
+notify_pixbuf_from_image_data(GVariant *image_data)
+{
+    GdkPixbuf *pix = NULL;
+    gint32 width, height, rowstride, bits_per_sample, channels;
+    gboolean has_alpha;
+    GVariant *pixel_data;
+    gsize correct_len;
+    guchar *data;
+
+    if (!g_variant_is_of_type (image_data, G_VARIANT_TYPE ("(iiibiiay)")))
+    {
+        g_warning ("Image data is not the correct type");
+        return NULL;
+    }
+
+    g_variant_get (image_data,
+                   "(iiibii@ay)",
+                   &width,
+                   &height,
+                   &rowstride,
+                   &has_alpha,
+                   &bits_per_sample,
+                   &channels,
+                   &pixel_data);
+
+    correct_len = (height - 1) * rowstride + width
+                  * ((channels * bits_per_sample + 7) / 8);
+    if(correct_len != g_variant_get_size (pixel_data)) {
+        g_message ("Pixel data length (%lu) did not match expected value (%u)",
+                   g_variant_get_size (pixel_data), (guint)correct_len);
+        return NULL;
+    }
+
+    data = (guchar *) g_memdup (g_variant_get_data (pixel_data),
+                                g_variant_get_size (pixel_data));
+
+    pix = gdk_pixbuf_new_from_data(data,
+                                   GDK_COLORSPACE_RGB, has_alpha,
+                                   bits_per_sample, width, height,
+                                   rowstride,
+                                   (GdkPixbufDestroyNotify)g_free, NULL);
+    return pix;
+}
 
 GKeyFile *
 xfce_notify_log_get (void)
@@ -59,6 +106,8 @@ xfce_notify_log_get (void)
 void xfce_notify_log_insert (const gchar *app_name,
                              const gchar *summary,
                              const gchar *body,
+                             GVariant *image_data,
+                             const gchar *image_path,
                              const gchar *app_icon,
                              gint expire_timeout,
                              const gchar **actions)
@@ -72,6 +121,11 @@ void xfce_notify_log_insert (const gchar *app_name,
     gint j = 0;
     GDateTime *now;
     gchar *timestamp;
+    GBytes *image_bytes;
+    const gchar *icon_name;
+    GdkPixbuf *pixbuf = NULL;
+    gchar *notify_log_icon_folder;
+    gchar *notify_log_icon_path;
 
     notify_log_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                    XFCE_NOTIFY_LOG_FILE, TRUE);
@@ -91,7 +145,31 @@ void xfce_notify_log_insert (const gchar *app_name,
         g_key_file_set_string (notify_log, group, "app_name", app_name);
         g_key_file_set_string (notify_log, group, "summary", summary);
         g_key_file_set_string (notify_log, group, "body", body);
-        g_key_file_set_string (notify_log, group, "app_icon", app_icon);
+        if (image_data) {
+            image_bytes = g_variant_get_data_as_bytes (image_data);
+            icon_name = g_compute_checksum_for_bytes (G_CHECKSUM_MD5, image_bytes);
+            pixbuf = notify_pixbuf_from_image_data (image_data);
+            if (pixbuf) {
+                notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                                      XFCE_NOTIFY_ICON_PATH, TRUE);
+                notify_log_icon_path = g_strconcat (notify_log_icon_folder , icon_name, ".png", NULL);
+                if (!g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
+                    if (!gdk_pixbuf_save (pixbuf, notify_log_icon_path, "png", NULL, NULL))
+                        g_warning ("Could not save the pixbuf to: %s", notify_log_icon_path);
+                }
+                g_object_unref (G_OBJECT (pixbuf));
+            }
+        }
+        else if (image_path) {
+            icon_name = image_path;
+        }
+        else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
+            icon_name = app_icon;
+        }
+//        else
+//            g_warning ("everything failed. :'(");
+
+        g_key_file_set_string (notify_log, group, "app_icon", icon_name);
         timeout = g_strdup_printf ("%d", expire_timeout);
         g_key_file_set_string (notify_log, group, "expire-timeout", timeout);
         for (i = 0; actions && actions[i]; i += 2) {

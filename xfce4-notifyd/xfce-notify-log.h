@@ -21,15 +21,22 @@
 #define __XFCE_NOTIFY_LOG_H_
 
 
-#define XFCE_NOTIFY_LOG_FILE "xfce4/notifyd/log"
+#define XFCE_NOTIFY_LOG_FILE  "xfce4/notifyd/log"
+#define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
 
-GKeyFile   *xfce_notify_log_get (void);
-void    xfce_notify_log_insert (const gchar *app_name,
-                                const gchar *summary,
-                                const gchar *body,
-                                const gchar *app_icon,
-                                gint expire_timeout,
-                                const gchar **actions);
-void    xfce_notify_log_clear (void);
+GdkPixbuf *notify_pixbuf_from_image_data(GVariant *image_data);
+
+GKeyFile  *xfce_notify_log_get (void);
+
+void       xfce_notify_log_insert (const gchar *app_name,
+                                   const gchar *summary,
+                                   const gchar *body,
+                                   GVariant *image_data,
+                                   const gchar *image_path,
+                                   const gchar *app_icon,
+                                   gint expire_timeout,
+                                   const gchar **actions);
+
+void       xfce_notify_log_clear (void);
 
 #endif /* __XFCE_NOTIFY_LOG_H_ */
