@@ -86,6 +86,7 @@ int main (int argc, char **argv)
                                             test_body,
                                             APP_ICON);
     show_notification (notification);
+    g_usleep (500000);
 
     g_print ("%s", " * Testing notification with the image-path hint\n");
     g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_PATH);
@@ -96,6 +97,7 @@ int main (int argc, char **argv)
                                          "image-path",
                                          IMAGE_PATH);
     show_notification (notification);
+    g_usleep (500000);
 
     g_print ("%s", " * Testing notification with the image-data hint\n\n");
     g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
@@ -104,8 +106,9 @@ int main (int argc, char **argv)
                                             NULL);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
+    g_usleep (500000);
 
-    /* The priority tests are stll dummies. Need to decide whether to ship our own
+    /* The priority tests are still dummies. Need to decide whether to ship our own
        icons for testing or whether to use standard named icons and hope that they're
        installed or available in the currently selected theme and its fallbacks. */
     g_print ("Icon priority tests:\n");
@@ -118,6 +121,7 @@ int main (int argc, char **argv)
                                          "image-path",
                                          IMAGE_PATH);
     show_notification (notification);
+    g_usleep (500000);
 
     g_print ("%s", " * Testing priorities with app_icon versus image-data\n");
     g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
@@ -126,6 +130,7 @@ int main (int argc, char **argv)
                                             APP_ICON);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
+    g_usleep (500000);
 
     g_print ("%s", " * Testing priorities with image-path versus image-data\n");
     g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
@@ -137,6 +142,7 @@ int main (int argc, char **argv)
                                          IMAGE_PATH);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
+    g_usleep (500000);
 
     g_print ("%s", " * Testing priorities with app_icon vs. image-path vs. image-data\n\n");
     g_snprintf(test_body, sizeof (test_body), "%s should be shown", IMAGE_DATA);
@@ -148,6 +154,7 @@ int main (int argc, char **argv)
                                          IMAGE_PATH);
     notify_notification_set_image_from_pixbuf (notification, image_data);
     show_notification (notification);
+    g_usleep (500000);
 
     g_print ("%s", "Testing support for symbolic icons:\n * This test partly depends on the capabilities of your currently selected notifyd and icon theme.\n");
     notification = notify_notification_new ("Test support for symbolic icons",
