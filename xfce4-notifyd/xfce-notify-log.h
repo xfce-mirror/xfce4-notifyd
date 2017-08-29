@@ -24,7 +24,9 @@
 #define XFCE_NOTIFY_LOG_FILE  "xfce4/notifyd/log"
 #define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
 
-GdkPixbuf *notify_pixbuf_from_image_data(GVariant *image_data);
+GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
+
+const gchar     *notify_icon_name_from_desktop_id (const gchar *desktop_id);
 
 GKeyFile  *xfce_notify_log_get (void);
 
@@ -34,6 +36,7 @@ void       xfce_notify_log_insert (const gchar *app_name,
                                    GVariant *image_data,
                                    const gchar *image_path,
                                    const gchar *app_icon,
+                                   const gchar *desktop_id,
                                    gint expire_timeout,
                                    const gchar **actions);
 

@@ -1223,12 +1223,14 @@ notify_notify (XfceNotifyGBus *skeleton,
                           xndaemon->log_level_apps == 2 && application_is_muted == TRUE)
                           xfce_notify_log_insert (new_app_name, summary, body,
                                                   image_data, image_path, app_icon,
-                                                  expire_timeout, actions);
+                                                  desktop_id, expire_timeout, actions);
             }
 
-            xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
-            g_variant_unref(image_data);
-            g_free(desktop_id);
+            xfce_notify_gbus_complete_notify (skeleton, invocation, OUT_id);
+            if (image_data)
+                g_variant_unref (image_data);
+            if (desktop_id)
+                g_free (desktop_id);
             return TRUE;
         }
     }
@@ -1289,35 +1291,8 @@ notify_notify (XfceNotifyGBus *skeleton,
     else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
         xfce_notify_window_set_icon_name (window, app_icon);
     }
-    else {
-        if(desktop_id) {
-            gchar *resource = g_strdup_printf("applications%c%s.desktop",
-                                              G_DIR_SEPARATOR,
-                                              desktop_id);
-            XfceRc *rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
-                                                 resource, TRUE);
-            if(rcfile) {
-                if(xfce_rc_has_group(rcfile, "Desktop Entry")) {
-                    const gchar *icon_file;
-                    xfce_rc_set_group(rcfile, "Desktop Entry");
-                    icon_file = xfce_rc_read_entry(rcfile, "Icon", NULL);
-                    if(icon_file) {
-                        pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
-                                                       icon_file,
-                                                       48,
-                                                       GTK_ICON_LOOKUP_FORCE_SIZE,
-                                                       NULL);
-
-                        if(pix) {
-                            xfce_notify_window_set_icon_pixbuf(window, pix);
-                            g_object_unref(G_OBJECT(pix));
-                        }
-                    }
-                }
-                xfce_rc_close(rcfile);
-            }
-            g_free(resource);
-        }
+    else if (desktop_id) {
+        xfce_notify_window_set_icon_name (window, notify_icon_name_from_desktop_id (desktop_id));
     }
 
     if (xndaemon->notification_log == TRUE &&
@@ -1326,7 +1301,7 @@ notify_notify (XfceNotifyGBus *skeleton,
         transient == FALSE)
         xfce_notify_log_insert (new_app_name, summary, body,
                                 image_data, image_path, app_icon,
-                                expire_timeout, actions);
+                                desktop_id, expire_timeout, actions);
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 

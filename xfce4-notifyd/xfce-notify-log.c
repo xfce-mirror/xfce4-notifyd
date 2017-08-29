@@ -33,12 +33,13 @@
 
 #include <gdk/gdkx.h>
 #include <glib.h>
+#include <gtk/gtk.h>
 
 #include "xfce-notify-daemon.h"
 #include "xfce-notify-log.h"
 
 GdkPixbuf *
-notify_pixbuf_from_image_data(GVariant *image_data)
+notify_pixbuf_from_image_data (GVariant *image_data)
 {
     GdkPixbuf *pix = NULL;
     gint32 width, height, rowstride, bits_per_sample, channels;
@@ -83,6 +84,29 @@ notify_pixbuf_from_image_data(GVariant *image_data)
     return pix;
 }
 
+const gchar *
+notify_icon_name_from_desktop_id (const gchar *desktop_id)
+{
+    const gchar *icon_file;
+    gchar *resource;
+    XfceRc *rcfile;
+
+    resource = g_strdup_printf("applications%c%s.desktop",
+                               G_DIR_SEPARATOR,
+                               desktop_id);
+    rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
+                                 resource, TRUE);
+    if (rcfile) {
+        if (xfce_rc_has_group (rcfile, "Desktop Entry")) {
+            xfce_rc_set_group (rcfile, "Desktop Entry");
+            icon_file = xfce_rc_read_entry (rcfile, "Icon", NULL);
+        }
+        xfce_rc_close (rcfile);
+    }
+    g_free (resource);
+    return icon_file;
+}
+
 GKeyFile *
 xfce_notify_log_get (void)
 {
@@ -110,6 +134,7 @@ void xfce_notify_log_insert (const gchar *app_name,
                              GVariant *image_data,
                              const gchar *image_path,
                              const gchar *app_icon,
+                             const gchar *desktop_id,
                              gint expire_timeout,
                              const gchar **actions)
 {
@@ -174,8 +199,9 @@ void xfce_notify_log_insert (const gchar *app_name,
         else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
             g_key_file_set_string (notify_log, group, "app_icon", app_icon);
         }
-//        else
-//            g_warning ("everything failed. :'(");
+        else if (desktop_id) {
+            g_key_file_set_string (notify_log, group, "app_icon", notify_icon_name_from_desktop_id(desktop_id));
+        }
 
         timeout = g_strdup_printf ("%d", expire_timeout);
         g_key_file_set_string (notify_log, group, "expire-timeout", timeout);
