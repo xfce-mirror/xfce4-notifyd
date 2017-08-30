@@ -127,8 +127,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
     log_only_today = xfconf_channel_get_bool (notification_plugin->channel,
                                               SETTING_LOG_ONLY_TODAY, FALSE);
-    if (log_only_today)
-      g_warning ("only today.");
+
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
     log_length = GPOINTER_TO_UINT(num_groups) - log_display_limit;
