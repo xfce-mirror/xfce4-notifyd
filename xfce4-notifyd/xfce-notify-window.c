@@ -38,7 +38,7 @@
 #define DEFAULT_NORMAL_OPACITY 0.85
 #define DEFAULT_DO_FADEOUT     TRUE
 #define FADE_TIME              800
-#define FADE_CHANGE_TIMEOUT    50
+#define FADE_CHANGE_TIMEOUT    25
 #define DEFAULT_RADIUS         10
 #define DEFAULT_PADDING        14.0
 
