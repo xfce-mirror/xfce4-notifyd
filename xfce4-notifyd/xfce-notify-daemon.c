@@ -1306,6 +1306,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     xfce_notify_window_set_icon_only(window, x_canonical);
 
     xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout);
+    xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
 
     if(value_hint_set)
         xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);

@@ -103,6 +103,8 @@ void xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window);
 void xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
                                        gboolean do_fadeout);
 
+void xfce_notify_window_set_notify_location(XfceNotifyWindow *window,
+                                            GtkCornerType notify_location);
 /* signal trigger */
 void xfce_notify_window_closed(XfceNotifyWindow *window,
                                XfceNotifyCloseReason reason);

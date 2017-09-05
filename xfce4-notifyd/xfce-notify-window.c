@@ -55,6 +55,7 @@ struct _XfceNotifyWindow
     gboolean mouse_hover;
 
     gdouble normal_opacity;
+    gint original_x, original_y;
 
     guint32 icon_only:1,
             has_summary_text:1,
@@ -75,6 +76,7 @@ struct _XfceNotifyWindow
     guint op_change_steps;
     gdouble op_change_delta;
     gboolean do_fadeout;
+    GtkCornerType notify_location;
 };
 
 typedef struct
@@ -291,7 +293,6 @@ xfce_notify_window_start_expiration(XfceNotifyWindow *window)
                                           xfce_notify_window_expire_timeout,
                                           window);
     }
-
     gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
 }
 
@@ -526,6 +527,8 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
             if(window->fade_id) {
                 g_source_remove(window->fade_id);
                 window->fade_id = 0;
+                /* reset the sliding-out window to its original position */
+                gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
             }
         }
         gtk_widget_set_opacity(GTK_WIDGET(widget), 1.0);
@@ -582,6 +585,8 @@ xfce_notify_window_expire_timeout(gpointer data)
         gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW(window)));
 
     if(fade_transparent && window->do_fadeout) {
+        /* remember the original position of the window before we slide it out */
+        gtk_window_get_position (GTK_WINDOW (window), &window->original_x, &window->original_y);
         window->fade_id = g_timeout_add(FADE_CHANGE_TIMEOUT,
                                         xfce_notify_window_fade_timeout,
                                         window);
@@ -599,9 +604,23 @@ xfce_notify_window_fade_timeout(gpointer data)
 {
     XfceNotifyWindow *window = data;
     gdouble op;
+    gint x, y;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(data), FALSE);
 
+    /* slide out animation */
+    gtk_window_get_position (GTK_WINDOW (window), &x, &y);
+    if (window->notify_location == GTK_CORNER_TOP_RIGHT ||
+        window->notify_location == GTK_CORNER_BOTTOM_RIGHT)
+        x = x + 10;
+    else if (window->notify_location == GTK_CORNER_TOP_LEFT ||
+             window->notify_location == GTK_CORNER_BOTTOM_LEFT)
+        x = x - 10;
+    else
+        g_warning("Invalid notify location: %d", window->notify_location);
+    gtk_window_move (GTK_WINDOW (window), x, y);
+
+    /* fade-out animation */
     op = gtk_widget_get_opacity(GTK_WIDGET(window));
     op -= window->op_change_delta;
     if(op < 0.0)
@@ -1126,6 +1145,14 @@ xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     window->do_fadeout = do_fadeout;
+}
+
+void xfce_notify_window_set_notify_location(XfceNotifyWindow *window,
+                                            GtkCornerType notify_location)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    window->notify_location = notify_location;
 }
 
 void
