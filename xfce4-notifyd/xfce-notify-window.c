@@ -40,9 +40,7 @@
 #define FADE_TIME              800
 #define FADE_CHANGE_TIMEOUT    50
 #define DEFAULT_RADIUS         10
-#define DEFAULT_BORDER_WIDTH   2
 #define DEFAULT_PADDING        14.0
-#define BORDER                 6
 
 struct _XfceNotifyWindow
 {
