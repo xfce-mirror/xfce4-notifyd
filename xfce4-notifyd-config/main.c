@@ -590,7 +590,8 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
                 pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
                                                             24, 24, FALSE, NULL);
                 app_icon = gtk_image_new_from_pixbuf (pixbuf);
-                g_object_unref(pixbuf);
+                if (pixbuf)
+                    g_object_unref (pixbuf);
             } else {
                 app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
                 gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
