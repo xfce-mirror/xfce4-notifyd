@@ -53,6 +53,12 @@ typedef struct
     GtkToolbar *log_toolbar;
 } NotificationLogWidgets;
 
+typedef struct
+{
+    GtkWidget  *do_slideout;
+    GtkWidget  *do_slideout_label;
+} NotificationSlideoutWidgets;
+
 static void
 xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
                                                const char         *action,
@@ -455,6 +461,20 @@ xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
     gtk_switch_set_active (GTK_SWITCH (do_not_disturb_switch), state);
 }
 
+static void
+xfce4_notifyd_do_fadeout_activated (GtkSwitch *do_fadeout,
+                                    gboolean state,
+                                    gpointer user_data)
+{
+    NotificationSlideoutWidgets *slideout_widgets = user_data;
+
+    /* The sliding out animation is only available along with fade-out */
+    if (state == FALSE)
+        gtk_switch_set_active (GTK_SWITCH (slideout_widgets->do_slideout), FALSE);
+    gtk_widget_set_sensitive (slideout_widgets->do_slideout, state);
+    gtk_widget_set_sensitive (slideout_widgets->do_slideout_label, state);
+    gtk_switch_set_active (GTK_SWITCH (do_fadeout), state);
+}
 
 static void
 xfce4_notifyd_log_activated (GtkSwitch *log_switch,
@@ -729,12 +749,12 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *icon;
     GtkWidget *primary_monitor;
     GtkWidget *do_fadeout;
-    GtkWidget *do_slideout;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
     GKeyFile *notification_log;
     NotificationLogWidgets log_widgets;
+    NotificationSlideoutWidgets slideout_widgets;
 
     gtk_builder_connect_signals(builder, NULL);
 
@@ -813,9 +833,16 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     xfconf_g_property_bind(channel, "/do-fadeout", G_TYPE_BOOLEAN,
                            G_OBJECT(do_fadeout), "active");
 
-    do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
+    slideout_widgets.do_slideout_label = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout_label"));
+    slideout_widgets.do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
     xfconf_g_property_bind(channel, "/do-slideout", G_TYPE_BOOLEAN,
-                           G_OBJECT(do_slideout), "active");
+                           G_OBJECT(slideout_widgets.do_slideout), "active");
+    g_signal_connect (G_OBJECT (do_fadeout), "state-set",
+                      G_CALLBACK (xfce4_notifyd_do_fadeout_activated), &slideout_widgets);
+    if (gtk_switch_get_active (GTK_SWITCH (do_fadeout)) == FALSE) {
+        gtk_widget_set_sensitive (slideout_widgets.do_slideout_label, FALSE);
+        gtk_widget_set_sensitive (slideout_widgets.do_slideout, FALSE);
+    }
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
     g_signal_connect(G_OBJECT(btn), "clicked",
