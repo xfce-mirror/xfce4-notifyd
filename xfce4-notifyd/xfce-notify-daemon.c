@@ -61,6 +61,7 @@ struct _XfceNotifyDaemon
     gdouble initial_opacity;
     GtkCornerType notify_location;
     gboolean do_fadeout;
+    gboolean do_slideout;
     gboolean do_not_disturb;
     gboolean notification_log;
     gint primary_monitor;
@@ -1305,7 +1306,7 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 
-    xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout);
+    xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout, xndaemon->do_slideout);
     xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
 
     if(value_hint_set)
@@ -1454,6 +1455,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->do_fadeout = G_VALUE_TYPE(value)
                                ? g_value_get_boolean(value)
                                : TRUE;
+    } else if(!strcmp(property, "/do-slideout")) {
+       xndaemon->do_slideout = G_VALUE_TYPE(value)
+                               ? g_value_get_boolean(value)
+                               : FALSE;
     } else if(!strcmp(property, "/primary-monitor")) {
         xndaemon->primary_monitor = G_VALUE_TYPE(value)
                                     ? g_value_get_uint(value)
@@ -1507,6 +1512,9 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
 
     xndaemon->do_fadeout = xfconf_channel_get_bool(xndaemon->settings,
                                                 "/do-fadeout", TRUE);
+
+    xndaemon->do_slideout = xfconf_channel_get_bool(xndaemon->settings,
+                                                "/do-slideout", FALSE);
 
     xndaemon->primary_monitor = xfconf_channel_get_uint(xndaemon->settings,
                                                         "/primary-monitor", 0);

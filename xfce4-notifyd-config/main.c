@@ -729,6 +729,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *icon;
     GtkWidget *primary_monitor;
     GtkWidget *do_fadeout;
+    GtkWidget *do_slideout;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
@@ -810,7 +811,11 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 
     do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));
     xfconf_g_property_bind(channel, "/do-fadeout", G_TYPE_BOOLEAN,
-                          G_OBJECT(do_fadeout), "active");
+                           G_OBJECT(do_fadeout), "active");
+
+    do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
+    xfconf_g_property_bind(channel, "/do-slideout", G_TYPE_BOOLEAN,
+                           G_OBJECT(do_slideout), "active");
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
     g_signal_connect(G_OBJECT(btn), "clicked",
