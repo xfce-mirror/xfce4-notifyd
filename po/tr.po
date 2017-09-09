@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-15 06:31+0200\n"
-"PO-Revision-Date: 2017-09-06 12:59+0000\n"
+"POT-Creation-Date: 2017-09-09 00:31+0200\n"
+"PO-Revision-Date: 2017-09-09 19:11+0000\n"
 "Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +20,48 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: ../panel-plugin/notification-plugin.c:183
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Bildiriler"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:52
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "Bu adres açılamadıl: %s"
+
+#. create the dialog
+#: ../panel-plugin/notification-plugin-dialogs.c:77
+msgid "Notification Plugin Settings"
+msgstr "Bildirim Eklentisi Ayarları"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:99
+msgid "Number of notifications to show"
+msgstr "Gösterilecek bildirim sayısı"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:107
+msgid "Only show notifications from today"
+msgstr "Sadece bugünden itibaren bildirimleri göster"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:140
+msgid "This is the notification plugin"
+msgstr "Bu bildirim eklentisidir"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:142
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "Telif Hakkı © 2017 Simon Steinbeiß\n"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:1
+msgid "Notification Plugin"
+msgstr "Bildirim Eklentisi"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:2
+msgid "Notification plugin for the Xfce panel"
+msgstr "Xfce paneli için bildirim eklentisi"
+
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:727
+#: ../xfce4-notifyd-config/main.c:774
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Bildirme Servisi"
 
@@ -34,78 +74,78 @@ msgstr "Bilinmeyen seçenek, \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Bildiri servisinin başlaması olanaksız"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:363
+#: ../xfce4-notifyd/xfce-notify-daemon.c:362
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Başka bir bildirim servisi zaten çalıştığından çıkılıyor\n"
 
-#: ../xfce4-notifyd-config/main.c:71
+#: ../xfce4-notifyd-config/main.c:77
 msgid "Notification Preview"
 msgstr "Bildirim Önizlemesi"
 
-#: ../xfce4-notifyd-config/main.c:72
+#: ../xfce4-notifyd-config/main.c:78
 msgid "This is what notifications will look like"
 msgstr "Uyarılar buna benzeyecektir"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:83
 msgid "Button"
 msgstr "Düğme"
 
-#: ../xfce4-notifyd-config/main.c:84
+#: ../xfce4-notifyd-config/main.c:90
 msgid "Notification preview failed"
 msgstr "Bildiri ön izleme başarısız"
 
-#: ../xfce4-notifyd-config/main.c:729
+#: ../xfce4-notifyd-config/main.c:776
 msgid "Settings daemon is unavailable"
 msgstr "Ayarlar servisi kullanılamaz durumda"
 
-#: ../xfce4-notifyd-config/main.c:850
+#: ../xfce4-notifyd-config/main.c:908
 msgid "Refresh"
 msgstr "Yenile"
 
-#: ../xfce4-notifyd-config/main.c:851
+#: ../xfce4-notifyd-config/main.c:909
 msgid "Refresh the notification log"
 msgstr "Bildirim günlüğünü yenile"
 
-#: ../xfce4-notifyd-config/main.c:856
+#: ../xfce4-notifyd-config/main.c:914
 msgid "Open"
 msgstr "Aç"
 
-#: ../xfce4-notifyd-config/main.c:857
+#: ../xfce4-notifyd-config/main.c:915
 msgid "Open the notification log in an external editor"
 msgstr "Bildirim günlüğünü harici bir düzenleyici ile aç"
 
-#: ../xfce4-notifyd-config/main.c:862
+#: ../xfce4-notifyd-config/main.c:920
 msgid "Clear"
 msgstr "Temizle"
 
-#: ../xfce4-notifyd-config/main.c:863
+#: ../xfce4-notifyd-config/main.c:921
 msgid "Clear the notification log"
 msgstr "Bildirim günlüğünü temizle"
 
-#: ../xfce4-notifyd-config/main.c:885
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Display version information"
 msgstr "Sürüm bilgisini göster"
 
-#: ../xfce4-notifyd-config/main.c:886
+#: ../xfce4-notifyd-config/main.c:944
 msgid "Settings manager socket"
 msgstr "Ayarlar yöneticisi yuvası"
 
-#: ../xfce4-notifyd-config/main.c:886
+#: ../xfce4-notifyd-config/main.c:944
 msgid "SOCKET_ID"
 msgstr "YUVA _ID'Sİ"
 
-#: ../xfce4-notifyd-config/main.c:896
+#: ../xfce4-notifyd-config/main.c:954
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Kullanım seçenekleri için '%s --help' yazın."
 
-#: ../xfce4-notifyd-config/main.c:911
+#: ../xfce4-notifyd-config/main.c:969
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Genel Kamu Lisansı'nın ikinci sürümünün koşulları altında yayınlanmıştır\n"
 
-#: ../xfce4-notifyd-config/main.c:912
+#: ../xfce4-notifyd-config/main.c:970
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Hatayı bize bildirin, %s.\n"
@@ -154,11 +194,6 @@ msgstr "Sağ Üst"
 msgid "Bottom right"
 msgstr "Sağ Alt"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Notifications"
-msgstr "Bildiriler"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "Bildirim ayarlarınızı özelleştirin"
@@ -193,56 +228,64 @@ msgid "Fade out"
 msgstr "Azalarak kaybol"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Slide out"
+msgstr "_Dışarı kaydır"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
 msgstr "Varsayılan _konum"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "_Theme"
 msgstr "_Tema"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "Do not disturb"
 msgstr "Rahatsız etmeyin"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "<b>Behavior</b>"
 msgstr "<b>Davranış</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "<b>Appearance</b>"
 msgstr "<b>Görünüm</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "<b>Animations</b>"
+msgstr "<b>Canlandırmalar</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "Varsayılan olarak bildirim balonları fare imleci konumunda görüntülenir"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
 msgstr "Bildirimleri burada göster"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "General"
 msgstr "Genel"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Her uygulama için bildirimleri açın veya kapatın</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Applications"
 msgstr "Uygulamalar"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log notifications"
 msgstr "Günlük bildirimleri"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log applications"
 msgstr "Günlük uygulamaları"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log"
 msgstr "Günlük"
 
