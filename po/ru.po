@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 06:31+0200\n"
-"PO-Revision-Date: 2017-09-07 22:52+0000\n"
+"POT-Creation-Date: 2017-09-09 00:31+0200\n"
+"PO-Revision-Date: 2017-09-09 13:52+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../panel-plugin/notification-plugin.c:183
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Оповещения"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:52
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "Не удалось открыть следующий адрес: %s"
+
+#. create the dialog
+#: ../panel-plugin/notification-plugin-dialogs.c:77
+msgid "Notification Plugin Settings"
+msgstr "Настройки модуля оповещений"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:99
+msgid "Number of notifications to show"
+msgstr "Количество отображаемых оповещений"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:107
+msgid "Only show notifications from today"
+msgstr "Показывать только сегодняшние оповещения"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:140
+msgid "This is the notification plugin"
+msgstr "Это модуль оповещений"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:142
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "Copyright © 2017 Simon Steinbeiß\n"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:1
+msgid "Notification Plugin"
+msgstr "Модуль оповещений"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:2
+msgid "Notification plugin for the Xfce panel"
+msgstr "Модуль оповещений для панели Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
 #: ../xfce4-notifyd-config/main.c:774
@@ -153,11 +193,6 @@ msgstr "Вверху справа"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
 msgstr "Внизу справа"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Notifications"
-msgstr "Оповещения"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
