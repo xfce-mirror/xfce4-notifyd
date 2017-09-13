@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-10 22:57+0000\n"
+"PO-Revision-Date: 2017-09-13 15:08+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -68,11 +68,11 @@ msgstr "Notifikationsdæmon til Xfce"
 #: ../xfce4-notifyd/main.c:56
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "Ukendt parameter \"%s\"\n"
+msgstr "Ukendt tilvalg \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
-msgstr "Kunne ikke starte notifikationsdæmon"
+msgstr "Kan ikke starte notifikationsdæmon"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:362
 #, c-format
