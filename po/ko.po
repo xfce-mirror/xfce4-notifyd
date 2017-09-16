@@ -4,14 +4,14 @@
 # 
 # Translators:
 # 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>, 2016-2017
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2013,2016
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2013,2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 00:30+0100\n"
-"PO-Revision-Date: 2017-01-30 20:32+0000\n"
-"Last-Translator: 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>\n"
+"POT-Creation-Date: 2017-09-09 00:31+0200\n"
+"PO-Revision-Date: 2017-09-16 07:32+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/xfce-apps/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,8 +19,48 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: ../panel-plugin/notification-plugin.c:183
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "알림"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:52
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "다음 URL을 열 수 없습니다: %s"
+
+#. create the dialog
+#: ../panel-plugin/notification-plugin-dialogs.c:77
+msgid "Notification Plugin Settings"
+msgstr "알림 플러그인 설정"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:99
+msgid "Number of notifications to show"
+msgstr "표시할 알림 수"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:107
+msgid "Only show notifications from today"
+msgstr "오늘 부터의 알림만 표시"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:140
+msgid "This is the notification plugin"
+msgstr "알림 플러그인입니다"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:142
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "Copyright © 2017 Simon Steinbeiß\n"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:1
+msgid "Notification Plugin"
+msgstr "알림 플러그인"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:2
+msgid "Notification plugin for the Xfce panel"
+msgstr "xfce 패널용 알림 플러그인"
+
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:670
+#: ../xfce4-notifyd-config/main.c:774
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 알림 데몬"
 
@@ -33,78 +73,78 @@ msgstr "알 수 없는 옵션 \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "알림 데몬을 시작할 수 없습니다"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:367
+#: ../xfce4-notifyd/xfce-notify-daemon.c:362
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "다른 알림 데몬이 실행중입니다, 빠져나갑니다\n"
 
-#: ../xfce4-notifyd-config/main.c:69
+#: ../xfce4-notifyd-config/main.c:77
 msgid "Notification Preview"
 msgstr "알림 미리보기"
 
-#: ../xfce4-notifyd-config/main.c:70
+#: ../xfce4-notifyd-config/main.c:78
 msgid "This is what notifications will look like"
 msgstr "표시될 알림의 모습입니다"
 
-#: ../xfce4-notifyd-config/main.c:75
+#: ../xfce4-notifyd-config/main.c:83
 msgid "Button"
 msgstr "댠추"
 
-#: ../xfce4-notifyd-config/main.c:82
+#: ../xfce4-notifyd-config/main.c:90
 msgid "Notification preview failed"
 msgstr "알림 미리보기에 실패했습니다"
 
-#: ../xfce4-notifyd-config/main.c:672
+#: ../xfce4-notifyd-config/main.c:776
 msgid "Settings daemon is unavailable"
 msgstr "설정 데몬을 사용할 수 없습니다"
 
-#: ../xfce4-notifyd-config/main.c:794
+#: ../xfce4-notifyd-config/main.c:908
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: ../xfce4-notifyd-config/main.c:795
+#: ../xfce4-notifyd-config/main.c:909
 msgid "Refresh the notification log"
 msgstr "알림 로그를 새로 고침"
 
-#: ../xfce4-notifyd-config/main.c:800
+#: ../xfce4-notifyd-config/main.c:914
 msgid "Open"
 msgstr "열기"
 
-#: ../xfce4-notifyd-config/main.c:801
+#: ../xfce4-notifyd-config/main.c:915
 msgid "Open the notification log in an external editor"
 msgstr "알림 로그를 외부 편집기에서 열기"
 
-#: ../xfce4-notifyd-config/main.c:806
+#: ../xfce4-notifyd-config/main.c:920
 msgid "Clear"
 msgstr "지우기"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:921
 msgid "Clear the notification log"
 msgstr "알림 로그 지우기"
 
-#: ../xfce4-notifyd-config/main.c:825
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Display version information"
 msgstr "버전 정보 표시"
 
-#: ../xfce4-notifyd-config/main.c:826
+#: ../xfce4-notifyd-config/main.c:944
 msgid "Settings manager socket"
 msgstr "설정 관리자 소켓"
 
-#: ../xfce4-notifyd-config/main.c:826
+#: ../xfce4-notifyd-config/main.c:944
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:836
+#: ../xfce4-notifyd-config/main.c:954
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "사용법을 보려면 '%s --help'를 입력합니다."
 
-#: ../xfce4-notifyd-config/main.c:851
+#: ../xfce4-notifyd-config/main.c:969
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU 일반 공중 사용허가서 버전 2에 따라 출시했습니다\n"
 
-#: ../xfce4-notifyd-config/main.c:852
+#: ../xfce4-notifyd-config/main.c:970
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "%s(으)로 버그를 알려주십시오.\n"
@@ -153,90 +193,98 @@ msgstr "상단 오른쪽"
 msgid "Bottom right"
 msgstr "하단 오른쪽"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Notifications"
-msgstr "알림"
-
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "알림 설정을 꾸며 보세요"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid ""
+"The notification service is not running. No notifications will be shown."
+msgstr "알림 서비스를 실행하고 있지 않습니다. 알림을 표시할 수 없습니다."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>지금은 긴급 메시지만 보입니다.</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
 msgstr "미리보기 표시(_P)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "seconds"
 msgstr "초"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "_Disappear after"
 msgstr "다음시간 후 사라짐(_D)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "_Opacity"
 msgstr "투명도(_O)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "Fade out"
 msgstr "차차 사라짐"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Slide out"
+msgstr "밀어내기(_S)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
 msgstr "기본 위치(_P)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "_Theme"
 msgstr "테마(_T)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "Do not disturb"
 msgstr "방해하지 말아주세요"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "<b>Behavior</b>"
 msgstr "<b>작동</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "<b>Appearance</b>"
 msgstr "<b>꾸미기</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "<b>Animations</b>"
+msgstr "<b>애니메이션</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "기본적으로 알림 풍선은 마우스 포인터가 있는 디스플레이에 표시됩니다."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
 msgstr "알림 표시"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "General"
 msgstr "일반"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>애플리케이션 당 알림 표시 또는 차단</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Applications"
 msgstr "프로그램"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log notifications"
 msgstr "로그 알림"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log applications"
 msgstr "로그 애플리케이션"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log"
 msgstr "로그"
 
