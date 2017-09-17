@@ -109,9 +109,6 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 icon_dir = $(datadir)/icons/hicolor
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(icon_dir)
 
-icons48dir = $(icon_dir)/48x48/apps
-dist_icons48_DATA = icons/48x48/xfce4-notifyd.png
-
 if HAVE_GTK_320
 theme_dir = gtk-3.20
 else

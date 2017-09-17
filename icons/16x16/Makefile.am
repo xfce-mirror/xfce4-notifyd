@@ -1,6 +1,6 @@
-iconsdir = $(datadir)/icons/hicolor/scalable/apps
+iconsdir = $(datadir)/icons/hicolor/16x16/apps
 icons_DATA =								\
-	xfce4-notifyd.svg
+	xfce4-notifyd.png
 
 EXTRA_DIST =								\
 	$(icons_DATA)
