@@ -68,10 +68,6 @@ void xfce_notify_window_set_last_monitor(XfceNotifyWindow *window,
                                          gint monitor);
 gint xfce_notify_window_get_last_monitor(XfceNotifyWindow *window);
 
-void xfce_notify_window_set_last_screen(XfceNotifyWindow *window,
-                                   gint screen);
-gint xfce_notify_window_get_last_screen(XfceNotifyWindow *window);
-
 void xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
                                       const gchar *icon_name);
 void xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,

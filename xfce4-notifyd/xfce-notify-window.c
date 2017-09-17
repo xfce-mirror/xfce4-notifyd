@@ -49,7 +49,6 @@ struct _XfceNotifyWindow
 
     GdkRectangle geometry;
     gint last_monitor;
-    gint last_screen;
 
     guint expire_timeout;
 
@@ -177,6 +176,10 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GtkWidget *tophbox, *vbox;
     gint screen_width;
     gdouble padding = DEFAULT_PADDING;
+#if GTK_CHECK_VERSION (3, 22, 0)
+    GdkMonitor *monitor;
+    GdkRectangle geometry;
+#endif
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
@@ -212,7 +215,14 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     /* Use the screen width to get a maximum width for the notification bubble.
        This assumes that a character is 10px wide and we want a third of the
        screen as maximum width. */
+#if GTK_CHECK_VERSION (3, 22, 0)
+    monitor = gdk_display_get_monitor_at_window (gtk_widget_get_display (GTK_WIDGET (window)),
+                                                 gtk_widget_get_window (GTK_WIDGET (window)));
+    gdk_monitor_get_geometry (monitor, &geometry);
+    screen_width = geometry.width / 30;
+#else
     screen_width = gdk_screen_get_width (screen) / 30;
+#endif
 
     gtk_widget_style_get(GTK_WIDGET(window),
                          "padding", &padding,
@@ -500,7 +510,7 @@ static gboolean xfce_notify_window_draw (GtkWidget *widget,
     cairo_restore (cr);
 
     region = gdk_cairo_region_create_from_surface (surface);
-    if(!gtk_widget_is_composited(widget))
+    if(!gdk_screen_is_composited(gtk_widget_get_screen(widget)))
         gtk_widget_shape_combine_region(widget, region);
 
     /* however, of course always set the input shape; it doesn't matter
@@ -806,19 +816,6 @@ gint
 xfce_notify_window_get_last_monitor(XfceNotifyWindow *window)
 {
    return window->last_monitor;
-}
-
-void
-xfce_notify_window_set_last_screen(XfceNotifyWindow *window,
-                                   gint screen)
-{
-    window->last_screen = screen;
-}
-
-gint
-xfce_notify_window_get_last_screen(XfceNotifyWindow *window)
-{
-    return window->last_screen;
 }
 
 void
