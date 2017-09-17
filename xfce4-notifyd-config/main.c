@@ -256,10 +256,11 @@ xfce_notifyd_config_dialog_response(GtkWidget *dialog, gint response, gpointer u
 }
 
 static void
-xfce_notifyd_config_preview_clicked(GtkButton *button,
-                                    GtkWidget *dialog)
+xfce_notifyd_config_preview_clicked(GtkButton *button)
 {
-    xfce_notifyd_config_show_notification_preview(GTK_WINDOW(dialog));
+  GtkWidget *window = gtk_widget_get_toplevel (GTK_WIDGET (button));
+
+  xfce_notifyd_config_show_notification_preview (GTK_WINDOW (window));
 }
 
 /* Shows a separator before each row. */
@@ -846,7 +847,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
     g_signal_connect(G_OBJECT(btn), "clicked",
-                     G_CALLBACK(xfce_notifyd_config_preview_clicked), dlg);
+                     G_CALLBACK(xfce_notifyd_config_preview_clicked), NULL);
 
     /*******************
         APPLICATIONS   *
