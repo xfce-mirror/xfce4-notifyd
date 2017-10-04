@@ -988,6 +988,7 @@ main(int argc,
     settings_dialog = xfce4_notifyd_config_setup_dialog(builder);
 
     notifyd_running = GTK_WIDGET (gtk_builder_get_object (builder, "notifyd_running"));
+    gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), FALSE);
     watch_handle_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
                                         "org.freedesktop.Notifications",
                                         G_BUS_NAME_WATCHER_FLAGS_NONE,
