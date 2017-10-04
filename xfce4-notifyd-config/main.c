@@ -401,22 +401,31 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
 
     if (known_applications != NULL) {
         for (i = 0; i < known_applications->len; i++) {
+            GtkIconInfo *icon_info;
+
             known_application = g_ptr_array_index (known_applications, i);
             hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
             label = gtk_label_new (g_value_get_string (known_application));
             icon_name = g_value_get_string (known_application);
-            if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
-                icon = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
+            icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+            if (icon_info) {
+                GdkPixbuf *pix = NULL;
+
+                pix = gtk_icon_info_load_icon (icon_info, NULL);
+                icon = gtk_image_new_from_pixbuf (pix);
+                if (pix)
+                    g_object_unref (G_OBJECT (pix));
+            }
             else {
                 gchar *icon_name_new = g_ascii_strdown (icon_name, -1);
                 if (gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_new, 16, GTK_ICON_LOOKUP_GENERIC_FALLBACK))
                     icon = gtk_image_new_from_icon_name (icon_name_new, GTK_ICON_SIZE_MENU);
                 else {
                     icon = gtk_image_new ();
-                    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
                 }
                 g_free (icon_name_new);
             }
+            gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
 
 #if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (label), 0);
