@@ -314,10 +314,11 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
             GValue *muted_application;
             muted_application = g_ptr_array_index (muted_applications, i);
             if (g_str_match_string (g_value_get_string (val), g_value_get_string (muted_application), FALSE) == TRUE) {
-                g_ptr_array_remove_index (muted_applications, i);
+                if (!g_ptr_array_remove_index (muted_applications, i))
+                    g_warning ("Could not remove %s from the list of muted applications. %i", new_app_name, i);
                 break;
             }
-            g_warning ("Could not remove %s from the list of muted applications.", new_app_name);
+
         }
 
     }
