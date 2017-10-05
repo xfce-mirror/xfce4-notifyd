@@ -96,15 +96,15 @@ notify_icon_name_from_desktop_id (const gchar *desktop_id)
                                desktop_id);
     rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
                                  resource, TRUE);
-    if (rcfile) {
-        if (xfce_rc_has_group (rcfile, "Desktop Entry")) {
-            xfce_rc_set_group (rcfile, "Desktop Entry");
-            icon_file = xfce_rc_read_entry (rcfile, "Icon", NULL);
-        }
-        xfce_rc_close (rcfile);
-    }
     g_free (resource);
-    return icon_file;
+    if (rcfile && xfce_rc_has_group (rcfile, "Desktop Entry")) {
+        xfce_rc_set_group (rcfile, "Desktop Entry");
+        icon_file = xfce_rc_read_entry (rcfile, "Icon", NULL);
+        xfce_rc_close (rcfile);
+        return icon_file;
+    }
+    else
+        return NULL;
 }
 
 GKeyFile *
