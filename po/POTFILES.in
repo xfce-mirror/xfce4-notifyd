@@ -1,5 +1,6 @@
 panel-plugin/notification-plugin.c
 panel-plugin/notification-plugin-dialogs.c
+panel-plugin/notification-plugin-log.c
 panel-plugin/notification-plugin.desktop.in
 xfce4-notifyd/main.c
 xfce4-notifyd/xfce-notify-daemon.c
