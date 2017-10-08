@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-19 18:05+0000\n"
+"POT-Creation-Date: 2017-10-07 18:31+0200\n"
+"PO-Revision-Date: 2017-10-08 08:46+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/xfce/xfce-apps/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,15 @@ msgstr "Това е добавката за уведомления"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Авторски права © 2017 Simon Steinbeiß\n"
 
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:253
+msgid "_Do not disturb"
+msgstr "Не ме безпокой"
+
+#: ../panel-plugin/notification-plugin-log.c:269
+msgid "_Notification settings..."
+msgstr "_Настройка на уведомленията..."
+
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
 msgstr "Добавка за Уведомления"
@@ -62,7 +71,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Добавка за уведомления на Xfce панел"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:794
 msgid "Xfce Notify Daemon"
 msgstr "Демон за уведомления в Xfce"
 
@@ -75,7 +84,7 @@ msgstr "Непозната опция „%s“\n"
 msgid "Unable to start notification daemon"
 msgstr "Неуспех при стартиране на услугата за уведомяване"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Още една услуга за уведомления е стартирана, излизане\n"
@@ -96,57 +105,57 @@ msgstr "Бутон"
 msgid "Notification preview failed"
 msgstr "Предварителният преглед на уведомленията е неуспешен"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:796
 msgid "Settings daemon is unavailable"
 msgstr "Демонът за настройките е недостъпен"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
 msgstr "Обновяване"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:929
 msgid "Refresh the notification log"
 msgstr "Обновяване на лога с уведомлениета"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:934
 msgid "Open"
 msgstr "Отваряне"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:935
 msgid "Open the notification log in an external editor"
 msgstr "Отваряне на лога с уведомленията с допълнителен редактор"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Clear"
 msgstr "Изчистване"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Clear the notification log"
 msgstr "Изчистване на лога с уведомленията"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Display version information"
 msgstr "Показване на информация за версията"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "Settings manager socket"
 msgstr "Гнездо за мениджъра на настройките"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:974
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Въведете „%s --help“ за показване на потребителското ръководство."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:989
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Разпространява се под условията на GNU General Public License версия 2\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:990
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Моля, докладвайте грешки на %s.\n"
