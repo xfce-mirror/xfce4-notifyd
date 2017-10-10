@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-23 19:02+0000\n"
+"POT-Creation-Date: 2017-10-07 18:31+0200\n"
+"PO-Revision-Date: 2017-10-10 01:03+0000\n"
 "Last-Translator: Andre Miranda <andre42m@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/xfce/xfce-apps/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,15 @@ msgstr "Este é o plug-in de notificações"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:253
+msgid "_Do not disturb"
+msgstr "_Não incomode"
+
+#: ../panel-plugin/notification-plugin-log.c:269
+msgid "_Notification settings..."
+msgstr "_Configurações de notificações…"
+
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
 msgstr "Plug-in de Notificações"
@@ -63,7 +72,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Plug-in de Notificações para o painel do Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:794
 msgid "Xfce Notify Daemon"
 msgstr "Serviço de notificações do Xfce"
 
@@ -76,7 +85,7 @@ msgstr "Opção desconhecida \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Não foi possível iniciar o serviço de notificações"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Um outro serviço de notificações está em execução, saindo\n"
@@ -97,104 +106,104 @@ msgstr "Botão"
 msgid "Notification preview failed"
 msgstr "A visualização da notificação falhou"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:796
 msgid "Settings daemon is unavailable"
-msgstr "O serviço de configuração não está disponível"
+msgstr "Serviço de configurações indisponível"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:929
 msgid "Refresh the notification log"
 msgstr "Atualiza o registro de notificações"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:934
 msgid "Open"
 msgstr "Abrir"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:935
 msgid "Open the notification log in an external editor"
 msgstr "Abre o registro de notificações em um editor externo"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Clear"
 msgstr "Limpar"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Clear the notification log"
 msgstr "Limpa o registro de notificações"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Display version information"
 msgstr "Exibe informação da versão"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "Settings manager socket"
 msgstr "Socket do gerenciador de configurações"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:974
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Digite \"%s --help\" para obter informações de uso."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:989
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Liberado sob os termos da Licença Pública GNU (GPL), versão 2\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:990
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Por favor, relate erros para %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "apenas durante \"Não incomode\""
+msgstr "Apenas durante \"Não incomode\""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
-msgstr "sempre"
+msgstr "Sempre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "all"
-msgstr "todos"
+msgstr "Todos"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "all except blocked"
-msgstr "todos exceto bloqueados"
+msgstr "Exceto bloqueados"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
-msgstr "apenas bloqueados"
+msgstr "Apenas bloqueados"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "tela com ponteiro do mouse"
+msgstr "Tela com ponteiro do mouse"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
-msgstr "tela primária"
+msgstr "Tela primária"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
-msgstr "em cima à esquerda"
+msgstr "Acima, do lado esquerdo"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Bottom left"
-msgstr "embaixo à esquerda"
+msgstr "Abaixo, do lado esquerdo"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "Top right"
-msgstr "em cima à direita"
+msgstr "Acima, do lado direito"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
-msgstr "embaixo à direita"
+msgstr "Abaixo, do lado direito"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
