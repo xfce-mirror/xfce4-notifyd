@@ -46,8 +46,20 @@ xfce4-notifyd/xfce-notify-enum-types.c
 xfce4-notifyd/xfce-notify-enum-types.h
 xfce4-notifyd/xfce-notify-marshal.c
 xfce4-notifyd/xfce-notify-marshal.h
+xfce4-notifyd/xfce-notify-gbus.c
+xfce4-notifyd/xfce-notify-gbus.h
+xfce4-notifyd/xfce4-notifyd.service
 xfce4-notifyd/xfce4-notifyd
 
 tests/test-actions
 tests/test-positioning
 tests/test-text
+test/test-icons
+
+m4/
+panel-plugin/.libs/
+panel-plugin/libnotification-plugin.la
+panel-plugin/libnotification_plugin_la-notification-plugin-dialogs.lo
+panel-plugin/libnotification_plugin_la-notification-plugin-log.lo
+panel-plugin/libnotification_plugin_la-notification-plugin.lo
+panel-plugin/notification-plugin.desktop
