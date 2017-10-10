@@ -266,7 +266,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   g_signal_connect (mi, "toggled",
                     G_CALLBACK (dnd_toggled_cb), notification_plugin);
 
-  mi = gtk_menu_item_new_with_mnemonic (_("_Notification settings..."));
+  mi = gtk_menu_item_new_with_mnemonic (_("_Notification settings…"));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);
   g_signal_connect (mi, "activate", G_CALLBACK (notification_plugin_settings_activate_cb),
