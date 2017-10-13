@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-19 18:05+0000\n"
+"POT-Creation-Date: 2017-10-10 12:32+0200\n"
+"PO-Revision-Date: 2017-10-13 15:39+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/xfce/xfce-apps/language/kk/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: kk\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:188
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -27,12 +27,12 @@ msgstr "Хабарламалар"
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr ""
+msgstr "Келесі url адресін ашу мүмкін емес: %s"
 
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr ""
+msgstr "Хабарламалар плагині баптаулары"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
@@ -40,26 +40,35 @@ msgstr "Көрсетілетін хабарламалар саны"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:107
 msgid "Only show notifications from today"
-msgstr ""
+msgstr "Тек бүгінгі хабарламаларды көрсету"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:140
 msgid "This is the notification plugin"
-msgstr ""
+msgstr "Бұл - хабарламалар плагині"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:142
 msgid "Copyright © 2017 Simon Steinbeiß\n"
-msgstr ""
+msgstr "Copyright © 2017 Simon Steinbeiß\n"
+
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:253
+msgid "_Do not disturb"
+msgstr "Мазам_ды алмау"
+
+#: ../panel-plugin/notification-plugin-log.c:269
+msgid "_Notification settings…"
+msgstr "_Хабарламалар баптаулары…"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
-msgstr ""
+msgstr "Хабарламалар плагині"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:2
 msgid "Notification plugin for the Xfce panel"
-msgstr ""
+msgstr "Xfce панелі үшін хабарламалар плагині"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:794
 msgid "Xfce Notify Daemon"
 msgstr "Xfce хабарламалар қызметі"
 
@@ -72,7 +81,7 @@ msgstr "Белгісіз опция \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Хабарламалар қызметін жөнелту мүмкін емес"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Басқа хабарламалар қызметі іске қосулы тұр, жұмысты аяқтау\n"
@@ -93,57 +102,63 @@ msgstr "Батырма"
 msgid "Notification preview failed"
 msgstr "Сынау хабарламасын көрсету сәтсіз"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:796
 msgid "Settings daemon is unavailable"
 msgstr "Баптаулар қызметі қолжетерсіз"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:921
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Журнал бос</b></big>\nХабарламалар әлі жазылмаған."
+
+#: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
 msgstr "Жаңарту"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:929
 msgid "Refresh the notification log"
 msgstr "Хабарламалар журналын жаңарту"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:934
 msgid "Open"
 msgstr "Ашу"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:935
 msgid "Open the notification log in an external editor"
 msgstr "Хабарламалар журналын сыртқы түзеткіште ашу"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Clear"
 msgstr "Тазарту"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Clear the notification log"
 msgstr "Хабарламалар журналын тазарту"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Display version information"
 msgstr "Display version information"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:974
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Көмек үшін '%s --help' енгізіңіз."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:989
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, 2-ші нұсқасы аясында жарияланған\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:990
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ақаулықтар жөнінде хабарласыңыз: <%s>.\n"
@@ -227,7 +242,7 @@ msgstr "Жоғалу"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "_Slide out"
-msgstr ""
+msgstr "_Жылжу"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
@@ -251,7 +266,7 @@ msgstr "<b>Сыртқы түрі</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "<b>Animations</b>"
-msgstr ""
+msgstr "<b>Анимациялар</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid ""
