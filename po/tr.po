@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-23 19:02+0000\n"
+"POT-Creation-Date: 2017-10-10 12:32+0200\n"
+"PO-Revision-Date: 2017-10-16 01:29+0000\n"
 "Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:188
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -52,6 +52,15 @@ msgstr "Bu bildirim eklentisidir"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Telif Hakkı © 2017 Simon Steinbeiß\n"
 
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:253
+msgid "_Do not disturb"
+msgstr "_Rahatsız etmeyin"
+
+#: ../panel-plugin/notification-plugin-log.c:269
+msgid "_Notification settings…"
+msgstr "_Bildirim ayarları..."
+
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
 msgstr "Bildirim Eklentisi"
@@ -61,7 +70,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfce paneli için bildirim eklentisi"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:794
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Bildirme Servisi"
 
@@ -74,7 +83,7 @@ msgstr "Bilinmeyen seçenek, \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Bildiri servisinin başlaması olanaksız"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Başka bir bildirim servisi zaten çalıştığından çıkılıyor\n"
@@ -95,57 +104,63 @@ msgstr "Düğme"
 msgid "Notification preview failed"
 msgstr "Bildiri ön izleme başarısız"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:796
 msgid "Settings daemon is unavailable"
 msgstr "Ayarlar servisi kullanılamaz durumda"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:921
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "Günlük boş</b></big>\nHenüz bir bildirim kaydedilmedi."
+
+#: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
 msgstr "Yenile"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:929
 msgid "Refresh the notification log"
 msgstr "Bildirim günlüğünü yenile"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:934
 msgid "Open"
 msgstr "Aç"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:935
 msgid "Open the notification log in an external editor"
 msgstr "Bildirim günlüğünü harici bir düzenleyici ile aç"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Clear"
 msgstr "Temizle"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Clear the notification log"
 msgstr "Bildirim günlüğünü temizle"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Display version information"
 msgstr "Sürüm bilgisini göster"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "Settings manager socket"
 msgstr "Ayarlar yöneticisi yuvası"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "SOCKET_ID"
 msgstr "YUVA _ID'Sİ"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:974
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Kullanım seçenekleri için '%s --help' yazın."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:989
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Genel Kamu Lisansı'nın ikinci sürümünün koşulları altında yayınlanmıştır\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:990
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Hatayı bize bildirin, %s.\n"
