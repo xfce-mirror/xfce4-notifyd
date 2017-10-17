@@ -2,6 +2,33 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.4.0 (07 October 2017):
+  This is a feature release.
+
+  Features:
+    * Panel plugin that shows most recent notifications
+      and allows for quick access to DND mode
+    * Persistent daemon (Bug #12754)
+    * New (optional) animation: slide-out
+    * Support for all image types in the log
+    * Better application icon matching in the config dialog
+    * New logo (also in high resolution)
+
+  Bugs fixed:
+    * Bump notification spec version to 1.2 (Bug #13578)
+    * Fix empty body when markup is invalid (Bug #10027)
+    * Show warning in settings dialog if notifyd is not running (Bug #13417)
+    * log-viewer: Fix escaping of characters and add markup support
+    * Handle desktop-id as fallback in the log
+
+  Updated translations: Arabic, Bulgarian, Catalan, Chinese (China),
+  Chinese (Taiwan), Croatian, Czech, Danish, Dutch (Flemish), Finnish,
+  French, German, Greek, Hebrew, Indonesian, Italian, Japanese, Kazakh,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Polish, Portuguese,
+  Portuguese (Brazilian), Russian, Serbian, Slovak, Spanish, Swedish,
+  Thai, Turkish, Ukrainian
+
+
 Version 0.3.6 (20 March 2017):
   This is a bugfix release. Thanks to Mattias and Igor!
 
