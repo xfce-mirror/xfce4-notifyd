@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 12:32+0200\n"
-"PO-Revision-Date: 2017-10-10 20:51+0000\n"
+"PO-Revision-Date: 2017-10-18 11:42+0000\n"
 "Last-Translator: Charles Monzat <superboa@hotmail.fr>\n"
 "Language-Team: French (http://www.transifex.com/xfce/xfce-apps/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgstr "<big><b>Journal vide</b></big>\nAucune notification enregistrée."
 
 #: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
-msgstr "Rafraichir"
+msgstr "Actualiser"
 
 #: ../xfce4-notifyd-config/main.c:929
 msgid "Refresh the notification log"
@@ -223,7 +223,7 @@ msgstr "Le service de notification n'est pas en cours d'exécution. Aucune notif
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Actuellement seules les notifications urgentes sont affichées.</b>"
+msgstr "<b>Actuellement, seules les notifications urgentes sont affichées.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
@@ -235,7 +235,7 @@ msgstr "secondes"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "_Disappear after"
-msgstr "_Disparaitre après"
+msgstr "_Disparition après"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "_Opacity"
@@ -277,7 +277,7 @@ msgstr "<b>Animations</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Par défaut les bulles de notification sont affichées sur l’écran où est situé le pointeur de la souris."
+msgstr "Par défaut, les bulles de notification sont affichées sur l’écran où est situé le pointeur de la souris."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
