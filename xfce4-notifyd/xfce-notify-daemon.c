@@ -1250,12 +1250,12 @@ notify_notify (XfceNotifyGBus *skeleton,
             if (xndaemon->notification_log == TRUE &&
                 transient == FALSE) {
                 /* Either log in DND mode or always for muted apps */
-                if (xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE ||
+                if ((xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE) ||
                     xndaemon->log_level == 1)
                       /* Log either all, all except muted or only muted applications */
                       if (xndaemon->log_level_apps == 0 ||
-                          xndaemon->log_level_apps == 1 && application_is_muted == FALSE ||
-                          xndaemon->log_level_apps == 2 && application_is_muted == TRUE)
+                          (xndaemon->log_level_apps == 1 && application_is_muted == FALSE) ||
+                          (xndaemon->log_level_apps == 2 && application_is_muted == TRUE))
                           xfce_notify_log_insert (new_app_name, summary, body,
                                                   image_data, image_path, app_icon,
                                                   desktop_id, expire_timeout, actions);

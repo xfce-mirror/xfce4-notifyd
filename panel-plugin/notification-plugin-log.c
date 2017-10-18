@@ -144,7 +144,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       const char *tooltip_format_simple = "<b>\%s</b> - \%s";
       char *markup;
       gchar *app_name;
-      gchar *tooltip_timestamp;
+      gchar *tooltip_timestamp = NULL;
       gchar *tmp;
       GTimeVal tv;
       GDateTime *log_timestamp;
@@ -158,7 +158,8 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_GNUC_END_IGNORE_DEPRECATIONS
 
       if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
-        if (log_timestamp = g_date_time_new_from_timeval_local (&tv)) {
+        log_timestamp = g_date_time_new_from_timeval_local (&tv);
+        if (log_timestamp != NULL) {
           tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
           g_date_time_unref(log_timestamp);
         }
@@ -222,7 +223,12 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       tmp = g_key_file_get_string (notify_log, group, "body", NULL);
       if (g_strcmp0 (tmp, "") == 0) {
         gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
-        markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
+        if (tooltip_timestamp != NULL) {
+          markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
+        }
+        else {
+          markup = g_strdup_printf (format, app_name);
+        }
       }
       else {
         gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
