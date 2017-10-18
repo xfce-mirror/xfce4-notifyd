@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 18:31+0200\n"
-"PO-Revision-Date: 2017-10-09 22:07+0000\n"
+"POT-Creation-Date: 2017-10-10 12:32+0200\n"
+"PO-Revision-Date: 2017-10-18 13:20+0000\n"
 "Last-Translator: José Vieira <jvieira33@sapo.pt>\n"
 "Language-Team: Portuguese (http://www.transifex.com/xfce/xfce-apps/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:188
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -58,7 +58,7 @@ msgid "_Do not disturb"
 msgstr "_Não perturbar"
 
 #: ../panel-plugin/notification-plugin-log.c:269
-msgid "_Notification settings..."
+msgid "_Notification settings…"
 msgstr "Definições de _notificação..."
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
@@ -107,6 +107,12 @@ msgstr "Falha ao pré-visualizar notificação"
 #: ../xfce4-notifyd-config/main.c:796
 msgid "Settings daemon is unavailable"
 msgstr "O serviço de definições não está disponível"
+
+#: ../xfce4-notifyd-config/main.c:921
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Registo vazio</b></big>\nAinda não foram registadas quaisquer notificações."
 
 #: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
