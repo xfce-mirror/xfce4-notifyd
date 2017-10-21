@@ -216,7 +216,7 @@ xfce_notify_daemon_get_primary_monitor (GdkScreen *screen)
 
     return xfce_notify_daemon_get_monitor_index (display, monitor);
 #else
-    return gdk_screen_get_primary_monitor(widget_screen);
+    return gdk_screen_get_primary_monitor (screen);
 #endif
 }
 
@@ -231,7 +231,7 @@ xfce_notify_daemon_get_monitor_at_point (GdkScreen *screen,
 
     return xfce_notify_daemon_get_monitor_index (display, monitor);
 #else
-    return gdk_screen_get_monitor_at_point(widget_screen);
+    return gdk_screen_get_monitor_at_point (screen, x, y);
 #endif
 }
 
