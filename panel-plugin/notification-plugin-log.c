@@ -120,6 +120,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     gchar **groups;
     int log_length;
     int log_display_limit;
+    int log_icon_size;
     gboolean log_only_today;
 
     groups = g_key_file_get_groups (notify_log, &num_groups);
@@ -127,7 +128,11 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
     log_only_today = xfconf_channel_get_bool (notification_plugin->channel,
                                               SETTING_LOG_ONLY_TODAY, FALSE);
+    log_icon_size = xfconf_channel_get_int (notification_plugin->channel,
+                                            SETTING_LOG_ICON_SIZE, -1);
 
+    if (log_icon_size == -1)
+      log_icon_size = DEFAULT_LOG_ICON_SIZE;
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
     log_length = GPOINTER_TO_UINT(num_groups) - log_display_limit;
@@ -198,13 +203,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS))
       {
           pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
-                                                      16, 16, FALSE, NULL);
+                                                      log_icon_size, log_icon_size,
+                                                      FALSE, NULL);
           app_icon = gtk_image_new_from_pixbuf (pixbuf);
       }
       else
       {
           app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
-          gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 16);
+          gtk_image_set_pixel_size (GTK_IMAGE (app_icon), log_icon_size);
       }
       g_free (tmp);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
