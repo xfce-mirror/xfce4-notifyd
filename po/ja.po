@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 12:32+0200\n"
-"PO-Revision-Date: 2017-10-22 07:12+0000\n"
+"PO-Revision-Date: 2017-10-22 22:58+0000\n"
 "Last-Translator: 出口　憲 <kdeguchi@sz.tokoha-u.ac.jp>\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-apps/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -277,7 +277,7 @@ msgstr "デフォルトで通知バブルはマウスポインターのあるデ
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
-msgstr ""
+msgstr "通知の表示場所"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "General"
