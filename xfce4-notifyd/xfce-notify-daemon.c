@@ -1136,6 +1136,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     XfceNotifyWindow *window;
     GdkPixbuf *pix = NULL;
     GVariant *image_data = NULL;
+    GVariant *icon_data = NULL;
     const gchar *image_path = NULL;
     gchar *desktop_id = NULL;
     gchar *new_app_name;
@@ -1170,15 +1171,21 @@ notify_notify (XfceNotifyGBus *skeleton,
             }
             g_variant_unref(value);
         }
-        else if ((g_strcmp0 (key, "image_data") == 0) ||
-                 (g_strcmp0 (key, "icon_data") == 0)  ||
-                 (g_strcmp0 (key, "image-data") == 0) ||
-                 (g_strcmp0 (key, "icon-data") == 0))
+        else if ((g_strcmp0 (key, "image-data") == 0) ||
+                 (g_strcmp0 (key, "image_data") == 0))
         {
             if (image_data) {
                 g_variant_unref(image_data);
             }
             image_data = value;
+        }
+        else if ((g_strcmp0 (key, "icon-data") == 0) ||
+                 (g_strcmp0 (key, "icon_data") == 0))
+        {
+            if (icon_data) {
+                g_variant_unref(icon_data);
+            }
+            icon_data = value;
         }
         else if ((g_strcmp0 (key, "image-path") == 0) ||
                  (g_strcmp0 (key, "image_path") == 0))
@@ -1211,11 +1218,6 @@ notify_notify (XfceNotifyGBus *skeleton,
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
         {
             x_canonical = TRUE;
-            g_variant_unref(value);
-        }
-        else if (g_strcmp0 (key, "urgency") == 0)
-        {
-            g_warning ("the urgency bit is set");
             g_variant_unref(value);
         }
         else
@@ -1255,10 +1257,11 @@ notify_notify (XfceNotifyGBus *skeleton,
                       /* Log either all, all except muted or only muted applications */
                       if (xndaemon->log_level_apps == 0 ||
                           (xndaemon->log_level_apps == 1 && application_is_muted == FALSE) ||
-                          (xndaemon->log_level_apps == 2 && application_is_muted == TRUE))
+                          (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)) {
                           xfce_notify_log_insert (new_app_name, summary, body,
                                                   image_data, image_path, app_icon,
                                                   desktop_id, expire_timeout, actions);
+                      }
             }
 
             xfce_notify_gbus_complete_notify (skeleton, invocation, OUT_id);
@@ -1315,7 +1318,7 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     if (image_data) {
         pix = notify_pixbuf_from_image_data(image_data);
-        if(pix) {
+        if (pix) {
             xfce_notify_window_set_icon_pixbuf(window, pix);
             g_object_unref(G_OBJECT(pix));
         }
@@ -1325,6 +1328,13 @@ notify_notify (XfceNotifyGBus *skeleton,
     }
     else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
         xfce_notify_window_set_icon_name (window, app_icon);
+    }
+    else if (icon_data) {
+        pix = notify_pixbuf_from_image_data(icon_data);
+        if (pix) {
+            xfce_notify_window_set_icon_pixbuf(window, pix);
+            g_object_unref(G_OBJECT(pix));
+        }
     }
     else if (desktop_id) {
         xfce_notify_window_set_icon_name (window, notify_icon_name_from_desktop_id (desktop_id));
@@ -1343,7 +1353,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout, xndaemon->do_slideout);
     xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
 
-    if(value_hint_set)
+    if (value_hint_set)
         xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);
     else
         xfce_notify_window_unset_gauge_value(window);
@@ -1352,12 +1362,13 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
 
-    g_free(new_app_name);
+    g_free (new_app_name);
     if (image_data)
-        g_variant_unref(image_data);
+      g_variant_unref (image_data);
+    if (icon_data)
+      g_variant_unref (icon_data);
     if (desktop_id)
-        g_free(desktop_id);
-
+        g_free (desktop_id);
     return TRUE;
 }
 
