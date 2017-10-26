@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 12:32+0200\n"
-"PO-Revision-Date: 2017-10-22 22:58+0000\n"
+"PO-Revision-Date: 2017-10-26 06:23+0000\n"
 "Last-Translator: 出口　憲 <kdeguchi@sz.tokoha-u.ac.jp>\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-apps/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr "Copyright © 2017 Simon Steinbeiß\n"
 #. checkmenuitem for the do not disturb mode of xfce4-notifyd
 #: ../panel-plugin/notification-plugin-log.c:253
 msgid "_Do not disturb"
-msgstr "邪魔しないでください(_D)"
+msgstr "邪魔をしないでください(_D)"
 
 #: ../panel-plugin/notification-plugin-log.c:269
 msgid "_Notification settings…"
@@ -166,7 +166,7 @@ msgstr "バグは %s まで報告してください。\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "\"邪魔しないでください\" の間だけ"
+msgstr "\"邪魔をしないでください\" の間だけ"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
