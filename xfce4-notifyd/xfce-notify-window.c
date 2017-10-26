@@ -244,7 +244,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_show(window->icon);
     gtk_container_add(GTK_CONTAINER(window->icon_box), window->icon);
 
-    window->content_box = vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, padding / 2);
+    window->content_box = vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_set_homogeneous(GTK_BOX (vbox), FALSE);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
     gtk_widget_show(vbox);
@@ -259,7 +259,8 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 #else
     gtk_widget_set_halign (window->summary, GTK_ALIGN_START);
 #endif
-    gtk_box_pack_start(GTK_BOX(vbox), window->summary, FALSE, FALSE, 0);
+    gtk_widget_set_valign (window->summary, GTK_ALIGN_BASELINE);
+    gtk_box_pack_start(GTK_BOX(vbox), window->summary, TRUE, TRUE, 0);
 
     window->body = gtk_label_new(NULL);
     gtk_widget_set_name (window->body, "body");
@@ -270,7 +271,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 #else
     gtk_widget_set_halign (window->body, GTK_ALIGN_START);
 #endif
-    gtk_widget_set_valign (window->body, GTK_ALIGN_START);
+    gtk_widget_set_valign (window->body, GTK_ALIGN_BASELINE);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
 
     window->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
