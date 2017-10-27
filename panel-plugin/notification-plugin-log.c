@@ -35,6 +35,7 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 
 #include <glib.h>
+#include "xfce4-notifyd/xfce-notify-log.h"
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 
@@ -59,34 +60,11 @@ notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
 
 
 
-GKeyFile *
-xfce_notify_log_get (void)
-{
-    GKeyFile *notify_log;
-    gchar *notify_log_path = NULL;
-
-    notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
-
-    if (notify_log_path)
-    {
-        notify_log = g_key_file_new ();
-        if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, NULL) == FALSE)
-            return NULL;
-    }
-    else
-        return NULL;
-    g_free (notify_log_path);
-
-    return notify_log;
-}
-
-
-
 static void
 notification_plugin_menu_clear (GtkWidget *widget, gpointer user_data)
 {
-    GtkWidget *container = user_data;
-    gtk_container_remove (GTK_CONTAINER (container), widget);
+  GtkWidget *container = user_data;
+  gtk_container_remove (GTK_CONTAINER (container), widget);
 }
 
 
@@ -277,6 +255,13 @@ G_GNUC_END_IGNORE_DEPRECATIONS
                                   "notification-symbolic", GTK_ICON_SIZE_MENU);
   g_signal_connect (mi, "toggled",
                     G_CALLBACK (dnd_toggled_cb), notification_plugin);
+
+  /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
+  mi = gtk_menu_item_new_with_mnemonic (_("_Clear log"));
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  gtk_widget_show (mi);
+  g_signal_connect (mi, "activate", G_CALLBACK (xfce_notify_log_clear),
+                    NULL);
 
   mi = gtk_menu_item_new_with_mnemonic (_("_Notification settings…"));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);

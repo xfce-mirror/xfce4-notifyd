@@ -228,17 +228,18 @@ void xfce_notify_log_insert (const gchar *app_name,
 
 void xfce_notify_log_clear (void)
 {
-    gchar *notify_log = NULL;
+    gchar *notify_log_path = NULL;
 
-    notify_log = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
-                                              XFCE_NOTIFY_LOG_FILE, FALSE);
+    notify_log_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                   XFCE_NOTIFY_LOG_FILE, FALSE);
 
-    if (notify_log)
+    if (notify_log_path)
     {
-        FILE *f;
-        f = fopen (notify_log, "w");
-        if (f)
-            fclose (f);
-        g_free (notify_log);
+        GFile *log_file;
+        log_file = g_file_new_for_path (notify_log_path);
+        if (!g_file_delete (log_file, NULL, NULL))
+            g_warning ("Could not delete the notification log file: %s", notify_log_path);
+        g_object_unref (log_file);
+        g_free (notify_log_path);
     }
 }

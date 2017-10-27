@@ -158,7 +158,18 @@ notification_plugin_log_file_changed (GFileMonitor     *monitor,
 {
   NotificationPlugin    *notification_plugin = user_data;
 
-  if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
+  /* If the log gets cleared, the file gets deleted so make sure not to indicate that
+     there are new notifications */
+  if (event_type == G_FILE_MONITOR_EVENT_DELETED)
+  {
+    if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
+      gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                    "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+    else
+      gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                    "notification-symbolic", GTK_ICON_SIZE_MENU);
+  }
+  else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
   {
     if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
       gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
