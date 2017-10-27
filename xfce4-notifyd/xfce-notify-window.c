@@ -173,7 +173,7 @@ static void
 xfce_notify_window_init(XfceNotifyWindow *window)
 {
     GdkScreen *screen;
-    GtkWidget *tophbox, *vbox;
+    GtkWidget *topvbox, *tophbox, *vbox;
     gint screen_width;
     gdouble padding = DEFAULT_PADDING;
 #if GTK_CHECK_VERSION (3, 22, 0)
@@ -228,11 +228,15 @@ xfce_notify_window_init(XfceNotifyWindow *window)
                          "padding", &padding,
                          NULL);
 
-    tophbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    topvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, padding / 2);
+    gtk_box_set_homogeneous (GTK_BOX (topvbox), FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER(topvbox), padding);
+    gtk_widget_show (topvbox);
+    gtk_container_add (GTK_CONTAINER(window), topvbox);
+    tophbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_set_homogeneous (GTK_BOX (tophbox), FALSE);
-    gtk_container_set_border_width(GTK_CONTAINER(tophbox), padding);
-    gtk_widget_show(tophbox);
-    gtk_container_add(GTK_CONTAINER(window), tophbox);
+    gtk_widget_show (tophbox);
+    gtk_container_add (GTK_CONTAINER(topvbox), tophbox);
 
     window->icon_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_set_border_width(GTK_CONTAINER(window->icon_box), 0);
@@ -277,9 +281,9 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(window->button_box),
                               GTK_BUTTONBOX_END);
-    gtk_box_set_spacing(GTK_BOX(window->button_box), padding / 2);
-    gtk_box_set_homogeneous(GTK_BOX(window->button_box), FALSE);
-    gtk_box_pack_start(GTK_BOX(vbox), window->button_box, FALSE, FALSE, 0);
+    gtk_box_set_spacing (GTK_BOX(window->button_box), padding / 2);
+    gtk_box_set_homogeneous (GTK_BOX(window->button_box), FALSE);
+    gtk_box_pack_end (GTK_BOX(topvbox), window->button_box, FALSE, FALSE, 0);
 }
 
 static void
