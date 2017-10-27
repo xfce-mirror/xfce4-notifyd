@@ -188,12 +188,12 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       else
       {
           app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
-          gtk_image_set_pixel_size (GTK_IMAGE (app_icon), log_icon_size);
       }
       g_free (tmp);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), app_icon);
 G_GNUC_END_IGNORE_DEPRECATIONS
+      gtk_image_set_pixel_size (GTK_IMAGE (app_icon), log_icon_size);
 
       tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
       expire_timeout = gtk_label_new (tmp);
