@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-23 19:02+0000\n"
+"POT-Creation-Date: 2017-10-10 12:32+0200\n"
+"PO-Revision-Date: 2017-10-27 18:13+0000\n"
 "Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-apps/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Language: he\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:188
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -53,6 +53,15 @@ msgstr "זהו תוסף ההודעות"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "זכויות יוצרים © 2017 Simon Steinbeiß\n"
 
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:253
+msgid "_Do not disturb"
+msgstr "_לא להפריע"
+
+#: ../panel-plugin/notification-plugin-log.c:269
+msgid "_Notification settings…"
+msgstr "_הגדרות הודעה..."
+
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
 msgstr "תוסף הודעות"
@@ -62,7 +71,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "תוסף הודעות ללוח Xfce "
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:794
 msgid "Xfce Notify Daemon"
 msgstr "שדון התראה Xfce"
 
@@ -75,7 +84,7 @@ msgstr "אפשרות לא מוכרת \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "לא ניתן להתחיל שדון התראה"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "תהליך רקע להודעה נוסף פועל, יוצא\n"
@@ -96,57 +105,63 @@ msgstr "כפתור"
 msgid "Notification preview failed"
 msgstr "Notification preview failed"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:796
 msgid "Settings daemon is unavailable"
 msgstr "Settings daemon is unavailable"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:921
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>יומן ריק</b></big>\nלא נרשמו ביומן עדיין הודעות."
+
+#: ../xfce4-notifyd-config/main.c:928
 msgid "Refresh"
 msgstr "רענן"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:929
 msgid "Refresh the notification log"
 msgstr "רענן את יומן ההודעות"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:934
 msgid "Open"
 msgstr "פתח"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:935
 msgid "Open the notification log in an external editor"
 msgstr "פתח את יומן ההודעות בעורך חיצוני"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Clear"
 msgstr "נקה"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Clear the notification log"
 msgstr "נקה את יומן ההודעות"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Display version information"
 msgstr "Display version information"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:964
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:974
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Type '%s --help' for usage."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:989
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "משוחרר תחת התנאים של הרישיון הציבורי הכללי של GNU, גרסה 2\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:990
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "נא לדווח על בעיות אל %s.\n"
