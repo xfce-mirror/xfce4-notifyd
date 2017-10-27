@@ -247,7 +247,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_show (mi);
 
   /* Reset the notification status icon since all items are now read */
-  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", TRUE))
+  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE))
     gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
                                   "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
   else
