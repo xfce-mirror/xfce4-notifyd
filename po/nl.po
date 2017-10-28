@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 12:32+0200\n"
-"PO-Revision-Date: 2017-10-11 08:15+0000\n"
+"POT-Creation-Date: 2017-10-28 00:32+0200\n"
+"PO-Revision-Date: 2017-10-28 08:56+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/xfce/xfce-apps/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:188
+#: ../panel-plugin/notification-plugin.c:204
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -52,11 +52,16 @@ msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Auteursrecht © 2017 Simon Steinbeiß\n"
 
 #. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:253
+#: ../panel-plugin/notification-plugin-log.c:243
 msgid "_Do not disturb"
 msgstr "Niet _storen"
 
-#: ../panel-plugin/notification-plugin-log.c:269
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:260
+msgid "_Clear log"
+msgstr "Logboek _wissen"
+
+#: ../panel-plugin/notification-plugin-log.c:266
 msgid "_Notification settings…"
 msgstr "Meldingsinstellingen..."
 
@@ -69,7 +74,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Meldingen-invoegsel voor de Xfce-werkbalk"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:794
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Melding-achtergronddienst"
 
@@ -103,63 +108,63 @@ msgstr "Knop"
 msgid "Notification preview failed"
 msgstr "Meldingvoorbeeld weergeven mislukt"
 
-#: ../xfce4-notifyd-config/main.c:796
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Instellingendienst is niet beschikbaar"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:932
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Leeg logboek</b></big>\nEr staan nog geen meldingen in het logboek."
 
-#: ../xfce4-notifyd-config/main.c:928
+#: ../xfce4-notifyd-config/main.c:939
 msgid "Refresh"
 msgstr "Verversen"
 
-#: ../xfce4-notifyd-config/main.c:929
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Refresh the notification log"
 msgstr "Ververs het meldingenlogboek"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Open"
 msgstr "Openen"
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Open the notification log in an external editor"
 msgstr "Open het meldingenlogboek in een externe tekstbewerker"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Clear"
 msgstr "Wissen"
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:952
 msgid "Clear the notification log"
 msgstr "Wis het meldingenlogboek"
 
-#: ../xfce4-notifyd-config/main.c:963
+#: ../xfce4-notifyd-config/main.c:974
 msgid "Display version information"
 msgstr "Toon versie-informatie"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:975
 msgid "Settings manager socket"
 msgstr "Contactpunt voor instellingenbeheerder"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:975
 msgid "SOCKET_ID"
 msgstr "CONTACTPUNT_ID"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:985
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Tik '%s --help' voor handleiding."
 
-#: ../xfce4-notifyd-config/main.c:989
+#: ../xfce4-notifyd-config/main.c:1000
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vrijgegeven onder de voorwaarden der GNU General Public License, versie 2\n"
 
-#: ../xfce4-notifyd-config/main.c:990
+#: ../xfce4-notifyd-config/main.c:1001
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fouten graag melden aan %s.\n"
