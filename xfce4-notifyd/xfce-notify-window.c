@@ -228,7 +228,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
                          "padding", &padding,
                          NULL);
 
-    topvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, padding / 2);
+    topvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_set_homogeneous (GTK_BOX (topvbox), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER(topvbox), padding);
     gtk_widget_show (topvbox);
@@ -974,6 +974,7 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         const gchar *cur_button_text = actions[i+1];
         GtkWidget *btn, *lbl;
         gchar *cur_button_text_escaped;
+        gdouble padding;
 
         if(!cur_button_text || !cur_action_id || !*cur_action_id)
             break;
@@ -985,11 +986,15 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
         if (g_strcmp0 (cur_button_text, "") == 0)
             continue;
 
+        gtk_widget_style_get(GTK_WIDGET(window),
+                             "padding", &padding,
+                             NULL);
         btn = gtk_button_new();
         g_object_set_data_full(G_OBJECT(btn), "--action-id",
                                g_strdup(cur_action_id),
                                (GDestroyNotify)g_free);
         gtk_widget_show(btn);
+        gtk_widget_set_margin_top (btn, padding / 2);
         gtk_container_add(GTK_CONTAINER(window->button_box), btn);
         g_signal_connect(G_OBJECT(btn), "clicked",
                          G_CALLBACK(xfce_notify_window_button_clicked),
