@@ -217,7 +217,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
        screen as maximum width. */
 #if GTK_CHECK_VERSION (3, 22, 0)
     monitor = gdk_display_get_monitor_at_window (gtk_widget_get_display (GTK_WIDGET (window)),
-                                                 gtk_widget_get_window (GTK_WIDGET (window)));
+                                                 gdk_screen_get_root_window (screen));
     gdk_monitor_get_geometry (monitor, &geometry);
     screen_width = geometry.width / 30;
 #else
