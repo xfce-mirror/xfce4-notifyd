@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 12:32+0200\n"
-"PO-Revision-Date: 2017-10-13 15:39+0000\n"
+"POT-Creation-Date: 2017-10-28 00:32+0200\n"
+"PO-Revision-Date: 2017-10-29 16:45+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/xfce/xfce-apps/language/kk/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: kk\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:188
+#: ../panel-plugin/notification-plugin.c:204
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,11 +51,16 @@ msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
 #. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:253
+#: ../panel-plugin/notification-plugin-log.c:243
 msgid "_Do not disturb"
 msgstr "Мазам_ды алмау"
 
-#: ../panel-plugin/notification-plugin-log.c:269
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:260
+msgid "_Clear log"
+msgstr "Журналды та_зарту"
+
+#: ../panel-plugin/notification-plugin-log.c:266
 msgid "_Notification settings…"
 msgstr "_Хабарламалар баптаулары…"
 
@@ -68,7 +73,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfce панелі үшін хабарламалар плагині"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:794
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
 msgstr "Xfce хабарламалар қызметі"
 
@@ -102,63 +107,63 @@ msgstr "Батырма"
 msgid "Notification preview failed"
 msgstr "Сынау хабарламасын көрсету сәтсіз"
 
-#: ../xfce4-notifyd-config/main.c:796
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Баптаулар қызметі қолжетерсіз"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:932
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Журнал бос</b></big>\nХабарламалар әлі жазылмаған."
 
-#: ../xfce4-notifyd-config/main.c:928
+#: ../xfce4-notifyd-config/main.c:939
 msgid "Refresh"
 msgstr "Жаңарту"
 
-#: ../xfce4-notifyd-config/main.c:929
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Refresh the notification log"
 msgstr "Хабарламалар журналын жаңарту"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Open"
 msgstr "Ашу"
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Open the notification log in an external editor"
 msgstr "Хабарламалар журналын сыртқы түзеткіште ашу"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Clear"
 msgstr "Тазарту"
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:952
 msgid "Clear the notification log"
 msgstr "Хабарламалар журналын тазарту"
 
-#: ../xfce4-notifyd-config/main.c:963
+#: ../xfce4-notifyd-config/main.c:974
 msgid "Display version information"
 msgstr "Display version information"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:975
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:975
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:985
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Көмек үшін '%s --help' енгізіңіз."
 
-#: ../xfce4-notifyd-config/main.c:989
+#: ../xfce4-notifyd-config/main.c:1000
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, 2-ші нұсқасы аясында жарияланған\n"
 
-#: ../xfce4-notifyd-config/main.c:990
+#: ../xfce4-notifyd-config/main.c:1001
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ақаулықтар жөнінде хабарласыңыз: <%s>.\n"
