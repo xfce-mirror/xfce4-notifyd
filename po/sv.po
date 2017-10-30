@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 18:31+0200\n"
-"PO-Revision-Date: 2017-10-08 15:47+0000\n"
+"POT-Creation-Date: 2017-10-28 00:32+0200\n"
+"PO-Revision-Date: 2017-10-30 13:28+0000\n"
 "Last-Translator: Påvel Nicklasson <pavel2@frimix.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/xfce/xfce-apps/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:204
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
-msgstr "Notifieringar"
+msgstr "Aviseringar"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
@@ -33,45 +33,50 @@ msgstr "Det gick inte att öppna följande url: %s"
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr "Notifieringsinsticksprograminställningar"
+msgstr "Aviseringsinsticksprograminställningar"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
-msgstr "Antal Notifieringar som visas"
+msgstr "Antal aviseringar som visas"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:107
 msgid "Only show notifications from today"
-msgstr "Visa bara notifieringar från idag"
+msgstr "Visa bara aviseringar från idag"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:140
 msgid "This is the notification plugin"
-msgstr "Detta är notifieringsinsticksprogrammet"
+msgstr "Detta är aviseringsinsticksprogrammet"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:142
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
 #. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:253
+#: ../panel-plugin/notification-plugin-log.c:243
 msgid "_Do not disturb"
 msgstr "_Stör ej"
 
-#: ../panel-plugin/notification-plugin-log.c:269
-msgid "_Notification settings..."
-msgstr "_Notifieringsinställningar"
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:260
+msgid "_Clear log"
+msgstr "_Rensa logg"
+
+#: ../panel-plugin/notification-plugin-log.c:266
+msgid "_Notification settings…"
+msgstr "Aviseringsi_nställningar..."
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
-msgstr "Notifieringsinsticksprogram"
+msgstr "Aviseringsinsticksprogram"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:2
 msgid "Notification plugin for the Xfce panel"
-msgstr "Notifieringsinsticksprogram för Xfce-panelen"
+msgstr "Aviseringsinsticksprogram för Xfce-panelen"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:794
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
-msgstr "Notifieringsdemon för Xfce"
+msgstr "Aviseringsdemon för Xfce"
 
 #: ../xfce4-notifyd/main.c:56
 #, c-format
@@ -80,20 +85,20 @@ msgstr "Okänd flagga \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
-msgstr "Det gick inte att starta notifieringsdemonen"
+msgstr "Det gick inte att starta aviseringsdemonen"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
-msgstr "En annan notifieringsdemon körs, avslutar\n"
+msgstr "En annan aviseringsdemon körs, avslutar\n"
 
 #: ../xfce4-notifyd-config/main.c:77
 msgid "Notification Preview"
-msgstr "Förhandsvisning av notifieringar"
+msgstr "Förhandsvisning av aviseringar"
 
 #: ../xfce4-notifyd-config/main.c:78
 msgid "This is what notifications will look like"
-msgstr "Detta är hur notifieringar kommer att se ut"
+msgstr "Detta är hur aviseringar kommer att se ut"
 
 #: ../xfce4-notifyd-config/main.c:83
 msgid "Button"
@@ -101,59 +106,65 @@ msgstr "Knapp"
 
 #: ../xfce4-notifyd-config/main.c:90
 msgid "Notification preview failed"
-msgstr "Förhandsvisning av notifiering misslyckades"
+msgstr "Det gick inte att förhandsvisa avisering"
 
-#: ../xfce4-notifyd-config/main.c:796
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Inställningsdemonen är inte tillgänglig"
 
-#: ../xfce4-notifyd-config/main.c:928
+#: ../xfce4-notifyd-config/main.c:932
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Tom logg</b></big>\nInga aviseringar har loggats än."
+
+#: ../xfce4-notifyd-config/main.c:939
 msgid "Refresh"
 msgstr "Uppdatera"
 
-#: ../xfce4-notifyd-config/main.c:929
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Refresh the notification log"
-msgstr "Uppdatera notifieringsloggen"
+msgstr "Uppdatera aviseringsloggen"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Open"
 msgstr "Öppna"
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Open the notification log in an external editor"
-msgstr "Öppna notifieringsloggen i en extern redigerare"
+msgstr "Öppna aviseringsloggen i en extern redigerare"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Clear"
 msgstr "Rensa"
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:952
 msgid "Clear the notification log"
-msgstr "Rensa notifieringsloggen"
+msgstr "Rensa aviseringsloggen"
 
-#: ../xfce4-notifyd-config/main.c:963
+#: ../xfce4-notifyd-config/main.c:974
 msgid "Display version information"
 msgstr "Visa versionsinformation"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:975
 msgid "Settings manager socket"
 msgstr "Uttag för inställningshanterare"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:975
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:985
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv \"%s --help\" för användingshjälp."
 
-#: ../xfce4-notifyd-config/main.c:989
+#: ../xfce4-notifyd-config/main.c:1000
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Utgiven under villkoren för GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:990
+#: ../xfce4-notifyd-config/main.c:1001
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapportera fel till %s.\n"
@@ -204,16 +215,16 @@ msgstr "Nedre höger"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
-msgstr "Anpassa dina notifieringsinställningar"
+msgstr "Anpassa dina aviseringsinställningar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr "Notifieringstjänsten körs inte. Inga notifieringar kommer att visas."
+msgstr "Aviseringstjänsten körs inte. Inga aviseringar kommer att visas."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>För närvarande visas endast brådsakande notifieringar.</b>"
+msgstr "<b>För närvarande visas endast brådskande aviseringar.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
@@ -267,11 +278,11 @@ msgstr "<b>Animeringar</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Som standard kommer notifieringsbubblorna att visas på skärmen på vilken muspekaren finns."
+msgstr "Som standard kommer aviseringsbubblorna att visas på den skärm på vilken muspekaren finns."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
-msgstr "Visa notifieringar på"
+msgstr "Visa aviseringar på"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "General"
@@ -279,7 +290,7 @@ msgstr "Allmänt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>Visa eller blockera notifieringar per program</b>"
+msgstr "<b>Visa eller blockera aviseringar per program</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Applications"
@@ -287,7 +298,7 @@ msgstr "Program"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log notifications"
-msgstr "Logga notifieringar"
+msgstr "Logga aviseringar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log applications"
@@ -299,4 +310,4 @@ msgstr "Logg"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Anpassa hur notifieringar ska visas på din skärm"
+msgstr "Anpassa hur aviseringar visas på din skärm"
