@@ -265,14 +265,48 @@ notification_plugin_size_changed (XfcePanelPlugin       *plugin,
                                   gint                   size,
                                   NotificationPlugin    *notification_plugin)
 {
+#if !LIBXFCE4PANEL_CHECK_VERSION (4, 13, 0)
+  GtkStyleContext *context;
+  GtkBorder padding, border;
+  gint width;
+  gint xthickness;
+  gint ythickness;
+#endif
   gint icon_size;
 
   size /= xfce_panel_plugin_get_nrows (notification_plugin->plugin);
   gtk_widget_set_size_request (GTK_WIDGET (notification_plugin->button), size, size);
 #if LIBXFCE4PANEL_CHECK_VERSION (4,13,0)
   icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (plugin));
+#else
+  /* Calculate the size of the widget because the theme can override it */
+  context = gtk_widget_get_style_context (GTK_WIDGET (button));
+  gtk_style_context_get_padding (context, gtk_widget_get_state_flags (GTK_WIDGET (button)), &padding);
+  gtk_style_context_get_border (context, gtk_widget_get_state_flags (GTK_WIDGET (button)), &border);
+  xthickness = padding.left + padding.right + border.left + border.right;
+  ythickness = padding.top + padding.bottom + border.top + border.bottom;
+
+  /* Calculate the size of the space left for the icon */
+  width = size - 2 * MAX (xthickness, ythickness);
+
+  /* Since symbolic icons are usually only provided in 16px we
+   * try to be clever and use size steps */
+  if (width <= 21)
+    button->priv->panel_icon_width = 16;
+  else if (width >=22 && width <= 29)
+    button->priv->panel_icon_width = 24;
+  else if (width >= 30 && width <= 40)
+    button->priv->panel_icon_width = 32;
+  else
+    button->priv->panel_icon_width = width;
 #endif
+
+  /* resize the plugin */
+  gtk_widget_set_size_request (GTK_WIDGET (plugin), size, size);
   gtk_image_set_pixel_size (GTK_IMAGE (notification_plugin->image), icon_size);
+
+  /* resize the plugin button too */
+  gtk_widget_set_size_request (GTK_WIDGET (notification_plugin), -1, -1);
 
   return TRUE;
 }
