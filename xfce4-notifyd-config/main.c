@@ -830,6 +830,8 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
     xfconf_g_property_bind(channel, "/primary-monitor", G_TYPE_UINT,
                            G_OBJECT(primary_monitor), "active");
+    if(gtk_combo_box_get_active(GTK_COMBO_BOX(primary_monitor)) == -1)
+        gtk_combo_box_set_active(GTK_COMBO_BOX(primary_monitor), 0);
 
     // Appearance
     theme_combo = GTK_WIDGET(gtk_builder_get_object(builder, "theme_combo"));
