@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-19 18:05+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2017-10-28 00:32+0200\n"
+"PO-Revision-Date: 2017-11-05 22:28+0000\n"
+"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/xfce/xfce-apps/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,50 +18,64 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:204
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
-msgstr "Сповіщення"
+msgstr "Повідомлення"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr ""
+msgstr "Помилка відкриття посилання URL %s"
 
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr ""
+msgstr "Налаштування Додатку Повідомлень"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
-msgstr ""
+msgstr "Кількість повідомлень для показу"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:107
 msgid "Only show notifications from today"
-msgstr ""
+msgstr "Показати тільки сьогоднішні повідомлення"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:140
 msgid "This is the notification plugin"
-msgstr ""
+msgstr "Це додаток повідомлень"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:142
 msgid "Copyright © 2017 Simon Steinbeiß\n"
-msgstr ""
+msgstr "Всі права застережено © 2017 Simon Steinbeiß\n"
+
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:243
+msgid "_Do not disturb"
+msgstr "_Не перешкоджати"
+
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:260
+msgid "_Clear log"
+msgstr "_Очистити журнал"
+
+#: ../panel-plugin/notification-plugin-log.c:266
+msgid "_Notification settings…"
+msgstr "_Налаштування повідомлень"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
-msgstr ""
+msgstr "Додаток Повідомлень"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:2
 msgid "Notification plugin for the Xfce panel"
-msgstr ""
+msgstr "Додаток повідомлень для панелі Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
-msgstr "Демон сповіщень Xfce"
+msgstr "Демон повідомлень Xfce"
 
 #: ../xfce4-notifyd/main.c:56
 #, c-format
@@ -70,16 +84,16 @@ msgstr "Невідомий параметр \"%s\"\n"
 
 #: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
-msgstr "Не можу запустити демон сповіщень"
+msgstr "Не можу запустити демон повідомлень"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
-msgstr "Інший демон сповіщень вже працює, виходжу\n"
+msgstr "Інший демон повідомлень вже працює, виходжу\n"
 
 #: ../xfce4-notifyd-config/main.c:77
 msgid "Notification Preview"
-msgstr "Попередній перегляд сповіщення"
+msgstr "Попередній перегляд повідомлення"
 
 #: ../xfce4-notifyd-config/main.c:78
 msgid "This is what notifications will look like"
@@ -91,59 +105,65 @@ msgstr "Кнопка"
 
 #: ../xfce4-notifyd-config/main.c:90
 msgid "Notification preview failed"
-msgstr "Попередній перегляд сповіщення не вдався"
+msgstr "Попередній перегляд повідомлення не вдався"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Демон налаштувань не доступний"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:932
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Очищення журналу</b></big>\nЩе не записано жодного повідомлення."
+
+#: ../xfce4-notifyd-config/main.c:939
 msgid "Refresh"
 msgstr "Оновити"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Refresh the notification log"
-msgstr "Оновити журнал сповіщень"
+msgstr "Оновити журнал повідомлень"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Open"
 msgstr "Відкрити"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Open the notification log in an external editor"
-msgstr "Відкрити журнал сповіщень у зовнішньому редакторі"
+msgstr "Відкрити журнал повідомлень у зовнішньому редакторі"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Clear"
 msgstr "Очистити"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:952
 msgid "Clear the notification log"
-msgstr "Очистити журнал сповіщень"
+msgstr "Очистити журнал повідомлень"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:974
 msgid "Display version information"
 msgstr "Показати інформацію про версію"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:975
 msgid "Settings manager socket"
 msgstr "Сокет менеджера налаштувань"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:975
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:985
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Напишіть '%s --help' для допомоги по використанню."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:1000
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Розроблено згідно умов GNU General Public License, 2-га версія\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:1001
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Будь-ласка, повідомте про помилку до %s.\n"
@@ -194,16 +214,16 @@ msgstr "Внизу зправа"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
-msgstr "Власні налаштування сповіщень"
+msgstr "Власні налаштування повідомлень"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr ""
+msgstr "Сервіс повідомлень не запущено. Не буде показано жодного повідомлення."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>На разі показуються тільки дуже важливі сповіщення.</b>"
+msgstr "<b>На разі показуються тільки дуже важливі повідомлення.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
@@ -227,7 +247,7 @@ msgstr "Виблякання"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "_Slide out"
-msgstr ""
+msgstr "_Вислизання"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
@@ -251,17 +271,17 @@ msgstr "<b>Зовнішній вигляд</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "<b>Animations</b>"
-msgstr ""
+msgstr "<b>Анімація</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Типово бульбашки з сповіщеннями показуються на дисплеї, де міститься вказівник миші."
+msgstr "Типово бульбашки з повідомленнями показуються на дисплеї, де міститься вказівник миші."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
-msgstr "Показати сповіщення на"
+msgstr "Показати повідомлення на"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "General"
@@ -277,7 +297,7 @@ msgstr "Застосунки"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log notifications"
-msgstr "Журнал сповіщень"
+msgstr "Журнал повідомлень"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log applications"
@@ -289,4 +309,4 @@ msgstr "Журнал"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Налаштуйте показ сповіщень на Вашому екрані"
+msgstr "Налаштуйте показ повідомлень на Вашому екрані"
