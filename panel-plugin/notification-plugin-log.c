@@ -73,7 +73,7 @@ void
 notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 {
   GtkMenu *menu = GTK_MENU (notification_plugin->menu);
-  GtkWidget *mi;
+  GtkWidget *mi, *image;
   GKeyFile *notify_log;
   gint i;
   GDateTime *today;
@@ -257,7 +257,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
                     G_CALLBACK (dnd_toggled_cb), notification_plugin);
 
   /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
-  mi = gtk_menu_item_new_with_mnemonic (_("_Clear log"));
+  image = gtk_image_new_from_icon_name ("edit-clear-symbolic", GTK_ICON_SIZE_MENU);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  mi = gtk_image_menu_item_new_with_mnemonic (_("_Clear log"));
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), image);
+G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);
   g_signal_connect (mi, "activate", G_CALLBACK (xfce_notify_log_clear),
