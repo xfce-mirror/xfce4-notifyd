@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-16 07:32+0000\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"POT-Creation-Date: 2017-10-28 00:32+0200\n"
+"PO-Revision-Date: 2017-11-09 08:20+0000\n"
+"Last-Translator: 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/xfce-apps/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:204
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,6 +51,20 @@ msgstr "알림 플러그인입니다"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:243
+msgid "_Do not disturb"
+msgstr "방해하지 말아주세요(_D)"
+
+#. checkmenuitem for the do not disturb mode of xfce4-notifyd
+#: ../panel-plugin/notification-plugin-log.c:260
+msgid "_Clear log"
+msgstr "로그 정리(_C)"
+
+#: ../panel-plugin/notification-plugin-log.c:266
+msgid "_Notification settings…"
+msgstr "알림 설정...(_N)"
+
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
 msgstr "알림 플러그인"
@@ -60,7 +74,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "xfce 패널용 알림 플러그인"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 알림 데몬"
 
@@ -73,7 +87,7 @@ msgstr "알 수 없는 옵션 \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "알림 데몬을 시작할 수 없습니다"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "다른 알림 데몬이 실행중입니다, 빠져나갑니다\n"
@@ -94,57 +108,63 @@ msgstr "댠추"
 msgid "Notification preview failed"
 msgstr "알림 미리보기에 실패했습니다"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "설정 데몬을 사용할 수 없습니다"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:932
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>빈 로그</b></big>\n아직 기록된 알림이 없습니다."
+
+#: ../xfce4-notifyd-config/main.c:939
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:940
 msgid "Refresh the notification log"
 msgstr "알림 로그를 새로 고침"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Open"
 msgstr "열기"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Open the notification log in an external editor"
 msgstr "알림 로그를 외부 편집기에서 열기"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Clear"
 msgstr "지우기"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:952
 msgid "Clear the notification log"
 msgstr "알림 로그 지우기"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:974
 msgid "Display version information"
 msgstr "버전 정보 표시"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:975
 msgid "Settings manager socket"
 msgstr "설정 관리자 소켓"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:975
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:985
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "사용법을 보려면 '%s --help'를 입력합니다."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:1000
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU 일반 공중 사용허가서 버전 2에 따라 출시했습니다\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:1001
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "%s(으)로 버그를 알려주십시오.\n"
