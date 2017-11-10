@@ -83,6 +83,7 @@ xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
 	$(LIBNOTIFY_LIBS)
 
+if USE_DBUS_START_DAEMON
 servicedir = $(datadir)/dbus-1/services
 service_in_files = xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service.in
 service_DATA = $(service_in_files:.service.in=.service)
@@ -97,6 +98,15 @@ dist_service = \
 	xfce4-notifyd/notify-dbus.xml \
 	xfce4-notifyd/xfce-notify-marshal.list
 distclean_service = $(service_DATA) $(systemd_user_DATA)
+else
+autostartdir = $(sysconfdir)/xdg/autostart
+autostart_in_files = xfce4-notifyd/xfce4-notifyd.desktop.in
+autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
+
+dist_autostart = \
+	$(autostart_in_files)
+distclean_autostart = $(autostart_DATA)
+endif
 
 dist_man1_MANS = \
 	xfce4-notifyd-config/xfce4-notifyd-config.1
@@ -271,6 +281,9 @@ install-data-hook:
 	fi
 
 xfce4-notifyd/%.service: $(srcdir)/xfce4-notifyd/%.service.in Makefile
+	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+
+xfce4-notifyd/%.desktop: $(srcdir)/xfce4-notifyd/%.desktop.in Makefile
 	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
 distclean-local:

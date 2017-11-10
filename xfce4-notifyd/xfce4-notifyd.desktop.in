@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Xfce Notification Daemon
+Exec=@notifydir@/xfce4-notifyd
+Icon=xfce4-notifyd
+OnlyShowIn=XFCE;
