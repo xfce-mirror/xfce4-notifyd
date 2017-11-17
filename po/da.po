@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-28 00:32+0200\n"
-"PO-Revision-Date: 2017-10-29 21:27+0000\n"
+"PO-Revision-Date: 2017-11-17 16:11+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Notifikationer"
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "Kan ikke åbne følgende url: %s"
+msgstr "Kan ikke åbne den følgende url: %s"
 
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
