@@ -99,13 +99,36 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   if (log_icon_size == -1)
     log_icon_size = DEFAULT_LOG_ICON_SIZE;
 
+  /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
+  mi = gtk_check_menu_item_new_with_mnemonic (_("_Do not disturb"));
+  xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
+                          G_OBJECT (mi), "active");
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  gtk_widget_show (mi);
+  /* Reset the notification status icon since all items are now read */
+  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE))
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+  else
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
+  g_signal_connect (mi, "toggled",
+                    G_CALLBACK (dnd_toggled_cb), notification_plugin);
+  /* footer items */
+  mi = gtk_separator_menu_item_new ();
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  gtk_widget_show (mi);
+
   if (notify_log) {
     gchar **groups;
     int log_length;
     int log_display_limit;
+    int numberof_groups;
     gboolean log_only_today;
 
     groups = g_key_file_get_groups (notify_log, &num_groups);
+    /* Substract 1 because the list starts with 0 */
+    numberof_groups = GPOINTER_TO_UINT(num_groups) - 1;
     log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
     log_only_today = xfconf_channel_get_bool (notification_plugin->channel,
@@ -113,12 +136,12 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
-    log_length = GPOINTER_TO_UINT(num_groups) - log_display_limit;
+    log_length = numberof_groups - log_display_limit;
     if (log_length < 0)
       log_length = 0;
 
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
-    for (i = log_length; groups && groups[i]; i += 1) {
+    for (i = numberof_groups; i > log_length; i--) {
       GtkWidget *grid;
       GtkWidget *summary, *body, *app_icon, *expire_timeout;
       const gchar *group = groups[i];
@@ -227,7 +250,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
       gtk_widget_show_all (grid);
       gtk_container_add (GTK_CONTAINER (mi), GTK_WIDGET (grid));
-      gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), mi);
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
       gtk_widget_show (mi);
     }
     g_strfreev (groups);
@@ -251,23 +274,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   mi = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);
-
-  /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
-  mi = gtk_check_menu_item_new_with_mnemonic (_("_Do not disturb"));
-  xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
-                          G_OBJECT (mi), "active");
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-  gtk_widget_show (mi);
-
-  /* Reset the notification status icon since all items are now read */
-  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE))
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
-  else
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
-  g_signal_connect (mi, "toggled",
-                    G_CALLBACK (dnd_toggled_cb), notification_plugin);
 
   /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
   image = gtk_image_new_from_icon_name ("edit-clear-symbolic", GTK_ICON_SIZE_MENU);
