@@ -73,7 +73,7 @@ void
 notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 {
   GtkMenu *menu = GTK_MENU (notification_plugin->menu);
-  GtkWidget *mi, *image;
+  GtkWidget *mi, *image, *label;
   GKeyFile *notify_log;
   gint i;
   GDateTime *today;
@@ -83,6 +83,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   GdkPixbuf *pixbuf = NULL;
   gchar *notify_log_icon_folder;
   gchar *notify_log_icon_path;
+  int log_icon_size;
 
   today = g_date_time_new_now_local ();
   timestamp = g_date_time_format (today, "%F");
@@ -93,12 +94,15 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   notify_log = xfce_notify_log_get();
   notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                           XFCE_NOTIFY_ICON_PATH, TRUE);
+  log_icon_size = xfconf_channel_get_int (notification_plugin->channel,
+                                          SETTING_LOG_ICON_SIZE, -1);
+  if (log_icon_size == -1)
+    log_icon_size = DEFAULT_LOG_ICON_SIZE;
 
   if (notify_log) {
     gchar **groups;
     int log_length;
     int log_display_limit;
-    int log_icon_size;
     gboolean log_only_today;
 
     groups = g_key_file_get_groups (notify_log, &num_groups);
@@ -106,11 +110,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
     log_only_today = xfconf_channel_get_bool (notification_plugin->channel,
                                               SETTING_LOG_ONLY_TODAY, FALSE);
-    log_icon_size = xfconf_channel_get_int (notification_plugin->channel,
-                                            SETTING_LOG_ICON_SIZE, -1);
 
-    if (log_icon_size == -1)
-      log_icon_size = DEFAULT_LOG_ICON_SIZE;
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
     log_length = GPOINTER_TO_UINT(num_groups) - log_display_limit;
@@ -232,6 +232,19 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     }
     g_strfreev (groups);
     g_key_file_free (notify_log);
+  }
+  /* Show a placeholder label when there are no notifications */
+  else {
+    mi = gtk_menu_item_new ();
+    label = gtk_label_new (_("No notifications"));
+    gtk_widget_set_sensitive (mi, FALSE);
+    gtk_container_add (GTK_CONTAINER (mi), label);
+    /* Try to center the text and add top and bottom padding */
+    gtk_widget_set_margin_end (label, log_icon_size + 6);
+    gtk_widget_set_margin_top (label, 6);
+    gtk_widget_set_margin_bottom (label, 6);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+    gtk_widget_show_all (mi);
   }
 
   /* footer items */
