@@ -141,7 +141,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       log_length = 0;
 
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
-    for (i = numberof_groups; i > log_length; i--) {
+    for (i = numberof_groups; i >= log_length; i--) {
       GtkWidget *grid;
       GtkWidget *summary, *body, *app_icon, *expire_timeout;
       const gchar *group = groups[i];
