@@ -44,13 +44,13 @@ typedef struct
     GtkWidget       *image;
     GtkWidget       *menu;
 
+    /* menu widgets */
+    GtkWidget       *do_not_disturb_switch;
+
     /* handlers */
     guint            menu_size_allocate_next_handler;
 }
 NotificationPlugin;
-
-void dnd_toggled_cb           (GtkCheckMenuItem   *checkmenuitem,
-                               gpointer            user_data);
 
 G_END_DECLS
 

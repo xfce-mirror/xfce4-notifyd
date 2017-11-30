@@ -42,6 +42,25 @@
 
 
 static void
+notification_plugin_menu_item_activate (GtkWidget      *menuitem,
+                                        gpointer        user_data)
+{
+  NotificationPlugin *notification_plugin = user_data;
+  gboolean            muted;
+
+  muted = !gtk_switch_get_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch));
+  gtk_switch_set_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch), muted);
+  if (muted)
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+  else
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
+}
+
+
+
+static void
 notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
                                           gpointer     user_data)
 {
@@ -73,7 +92,7 @@ void
 notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 {
   GtkMenu *menu = GTK_MENU (notification_plugin->menu);
-  GtkWidget *mi, *image, *label;
+  GtkWidget *mi, *image, *label, *box;
   GKeyFile *notify_log;
   gint i;
   GDateTime *today;
@@ -99,12 +118,20 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   if (log_icon_size == -1)
     log_icon_size = DEFAULT_LOG_ICON_SIZE;
 
-  /* checkmenuitem for the do not disturb mode of xfce4-notifyd */
-  mi = gtk_check_menu_item_new_with_mnemonic (_("_Do not disturb"));
+  /* switch for the do not disturb mode of xfce4-notifyd */
+  mi = gtk_menu_item_new ();
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  label = gtk_label_new (NULL);
+  gtk_label_set_markup_with_mnemonic (GTK_LABEL (label), _("<b>_Do not disturb</b>"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  notification_plugin->do_not_disturb_switch = gtk_switch_new ();
+  gtk_box_pack_start (GTK_BOX (box), label, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (box), notification_plugin->do_not_disturb_switch, FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (mi), box);
   xfconf_g_property_bind (notification_plugin->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
-                          G_OBJECT (mi), "active");
+                          G_OBJECT (notification_plugin->do_not_disturb_switch), "active");
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-  gtk_widget_show (mi);
+  gtk_widget_show_all (mi);
   /* Reset the notification status icon since all items are now read */
   if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE))
     gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
@@ -112,9 +139,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   else
     gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
                                   "notification-symbolic", GTK_ICON_SIZE_MENU);
-  g_signal_connect (mi, "toggled",
-                    G_CALLBACK (dnd_toggled_cb), notification_plugin);
-  /* footer items */
+  g_signal_connect (mi, "activate",
+                    G_CALLBACK (notification_plugin_menu_item_activate), notification_plugin);
+
+  /* separator before the log */
   mi = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);

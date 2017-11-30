@@ -42,22 +42,6 @@ XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
 
 
 
-void
-dnd_toggled_cb (GtkCheckMenuItem *checkmenuitem,
-                gpointer          user_data)
-{
-  NotificationPlugin *notification_plugin = user_data;
-
-  if (gtk_check_menu_item_get_active (checkmenuitem))
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
-  else
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
-}
-
-
-
 GtkWidget *
 notification_plugin_menu_new (NotificationPlugin *notification_plugin)
 {
