@@ -52,6 +52,9 @@ typedef struct
 }
 NotificationPlugin;
 
+void notification_plugin_update_icon (NotificationPlugin *notification_plugin,
+                                      gboolean            state);
+
 G_END_DECLS
 
 #endif /* !__NOTIFICATION_PLUGIN_H__ */

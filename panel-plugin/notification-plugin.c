@@ -133,6 +133,35 @@ cb_menu_size_allocate (GtkWidget          *menu,
 
 
 
+void
+notification_plugin_update_icon (NotificationPlugin *notification_plugin,
+                                 gboolean state)
+{
+  if (state)
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
+  else
+    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
+                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
+}
+
+
+
+static void
+notification_plugin_dnd_updated (XfconfChannel *channel,
+                                 const gchar *property,
+                                 const GValue *value,
+                                 gpointer user_data)
+{
+  NotificationPlugin *notification_plugin = user_data;
+  gboolean state;
+
+  state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
+  notification_plugin_update_icon (notification_plugin, state);
+}
+
+
+
 static void
 notification_plugin_log_file_changed (GFileMonitor     *monitor,
                                        GFile            *file,
@@ -146,12 +175,10 @@ notification_plugin_log_file_changed (GFileMonitor     *monitor,
      there are new notifications */
   if (event_type == G_FILE_MONITOR_EVENT_DELETED)
   {
-    if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE))
-      gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                    "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
-    else
-      gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                    "notification-symbolic", GTK_ICON_SIZE_MENU);
+    gboolean state;
+
+    state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
+    notification_plugin_update_icon (notification_plugin, state);
   }
   else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
   {
@@ -207,6 +234,8 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                     G_CALLBACK (cb_menu_deactivate), notification_plugin);
   g_signal_connect (notification_plugin->menu, "size-allocate",
                     G_CALLBACK (cb_menu_size_allocate), notification_plugin);
+  g_signal_connect (G_OBJECT (notification_plugin->channel), "property-changed::" "/do-not-disturb",
+                    G_CALLBACK (notification_plugin_dnd_updated), notification_plugin);
 
   /* start monitoring the log file for changes */
   notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);

@@ -50,12 +50,7 @@ notification_plugin_menu_item_activate (GtkWidget      *menuitem,
 
   muted = !gtk_switch_get_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch));
   gtk_switch_set_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch), muted);
-  if (muted)
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
-  else
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
+  notification_plugin_update_icon (notification_plugin, muted);
 }
 
 
@@ -103,6 +98,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gchar *notify_log_icon_folder;
   gchar *notify_log_icon_path;
   int log_icon_size;
+  gboolean state;
 
   today = g_date_time_new_now_local ();
   timestamp = g_date_time_format (today, "%F");
@@ -133,12 +129,8 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show_all (mi);
   /* Reset the notification status icon since all items are now read */
-  if (xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE))
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
-  else
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
+  state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
+  notification_plugin_update_icon (notification_plugin, state);
   g_signal_connect (mi, "activate",
                     G_CALLBACK (notification_plugin_menu_item_activate), notification_plugin);
 
