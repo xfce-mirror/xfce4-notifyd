@@ -99,6 +99,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gchar *notify_log_icon_path;
   int log_icon_size;
   gboolean state;
+  gboolean no_notifications = FALSE;
 
   today = g_date_time_new_now_local ();
   timestamp = g_date_time_format (today, "%F");
@@ -159,6 +160,12 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     log_length = numberof_groups - log_display_limit;
     if (log_length < 0)
       log_length = 0;
+
+    /* Check if the menu is going to be empty despite there being a log file, e.g.
+       when showing only the notifications of today but the log only contains entries
+       from yesterday and before. In this case show the placeholder. */
+    if (numberof_groups == 0)
+      no_notifications = TRUE;
 
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
     for (i = numberof_groups; i >= log_length; i--) {
@@ -277,17 +284,22 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     g_key_file_free (notify_log);
   }
   /* Show a placeholder label when there are no notifications */
-  else {
+  if (!notify_log ||
+      no_notifications) {
+    GtkStyleContext *context;
+    GtkBorder padding;
     mi = gtk_menu_item_new ();
     label = gtk_label_new (_("No notifications"));
     gtk_widget_set_sensitive (mi, FALSE);
     gtk_container_add (GTK_CONTAINER (mi), label);
-    /* Try to center the text and add top and bottom padding */
-    gtk_widget_set_margin_end (label, log_icon_size + 6);
-    gtk_widget_set_margin_top (label, 6);
-    gtk_widget_set_margin_bottom (label, 6);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
     gtk_widget_show_all (mi);
+    /* Center the text and add top and bottom padding */
+    context = gtk_widget_get_style_context (GTK_WIDGET (mi));
+    gtk_style_context_get_padding (context, gtk_widget_get_state_flags (GTK_WIDGET (mi)), &padding);
+    gtk_widget_set_margin_end (label, log_icon_size + padding.left);
+    gtk_widget_set_margin_top (label, padding.top * 2);
+    gtk_widget_set_margin_bottom (label, padding.top * 2);
   }
 
   /* footer items */
