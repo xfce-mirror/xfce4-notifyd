@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 06:31+0100\n"
-"PO-Revision-Date: 2017-11-30 12:51+0000\n"
+"POT-Creation-Date: 2017-12-01 06:31+0100\n"
+"PO-Revision-Date: 2017-12-01 12:17+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/xfce/xfce-apps/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../panel-plugin/notification-plugin.c:215
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -52,20 +52,19 @@ msgstr "這是通知外掛程式"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:103
-msgid "_Do not disturb"
-msgstr "勿打擾(_D)"
+#: ../panel-plugin/notification-plugin-log.c:121
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>勿打擾(_D) </b>"
 
-#: ../panel-plugin/notification-plugin-log.c:262
+#: ../panel-plugin/notification-plugin-log.c:282
 msgid "No notifications"
 msgstr "沒有通知"
 
-#: ../panel-plugin/notification-plugin-log.c:281
+#: ../panel-plugin/notification-plugin-log.c:301
 msgid "_Clear log"
 msgstr "清除紀錄(_C)"
 
-#: ../panel-plugin/notification-plugin-log.c:289
+#: ../panel-plugin/notification-plugin-log.c:309
 msgid "_Notification settings…"
 msgstr "通知設定…(_N)"
 
