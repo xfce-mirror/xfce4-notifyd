@@ -39,6 +39,9 @@ typedef struct
     XfcePanelPlugin *plugin;
     XfconfChannel   *channel;
 
+    /* state */
+    gboolean         new_notifications;
+
     /* panel widgets */
     GtkWidget       *button;
     GtkWidget       *image;

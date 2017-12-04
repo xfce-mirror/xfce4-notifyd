@@ -131,6 +131,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gtk_widget_show_all (mi);
   /* Reset the notification status icon since all items are now read */
   state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
+  notification_plugin->new_notifications = FALSE;
   notification_plugin_update_icon (notification_plugin, state);
   g_signal_connect (mi, "activate",
                     G_CALLBACK (notification_plugin_menu_item_activate), notification_plugin);
