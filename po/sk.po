@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-28 00:32+0200\n"
-"PO-Revision-Date: 2017-10-29 11:54+0000\n"
+"POT-Creation-Date: 2017-12-01 06:31+0100\n"
+"PO-Revision-Date: 2017-12-09 08:39+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/xfce/xfce-apps/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../panel-plugin/notification-plugin.c:215
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -54,17 +54,19 @@ msgstr "Toto je zásuvný modul oznámení"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Autorské práva © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:243
-msgid "_Do not disturb"
-msgstr "_Nevyrušovať"
+#: ../panel-plugin/notification-plugin-log.c:121
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Nevyrušovať</b>"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:260
+#: ../panel-plugin/notification-plugin-log.c:282
+msgid "No notifications"
+msgstr "Žiadne oznámenia"
+
+#: ../panel-plugin/notification-plugin-log.c:301
 msgid "_Clear log"
 msgstr "Vy_mazať záznam"
 
-#: ../panel-plugin/notification-plugin-log.c:266
+#: ../panel-plugin/notification-plugin-log.c:309
 msgid "_Notification settings…"
 msgstr "_Nastavenia oznámenia…"
 
@@ -97,11 +99,11 @@ msgstr "Iný démon oznámení je už spustený. Ukončuje sa.\n"
 
 #: ../xfce4-notifyd-config/main.c:77
 msgid "Notification Preview"
-msgstr "Ukážka upozornenia"
+msgstr "Ukážka oznámenia"
 
 #: ../xfce4-notifyd-config/main.c:78
 msgid "This is what notifications will look like"
-msgstr "Takto bude vyzerať upozornenie"
+msgstr "Takto bude vyzerať oznámenie"
 
 #: ../xfce4-notifyd-config/main.c:83
 msgid "Button"
@@ -115,59 +117,59 @@ msgstr "Náhľad oznámenia zlyhal"
 msgid "Settings daemon is unavailable"
 msgstr "Nastavenia démona nie sú k dispozícii"
 
-#: ../xfce4-notifyd-config/main.c:932
+#: ../xfce4-notifyd-config/main.c:934
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Prázdny záznam</b></big>\nZatiaľ neboli zaznamenané žiadne oznámenia."
 
-#: ../xfce4-notifyd-config/main.c:939
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh the notification log"
 msgstr "Obnoviť záznam s oznámeniami"
 
-#: ../xfce4-notifyd-config/main.c:945
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Open"
 msgstr "Otvoriť"
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Otvoriť záznam s oznámeniami v externom editore"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Clear"
 msgstr "Vymazať"
 
-#: ../xfce4-notifyd-config/main.c:952
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
 msgstr "Vymazať záznam s oznámeniami"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:976
 msgid "Display version information"
 msgstr "Zobrazí informácie o verzii"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Settings manager socket"
 msgstr "Soket správcu nastavení"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "SOCKET_ID"
 msgstr "ID SOKETU"
 
-#: ../xfce4-notifyd-config/main.c:985
+#: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Informácie o použití získate príkazom '%s --help'."
 
-#: ../xfce4-notifyd-config/main.c:1000
+#: ../xfce4-notifyd-config/main.c:1002
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vydané pod GNU General Public License verzie 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1001
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prosím, oznámte nájdené chyby na <%s>.\n"
@@ -313,4 +315,4 @@ msgstr "Zaznamenávanie"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Prispôsobiť spôsob upozornenia na obrazovke"
+msgstr "Prispôsobuje vzhľad oznámení na vašej obrazovke"
