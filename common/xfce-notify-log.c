@@ -35,7 +35,6 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "xfce-notify-daemon.h"
 #include "xfce-notify-log.h"
 
 GdkPixbuf *

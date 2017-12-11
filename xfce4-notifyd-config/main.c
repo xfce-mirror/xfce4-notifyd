@@ -36,7 +36,8 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <libnotify/notify.h>
 
-#include "xfce4-notifyd/xfce-notify-log.h"
+#include <common/xfce-notify-log.h>
+
 #include "xfce4-notifyd-config.ui.h"
 
 #define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"

@@ -39,11 +39,11 @@
 
 #include <xfconf/xfconf.h>
 
-#include "xfce-notify-gbus.h"
+#include <common/xfce-notify-log.h>
 
+#include "xfce-notify-gbus.h"
 #include "xfce-notify-daemon.h"
 #include "xfce-notify-window.h"
-#include "xfce-notify-log.h"
 #include "xfce-notify-marshal.h"
 
 #define SPACE 16

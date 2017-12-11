@@ -34,8 +34,8 @@
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4panel/xfce-panel-plugin.h>
 
-#include <glib.h>
-#include "xfce4-notifyd/xfce-notify-log.h"
+#include <common/xfce-notify-log.h>
+
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 

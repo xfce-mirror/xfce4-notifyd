@@ -19,9 +19,7 @@ libnotification_plugin_la_SOURCES = \
 	notification-plugin-dialogs.c \
 	notification-plugin-dialogs.h \
 	notification-plugin-log.c \
-	notification-plugin-log.h	\
-	../xfce4-notifyd/xfce-notify-log.c \
-	../xfce4-notifyd/xfce-notify-log.h
+	notification-plugin-log.h
 
 libnotification_plugin_la_CFLAGS = \
 	$(LIBXFCE4UTIL_CFLAGS) \
@@ -38,6 +36,7 @@ libnotification_plugin_la_LDFLAGS = \
        $(PLATFORM_LDFLAGS)
 
 libnotification_plugin_la_LIBADD = \
+	$(top_builddir)/common/libxfce-notifyd-common.la \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
 	$(LIBXFCE4PANEL_LIBS)	\

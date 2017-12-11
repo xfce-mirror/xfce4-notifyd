@@ -149,6 +149,7 @@ AC_OUTPUT(
     icons/48x48/Makefile
     icons/scalable/Makefile
     icons/symbolic/Makefile
+    common/Makefile
     panel-plugin/Makefile
     po/Makefile.in
 ])
