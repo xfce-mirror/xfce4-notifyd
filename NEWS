@@ -2,6 +2,33 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.4.1 (09 December 2017):
+  This is a feature release.
+
+  Features:
+    * Panel plugin features
+      * Add hidden option log-icon-size
+      * Add button to clear the log (Bug #13955)
+      * Revamped layout (DND button on top for quick access)
+      * Show placeholder text in case of empty logs
+    * Improved notification window layout
+    * Add configure option to use autostart instead of dbus (Bug #13989)
+
+  Bugs fixed:
+    * Remove deprecated functions (Gtk+ 3.22)
+    * Fix warnings reported by Clang (Bug #13931)
+    * Treat icon_data only as pen-ultimate fallback option (Bug #13950)
+    * Fix warning about gdk_window_get_origin (Bug #13935)
+    * Ensure body and summary of notifications are correctly ellipsized (Bug #12674)
+    * Ensure the panel plugin icon resizes with Xfce 4.12
+
+  Updated translations: Bulgarian, Catalan, Chinese (Taiwan), Croatian,
+  Czech, Danish, Dutch (Flemish), French, German, Greek, Hebrew, Italian,
+  Japanese, Kazakh, Korean, Lithuanian, Norwegian Bokmål, Polish,
+  Portuguese, Portuguese (Brazilian), Russian, Slovak, Spanish, Swedish,
+  Thai, Turkish, Ukrainian
+
+
 Version 0.4.0 (07 October 2017):
   This is a feature release.
 
