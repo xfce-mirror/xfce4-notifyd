@@ -81,28 +81,30 @@ xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
 	$(LIBNOTIFY_LIBS)
 
-if USE_DBUS_START_DAEMON
-servicedir = $(datadir)/dbus-1/services
 service_in_files = xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service.in
-service_DATA = $(service_in_files:.service.in=.service)
-
-systemd_userdir = $(prefix)/lib/systemd/user
 systemd_user_in_files = xfce4-notifyd/xfce4-notifyd.service.in
-systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
-
 dist_service = \
 	$(service_in_files) \
 	$(systemd_user_in_files) \
 	xfce4-notifyd/notify-dbus.xml \
 	xfce4-notifyd/xfce-notify-marshal.list
+
+autostart_in_files = xfce4-notifyd/xfce4-notifyd.desktop.in
+dist_autostart = \
+	$(autostart_in_files)
+
+if USE_DBUS_START_DAEMON
+servicedir = $(datadir)/dbus-1/services
+service_DATA = $(service_in_files:.service.in=.service)
+
+systemd_userdir = $(prefix)/lib/systemd/user
+systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
+
 distclean_service = $(service_DATA) $(systemd_user_DATA)
 else
 autostartdir = $(sysconfdir)/xdg/autostart
-autostart_in_files = xfce4-notifyd/xfce4-notifyd.desktop.in
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 
-dist_autostart = \
-	$(autostart_in_files)
 distclean_autostart = $(autostart_DATA)
 endif
 
@@ -186,6 +188,7 @@ dist_noinst_DATA = \
 	$(dist_misc) \
 	$(dist_intltool) \
 	$(dist_service) \
+	$(dist_autostart) \
 	$(dist_xfce4_notifyd_config) \
 	$(dist_themes)
 
@@ -202,7 +205,8 @@ CLEANFILES = \
 
 DISTCLEANFILES = \
 	$(distclean_intltool) \
-	$(distclean_service)
+	$(distclean_service) \
+	$(distclean_autostart)
 
 xfce4-notifyd/xfce-notify-gbus.h:
 xfce4-notifyd/xfce-notify-gbus.c: $(srcdir)/xfce4-notifyd/notify-dbus.xml Makefile
