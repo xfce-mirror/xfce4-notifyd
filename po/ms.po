@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 00:31+0200\n"
-"PO-Revision-Date: 2017-09-19 21:20+0000\n"
+"POT-Creation-Date: 2017-12-01 06:31+0100\n"
+"PO-Revision-Date: 2017-12-13 12:21+0000\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/xfce/xfce-apps/language/ms/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: ms\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:183
+#: ../panel-plugin/notification-plugin.c:215
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,6 +51,22 @@ msgstr "Ini ialah pemalam pemberitahuan"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Hakcipta © 2017 Simon Steinbeiß\n"
 
+#: ../panel-plugin/notification-plugin-log.c:121
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Jangan ganggu</b>"
+
+#: ../panel-plugin/notification-plugin-log.c:282
+msgid "No notifications"
+msgstr "Tiada pemberitahuan"
+
+#: ../panel-plugin/notification-plugin-log.c:301
+msgid "_Clear log"
+msgstr "_Kosongkan log"
+
+#: ../panel-plugin/notification-plugin-log.c:309
+msgid "_Notification settings…"
+msgstr "Tetapan _pemberitahuan..."
+
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
 msgstr "Pemalam Pemberitahuan"
@@ -60,7 +76,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Pemalam pemberitahuan untuk panel Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:774
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
 msgstr "Daemon Maklum Xfce"
 
@@ -73,7 +89,7 @@ msgstr "Pilihan \"%s\" tidak diketahui\n"
 msgid "Unable to start notification daemon"
 msgstr "Tidak boleh mulakan daemon pemberitahuan"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:362
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Daemon pemberitahuan lain sudah berjalan, keluar\n"
@@ -94,57 +110,63 @@ msgstr "Butang"
 msgid "Notification preview failed"
 msgstr "Pratonton pemberitahuan gagal"
 
-#: ../xfce4-notifyd-config/main.c:776
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Daemon tetapan tidak tersedia"
 
-#: ../xfce4-notifyd-config/main.c:908
+#: ../xfce4-notifyd-config/main.c:934
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Log kosong</b></big>\nTiada pemberitahuan telah dilogkan."
+
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
 msgstr "Segar Semula"
 
-#: ../xfce4-notifyd-config/main.c:909
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh the notification log"
 msgstr "Segar semula log pemberitahuan"
 
-#: ../xfce4-notifyd-config/main.c:914
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Open"
 msgstr "Buka"
 
-#: ../xfce4-notifyd-config/main.c:915
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Buka log pemberitahuan dalam penyunting luar"
 
-#: ../xfce4-notifyd-config/main.c:920
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Clear"
 msgstr "Kosongkan"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
 msgstr "Kosongkan log pemberitahuan"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:976
 msgid "Display version information"
 msgstr "Papar maklumat versi"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Settings manager socket"
 msgstr "Tetapkan soket pengurus"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:977
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Taip '%s --help' untuk penggunaan."
 
-#: ../xfce4-notifyd-config/main.c:969
+#: ../xfce4-notifyd-config/main.c:1002
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Dilepaskan dibawah terma GNU General Public License, versi 2\n"
 
-#: ../xfce4-notifyd-config/main.c:970
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Sila laporkan pepijat ke %s.\n"
