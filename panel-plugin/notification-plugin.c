@@ -45,8 +45,6 @@ XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
 GtkWidget *
 notification_plugin_menu_new (NotificationPlugin *notification_plugin)
 {
-  GtkWidget *mi;
-  GtkWidget *label;
   GtkWidget *menu;
 
   menu = gtk_menu_new ();
@@ -137,8 +135,6 @@ void
 notification_plugin_update_icon (NotificationPlugin *notification_plugin,
                                  gboolean state)
 {
-  const gchar *icon_name;
-
   if (state && !notification_plugin->new_notifications)
     gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
                                   "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);

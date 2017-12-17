@@ -141,7 +141,6 @@ void xfce_notify_log_insert (const gchar *app_name,
     gchar *notify_log_path;
     gchar *timeout;
     gchar *group;
-    gchar **groups;
     gint i;
     gint j = 0;
     GDateTime *now;

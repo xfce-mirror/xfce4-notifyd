@@ -290,7 +290,6 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
     GtkWidget *mute_switch;
     gboolean muted;
     GPtrArray *muted_applications;
-    GPtrArray *new_array;
     GValue *val;
     guint i;
     const gchar *application_name;
@@ -569,7 +568,6 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             GtkWidget *summary, *body, *app_icon, *expire_timeout;
             const gchar *group = groups[i];
             const char *format = "<b>\%s</b>";
-            const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
             const char *tooltip_format_simple = "<b>\%s</b> - \%s";
             char *markup;
             gchar *app_name;
@@ -784,7 +782,6 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
-    GKeyFile *notification_log;
     NotificationLogWidgets log_widgets;
     NotificationSlideoutWidgets slideout_widgets;
 

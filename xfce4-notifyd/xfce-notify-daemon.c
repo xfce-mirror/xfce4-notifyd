@@ -460,7 +460,7 @@ xfce_notify_daemon_finalize(GObject *obj)
 
 
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
-      gint i, j;
+      gint i;
 
       GdkScreen *screen = gdk_screen_get_default ();
       GdkWindow *groot = gdk_screen_get_root_window(screen);
@@ -468,9 +468,9 @@ xfce_notify_daemon_finalize(GObject *obj)
 
       gdk_window_remove_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
 
-      for(j = 0; j < nmonitor; j++) {
-          if (xndaemon->reserved_rectangles[j])
-              g_list_free(xndaemon->reserved_rectangles[j]);
+      for(i = 0; i < nmonitor; i++) {
+          if (xndaemon->reserved_rectangles[i])
+              g_list_free(xndaemon->reserved_rectangles[i]);
       }
 
       g_free(xndaemon->reserved_rectangles);
@@ -1052,8 +1052,6 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
     GPtrArray *known_applications;
     GValue *val;
     gint index = 0;
-    gint index_before = 0;
-    gint index_after = 0;
 
     val = g_new0 (GValue, 1);
     g_value_init (val, G_TYPE_STRING);
@@ -1146,7 +1144,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     gboolean transient = FALSE;
     GVariant *item;
     GVariantIter iter;
-    guint OUT_id;
+    guint OUT_id = xfce_notify_daemon_generate_id(xndaemon);
     gboolean application_is_muted = FALSE;
 
     g_variant_iter_init (&iter, hints);
@@ -1292,7 +1290,6 @@ notify_notify (XfceNotifyGBus *skeleton,
                                                                         xndaemon->css_provider));
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 
-        OUT_id = xfce_notify_daemon_generate_id(xndaemon);
         g_object_set_data(G_OBJECT(window), "--notify-id",
                           GUINT_TO_POINTER(OUT_id));
 
