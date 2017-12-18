@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 12:32+0200\n"
-"PO-Revision-Date: 2017-10-12 05:21+0000\n"
+"POT-Creation-Date: 2017-12-01 06:31+0100\n"
+"PO-Revision-Date: 2017-12-18 05:20+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-apps/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:188
+#: ../panel-plugin/notification-plugin.c:215
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -55,12 +55,19 @@ msgstr "这是一个通知插件"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "版权所有 © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:253
-msgid "_Do not disturb"
-msgstr "请勿打扰(_D)"
+#: ../panel-plugin/notification-plugin-log.c:121
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>请勿打扰(_D)</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:269
+#: ../panel-plugin/notification-plugin-log.c:282
+msgid "No notifications"
+msgstr "没有通知"
+
+#: ../panel-plugin/notification-plugin-log.c:301
+msgid "_Clear log"
+msgstr "清除日志(_C)"
+
+#: ../panel-plugin/notification-plugin-log.c:309
 msgid "_Notification settings…"
 msgstr "通知设置(_N)..."
 
@@ -73,7 +80,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfce 面板专用的通知插件"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:794
+#: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 提示守护进程"
 
@@ -107,63 +114,63 @@ msgstr "按钮"
 msgid "Notification preview failed"
 msgstr "无法预览通知"
 
-#: ../xfce4-notifyd-config/main.c:796
+#: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "设置守护进程无效"
 
-#: ../xfce4-notifyd-config/main.c:921
+#: ../xfce4-notifyd-config/main.c:934
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:928
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
 msgstr "刷新"
 
-#: ../xfce4-notifyd-config/main.c:929
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh the notification log"
 msgstr "刷新通知日志"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Open"
 msgstr "打开"
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "使用外部编辑器打开通知日志"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Clear"
 msgstr "清空"
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
 msgstr "清空通知日志"
 
-#: ../xfce4-notifyd-config/main.c:963
+#: ../xfce4-notifyd-config/main.c:976
 msgid "Display version information"
 msgstr "显示版本信息"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Settings manager socket"
 msgstr "设置管理器套接字"
 
-#: ../xfce4-notifyd-config/main.c:964
+#: ../xfce4-notifyd-config/main.c:977
 msgid "SOCKET_ID"
 msgstr "套接字 ID(_I)"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "输入 ‘%s --help’ 获取用法。"
 
-#: ../xfce4-notifyd-config/main.c:989
+#: ../xfce4-notifyd-config/main.c:1002
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "以 GNU 通用公共许可协议第二版发布\n"
 
-#: ../xfce4-notifyd-config/main.c:990
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "请向 %s 报告缺陷。\n"
