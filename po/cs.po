@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
-# Michal Várady <miko.vaji@gmail.com>, 2016-2017
+# Michal Várady <miko.vaji@gmail.com>, 2016-2018
 # Petr Šimáček <petr.simacek@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-28 00:32+0200\n"
-"PO-Revision-Date: 2017-10-28 23:07+0000\n"
+"POT-Creation-Date: 2017-12-01 06:31+0100\n"
+"PO-Revision-Date: 2018-01-01 09:35+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../panel-plugin/notification-plugin.c:215
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -52,17 +52,19 @@ msgstr "Toto je zásuvný modul Oznámení"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:243
-msgid "_Do not disturb"
-msgstr "_Nerušit"
+#: ../panel-plugin/notification-plugin-log.c:121
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Nerušit</b>"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:260
+#: ../panel-plugin/notification-plugin-log.c:282
+msgid "No notifications"
+msgstr "Žádná oznámení"
+
+#: ../panel-plugin/notification-plugin-log.c:301
 msgid "_Clear log"
 msgstr "_Vymazat protokol"
 
-#: ../panel-plugin/notification-plugin-log.c:266
+#: ../panel-plugin/notification-plugin-log.c:309
 msgid "_Notification settings…"
 msgstr "_Nastavení oznámení…"
 
@@ -113,59 +115,59 @@ msgstr "Náhled oznámení se nezdařil"
 msgid "Settings daemon is unavailable"
 msgstr "Služba pro nastavení není dostupná"
 
-#: ../xfce4-notifyd-config/main.c:932
+#: ../xfce4-notifyd-config/main.c:934
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Protokol je prázdný</b></big>\nDosud nebyla zaprotokolována žádná oznámení."
 
-#: ../xfce4-notifyd-config/main.c:939
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh the notification log"
 msgstr "Obnoví protokol s oznámeními"
 
-#: ../xfce4-notifyd-config/main.c:945
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Otevře protokol s oznámeními v externím editoru"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Clear"
 msgstr "Vymazat"
 
-#: ../xfce4-notifyd-config/main.c:952
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
 msgstr "Vymaže protokol s oznámeními"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:976
 msgid "Display version information"
 msgstr "Zobrazit informace o verzi"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Settings manager socket"
 msgstr "Soket správce nastavení"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:985
+#: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Informace o použití získáte příkazem '%s --help'"
 
-#: ../xfce4-notifyd-config/main.c:1000
+#: ../xfce4-notifyd-config/main.c:1002
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vydáno pod podmínkami licence  GNU General Public License, verze 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1001
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prosímte, abyste hlásili chyby na adresu %s.\n"
