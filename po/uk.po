@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2013,2016-2017
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2013,2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-28 00:32+0200\n"
-"PO-Revision-Date: 2017-11-05 22:28+0000\n"
+"POT-Creation-Date: 2017-12-01 06:31+0100\n"
+"PO-Revision-Date: 2018-01-15 18:33+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/xfce/xfce-apps/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../panel-plugin/notification-plugin.c:215
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -50,17 +50,19 @@ msgstr "Це додаток повідомлень"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Всі права застережено © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:243
-msgid "_Do not disturb"
-msgstr "_Не перешкоджати"
+#: ../panel-plugin/notification-plugin-log.c:121
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Не перешкоджати</b>"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:260
+#: ../panel-plugin/notification-plugin-log.c:282
+msgid "No notifications"
+msgstr "Без повідомлень"
+
+#: ../panel-plugin/notification-plugin-log.c:301
 msgid "_Clear log"
 msgstr "_Очистити журнал"
 
-#: ../panel-plugin/notification-plugin-log.c:266
+#: ../panel-plugin/notification-plugin-log.c:309
 msgid "_Notification settings…"
 msgstr "_Налаштування повідомлень"
 
@@ -111,59 +113,59 @@ msgstr "Попередній перегляд повідомлення не вд
 msgid "Settings daemon is unavailable"
 msgstr "Демон налаштувань не доступний"
 
-#: ../xfce4-notifyd-config/main.c:932
+#: ../xfce4-notifyd-config/main.c:934
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Очищення журналу</b></big>\nЩе не записано жодного повідомлення."
 
-#: ../xfce4-notifyd-config/main.c:939
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
 msgstr "Оновити"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh the notification log"
 msgstr "Оновити журнал повідомлень"
 
-#: ../xfce4-notifyd-config/main.c:945
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Open"
 msgstr "Відкрити"
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Відкрити журнал повідомлень у зовнішньому редакторі"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Clear"
 msgstr "Очистити"
 
-#: ../xfce4-notifyd-config/main.c:952
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
 msgstr "Очистити журнал повідомлень"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:976
 msgid "Display version information"
 msgstr "Показати інформацію про версію"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Settings manager socket"
 msgstr "Сокет менеджера налаштувань"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:985
+#: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Напишіть '%s --help' для допомоги по використанню."
 
-#: ../xfce4-notifyd-config/main.c:1000
+#: ../xfce4-notifyd-config/main.c:1002
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Розроблено згідно умов GNU General Public License, 2-га версія\n"
 
-#: ../xfce4-notifyd-config/main.c:1001
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Будь-ласка, повідомте про помилку до %s.\n"
