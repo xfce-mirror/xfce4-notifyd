@@ -687,29 +687,6 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
                   XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 }
 
-#define ELEM_B    GUINT_TO_POINTER(1)
-#define ELEM_I    GUINT_TO_POINTER(2)
-#define ELEM_U    GUINT_TO_POINTER(3)
-#define ELEM_A    GUINT_TO_POINTER(4)
-
-static inline const gchar *
-elem_to_string(gconstpointer elem_p)
-{
-    gint elem = GPOINTER_TO_UINT(elem_p);
-    switch(elem) {
-        case GPOINTER_TO_UINT(ELEM_B):
-            return "<b>";
-        case GPOINTER_TO_UINT(ELEM_I):
-            return "<i>";
-        case GPOINTER_TO_UINT(ELEM_U):
-            return "<u>";
-        case GPOINTER_TO_UINT(ELEM_A):
-            return "<a>";
-        default:
-            return "??";
-    }
-}
-
 GtkWidget *
 xfce_notify_window_new(void)
 {
@@ -777,17 +754,18 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if(body && *body) {
-        if (pango_parse_markup (body, -1, 0, NULL, NULL, NULL, NULL)) {
-            gtk_label_set_markup (GTK_LABEL (window->body), body);
-        } else {
+        /* Try to set the body with markup and in case this fails (empty label)
+           fall back to escaping the whole string and showing it plainly.
+           This equals pango_parse_markup extended by checking for valid hyperlinks
+           (which is not supported by pango). */
+        gtk_label_set_markup (GTK_LABEL (window->body), body);
+        if (g_strcmp0 (gtk_label_get_text(GTK_LABEL (window->body)), "") == 0 ) {
             gchar *tmp;
-
             tmp = g_markup_escape_text (body, -1);
             gtk_label_set_text (GTK_LABEL (window->body), body);
             g_free (tmp);
         }
         gtk_widget_show(window->body);
-
         window->has_body_text = TRUE;
     } else {
         gtk_label_set_markup(GTK_LABEL(window->body), "");

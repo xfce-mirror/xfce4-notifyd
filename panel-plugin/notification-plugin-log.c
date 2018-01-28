@@ -213,9 +213,8 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
       tmp = g_key_file_get_string (notify_log, group, "body", NULL);
       body = gtk_label_new (NULL);
-      if (pango_parse_markup (tmp, -1, 0, NULL, NULL, NULL, NULL)) {
-        gtk_label_set_markup (GTK_LABEL (body), tmp);
-      } else {
+      gtk_label_set_markup (GTK_LABEL (body), tmp);
+      if (g_strcmp0 (gtk_label_get_text(GTK_LABEL (body)), "") == 0) {
         gchar *tmp1;
 
         tmp1 = g_markup_escape_text (tmp, -1);
