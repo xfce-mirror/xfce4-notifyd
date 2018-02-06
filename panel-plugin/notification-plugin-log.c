@@ -185,8 +185,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 
       /* optionally only show notifications from today */
       if (log_only_today == TRUE)
-        if (g_ascii_strncasecmp (timestamp, group, 10) != 0)
+        if (g_ascii_strncasecmp (timestamp, group, 10) != 0) {
+          no_notifications = TRUE;
           continue;
+        }
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       mi = gtk_image_menu_item_new ();
 G_GNUC_END_IGNORE_DEPRECATIONS
