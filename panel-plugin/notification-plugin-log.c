@@ -171,7 +171,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
     for (i = numberof_groups; i > log_length; i--) {
       GtkWidget *grid;
-      GtkWidget *summary, *body, *app_icon, *expire_timeout;
+      GtkWidget *summary, *body, *app_icon;
       const gchar *group = groups[i];
       const char *format = "<b>\%s</b>";
       const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
@@ -246,10 +246,6 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), app_icon);
 G_GNUC_END_IGNORE_DEPRECATIONS
       gtk_image_set_pixel_size (GTK_IMAGE (app_icon), log_icon_size);
-
-      tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
-      expire_timeout = gtk_label_new (tmp);
-      g_free (tmp);
 
       grid = gtk_grid_new ();
       gtk_grid_set_column_spacing (GTK_GRID (grid), 6);

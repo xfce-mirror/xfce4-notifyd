@@ -40,6 +40,9 @@ notification_plugin_construct (XfcePanelPlugin *panel_plugin);
 /* register the plugin */
 XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
 
+GtkWidget *notification_plugin_menu_new   (NotificationPlugin *notification_plugin);
+void       notification_plugin_popup_menu (NotificationPlugin *notification_plugin);
+
 
 
 GtkWidget *
