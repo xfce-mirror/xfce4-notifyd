@@ -224,6 +224,78 @@ void xfce_notify_log_insert (const gchar *app_name,
     g_free (notify_log_path);
 }
 
+gchar *
+xfce_notify_get_icon_cache_size (void)
+{
+    gchar *notify_icon_cache_path = NULL;
+    gchar *size_string;
+
+    notify_icon_cache_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                          XFCE_NOTIFY_ICON_PATH, FALSE);
+    if (notify_icon_cache_path)
+    {
+        GFile *icon_folder;
+        guint64 disk_usage, num_dirs, num_files;
+
+        icon_folder = g_file_new_for_path (notify_icon_cache_path);
+
+        g_file_measure_disk_usage (icon_folder,
+                                   G_FILE_MEASURE_NONE,
+                                   NULL, NULL, NULL,
+                                   &disk_usage,
+                                   &num_dirs,
+                                   &num_files,
+                                   NULL);
+        size_string = g_strdup_printf ("%d icons / %.1lf MB",
+                                       (int) num_files, (gdouble) disk_usage / 1000000);
+        g_object_unref (icon_folder);
+    }
+    g_free (notify_icon_cache_path);
+    return size_string;
+}
+
+void xfce_notify_clear_icon_cache (void)
+{
+    gchar *notify_icon_cache_path = NULL;
+
+    notify_icon_cache_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                          XFCE_NOTIFY_ICON_PATH, FALSE);
+
+    if (notify_icon_cache_path)
+    {
+        GFile *icon_folder;
+        GFileEnumerator *folder_contents;
+
+
+        icon_folder = g_file_new_for_path (notify_icon_cache_path);
+        folder_contents = g_file_enumerate_children (icon_folder,
+                                                     G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                                     G_FILE_QUERY_INFO_NONE,
+                                                     NULL,
+                                                     NULL);
+        /* Iterate over the folder and delete each file */
+        while (TRUE)
+        {
+            GFile *icon_file;
+            if (!g_file_enumerator_iterate (folder_contents, NULL, &icon_file, NULL, NULL))
+                goto out;
+            if (!icon_file)
+                break;
+            if (!g_file_delete (icon_file, NULL, NULL))
+                g_warning ("Could not delete a notification icon: %s", notify_icon_cache_path);
+        }
+        out:
+            g_object_unref (folder_contents);
+
+        /* Delete the empty folder */
+        if (!g_file_delete (icon_folder, NULL, NULL))
+            g_warning ("Could not delete the notification icon cache: %s", notify_icon_cache_path);
+
+        g_object_unref (icon_folder);
+        g_free (notify_icon_cache_path);
+    }
+}
+
 void xfce_notify_log_clear (void)
 {
     gchar *notify_log_path = NULL;
@@ -240,4 +312,74 @@ void xfce_notify_log_clear (void)
         g_object_unref (log_file);
         g_free (notify_log_path);
     }
+}
+
+static void
+xfce_notify_clear_log_dialog_cb (GtkWidget *dialog, gint response, gpointer user_data)
+{
+    GtkWidget *checkbutton = user_data;
+    gboolean active;
+
+    active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (checkbutton));
+
+    if (response == GTK_RESPONSE_DELETE_EVENT ||
+        response == GTK_RESPONSE_CANCEL)
+        return;
+    else if (active) {
+        xfce_notify_clear_icon_cache ();
+        xfce_notify_log_clear ();
+    }
+    else {
+        xfce_notify_log_clear ();
+    }
+}
+
+GtkWidget *xfce_notify_clear_log_dialog (void)
+{
+    GtkWidget *dialog, *grid, *icon, *label, *content_area, *checkbutton;
+    GtkDialogFlags flags = GTK_DIALOG_MODAL;
+    gchar *message;
+    const char *str = _("Clear just the log or the icon cache too?");
+    const char *format = "<span weight='bold' size='large'>%s</span>";
+    char *markup;
+
+    dialog = gtk_dialog_new_with_buttons (_("Clear notification log"),
+                                          NULL,
+                                          flags,
+                                          _("Cancel"),
+                                          GTK_RESPONSE_CANCEL,
+                                          _("Clear"),
+                                          GTK_RESPONSE_OK,
+                                          NULL);
+    content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+    grid = gtk_grid_new ();
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+    gtk_widget_set_margin_start (grid, 12);
+    gtk_widget_set_margin_end (grid, 12);
+    gtk_widget_set_margin_top (grid, 12);
+    gtk_widget_set_margin_bottom (grid, 12);
+
+    icon = gtk_image_new_from_icon_name ("edit-clear", GTK_ICON_SIZE_DIALOG);
+
+    message = g_strdup_printf ("%s (%s)",_("Clear icon cache"), xfce_notify_get_icon_cache_size ());
+    label = gtk_label_new (NULL);
+    markup = g_markup_printf_escaped (format, str);
+    gtk_label_set_markup (GTK_LABEL (label), markup);
+    g_free (markup);
+
+    checkbutton = gtk_check_button_new_with_label (message);
+
+    gtk_grid_attach (GTK_GRID (grid), icon, 0, 0, 1, 2);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (grid), checkbutton, 1, 1, 1, 1);
+
+    gtk_container_add (GTK_CONTAINER (content_area), grid);
+    gtk_widget_show_all (dialog);
+
+    g_signal_connect (dialog, "response",
+                      G_CALLBACK (xfce_notify_clear_log_dialog_cb),
+                      checkbutton);
+    gtk_window_set_icon_name (GTK_WINDOW (dialog), "edit-clear");
+
+    return dialog;
 }

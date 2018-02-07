@@ -707,11 +707,14 @@ xfce4_notifyd_log_refresh (GtkButton *button, gpointer user_data) {
 static void xfce_notify_log_clear_button_clicked (GtkButton *button, gpointer user_data) {
     GtkWidget *log_listbox = ((NotificationLogWidgets *) user_data)->log_listbox;
     GtkCallback func = listbox_remove_all;
+    GtkWidget *dialog;
 
-    /* Clear the log file and empty the listbox widget */
-    gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
-    xfce_notify_log_clear ();
-    xfce4_notifyd_log_populate (user_data);
+    dialog = xfce_notify_clear_log_dialog ();
+    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+    /* Clear the listbox widget too in case the log is cleared */
+    if (result == GTK_RESPONSE_OK)
+        gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
+    gtk_widget_destroy (dialog);
 }
 
 static void xfce4_notifyd_show_help(GtkButton *button,

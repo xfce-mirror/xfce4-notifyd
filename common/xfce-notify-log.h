@@ -40,6 +40,6 @@ void       xfce_notify_log_insert (const gchar *app_name,
                                    gint expire_timeout,
                                    const gchar **actions);
 
-void       xfce_notify_log_clear (void);
+GtkWidget *xfce_notify_clear_log_dialog (void);
 
 #endif /* __XFCE_NOTIFY_LOG_H_ */

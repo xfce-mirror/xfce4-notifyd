@@ -83,6 +83,16 @@ notification_plugin_menu_clear (GtkWidget *widget, gpointer user_data)
 
 
 
+static void
+notification_plugin_clear_log_dialog (void) {
+  GtkWidget *dialog;
+
+  dialog = xfce_notify_clear_log_dialog ();
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+}
+
+
 void
 notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 {
@@ -319,7 +329,7 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);
-  g_signal_connect (mi, "activate", G_CALLBACK (xfce_notify_log_clear),
+  g_signal_connect (mi, "activate", G_CALLBACK (notification_plugin_clear_log_dialog),
                     NULL);
 
   mi = gtk_menu_item_new_with_mnemonic (_("_Notification settings…"));
