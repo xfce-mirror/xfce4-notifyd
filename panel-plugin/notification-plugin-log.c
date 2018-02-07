@@ -146,6 +146,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     int log_length;
     int log_display_limit;
     int numberof_groups;
+    int numberof_notifications_shown = 0;
     gboolean log_only_today;
 
     groups = g_key_file_get_groups (notify_log, &num_groups);
@@ -184,11 +185,14 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       GDateTime *log_timestamp;
 
       /* optionally only show notifications from today */
-      if (log_only_today == TRUE)
+      if (log_only_today == TRUE) {
         if (g_ascii_strncasecmp (timestamp, group, 10) != 0) {
           no_notifications = TRUE;
           continue;
         }
+        else
+          numberof_notifications_shown++;
+      }
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       mi = gtk_image_menu_item_new ();
 G_GNUC_END_IGNORE_DEPRECATIONS
@@ -280,6 +284,8 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     }
     g_strfreev (groups);
     g_key_file_free (notify_log);
+    if (numberof_notifications_shown > 0)
+      no_notifications = FALSE;
   }
   /* Show a placeholder label when there are no notifications */
   if (!notify_log ||
