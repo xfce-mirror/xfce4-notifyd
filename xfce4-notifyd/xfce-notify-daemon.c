@@ -1061,11 +1061,11 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
     /* No known applications, initialize the channel and property */
     if (known_applications == NULL || known_applications->len < 1) {
         GPtrArray *array;
-        array = g_ptr_array_sized_new (1);
+        array = g_ptr_array_new ();
         g_ptr_array_add (array, val);
         if (!xfconf_channel_set_arrayv (channel, KNOWN_APPLICATIONS_PROP, array))
             g_warning ("Could not initialize the application log: %s", new_app_name);
-        xfconf_array_free (array);
+        g_ptr_array_unref (array);
     }
     /* Add the new application to the list unless it's already known */
     else {
@@ -1113,7 +1113,6 @@ notify_application_is_muted (XfconfChannel *channel, gchar *new_app_name)
             }
         }
     }
-
     xfconf_array_free (muted_applications);
     return FALSE;
 }
