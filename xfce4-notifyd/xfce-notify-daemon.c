@@ -1092,7 +1092,6 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
         }
     }
     xfconf_array_free (known_applications);
-    g_free(val);
 }
 
 static gboolean
