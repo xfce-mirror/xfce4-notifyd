@@ -339,7 +339,7 @@ GtkWidget *xfce_notify_clear_log_dialog (void)
     GtkWidget *dialog, *grid, *icon, *label, *content_area, *checkbutton;
     GtkDialogFlags flags = GTK_DIALOG_MODAL;
     gchar *message;
-    const char *str = _("Clear just the log or the icon cache too?");
+    const char *str = _("Do you really want to clear the notification log?");
     const char *format = "<span weight='bold' size='large'>%s</span>";
     char *markup;
 
@@ -361,7 +361,7 @@ GtkWidget *xfce_notify_clear_log_dialog (void)
 
     icon = gtk_image_new_from_icon_name ("edit-clear", GTK_ICON_SIZE_DIALOG);
 
-    message = g_strdup_printf ("%s (%s)",_("Clear icon cache"), xfce_notify_get_icon_cache_size ());
+    message = g_strdup_printf ("%s (%s)",_("include icon cache"), xfce_notify_get_icon_cache_size ());
     label = gtk_label_new (NULL);
     markup = g_markup_printf_escaped (format, str);
     gtk_label_set_markup (GTK_LABEL (label), markup);
