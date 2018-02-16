@@ -1357,7 +1357,6 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
 
-    g_free (new_app_name);
     if (image_data)
       g_variant_unref (image_data);
     if (icon_data)
