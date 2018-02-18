@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dušan Kazik <prescott66@gmail.com>, 2016-2017
+# Dušan Kazik <prescott66@gmail.com>, 2016-2018
 # Robert Hartl <hartl.robert@gmail.com>, 2010
 # Slavko <linux@slavino.sk>, 2015
 # Tomáš Vadina <inactive+kyberdev@transifex.com>, 2011
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2017-12-09 08:39+0000\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-02-18 07:24+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/xfce/xfce-apps/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,27 @@ msgstr ""
 "Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Skutočne chcete vymazať záznam s oznámeniami?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Vymazať záznam s oznámeniami"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Vymazať"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "<br>"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -54,19 +74,19 @@ msgstr "Toto je zásuvný modul oznámení"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Autorské práva © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Nevyrušovať</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Žiadne oznámenia"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "Vy_mazať záznam"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Nastavenia oznámenia…"
 
@@ -97,19 +117,19 @@ msgstr "Nemožno spustiť démona oznámení"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Iný démon oznámení je už spustený. Ukončuje sa.\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Ukážka oznámenia"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Takto bude vyzerať oznámenie"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Tlačidlo"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Náhľad oznámenia zlyhal"
 
@@ -138,10 +158,6 @@ msgstr "Otvoriť"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Otvoriť záznam s oznámeniami v externom editore"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Vymazať"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
