@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Pjotr <pjotrvertaalt@gmail.com>, 2013,2016-2017
+# Pjotr <pjotrvertaalt@gmail.com>, 2013,2016-2018
 # Vincent Tunru <projects@vinnl.nl>, 2008
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 06:31+0100\n"
-"PO-Revision-Date: 2017-11-30 12:01+0000\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-02-18 09:38+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/xfce/xfce-apps/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,27 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Weet u zeker dat u het meldingenlogboek leeg wilt maken?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Meldingenlogboek leegmaken"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Afbreken"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Wissen"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "tijdelijke pictogramopslag meenemen"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,20 +71,19 @@ msgstr "Dit is het meldingen-invoegsel"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Auteursrecht © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:103
-msgid "_Do not disturb"
-msgstr "Niet _storen"
+#: ../panel-plugin/notification-plugin-log.c:132
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Niet storen</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:262
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Geen meldingen"
 
-#: ../panel-plugin/notification-plugin-log.c:281
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "Logboek _wissen"
 
-#: ../panel-plugin/notification-plugin-log.c:289
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "Meldingsinstellingen..."
 
@@ -95,19 +114,19 @@ msgstr "Kan de meldingsdienst niet starten"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Bezig met afsluiten, want er draait reeds een andere achtergronddienst voor meldingen\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Voorbeeldweergave van melding"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Meldingen zullen er zo uit komen te zien"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Knop"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Meldingvoorbeeld weergeven mislukt"
 
@@ -136,10 +155,6 @@ msgstr "Openen"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Open het meldingenlogboek in een externe tekstbewerker"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Wissen"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
