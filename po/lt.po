@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012
-# Moo, 2015-2017
+# Moo, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 06:31+0100\n"
-"PO-Revision-Date: 2017-11-30 20:09+0000\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-02-18 19:08+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,27 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Ar tikrai norite išvalyti pranešimų žurnalą?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Išvalyti pranešimų žurnalą"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Atsisakyti"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Išvalyti"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "įtraukti piktogramų podėlį"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,20 +71,19 @@ msgstr "Tai yra pranešimų įskiepis"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Autorių teisės © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:103
-msgid "_Do not disturb"
-msgstr "_Netrukdyti"
+#: ../panel-plugin/notification-plugin-log.c:132
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Netrukdyti</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:262
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Nėra pranešimų"
 
-#: ../panel-plugin/notification-plugin-log.c:281
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "Iš_valyti žurnalą"
 
-#: ../panel-plugin/notification-plugin-log.c:289
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Pranešimų nustatymai…"
 
@@ -95,19 +114,19 @@ msgstr "Nepavyko paleisti pranešimų tarnybos"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Yra vykdoma kita pranešimų tarnyba, išeinama\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Pranešimų peržiūra"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Štai kaip atrodys pranešimai"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Mygtukas"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Pranešimų peržiūra nepavyko"
 
@@ -136,10 +155,6 @@ msgstr "Atverti"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Atverti pranešimų žurnalą išoriniame redaktoriuje"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Išvalyti"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
