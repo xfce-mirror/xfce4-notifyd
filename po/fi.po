@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Ammuu5, 2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2013
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2013,2018
 # Pasi Lallinaho <pasi@shimmerproject.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2017-12-19 06:00+0000\n"
-"Last-Translator: Ammuu5\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-02-19 12:29+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/xfce/xfce-apps/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,27 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Haluatko varmasti tyhjentää ilmoituslokin?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Tyhjennä ilmoitusloki"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Tyhjennä"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr ""
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -52,19 +72,19 @@ msgstr "Tämä on ilmoituslisäosa"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Tekijänoikeus © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Älä häiritse</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Ei ilmoituksia"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "_Tyhjennä loki"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Ilmoitusasetukset..."
 
@@ -95,19 +115,19 @@ msgstr "Ilmoituspalvelua ei voi käynnistää"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Toinen ilmoitussovellus on käynnissä, poistutaan\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Ilmoituksen esikatselu"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Tältä ilmoitus näyttää"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Painike"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Ilmoituksen esikatselua ei voi näyttää"
 
@@ -136,10 +156,6 @@ msgstr "Avaa"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Avaa ilmoitusloki ulkoisessa sovelluksessa"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Tyhjennä"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
