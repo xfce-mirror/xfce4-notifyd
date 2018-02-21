@@ -5,14 +5,14 @@
 # Translators:
 # Emin Tufan <etcetin@gmail.com>, 2017
 # Gökmen Görgen <gkmngrgn@gmail.com>, 2008
-# Necdet Yücel <necdetyucel@gmail.com>, 2013,2016-2017
+# Necdet Yücel <necdetyucel@gmail.com>, 2013,2016-2018
 # Volkan Gezer <volkangezer@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2017-12-21 22:15+0000\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-02-21 21:06+0000\n"
 "Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,27 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Bildirim kaydını silmek istiyor musunuz?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Bildirim kaydını sil"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "İptal"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Temizle"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "simge ön belleğini dahil et"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -53,19 +73,19 @@ msgstr "Bu bildirim eklentisidir"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Telif Hakkı © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Rahatsız etme</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Bildirin yok"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "Günlüğü _temizle"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Bildirim ayarları..."
 
@@ -96,19 +116,19 @@ msgstr "Bildiri servisinin başlaması olanaksız"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Başka bir bildirim servisi zaten çalıştığından çıkılıyor\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Bildirim Önizlemesi"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Uyarılar buna benzeyecektir"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Düğme"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Bildiri ön izleme başarısız"
 
@@ -137,10 +157,6 @@ msgstr "Aç"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Bildirim günlüğünü harici bir düzenleyici ile aç"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Temizle"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
