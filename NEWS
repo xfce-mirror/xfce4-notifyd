@@ -2,6 +2,20 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.4.2 (UNRELEASED):
+  This is a bugfix release.
+
+  Bugs fixed:
+    * Fix support for hyperlinks in notifications (Bug #14073)
+    * Fix crash because of double-free (Bug #14060)
+    * Ensure xfce4-notifyd.desktop.in goes into the tarball (Bug #13989)
+    * Suppress warnings about unused and uninitialized variables (Bug #14095)
+    * Fix crash when there are no known apps
+    * panel-plugin: Fix showing placeholder when there are no logs from today
+
+  Updated translations:
+
+
 Version 0.4.1 (09 December 2017):
   This is a feature release.
 
@@ -184,7 +198,7 @@ Version 0.2.3 (21 April 2013):
   libnotify is now required as a dependency to build a test suite and to
   show improved notification previews.
 
-  Features:o   
+  Features:o
     * Add a category to the settings dialog for Xfce4 Settings Manager.
     * Add widget names to summary ("summary") and body ("body") widgets
       to allow easier theming. Remove the redundant / buggy summary-bold
