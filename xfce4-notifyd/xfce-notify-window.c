@@ -258,11 +258,12 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_set_name (window->summary, "summary");
     gtk_label_set_max_width_chars (GTK_LABEL(window->summary), screen_width);
     gtk_label_set_ellipsize (GTK_LABEL (window->summary), PANGO_ELLIPSIZE_END);
-    gtk_label_set_line_wrap(GTK_LABEL(window->summary), TRUE);
+    gtk_label_set_line_wrap (GTK_LABEL(window->summary), TRUE);
+    gtk_label_set_line_wrap_mode (GTK_LABEL (window->body), PANGO_WRAP_WORD_CHAR);
+    gtk_label_set_lines (GTK_LABEL (window->body), 1);
+    gtk_widget_set_halign (window->summary, GTK_ALIGN_FILL);
 #if GTK_CHECK_VERSION (3, 16, 0)
     gtk_label_set_xalign (GTK_LABEL(window->summary), 0);
-#else
-    gtk_widget_set_halign (window->summary, GTK_ALIGN_START);
 #endif
     gtk_widget_set_valign (window->summary, GTK_ALIGN_BASELINE);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, TRUE, TRUE, 0);
@@ -271,11 +272,12 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_widget_set_name (window->body, "body");
     gtk_label_set_max_width_chars (GTK_LABEL(window->body), screen_width);
     gtk_label_set_ellipsize (GTK_LABEL (window->body), PANGO_ELLIPSIZE_END);
-    gtk_label_set_line_wrap(GTK_LABEL(window->body), TRUE);
+    gtk_label_set_line_wrap (GTK_LABEL(window->body), TRUE);
+    gtk_label_set_line_wrap_mode (GTK_LABEL (window->body), PANGO_WRAP_WORD_CHAR);
+    gtk_label_set_lines (GTK_LABEL (window->body), 6);
+    gtk_widget_set_halign (window->body, GTK_ALIGN_FILL);
 #if GTK_CHECK_VERSION (3, 16, 0)
     gtk_label_set_xalign (GTK_LABEL(window->body), 0);
-#else
-    gtk_widget_set_halign (window->body, GTK_ALIGN_START);
 #endif
     gtk_widget_set_valign (window->body, GTK_ALIGN_BASELINE);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
