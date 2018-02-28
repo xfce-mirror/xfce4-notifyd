@@ -2,18 +2,22 @@
 | Xfce Notify Daemon |
 +--------------------+
 
-Version 0.4.2 (UNRELEASED):
+Version 0.4.2 (01 March 2018):
   This is a bugfix release.
 
   Bugs fixed:
     * Fix support for hyperlinks in notifications (Bug #14073)
     * Fix crash because of double-free (Bug #14060)
+    * Improve wrapping and ellipsizing of notification bubble (Bug #12674)
     * Ensure xfce4-notifyd.desktop.in goes into the tarball (Bug #13989)
     * Suppress warnings about unused and uninitialized variables (Bug #14095)
     * Fix crash when there are no known apps
     * panel-plugin: Fix showing placeholder when there are no logs from today
 
-  Updated translations:
+  Updated translations: Albanian, Bulgarian, Catalan, Chinese (China), Croatian,
+  Czech, Dutch (Flemish), Finnish, French, Galician, German, Hebrew, Kazakh,
+  Lithuanian, Malay, Norwegian Bokmål, Polish, Portuguese (Brazilian), Russian,
+  Serbian, Slovak, Spanish, Swedish, Turkish, Ukrainian
 
 
 Version 0.4.1 (09 December 2017):
