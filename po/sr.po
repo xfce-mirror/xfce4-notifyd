@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Саша Петровић <salepetronije@gmail.com>, 2013
-# Саша Петровић <salepetronije@gmail.com>, 2013,2017
+# Саша Петровић <salepetronije@gmail.com>, 2013,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2017-12-21 13:52+0000\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-03-01 08:50+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/xfce/xfce-apps/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,27 @@ msgstr ""
 "Language: sr\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Да ли заиста желите избрисати дневник обавештења?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Избриши дневник обавештења"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Откажи"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Очисти"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "обухвати и оставу сличица"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,19 +71,19 @@ msgstr "Ово је прикључак обавештења"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Права умножавања © 2017 Зимон Штанваис (Simon Steinbeiß)\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Не узнемиравај</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Нема обавештења"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "_Очисти дневник"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Поставке обавештења…"
 
@@ -94,19 +114,19 @@ msgstr "Нисам успео да покренем домара обавешт�
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Још један обавештајни домар је покренут, излазим\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Преглед обавештења"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Обавештења ће изгледати овако"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Дугме"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Преглед обавештења није успео"
 
@@ -135,10 +155,6 @@ msgstr "Отвори"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Отвори дневник обавештења  спољним уређивачем"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Очисти"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
