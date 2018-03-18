@@ -5,15 +5,16 @@
 # Translators:
 # Cristian Cozzolino <cristiancozzolino@libero.it>, 2010
 # Cristian Marchi <cri.penta@gmail.com>, 2013,2016
+# Emanuele Petriglia <inbox@emanuelepetriglia.me>, 2018
 # Enrico B. <enricobe@hotmail.com>, 2017
 # Enrico B. <enricobe@hotmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-28 00:32+0200\n"
-"PO-Revision-Date: 2017-11-05 19:50+0000\n"
-"Last-Translator: Enrico B. <enricobe@hotmail.com>\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-03-18 16:37+0000\n"
+"Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,27 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:204
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Pulire veramente il registro delle notifiche?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Pulisci il registro delle notifiche"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Cancella"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Pulisci"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "includi la cache delle icone"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -53,17 +74,19 @@ msgstr "Questo è il plugin delle notifiche"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:243
-msgid "_Do not disturb"
-msgstr "_Non disturbare"
+#: ../panel-plugin/notification-plugin-log.c:132
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Non disturbare</b>"
 
-#. checkmenuitem for the do not disturb mode of xfce4-notifyd
-#: ../panel-plugin/notification-plugin-log.c:260
+#: ../panel-plugin/notification-plugin-log.c:306
+msgid "No notifications"
+msgstr "Nessuna nofitica"
+
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "_Pulisci log"
 
-#: ../panel-plugin/notification-plugin-log.c:266
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Impostazioni notifiche..."
 
@@ -94,19 +117,19 @@ msgstr "Impossibile avviare il demone di notifica"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Un altro demone di notifica è già in esecuzione; uscita\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Anteprima notifica"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "\"Ecco come appariranno le notifiche\""
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Pulsante"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "L'anteprima della notifica non è riuscita"
 
@@ -114,59 +137,55 @@ msgstr "L'anteprima della notifica non è riuscita"
 msgid "Settings daemon is unavailable"
 msgstr "Il demone delle impostazioni non è disponibile"
 
-#: ../xfce4-notifyd-config/main.c:932
+#: ../xfce4-notifyd-config/main.c:934
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Log vuoto</b></big>\nNessuna notifica registrata finora."
 
-#: ../xfce4-notifyd-config/main.c:939
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ../xfce4-notifyd-config/main.c:940
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh the notification log"
 msgstr "Aggiorna il registro delle notifiche"
 
-#: ../xfce4-notifyd-config/main.c:945
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Open"
 msgstr "Apri"
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Apri il registro delle notifiche in un programma esterno"
 
-#: ../xfce4-notifyd-config/main.c:951
-msgid "Clear"
-msgstr "Pulisci"
-
-#: ../xfce4-notifyd-config/main.c:952
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
 msgstr "Svuota il registro delle notifiche"
 
-#: ../xfce4-notifyd-config/main.c:974
+#: ../xfce4-notifyd-config/main.c:976
 msgid "Display version information"
 msgstr "Visualizza le informazioni sulla versione"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Settings manager socket"
 msgstr "Socket del gestore delle impostazioni"
 
-#: ../xfce4-notifyd-config/main.c:975
+#: ../xfce4-notifyd-config/main.c:977
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:985
+#: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Digitare \"%s --help\" per informazioni sull'uso."
 
-#: ../xfce4-notifyd-config/main.c:1000
+#: ../xfce4-notifyd-config/main.c:1002
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Rilasciato nei termini della licenza GNU General Public License, versione 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1001
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Segnalare eventuali errori a %s.\n"
