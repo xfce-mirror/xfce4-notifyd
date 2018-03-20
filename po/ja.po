@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016-2017
-# 出口　憲 <kdeguchi@sz.tokoha-u.ac.jp>, 2017
+# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016-2018
+# kdeguchi <kdeguchi@sz.tokoha-u.ac.jp>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2017-12-04 00:45+0000\n"
-"Last-Translator: 出口　憲 <kdeguchi@sz.tokoha-u.ac.jp>\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-03-20 05:27+0000\n"
+"Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-apps/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,27 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "本当に通知ログをクリアしますか?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "通知ログをクリア"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "クリア"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "アイコンキャッシュを含む"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -51,19 +71,19 @@ msgstr "デスクトップ通知プラグインです"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>邪魔しないでください(_D)</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "通知はありません"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "ログをクリアする(_C)"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "通知設定(_N)…"
 
@@ -94,19 +114,19 @@ msgstr "通知デーモンを開始できません"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "他の通知デーモンが起動しているため、終了します。\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "通知プレビュー"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "通知はこのように表示されます。"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "ボタン"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "通知のプレビューに失敗しました"
 
@@ -135,10 +155,6 @@ msgstr "開く"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "外部エディターで通知ログを開く"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "クリア"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
