@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2018-01-15 18:33+0000\n"
+"POT-Creation-Date: 2018-02-18 00:31+0100\n"
+"PO-Revision-Date: 2018-03-23 15:40+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/xfce/xfce-apps/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,27 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Ви дійсно бажаєте очистити журнал повідомлень?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Очистити журнал повідомлень"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Відмінити"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+msgid "Clear"
+msgstr "Очистити"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "долучити кеш іконок"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -50,19 +70,19 @@ msgstr "Це додаток повідомлень"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Всі права застережено © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Не перешкоджати</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Без повідомлень"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "_Очистити журнал"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Налаштування повідомлень"
 
@@ -93,19 +113,19 @@ msgstr "Не можу запустити демон повідомлень"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Інший демон повідомлень вже працює, виходжу\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Попередній перегляд повідомлення"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Ось так будуть виглядати повідомлення"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Кнопка"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Попередній перегляд повідомлення не вдався"
 
@@ -134,10 +154,6 @@ msgstr "Відкрити"
 #: ../xfce4-notifyd-config/main.c:948
 msgid "Open the notification log in an external editor"
 msgstr "Відкрити журнал повідомлень у зовнішньому редакторі"
-
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Очистити"
 
 #: ../xfce4-notifyd-config/main.c:954
 msgid "Clear the notification log"
