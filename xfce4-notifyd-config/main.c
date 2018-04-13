@@ -863,6 +863,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                            G_OBJECT(sbtn), "value");
 
     do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));
+    gtk_switch_set_active (GTK_SWITCH (do_fadeout), TRUE);
     xfconf_g_property_bind(channel, "/do-fadeout", G_TYPE_BOOLEAN,
                            G_OBJECT(do_fadeout), "active");
 
