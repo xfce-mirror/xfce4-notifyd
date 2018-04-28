@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-04-28 15:26+0000\n"
+"PO-Revision-Date: 2018-04-28 18:52+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/xfce/xfce-apps/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -267,7 +267,7 @@ msgstr "Elhalványítás"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "_Slide out"
-msgstr ""
+msgstr "_Beúsztatás"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
@@ -297,7 +297,7 @@ msgstr "<b>Animációk</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr ""
+msgstr "Alapértelmezésben az értesítési buborékok azon a kijelzőn lesznek megjelenítve, ahol az egérmutató is található."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
