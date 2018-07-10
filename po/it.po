@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-06-16 16:27+0000\n"
+"PO-Revision-Date: 2018-07-10 08:15+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -51,12 +51,12 @@ msgstr "Notifiche"
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "Impossibile aprire il seguente url: %s"
+msgstr "Impossibile aprire il seguente URL: %s"
 
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr "Impostazioni plugin Notifiche"
+msgstr "Impostazioni componente aggiuntivo delle notifiche"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
@@ -68,7 +68,7 @@ msgstr "Mostra solo notifiche di oggi"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:140
 msgid "This is the notification plugin"
-msgstr "Questo è il plugin delle notifiche"
+msgstr "Questo è il componente aggiuntivo delle notifiche"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:142
 msgid "Copyright © 2017 Simon Steinbeiß\n"
@@ -84,19 +84,19 @@ msgstr "Nessuna nofitica"
 
 #: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
-msgstr "_Pulisci log"
+msgstr "_Pulisci registro"
 
 #: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
-msgstr "_Impostazioni notifiche..."
+msgstr "_Impostazioni notifiche…"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
-msgstr "Plugin Notifiche"
+msgstr "Componente aggiuntivo delle notifiche"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:2
 msgid "Notification plugin for the Xfce panel"
-msgstr "Plugin Notifiche per il pannello Xfce"
+msgstr "Componente aggiuntivo delle notifiche per il pannello Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
 #: ../xfce4-notifyd-config/main.c:805
@@ -115,7 +115,7 @@ msgstr "Impossibile avviare il demone di notifica"
 #: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
-msgstr "Un altro demone di notifica è già in esecuzione; uscita\n"
+msgstr "Un altro demone di notifica è già in esecuzione; uscita in corso\n"
 
 #: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
@@ -123,7 +123,7 @@ msgstr "Anteprima notifica"
 
 #: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
-msgstr "\"Ecco come appariranno le notifiche\""
+msgstr "Ecco come appariranno le notifiche"
 
 #: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
@@ -131,7 +131,7 @@ msgstr "Pulsante"
 
 #: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
-msgstr "L'anteprima della notifica non è riuscita"
+msgstr "Impossibile mostrare l'anteprima della notifica"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
@@ -141,7 +141,7 @@ msgstr "Il demone delle impostazioni non è disponibile"
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
-msgstr "<big><b>Log vuoto</b></big>\nNessuna notifica registrata finora."
+msgstr "<big><b>Registro vuoto</b></big>\nNessuna notifica registrata finora."
 
 #: ../xfce4-notifyd-config/main.c:941
 msgid "Refresh"
@@ -178,7 +178,7 @@ msgstr "SOCKET_ID"
 #: ../xfce4-notifyd-config/main.c:987
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Digitare \"%s --help\" per informazioni sull'uso."
+msgstr "Provare \"%s --help\" per ottenere le informazioni sull'uso."
 
 #: ../xfce4-notifyd-config/main.c:1002
 #, c-format
@@ -192,31 +192,31 @@ msgstr "Segnalare eventuali errori a %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "Solo durante \"Non Disturbare\""
+msgstr "solo durante \"Non Disturbare\""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
-msgstr "Sempre"
+msgstr "sempre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "all"
-msgstr "Tutte"
+msgstr "tutte"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "all except blocked"
-msgstr "Tutte tranne le bloccate"
+msgstr "tutte tranne le bloccate"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
-msgstr "Solo le bloccate"
+msgstr "solo le bloccate"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "Schermo con puntatore del mouse"
+msgstr "schermo con puntatore del mouse"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
-msgstr "Schermo primario"
+msgstr "schermo primario"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
@@ -245,11 +245,11 @@ msgstr "Il servizio di notifica non è attivo. Non verranno mostrate le notifich
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Ora vengono mostrate solo le notifiche urgenti</b>"
+msgstr "<b>Ora vengono mostrate solo le notifiche urgenti.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
-msgstr "Mostra Anteprima"
+msgstr "Mostra _Anteprima"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "seconds"
@@ -299,7 +299,7 @@ msgstr "<b>Animazioni</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Di default i messaggi di notifica vengono mostrati sullo schermo dove è presente il puntatore del mouse."
+msgstr "Di base i messaggi di notifica vengono mostrati sullo schermo dove è presente il puntatore del mouse."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
