@@ -5,20 +5,21 @@
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
 # Michal Várady <miko.vaji@gmail.com>, 2016-2018
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018
 # Petr Šimáček <petr.simacek@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-02-18 09:40+0000\n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"PO-Revision-Date: 2018-08-02 05:42+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #: ../common/xfce-notify-log.c:342
 msgid "Do you really want to clear the notification log?"
@@ -30,7 +31,7 @@ msgstr "Vymazat protokol v oznámeními"
 
 #: ../common/xfce-notify-log.c:349
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Storno"
 
 #: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
 msgid "Clear"
