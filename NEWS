@@ -2,6 +2,18 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.4.3 (27 October 2018):
+  This is (mostly) a translation update release.
+
+  Bugs fixed:
+    * Set the correct default value for fadeout (LP #1763674)
+
+  Updated translations: Arabic, Belarusian, Croatian, Czech, Dutch (Flemish),
+  English (Australia), Finnish, French, Galician, German, Greek, Hebrew, Hungarian,
+  Indonesian, Italian, Japanese, Korean, Norwegian Bokmål, Polish, Portuguese,
+  Portuguese (Brazilian), Russian, Serbian, Swedish, Thai, Ukrainian
+
+
 Version 0.4.2 (01 March 2018):
   This is a bugfix release.
 
