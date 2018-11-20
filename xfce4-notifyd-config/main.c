@@ -502,14 +502,14 @@ xfce4_notifyd_log_activated (GtkSwitch *log_switch,
                              gpointer user_data)
 {
     NotificationLogWidgets *log_widgets = user_data;
-    const char *format = "<b>Currently only urgent notifications are shown.</b>\nNotification logging is \%s.";
+    const char *format = _("<b>Currently only urgent notifications are shown.</b>\nNotification logging is \%s.");
     char *markup;
 
     gtk_switch_set_state (GTK_SWITCH (log_switch), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps), state);
     gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps_label), state);
-    markup = g_markup_printf_escaped (format, state ? "enabled" : "disabled");
+    markup = g_markup_printf_escaped (format, state ? _("enabled") : _("disabled"));
     gtk_label_set_markup (GTK_LABEL (log_widgets->infobar_label), markup);
     g_free (markup);
 }
@@ -586,7 +586,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
 
             if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {
                 GtkWidget *header;
-                header = gtk_label_new ("Yesterday and before");
+                header = gtk_label_new (_("Yesterday and before"));
                 gtk_widget_set_sensitive (header, FALSE);
                 gtk_widget_set_margin_top (header, 3);
                 gtk_widget_set_margin_bottom (header, 3);
@@ -890,9 +890,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
 
-    placeholder_label = placeholder_label_new ("<big><b>Currently there are no known applications.</b></big>"
-                                                "\nAs soon as an application sends a notification"
-                                                "\nit will appear in this list.");
+    placeholder_label = placeholder_label_new (_("<big><b>Currently there are no known applications.</b></big>"
+                                                 "\nAs soon as an application sends a notification"
+                                                 "\nit will appear in this list."));
     /* Initialize the list of known applications */
     xfce4_notifyd_known_applications_changed (channel, KNOWN_APPLICATIONS_PROP, NULL, known_applications_listbox);
     gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
