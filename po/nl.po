@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-09-14 00:15+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-11-21 09:40+0000\n"
+"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/xfce/xfce-apps/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr "Meldingenlogboek leegmaken"
 msgid "Cancel"
 msgstr "Afbreken"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
 msgid "Clear"
 msgstr "Wissen"
 
@@ -130,59 +130,85 @@ msgstr "Knop"
 msgid "Notification preview failed"
 msgstr "Meldingvoorbeeld weergeven mislukt"
 
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Er worden thans alleen dringende meldingen getoond.</b>\nVastleggen van meldingen in logboek is %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "ingeschakeld"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "uitgeschakeld"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "Gisteren en daarvoor"
+
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Instellingendienst is niet beschikbaar"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>Er zijn thans geen bekende toepassingen.</b></big>\nZodra een toepassing een melding verstuurt\nzal die in de lijst verschijnen."
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Leeg logboek</b></big>\nEr staan nog geen meldingen in het logboek."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Verversen"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Ververs het meldingenlogboek"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Openen"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
 msgstr "Open het meldingenlogboek in een externe tekstbewerker"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Wis het meldingenlogboek"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Toon versie-informatie"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Contactpunt voor instellingenbeheerder"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "CONTACTPUNT_ID"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Tik '%s --help' voor handleiding."
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vrijgegeven onder de voorwaarden der GNU General Public License, versie 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fouten graag melden aan %s.\n"
