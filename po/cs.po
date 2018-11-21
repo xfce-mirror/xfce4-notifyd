@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-08-02 05:42+0000\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-11-21 15:38+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Vymazat protokol v oznámeními"
 msgid "Cancel"
 msgstr "Storno"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
 msgid "Clear"
 msgstr "Vymazat"
 
@@ -132,59 +132,85 @@ msgstr "Tlačítko"
 msgid "Notification preview failed"
 msgstr "Náhled oznámení se nezdařil"
 
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Nyní jsou zobrazována pouze neodkladná oznámení.</b>\nZáznam oznámení je %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "zapnuto"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "vypnuto"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "Včera a starší"
+
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Služba pro nastavení není dostupná"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>V tuto chvíli zde nejsou žádné známé aplikace.</b></big>\nJakmile aplikace pošle oznámení, objeví se v\ntomto seznamu."
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Protokol je prázdný</b></big>\nDosud nebyla zaprotokolována žádná oznámení."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Obnoví protokol s oznámeními"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
 msgstr "Otevře protokol s oznámeními v externím editoru"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Vymaže protokol s oznámeními"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Zobrazit informace o verzi"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Soket správce nastavení"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Informace o použití získáte příkazem '%s --help'"
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vydáno pod podmínkami licence  GNU General Public License, verze 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prosímte, abyste hlásili chyby na adresu %s.\n"
