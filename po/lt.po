@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-02-18 19:08+0000\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-11-21 09:30+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: ../common/xfce-notify-log.c:342
 msgid "Do you really want to clear the notification log?"
@@ -31,7 +31,7 @@ msgstr "Išvalyti pranešimų žurnalą"
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
 msgid "Clear"
 msgstr "Išvalyti"
 
@@ -130,59 +130,85 @@ msgstr "Mygtukas"
 msgid "Notification preview failed"
 msgstr "Pranešimų peržiūra nepavyko"
 
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Šiuo metu yra rodomi tik skubūs pranešimai.</b>\nPranešimų registravimas yra %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "įjungtas"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "išjungtas"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "Vakar ir anksčiau"
+
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Nustatymų tarnyba neprieinama"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>Šiuo metu nėra jokių žinomų programų.</b></big>\nKai tik programa atsiųs pranešimą,\nji bus rodoma šiame sąraše."
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Žurnalas tuščias</b></big>\nKol kas nebuvo registruota jokių pranešimų."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Įkelti iš naujo"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Iš naujo įkelti pranešimų žurnalą"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Atverti"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
 msgstr "Atverti pranešimų žurnalą išoriniame redaktoriuje"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Išvalyti pranešimų žurnalą"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Rodyti versijos informaciją"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Nustatymų tvarkytuvės lizdas"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "LIZDO_ID"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Pabandykite „%s --help“, jei norite daugiau informacijos."
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Išleista pagal GNU General Public License sąlygas, versija 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Apie klaidas pranešti %s.\n"
