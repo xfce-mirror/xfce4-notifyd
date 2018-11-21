@@ -5,13 +5,13 @@
 # Translators:
 # Aputsiak Niels Janussen (Skjalden) <aj@isit.gl>, 2013
 # Per Kongstad <p_kongstad@op.pl>, 2008
-# scootergrisen, 2016-2017
+# scootergrisen, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 06:31+0100\n"
-"PO-Revision-Date: 2017-12-04 22:42+0000\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-11-21 20:19+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,27 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/notification-plugin.c:215
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Vil du virkelig rydde notifikationsloggen?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Ryd notifikationslog"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Annuller"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
+msgid "Clear"
+msgstr "Ryd"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "inkluder ikon-cache"
+
+#: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -52,19 +72,19 @@ msgstr "Dette er notifikation-pluginet"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Ophavsret © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:121
+#: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Forstyr ikke</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:282
+#: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
 msgstr "Ingen notifikationer"
 
-#: ../panel-plugin/notification-plugin-log.c:301
+#: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
 msgstr "_Ryd log"
 
-#: ../panel-plugin/notification-plugin-log.c:309
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
 msgstr "_Notifikationsindstillinger…"
 
@@ -95,79 +115,101 @@ msgstr "Kan ikke starte notifikationsdæmon"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Anden notifikationsdæmon kører, afslutter\n"
 
-#: ../xfce4-notifyd-config/main.c:77
+#: ../xfce4-notifyd-config/main.c:78
 msgid "Notification Preview"
 msgstr "Forhåndsvisning af notifikation"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
 msgstr "Sådan vil notifikationer se ud"
 
-#: ../xfce4-notifyd-config/main.c:83
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
 msgstr "Knap"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
 msgstr "Forhåndsvisning af notifikation fejlede"
+
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>I øjeblikket vises kun notifikationer som haster.</b>\nNotifikationslogning er %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "aktiveret"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "deaktiveret"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "I går og tidligere"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Indstillingsdæmon er ikke tilgængelig"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>I øjeblikket er der ingen kendte programmer.</b></big>\nSå snart et program sender en notifikation\nvises den i listen."
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Tom log</b></big>\nDer er ikke blevet logget nogen notifikationer endnu."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Opdater"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Opdater notifikationsloggen"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Åbn"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
 msgstr "Åbn notifikationsloggen i et eksternt redigeringsprogram"
 
-#: ../xfce4-notifyd-config/main.c:953
-msgid "Clear"
-msgstr "Ryd"
-
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Ryd notifikationsloggen"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Vis versionsinformation"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Sokkel til indstillingshåndtering"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "SOKKEL-_ID"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv \"%s --help\" for anvendelse."
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Udgivet under vilkårene i GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapportér venligst fejl til %s.\n"
