@@ -70,9 +70,8 @@ notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
   gtk_menu_popup_at_widget (GTK_MENU (notification_plugin->menu),
                             notification_plugin->button,
                             xfce_panel_plugin_get_orientation (notification_plugin->plugin) == GTK_ORIENTATION_VERTICAL
-                            ? GDK_GRAVITY_WEST : GDK_GRAVITY_NORTH,
-                            xfce_panel_plugin_get_orientation (notification_plugin->plugin) == GTK_ORIENTATION_VERTICAL
-                            ? GDK_GRAVITY_EAST : GDK_GRAVITY_SOUTH,
+                            ? GDK_GRAVITY_NORTH_EAST : GDK_GRAVITY_SOUTH_WEST,
+                            GDK_GRAVITY_NORTH_WEST,
                             NULL);
 #else
   gtk_menu_popup (GTK_MENU (notification_plugin->menu), NULL, NULL,
