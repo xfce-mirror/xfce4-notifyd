@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-11-05 20:14+0000\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-11-29 11:13+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-apps/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Hreinsa tilkynningaskrána"
 msgid "Cancel"
 msgstr "Hætta við"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
 msgid "Clear"
 msgstr "Hreinsa"
 
@@ -130,59 +130,85 @@ msgstr "Hnappur"
 msgid "Notification preview failed"
 msgstr "Forskoðun á tilkynningum mistókst"
 
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Núna eru einungis áríðandi tilkynningar birtar.</b>\nSkrning tilkynninga er %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "virkt"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "óvirkt"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "Í gær og áður"
+
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Stillingamiðlari er ekki tiltækur"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>Í augnablikinu eru engin þekkt forrit.</b></big>\nUm leið og forrit sendir tilkynningu\nmun það birtast í þessum lista."
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
-msgstr ""
+msgstr "<big><b>Tóm atvikaskrá</b></big>\nEngar tilkynningar hafa enn verið skráðar."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Uppfæra"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Endurlesa tilkynningaskrá"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Opna"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
-msgstr ""
+msgstr "Opna tilkynningaskrána með utanaðkomandi ritli"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Hreinsa tilkynningaskrá"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Birta útgáfuupplýsingar"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Sökkull stillingastjórnunar"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skrifaðu '%s --help' til að sjá hvernig á að nota þetta."
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Þessi hugbúnaður er gefin út eftir GNU General Public License leyfinu, útgáfa 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Tilkynntu villur til %s.\n"
@@ -238,11 +264,11 @@ msgstr "Sérsníddu stillingar á tilkynningum"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr ""
+msgstr "Tilkynningaþjónustan er ekki í gangi .Engar tilkynningar verða birtar."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr ""
+msgstr "<b>Núna eru einungis áríðandi tilkynningar birtar.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
@@ -296,7 +322,7 @@ msgstr "<b>Myndhreyfingar</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr ""
+msgstr "Sjálfgefið birtast tilkynningareitir á þeim skjá þar sem músarbendillin er staddur."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
@@ -308,7 +334,7 @@ msgstr "Almennt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "<b>Show or block notifications per application</b>"
-msgstr ""
+msgstr "<b>Birta eða loka á tilkynningar fyrir hvert forrit</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Applications"
