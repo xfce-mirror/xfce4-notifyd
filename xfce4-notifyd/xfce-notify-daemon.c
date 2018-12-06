@@ -642,11 +642,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         GdkWindow *window = l->data;
         GdkWindowTypeHint type_hint;
 
-        gdk_error_trap_push();
+        gdk_x11_display_error_trap_push(display);
         type_hint = gdk_window_get_type_hint(window);
-        gdk_flush();
+        gdk_display_flush(display);
 
-        if (gdk_error_trap_pop()) {
+        if (gdk_x11_display_error_trap_pop(display)) {
             DBG("Got invalid window in stack, could not get type hint");
             continue;
         }
@@ -654,11 +654,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         if(type_hint == GDK_WINDOW_TYPE_HINT_DOCK) {
             GdkRectangle window_geom, intersection;
 
-            gdk_error_trap_push();
+            gdk_x11_display_error_trap_push(display);
             gdk_window_get_frame_extents(window, &window_geom);
-            gdk_flush();
+            gdk_display_flush(display);
 
-            if (gdk_error_trap_pop()) {
+            if (gdk_x11_display_error_trap_pop(display)) {
                 DBG("Got invalid window in stack, could not get frame extents");
                 continue;
             }
