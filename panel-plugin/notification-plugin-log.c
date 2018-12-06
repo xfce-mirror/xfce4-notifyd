@@ -171,12 +171,12 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
     log_length = numberof_groups - log_display_limit;
     if (log_length < 0)
-      log_length = 0;
+      log_length = -1;
 
     /* Check if the menu is going to be empty despite there being a log file, e.g.
        when showing only the notifications of today but the log only contains entries
        from yesterday and before. In this case show the placeholder. */
-    if (numberof_groups == 0)
+    if (numberof_groups == -1)
       no_notifications = TRUE;
 
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
