@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Andreas Eitel, 2018
 # Christian Dywan <christian@twotoasts.de>, 2008
 # Fabian Nowak <timystery@arcor.de>, 2010
 # Markus, 2013
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-04-12 09:22+0000\n"
-"Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-12-29 12:16+0000\n"
+"Last-Translator: Andreas Eitel\n"
 "Language-Team: German (http://www.transifex.com/xfce/xfce-apps/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +36,7 @@ msgstr "Benachrichtigungsprotokoll leeren"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
 msgid "Clear"
 msgstr "Leeren"
 
@@ -134,59 +135,85 @@ msgstr "Knopf"
 msgid "Notification preview failed"
 msgstr "Benachrichtigungsvorschau fehlgeschlagen"
 
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Derzeit werden nur dringende Benachrichtigungen angezeigt.</b>\nBenachrichtigungsprotokollierung ist %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "Aktiviert"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "Deaktiviert"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "Gestern und davor"
+
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Einstellungsdienst nicht verfügbar"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>Derzeit gibt es keine bekannten Anwendungen.</b></big>\nSobald eine Anwendung eine Benachrichtigung sendet.\nwird sie in dieser Liste erscheinen."
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Leeres Protokoll</b></big>\nEs wurden keine Benachrichtigungen aufgezeichnet."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Auffrischen"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Benachrichtigungsprotokoll auffrischen"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Öffnen"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
 msgstr "Benachrichtigungsprotokoll in einem externen Programm öffnen"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Benachrichtigungsprotokoll leeren"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Versionsinformationen anzeigen"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Einstellungsverwaltungsanschluss"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "ANSCHLUSS_KENNUNG"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "»%s --help« eingeben, um Hinweise zur Benutzung zu erhalten."
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Veröffentlicht unter den Bedingungen der »GNU General Public License, Version 2«\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fehlerberichte bitte an %s melden.\n"
