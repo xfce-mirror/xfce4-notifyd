@@ -982,7 +982,7 @@ main(int argc,
 
     xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
 
-    if(!gtk_init_with_args(&argc, &argv, "", option_entries, PACKAGE, &error)) {
+    if(!gtk_init_with_args(&argc, &argv, NULL, option_entries, PACKAGE, &error)) {
         if(G_LIKELY(error)) {
             g_printerr("%s: %s.\n", G_LOG_DOMAIN, error->message);
             g_printerr(_("Type '%s --help' for usage."), G_LOG_DOMAIN);
