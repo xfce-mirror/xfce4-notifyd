@@ -97,7 +97,11 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   gtk_container_add_with_properties (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
 						                         grid, "expand", TRUE, "fill", TRUE, NULL);
   label = gtk_label_new (_("Number of notifications to show"));
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+#if GTK_CHECK_VERSION (3, 16, 0)
+  gtk_label_set_xalign (GTK_LABEL (label), 0);
+#else
+  gtk_widget_set_halign (label, GTK_ALIGN_START);
+#endif
   gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 0, 1, 1);
   spin = gtk_spin_button_new (adjustment, 1.0, 0);
   gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (spin), 1, 0, 1, 1);
@@ -105,7 +109,11 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
                           G_OBJECT (spin), "value");
 
   label = gtk_label_new (_("Only show notifications from today"));
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+#if GTK_CHECK_VERSION (3, 16, 0)
+  gtk_label_set_xalign (GTK_LABEL (label), 0);
+#else
+  gtk_widget_set_halign (label, GTK_ALIGN_START);
+#endif
   gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 1, 1, 1);
   check = gtk_switch_new ();
   gtk_widget_set_halign (check, GTK_ALIGN_END);
