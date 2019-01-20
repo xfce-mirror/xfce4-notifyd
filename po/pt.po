@@ -4,15 +4,15 @@
 # 
 # Translators:
 # José Vieira <jvieira33@sapo.pt>, 2017-2018
-# Nuno Miguel <nunomgue@gmail.com>, 2013,2016-2017
+# Nuno Miguel <nunomgue@gmail.com>, 2013,2016-2017,2019
 # Sérgio Marques <smarquespt@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2018-12-09 21:09+0000\n"
-"Last-Translator: José Vieira <jvieira33@sapo.pt>\n"
+"PO-Revision-Date: 2019-01-20 13:27+0000\n"
+"Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/xfce/xfce-apps/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -193,7 +193,7 @@ msgstr "Mostrar informação de versão"
 
 #: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
-msgstr "\"Socket\" do gestor de definições"
+msgstr "Socket do gestor de definições"
 
 #: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
@@ -297,7 +297,7 @@ msgstr "_Deslizar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
-msgstr "_Posição por predefinição"
+msgstr "_Posição por omissão"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "_Theme"
@@ -323,7 +323,7 @@ msgstr "<b>Animações</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Por predefinição os balões da notificação serão mostrados no ecrã onde o ponteiro do rato estiver localizado."
+msgstr "Por por omissão os balões da notificação serão mostrados no ecrã onde o ponteiro do rato estiver localizado."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
