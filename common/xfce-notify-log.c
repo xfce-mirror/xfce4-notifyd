@@ -153,6 +153,8 @@ void xfce_notify_log_insert (const gchar *app_name,
 
     notify_log_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                    XFCE_NOTIFY_LOG_FILE, TRUE);
+    notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                         XFCE_NOTIFY_ICON_PATH, TRUE);
 
     if (notify_log_path)
     {
@@ -177,8 +179,6 @@ void xfce_notify_log_insert (const gchar *app_name,
             g_bytes_unref(image_bytes);
             pixbuf = notify_pixbuf_from_image_data (image_data);
             if (pixbuf) {
-                notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
-                                                                      XFCE_NOTIFY_ICON_PATH, TRUE);
                 notify_log_icon_path = g_strconcat (notify_log_icon_folder , icon_name, ".png", NULL);
                 g_free(notify_log_icon_folder);
                 if (!g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
@@ -192,7 +192,27 @@ void xfce_notify_log_insert (const gchar *app_name,
             g_free(icon_name);
         }
         else if (image_path) {
-            g_key_file_set_string (notify_log, group, "app_icon", image_path);
+            /* If the image path is in the tmp directory we copy it to the cache directory to make it persistent
+               (e.g. Chrome/Chromium uses the tmp directory to store and reference icons, see https://bugzilla.xfce.org/show_bug.cgi?id=15215)*/
+            if (g_strcmp0 ("/tmp", g_path_get_dirname (image_path)) == 0) {
+                GFile *tmp_path, *cache_path;
+                gchar *filename, *image_path_md5;
+
+                image_path_md5 = g_compute_checksum_for_string (G_CHECKSUM_MD5, image_path, -1);
+                filename = g_strdup_printf ("%s%s.png", notify_log_icon_folder, image_path_md5);
+                tmp_path = g_file_new_for_path (image_path);
+                cache_path = g_file_new_for_path (filename);
+                if (g_file_copy (tmp_path, cache_path, G_FILE_COPY_NONE, NULL, NULL, NULL, NULL))
+                    g_key_file_set_string (notify_log, group, "app_icon", image_path_md5);
+                else
+                    g_warning ("Failed to copy the image from the tmp to the cache directory: %s", filename);
+                g_object_unref (tmp_path);
+                g_object_unref (cache_path);
+                g_free (filename);
+                g_free (image_path_md5);
+            }
+            else
+                g_key_file_set_string (notify_log, group, "app_icon", image_path);
         }
         else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
             g_key_file_set_string (notify_log, group, "app_icon", app_icon);
