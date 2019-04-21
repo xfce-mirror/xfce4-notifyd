@@ -939,18 +939,21 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
 
     log_widgets.log_toolbar = GTK_TOOLBAR (gtk_builder_get_object (builder, "log_toolbar"));
     icon = gtk_image_new_from_icon_name ("view-refresh-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
     log_refresh_button = gtk_tool_button_new (icon, _("Refresh"));
     gtk_widget_set_tooltip_text (GTK_WIDGET (log_refresh_button), _("Refresh the notification log"));
     gtk_toolbar_insert(log_widgets.log_toolbar, GTK_TOOL_ITEM(log_refresh_button), 0);
     g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_refresh), &log_widgets);
     icon = gtk_image_new_from_icon_name ("document-open-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
     log_open_button = gtk_tool_button_new (icon, _("Open"));
     gtk_widget_set_tooltip_text (GTK_WIDGET (log_open_button), _("Open the notification log in an external editor"));
     gtk_toolbar_insert(log_widgets.log_toolbar, GTK_TOOL_ITEM(log_open_button), 1);
     g_signal_connect (G_OBJECT (log_open_button), "clicked",
                       G_CALLBACK (xfce4_notifyd_log_open), log_widgets.log_listbox);
     icon = gtk_image_new_from_icon_name ("edit-clear-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
     log_clear_button = gtk_tool_button_new (icon, _("Clear"));
     gtk_widget_set_tooltip_text (GTK_WIDGET (log_clear_button), _("Clear the notification log"));
     gtk_toolbar_insert(log_widgets.log_toolbar, GTK_TOOL_ITEM(log_clear_button), 2);
