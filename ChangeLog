@@ -1,3 +1,15 @@
+commit 4d4a2e415377839d6965aa40f41abcc113de9e76
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Apr 22 23:53:40 2019 +0200
+
+    Updates for release.
+
+commit 19fe3826662800093f2eb82897040b6d47e9093d
+Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+Date:   Mon Apr 22 21:55:52 2019 +0200
+
+    Update configure.ac.in
+
 commit 51f37dacfd301ccb9c43a19e378135670ef0fadc
 Author: Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
 Date:   Mon Apr 22 00:07:31 2019 +0200
