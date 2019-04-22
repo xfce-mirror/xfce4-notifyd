@@ -3,7 +3,7 @@ dnl
 dnl xfce4-notifyd - server-side implementation of the fd.o notifications spec
 dnl
 dnl Copyright (c) 2008 Brian Tarricone <brian@tarricone.org>
-dnl Copyright (c) 2017 Simon Steinbeiss <simon@xfce.org>
+dnl Copyright (c) 2019 Simon Steinbeiss <simon@xfce.org>
 dnl
 
 dnl version info
@@ -18,15 +18,16 @@ m4_define([notifications_spec_version], [1.2])
 
 dnl init autoconf
 AC_INIT([xfce4-notifyd], [xfce4_notifyd_version],
-        [http://bugzilla.xfce.org/enter_bug.cgi?product=Xfce4-notifyd],
+        [https://bugzilla.xfce.org/enter_bug.cgi?product=Xfce4-notifyd],
         [xfce4-notifyd])
 AC_PREREQ([2.59c])
 AC_CONFIG_SRCDIR([xfce4-notifyd/main.c])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIRS([m4])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 dnl init automake
-AM_INIT_AUTOMAKE([1.8 dist-bzip2 tar-ustar no-dist-gzip subdir-objects])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 tar-ustar no-dist-gzip subdir-objects])
 AM_MAINTAINER_MODE()
 
 dnl set helper path prefix
