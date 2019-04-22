@@ -2,6 +2,27 @@
 | Xfce Notify Daemon |
 +--------------------+
 
+Version 0.4.4 (22 April 2019):
+  This is a bugfix release.
+
+  Bugs fixed:
+    * Drop reference to dbus-binding-tool (Bug #14835)
+    * Make more strings translatable (Bug #14890)
+    * panel plugin: Fix menu position
+    * panel-plugin: Fix first log entry not being shown (Bug #14920)
+    * Fix Chrome notification icons (Bug #15215)
+    * Fix output of xfce4-notifyd-config --help (Bug #14922)
+    * Get rid of gdk_error_trap* deprecations
+    * Add fallback for label alignment and older Gtk+3
+    * Fix icon-size in the log toolbar
+
+  Updated translations: Albanian, Belarusian, Bulgarian, Catalan, Croatian,
+  Czech, Danish, Dutch (Flemish), English (Australia), Finnish, French, Galician,
+  German, Hebrew, Hungarian, Icelandic, Italian, Japanese, Kazakh, Korean,
+  Lithuanian, Malay, Polish, Portuguese, Portuguese (Brazilian), Russian,
+  Spanish, Swedish, Thai, Turkish
+
+
 Version 0.4.3 (27 October 2018):
   This is (mostly) a translation update release.
 
