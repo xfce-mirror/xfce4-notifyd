@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 00:31+0100\n"
-"PO-Revision-Date: 2018-09-14 00:15+0000\n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2018-11-20 23:31+0000\n"
 "Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Greek (http://www.transifex.com/xfce/xfce-apps/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Καθαρισμός αρχείου καταγραφής ειδοποι�
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:953
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
 msgid "Clear"
 msgstr "Καθαρισμός"
 
@@ -134,59 +134,85 @@ msgstr "Κουμπί"
 msgid "Notification preview failed"
 msgstr "Η προεπισκόπηση ειδοποιήσεων απέτυχε"
 
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr ""
+
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
 msgstr "Η υπηρεσία ρυθμίσεων δεν είναι διαθέσιμη"
 
-#: ../xfce4-notifyd-config/main.c:934
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:935
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Κενό αρχείο καταγραφών</b></big>\nΔεν έχουν καταγραφεί ειδοποιήσεις ακόμη."
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:942
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh the notification log"
 msgstr "Ανανέωση του αρχείου καταγραφής ειδοποιήσεων"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:948
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:949
 msgid "Open the notification log in an external editor"
 msgstr "Άνοιγμα του αρχείου καταγραφής ειδοποιήσεων σε εξωτερικό επεξεργαστή κειμένου"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:955
 msgid "Clear the notification log"
 msgstr "Άδειασμα του αρχείου καταγραφής ειδοποιήσεων"
 
-#: ../xfce4-notifyd-config/main.c:976
+#: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
 msgstr "Εμφάνιση πληροφοριών έκδοσης"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
 msgstr "Υποδοχή διαχειριστή ρυθμίσεων"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:978
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:988
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Πληκτρολογήστε '%s --help' για βοήθεια στη χρήση."
 
-#: ../xfce4-notifyd-config/main.c:1002
+#: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Διανέμεται υπό τους όρους της Δημόσιας άδειας GNU, έκδοση 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1004
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Παρακαλώ αναφέρετε τυχόν σφάλματα στο %s.\n"
