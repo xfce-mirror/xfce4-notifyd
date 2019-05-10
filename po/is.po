@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Sveinn í Felli <sv1@fellsnet.is>, 2014
+# Sveinn í Felli <sv1@fellsnet.is>, 2013-2014,2016,2018-2019
 # Sveinn í Felli <sveinki@nett.is>, 2013,2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2018-11-29 11:13+0000\n"
+"PO-Revision-Date: 2019-05-10 11:26+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-apps/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -206,7 +206,7 @@ msgstr "Skrifaðu '%s --help' til að sjá hvernig á að nota þetta."
 #: ../xfce4-notifyd-config/main.c:1003
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Þessi hugbúnaður er gefin út eftir GNU General Public License leyfinu, útgáfa 2\n"
+msgstr "Þessi hugbúnaður er gefin út eftir GNU General Public License leyfinu, útgáfu 2\n"
 
 #: ../xfce4-notifyd-config/main.c:1004
 #, c-format
