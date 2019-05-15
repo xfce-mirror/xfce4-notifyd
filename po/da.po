@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2019-05-14 23:03+0000\n"
+"PO-Revision-Date: 2019-05-15 20:40+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -121,7 +121,7 @@ msgstr "Forhåndsvisning af underretning"
 
 #: ../xfce4-notifyd-config/main.c:79
 msgid "This is what notifications will look like"
-msgstr "Sådan vil underretninger se ud"
+msgstr "Sådan ser underretninger ud"
 
 #: ../xfce4-notifyd-config/main.c:84
 msgid "Button"
@@ -327,7 +327,7 @@ msgstr "Underretningsboblerne vises som standard på den skærm hvor musemarkør
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Show notifications on"
-msgstr "Ved underretninger ved"
+msgstr "Vis underretninger ved"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "General"
@@ -355,4 +355,4 @@ msgstr "Log"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Tilpas hvordan underretninger fremkommer på din skærm"
+msgstr "Tilpas hvordan underretninger vises på din skærm"
