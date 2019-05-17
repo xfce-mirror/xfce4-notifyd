@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2019-05-16 19:08+0000\n"
+"PO-Revision-Date: 2019-05-17 11:42+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "_Ryd log"
 
 #: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
-msgstr "_Underretningsindstillinger…"
+msgstr "_Underretningsindstillinger …"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
