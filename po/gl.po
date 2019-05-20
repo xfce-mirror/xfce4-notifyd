@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2019-01-31 16:13+0000\n"
+"PO-Revision-Date: 2019-05-20 17:13+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/xfce-apps/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -58,11 +58,11 @@ msgstr "Configuración do engadido de notificacións"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
-msgstr "Número de notificacións que mostrar"
+msgstr "Número de notificacións que amosar"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:107
 msgid "Only show notifications from today"
-msgstr "Mostrar só as notificacións de hoxe"
+msgstr "Amosar só as notificacións de hoxe"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:140
 msgid "This is the notification plugin"
@@ -189,7 +189,7 @@ msgstr "Limpar o rexistro de notificacións"
 
 #: ../xfce4-notifyd-config/main.c:977
 msgid "Display version information"
-msgstr "Mostrar a información da versión"
+msgstr "Amosar a información da versión"
 
 #: ../xfce4-notifyd-config/main.c:978
 msgid "Settings manager socket"
@@ -236,7 +236,7 @@ msgstr "só as bloqueadas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "mostrar co punteiro do rato"
+msgstr "amosar co punteiro do rato"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
@@ -265,7 +265,7 @@ msgstr "Personalice a configuración das notificacións"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr "O servizo de notificación non se está a executar. Non se ha mostrar ningunha notificación."
+msgstr "O servizo de notificación non se está a executar. Non se ha amosar ningunha notificación."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "<b>Currently only urgent notifications are shown.</b>"
@@ -273,7 +273,7 @@ msgstr "<b>Actualmente só se mostran as notificacións urxentes.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "Show _Preview"
-msgstr "Mostrar vista _previa"
+msgstr "Amosar a vista _previa"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "seconds"
@@ -335,7 +335,7 @@ msgstr "Xeral"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>Mostrar ou bloquear notificacións por aplicativo</b>"
+msgstr "<b>Amosar ou bloquear notificacións por aplicativo</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Applications"
