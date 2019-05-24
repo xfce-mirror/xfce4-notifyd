@@ -7,14 +7,15 @@
 # Emin Tufan <etcetin@gmail.com>, 2017
 # Gökmen Görgen <gkmngrgn@gmail.com>, 2008
 # Necdet Yücel <necdetyucel@gmail.com>, 2013,2016-2018
+# Serdar Sağlam <teknomobil@msn.com>, 2019
 # Volkan Gezer <volkangezer@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2018-11-22 16:54+0000\n"
-"Last-Translator: Demiray Muhterem <mdemiray@msn.com>\n"
+"PO-Revision-Date: 2019-05-24 00:13+0000\n"
+"Last-Translator: Serdar Sağlam <teknomobil@msn.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,11 +25,11 @@ msgstr ""
 
 #: ../common/xfce-notify-log.c:342
 msgid "Do you really want to clear the notification log?"
-msgstr "Bildirim kaydını silmek istiyor musunuz?"
+msgstr "Bildirim günlüğünü silmek istiyor musunuz?"
 
 #: ../common/xfce-notify-log.c:346
 msgid "Clear notification log"
-msgstr "Bildirim kaydını sil"
+msgstr "Bildirim günlüğünü temiz"
 
 #: ../common/xfce-notify-log.c:349
 msgid "Cancel"
@@ -68,7 +69,7 @@ msgstr "Sadece bugünden itibaren bildirimleri göster"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:140
 msgid "This is the notification plugin"
-msgstr "Bu bildirim eklentisidir"
+msgstr "Bu bir bildirim eklentisidir"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:142
 msgid "Copyright © 2017 Simon Steinbeiß\n"
@@ -80,7 +81,7 @@ msgstr "<b>_Rahatsız etme</b>"
 
 #: ../panel-plugin/notification-plugin-log.c:306
 msgid "No notifications"
-msgstr "Bildirin yok"
+msgstr "Bildirim yok"
 
 #: ../panel-plugin/notification-plugin-log.c:327
 msgid "_Clear log"
@@ -101,7 +102,7 @@ msgstr "Xfce paneli için bildirim eklentisi"
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
 #: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
-msgstr "Xfce Bildirme Servisi"
+msgstr "Xfce Bildiri Servisi"
 
 #: ../xfce4-notifyd/main.c:56
 #, c-format
@@ -131,7 +132,7 @@ msgstr "Düğme"
 
 #: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
-msgstr "Bildiri ön izleme başarısız"
+msgstr "Bildirim ön izleme başarısız"
 
 #: ../xfce4-notifyd-config/main.c:505
 #, c-format
@@ -154,7 +155,7 @@ msgstr "Dün ve daha önce"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
-msgstr "Ayarlar servisi kullanılamaz durumda"
+msgstr "Servis ayarları kullanılamıyor"
 
 #: ../xfce4-notifyd-config/main.c:893
 msgid ""
@@ -246,19 +247,19 @@ msgstr "birincil ekran"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
-msgstr "Sol Üst"
+msgstr "Sol üst"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Bottom left"
-msgstr "Sol Alt"
+msgstr "Sol alt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "Top right"
-msgstr "Sağ Üst"
+msgstr "Sağ üst"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Bottom right"
-msgstr "Sağ Alt"
+msgstr "Sağ alt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
@@ -345,11 +346,11 @@ msgstr "Uygulamalar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log notifications"
-msgstr "Günlük bildirimleri"
+msgstr "Bildirim günlükleri"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log applications"
-msgstr "Günlük uygulamaları"
+msgstr "Uygulama günlükleri"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log"
@@ -357,4 +358,4 @@ msgstr "Günlük"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Bildirilerin görünümünü özelleştirin"
+msgstr "Bildirimlerin ekranınızda nasıl görüneceğini özelleştirin"
