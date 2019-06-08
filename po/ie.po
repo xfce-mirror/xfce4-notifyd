@@ -1,0 +1,355 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Apps\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-21 00:31+0100\n"
+"PO-Revision-Date: 2019-06-08 09:10+0000\n"
+"Last-Translator: Ольга Смирнова\n"
+"Language-Team: Interlingue (http://www.transifex.com/xfce/xfce-apps/language/ie/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ie\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../common/xfce-notify-log.c:342
+msgid "Do you really want to clear the notification log?"
+msgstr "Esque vu vole vacuar li diarium de notificationes?"
+
+#: ../common/xfce-notify-log.c:346
+msgid "Clear notification log"
+msgstr "Vacuar li diarium de notificationes"
+
+#: ../common/xfce-notify-log.c:349
+msgid "Cancel"
+msgstr "Anullar"
+
+#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
+msgid "Clear"
+msgstr "Vacuar"
+
+#: ../common/xfce-notify-log.c:364
+msgid "include icon cache"
+msgstr "includer li cache de icones"
+
+#: ../panel-plugin/notification-plugin.c:218
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+msgid "Notifications"
+msgstr "Notificationes"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:52
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "Ne successat aperter li sequent URL: %s"
+
+#. create the dialog
+#: ../panel-plugin/notification-plugin-dialogs.c:77
+msgid "Notification Plugin Settings"
+msgstr "Parametres del plugin de notificationes"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:99
+msgid "Number of notifications to show"
+msgstr "Li max númere de notificationes"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:107
+msgid "Only show notifications from today"
+msgstr "Monstrar solmen notificationes de hodie"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:140
+msgid "This is the notification plugin"
+msgstr "Ti-ci es li plugin de notificationes"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:142
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "Copyright © 2017 Simon Steinbeiß\n"
+
+#: ../panel-plugin/notification-plugin-log.c:132
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>Ne _disturbar</b>"
+
+#: ../panel-plugin/notification-plugin-log.c:306
+msgid "No notifications"
+msgstr "Null notificationes"
+
+#: ../panel-plugin/notification-plugin-log.c:327
+msgid "_Clear log"
+msgstr "_Vacuar li diarium"
+
+#: ../panel-plugin/notification-plugin-log.c:335
+msgid "_Notification settings…"
+msgstr "Parametres de _notificationes..."
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:1
+msgid "Notification Plugin"
+msgstr "Plugin de notificationes"
+
+#: ../panel-plugin/notification-plugin.desktop.in.h:2
+msgid "Notification plugin for the Xfce panel"
+msgstr "Plugin de notificationes por li panel Xfce"
+
+#: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
+#: ../xfce4-notifyd-config/main.c:805
+msgid "Xfce Notify Daemon"
+msgstr "Daemon de notificationes Xfce"
+
+#: ../xfce4-notifyd/main.c:56
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "Ínconosset option «%s»\n"
+
+#: ../xfce4-notifyd/main.c:65
+msgid "Unable to start notification daemon"
+msgstr "Ne successat li daemon de notificationes"
+
+#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#, c-format
+msgid "Another notification daemon is running, exiting\n"
+msgstr "Un altri daemon de notificationes es executent, fini se\n"
+
+#: ../xfce4-notifyd-config/main.c:78
+msgid "Notification Preview"
+msgstr "Previder un notification"
+
+#: ../xfce4-notifyd-config/main.c:79
+msgid "This is what notifications will look like"
+msgstr "Notificationes va aparir talmen"
+
+#: ../xfce4-notifyd-config/main.c:84
+msgid "Button"
+msgstr "Buton"
+
+#: ../xfce4-notifyd-config/main.c:91
+msgid "Notification preview failed"
+msgstr "Ne successat previder un notification"
+
+#: ../xfce4-notifyd-config/main.c:505
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Solmen urgent notificationes es monstrat.</b>\nRegistration de notificationes es %s."
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "enabled"
+msgstr "permisset"
+
+#: ../xfce4-notifyd-config/main.c:512
+msgid "disabled"
+msgstr "depermisset"
+
+#: ../xfce4-notifyd-config/main.c:589
+msgid "Yesterday and before"
+msgstr "Yer e ante"
+
+#: ../xfce4-notifyd-config/main.c:807
+msgid "Settings daemon is unavailable"
+msgstr "Daemon de parametres es índisponibil"
+
+#: ../xfce4-notifyd-config/main.c:893
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>Bentost ne hay conosset applicationes.</b></big>\nQuande un application invita un notification\nit va aparir in ti-ci liste."
+
+#: ../xfce4-notifyd-config/main.c:935
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Diarium es vacui</b></big>\nNull notificationes ancor inregistrat."
+
+#: ../xfce4-notifyd-config/main.c:942
+msgid "Refresh"
+msgstr "Refriscar"
+
+#: ../xfce4-notifyd-config/main.c:943
+msgid "Refresh the notification log"
+msgstr "Refriscar li diarium de notificationes"
+
+#: ../xfce4-notifyd-config/main.c:948
+msgid "Open"
+msgstr "Aperter"
+
+#: ../xfce4-notifyd-config/main.c:949
+msgid "Open the notification log in an external editor"
+msgstr "Aperter li diarium de notificationes in un redactor extern"
+
+#: ../xfce4-notifyd-config/main.c:955
+msgid "Clear the notification log"
+msgstr "Vacuar li diarium de notificationes"
+
+#: ../xfce4-notifyd-config/main.c:977
+msgid "Display version information"
+msgstr "Monstra li information del version"
+
+#: ../xfce4-notifyd-config/main.c:978
+msgid "Settings manager socket"
+msgstr "Socket del gerente de parametres"
+
+#: ../xfce4-notifyd-config/main.c:978
+msgid "SOCKET_ID"
+msgstr "ID_DE_SOCKET"
+
+#: ../xfce4-notifyd-config/main.c:988
+#, c-format
+msgid "Type '%s --help' for usage."
+msgstr "Tippa '%s --help' por li usage."
+
+#: ../xfce4-notifyd-config/main.c:1003
+#, c-format
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "Released under the terms of the GNU General Public License, version 2\n"
+
+#: ../xfce4-notifyd-config/main.c:1004
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Ples raportar errores a <%s>.\n"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
+msgid "only during \"Do not disturb\""
+msgstr "solmen durante «Ne disturbar»"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
+msgid "always"
+msgstr "sempre"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
+msgid "all"
+msgstr "omni"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
+msgid "all except blocked"
+msgstr "omni except blocat"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
+msgid "only blocked"
+msgstr "solmen blocat"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
+msgid "display with mouse pointer"
+msgstr "monstrar apu li apuntator"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
+msgid "primary display"
+msgstr "primari monitor"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
+msgid "Top left"
+msgstr "Alt levul"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
+msgid "Bottom left"
+msgstr "Bass levul"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
+msgid "Top right"
+msgstr "Alt dextri"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+msgid "Bottom right"
+msgstr "Bass dextri"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
+msgid "Customize your notification settings"
+msgstr "Personalisar li parametres de notificationes"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid ""
+"The notification service is not running. No notifications will be shown."
+msgstr "Li servicie de notificationes ne es lansat. Notificationes ne va esser monstrat."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>Solmen urgent notificationes es monstrat.</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+msgid "Show _Preview"
+msgstr "_Previder"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+msgid "seconds"
+msgstr "secondes"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+msgid "_Disappear after"
+msgstr "_Desaparir pos"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+msgid "_Opacity"
+msgstr "_Opacitá"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+msgid "Fade out"
+msgstr "Evanescer"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+msgid "_Slide out"
+msgstr "_Glissar for"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+msgid "Default _position"
+msgstr "_Position predefinit"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+msgid "_Theme"
+msgstr "_Tema"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+msgid "Do not disturb"
+msgstr "Ne disturbar"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+msgid "<b>Behavior</b>"
+msgstr "<b>Conduida</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+msgid "<b>Appearance</b>"
+msgstr "<b>Aspecte</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+msgid "<b>Animations</b>"
+msgstr "<b>Animationes</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+msgid ""
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "In li predefinit configuration, li notificationes es monstrat sur li monitor que have li apuntator de mus."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+msgid "Show notifications on"
+msgstr "Monstrar notificationes in"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+msgid "General"
+msgstr "General"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid "<b>Show or block notifications per application</b>"
+msgstr "<b>Monstrar o blocar notificationes por application</b>"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Applications"
+msgstr "Applicationes"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid "Log notifications"
+msgstr "Registrar notificationes"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "Log applications"
+msgstr "Registrar applicationes"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+msgid "Log"
+msgstr "Diarium"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+msgid "Customize how notifications appear on your screen"
+msgstr "Personalisar li aspecte de notificationes sur li ecran"
