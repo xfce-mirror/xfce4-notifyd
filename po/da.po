@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2019-06-10 19:09+0000\n"
+"PO-Revision-Date: 2019-06-18 01:33+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-apps/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgstr "Underretning-plugin til Xfce-panelet"
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
 #: ../xfce4-notifyd-config/main.c:805
 msgid "Xfce Notify Daemon"
-msgstr "Xfce Underretningsdæmon"
+msgstr "Xfce-underretningsdæmon"
 
 #: ../xfce4-notifyd/main.c:56
 #, c-format
