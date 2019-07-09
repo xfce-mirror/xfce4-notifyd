@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2013,2016-2018
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2013,2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2018-11-20 23:31+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2019-07-09 19:16+0000\n"
+"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/xfce/xfce-apps/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,19 +134,19 @@ msgstr "Попередній перегляд повідомлення не вд
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr ""
+msgstr "<b>Зараз показуються тільки найважливіші повідомлення.</b>\nЖурналювання повідомлень є %s."
 
 #: ../xfce4-notifyd-config/main.c:512
 msgid "enabled"
-msgstr ""
+msgstr "ввімкнено"
 
 #: ../xfce4-notifyd-config/main.c:512
 msgid "disabled"
-msgstr ""
+msgstr "вимкнено"
 
 #: ../xfce4-notifyd-config/main.c:589
 msgid "Yesterday and before"
-msgstr ""
+msgstr "Вчора і перед"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
@@ -157,7 +157,7 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr ""
+msgstr "<big><b>Наразі немає відомих програм.</b></big>\nЯк тільки програма вишле повідомлення, \nвоно появиться у цьому списку."
 
 #: ../xfce4-notifyd-config/main.c:935
 msgid ""
