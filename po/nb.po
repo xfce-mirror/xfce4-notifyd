@@ -6,14 +6,15 @@
 # Allan Nordhøy <epost@anotheragency.no>, 2014
 # Allan Nordhøy <epost@anotheragency.no>, 2016-2018
 # Åsmund Berg Holm <berg.holm@outlook.com>, 2017-2018
+# Kjell Cato Heskjestad <cato@heskjestad.xyz>, 2019
 # Terje Uriansrud <terje@uriansrud.net>, 2010
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2018-11-20 23:31+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2019-07-24 08:47+0000\n"
+"Last-Translator: Kjell Cato Heskjestad <cato@heskjestad.xyz>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-apps/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,11 +24,11 @@ msgstr ""
 
 #: ../common/xfce-notify-log.c:342
 msgid "Do you really want to clear the notification log?"
-msgstr "Vil du virkelig slette varslings-loggen?"
+msgstr "Vil du virkelig slette varslingsloggen?"
 
 #: ../common/xfce-notify-log.c:346
 msgid "Clear notification log"
-msgstr "Slett varslings-loggen"
+msgstr "Slett varslingsloggen"
 
 #: ../common/xfce-notify-log.c:349
 msgid "Cancel"
@@ -39,7 +40,7 @@ msgstr "Tøm"
 
 #: ../common/xfce-notify-log.c:364
 msgid "include icon cache"
-msgstr ""
+msgstr "ta med ikonhurtiglager"
 
 #: ../panel-plugin/notification-plugin.c:218
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
@@ -87,7 +88,7 @@ msgstr "_Tøm logg"
 
 #: ../panel-plugin/notification-plugin-log.c:335
 msgid "_Notification settings…"
-msgstr "_Varselsinnstillinger…"
+msgstr "_Varselsinnstillinger …"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
@@ -105,11 +106,11 @@ msgstr "Xfce-varslingsnisse"
 #: ../xfce4-notifyd/main.c:56
 #, c-format
 msgid "Unknown option \"%s\"\n"
-msgstr "Ukjent valg \"%s\"\n"
+msgstr "Ukjent valg «%s»\n"
 
 #: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
-msgstr "Klarte ikke starte varsligsprosess"
+msgstr "Klarte ikke starte varslingsprosess"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:404
 #, c-format
@@ -137,19 +138,19 @@ msgstr "Forhåndsvisning av varsel feilet"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr ""
+msgstr "<b>Viser kun varsler som haster.</b>\nVarslingslogging er %s."
 
 #: ../xfce4-notifyd-config/main.c:512
 msgid "enabled"
-msgstr ""
+msgstr "slått på"
 
 #: ../xfce4-notifyd-config/main.c:512
 msgid "disabled"
-msgstr ""
+msgstr "slått av"
 
 #: ../xfce4-notifyd-config/main.c:589
 msgid "Yesterday and before"
-msgstr ""
+msgstr "I går og tidligere"
 
 #: ../xfce4-notifyd-config/main.c:807
 msgid "Settings daemon is unavailable"
@@ -160,7 +161,7 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr ""
+msgstr "<big><b>Ingen kjente programmer.</b></big>\nVarslinger vil vises i denne listen så snart\nprogrammer sender dem."
 
 #: ../xfce4-notifyd-config/main.c:935
 msgid ""
@@ -217,7 +218,7 @@ msgstr "Rapporter feil til %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "bare under \"Ikke forstyrr\""
+msgstr "bare under «Ikke forstyrr»"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
@@ -233,7 +234,7 @@ msgstr "alle bortsett fra blokkerte"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
-msgstr "bare blokkerte?"
+msgstr "kun blokkerte"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
