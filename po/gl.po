@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2019-05-20 17:13+0000\n"
+"PO-Revision-Date: 2019-07-29 09:22+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/xfce-apps/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -224,23 +224,23 @@ msgstr "sempre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "all"
-msgstr "todo"
+msgstr "Todos"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "all except blocked"
-msgstr "todo excepto as bloqueadas"
+msgstr "Todos agás os bloqueados"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
-msgstr "só as bloqueadas"
+msgstr "Só os bloqueados"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "amosar co punteiro do rato"
+msgstr "Amosar co punteiro do rato"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
-msgstr "pantalla primaria"
+msgstr "Pantalla primaria"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Top left"
@@ -289,11 +289,11 @@ msgstr "_Opacidade"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "Fade out"
-msgstr "Esvaecerse"
+msgstr "Desaparecer gradualmente"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "_Slide out"
-msgstr "E_sborrexer"
+msgstr "E_scorregar cara fora"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Default _position"
@@ -343,11 +343,11 @@ msgstr "Aplicativos"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Log notifications"
-msgstr "Rexistrar notificacións"
+msgstr "Rexistro das notificacións"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log applications"
-msgstr "Rexistrar aplicativos"
+msgstr "Rexistro dos aplicativos"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log"
