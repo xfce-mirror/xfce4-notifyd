@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-08-02 09:14+0000\n"
+"PO-Revision-Date: 2019-08-10 09:56+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/xfce-apps/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../common/xfce-notify-log.c:362
 msgid "Do you really want to clear the notification log?"
-msgstr "Confirma que desexa limpar o rexistro de notificacións?"
+msgstr "Desexa realmente limpar o rexistro de notificacións?"
 
 #: ../common/xfce-notify-log.c:366
 msgid "Clear notification log"
@@ -129,7 +129,7 @@ msgstr "Botón"
 
 #: ../xfce4-notifyd-config/main.c:91
 msgid "Notification preview failed"
-msgstr "Produciuse un erro ao previsualizar a notificación"
+msgstr "Produciuse un fallo ao previsualizar a notificación"
 
 #: ../xfce4-notifyd-config/main.c:505
 #, c-format
