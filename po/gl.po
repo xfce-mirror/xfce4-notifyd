@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-08-10 09:56+0000\n"
+"PO-Revision-Date: 2019-08-20 20:19+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/xfce-apps/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -159,7 +159,7 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr "<big><b>Actualmente non hai aplicativos coñecidos.</b></big>\n Unha vez que un aplicativo envíe unha notificación\n aparecerá nesta lista."
+msgstr "<big><b>Actualmente non hai aplicacións coñecidas.</b></big>\n Unha vez que unha aplicación envíe unha notificación\n aparecerá nesta lista."
 
 #: ../xfce4-notifyd-config/main.c:935
 msgid ""
@@ -343,11 +343,11 @@ msgstr "Xeral"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>Amosar ou bloquear notificacións por aplicativo</b>"
+msgstr "<b>Amosar ou bloquear notificacións por aplicación</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Applications"
-msgstr "Aplicativos"
+msgstr "Aplicacións"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log notifications"
@@ -355,7 +355,7 @@ msgstr "Rexistro das notificacións"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "Log applications"
-msgstr "Rexistro dos aplicativos"
+msgstr "Rexistro das aplicacións"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Log"
@@ -363,4 +363,4 @@ msgstr "Rexistro"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
-msgstr "Personalice como se mostran as notificacións na súa pantalla"
+msgstr "Personalice como se amosan as notificacións na súa pantalla"
