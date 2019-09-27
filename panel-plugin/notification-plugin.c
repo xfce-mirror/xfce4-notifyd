@@ -201,7 +201,7 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   gboolean               state;
 
   /* Allocate memory for the plugin structure */
-  notification_plugin = panel_slice_new0 (NotificationPlugin);
+  notification_plugin = g_slice_new0 (NotificationPlugin);
   notification_plugin->plugin = panel_plugin;
 
   /* Initialize xfconf */
