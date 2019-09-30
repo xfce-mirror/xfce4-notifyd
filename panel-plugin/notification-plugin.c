@@ -271,7 +271,7 @@ notification_plugin_free (XfcePanelPlugin *plugin,
     g_source_remove (notification_plugin->menu_size_allocate_next_handler);
 
   /* free the plugin structure */
-  panel_slice_free (NotificationPlugin, notification_plugin);
+  g_slice_free (NotificationPlugin, notification_plugin);
 }
 
 
