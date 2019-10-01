@@ -356,179 +356,25 @@ xfce_notify_window_unrealize(GtkWidget *widget)
 
 }
 
-static inline int
-get_max_border_width (GtkStyleContext *context,
-                      GtkStateFlags state)
-{
-    GtkBorder border_width;
-    gint border_width_max;
-
-    gtk_style_context_save (context);
-    gtk_style_context_get_border (context,
-                                  state,
-                                  &border_width);
-    gtk_style_context_restore (context);
-
-    border_width_max = MAX(border_width.left,
-                           MAX(border_width.top,
-                               MAX(border_width.bottom, border_width.right)));
-    return border_width_max;
-}
-
-
-static void
-xfce_notify_window_draw_rectangle (XfceNotifyWindow *window,
-                                  cairo_t *cr)
-{
-    GtkWidget *widget = GTK_WIDGET(window);
-    gint radius = DEFAULT_RADIUS;
-    GtkStateFlags state = GTK_STATE_FLAG_NORMAL;
-    gint border_width;
-    GtkAllocation widget_allocation ;
-    GtkStyleContext *context;
-
-    /* this secifies the border_padding from the edges in order to make
-     * sure the border completely fits into the drawing area */
-    gdouble border_padding = 0.0;
-
-    gtk_widget_get_allocation (widget, &widget_allocation);
-
-    /* Load the css style information for hover aka prelight */
-    if (window->mouse_hover)
-        state = GTK_STATE_FLAG_PRELIGHT;
-
-    context = gtk_widget_get_style_context (widget);
-    /* This is something completely counterintuitive,
-     * but in Gtk >= 3.18 calling gtk_style_context_get
-     * with a state that is different from the current widget state, causes
-     * the widget to redraw itself. Resulting in a storm of draw callbacks.
-     * See : https://bugzilla.gnome.org/show_bug.cgi?id=756524 */
-    gtk_style_context_save (context);
-    gtk_style_context_get (context,
-                           state,
-                           "border-radius", &radius,
-                           NULL);
-    gtk_style_context_restore (context);
-
-    border_width = get_max_border_width (context, state);
-    border_padding = border_width / 2.0;
-
-    /* Always use a small rounded corners. This should not be necessary in
-     * theory, as Adwaita defined border-radius: 0 0 6px 6px; for the
-     * app-notification and osd css classes. The problem is that Gtk for some
-     * reason gets the border-radius as gint and not as GtkBorder. Getting
-     * this way the first value only, which is 0. */
-    if ( radius == 0 ) {
-        radius = 6;
-    }
-
-    cairo_move_to(cr, border_padding, radius + border_padding);
-    cairo_arc(cr, radius + border_padding,
-              radius + border_padding, radius,
-              M_PI, 3.0*M_PI/2.0);
-    cairo_line_to(cr,
-                  widget_allocation.width - radius - border_padding,
-                  border_padding);
-    cairo_arc(cr,
-              widget_allocation.width - radius - border_padding,
-              radius + border_padding, radius,
-              3.0*M_PI/2.0, 0.0);
-    cairo_line_to(cr, widget_allocation.width - border_padding,
-                  widget_allocation.height - radius - border_padding);
-    cairo_arc(cr, widget_allocation.width - radius - border_padding,
-              widget_allocation.height - radius - border_padding,
-              radius, 0.0, M_PI/2.0);
-    cairo_line_to(cr, radius + border_padding,
-                  widget_allocation.height - border_padding);
-    cairo_arc(cr, radius + border_padding,
-              widget_allocation.height - radius - border_padding,
-              radius, M_PI/2.0, M_PI);
-    cairo_close_path(cr);
-}
-
-static gboolean xfce_notify_window_draw (GtkWidget *widget,
-                                         cairo_t *cr)
+static gboolean
+xfce_notify_window_draw (GtkWidget *widget,
+                         cairo_t *cr)
 {
     GtkStyleContext *context;
-    GdkRGBA         *border_color, *bg_color;
-    gint  border_width;
-    GtkStateFlags state;
-    cairo_t         *cr2;
-    cairo_surface_t *surface;
-    cairo_region_t  *region;
     GtkAllocation    allocation;
 
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-
+    context = gtk_widget_get_style_context (widget);
     gtk_widget_get_allocation (widget, &allocation);
 
-    /* Create a similar surface as of cr */
-    surface = cairo_surface_create_similar (cairo_get_target (cr),
-                                            CAIRO_CONTENT_COLOR_ALPHA,
-                                            allocation.width,
-                                            allocation.height);
-    cr2 = cairo_create (surface);
+    /* First make the window transparent */
+    cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
+    cairo_fill (cr);
 
-    /* Fill first with a transparent background */
-    cairo_rectangle (cr2, 0, 0, allocation.width, allocation.height);
-    cairo_set_source_rgba (cr2, 0.5, 0.5, 0.5, 0.0);
-    cairo_fill (cr2);
+    /* Then render the background and border based on the Gtk theme */
+    gtk_render_background (context, cr, allocation.x, allocation.y, allocation.width, allocation.height);
+    gtk_render_frame (context, cr, allocation.x, allocation.y, allocation.width, allocation.height);
 
-    /* Draw a rounded rectangle */
-    xfce_notify_window_draw_rectangle (window, cr2);
-
-    state = GTK_STATE_FLAG_NORMAL;
-    /* Load the css style information for hover aka prelight */
-    if (window->mouse_hover)
-        state = GTK_STATE_FLAG_PRELIGHT;
-
-    /* Get the style context to get style properties */
-    context = gtk_widget_get_style_context (widget);
-    gtk_style_context_save (context);
-    gtk_style_context_get (context,
-                           state,
-                           "border-color", &border_color,
-                           "background-color", &bg_color,
-                           NULL);
-    gtk_style_context_restore (context);
-
-    /* Draw the background, getting its color from the style context*/
-    cairo_set_source_rgba (cr2,
-                           bg_color->red, bg_color->green, bg_color->blue,
-                           1.0);
-    cairo_fill_preserve (cr2);
-    gdk_rgba_free (bg_color);
-
-    /* Now draw the border */
-    border_width = get_max_border_width (context, state);
-    cairo_set_source_rgba (cr2,
-                           border_color->red, border_color->green, border_color->blue,
-                           1.0);
-    cairo_set_line_width (cr2, border_width);
-    cairo_stroke (cr2);
-    gdk_rgba_free (border_color);
-
-    /* Enough, everything we need has been written on the surface */
-    cairo_destroy (cr2);
-
-    /* Set the surface drawn by cr2, to cr */
-    cairo_save (cr);
-    cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-    cairo_set_source_surface (cr, surface, 0, 0);
-    cairo_paint (cr);
-    cairo_restore (cr);
-
-    region = gdk_cairo_region_create_from_surface (surface);
-    if(!gdk_screen_is_composited(gtk_widget_get_screen(widget)))
-        gtk_widget_shape_combine_region(widget, region);
-
-    /* however, of course always set the input shape; it doesn't matter
-     * if this is a pixel or two off here and there */
-    gtk_widget_input_shape_combine_region(widget, region);
-
-    cairo_surface_destroy (surface);
-    cairo_region_destroy (region);
-
+    /* Then draw the rest of the window */
     GTK_WIDGET_CLASS (xfce_notify_window_parent_class)->draw (widget, cr);
 
     return FALSE;
