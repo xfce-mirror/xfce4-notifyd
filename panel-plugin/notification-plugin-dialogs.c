@@ -26,7 +26,7 @@
 
 #include <xfconf/xfconf.h>
 #include <libxfce4ui/libxfce4ui.h>
-#include <libxfce4panel/xfce-panel-plugin.h>
+#include <libxfce4panel/libxfce4panel.h>
 
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
