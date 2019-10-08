@@ -1004,10 +1004,8 @@ notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, g
 
     if (!xndaemon->is_default_theme)
     {
-        if (gtk_style_context_has_class (context, "osd"))
-            gtk_style_context_remove_class (context, "osd");
-        if (gtk_style_context_has_class (context, "app-notification"))
-            gtk_style_context_remove_class (context, "app-notification");
+        if (gtk_style_context_has_class (context, "keycap"))
+            gtk_style_context_remove_class (context, "keycap");
 
         add_and_propagate_css_provider (GTK_WIDGET(window),
                                         GTK_STYLE_PROVIDER(xndaemon->css_provider),
@@ -1016,11 +1014,8 @@ notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, g
     else
     {
         /* These classes are normally defined in themes */
-        if (!gtk_style_context_has_class (context, "osd"))
-            gtk_style_context_add_class (context, "osd");
-
-        if (!gtk_style_context_has_class (context, "app-notification"))
-            gtk_style_context_add_class (context, "app-notification");
+        if (!gtk_style_context_has_class (context, "keycap"))
+            gtk_style_context_add_class (context, "keycap");
 
         /* Contains few style definition, use it as a fallback */
         add_and_propagate_css_provider (GTK_WIDGET(window),
