@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-12-09 11:41+0000\n"
+"PO-Revision-Date: 2019-12-12 16:16+0000\n"
 "Last-Translator: zura davitashvili <zdavitashvili0@gmail.com>\n"
 "Language-Team: Georgian (http://www.transifex.com/xfce/xfce-apps/language/ka/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "შეტყობინებები"
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "შეუძლებელია შემდეგი მისამართის გახსნა: %s"
+msgstr "შეუძლებელია შემდეგი ვებ-მისამართის გახსნა: %s"
 
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
