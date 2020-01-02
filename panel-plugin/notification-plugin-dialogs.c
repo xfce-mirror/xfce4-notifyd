@@ -77,8 +77,8 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   dialog = xfce_titled_dialog_new_with_mixed_buttons (_("Notification Plugin Settings"),
                                                       GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (plugin))),
                                                       GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                      "help-browser", _("_Help"),
-                                                      "window-close", _("_Close"),
+                                                      "help-browser", _("_Help"), GTK_RESPONSE_HELP,
+                                                      "window-close-symbolic", _("_Close"), GTK_RESPONSE_OK,
                                                       NULL);
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_icon_name (GTK_WINDOW (dialog), ICON_NAME);
