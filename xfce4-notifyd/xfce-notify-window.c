@@ -176,6 +176,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GtkWidget *topvbox, *tophbox, *vbox;
     gint screen_width;
     gdouble padding = DEFAULT_PADDING;
+    GtkCssProvider *provider;
 #if GTK_CHECK_VERSION (3, 22, 0)
     GdkMonitor *monitor;
     GdkRectangle geometry;
@@ -288,6 +289,13 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_box_set_spacing (GTK_BOX(window->button_box), padding / 2);
     gtk_box_set_homogeneous (GTK_BOX(window->button_box), FALSE);
     gtk_box_pack_end (GTK_BOX(topvbox), window->button_box, FALSE, FALSE, 0);
+
+    gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (window)), "xfce4-notifyd");
+    provider = gtk_css_provider_new ();
+    gtk_css_provider_load_from_data (provider, ".xfce4-notifyd { font-size: initial; }", -1, NULL);
+    gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (window)),
+                                    GTK_STYLE_PROVIDER (provider),
+                                    GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static void
