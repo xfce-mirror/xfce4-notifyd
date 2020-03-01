@@ -145,6 +145,7 @@ void xfce_notify_log_insert (const gchar *app_name,
     gint j = 0;
     GDateTime *now;
     gchar *timestamp;
+    gint microseconds;
     GBytes *image_bytes;
     gchar *icon_name;
     GdkPixbuf *pixbuf = NULL;
@@ -166,8 +167,9 @@ void xfce_notify_log_insert (const gchar *app_name,
 
         now = g_date_time_new_now_local ();
         timestamp = g_date_time_format (now, "%FT%T");
+        microseconds = g_date_time_get_microsecond (now);
         g_date_time_unref (now);
-        group = g_strdup_printf ("%s", timestamp);
+        group = g_strdup_printf ("%s.%d", timestamp, microseconds);
         g_free(timestamp);
 
         g_key_file_set_string (notify_log, group, "app_name", app_name);
