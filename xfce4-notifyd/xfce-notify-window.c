@@ -42,6 +42,8 @@
 #define FADE_CHANGE_TIMEOUT    50
 #define DEFAULT_RADIUS         10
 #define DEFAULT_PADDING        14.0
+#define BASE_CSS               ".xfce4-notifyd { font-size: initial; }"
+#define NO_COMPOSITING_CSS     ".xfce4-notifyd { border-radius: 0px; }"
 
 struct _XfceNotifyWindow
 {
@@ -292,10 +294,11 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
     gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (window)), "xfce4-notifyd");
     provider = gtk_css_provider_new ();
-    gtk_css_provider_load_from_data (provider, ".xfce4-notifyd { font-size: initial; }", -1, NULL);
+    gtk_css_provider_load_from_data (provider, BASE_CSS, -1, NULL);
     gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (window)),
                                     GTK_STYLE_PROVIDER (provider),
                                     GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    g_object_unref (provider);
 }
 
 static void
@@ -370,9 +373,22 @@ xfce_notify_window_draw (GtkWidget *widget,
 {
     GtkStyleContext *context;
     GtkAllocation    allocation;
+    GdkScreen       *screen;
+    GtkCssProvider  *provider;
 
     context = gtk_widget_get_style_context (widget);
     gtk_widget_get_allocation (widget, &allocation);
+
+    /* Remove rounded corners when compositing is disabled */
+    screen = gtk_widget_get_screen (widget);
+    if (!gdk_screen_is_composited (screen)) {
+        provider = gtk_css_provider_new ();
+        gtk_css_provider_load_from_data (provider, NO_COMPOSITING_CSS, -1, NULL);
+        gtk_style_context_add_provider (context,
+                                        GTK_STYLE_PROVIDER (provider),
+                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+        g_object_unref (provider);
+    }
 
     /* First make the window transparent */
     cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
