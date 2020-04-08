@@ -1,6 +1,25 @@
-+--------------------+
-| Xfce Notify Daemon |
-+--------------------+
+0.6.0
+======
+- Simplify drawing the notification bubble
+- Switch to new fallback style class "keycap"
+- Ensure normal font size with Adwaita and keycap class
+- Fix logging simultaneous notifications (Bug #15167)
+- Disable rounded corners w/o compositing (Bug #16586)
+- panel-plugin: Fix configure dialog
+- panel-plugin: Use new XfceTitledDialog api
+- panel-plugin: Toggle 'Do not disturb' with middle mouse click (Bug 
+  #16132)
+- Allow compilation with panel 4.15
+- panel-plugin: Remove deprecated calls
+- Replace GtkStock buttons
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Belarusian, Chinese (China),
+  Chinese (Taiwan), Croatian, Danish, Finnish, Galician, Georgian,
+  German, Greek, Icelandic, Indonesian, Italian, Norwegian Bokmål,
+  Portuguese, Portuguese (Brazil), Serbian, Slovak, Slovenian, Spanish,
+  Turkish, Ukrainian
+
+-- Switch to standard Xfce News format
 
 Version 0.4.4 (22 April 2019):
   This is a bugfix release.
