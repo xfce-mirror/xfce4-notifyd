@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-21 00:31+0100\n"
-"PO-Revision-Date: 2019-07-24 08:47+0000\n"
-"Last-Translator: Kjell Cato Heskjestad <cato@heskjestad.xyz>\n"
+"POT-Creation-Date: 2019-08-01 00:32+0200\n"
+"PO-Revision-Date: 2019-07-31 22:32+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-apps/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,27 +22,27 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:342
+#: ../common/xfce-notify-log.c:362
 msgid "Do you really want to clear the notification log?"
 msgstr "Vil du virkelig slette varslingsloggen?"
 
-#: ../common/xfce-notify-log.c:346
+#: ../common/xfce-notify-log.c:366
 msgid "Clear notification log"
 msgstr "Slett varslingsloggen"
 
-#: ../common/xfce-notify-log.c:349
+#: ../common/xfce-notify-log.c:369
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../common/xfce-notify-log.c:351 ../xfce4-notifyd-config/main.c:954
+#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
 msgid "Clear"
 msgstr "Tøm"
 
-#: ../common/xfce-notify-log.c:364
+#: ../common/xfce-notify-log.c:384
 msgid "include icon cache"
 msgstr "ta med ikonhurtiglager"
 
-#: ../panel-plugin/notification-plugin.c:218
+#: ../panel-plugin/notification-plugin.c:217
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -62,15 +62,15 @@ msgstr "Innstillinger for varselsprogramtillegg"
 msgid "Number of notifications to show"
 msgstr "Antall varsler å vise"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:107
+#: ../panel-plugin/notification-plugin-dialogs.c:111
 msgid "Only show notifications from today"
 msgstr "Bare vis dagsferske varslinger"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:140
+#: ../panel-plugin/notification-plugin-dialogs.c:148
 msgid "This is the notification plugin"
 msgstr "Dette er varslingsprogramtillegget"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:142
+#: ../panel-plugin/notification-plugin-dialogs.c:150
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Kopirett © 2017 Simon Steinbeiß\n"
 
@@ -78,15 +78,15 @@ msgstr "Kopirett © 2017 Simon Steinbeiß\n"
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Ikke forstyrr</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:306
+#: ../panel-plugin/notification-plugin-log.c:318
 msgid "No notifications"
 msgstr "Ingen varslinger"
 
-#: ../panel-plugin/notification-plugin-log.c:327
+#: ../panel-plugin/notification-plugin-log.c:339
 msgid "_Clear log"
 msgstr "_Tøm logg"
 
-#: ../panel-plugin/notification-plugin-log.c:335
+#: ../panel-plugin/notification-plugin-log.c:347
 msgid "_Notification settings…"
 msgstr "_Varselsinnstillinger …"
 
@@ -169,49 +169,49 @@ msgid ""
 "No notifications have been logged yet."
 msgstr "<big><b>Tom logg</b></big>\nIngen varslinger loggført enda."
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:943
 msgid "Refresh"
 msgstr "Oppdater"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:944
 msgid "Refresh the notification log"
 msgstr "Gjenoppfrisk varslingslogg"
 
-#: ../xfce4-notifyd-config/main.c:948
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Open"
 msgstr "Åpne"
 
-#: ../xfce4-notifyd-config/main.c:949
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Open the notification log in an external editor"
 msgstr "Åpne varslingslogg i ekstern tekstbehandler"
 
-#: ../xfce4-notifyd-config/main.c:955
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Clear the notification log"
 msgstr "Tøm varslingslogg"
 
-#: ../xfce4-notifyd-config/main.c:977
+#: ../xfce4-notifyd-config/main.c:980
 msgid "Display version information"
 msgstr "Vis versjonsinformasjon"
 
-#: ../xfce4-notifyd-config/main.c:978
+#: ../xfce4-notifyd-config/main.c:981
 msgid "Settings manager socket"
 msgstr "Innstillingsbehandlersokkel"
 
-#: ../xfce4-notifyd-config/main.c:978
+#: ../xfce4-notifyd-config/main.c:981
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:988
+#: ../xfce4-notifyd-config/main.c:991
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv inn '%s --help' for instruksjoner."
 
-#: ../xfce4-notifyd-config/main.c:1003
+#: ../xfce4-notifyd-config/main.c:1006
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Utgitt under GNU General Public License, versjon 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1004
+#: ../xfce4-notifyd-config/main.c:1007
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapporter feil til %s.\n"
@@ -265,93 +265,101 @@ msgid "Customize your notification settings"
 msgstr "Tilpass med dine varslingsinnstillinger"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "_Hjelp"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "_Lukk"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
 "The notification service is not running. No notifications will be shown."
 msgstr "Varslingsjenesten kjører ikke. Ingen varsler vil bli vist."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>Bare varsler som haster blir vist.</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "Show _Preview"
 msgstr "_Forhåndsvis"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "seconds"
 msgstr "sekunder"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "_Disappear after"
 msgstr "_Skjul etter"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "_Opacity"
 msgstr "_Dekkevne"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "Fade out"
 msgstr "Ton ut"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "_Slide out"
 msgstr "_Skli ut"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "Default _position"
 msgstr "Forvalgt _plassering"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "_Theme"
 msgstr "_Drakt"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "Do not disturb"
 msgstr "Ikke forstyrr"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "<b>Behavior</b>"
 msgstr "<b>Oppførsel</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid "<b>Appearance</b>"
 msgstr "<b>Utseende</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "<b>Animations</b>"
 msgstr "<b>Animasjoner</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "Som forvalg vil varslingsbobla bli vist på skjermen der musepekeren er."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "Show notifications on"
 msgstr "Vis varslinger på"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "General"
 msgstr "Generelt"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Vis eller blokker varsler for hvert program</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Applications"
 msgstr "Programmer"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log notifications"
 msgstr "Loggfør varslinger"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "Log applications"
 msgstr "Logg programmer"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Log"
 msgstr "Logg"
 
