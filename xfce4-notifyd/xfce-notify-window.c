@@ -371,10 +371,16 @@ static gboolean
 xfce_notify_window_draw (GtkWidget *widget,
                          cairo_t *cr)
 {
-    GtkStyleContext *context;
-    GtkAllocation    allocation;
-    GdkScreen       *screen;
-    GtkCssProvider  *provider;
+    GtkStyleContext  *context;
+    GtkAllocation     allocation;
+    GdkScreen        *screen;
+    GtkCssProvider   *provider;
+    GtkStateFlags     state;
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW (widget);
+
+    state = GTK_STATE_FLAG_NORMAL;
+    if (window->mouse_hover)
+        state = GTK_STATE_FLAG_PRELIGHT;
 
     context = gtk_widget_get_style_context (widget);
     gtk_widget_get_allocation (widget, &allocation);
@@ -395,6 +401,7 @@ xfce_notify_window_draw (GtkWidget *widget,
     cairo_fill (cr);
 
     /* Then render the background and border based on the Gtk theme */
+    gtk_style_context_set_state (context, state);
     gtk_render_background (context, cr, allocation.x, allocation.y, allocation.width, allocation.height);
     gtk_render_frame (context, cr, allocation.x, allocation.y, allocation.width, allocation.height);
 
