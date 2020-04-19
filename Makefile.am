@@ -266,7 +266,7 @@ xfce4-notifyd/xfce-notify-enum-types.c: $(srcdir)/xfce4-notifyd/xfce-notify-wind
 
 xfce4-notifyd-config/xfce4-notifyd-config.ui.h: $(srcdir)/xfce4-notifyd-config/xfce4-notifyd-config.glade
 	$(AM_V_GEN) ( \
-	$(EXO_CSOURCE) --static --name=xfce4_notifyd_config_ui $< >$@ \
+	xdt-csource --static --name=xfce4_notifyd_config_ui $< >$@ \
 	)
 
 endif
