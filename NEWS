@@ -1,3 +1,15 @@
+0.6.1
+======
+- Fix hover effect without compositing (Bug #16586)
+- Move from exo-csource to xdt-csource (Bug #16717)
+- Translation Updates:
+  Arabic, Armenian (Armenia), Bulgarian, Catalan, Chinese (China),
+  Chinese (Taiwan), Czech, Danish, Dutch, English (Australia), Finnish,
+  French, German, Greek, Hebrew, Hungarian, Icelandic, Indonesian,
+  Interlingue, Japanese, Kazakh, Korean, Lithuanian, Malay, Norwegian
+  Bokmål, Polish, Portuguese, Russian, Serbian, Spanish, Swedish, Thai,
+  Turkish, Ukrainian
+
 0.6.0
 ======
 - Simplify drawing the notification bubble
