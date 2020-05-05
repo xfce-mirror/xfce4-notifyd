@@ -38,7 +38,8 @@ void       xfce_notify_log_insert (const gchar *app_name,
                                    const gchar *app_icon,
                                    const gchar *desktop_id,
                                    gint expire_timeout,
-                                   const gchar **actions);
+                                   const gchar **actions,
+                                   gint log_max_size);
 
 GtkWidget *xfce_notify_clear_log_dialog (void);
 

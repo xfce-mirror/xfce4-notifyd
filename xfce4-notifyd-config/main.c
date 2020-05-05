@@ -920,6 +920,9 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                            G_OBJECT(log_widgets.log_level), "active");
     xfconf_g_property_bind(channel, "/log-level-apps", G_TYPE_UINT,
                           G_OBJECT(log_widgets.log_level_apps), "active");
+    sbtn = GTK_WIDGET (gtk_builder_get_object (builder, "log_max_size"));
+    xfconf_g_property_bind(channel, "/log-max-size", G_TYPE_UINT,
+                           G_OBJECT(sbtn), "value");
 
     /* Initialize the settings' states correctly */
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(log_widgets.log_level)) == -1)

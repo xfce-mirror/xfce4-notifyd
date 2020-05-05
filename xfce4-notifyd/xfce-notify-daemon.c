@@ -67,6 +67,7 @@ struct _XfceNotifyDaemon
     gint primary_monitor;
     gint log_level;
     gint log_level_apps;
+    gint log_max_size;
 
     GtkCssProvider *css_provider;
     gboolean is_default_theme;
@@ -1251,7 +1252,8 @@ notify_notify (XfceNotifyGBus *skeleton,
                           (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)) {
                           xfce_notify_log_insert (new_app_name, summary, body,
                                                   image_data, image_path, app_icon,
-                                                  desktop_id, expire_timeout, actions);
+                                                  desktop_id, expire_timeout, actions,
+                                                  xndaemon->log_max_size);
                       }
             }
 
@@ -1336,7 +1338,8 @@ notify_notify (XfceNotifyGBus *skeleton,
         transient == FALSE)
         xfce_notify_log_insert (new_app_name, summary, body,
                                 image_data, image_path, app_icon,
-                                desktop_id, expire_timeout, actions);
+                                desktop_id, expire_timeout, actions,
+                                xndaemon->log_max_size);
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 
@@ -1513,6 +1516,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->log_level_apps = G_VALUE_TYPE(value)
                                   ? g_value_get_uint(value)
                                   : 0;
+    } else if(!strcmp(property, "/log-max-size")) {
+        xndaemon->log_max_size = G_VALUE_TYPE(value)
+                                 ? g_value_get_uint(value)
+                                 : 100;
     }
 }
 
@@ -1566,6 +1573,9 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     xndaemon->log_level_apps = xfconf_channel_get_uint(xndaemon->settings,
                                                         "/log-level-apps",
                                                         0);
+    xndaemon->log_max_size = xfconf_channel_get_uint(xndaemon->settings,
+                                                     "/log-max-size",
+                                                     100);
     /* Clean up old notifications from the backlog */
     xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 

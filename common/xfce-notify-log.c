@@ -135,12 +135,15 @@ void xfce_notify_log_insert (const gchar *app_name,
                              const gchar *app_icon,
                              const gchar *desktop_id,
                              gint expire_timeout,
-                             const gchar **actions)
+                             const gchar **actions,
+                             gint log_max_size)
 {
     GKeyFile *notify_log;
     gchar *notify_log_path;
     gchar *timeout;
     gchar *group;
+    gchar **groups;
+    gsize num_groups = 0;
     gint i;
     gint j = 0;
     GDateTime *now;
@@ -162,7 +165,25 @@ void xfce_notify_log_insert (const gchar *app_name,
         notify_log = g_key_file_new ();
         if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, NULL) == FALSE)
         {
-            g_warning ("No file found in cache, creating a new log.");
+            DBG ("No file found in cache, creating a new log.");
+        }
+        else
+        {
+            groups = g_key_file_get_groups (notify_log, &num_groups);
+            if (log_max_size > 0
+                && GPOINTER_TO_UINT(num_groups) > log_max_size)
+            {
+                GError *error = NULL;
+                gint i;
+
+                DBG ("Deleting %d log entries due to maximum number of entries being set to %d.", GPOINTER_TO_UINT(num_groups) - log_max_size, log_max_size);
+
+                for (i = 0; i < (GPOINTER_TO_UINT(num_groups) - log_max_size); i++) {
+                    g_key_file_remove_group (notify_log, g_key_file_get_start_group (notify_log), &error);
+                    if (error)
+                        g_warning ("Failed to delete log entry: %s", error->message);
+                }
+            }
         }
 
         now = g_date_time_new_now_local ();
