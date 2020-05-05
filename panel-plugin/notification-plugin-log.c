@@ -195,7 +195,6 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       gchar *app_name;
       gchar *tooltip_timestamp = NULL;
       gchar *tmp;
-      GTimeVal tv;
       GDateTime *log_timestamp;
 
       /* optionally only show notifications from today */
@@ -211,12 +210,10 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       mi = gtk_image_menu_item_new ();
 G_GNUC_END_IGNORE_DEPRECATIONS
 
-      if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
-        log_timestamp = g_date_time_new_from_timeval_local (&tv);
-        if (log_timestamp != NULL) {
-          tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
-          g_date_time_unref(log_timestamp);
-        }
+      log_timestamp = g_date_time_new_from_iso8601 (group, NULL);
+      if (log_timestamp != NULL) {
+        tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
+        g_date_time_unref (log_timestamp);
       }
 
       app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);

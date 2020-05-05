@@ -573,15 +573,13 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             gchar *app_name;
             gchar *tooltip_timestamp = NULL;
             gchar *tmp;
-            GTimeVal tv;
             GDateTime *log_timestamp;
 
-            if (g_time_val_from_iso8601 (group, &tv) == TRUE) {
-                log_timestamp = g_date_time_new_from_timeval_local (&tv);
-                if (log_timestamp != NULL) {
-                    tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
-                    g_date_time_unref(log_timestamp);
-                }
+            log_timestamp = g_date_time_new_from_iso8601 (group, NULL);
+            if (log_timestamp != NULL) {
+                tooltip_timestamp = g_date_time_format (log_timestamp,
+                                                        "%c");
+                g_date_time_unref (log_timestamp);
             }
 
             if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {

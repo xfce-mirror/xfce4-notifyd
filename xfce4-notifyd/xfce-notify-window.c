@@ -305,11 +305,11 @@ static void
 xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 {
     if(window->expire_timeout) {
-        GTimeVal ct;
+        gint64 ct;
         guint timeout;
         gboolean fade_transparent;
 
-        g_get_current_time(&ct);
+        ct = g_get_real_time();
 
         fade_transparent =
             gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW (window)));
@@ -321,7 +321,7 @@ xfce_notify_window_start_expiration(XfceNotifyWindow *window)
         else
             timeout = FADE_TIME;
 
-        window->expire_start_timestamp = ct.tv_sec * 1000 + ct.tv_usec / 1000;
+        window->expire_start_timestamp = ct / 1000;
         window->expire_id = g_timeout_add(timeout,
                                           xfce_notify_window_expire_timeout,
                                           window);
