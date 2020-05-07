@@ -1086,6 +1086,9 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
             if (!xfconf_channel_set_arrayv (channel, KNOWN_APPLICATIONS_PROP, known_applications))
                 g_warning ("Could not add a new application to the log: %s", new_app_name);
         }
+        else {
+            g_free (val);
+        }
     }
     xfconf_array_free (known_applications);
 }
