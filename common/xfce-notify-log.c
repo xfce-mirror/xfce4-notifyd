@@ -265,6 +265,7 @@ void xfce_notify_log_insert (const gchar *app_name,
         g_warning ("Unable to open cache file");
 
     g_free (notify_log_path);
+    g_free (notify_log_icon_folder);
 }
 
 gchar *
