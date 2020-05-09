@@ -184,6 +184,7 @@ void xfce_notify_log_insert (const gchar *app_name,
                         g_warning ("Failed to delete log entry: %s", error->message);
                 }
             }
+            g_strfreev (groups);
         }
 
         now = g_date_time_new_now_local ();
