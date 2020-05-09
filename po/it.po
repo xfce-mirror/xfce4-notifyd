@@ -6,14 +6,15 @@
 # Cristian Cozzolino <cristiancozzolino@libero.it>, 2010
 # Cristian Marchi <cri.penta@gmail.com>, 2013,2016
 # Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2018
+# Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2020
 # Enrico B. <enricobe@hotmail.com>, 2017
 # Enrico B. <enricobe@hotmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-08-08 16:12+0000\n"
+"POT-Creation-Date: 2020-05-06 00:47+0200\n"
+"PO-Revision-Date: 2020-05-09 12:11+0000\n"
 "Last-Translator: Emanuele Petriglia <transifex@emanuelepetriglia.com>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -22,27 +23,27 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:362
+#: ../common/xfce-notify-log.c:385
 msgid "Do you really want to clear the notification log?"
 msgstr "Pulire veramente il registro delle notifiche?"
 
-#: ../common/xfce-notify-log.c:366
+#: ../common/xfce-notify-log.c:389
 msgid "Clear notification log"
 msgstr "Pulisci il registro delle notifiche"
 
-#: ../common/xfce-notify-log.c:369
+#: ../common/xfce-notify-log.c:392
 msgid "Cancel"
 msgstr "Cancella"
 
-#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
+#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
 msgid "Clear"
 msgstr "Pulisci"
 
-#: ../common/xfce-notify-log.c:384
+#: ../common/xfce-notify-log.c:407
 msgid "include icon cache"
 msgstr "includi la cache delle icone"
 
-#: ../panel-plugin/notification-plugin.c:217
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -57,6 +58,16 @@ msgstr "Impossibile aprire il seguente URL: %s"
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
 msgstr "Impostazioni componente aggiuntivo delle notifiche"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "A_iuto"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "_Chiudi"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
@@ -112,7 +123,7 @@ msgstr "Opzione sconosciuta \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Impossibile avviare il demone di notifica"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Un altro demone di notifica è già in esecuzione; uscita in corso\n"
@@ -163,55 +174,55 @@ msgid ""
 "it will appear in this list."
 msgstr "<big><b>Attualmente non ci sono applicazioni conosciute.</b></big>\nAppena un'applicazione invierà una notifica apparirà in questa lista."
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:938
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Registro vuoto</b></big>\nNessuna notifica registrata finora."
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Refresh the notification log"
 msgstr "Aggiorna il registro delle notifiche"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Open"
 msgstr "Apri"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Open the notification log in an external editor"
 msgstr "Apri il registro delle notifiche in un programma esterno"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:961
 msgid "Clear the notification log"
 msgstr "Svuota il registro delle notifiche"
 
-#: ../xfce4-notifyd-config/main.c:980
+#: ../xfce4-notifyd-config/main.c:983
 msgid "Display version information"
 msgstr "Visualizza le informazioni sulla versione"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "Settings manager socket"
 msgstr "Socket del gestore delle impostazioni"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:991
+#: ../xfce4-notifyd-config/main.c:994
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Provare \"%s --help\" per ottenere le informazioni sull'uso."
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1009
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Rilasciato nei termini della licenza GNU General Public License, versione 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1007
+#: ../xfce4-notifyd-config/main.c:1010
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Segnalare eventuali errori a %s.\n"
@@ -263,14 +274,6 @@ msgstr "In basso a destra"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "Personalizza le impostazioni delle notifiche"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
-msgid "_Help"
-msgstr "A_iuto"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "_Close"
-msgstr "_Chiudi"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -360,6 +363,16 @@ msgid "Log applications"
 msgstr "Registra applicazioni"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+msgid "Log size limit"
+msgstr "Dimensione massima per il registro"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+msgid ""
+"The maximum amount of entries to be retained in the log. Please note that a "
+"large log may lead to performance penalties. 0 means no limit."
+msgstr "Il numero massimo di elementi da conservare nel registro. Un registro troppo grande potrebbe portare a rellentamenti. Impostare 0 significa che non c'è un limite."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
 msgstr "Registro"
 
