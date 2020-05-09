@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2011
-# Igor <f2404@yandex.ru>, 2016-2018
+# Igor <f2404@yandex.ru>, 2016-2018,2020
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-07-31 22:32+0000\n"
-"Last-Translator: Sergey Alyoshin <alyoshin.s@gmail.com>\n"
+"POT-Creation-Date: 2020-05-06 00:47+0200\n"
+"PO-Revision-Date: 2020-05-09 01:32+0000\n"
+"Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,27 +20,27 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ../common/xfce-notify-log.c:362
+#: ../common/xfce-notify-log.c:385
 msgid "Do you really want to clear the notification log?"
 msgstr "Действительно хотите очистить журнал оповещений?"
 
-#: ../common/xfce-notify-log.c:366
+#: ../common/xfce-notify-log.c:389
 msgid "Clear notification log"
 msgstr "Очистить журнал оповещений"
 
-#: ../common/xfce-notify-log.c:369
+#: ../common/xfce-notify-log.c:392
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
+#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
 msgid "Clear"
 msgstr "Очистить"
 
-#: ../common/xfce-notify-log.c:384
+#: ../common/xfce-notify-log.c:407
 msgid "include icon cache"
 msgstr "включая кэш значков"
 
-#: ../panel-plugin/notification-plugin.c:217
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -55,6 +55,16 @@ msgstr "Не удалось открыть следующий адрес: %s"
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
 msgstr "Настройки модуля оповещений"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "_Справка"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "_Закрыть"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
@@ -110,7 +120,7 @@ msgstr "Неизвестная настройка \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Не удалось запустить сервис оповещений"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Другой сервис оповещений уже запущен, выходим\n"
@@ -161,55 +171,55 @@ msgid ""
 "it will appear in this list."
 msgstr "<big><b>Сейчас нет известных приложений.</b></big>\nКак только приложение отправит оповещение,\nоно появится в списке."
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:938
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Журнал пуст</b></big>\nЗаписанных оповещений нет."
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Refresh"
 msgstr "Обновить"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Refresh the notification log"
 msgstr "Обновить журнал оповещений"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Open"
 msgstr "Открыть"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Open the notification log in an external editor"
 msgstr "Открыть журнал оповещений во внешнем редакторе"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:961
 msgid "Clear the notification log"
 msgstr "Очистить журнал оповещений"
 
-#: ../xfce4-notifyd-config/main.c:980
+#: ../xfce4-notifyd-config/main.c:983
 msgid "Display version information"
 msgstr "Отобразить информацию о версии"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "Settings manager socket"
 msgstr "Сокет менеджера настроек"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:991
+#: ../xfce4-notifyd-config/main.c:994
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Введите '%s --help' для получения справки."
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1009
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Распространяется на условиях лицензии GNU General Public License версии 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1007
+#: ../xfce4-notifyd-config/main.c:1010
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Об ошибках сообщайте на %s.\n"
@@ -261,14 +271,6 @@ msgstr "Внизу справа"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "Настроить ваши оповещения"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
-msgid "_Help"
-msgstr "_Справка"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "_Close"
-msgstr "_Закрыть"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -358,6 +360,16 @@ msgid "Log applications"
 msgstr "Записывать приложения в журнал"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+msgid "Log size limit"
+msgstr "Лимит размера журнала"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+msgid ""
+"The maximum amount of entries to be retained in the log. Please note that a "
+"large log may lead to performance penalties. 0 means no limit."
+msgstr "Максимальное количество записей в журнале. Обратите внимание, что большой журнал может снизить производительность. 0 означает неограниченный размер."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
 msgstr "Журнал"
 
