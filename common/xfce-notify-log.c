@@ -204,7 +204,6 @@ void xfce_notify_log_insert (const gchar *app_name,
             pixbuf = notify_pixbuf_from_image_data (image_data);
             if (pixbuf) {
                 notify_log_icon_path = g_strconcat (notify_log_icon_folder , icon_name, ".png", NULL);
-                g_free(notify_log_icon_folder);
                 if (!g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
                     if (!gdk_pixbuf_save (pixbuf, notify_log_icon_path, "png", NULL, NULL))
                         g_warning ("Could not save the pixbuf to: %s", notify_log_icon_path);
