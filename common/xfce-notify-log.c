@@ -127,6 +127,108 @@ xfce_notify_log_get (void)
     return notify_log;
 }
 
+static void
+xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
+                                 const gchar *app_name,
+                                 const gchar *summary,
+                                 const gchar *body,
+                                 GVariant *image_data,
+                                 const gchar *image_path,
+                                 const gchar *app_icon,
+                                 const gchar *desktop_id,
+                                 gint expire_timeout,
+                                 const gchar **actions)
+{
+    gchar *timeout;
+    gchar *group;
+    gint i;
+    gint j = 0;
+    GDateTime *now;
+    gchar *timestamp;
+    gint microseconds;
+    gchar *notify_log_icon_folder;
+
+    notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
+                                                         XFCE_NOTIFY_ICON_PATH, TRUE);
+
+    now = g_date_time_new_now_local ();
+    timestamp = g_date_time_format (now, "%FT%T");
+    microseconds = g_date_time_get_microsecond (now);
+    g_date_time_unref (now);
+    group = g_strdup_printf ("%s.%d", timestamp, microseconds);
+    g_free(timestamp);
+
+    g_key_file_set_string (notify_log, group, "app_name", app_name);
+    g_key_file_set_string (notify_log, group, "summary", summary);
+    g_key_file_set_string (notify_log, group, "body", body);
+    if (image_data) {
+        GBytes *image_bytes;
+        gchar *icon_name;
+        GdkPixbuf *pixbuf;
+
+        image_bytes = g_variant_get_data_as_bytes (image_data);
+        icon_name = g_compute_checksum_for_bytes (G_CHECKSUM_MD5, image_bytes);
+        g_bytes_unref(image_bytes);
+        pixbuf = notify_pixbuf_from_image_data (image_data);
+        if (pixbuf) {
+            gchar *notify_log_icon_path = g_strconcat (notify_log_icon_folder , icon_name, ".png", NULL);
+            if (!g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
+                if (!gdk_pixbuf_save (pixbuf, notify_log_icon_path, "png", NULL, NULL))
+                    g_warning ("Could not save the pixbuf to: %s", notify_log_icon_path);
+            }
+            g_free(notify_log_icon_path);
+            g_object_unref (G_OBJECT (pixbuf));
+        }
+        g_key_file_set_string (notify_log, group, "app_icon", icon_name);
+        g_free(icon_name);
+    }
+    else if (image_path) {
+        /* If the image path is in the tmp directory we copy it to the cache directory to make it persistent
+           (e.g. Chrome/Chromium uses the tmp directory to store and reference icons, see https://bugzilla.xfce.org/show_bug.cgi?id=15215)*/
+        if (g_strcmp0 ("/tmp", g_path_get_dirname (image_path)) == 0) {
+            GFile *tmp_path, *cache_path;
+            gchar *filename, *image_path_md5;
+
+            image_path_md5 = g_compute_checksum_for_string (G_CHECKSUM_MD5, image_path, -1);
+            filename = g_strdup_printf ("%s%s.png", notify_log_icon_folder, image_path_md5);
+            tmp_path = g_file_new_for_path (image_path);
+            cache_path = g_file_new_for_path (filename);
+            if (g_file_copy (tmp_path, cache_path, G_FILE_COPY_NONE, NULL, NULL, NULL, NULL))
+                g_key_file_set_string (notify_log, group, "app_icon", image_path_md5);
+            else
+                g_warning ("Failed to copy the image from the tmp to the cache directory: %s", filename);
+            g_object_unref (tmp_path);
+            g_object_unref (cache_path);
+            g_free (filename);
+            g_free (image_path_md5);
+        }
+        else
+            g_key_file_set_string (notify_log, group, "app_icon", image_path);
+    }
+    else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
+        g_key_file_set_string (notify_log, group, "app_icon", app_icon);
+    }
+    else if (desktop_id) {
+        g_key_file_set_string (notify_log, group, "app_icon", notify_icon_name_from_desktop_id(desktop_id));
+    }
+
+    timeout = g_strdup_printf ("%d", expire_timeout);
+    g_key_file_set_string (notify_log, group, "expire-timeout", timeout);
+    g_free(timeout);
+    for (i = 0; actions && actions[i]; i += 2) {
+        const gchar *cur_action_id = actions[i];
+        const gchar *cur_button_text = actions[i+1];
+        gchar *action_id_num = g_strdup_printf ("%s-%d", "action-id", j);
+        gchar *action_label_num = g_strdup_printf ("%s-%d", "action-label", j);
+        g_key_file_set_string (notify_log, group, action_id_num, cur_action_id);
+        g_key_file_set_string (notify_log, group, action_label_num, cur_button_text);
+        j++;
+    }
+
+    g_free (group);
+    g_free (notify_log_icon_folder);
+}
+
 void xfce_notify_log_insert (const gchar *app_name,
                              const gchar *summary,
                              const gchar *body,
@@ -140,25 +242,9 @@ void xfce_notify_log_insert (const gchar *app_name,
 {
     GKeyFile *notify_log;
     gchar *notify_log_path;
-    gchar *timeout;
-    gchar *group;
-    gchar **groups;
-    gsize num_groups = 0;
-    gint i;
-    gint j = 0;
-    GDateTime *now;
-    gchar *timestamp;
-    gint microseconds;
-    GBytes *image_bytes;
-    gchar *icon_name;
-    GdkPixbuf *pixbuf = NULL;
-    gchar *notify_log_icon_folder;
-    gchar *notify_log_icon_path;
 
     notify_log_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                    XFCE_NOTIFY_LOG_FILE, TRUE);
-    notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
-                                                         XFCE_NOTIFY_ICON_PATH, TRUE);
 
     if (notify_log_path)
     {
@@ -169,7 +255,8 @@ void xfce_notify_log_insert (const gchar *app_name,
         }
         else
         {
-            groups = g_key_file_get_groups (notify_log, &num_groups);
+            gsize num_groups = 0;
+            gchar **groups = g_key_file_get_groups (notify_log, &num_groups);
             if (log_max_size > 0
                 && GPOINTER_TO_UINT(num_groups) > log_max_size)
             {
@@ -187,85 +274,15 @@ void xfce_notify_log_insert (const gchar *app_name,
             g_strfreev (groups);
         }
 
-        now = g_date_time_new_now_local ();
-        timestamp = g_date_time_format (now, "%FT%T");
-        microseconds = g_date_time_get_microsecond (now);
-        g_date_time_unref (now);
-        group = g_strdup_printf ("%s.%d", timestamp, microseconds);
-        g_free(timestamp);
-
-        g_key_file_set_string (notify_log, group, "app_name", app_name);
-        g_key_file_set_string (notify_log, group, "summary", summary);
-        g_key_file_set_string (notify_log, group, "body", body);
-        if (image_data) {
-            image_bytes = g_variant_get_data_as_bytes (image_data);
-            icon_name = g_compute_checksum_for_bytes (G_CHECKSUM_MD5, image_bytes);
-            g_bytes_unref(image_bytes);
-            pixbuf = notify_pixbuf_from_image_data (image_data);
-            if (pixbuf) {
-                notify_log_icon_path = g_strconcat (notify_log_icon_folder , icon_name, ".png", NULL);
-                if (!g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
-                    if (!gdk_pixbuf_save (pixbuf, notify_log_icon_path, "png", NULL, NULL))
-                        g_warning ("Could not save the pixbuf to: %s", notify_log_icon_path);
-                }
-                g_free(notify_log_icon_path);
-                g_object_unref (G_OBJECT (pixbuf));
-            }
-            g_key_file_set_string (notify_log, group, "app_icon", icon_name);
-            g_free(icon_name);
-        }
-        else if (image_path) {
-            /* If the image path is in the tmp directory we copy it to the cache directory to make it persistent
-               (e.g. Chrome/Chromium uses the tmp directory to store and reference icons, see https://bugzilla.xfce.org/show_bug.cgi?id=15215)*/
-            if (g_strcmp0 ("/tmp", g_path_get_dirname (image_path)) == 0) {
-                GFile *tmp_path, *cache_path;
-                gchar *filename, *image_path_md5;
-
-                image_path_md5 = g_compute_checksum_for_string (G_CHECKSUM_MD5, image_path, -1);
-                filename = g_strdup_printf ("%s%s.png", notify_log_icon_folder, image_path_md5);
-                tmp_path = g_file_new_for_path (image_path);
-                cache_path = g_file_new_for_path (filename);
-                if (g_file_copy (tmp_path, cache_path, G_FILE_COPY_NONE, NULL, NULL, NULL, NULL))
-                    g_key_file_set_string (notify_log, group, "app_icon", image_path_md5);
-                else
-                    g_warning ("Failed to copy the image from the tmp to the cache directory: %s", filename);
-                g_object_unref (tmp_path);
-                g_object_unref (cache_path);
-                g_free (filename);
-                g_free (image_path_md5);
-            }
-            else
-                g_key_file_set_string (notify_log, group, "app_icon", image_path);
-        }
-        else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
-            g_key_file_set_string (notify_log, group, "app_icon", app_icon);
-        }
-        else if (desktop_id) {
-            g_key_file_set_string (notify_log, group, "app_icon", notify_icon_name_from_desktop_id(desktop_id));
-        }
-
-        timeout = g_strdup_printf ("%d", expire_timeout);
-        g_key_file_set_string (notify_log, group, "expire-timeout", timeout);
-        g_free(timeout);
-        for (i = 0; actions && actions[i]; i += 2) {
-            const gchar *cur_action_id = actions[i];
-            const gchar *cur_button_text = actions[i+1];
-            gchar *action_id_num = g_strdup_printf ("%s-%d", "action-id", j);
-            gchar *action_label_num = g_strdup_printf ("%s-%d", "action-label", j);
-            g_key_file_set_string (notify_log, group, action_id_num, cur_action_id);
-            g_key_file_set_string (notify_log, group, action_label_num, cur_button_text);
-            j++;
-        }
+        xfce_notify_log_keyfile_insert1 (notify_log, app_name, summary, body, image_data, image_path, app_icon, desktop_id, expire_timeout, actions);
 
         g_key_file_save_to_file (notify_log, notify_log_path, NULL);
         g_key_file_free (notify_log);
-        g_free(group);
     }
     else
         g_warning ("Unable to open cache file");
 
     g_free (notify_log_path);
-    g_free (notify_log_icon_folder);
 }
 
 gchar *
