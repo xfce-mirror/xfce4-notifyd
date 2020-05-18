@@ -249,34 +249,72 @@ void xfce_notify_log_insert (const gchar *app_name,
     if (notify_log_path)
     {
         notify_log = g_key_file_new ();
-        if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, NULL) == FALSE)
+        if (log_max_size > 0)
         {
-            DBG ("No file found in cache, creating a new log.");
+            if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, NULL) == FALSE)
+            {
+                DBG ("No file found in cache, creating a new log.");
+            }
+            else
+            {
+                gsize num_groups = 0;
+                gchar **groups = g_key_file_get_groups (notify_log, &num_groups);
+                if (log_max_size > 0
+                    && GPOINTER_TO_UINT(num_groups) > log_max_size)
+                {
+                    GError *error = NULL;
+                    gint i;
+
+                    DBG ("Deleting %d log entries due to maximum number of entries being set to %d.", GPOINTER_TO_UINT(num_groups) - log_max_size, log_max_size);
+
+                    for (i = 0; i < (GPOINTER_TO_UINT(num_groups) - log_max_size); i++) {
+                        g_key_file_remove_group (notify_log, g_key_file_get_start_group (notify_log), &error);
+                        if (error)
+                            g_warning ("Failed to delete log entry: %s", error->message);
+                    }
+                }
+                g_strfreev (groups);
+            }
+
+            xfce_notify_log_keyfile_insert1 (notify_log, app_name, summary, body, image_data, image_path, app_icon, desktop_id, expire_timeout, actions);
+
+            g_key_file_save_to_file (notify_log, notify_log_path, NULL);
         }
         else
         {
-            gsize num_groups = 0;
-            gchar **groups = g_key_file_get_groups (notify_log, &num_groups);
-            if (log_max_size > 0
-                && GPOINTER_TO_UINT(num_groups) > log_max_size)
+            gchar *data;
+            gsize length = 0;
+            xfce_notify_log_keyfile_insert1 (notify_log, app_name, summary, body, image_data, image_path, app_icon, desktop_id, expire_timeout, actions);
+            data = g_key_file_to_data (notify_log, &length, NULL);
+            if (data)
             {
-                GError *error = NULL;
-                gint i;
-
-                DBG ("Deleting %d log entries due to maximum number of entries being set to %d.", GPOINTER_TO_UINT(num_groups) - log_max_size, log_max_size);
-
-                for (i = 0; i < (GPOINTER_TO_UINT(num_groups) - log_max_size); i++) {
-                    g_key_file_remove_group (notify_log, g_key_file_get_start_group (notify_log), &error);
-                    if (error)
-                        g_warning ("Failed to delete log entry: %s", error->message);
+                GFile *notify_log_file = g_file_new_for_path (notify_log_path);
+                GFileOutputStream *stream = g_file_append_to (notify_log_file, G_FILE_CREATE_NONE, NULL, NULL);
+                if (stream)
+                {
+                    g_output_stream_write_all (G_OUTPUT_STREAM(stream), "\n", strlen("\n"), NULL, NULL, NULL);
+                    if (g_output_stream_write_all (G_OUTPUT_STREAM(stream), data, length, NULL, NULL, NULL) == FALSE)
+                    {
+                        g_warning ("Failed to append a new entry to notify log file");
+                    }
+                    if (g_output_stream_close (G_OUTPUT_STREAM(stream), NULL, NULL) == FALSE)
+                    {
+                        g_warning ("Failed to close notify log file");
+                    }
+                    g_object_unref (stream);
                 }
+                else
+                {
+                    g_warning ("Failed to open notify log file in append mode");
+                }
+                g_object_unref (notify_log_file);
+                g_free (data);
             }
-            g_strfreev (groups);
+            else
+            {
+                g_warning ("Failed to serialize a log entry");
+            }
         }
-
-        xfce_notify_log_keyfile_insert1 (notify_log, app_name, summary, body, image_data, image_path, app_icon, desktop_id, expire_timeout, actions);
-
-        g_key_file_save_to_file (notify_log, notify_log_path, NULL);
         g_key_file_free (notify_log);
     }
     else
