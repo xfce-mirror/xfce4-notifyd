@@ -167,7 +167,7 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
         GdkPixbuf *pixbuf;
 
         image_bytes = g_variant_get_data_as_bytes (image_data);
-        icon_name = g_compute_checksum_for_bytes (G_CHECKSUM_MD5, image_bytes);
+        icon_name = g_compute_checksum_for_bytes (G_CHECKSUM_SHA1, image_bytes);
         g_bytes_unref(image_bytes);
         pixbuf = notify_pixbuf_from_image_data (image_data);
         if (pixbuf) {
@@ -185,25 +185,38 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
     else if (image_path) {
         /* If the image path is in the tmp directory we copy it to the cache directory to make it persistent
            (e.g. Chrome/Chromium uses the tmp directory to store and reference icons, see https://bugzilla.xfce.org/show_bug.cgi?id=15215)*/
-        if (g_strcmp0 ("/tmp", g_path_get_dirname (image_path)) == 0) {
-            GFile *tmp_path, *cache_path;
-            gchar *filename, *image_path_md5;
-
-            image_path_md5 = g_compute_checksum_for_string (G_CHECKSUM_MD5, image_path, -1);
-            filename = g_strdup_printf ("%s%s.png", notify_log_icon_folder, image_path_md5);
-            tmp_path = g_file_new_for_path (image_path);
-            cache_path = g_file_new_for_path (filename);
-            if (g_file_copy (tmp_path, cache_path, G_FILE_COPY_NONE, NULL, NULL, NULL, NULL))
-                g_key_file_set_string (notify_log, group, "app_icon", image_path_md5);
+        gchar *image_dir = g_path_get_dirname (image_path);
+        if (g_strcmp0 ("/tmp", image_dir) == 0) {
+            gchar *image_data = NULL;
+            gsize image_data_size = 0;
+            if (g_file_get_contents(image_path, &image_data, &image_data_size, NULL))
+            {
+                /* TODO: convert the image to PNG if it isn't a PNG image */
+                gchar *image_data_sha1 = g_compute_checksum_for_data (G_CHECKSUM_SHA1, (const guchar*)image_data, image_data_size);
+                gchar *filename = g_strconcat (notify_log_icon_folder, image_data_sha1, ".png", NULL);
+                if (!g_file_test (filename, G_FILE_TEST_EXISTS))
+                {
+                    if (g_file_set_contents (filename, image_data, image_data_size, NULL))
+                        g_key_file_set_string (notify_log, group, "app_icon", image_data_sha1);
+                    else
+                        g_warning ("Failed to copy the image from /tmp to the cache directory: %s", filename);
+                }
+                else
+                    g_key_file_set_string (notify_log, group, "app_icon", image_data_sha1);
+                g_free (filename);
+                g_free (image_data_sha1);
+                g_free (image_data);
+            }
             else
-                g_warning ("Failed to copy the image from the tmp to the cache directory: %s", filename);
-            g_object_unref (tmp_path);
-            g_object_unref (cache_path);
-            g_free (filename);
-            g_free (image_path_md5);
+            {
+                g_warning ("Could not read image: %s", image_path);
+            }
         }
         else
+        {
             g_key_file_set_string (notify_log, group, "app_icon", image_path);
+        }
+        g_free (image_dir);
     }
     else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
         g_key_file_set_string (notify_log, group, "app_icon", app_icon);
