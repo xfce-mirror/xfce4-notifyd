@@ -9,13 +9,14 @@
 # Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2020
 # Enrico B. <enricobe@hotmail.com>, 2017
 # Enrico B. <enricobe@hotmail.com>, 2017
+# Vincenzo Reale <vinx.reale@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-05-09 12:11+0000\n"
-"Last-Translator: Emanuele Petriglia <transifex@emanuelepetriglia.com>\n"
+"PO-Revision-Date: 2020-05-21 18:36+0000\n"
+"Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,7 +92,7 @@ msgstr "<b>_Non disturbare</b>"
 
 #: ../panel-plugin/notification-plugin-log.c:318
 msgid "No notifications"
-msgstr "Nessuna nofitica"
+msgstr "Nessuna notifica"
 
 #: ../panel-plugin/notification-plugin-log.c:339
 msgid "_Clear log"
@@ -370,7 +371,7 @@ msgstr "Dimensione massima per il registro"
 msgid ""
 "The maximum amount of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr "Il numero massimo di elementi da conservare nel registro. Un registro troppo grande potrebbe portare a rellentamenti. Impostare 0 significa che non c'è un limite."
+msgstr "Il numero massimo di elementi da conservare nel registro. Un registro troppo grande potrebbe portare a rallentamenti. Impostare 0 significa che non c'è un limite."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
