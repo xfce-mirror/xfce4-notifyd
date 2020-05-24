@@ -104,7 +104,7 @@
     <property name="window_position">center-on-parent</property>
     <property name="default_width">550</property>
     <property name="default_height">600</property>
-    <property name="icon_name">xfce4-notifyd</property>
+    <property name="icon_name">org.xfce.notification</property>
     <property name="type_hint">dialog</property>
     <property name="subtitle" translatable="yes">Customize your notification settings</property>
     <child internal-child="vbox">

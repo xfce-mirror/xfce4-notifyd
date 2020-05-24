@@ -1,6 +1,6 @@
 iconsdir = $(datadir)/icons/hicolor/48x48/apps
 icons_DATA =								\
-	xfce4-notifyd.png
+	org.xfce.notification.png
 
 EXTRA_DIST =								\
 	$(icons_DATA)
