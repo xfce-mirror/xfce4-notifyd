@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-05-22 21:38+0000\n"
+"PO-Revision-Date: 2020-05-25 20:10+0000\n"
 "Last-Translator: Priit Jõerüüt <transifex@joeruut.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/xfce/xfce-apps/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
 #: ../panel-plugin/notification-plugin-log.c:132
 msgid "<b>_Do not disturb</b>"
-msgstr "<b>_Ära sega</b>"
+msgstr "<b>Ära _sega</b>"
 
 #: ../panel-plugin/notification-plugin-log.c:318
 msgid "No notifications"
