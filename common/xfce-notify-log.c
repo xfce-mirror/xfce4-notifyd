@@ -258,7 +258,7 @@ void xfce_notify_log_insert (const gchar *app_name,
             notify_log = g_key_file_new ();
             if (g_key_file_load_from_file (notify_log, notify_log_path, G_KEY_FILE_NONE, &error) == FALSE)
             {
-                DBG ("No file found in cache, creating a new log. Or corrupted file.");
+                DBG ("No file or corrupt file found in cache, creating a new log.");
                 if (error != NULL)
                 {
                     if (error->code != G_FILE_ERROR_NOENT)
