@@ -189,7 +189,7 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
         if (g_strcmp0 ("/tmp", image_dir) == 0) {
             gchar *image_data = NULL;
             gsize image_data_size = 0;
-            if (g_file_get_contents(image_path, &image_data, &image_data_size, NULL))
+            if (g_file_get_contents (image_path, &image_data, &image_data_size, NULL))
             {
                 /* TODO: convert the image to PNG if it isn't a PNG image */
                 gchar *image_data_sha1 = g_compute_checksum_for_data (G_CHECKSUM_SHA1, (const guchar*)image_data, image_data_size);
