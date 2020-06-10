@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Ammuu5, 2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2013,2018-2019
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2013,2018-2020
 # Pasi Lallinaho <pasi@shimmerproject.org>, 2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-07-31 22:32+0000\n"
-"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>\n"
+"POT-Creation-Date: 2020-05-06 00:47+0200\n"
+"PO-Revision-Date: 2020-06-10 20:49+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/xfce/xfce-apps/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,27 +20,27 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:362
+#: ../common/xfce-notify-log.c:385
 msgid "Do you really want to clear the notification log?"
 msgstr "Haluatko varmasti tyhjentää ilmoituslokin?"
 
-#: ../common/xfce-notify-log.c:366
+#: ../common/xfce-notify-log.c:389
 msgid "Clear notification log"
 msgstr "Tyhjennä ilmoitusloki"
 
-#: ../common/xfce-notify-log.c:369
+#: ../common/xfce-notify-log.c:392
 msgid "Cancel"
 msgstr "Peru"
 
-#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
+#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: ../common/xfce-notify-log.c:384
+#: ../common/xfce-notify-log.c:407
 msgid "include icon cache"
 msgstr "sisällytä kuvakkeiden välimuisti"
 
-#: ../panel-plugin/notification-plugin.c:217
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -55,6 +55,16 @@ msgstr "Ei voitu avata osoitetta: %s"
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
 msgstr "Ilmoituslisäosan asetukset"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "_Ohje"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "_Sulje"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
@@ -110,7 +120,7 @@ msgstr "Tuntematon valitsin \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Ilmoituspalvelua ei voi käynnistää"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Toinen ilmoitussovellus on käynnissä, poistutaan\n"
@@ -161,55 +171,55 @@ msgid ""
 "it will appear in this list."
 msgstr "<big><b>Tunnettuja sovelluksia ei ole</b></big>\nSovellus lisätään tälle listalle\nheti kun se lähettää ilmoituksen."
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:938
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Tyhjä loki</b></big>\nLokissa ei ole vielä yhtään ilmoitusta."
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Refresh"
 msgstr "Päivitä"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Refresh the notification log"
 msgstr "Päivitä ilmoitusloki"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Open"
 msgstr "Avaa"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Open the notification log in an external editor"
 msgstr "Avaa ilmoitusloki ulkoisessa sovelluksessa"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:961
 msgid "Clear the notification log"
 msgstr "Tyhjennä ilmoitusloki"
 
-#: ../xfce4-notifyd-config/main.c:980
+#: ../xfce4-notifyd-config/main.c:983
 msgid "Display version information"
 msgstr "Näytä versiotiedot"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "Settings manager socket"
 msgstr "Asetustenhallinnan pistoke"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "SOCKET_ID"
 msgstr "PISTOKE"
 
-#: ../xfce4-notifyd-config/main.c:991
+#: ../xfce4-notifyd-config/main.c:994
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Saat käyttöohjeita komennolla \"%s --help\"."
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1009
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Julkaistu GNU GPL -lisenssin version 2 ehdoilla\n"
 
-#: ../xfce4-notifyd-config/main.c:1007
+#: ../xfce4-notifyd-config/main.c:1010
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ilmoita ohjelmavirheistä osoitteeseen %s.\n"
@@ -261,14 +271,6 @@ msgstr "Oikea alakulma"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "Mukauta ilmoitusasetuksiasi"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
-msgid "_Help"
-msgstr "_Ohje"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "_Close"
-msgstr "_Sulje"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -358,6 +360,16 @@ msgid "Log applications"
 msgstr "Tallenna lokiin sovellukset"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+msgid "Log size limit"
+msgstr "Lokin kokoraja"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+msgid ""
+"The maximum amount of entries to be retained in the log. Please note that a "
+"large log may lead to performance penalties. 0 means no limit."
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
 msgstr "Käytä lokia"
 
