@@ -565,7 +565,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
         /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
         for (i = log_length; groups && groups[i]; i += 1) {
             GtkWidget *grid;
-            GtkWidget *summary, *body, *app_icon, *expire_timeout;
+            GtkWidget *summary, *body, *app_icon;
             const gchar *group = groups[i];
             const char *format = "<b>\%s</b>";
             const char *tooltip_format_simple = "<b>\%s</b> - \%s";
@@ -636,9 +636,6 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             g_free (notify_log_icon_path);
             g_free (tmp);
             gtk_widget_set_margin_start (app_icon, 3);
-            tmp = g_key_file_get_string (notify_log, group, "expire-timeout", NULL);
-            expire_timeout = gtk_label_new (tmp);
-            g_free (tmp);
             // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
             grid = gtk_grid_new ();
             gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
