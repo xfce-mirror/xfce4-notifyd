@@ -703,8 +703,8 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GdkDisplay *display;
     GdkDeviceManager *device_manager;
 #endif
-    gint x, y, monitor, max_width;
-    GdkRectangle *geom_tmp, geom, initial, widget_geom;
+    gint x, y, monitor, old_monitor, max_width;
+    GdkRectangle old_geom, geom, initial, widget_geom;
     GList *list;
     gboolean found = FALSE;
     static gboolean placement_data_initialized = FALSE;
@@ -718,18 +718,8 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         placement_data_initialized = TRUE;
     }
 
-    geom_tmp = xfce_notify_window_get_geometry(window);
-    if(geom_tmp->width != 0 && geom_tmp->height != 0) {
-        /* Notification has already been placed previously. Not sure if that
-         * can happen. */
-        GList *old_list;
-
-        monitor = xfce_notify_window_get_last_monitor(window);
-        old_list = xndaemon->reserved_rectangles[monitor];
-
-        old_list = g_list_remove(old_list, xfce_notify_window_get_geometry(window));
-        xndaemon->reserved_rectangles[monitor] = old_list;
-    }
+    old_geom = *xfce_notify_window_get_geometry(window);
+    old_monitor = xfce_notify_window_get_last_monitor(window);
 
     widget_screen = gtk_widget_get_screen (widget);
 #if GTK_CHECK_VERSION (3, 20, 0)
@@ -754,6 +744,24 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 
     DBG("Workarea: (%i,%i), width: %i, height:%i",
         geom.x, geom.y, geom.width, geom.height);
+
+    if(old_geom.width != 0 && old_geom.height != 0) {
+        /* Notification has already been placed previously. */
+        GdkRectangle geom_union;
+        gdk_rectangle_union(&old_geom, &geom, &geom_union);
+        if(monitor == old_monitor && allocation->width == old_geom.width && allocation->height == old_geom.height
+           && gdk_rectangle_equal(&geom, &geom_union) && p_screen == gtk_window_get_screen(GTK_WINDOW(widget)))
+        {
+            /* No updates are necessary */
+            return;
+        }
+        else
+        {
+            GList *old_list = xndaemon->reserved_rectangles[old_monitor];
+            old_list = g_list_remove(old_list, xfce_notify_window_get_geometry(window));
+            xndaemon->reserved_rectangles[old_monitor] = old_list;
+        }
+    }
 
     gtk_window_set_screen(GTK_WINDOW(widget), p_screen);
 
