@@ -7,13 +7,14 @@
 # GenghisKhan <genghiskhan@gmx.ca>, 2014,2016-2017
 # GenghisKhan <genghiskhan@gmx.ca>, 2012
 # Omer, 2020
+# Omer, 2020
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-06-01 18:39+0000\n"
+"PO-Revision-Date: 2020-06-23 21:36+0000\n"
 "Last-Translator: Omer\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-apps/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -209,12 +210,12 @@ msgstr "Settings manager socket"
 
 #: ../xfce4-notifyd-config/main.c:984
 msgid "SOCKET_ID"
-msgstr "SOCKET_ID"
+msgstr "_זהות שקע"
 
 #: ../xfce4-notifyd-config/main.c:994
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Type '%s --help' for usage."
+msgstr "הקלד \"%s --help\" לשימוש."
 
 #: ../xfce4-notifyd-config/main.c:1009
 #, c-format
@@ -224,7 +225,7 @@ msgstr "משוחרר תחת התנאים של הרישיון הציבורי הכ
 #: ../xfce4-notifyd-config/main.c:1010
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "נא לדווח על בעיות אל %s.\n"
+msgstr "נא לדווח על באגים ל־ %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
