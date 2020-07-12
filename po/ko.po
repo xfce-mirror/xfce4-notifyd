@@ -4,14 +4,14 @@
 # 
 # Translators:
 # 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>, 2016-2018
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2013,2016-2018
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2013,2016-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-07-31 22:32+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>\n"
+"POT-Creation-Date: 2020-05-06 00:47+0200\n"
+"PO-Revision-Date: 2020-07-12 12:53+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/xfce-apps/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,27 +19,27 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../common/xfce-notify-log.c:362
+#: ../common/xfce-notify-log.c:385
 msgid "Do you really want to clear the notification log?"
 msgstr "정말로 알림 기록을 지우시렵니까?"
 
-#: ../common/xfce-notify-log.c:366
+#: ../common/xfce-notify-log.c:389
 msgid "Clear notification log"
 msgstr "알림 기록 지우기"
 
-#: ../common/xfce-notify-log.c:369
+#: ../common/xfce-notify-log.c:392
 msgid "Cancel"
 msgstr "취소"
 
-#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
+#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
 msgid "Clear"
 msgstr "지우기"
 
-#: ../common/xfce-notify-log.c:384
+#: ../common/xfce-notify-log.c:407
 msgid "include icon cache"
 msgstr "아이콘 캐시 포함"
 
-#: ../panel-plugin/notification-plugin.c:217
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -54,6 +54,16 @@ msgstr "다음 URL을 열 수 없습니다: %s"
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
 msgstr "알림 플러그인 설정"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "닫기(_C)"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
@@ -109,7 +119,7 @@ msgstr "알 수 없는 옵션 \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "알림 데몬을 시작할 수 없습니다"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "다른 알림 데몬이 실행중입니다, 빠져나갑니다\n"
@@ -160,55 +170,55 @@ msgid ""
 "it will appear in this list."
 msgstr "<big><b>지금은 알려진 애플리케이션이 없습니다.</b></big>\n애플리케이션이 알림을 보내면\n이 목록에 나타납니다."
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:938
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>빈 로그</b></big>\n아직 기록된 알림이 없습니다."
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:946
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:947
 msgid "Refresh the notification log"
 msgstr "알림 로그를 새로 고침"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:953
 msgid "Open"
 msgstr "열기"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:954
 msgid "Open the notification log in an external editor"
 msgstr "알림 로그를 외부 편집기에서 열기"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:961
 msgid "Clear the notification log"
 msgstr "알림 로그 지우기"
 
-#: ../xfce4-notifyd-config/main.c:980
+#: ../xfce4-notifyd-config/main.c:983
 msgid "Display version information"
 msgstr "버전 정보 표시"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "Settings manager socket"
 msgstr "설정 관리자 소켓"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:984
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:991
+#: ../xfce4-notifyd-config/main.c:994
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "사용법을 보려면 '%s --help'를 입력합니다."
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1009
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU 일반 공중 사용허가서 버전 2에 따라 출시했습니다\n"
 
-#: ../xfce4-notifyd-config/main.c:1007
+#: ../xfce4-notifyd-config/main.c:1010
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "%s(으)로 버그를 알려주십시오.\n"
@@ -260,14 +270,6 @@ msgstr "하단 오른쪽"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "알림 설정을 꾸며 보세요"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
-msgid "_Help"
-msgstr "도움말(_H)"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "_Close"
-msgstr "닫기(_C)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -357,6 +359,16 @@ msgid "Log applications"
 msgstr "로그 애플리케이션"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+msgid "Log size limit"
+msgstr "로그 용량 제한"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+msgid ""
+"The maximum amount of entries to be retained in the log. Please note that a "
+"large log may lead to performance penalties. 0 means no limit."
+msgstr "로그를 유지할 항목의 최대 양입니다. 로그가 커지면 성능상 손해가 생깁니다. 0값으로 설정하면 용량을 제한하지 않습니다."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
 msgstr "로그"
 
