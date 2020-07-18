@@ -63,6 +63,7 @@ struct _XfceNotifyDaemon
     gboolean do_fadeout;
     gboolean do_slideout;
     gboolean do_not_disturb;
+    gboolean show_clear_prompt;
     gboolean notification_log;
     gint primary_monitor;
     gint log_level;
@@ -1507,6 +1508,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->do_not_disturb = G_VALUE_TYPE(value)
                                  ? g_value_get_boolean(value)
                                  : FALSE;
+    } else if(!strcmp(property, "/show-clear-prompt")) {
+        xndaemon->show_clear_prompt = G_VALUE_TYPE(value)
+                                 ? g_value_get_boolean(value)
+                                 : TRUE;
     } else if(!strcmp(property, "/notification-log")) {
         xndaemon->notification_log = G_VALUE_TYPE(value)
                                      ? g_value_get_boolean(value)
@@ -1566,6 +1571,9 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     xndaemon->do_not_disturb = xfconf_channel_get_bool(xndaemon->settings,
                                                        "/do-not-disturb",
                                                        FALSE);
+    xndaemon->show_clear_prompt = xfconf_channel_get_bool(xndaemon->settings,
+                                                             "/show-clear-prompt",
+                                                             TRUE);
 
     xndaemon->notification_log = xfconf_channel_get_bool(xndaemon->settings,
                                                          "/notification-log",
