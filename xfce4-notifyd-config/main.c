@@ -482,6 +482,14 @@ xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
 }
 
 static void
+xfce4_notifyd_show_clear_prompt_activated (GtkSwitch *show_clear_prompt_switch,
+                                           gboolean state,
+                                           gpointer user_data)
+{
+    gtk_switch_set_active (GTK_SWITCH (show_clear_prompt_switch), state);
+}
+
+static void
 xfce4_notifyd_do_fadeout_activated (GtkSwitch *do_fadeout,
                                     gboolean state,
                                     gpointer user_data)
@@ -768,6 +776,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *placeholder_label;
     GtkWidget *do_not_disturb_switch;
     GtkWidget *do_not_disturb_info;
+    GtkWidget *show_clear_prompt_switch;
     GtkWidget *log_switch;
     GtkWidget *log_scrolled_window;
     GtkToolItem *log_clear_button;
@@ -827,6 +836,12 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                            G_OBJECT(primary_monitor), "active");
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(primary_monitor)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(primary_monitor), 0);
+    
+    show_clear_prompt_switch = GTK_WIDGET (gtk_builder_get_object (builder, "show_clear_prompt"));
+    xfconf_g_property_bind (channel, "/show-clear-prompt", G_TYPE_BOOLEAN,
+                            G_OBJECT (show_clear_prompt_switch), "active");
+    g_signal_connect (G_OBJECT(show_clear_prompt_switch), "state-set",
+                      G_CALLBACK (xfce4_notifyd_show_clear_prompt_activated), NULL);
 
     // Appearance
     theme_combo = GTK_WIDGET(gtk_builder_get_object(builder, "theme_combo"));
