@@ -196,6 +196,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       gchar *tooltip_timestamp = NULL;
       gchar *tmp;
       GDateTime *log_timestamp;
+      GDateTime *local_timestamp = NULL;
 
       /* optionally only show notifications from today */
       if (log_only_today == TRUE) {
@@ -211,9 +212,16 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_GNUC_END_IGNORE_DEPRECATIONS
 
       log_timestamp = g_date_time_new_from_iso8601 (group, NULL);
-      if (log_timestamp != NULL) {
-        tooltip_timestamp = g_date_time_format (log_timestamp, "%c");
+
+      if (log_timestamp != NULL)
+      {
+        local_timestamp = g_date_time_to_local (log_timestamp);
         g_date_time_unref (log_timestamp);
+      }
+
+      if (local_timestamp != NULL) {
+        tooltip_timestamp = g_date_time_format (local_timestamp, "%c");
+        g_date_time_unref (local_timestamp);
       }
 
       app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
@@ -292,6 +300,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       }
       g_free (tmp);
       g_free (app_name);
+      g_free (tooltip_timestamp);
 
       gtk_widget_set_tooltip_markup (mi, markup);
       g_free (markup);
@@ -306,6 +315,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     if (numberof_notifications_shown > 0)
       no_notifications = FALSE;
   }
+
+  g_free (timestamp);
+  g_date_time_unref (today);
+
   /* Show a placeholder label when there are no notifications */
   if (!notify_log ||
       no_notifications) {

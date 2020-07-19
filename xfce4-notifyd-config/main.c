@@ -574,12 +574,18 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             gchar *tooltip_timestamp = NULL;
             gchar *tmp;
             GDateTime *log_timestamp;
+            GDateTime *local_timestamp = NULL;
 
             log_timestamp = g_date_time_new_from_iso8601 (group, NULL);
-            if (log_timestamp != NULL) {
-                tooltip_timestamp = g_date_time_format (log_timestamp,
-                                                        "%c");
+            if (log_timestamp != NULL)
+            {
+                local_timestamp = g_date_time_to_local (log_timestamp);
                 g_date_time_unref (log_timestamp);
+            }
+
+            if (local_timestamp != NULL) {
+                tooltip_timestamp = g_date_time_format (local_timestamp, "%c");
+                g_date_time_unref (local_timestamp);
             }
 
             if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {
@@ -664,6 +670,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             }
             g_free (tmp);
             g_free (app_name);
+            g_free (tooltip_timestamp);
 
             gtk_widget_set_tooltip_markup (grid, markup);
             g_free (markup);
@@ -685,7 +692,9 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
         g_key_file_free (notify_log);
     }
 
-    g_free(notify_log_icon_folder);
+    g_free (notify_log_icon_folder);
+    g_date_time_unref (today);
+    g_free (timestamp);
 
     gtk_widget_show_all (log_listbox);
 

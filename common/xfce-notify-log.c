@@ -145,17 +145,15 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
     gint j = 0;
     GDateTime *now;
     gchar *timestamp;
-    gint microseconds;
     gchar *notify_log_icon_folder;
 
     notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                          XFCE_NOTIFY_ICON_PATH, TRUE);
 
     now = g_date_time_new_now_local ();
-    timestamp = g_date_time_format (now, "%FT%T");
-    microseconds = g_date_time_get_microsecond (now);
+    timestamp = g_date_time_format_iso8601 (now);
     g_date_time_unref (now);
-    group = g_strdup_printf ("%s.%d", timestamp, microseconds);
+    group = g_strdup_printf ("%s", timestamp);
     g_free(timestamp);
 
     g_key_file_set_string (notify_log, group, "app_name", app_name);
