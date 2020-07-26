@@ -945,6 +945,7 @@ xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
 void
 xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
                                    gint value,
+                                   gboolean full_with_value,
                                    GtkCssProvider *css_provider)
 {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
@@ -955,13 +956,27 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
     else if(value < 0)
         value = 0;
 
-    gtk_widget_hide(window->summary);
-    gtk_widget_hide(window->body);
-    gtk_widget_hide(window->button_box);
+    if(full_with_value) {
+        if(window->has_summary_text)
+            gtk_widget_show(window->summary);
+        if(window->has_body_text)
+            gtk_widget_show(window->body);
+        if(window->has_actions)
+            gtk_widget_show(window->button_box);
+    } else {
+        gtk_widget_hide(window->summary);
+        gtk_widget_hide(window->body);
+        gtk_widget_hide(window->button_box);
+    }
 
     if(!window->gauge) {
         GtkWidget *box;
         gint width;
+        gdouble padding;
+
+        gtk_widget_style_get(GTK_WIDGET(window),
+                             "padding", &padding,
+                             NULL);
 
         if(gtk_widget_get_visible(window->icon)) {
             /* size the pbar in relation to the icon */
@@ -984,6 +999,8 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
         window->gauge = gtk_progress_bar_new();
         gtk_widget_set_size_request(window->gauge, width, -1);
         gtk_widget_show(window->gauge);
+        if(full_with_value && window->has_body_text)
+            gtk_widget_set_margin_top(window->gauge, padding / 2);
         gtk_container_add(GTK_CONTAINER(box), window->gauge);
         gtk_style_context_add_provider (gtk_widget_get_style_context (window->gauge),
                                         GTK_STYLE_PROVIDER (css_provider),
