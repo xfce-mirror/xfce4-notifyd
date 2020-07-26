@@ -999,9 +999,13 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
         window->gauge = gtk_progress_bar_new();
         gtk_widget_set_size_request(window->gauge, width, -1);
         gtk_widget_show(window->gauge);
-        if(full_with_value && window->has_body_text)
+        if(full_with_value && window->has_summary_text)
             gtk_widget_set_margin_top(window->gauge, padding / 2);
+        g_object_ref(window->body);
+        gtk_container_remove(GTK_CONTAINER(window->content_box), window->body);
         gtk_container_add(GTK_CONTAINER(box), window->gauge);
+        gtk_box_pack_start(GTK_BOX(window->content_box), window->body, TRUE, TRUE, 0);
+        g_object_unref(window->body);
         gtk_style_context_add_provider (gtk_widget_get_style_context (window->gauge),
                                         GTK_STYLE_PROVIDER (css_provider),
                                         GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
