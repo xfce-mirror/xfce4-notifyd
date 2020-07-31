@@ -43,4 +43,6 @@ void       xfce_notify_log_insert (const gchar *app_name,
 
 GtkWidget *xfce_notify_clear_log_dialog (void);
 
+void xfce_notify_log_clear (void);
+
 #endif /* __XFCE_NOTIFY_LOG_H_ */
