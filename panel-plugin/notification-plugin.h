@@ -30,6 +30,7 @@ G_BEGIN_DECLS
 #define SETTING_LOG_DISPLAY_LIMIT "/plugin/log-display-limit"
 #define DEFAULT_LOG_DISPLAY_LIMIT 10
 #define SETTING_LOG_ONLY_TODAY    "/plugin/log-only-today"
+#define SETTING_HIDE_CLEAR_PROMPT "/plugin/hide-clear-prompt"
 #define DEFAULT_LOG_ICON_SIZE     16
 #define SETTING_LOG_ICON_SIZE     "/plugin/log-icon-size"
 
