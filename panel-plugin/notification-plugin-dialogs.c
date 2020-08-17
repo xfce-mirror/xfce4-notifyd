@@ -121,7 +121,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   xfconf_g_property_bind (notification_plugin->channel, SETTING_LOG_ONLY_TODAY, G_TYPE_BOOLEAN,
                           G_OBJECT (check), "active");
 
-  label = gtk_label_new (_("Hide clear log confirmation prompt"));
+  label = gtk_label_new (_("Hide 'Clear log' confirmation dialog"));
 #if GTK_CHECK_VERSION (3, 16, 0)
   gtk_label_set_xalign (GTK_LABEL (label), 0);
 #else
