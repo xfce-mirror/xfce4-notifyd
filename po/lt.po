@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-05-06 13:46+0000\n"
+"POT-Creation-Date: 2020-08-18 00:47+0200\n"
+"PO-Revision-Date: 2020-08-20 09:27+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-apps/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +19,23 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: ../common/xfce-notify-log.c:385
+#: ../common/xfce-notify-log.c:480
 msgid "Do you really want to clear the notification log?"
 msgstr "Ar tikrai norite išvalyti pranešimų žurnalą?"
 
-#: ../common/xfce-notify-log.c:389
+#: ../common/xfce-notify-log.c:484
 msgid "Clear notification log"
 msgstr "Išvalyti pranešimų žurnalą"
 
-#: ../common/xfce-notify-log.c:392
+#: ../common/xfce-notify-log.c:487
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
+#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
 msgid "Clear"
 msgstr "Išvalyti"
 
-#: ../common/xfce-notify-log.c:407
+#: ../common/xfce-notify-log.c:502
 msgid "include icon cache"
 msgstr "įtraukti piktogramų podėlį"
 
@@ -73,27 +73,31 @@ msgstr "Rodomų pranešimų skaičius"
 msgid "Only show notifications from today"
 msgstr "Rodyti tik šiandienos pranešimus"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:148
+#: ../panel-plugin/notification-plugin-dialogs.c:124
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "Slėpti „Išvalyti žurnalą“ patvirtinimo dialogą"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
 msgstr "Tai yra pranešimų įskiepis"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:150
+#: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Autorių teisės © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:132
+#: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Netrukdyti</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:318
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
 msgstr "Nėra pranešimų"
 
-#: ../panel-plugin/notification-plugin-log.c:339
+#: ../panel-plugin/notification-plugin-log.c:356
 msgid "_Clear log"
 msgstr "Iš_valyti žurnalą"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
 msgstr "_Pranešimų nustatymai…"
 
@@ -106,7 +110,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Pranešimų įskiepis, skirtas Xfce skydeliui"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:805
+#: ../xfce4-notifyd-config/main.c:809
 msgid "Xfce Notify Daemon"
 msgstr "Xfce pranešimų tarnyba"
 
@@ -155,77 +159,77 @@ msgstr "įjungtas"
 msgid "disabled"
 msgstr "išjungtas"
 
-#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:593
 msgid "Yesterday and before"
 msgstr "Vakar ir anksčiau"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:811
 msgid "Settings daemon is unavailable"
 msgstr "Nustatymų tarnyba neprieinama"
 
-#: ../xfce4-notifyd-config/main.c:893
+#: ../xfce4-notifyd-config/main.c:897
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Šiuo metu nėra jokių žinomų programų.</b></big>\nKai tik programa atsiųs pranešimą,\nji bus rodoma šiame sąraše."
 
-#: ../xfce4-notifyd-config/main.c:938
+#: ../xfce4-notifyd-config/main.c:942
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Žurnalas tuščias</b></big>\nKol kas nebuvo registruota jokių pranešimų."
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Refresh"
 msgstr "Įkelti iš naujo"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Refresh the notification log"
 msgstr "Iš naujo įkelti pranešimų žurnalą"
 
-#: ../xfce4-notifyd-config/main.c:953
+#: ../xfce4-notifyd-config/main.c:957
 msgid "Open"
 msgstr "Atverti"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Open the notification log in an external editor"
 msgstr "Atverti pranešimų žurnalą išoriniame redaktoriuje"
 
-#: ../xfce4-notifyd-config/main.c:961
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Clear the notification log"
 msgstr "Išvalyti pranešimų žurnalą"
 
-#: ../xfce4-notifyd-config/main.c:983
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Display version information"
 msgstr "Rodyti versijos informaciją"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "Settings manager socket"
 msgstr "Nustatymų tvarkytuvės lizdas"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "SOCKET_ID"
 msgstr "LIZDO_ID"
 
-#: ../xfce4-notifyd-config/main.c:994
+#: ../xfce4-notifyd-config/main.c:998
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Pabandykite „%s --help“, jei norite daugiau informacijos."
 
-#: ../xfce4-notifyd-config/main.c:1009
+#: ../xfce4-notifyd-config/main.c:1013
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Išleista pagal GNU General Public License sąlygas, versija 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1010
+#: ../xfce4-notifyd-config/main.c:1014
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Apie klaidas pranešti %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "tik \"Netrukdyti\" veiksenos metu"
+msgstr "tik „Netrukdyti“ veiksenos metu"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
