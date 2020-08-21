@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-06-04 11:43+0000\n"
+"POT-Creation-Date: 2020-08-18 00:47+0200\n"
+"PO-Revision-Date: 2020-08-21 13:09+0000\n"
 "Last-Translator: Arman Harutyunyan <arman.harut468@gmail.com>\n"
 "Language-Team: Eastern Armenian (http://www.transifex.com/xfce/xfce-apps/language/hye/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +19,23 @@ msgstr ""
 "Language: hye\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:385
+#: ../common/xfce-notify-log.c:480
 msgid "Do you really want to clear the notification log?"
 msgstr "Մաքրե՞լ ծանուցումների մատեանը։"
 
-#: ../common/xfce-notify-log.c:389
+#: ../common/xfce-notify-log.c:484
 msgid "Clear notification log"
 msgstr "Մաքրել ծանուցումների մատեանը"
 
-#: ../common/xfce-notify-log.c:392
+#: ../common/xfce-notify-log.c:487
 msgid "Cancel"
 msgstr "Չեղարկել"
 
-#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
+#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
 msgid "Clear"
 msgstr "Մաքրել"
 
-#: ../common/xfce-notify-log.c:407
+#: ../common/xfce-notify-log.c:502
 msgid "include icon cache"
 msgstr "ներառել պատկերակների շտեմը"
 
@@ -73,27 +73,31 @@ msgstr "Ցուցադրուող ծանուցումների քանակը"
 msgid "Only show notifications from today"
 msgstr "Ցուցադրել միայն այսաւրուայ ծանուցումները"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:148
+#: ../panel-plugin/notification-plugin-dialogs.c:124
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "Թաքցնել «Մաքրել մատեանը» հաստատման երկխաւսութիւնը"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
 msgstr "Սա ծանուցումների ներդրաւնն է"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:150
+#: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Հեղինակային իրաւունք © 2017 Սիմոն Ստեինբեիսս\n"
 
-#: ../panel-plugin/notification-plugin-log.c:132
+#: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
 msgstr "<b> _Չանհանգստացնել</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:318
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
 msgstr "Ծանուցումներ չկան"
 
-#: ../panel-plugin/notification-plugin-log.c:339
+#: ../panel-plugin/notification-plugin-log.c:356
 msgid "_Clear log"
 msgstr "_Մաքրել մատեանը"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
 msgstr "_Ծանուցման կարգաւորումներ…"
 
@@ -106,7 +110,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfce ընտրացանկի ծանուցման ներդրաւններ"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:805
+#: ../xfce4-notifyd-config/main.c:809
 msgid "Xfce Notify Daemon"
 msgstr "Xfce ծանուցման աւժանդակ ծրագիր"
 
@@ -155,70 +159,70 @@ msgstr "միացուած է"
 msgid "disabled"
 msgstr "անջատուած է"
 
-#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:593
 msgid "Yesterday and before"
 msgstr "Երեկ եւ առաջ"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:811
 msgid "Settings daemon is unavailable"
 msgstr "Կարգաւորումների աւժանդակ ծրագիրը հասանելի չէ"
 
-#: ../xfce4-notifyd-config/main.c:893
+#: ../xfce4-notifyd-config/main.c:897
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Ներկայումս ծանաւթ յաւելուածներ չկան։</b></big>\nԵրբ յաւելուածն ուղարկի ծանուցումները\nայն կը ցուցադրուի ցուցակում։"
 
-#: ../xfce4-notifyd-config/main.c:938
+#: ../xfce4-notifyd-config/main.c:942
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Դատարկ մատեան</b></big>\nԳրանցուած ծանուցումներ դեռ չկան։"
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Refresh"
 msgstr "Թարմացնել"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Refresh the notification log"
 msgstr "Թարմացնել ծանուցումների մատեանը"
 
-#: ../xfce4-notifyd-config/main.c:953
+#: ../xfce4-notifyd-config/main.c:957
 msgid "Open"
 msgstr "Բացել"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Open the notification log in an external editor"
 msgstr "Բացել ծանուցումների մատեանը՝ արտաքին խմբագրիիչով"
 
-#: ../xfce4-notifyd-config/main.c:961
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Clear the notification log"
 msgstr "Մաքրել ծանուցումենրի մատեանը"
 
-#: ../xfce4-notifyd-config/main.c:983
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Display version information"
 msgstr "Ցուցադրել տեղեկոյթ ծրագրի տարբերակի վերաբերեալ"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "Settings manager socket"
 msgstr "Կարգաւորումների կառավարային բնիկ"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:994
+#: ../xfce4-notifyd-config/main.c:998
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Մուտքագրէք '%s --help' աջակցութեան համար։"
 
-#: ../xfce4-notifyd-config/main.c:1009
+#: ../xfce4-notifyd-config/main.c:1013
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Մշակուում է՝ GNU Հանրային արտաւնագրի երկրորդ տարբերակի կանոնների համաձայն\n"
 
-#: ../xfce4-notifyd-config/main.c:1010
+#: ../xfce4-notifyd-config/main.c:1014
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Սխալների դէպքում կարող էք դիմել %s հասցէով։\n"
@@ -360,13 +364,13 @@ msgstr "Մատեանի ծրագրեր"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Log size limit"
-msgstr ""
+msgstr "Մատեանի չափի սահմանափակում"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid ""
 "The maximum amount of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Մատեանում պահելու համար մուտքերի առաւելագոյն քանակը: Խնդրում ենք նկատի ունենալ, որ մեծ մատեանը կարող է հանգեցնել կատարողականի տոյժերի: 0- ն նշանակում է սահման չկա:"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
