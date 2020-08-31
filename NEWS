@@ -1,3 +1,25 @@
+0.6.2
+======
+- Switch to new app icon and rDNS icon name
+- Default to session autostart instead of DBus (Fixes #27)
+- Add configurable log size limit (default: 100)
+- Make buttons on non-1st notifications work
+- panel-plugin: Add option to hide "Clear log" dialog
+- log: properly handle iso8601 timestamps
+- log: Use SHA-1 data hash in icon cache paths (bug #16825)
+- log: Improve performance of adding notifications to log file (bug #14865)
+- log: Refactor log keyfile element insertion into a separate function
+- Add basic GitLab pipeline
+- Fix GTimeVal deprecation (Bug #16805)
+- Remove unused expire_timeout variable
+- Fix memory leaks
+- settings: Switch to symbolic close icon
+- Translation Updates:
+  Bulgarian, Catalan, Chinese (China), Danish, Dutch, Eastern Armenian,
+  Estonian, Finnish, French, Galician, German, Hebrew, Indonesian,
+  Italian, Japanese, Kazakh, Korean, Lithuanian, Norwegian Bokmål,
+  Portuguese, Portuguese (Brazil), Russian, Serbian, Spanish, Turkish
+
 0.6.1
 ======
 - Fix hover effect without compositing (Bug #16586)
