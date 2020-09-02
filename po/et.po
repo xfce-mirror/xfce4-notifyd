@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-05-25 20:10+0000\n"
+"POT-Creation-Date: 2020-08-18 00:47+0200\n"
+"PO-Revision-Date: 2020-09-02 16:08+0000\n"
 "Last-Translator: Priit Jõerüüt <transifex@joeruut.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/xfce/xfce-apps/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:385
+#: ../common/xfce-notify-log.c:480
 msgid "Do you really want to clear the notification log?"
 msgstr "Kas sa kindlasti soovid kustutada teadete logi?"
 
-#: ../common/xfce-notify-log.c:389
+#: ../common/xfce-notify-log.c:484
 msgid "Clear notification log"
 msgstr "Kustuta teadete logi"
 
-#: ../common/xfce-notify-log.c:392
+#: ../common/xfce-notify-log.c:487
 msgid "Cancel"
 msgstr "Tühista"
 
-#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
+#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
 msgid "Clear"
 msgstr "Puhasta"
 
-#: ../common/xfce-notify-log.c:407
+#: ../common/xfce-notify-log.c:502
 msgid "include icon cache"
 msgstr "sealhulgas puhverdatud ikoonid"
 
@@ -72,27 +72,31 @@ msgstr "Näidatavate teadete arv"
 msgid "Only show notifications from today"
 msgstr "Näita vaid tänaseid teateid"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:148
+#: ../panel-plugin/notification-plugin-dialogs.c:124
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "Peida „Kustuta teadete logi“ kinnitusdialoog"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
 msgstr "See on teadete pistikprogramm"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:150
+#: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:132
+#: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>Ära _sega</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:318
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
 msgstr "Teateid ei ole"
 
-#: ../panel-plugin/notification-plugin-log.c:339
+#: ../panel-plugin/notification-plugin-log.c:356
 msgid "_Clear log"
 msgstr "_Puhasta logi"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
 msgstr "_Teadete seadistused..."
 
@@ -105,7 +109,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Teadete pistikprogramm Xfce paneeli jaoks"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:805
+#: ../xfce4-notifyd-config/main.c:809
 msgid "Xfce Notify Daemon"
 msgstr "Xfce teadete taustaprogramm"
 
@@ -154,70 +158,70 @@ msgstr "lubatud"
 msgid "disabled"
 msgstr "keelatud"
 
-#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:593
 msgid "Yesterday and before"
 msgstr "Eile ja varem"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:811
 msgid "Settings daemon is unavailable"
 msgstr "Seadistuste taustaprogramm ei ole saadaval"
 
-#: ../xfce4-notifyd-config/main.c:893
+#: ../xfce4-notifyd-config/main.c:897
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Ühtegi rakendust pole hetkel kirjeldatud.</b></big>\nNiipea, kui rakendus saadab mõne teate,\ntekib ta siia loendisse."
 
-#: ../xfce4-notifyd-config/main.c:938
+#: ../xfce4-notifyd-config/main.c:942
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Teadete logi on tühi</b></big>\nMitte ühtegi teadet pole veel logitud."
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Refresh"
 msgstr "Värskenda"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Refresh the notification log"
 msgstr "Värskenda teavituste logi"
 
-#: ../xfce4-notifyd-config/main.c:953
+#: ../xfce4-notifyd-config/main.c:957
 msgid "Open"
 msgstr "Ava"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Open the notification log in an external editor"
 msgstr "Ava teavituste logi välises tekstitoimetis"
 
-#: ../xfce4-notifyd-config/main.c:961
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Clear the notification log"
 msgstr "Tühjenda teavituste logi"
 
-#: ../xfce4-notifyd-config/main.c:983
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Display version information"
 msgstr "Näita versiooniteavet"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "Settings manager socket"
 msgstr "Seadistuste halduri sokkel"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "SOCKET_ID"
 msgstr "SOKLI_ID"
 
-#: ../xfce4-notifyd-config/main.c:994
+#: ../xfce4-notifyd-config/main.c:998
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Trüki „%s --help” kasutusjuhisteks. "
 
-#: ../xfce4-notifyd-config/main.c:1009
+#: ../xfce4-notifyd-config/main.c:1013
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Avaldatud GNU General Public License versioon 2 alusel\n"
 
-#: ../xfce4-notifyd-config/main.c:1010
+#: ../xfce4-notifyd-config/main.c:1014
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Palun teata vigadest <%s>.\n"
