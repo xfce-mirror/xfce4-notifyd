@@ -1340,7 +1340,9 @@ notify_notify (XfceNotifyGBus *skeleton,
         }
     }
     else if (desktop_id) {
-        xfce_notify_window_set_icon_name (window, notify_icon_name_from_desktop_id (desktop_id));
+        gchar *icon_name = notify_icon_name_from_desktop_id (desktop_id);
+        xfce_notify_window_set_icon_name (window, icon_name);
+        g_free (icon_name);
     }
 
     if (xndaemon->notification_log == TRUE &&
