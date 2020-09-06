@@ -687,7 +687,6 @@ xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
                                   const gchar *icon_name)
 {
     gboolean icon_set = FALSE;
-    gchar *filename;
 
     g_return_if_fail (XFCE_IS_NOTIFY_WINDOW (window));
 
@@ -702,7 +701,7 @@ xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
             pix = gdk_pixbuf_new_from_file_at_size (icon_name, w, h, NULL);
         }
         else if (g_str_has_prefix (icon_name, "file://")) {
-            filename = g_filename_from_uri (icon_name, NULL, NULL);
+            gchar *filename = g_filename_from_uri (icon_name, NULL, NULL);
             if (filename)
               pix = gdk_pixbuf_new_from_file_at_size (filename, w, h, NULL);
             g_free (filename);
