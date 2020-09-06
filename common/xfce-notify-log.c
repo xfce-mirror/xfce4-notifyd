@@ -83,10 +83,9 @@ notify_pixbuf_from_image_data (GVariant *image_data)
     return pix;
 }
 
-const gchar *
+gchar *
 notify_icon_name_from_desktop_id (const gchar *desktop_id)
 {
-    const gchar *icon_file;
     gchar *resource;
     XfceRc *rcfile;
 
@@ -97,13 +96,18 @@ notify_icon_name_from_desktop_id (const gchar *desktop_id)
                                  resource, TRUE);
     g_free (resource);
     if (rcfile && xfce_rc_has_group (rcfile, "Desktop Entry")) {
+        gchar *icon_file;
         xfce_rc_set_group (rcfile, "Desktop Entry");
-        icon_file = xfce_rc_read_entry (rcfile, "Icon", NULL);
+        icon_file = g_strdup( xfce_rc_read_entry (rcfile, "Icon", NULL));
+        /* At this point: icon_file might be NULL */
         xfce_rc_close (rcfile);
         return icon_file;
     }
     else
+    {
+        xfce_rc_close (rcfile);
         return NULL;
+    }
 }
 
 GKeyFile *
@@ -220,7 +224,9 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
         g_key_file_set_string (notify_log, group, "app_icon", app_icon);
     }
     else if (desktop_id) {
-        g_key_file_set_string (notify_log, group, "app_icon", notify_icon_name_from_desktop_id(desktop_id));
+        gchar *icon_name = notify_icon_name_from_desktop_id(desktop_id);
+        g_key_file_set_string (notify_log, group, "app_icon", icon_name);
+        g_free (icon_name);
     }
 
     timeout = g_strdup_printf ("%d", expire_timeout);
@@ -362,34 +368,44 @@ void xfce_notify_log_insert (const gchar *app_name,
     g_free (notify_log_path);
 }
 
-gchar *
+/* Returns NULL if unable to determine the icon cache size */
+static gchar *
 xfce_notify_get_icon_cache_size (void)
 {
-    gchar *notify_icon_cache_path = NULL;
-    gchar *size_string;
+    gchar *notify_icon_cache_path;
 
     notify_icon_cache_path = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                           XFCE_NOTIFY_ICON_PATH, FALSE);
     if (notify_icon_cache_path)
     {
         GFile *icon_folder;
-        guint64 disk_usage, num_dirs, num_files;
+        guint64 disk_usage, num_files;
+        gboolean status;
 
         icon_folder = g_file_new_for_path (notify_icon_cache_path);
+        g_free (notify_icon_cache_path); notify_icon_cache_path = NULL;
 
-        g_file_measure_disk_usage (icon_folder,
+        status = g_file_measure_disk_usage (icon_folder,
                                    G_FILE_MEASURE_NONE,
                                    NULL, NULL, NULL,
                                    &disk_usage,
-                                   &num_dirs,
+                                   NULL,
                                    &num_files,
                                    NULL);
-        size_string = g_strdup_printf ("%d icons / %.1lf MB",
-                                       (int) num_files, (gdouble) disk_usage / 1000000);
-        g_object_unref (icon_folder);
+        g_object_unref (icon_folder); icon_folder = NULL;
+
+        if (status == TRUE) {
+            return g_strdup_printf ("%d icons / %.1f MB", (int) num_files, disk_usage / 1e6);
+        }
+        else
+        {
+            return NULL;
+        }
     }
-    g_free (notify_icon_cache_path);
-    return size_string;
+	else
+    {
+        return NULL;
+    }
 }
 
 void xfce_notify_clear_icon_cache (void)
@@ -476,7 +492,7 @@ GtkWidget *xfce_notify_clear_log_dialog (void)
 {
     GtkWidget *dialog, *grid, *icon, *label, *content_area, *checkbutton;
     GtkDialogFlags flags = GTK_DIALOG_MODAL;
-    gchar *message;
+    gchar *icon_cache_size, *message;
     const char *str = _("Do you really want to clear the notification log?");
     const char *format = "<span weight='bold' size='large'>%s</span>";
     char *markup;
@@ -499,13 +515,22 @@ GtkWidget *xfce_notify_clear_log_dialog (void)
 
     icon = gtk_image_new_from_icon_name ("edit-clear", GTK_ICON_SIZE_DIALOG);
 
-    message = g_strdup_printf ("%s (%s)",_("include icon cache"), xfce_notify_get_icon_cache_size ());
+    icon_cache_size = xfce_notify_get_icon_cache_size ();
+    if (icon_cache_size) {
+        message = g_strdup_printf ("%s (%s)",_("include icon cache"), icon_cache_size);
+        g_free (icon_cache_size); icon_cache_size = NULL;
+    }
+    else
+    {
+        message = g_strdup (_("include icon cache"));
+    }
     label = gtk_label_new (NULL);
     markup = g_markup_printf_escaped (format, str);
     gtk_label_set_markup (GTK_LABEL (label), markup);
     g_free (markup);
 
     checkbutton = gtk_check_button_new_with_label (message);
+    g_free (message); message = NULL;
 
     gtk_grid_attach (GTK_GRID (grid), icon, 0, 0, 1, 2);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
