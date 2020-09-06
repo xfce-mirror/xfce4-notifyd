@@ -4,15 +4,16 @@
 # 
 # Translators:
 # Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2011
+# AlexanderFilev, 2020
 # Igor <f2404@yandex.ru>, 2016-2018,2020
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-06 00:47+0200\n"
-"PO-Revision-Date: 2020-05-09 01:32+0000\n"
-"Last-Translator: Igor <f2404@yandex.ru>\n"
+"POT-Creation-Date: 2020-08-18 00:47+0200\n"
+"PO-Revision-Date: 2020-09-06 07:42+0000\n"
+"Last-Translator: AlexanderFilev\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,23 +21,23 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ../common/xfce-notify-log.c:385
+#: ../common/xfce-notify-log.c:480
 msgid "Do you really want to clear the notification log?"
 msgstr "Действительно хотите очистить журнал оповещений?"
 
-#: ../common/xfce-notify-log.c:389
+#: ../common/xfce-notify-log.c:484
 msgid "Clear notification log"
 msgstr "Очистить журнал оповещений"
 
-#: ../common/xfce-notify-log.c:392
+#: ../common/xfce-notify-log.c:487
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../common/xfce-notify-log.c:394 ../xfce4-notifyd-config/main.c:960
+#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
 msgid "Clear"
 msgstr "Очистить"
 
-#: ../common/xfce-notify-log.c:407
+#: ../common/xfce-notify-log.c:502
 msgid "include icon cache"
 msgstr "включая кэш значков"
 
@@ -74,27 +75,31 @@ msgstr "Количество отображаемых оповещений"
 msgid "Only show notifications from today"
 msgstr "Показывать только сегодняшние оповещения"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:148
+#: ../panel-plugin/notification-plugin-dialogs.c:124
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "Скрыть диалоговое окно подтверждения «Очистить журнал»"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
 msgstr "Это модуль оповещений"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:150
+#: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:132
+#: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>Не _беспокоить</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:318
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
 msgstr "Оповещений нет"
 
-#: ../panel-plugin/notification-plugin-log.c:339
+#: ../panel-plugin/notification-plugin-log.c:356
 msgid "_Clear log"
 msgstr "О_чистить журнал"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
 msgstr "_Настройки оповещений…"
 
@@ -107,7 +112,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Модуль оповещений для панели Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:805
+#: ../xfce4-notifyd-config/main.c:809
 msgid "Xfce Notify Daemon"
 msgstr "Сервис оповещений Xfce"
 
@@ -156,70 +161,70 @@ msgstr "включена"
 msgid "disabled"
 msgstr "отключена"
 
-#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:593
 msgid "Yesterday and before"
 msgstr "Вчера и ранее"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:811
 msgid "Settings daemon is unavailable"
 msgstr "Сервис настроек недоступен"
 
-#: ../xfce4-notifyd-config/main.c:893
+#: ../xfce4-notifyd-config/main.c:897
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Сейчас нет известных приложений.</b></big>\nКак только приложение отправит оповещение,\nоно появится в списке."
 
-#: ../xfce4-notifyd-config/main.c:938
+#: ../xfce4-notifyd-config/main.c:942
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Журнал пуст</b></big>\nЗаписанных оповещений нет."
 
-#: ../xfce4-notifyd-config/main.c:946
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Refresh"
 msgstr "Обновить"
 
-#: ../xfce4-notifyd-config/main.c:947
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Refresh the notification log"
 msgstr "Обновить журнал оповещений"
 
-#: ../xfce4-notifyd-config/main.c:953
+#: ../xfce4-notifyd-config/main.c:957
 msgid "Open"
 msgstr "Открыть"
 
-#: ../xfce4-notifyd-config/main.c:954
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Open the notification log in an external editor"
 msgstr "Открыть журнал оповещений во внешнем редакторе"
 
-#: ../xfce4-notifyd-config/main.c:961
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Clear the notification log"
 msgstr "Очистить журнал оповещений"
 
-#: ../xfce4-notifyd-config/main.c:983
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Display version information"
 msgstr "Отобразить информацию о версии"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "Settings manager socket"
 msgstr "Сокет менеджера настроек"
 
-#: ../xfce4-notifyd-config/main.c:984
+#: ../xfce4-notifyd-config/main.c:988
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:994
+#: ../xfce4-notifyd-config/main.c:998
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Введите '%s --help' для получения справки."
 
-#: ../xfce4-notifyd-config/main.c:1009
+#: ../xfce4-notifyd-config/main.c:1013
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Распространяется на условиях лицензии GNU General Public License версии 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1010
+#: ../xfce4-notifyd-config/main.c:1014
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Об ошибках сообщайте на %s.\n"
