@@ -171,7 +171,6 @@ list_store_add_themes_in_dir(GtkListStore *ls,
 {
     GDir *dir;
     const gchar *file;
-    gchar *filename;
     gchar *old_filename = NULL;
 
     dir = g_dir_open(path, 0, NULL);
@@ -179,6 +178,8 @@ list_store_add_themes_in_dir(GtkListStore *ls,
         return;
 
     while((file = g_dir_read_name(dir))) {
+        gchar *filename;
+
         if(g_hash_table_lookup(themes_seen, file))
             continue;
 
@@ -193,6 +194,7 @@ list_store_add_themes_in_dir(GtkListStore *ls,
                 else
                     gtk_list_store_prepend(ls, &iter);
                 g_free (old_filename);
+                old_filename = NULL;
             }
             else
                 gtk_list_store_append(ls, &iter);
@@ -205,8 +207,8 @@ list_store_add_themes_in_dir(GtkListStore *ls,
                 memcpy(current_theme_iter, &iter, sizeof(iter));
         }
 
-        old_filename = g_strdup (filename);
-        g_free(filename);
+        g_free (old_filename);
+        old_filename = filename;
     }
     g_free (old_filename);
 
@@ -404,8 +406,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             GdkPixbuf *pix = NULL;
             GtkIconInfo *icon_info = NULL;
             GtkIconInfo *icon_info_lower = NULL;
-            gchar const *desktop_icon_name = NULL;
-            gchar *icon_name_lower;
+            gchar *desktop_icon_name, *icon_name_lower;
 
             known_application = g_ptr_array_index (known_applications, i);
             hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
@@ -414,7 +415,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             icon_name = g_strdelimit ((gchar *) g_value_get_string (known_application)," ",'-');
             icon_name_lower = g_ascii_strdown (icon_name, -1);
             icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-            icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), g_ascii_strdown (icon_name, -1), 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+            icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_lower, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
             desktop_icon_name = notify_icon_name_from_desktop_id (icon_name_lower);
             /* Find icons in the right priority: normal icon name with fallback, lowercase icon name with fallback,
                Desktop file icon property or empty. */
@@ -431,6 +432,8 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
             else
                 icon = gtk_image_new ();
             g_free (icon_name_lower);
+            g_free (desktop_icon_name);
+            desktop_icon_name = NULL;
             if (pix)
                 g_object_unref (G_OBJECT (pix));
             gtk_image_set_pixel_size (GTK_IMAGE (icon), 24);
@@ -531,13 +534,12 @@ xfce4_notifyd_log_open (GtkButton *button, gpointer user_data) {
 static void
 xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
 {
-    GtkWidget *log_listbox = log_widgets->log_listbox;
+    GtkWidget *const log_listbox = log_widgets->log_listbox;
     GKeyFile *notify_log;
     GtkCallback func = listbox_remove_all;
     gint i;
     GDateTime *today;
     gchar *timestamp;
-    gchar *limit_label;
     GtkWidget *limit_button;
     gsize num_groups = 0;
     GdkPixbuf *pixbuf = NULL;
@@ -612,6 +614,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             g_free (markup);
             tmp = g_key_file_get_string (notify_log, group, "body", NULL);
             body = gtk_label_new (NULL);
+            g_object_ref (body);
             gtk_label_set_markup (GTK_LABEL (body), tmp);
             if (g_strcmp0 (gtk_label_get_text (GTK_LABEL (body)), "") == 0) {
                 gchar *tmp1;
@@ -671,6 +674,8 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             g_free (tmp);
             g_free (app_name);
             g_free (tooltip_timestamp);
+            g_object_unref (body);
+            body = NULL;
 
             gtk_widget_set_tooltip_markup (grid, markup);
             g_free (markup);
@@ -678,9 +683,12 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
         }
         if (log_length > 0) {
+            gchar *limit_label;
             limit_label = g_strdup_printf("Showing %d of %d notifications. Click to open full log.",
                                           LOG_DISPLAY_LIMIT, GPOINTER_TO_UINT(num_groups));
             limit_button = gtk_button_new_with_label (limit_label);
+            g_free (limit_label);
+            limit_label = NULL;
             gtk_widget_set_margin_bottom (limit_button, 3);
             gtk_widget_set_margin_top (limit_button, 3);
             gtk_button_set_relief (GTK_BUTTON (limit_button), GTK_RELIEF_NONE);
