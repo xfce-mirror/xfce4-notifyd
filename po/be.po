@@ -5,15 +5,15 @@
 # Translators:
 # Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2011
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2013
-# Zmicer Turok <nashtlumach@gmail.com>, 2018
+# Zmicer Turok <nashtlumach@gmail.com>, 2018,2020
 # Zmicer Turok <nashtlumach@gmail.com>, 2018
 # Zmicer Turok <zmicerturok@gmail.com >, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2020-03-13 04:16+0000\n"
+"POT-Creation-Date: 2020-08-18 00:47+0200\n"
+"PO-Revision-Date: 2020-10-12 14:12+0000\n"
 "Last-Translator: Zmicer Turok <nashtlumach@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/xfce/xfce-apps/language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -22,27 +22,27 @@ msgstr ""
 "Language: be\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ../common/xfce-notify-log.c:362
+#: ../common/xfce-notify-log.c:480
 msgid "Do you really want to clear the notification log?"
 msgstr "Сапраўды хочаце ачысціць журнал апавяшчэнняў?"
 
-#: ../common/xfce-notify-log.c:366
+#: ../common/xfce-notify-log.c:484
 msgid "Clear notification log"
 msgstr "Ачысціць журнал апавяшчэнняў"
 
-#: ../common/xfce-notify-log.c:369
+#: ../common/xfce-notify-log.c:487
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
+#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
 msgid "Clear"
 msgstr "Ачысціць"
 
-#: ../common/xfce-notify-log.c:384
+#: ../common/xfce-notify-log.c:502
 msgid "include icon cache"
 msgstr "уключаючы кэш значкоў"
 
-#: ../panel-plugin/notification-plugin.c:217
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -58,6 +58,16 @@ msgstr "Не атрымалася адкрыць наступны адрас: %s
 msgid "Notification Plugin Settings"
 msgstr "Налады ўбудовы апавяшчэнняў"
 
+#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "_Даведка"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "_Закрыць"
+
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
 msgstr "Колькасць адлюстроўваемых апавяшчэнняў"
@@ -66,27 +76,31 @@ msgstr "Колькасць адлюстроўваемых апавяшчэння
 msgid "Only show notifications from today"
 msgstr "Паказваць толькі сённяшнія апавяшчэнні"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:148
+#: ../panel-plugin/notification-plugin-dialogs.c:124
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "Хаваць дыялог пацвярджэння ачысткі журнала"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
 msgstr "Гэта ўбудова апавяшчэнняў"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:150
+#: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:132
+#: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>Не _турбаваць</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:318
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
 msgstr "Апавяшчэнні адсутнічаюць"
 
-#: ../panel-plugin/notification-plugin-log.c:339
+#: ../panel-plugin/notification-plugin-log.c:356
 msgid "_Clear log"
 msgstr "_Ачысціць лог"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
 msgstr "_Налады апавяшчэнняў…"
 
@@ -99,7 +113,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Убудова апавяшчэнняў для панэлі Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:805
+#: ../xfce4-notifyd-config/main.c:809
 msgid "Xfce Notify Daemon"
 msgstr "Дэман апавяшчэнняў Xfce"
 
@@ -112,7 +126,7 @@ msgstr "Невядомы параметр \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Не атрымалася запусціць дэмана апавяшчэнняў"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Іншы дэман апавяшчэнняў ужо запушчаны, выхад\n"
@@ -148,70 +162,70 @@ msgstr "уключана"
 msgid "disabled"
 msgstr "выключана"
 
-#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:593
 msgid "Yesterday and before"
 msgstr "Учора і раней"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:811
 msgid "Settings daemon is unavailable"
 msgstr "Дэман налад недаступны"
 
-#: ../xfce4-notifyd-config/main.c:893
+#: ../xfce4-notifyd-config/main.c:897
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Вядомыя праграмы адсутнічаюць.</b></big>\nКалі праграма адправіць паведамленне,\nто адразу з'явіцца ў гэтым спісе."
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:942
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Журнал пусты</b></big>\nАпавяшчэнні адсутнічаюць."
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Refresh"
 msgstr "Абнавіць"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Refresh the notification log"
 msgstr "Абнавіць журнал апавяшчэнняў"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:957
 msgid "Open"
 msgstr "Адкрыць"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Open the notification log in an external editor"
 msgstr "Адкрыць журнал апавяшчэнняў у вонкавым рэдактары"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Clear the notification log"
 msgstr "Ачысціць журнал апавяшчэнняў"
 
-#: ../xfce4-notifyd-config/main.c:980
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Display version information"
 msgstr "Вывесці інфармацыю аб версіі"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:988
 msgid "Settings manager socket"
 msgstr "Сокет кіраўніка налад"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:988
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:991
+#: ../xfce4-notifyd-config/main.c:998
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Увядзіце '%s --help' для прагляду даведкі."
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1013
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Распаўсюджваецца на ўмовах ліцэнзіі GNU General Public License версіі 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1007
+#: ../xfce4-notifyd-config/main.c:1014
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Пра памылкі паведамляйце на %s.\n"
@@ -263,14 +277,6 @@ msgstr "Унізе справа"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "Наладзіць вашыя апавяшчэнні"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
-msgid "_Help"
-msgstr "_Даведка"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "_Close"
-msgstr "_Закрыць"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -360,6 +366,16 @@ msgid "Log applications"
 msgstr "Запісваць у журнал праграмы"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+msgid "Log size limit"
+msgstr "Ліміт памеру журнала"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+msgid ""
+"The maximum amount of entries to be retained in the log. Please note that a "
+"large log may lead to performance penalties. 0 means no limit."
+msgstr "Максімальная колькасць запісаў, якія можна захоўваць у журнале. Звярніце ўвагу, што вялікі журнал можа паўплываць на прадукцыйнасць. 0 - ліміт адсутнічае."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
 msgstr "Лог"
 
