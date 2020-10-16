@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-01 00:32+0200\n"
-"PO-Revision-Date: 2019-07-31 22:32+0000\n"
-"Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>\n"
+"POT-Creation-Date: 2020-08-18 00:47+0200\n"
+"PO-Revision-Date: 2020-08-17 22:47+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Thai (http://www.transifex.com/xfce/xfce-apps/language/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,27 +19,27 @@ msgstr ""
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../common/xfce-notify-log.c:362
+#: ../common/xfce-notify-log.c:480
 msgid "Do you really want to clear the notification log?"
 msgstr "คุณยืนยันที่จะล้างปูมการแจ้งเหตุใช่หรือไม่?"
 
-#: ../common/xfce-notify-log.c:366
+#: ../common/xfce-notify-log.c:484
 msgid "Clear notification log"
 msgstr "ล้างปูมการแจ้งเหตุ"
 
-#: ../common/xfce-notify-log.c:369
+#: ../common/xfce-notify-log.c:487
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: ../common/xfce-notify-log.c:371 ../xfce4-notifyd-config/main.c:957
+#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
 msgid "Clear"
 msgstr "ล้าง"
 
-#: ../common/xfce-notify-log.c:384
+#: ../common/xfce-notify-log.c:502
 msgid "include icon cache"
 msgstr "รวมแคชของไอคอนด้วย"
 
-#: ../panel-plugin/notification-plugin.c:217
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -55,6 +55,16 @@ msgstr "ไม่สามารถเปิด URL ต่อไปนี้ไ�
 msgid "Notification Plugin Settings"
 msgstr "การตั้งค่าปลั๊กอินแจ้งเหตุ"
 
+#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+msgid "_Help"
+msgstr "_วิธีใช้"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+msgid "_Close"
+msgstr "ปิ_ด"
+
 #: ../panel-plugin/notification-plugin-dialogs.c:99
 msgid "Number of notifications to show"
 msgstr "จำนวนรายการแจ้งเหตุที่จะแสดง"
@@ -63,27 +73,31 @@ msgstr "จำนวนรายการแจ้งเหตุที่จะ
 msgid "Only show notifications from today"
 msgstr "แสดงรายการแจ้งเหตุของวันนี้เท่านั้น"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:148
+#: ../panel-plugin/notification-plugin-dialogs.c:124
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr ""
+
+#: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
 msgstr "นี่คือปลั๊กอินแจ้งเหตุ"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:150
+#: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:132
+#: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_ห้ามรบกวน</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:318
+#: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
 msgstr "ไม่มีรายการแจ้งเหตุ"
 
-#: ../panel-plugin/notification-plugin-log.c:339
+#: ../panel-plugin/notification-plugin-log.c:356
 msgid "_Clear log"
 msgstr "_ล้างปูม"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
 msgstr "_ตั้งค่าการแจ้งเหตุ…"
 
@@ -96,7 +110,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "ปลั๊กอินแจ้งเหตุสำหรับพาเนล Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:805
+#: ../xfce4-notifyd-config/main.c:809
 msgid "Xfce Notify Daemon"
 msgstr "ดีมอนแจ้งเหตุของ Xfce"
 
@@ -109,7 +123,7 @@ msgstr "ไม่รู้จักตัวเลือก \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "ไม่สามารถเปิดทำงานดีมอนแจ้งเหตุได้"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:404
+#: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "มีดีมอนแจ้งเหตุอีกตัวหนึ่งทำงานอยู่ก่อนแล้ว ขอจบการทำงาน\n"
@@ -145,70 +159,70 @@ msgstr "เปิดใช้งานอยู่"
 msgid "disabled"
 msgstr "ปิดใช้งาน"
 
-#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:593
 msgid "Yesterday and before"
 msgstr "เมื่อวานและก่อนหน้า"
 
-#: ../xfce4-notifyd-config/main.c:807
+#: ../xfce4-notifyd-config/main.c:811
 msgid "Settings daemon is unavailable"
 msgstr "ไม่มีดีมอนค่าตั้งอยู่"
 
-#: ../xfce4-notifyd-config/main.c:893
+#: ../xfce4-notifyd-config/main.c:897
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>ขณะนี้ยังไม่มีโปรแกรมที่รู้จัก</b></big>\nทันทีที่มีโปรแกรมแจ้งเหตุเข้ามา\nโปรแกรมนั้นก็จะปรากฏในรายชื่อนี้"
 
-#: ../xfce4-notifyd-config/main.c:935
+#: ../xfce4-notifyd-config/main.c:942
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>ปูมว่างเปล่า</b></big>\nยังไม่มีรายการแจ้งเหตุในปูม"
 
-#: ../xfce4-notifyd-config/main.c:943
+#: ../xfce4-notifyd-config/main.c:950
 msgid "Refresh"
 msgstr "ปรับแสดง"
 
-#: ../xfce4-notifyd-config/main.c:944
+#: ../xfce4-notifyd-config/main.c:951
 msgid "Refresh the notification log"
 msgstr "ปรับแสดงเนื้อหาปูมการแจ้งเหตุ"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:957
 msgid "Open"
 msgstr "เปิด"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Open the notification log in an external editor"
 msgstr "เปิดปูมการแจ้งเหตุด้วยเครื่องมือแก้ไขภายนอก"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Clear the notification log"
 msgstr "ล้างปูมการแจ้งเหตุ"
 
-#: ../xfce4-notifyd-config/main.c:980
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Display version information"
 msgstr "แสดงข้อมูลรุ่น"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:988
 msgid "Settings manager socket"
 msgstr "ซ็อกเก็ตของโปรแกรมจัดการค่าตั้ง"
 
-#: ../xfce4-notifyd-config/main.c:981
+#: ../xfce4-notifyd-config/main.c:988
 msgid "SOCKET_ID"
 msgstr "หมายเลขซ็อกเก็ต"
 
-#: ../xfce4-notifyd-config/main.c:991
+#: ../xfce4-notifyd-config/main.c:998
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "สั่ง '%s --help' เพื่อดูวิธีใช้"
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1013
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "เผยแพร่ภายใต้เงื่อนไขของ GNU General Public License รุ่นที่ 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1007
+#: ../xfce4-notifyd-config/main.c:1014
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "หากพบปัญหา กรุณารายงานที่ %s\n"
@@ -260,14 +274,6 @@ msgstr "ล่างขวา"
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
 msgstr "ปรับแต่งการแจ้งเหตุ"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
-msgid "_Help"
-msgstr "_วิธีใช้"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
-msgid "_Close"
-msgstr "ปิ_ด"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -357,6 +363,16 @@ msgid "Log applications"
 msgstr "บันทึกปูมสำหรับโปรแกรม"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+msgid "Log size limit"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+msgid ""
+"The maximum amount of entries to be retained in the log. Please note that a "
+"large log may lead to performance penalties. 0 means no limit."
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log"
 msgstr "ปูม"
 
