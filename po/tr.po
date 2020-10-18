@@ -5,7 +5,7 @@
 # Translators:
 # Alper Tekinalp <alper.tekinalp@gmail.com>, 2020
 # Demiray Muhterem <mdemiray@msn.com>, 2018,2020
-# Emin Tufan <etcetin@gmail.com>, 2017
+# Emin Tufan <etcetin@gmail.com>, 2017,2020
 # Gökmen Görgen <gkmngrgn@gmail.com>, 2008
 # Necdet Yücel <necdetyucel@gmail.com>, 2013,2016-2018
 # Serdar Sağlam <teknomobil@msn.com>, 2019
@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-18 00:47+0200\n"
-"PO-Revision-Date: 2020-09-03 15:17+0000\n"
-"Last-Translator: Alper Tekinalp <alper.tekinalp@gmail.com>\n"
+"PO-Revision-Date: 2020-10-18 12:45+0000\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +76,7 @@ msgstr "Gösterilecek bildirim sayısı"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:111
 msgid "Only show notifications from today"
-msgstr "Sadece bugünden itibaren bildirimleri göster"
+msgstr "Yalnızca bugünden itibaren bildirimleri göster"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:124
 msgid "Hide 'Clear log' confirmation dialog"
@@ -154,7 +154,7 @@ msgstr "Bildirim ön izleme başarısız"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr "<b>Şu anda sadece acil bildirimler gösterilmektedir.</b>\nBildirim kaydı %s."
+msgstr "<b>Şu anda yalnızca acil bildirimler gösterilmektedir.</b>\nBildirim kaydı %s."
 
 #: ../xfce4-notifyd-config/main.c:512
 msgid "enabled"
@@ -234,7 +234,7 @@ msgstr "Hatayı bize bildirin, %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "sadece \"Rahatsız etmeyin\" süresince"
+msgstr "yalnızca \"Rahatsız etme\" süresince"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
@@ -250,7 +250,7 @@ msgstr "engellenmişler hariç tümü"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
-msgstr "sadece engellenmişler"
+msgstr "yalnızca engellenmişler"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
@@ -287,7 +287,7 @@ msgstr "Bildirim servisi çalışmıyor. Bildirim gösterilmeyecek."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Sadece acil bildirimler gösteriliyor.</b>"
+msgstr "<b>Yalnızca acil bildirimler gösteriliyor.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "Show _Preview"
