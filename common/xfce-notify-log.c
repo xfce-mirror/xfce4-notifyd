@@ -130,6 +130,30 @@ xfce_notify_log_get (void)
     return notify_log;
 }
 
+/* Based on: https://gitlab.gnome.org/GNOME/glib/-/blob/master/glib/gdatetime.c */
+static gchar *
+date_time_format_iso8601 (GDateTime *datetime)
+{
+    const gdouble seconds = g_date_time_get_seconds (datetime);
+    gchar *format, *main_date, *time_zone, *outstr;
+
+    format = (seconds == (glong) seconds) ? "%Y-%m-%dT%H:%M:%S" : "%Y-%m-%dT%H:%M:%S.%f";
+
+    main_date = g_date_time_format (datetime, format);
+
+    if (g_date_time_get_utc_offset (datetime) == 0) {
+        time_zone = g_strdup ("Z");
+    }
+    else {
+        time_zone = g_date_time_format (datetime, "%:::z");
+    }
+
+    outstr = g_strconcat (main_date, time_zone, NULL);
+    g_free (main_date);
+    g_free (time_zone);
+    return outstr;
+}
+
 static void
 xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
                                  const gchar *app_name,
@@ -154,9 +178,9 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
                                                          XFCE_NOTIFY_ICON_PATH, TRUE);
 
     now = g_date_time_new_now_local ();
-    timestamp = g_date_time_format_iso8601 (now);
+    timestamp = date_time_format_iso8601 (now);
     g_date_time_unref (now);
-    group = g_strdup_printf ("%s", timestamp);
+    group = g_strdup (timestamp);
     g_free(timestamp);
 
     g_key_file_set_string (notify_log, group, "app_name", app_name);
