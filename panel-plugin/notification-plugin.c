@@ -116,8 +116,10 @@ cb_menu_deactivate (GtkMenuShell *menu,
 
 
 static gboolean
-cb_menu_size_allocate_next (NotificationPlugin *notification_plugin)
+cb_menu_size_allocate_next (gpointer user_data)
 {
+  NotificationPlugin *notification_plugin = user_data;
+
   gtk_menu_reposition (GTK_MENU (notification_plugin->menu));
   notification_plugin->menu_size_allocate_next_handler = 0;
 
@@ -136,7 +138,7 @@ cb_menu_size_allocate (GtkWidget          *menu,
 
   /* defer gtk_menu_reposition call since it may not work in size event handler */
   notification_plugin->menu_size_allocate_next_handler =
-    g_idle_add ((GSourceFunc)cb_menu_size_allocate_next, notification_plugin);
+    g_idle_add (cb_menu_size_allocate_next, notification_plugin);
 }
 
 
