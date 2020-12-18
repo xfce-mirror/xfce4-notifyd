@@ -403,7 +403,7 @@ xfce_notify_get_icon_cache_size (void)
     return NULL;
 }
 
-void xfce_notify_clear_icon_cache (void)
+static void xfce_notify_clear_icon_cache (void)
 {
     gchar *notify_icon_cache_path = NULL;
 
