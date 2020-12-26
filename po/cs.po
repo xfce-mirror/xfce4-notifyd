@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-18 00:47+0200\n"
-"PO-Revision-Date: 2020-10-03 17:28+0000\n"
+"PO-Revision-Date: 2020-12-26 14:25+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr "Náhled oznámení se nezdařil"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr "<b>Nyní jsou zobrazována pouze neodkladná oznámení.</b>\nProtokolování oznámení je %s."
+msgstr "Aktuálně jsou zobrazována pouze neodkladná oznámení.</b>\nProtokolování oznámení je %s."
 
 #: ../xfce4-notifyd-config/main.c:512
 msgid "enabled"
@@ -174,7 +174,7 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr "<big><b>V tuto chvíli zde nejsou žádné známé aplikace.</b></big>\nJakmile aplikace pošle oznámení, objeví se v\ntomto seznamu."
+msgstr "<big><b>Aktuálně zde nejsou žádné známé aplikace.</b></big>\nJakmile aplikace pošle oznámení, objeví se v\ntomto seznamu."
 
 #: ../xfce4-notifyd-config/main.c:942
 msgid ""
@@ -284,7 +284,7 @@ msgstr "Služba pro oznámení není spuštěna. Oznámení se nebudou zobrazova
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Nyní se zobrazují pouze urgentní oznámení.</b>"
+msgstr "</b>Aktuálně se zobrazují pouze urgentní oznámení.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "Show _Preview"
