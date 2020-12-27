@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-18 00:47+0200\n"
-"PO-Revision-Date: 2020-08-20 09:17+0000\n"
+"PO-Revision-Date: 2020-12-27 17:29+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/xfce/xfce-apps/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -77,7 +77,7 @@ msgstr "Mostrar apenas as notificações de hoje"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:124
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "Ocultar a caixa de diálogo de confirmação 'Limpar o registo'."
+msgstr "Ocultar a caixa de diálogo de confirmação 'Limpar o registo'"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
@@ -101,7 +101,7 @@ msgstr "_Limpar registo"
 
 #: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
-msgstr "Definições de _notificação..."
+msgstr "Definições de _notificação…"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
