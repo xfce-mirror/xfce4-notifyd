@@ -5,7 +5,7 @@
 # Translators:
 # Marcin Mikołajczak <me@mkljczk.pl>, 2017
 # Marcin Mikołajczak <me@mkljczk.pl>, 2016
-# No Ne, 2017-2018,2020
+# No Ne, 2017-2018,2020-2021
 # Piotr Sokół <psokol.l10n@gmail.com>, 2010
 # Piotr Sokół <psokol.l10n@gmail.com>, 2017
 # Piotr Strębski <strebski@gmail.com>, 2013
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-18 00:47+0200\n"
-"PO-Revision-Date: 2020-08-18 04:35+0000\n"
+"PO-Revision-Date: 2021-01-02 11:30+0000\n"
 "Last-Translator: No Ne\n"
 "Language-Team: Polish (http://www.transifex.com/xfce/xfce-apps/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr "_Wyczyść dziennik"
 
 #: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
-msgstr "_Ustawienia powiadomień..."
+msgstr "_Ustawienia powiadomień…"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
@@ -234,7 +234,7 @@ msgstr "Proszę zgłaszać błędy na adres %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "tylko w trybie \"Nie przeszkadzaj\""
+msgstr "tylko w trybie \"Nie przeszkadzać\""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
@@ -242,7 +242,7 @@ msgstr "zawsze"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "all"
-msgstr "wszystko"
+msgstr "wszystkie"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "all except blocked"
@@ -278,7 +278,7 @@ msgstr "Prawy dolny narożnik"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "Customize your notification settings"
-msgstr "Dostosuj swoje ustawienia powiadomień"
+msgstr "Konfiguruje ustawienia powiadomień"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid ""
@@ -299,7 +299,7 @@ msgstr "sekund"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "_Disappear after"
-msgstr "_Znikaj po"
+msgstr "_Znikanie po"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "_Opacity"
@@ -311,7 +311,7 @@ msgstr "Wygaszanie"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "_Slide out"
-msgstr "_Wysuń"
+msgstr "_Przesuwanie"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "Default _position"
@@ -365,7 +365,7 @@ msgstr "Zachowuj powiadomienia"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "Log applications"
-msgstr "Zachowuj z aplikacji"
+msgstr "Zachowuj aplikacje"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Log size limit"
