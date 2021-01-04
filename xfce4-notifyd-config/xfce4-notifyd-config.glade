@@ -106,7 +106,6 @@
     <property name="default_height">600</property>
     <property name="icon_name">org.xfce.notification</property>
     <property name="type_hint">dialog</property>
-    <property name="subtitle" translatable="yes">Customize your notification settings</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
