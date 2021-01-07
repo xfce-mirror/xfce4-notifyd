@@ -42,7 +42,7 @@ dnl check for UNIX variants
 AC_USE_SYSTEM_EXTENSIONS()
 
 dnl check for basic programs
-AC_PROG_CC()
+AC_PROG_CC_C99
 AM_PROG_CC_C_O()
 AC_PROG_LD()
 AC_PROG_INSTALL()
