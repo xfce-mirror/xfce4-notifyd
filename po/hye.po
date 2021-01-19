@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-18 00:47+0200\n"
-"PO-Revision-Date: 2020-08-21 13:09+0000\n"
-"Last-Translator: Arman Harutyunyan <arman.harut468@gmail.com>\n"
+"POT-Creation-Date: 2021-01-04 12:49+0100\n"
+"PO-Revision-Date: 2021-01-04 11:49+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Eastern Armenian (http://www.transifex.com/xfce/xfce-apps/language/hye/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,23 +19,23 @@ msgstr ""
 "Language: hye\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:480
+#: ../common/xfce-notify-log.c:491
 msgid "Do you really want to clear the notification log?"
 msgstr "Մաքրե՞լ ծանուցումների մատեանը։"
 
-#: ../common/xfce-notify-log.c:484
+#: ../common/xfce-notify-log.c:495
 msgid "Clear notification log"
 msgstr "Մաքրել ծանուցումների մատեանը"
 
-#: ../common/xfce-notify-log.c:487
+#: ../common/xfce-notify-log.c:498
 msgid "Cancel"
 msgstr "Չեղարկել"
 
-#: ../common/xfce-notify-log.c:489 ../xfce4-notifyd-config/main.c:964
+#: ../common/xfce-notify-log.c:500 ../xfce4-notifyd-config/main.c:972
 msgid "Clear"
 msgstr "Մաքրել"
 
-#: ../common/xfce-notify-log.c:502
+#: ../common/xfce-notify-log.c:516 ../common/xfce-notify-log.c:524
 msgid "include icon cache"
 msgstr "ներառել պատկերակների շտեմը"
 
@@ -56,12 +56,12 @@ msgid "Notification Plugin Settings"
 msgstr "Ծանուցումների ներդրաւնային կարգաւորումներ"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:80
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "_Help"
 msgstr "_Աջակցութիւն"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:81
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid "_Close"
 msgstr "_Փակել"
 
@@ -110,7 +110,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfce ընտրացանկի ծանուցման ներդրաւններ"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:809
+#: ../xfce4-notifyd-config/main.c:817
 msgid "Xfce Notify Daemon"
 msgstr "Xfce ծանուցման աւժանդակ ծրագիր"
 
@@ -144,85 +144,85 @@ msgstr "Լաւ"
 msgid "Notification preview failed"
 msgstr "Ծանուցումերի նախադիտման ձախողում"
 
-#: ../xfce4-notifyd-config/main.c:505
+#: ../xfce4-notifyd-config/main.c:508
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Ցուցադրուում են միայն հրատապ ծանուցումները։</b>\nԾանուցումների մատեանը %s֊ն է։"
 
-#: ../xfce4-notifyd-config/main.c:512
+#: ../xfce4-notifyd-config/main.c:515
 msgid "enabled"
 msgstr "միացուած է"
 
-#: ../xfce4-notifyd-config/main.c:512
+#: ../xfce4-notifyd-config/main.c:515
 msgid "disabled"
 msgstr "անջատուած է"
 
-#: ../xfce4-notifyd-config/main.c:593
+#: ../xfce4-notifyd-config/main.c:595
 msgid "Yesterday and before"
 msgstr "Երեկ եւ առաջ"
 
-#: ../xfce4-notifyd-config/main.c:811
+#: ../xfce4-notifyd-config/main.c:819
 msgid "Settings daemon is unavailable"
 msgstr "Կարգաւորումների աւժանդակ ծրագիրը հասանելի չէ"
 
-#: ../xfce4-notifyd-config/main.c:897
+#: ../xfce4-notifyd-config/main.c:905
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Ներկայումս ծանաւթ յաւելուածներ չկան։</b></big>\nԵրբ յաւելուածն ուղարկի ծանուցումները\nայն կը ցուցադրուի ցուցակում։"
 
-#: ../xfce4-notifyd-config/main.c:942
+#: ../xfce4-notifyd-config/main.c:950
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Դատարկ մատեան</b></big>\nԳրանցուած ծանուցումներ դեռ չկան։"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:958
 msgid "Refresh"
 msgstr "Թարմացնել"
 
-#: ../xfce4-notifyd-config/main.c:951
+#: ../xfce4-notifyd-config/main.c:959
 msgid "Refresh the notification log"
 msgstr "Թարմացնել ծանուցումների մատեանը"
 
-#: ../xfce4-notifyd-config/main.c:957
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Open"
 msgstr "Բացել"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:966
 msgid "Open the notification log in an external editor"
 msgstr "Բացել ծանուցումների մատեանը՝ արտաքին խմբագրիիչով"
 
-#: ../xfce4-notifyd-config/main.c:965
+#: ../xfce4-notifyd-config/main.c:973
 msgid "Clear the notification log"
 msgstr "Մաքրել ծանուցումենրի մատեանը"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:995
 msgid "Display version information"
 msgstr "Ցուցադրել տեղեկոյթ ծրագրի տարբերակի վերաբերեալ"
 
-#: ../xfce4-notifyd-config/main.c:988
+#: ../xfce4-notifyd-config/main.c:996
 msgid "Settings manager socket"
 msgstr "Կարգաւորումների կառավարային բնիկ"
 
-#: ../xfce4-notifyd-config/main.c:988
+#: ../xfce4-notifyd-config/main.c:996
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:998
+#: ../xfce4-notifyd-config/main.c:1006
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Մուտքագրէք '%s --help' աջակցութեան համար։"
 
-#: ../xfce4-notifyd-config/main.c:1013
+#: ../xfce4-notifyd-config/main.c:1021
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Մշակուում է՝ GNU Հանրային արտաւնագրի երկրորդ տարբերակի կանոնների համաձայն\n"
 
-#: ../xfce4-notifyd-config/main.c:1014
+#: ../xfce4-notifyd-config/main.c:1022
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Սխալների դէպքում կարող էք դիմել %s հասցէով։\n"
@@ -271,108 +271,104 @@ msgstr "Վերեւ աջ"
 msgid "Bottom right"
 msgstr "Ներքեւ աջ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
-msgid "Customize your notification settings"
-msgstr "Յարմարեցնել ծանուցումների կարգաւորումները"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid ""
 "The notification service is not running. No notifications will be shown."
 msgstr "Ծանուցումների ծառայութիւնը չի գործում։ Ծանուցումները չեն ցուցադրուի:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>Ներկաումս ցուցադրուում են միայն հրատապ ծանուցումները։</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "Show _Preview"
 msgstr "Ցուցադրել _նախատեսքը"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "seconds"
 msgstr "վայրկեան յետոյ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "_Disappear after"
 msgstr "_Անհետացնել"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "_Opacity"
 msgstr "_Մգութիւն"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "Fade out"
 msgstr "Մարում"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "_Slide out"
 msgstr "_Սահում"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "Default _position"
 msgstr "Լռելեայն _դիրք"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "_Theme"
 msgstr "_Ոճապնակ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "Do not disturb"
 msgstr "Չանհանգստացնել"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "<b>Behavior</b>"
 msgstr "<b>Վարքագիծ</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "<b>Appearance</b>"
 msgstr "<b>Տեսք</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid "<b>Animations</b>"
 msgstr "<b>Շարժունացում</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "Ծանուցումները լռելեայն կերպով, կը ցուցադրուեն այն ցուցադրիչում, որի վրայ գտնուում է մկնիկի սլաքը։"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "Show notifications on"
 msgstr "Ցուցադրել ծանուցումները՝"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "General"
 msgstr "Ընդհանուր"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Ցուցադրել կամ արգելափակել յաւելուածների ծանուցումները</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Applications"
 msgstr "Յաւելուածներ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log notifications"
 msgstr "Մատեանի ծանուցումներ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log applications"
 msgstr "Մատեանի ծրագրեր"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "Log size limit"
 msgstr "Մատեանի չափի սահմանափակում"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid ""
 "The maximum amount of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr "Մատեանում պահելու համար մուտքերի առաւելագոյն քանակը: Խնդրում ենք նկատի ունենալ, որ մեծ մատեանը կարող է հանգեցնել կատարողականի տոյժերի: 0- ն նշանակում է սահման չկա:"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
 msgstr "Մատեան"
 
