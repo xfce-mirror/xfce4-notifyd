@@ -970,7 +970,7 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
     const gchar *const capabilities[] =
     {
         "actions", "body", "body-hyperlinks", "body-markup", "icon-static",
-        "x-canonical-private-icon-only", NULL
+        "x-canonical-private-icon-only", "x-xfce4-full-with-value", NULL
     };
 
     xfce_notify_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
@@ -1146,6 +1146,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     gint value_hint = 0;
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
+    gboolean full_with_value = FALSE;
     gboolean transient = FALSE;
     GVariant *item;
     GVariantIter iter;
@@ -1221,6 +1222,11 @@ notify_notify (XfceNotifyGBus *skeleton,
         else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
         {
             x_canonical = TRUE;
+            g_variant_unref(value);
+        }
+        else if (g_strcmp0 (key, "x-xfce4-full-with-value") == 0)
+        {
+            full_with_value = TRUE;
             g_variant_unref(value);
         }
         else
@@ -1360,7 +1366,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
 
     if (value_hint_set)
-        xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);
+        xfce_notify_window_set_gauge_value(window, value_hint, full_with_value, xndaemon->css_provider);
     else
         xfce_notify_window_unset_gauge_value(window);
 
