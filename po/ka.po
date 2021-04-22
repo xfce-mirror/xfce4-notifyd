@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# zura davitashvili <zdavitashvili0@gmail.com>, 2019
+# ზურაბი დავითაშვილი <zdavitashvili0@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
