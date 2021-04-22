@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-04 12:49+0100\n"
-"PO-Revision-Date: 2021-03-30 19:15+0000\n"
+"PO-Revision-Date: 2021-04-22 18:31+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -224,7 +224,7 @@ msgstr "ID._DEL_SOCKET"
 #: ../xfce4-notifyd-config/main.c:1006
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Escriba «%s --help» para las opciones de uso."
+msgstr "Escriba «%s --help» para su uso."
 
 #: ../xfce4-notifyd-config/main.c:1021
 #, c-format
