@@ -6,7 +6,7 @@
 # Allan Nordhøy <epost@anotheragency.no>, 2014
 # Allan Nordhøy <epost@anotheragency.no>, 2016-2018
 # Åsmund Berg Holm <berg.holm@outlook.com>, 2017-2018
-# Kjell Cato Heskjestad <cato@heskjestad.xyz>, 2019-2020
+# heskjestad <cato@heskjestad.xyz>, 2019-2020
 # Terje Uriansrud <terje@uriansrud.net>, 2010
 msgid ""
 msgstr ""
