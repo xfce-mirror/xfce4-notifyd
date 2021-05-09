@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-04 12:49+0100\n"
-"PO-Revision-Date: 2021-04-24 08:07+0000\n"
+"PO-Revision-Date: 2021-05-09 09:35+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "No se ha podido abrir el URL siguiente: %s"
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr "Configuración del complemento de notificaciones"
+msgstr "Configuración del complemento para las notificaciones"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:80
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
@@ -88,7 +88,7 @@ msgstr "Ocultar el diálogo de confirmación para borrar el registro"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
-msgstr "Este es el complemento de notificaciones"
+msgstr "Es el complemento para las notificaciones"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
@@ -112,11 +112,11 @@ msgstr "Configuración de las _notificaciones…"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
-msgstr "Complemento de notificaciones"
+msgstr "Complemento para las notificaciones"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:2
 msgid "Notification plugin for the Xfce panel"
-msgstr "Complemento de notificaciones para el panel de Xfce"
+msgstr "Complemento para las notificaciones del panel de Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
 #: ../xfce4-notifyd-config/main.c:817
