@@ -1,4 +1,7 @@
 *.o
+*.a
+*.lo
+*.la
 .*.swp
 .*.swo
 stamp-*
@@ -31,7 +34,7 @@ mkinstalldirs
 .deps
 .dirstamp
 
-po/.intltool-merge-cache
+po/.intltool-merge-cache*
 po/Makefile.in
 po/Makefile.in.in
 po/POTFILES
@@ -50,12 +53,13 @@ xfce4-notifyd/xfce-notify-marshal.h
 xfce4-notifyd/xfce-notify-gbus.c
 xfce4-notifyd/xfce-notify-gbus.h
 xfce4-notifyd/xfce4-notifyd.service
+xfce4-notifyd/xfce4-notifyd.desktop
 xfce4-notifyd/xfce4-notifyd
 
 tests/test-actions
 tests/test-positioning
 tests/test-text
-test/test-icons
+tests/test-icons
 
 m4/
 panel-plugin/.libs/

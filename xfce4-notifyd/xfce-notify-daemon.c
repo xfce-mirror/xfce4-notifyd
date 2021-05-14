@@ -97,9 +97,9 @@ enum
 
 static void xfce_notify_daemon_screen_changed(GdkScreen *screen,
                                               gpointer user_data);
-static void xfce_notify_daemon_update_reserved_rectangles(gpointer key,
-                                                          gpointer value,
-                                                          gpointer data);
+static gboolean xfce_notify_daemon_update_reserved_rectangles(gpointer key,
+                                                              gpointer value,
+                                                              gpointer data);
 static void xfce_notify_daemon_finalize(GObject *obj);
 static void  xfce_notify_daemon_constructed(GObject *obj);
 
@@ -312,7 +312,7 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
 
     /* Traverse the active notifications tree to fill the new reserved rectangles array for screen */
     g_tree_foreach(xndaemon->active_notifications,
-                   (GTraverseFunc)xfce_notify_daemon_update_reserved_rectangles,
+                   xfce_notify_daemon_update_reserved_rectangles,
                    xndaemon);
 }
 
@@ -940,7 +940,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 }
 
 
-static void
+static gboolean
 xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                               gpointer value,
                                               gpointer data)
@@ -959,6 +959,8 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
     allocation.height = height;
 
     xfce_notify_daemon_window_size_allocate(GTK_WIDGET(window), &allocation, xndaemon);
+
+    return FALSE;
 }
 
 

@@ -51,7 +51,6 @@ LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
 
 dnl check for standard header files
-AC_HEADER_STDC()
 AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   sys/stat.h sys/time.h sys/types.h sys/wait.h \
                   unistd.h])
@@ -126,7 +125,7 @@ AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
 dnl check for debugging support
 XDT_FEATURE_DEBUG()
 
-AC_OUTPUT(
+AC_CONFIG_FILES(
 [
     Makefile
     icons/Makefile
@@ -139,6 +138,7 @@ AC_OUTPUT(
     panel-plugin/Makefile
     po/Makefile.in
 ])
+AC_OUTPUT
 
 dnl ***************************
 dnl *** Print configuration ***

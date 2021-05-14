@@ -37,6 +37,13 @@
 
 #include "xfce-notify-log.h"
 
+static void
+notify_free (guchar *pixels,
+             gpointer data)
+{
+  g_free (pixels);
+}
+
 GdkPixbuf *
 notify_pixbuf_from_image_data (GVariant *image_data)
 {
@@ -79,7 +86,7 @@ notify_pixbuf_from_image_data (GVariant *image_data)
                                    GDK_COLORSPACE_RGB, has_alpha,
                                    bits_per_sample, width, height,
                                    rowstride,
-                                   (GdkPixbufDestroyNotify)g_free, NULL);
+                                   notify_free, NULL);
     return pix;
 }
 
@@ -159,7 +166,7 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
                                  const gchar *app_name,
                                  const gchar *summary,
                                  const gchar *body,
-                                 GVariant *image_data,
+                                 GVariant *v_image_data,
                                  const gchar *image_path,
                                  const gchar *app_icon,
                                  const gchar *desktop_id,
@@ -186,15 +193,15 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
     g_key_file_set_string (notify_log, group, "app_name", app_name);
     g_key_file_set_string (notify_log, group, "summary", summary);
     g_key_file_set_string (notify_log, group, "body", body);
-    if (image_data) {
+    if (v_image_data) {
         GBytes *image_bytes;
         gchar *icon_name;
         GdkPixbuf *pixbuf;
 
-        image_bytes = g_variant_get_data_as_bytes (image_data);
+        image_bytes = g_variant_get_data_as_bytes (v_image_data);
         icon_name = g_compute_checksum_for_bytes (G_CHECKSUM_SHA1, image_bytes);
         g_bytes_unref(image_bytes);
-        pixbuf = notify_pixbuf_from_image_data (image_data);
+        pixbuf = notify_pixbuf_from_image_data (v_image_data);
         if (pixbuf) {
             gchar *notify_log_icon_path = g_strconcat (notify_log_icon_folder , icon_name, ".png", NULL);
             if (!g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
