@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-04 12:49+0100\n"
-"PO-Revision-Date: 2021-05-09 09:35+0000\n"
+"PO-Revision-Date: 2021-05-15 19:22+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "No se ha podido abrir el URL siguiente: %s"
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr "Configuración del complemento para las notificaciones"
+msgstr "Configuración del complemento de notificaciones"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:80
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
@@ -80,7 +80,7 @@ msgstr "Número de notificaciones para mostrar"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:111
 msgid "Only show notifications from today"
-msgstr "Mostrar solo notificaciones desde hoy"
+msgstr "Mostrar solo las notificaciones de hoy"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:124
 msgid "Hide 'Clear log' confirmation dialog"
@@ -88,7 +88,7 @@ msgstr "Ocultar el diálogo de confirmación para borrar el registro"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
-msgstr "Es el complemento para las notificaciones"
+msgstr "Complemento para las notificaciones"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:163
 msgid "Copyright © 2017 Simon Steinbeiß\n"
@@ -96,7 +96,7 @@ msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
 #: ../panel-plugin/notification-plugin-log.c:139
 msgid "<b>_Do not disturb</b>"
-msgstr "<b>No mole_star</b>"
+msgstr "<b>_No molestar</b>"
 
 #: ../panel-plugin/notification-plugin-log.c:335
 msgid "No notifications"
@@ -108,15 +108,15 @@ msgstr "_Borrar el registro"
 
 #: ../panel-plugin/notification-plugin-log.c:364
 msgid "_Notification settings…"
-msgstr "Configuración de las _notificaciones…"
+msgstr "_Configuración de las notificaciones…"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:1
 msgid "Notification Plugin"
-msgstr "Complemento para las notificaciones"
+msgstr "Notificaciones"
 
 #: ../panel-plugin/notification-plugin.desktop.in.h:2
 msgid "Notification plugin for the Xfce panel"
-msgstr "Complemento para las notificaciones del panel de Xfce"
+msgstr "Notificaciones para el panel de Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
 #: ../xfce4-notifyd-config/main.c:817
@@ -130,7 +130,7 @@ msgstr "Opción desconocida: «%s»\n"
 
 #: ../xfce4-notifyd/main.c:65
 msgid "Unable to start notification daemon"
-msgstr "No se ha podido iniciar el servicio de notificaciones"
+msgstr "No se puede iniciar el servicio de notificaciones"
 
 #: ../xfce4-notifyd/xfce-notify-daemon.c:405
 #, c-format
@@ -158,7 +158,7 @@ msgstr "No se ha podido mostrar una vista previa de las notificaciones"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr "<b>Actualmente solo se muestran las notificaciones urgentes.</b>\nEl registro de notificaciones es %s."
+msgstr "<b>Actualmente solo se muestran las notificaciones urgentes.</b>\nEl registro de notificaciones está %s."
 
 #: ../xfce4-notifyd-config/main.c:515
 msgid "enabled"
@@ -181,13 +181,13 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr "<big><b>Actualmente no hay aplicaciones conocidas.</b></big>\nTan pronto como una aplicación envíe una notificación,\naparecerá en esta lista."
+msgstr "<big><b>Actualmente no hay aplicaciones conocidas.</b></big>\nEn cuanto una aplicación envíe una notificación\naparecerá en esta lista."
 
 #: ../xfce4-notifyd-config/main.c:950
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
-msgstr "<big><b>Registro vacío</b></big>\nTodavía no se han registrado notificaciones."
+msgstr "<big><b>Registro vacío</b></big>\nTodavía no se ha registrado ninguna notificación."
 
 #: ../xfce4-notifyd-config/main.c:958
 msgid "Refresh"
@@ -219,7 +219,7 @@ msgstr "Socket del gestor de configuración"
 
 #: ../xfce4-notifyd-config/main.c:996
 msgid "SOCKET_ID"
-msgstr "ID._DEL_SOCKET"
+msgstr "ID_DEL_SOCKET"
 
 #: ../xfce4-notifyd-config/main.c:1006
 #, c-format
@@ -229,7 +229,7 @@ msgstr "Escriba «%s --help» para su uso."
 #: ../xfce4-notifyd-config/main.c:1021
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Publicado según los términos de la Licencia Pública General de GNU, versión 2\n"
+msgstr "Se ha publicado según los términos de la Licencia Pública General de GNU, versión 2\n"
 
 #: ../xfce4-notifyd-config/main.c:1022
 #, c-format
@@ -238,27 +238,27 @@ msgstr "Informe de errores a %s.\n"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
-msgstr "solo con «No molestar»"
+msgstr "Solo en el modo «No molestar»"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "always"
-msgstr "siempre"
+msgstr "Siempre"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "all"
-msgstr "todas"
+msgstr "Todas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "all except blocked"
-msgstr "todas excepto las bloqueadas"
+msgstr "Todas excepto las bloqueadas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
-msgstr "solo las bloqueadas"
+msgstr "Solo las bloqueadas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "mostrar con el puntero del ratón"
+msgstr "Pantalla con el puntero del ratón"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
@@ -287,15 +287,15 @@ msgstr "No se está ejecutando el servicio de notificaciones. No se mostrarán n
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Actualmente solo se muestran las notificaciones urgentes.</b>"
+msgstr "<b>Solo se muestran las notificaciones urgentes.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "Show _Preview"
-msgstr "Mostrar una vista _previa"
+msgstr "_Mostrar una vista previa"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "seconds"
-msgstr "segundos"
+msgstr "segundo(s)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "_Disappear after"
@@ -307,7 +307,7 @@ msgstr "_Opacidad"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "Fade out"
-msgstr "Desvanecer"
+msgstr "Des_vanecer"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "_Slide out"
@@ -361,11 +361,11 @@ msgstr "Aplicaciones"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Log notifications"
-msgstr "Registro de notificaciones"
+msgstr "Registrar las notificaciones"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Log applications"
-msgstr "Registro de aplicaciones"
+msgstr "Registrar las aplicaciones"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "Log size limit"
