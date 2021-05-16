@@ -87,6 +87,7 @@ static void
 notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
 {
   NotificationPlugin* notification_plugin = user_data;
+  GtkWidget *dialog;
 	
 	if (xfconf_channel_get_bool (notification_plugin->channel, SETTING_HIDE_CLEAR_PROMPT, FALSE))
 	{
@@ -94,7 +95,7 @@ notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
 	  return;
 	}
 
-  GtkWidget *dialog = xfce_notify_clear_log_dialog ();
+  dialog = xfce_notify_clear_log_dialog ();
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
 }

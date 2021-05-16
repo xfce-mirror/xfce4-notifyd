@@ -720,9 +720,10 @@ static void xfce_notify_log_clear_button_clicked (GtkButton *button, gpointer us
     GtkWidget *log_listbox = ((NotificationLogWidgets *) user_data)->log_listbox;
     GtkCallback func = listbox_remove_all;
     GtkWidget *dialog;
+    gint result;
 
     dialog = xfce_notify_clear_log_dialog ();
-    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+    result = gtk_dialog_run (GTK_DIALOG (dialog));
     /* Clear the listbox widget too in case the log is cleared */
     if (result == GTK_RESPONSE_OK)
         gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
@@ -754,7 +755,7 @@ static void xfce_notify_bus_name_vanished_cb (GDBusConnection *connection,
     gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), TRUE);
 }
 
-GtkWidget *
+static GtkWidget *
 placeholder_label_new (gchar *place_holder_text)
 {
     GtkWidget *label;
