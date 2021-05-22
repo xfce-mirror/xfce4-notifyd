@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-04 12:49+0100\n"
-"PO-Revision-Date: 2021-05-15 19:22+0000\n"
+"PO-Revision-Date: 2021-05-22 18:52+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "No se ha podido abrir el URL siguiente: %s"
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
 msgid "Notification Plugin Settings"
-msgstr "Configuración del complemento de notificaciones"
+msgstr "Complemento para las notificaciones"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:80
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
