@@ -1,3 +1,24 @@
+0.6.3
+======
+- Fix compilation warnings
+- autoconf: Some updates
+- Update `.gitignore`
+- Remove GSourceFunc casts
+- Fix missing-prototypes
+- Bump required GLib version to 2.56
+- Implement ISO 8601 time format to avoid post-2.56 GLib functions
+- settings: Drop subtitle
+- Fix multiple memory issues (!11)
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Basque, Belarusian, Bulgarian,
+  Catalan, Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish,
+  Dutch, Eastern Armenian, English (Australia), Estonian, Finnish,
+  French, Galician, Georgian, German, Greek, Hebrew, Hungarian,
+  Icelandic, Indonesian, Interlingue, Italian, Japanese, Kazakh,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Polish, Portuguese,
+  Portuguese (Brazil), Russian, Serbian, Slovak, Slovenian, Spanish,
+  Swedish, Thai, Turkish, Ukrainian
+
 0.6.2
 ======
 - Switch to new app icon and rDNS icon name
