@@ -146,6 +146,10 @@ static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
                                            guint id,
                                            XfceNotifyDaemon *xndaemon);
 
+static gboolean notify_close_all_notifications (XfceNotifyGBus *skeleton,
+                                           GDBusMethodInvocation   *invocation,
+                                           XfceNotifyDaemon *xndaemon);
+
 
 static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
                                                GDBusMethodInvocation *invocation,
@@ -373,6 +377,9 @@ xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
 
         g_signal_connect (xndaemon, "handle-close-notification",
                           G_CALLBACK(notify_close_notification), xndaemon);
+
+        g_signal_connect (xndaemon, "handle-close-all-notifications",
+                          G_CALLBACK(notify_close_all_notifications), xndaemon);
     }
     else
     {
@@ -1396,6 +1403,40 @@ static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
     return TRUE;
 }
 
+static void close_all_notifications(XfceNotifyDaemon *xndaemon) {
+    GList *l = NULL;
+
+    gboolean xfce_notify_close_notification(gpointer key,
+                                                gpointer value,
+                                                gpointer data)
+    {
+        XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(value);
+        if(window)
+            l = g_list_prepend(l, window);
+
+        return FALSE;
+    }
+
+    g_tree_foreach(xndaemon->active_notifications,
+                   (GTraverseFunc)xfce_notify_close_notification,
+                   xndaemon);
+
+    for (GList *i = l; i != NULL; i = i->next) {
+        xfce_notify_window_closed(i->data, XFCE_NOTIFY_CLOSE_REASON_CLOSE_ALL);
+    }
+    g_list_free(l);
+}
+
+static gboolean notify_close_all_notifications (XfceNotifyGBus *skeleton,
+                                           GDBusMethodInvocation   *invocation,
+                                           XfceNotifyDaemon *xndaemon)
+{
+    close_all_notifications(xndaemon);
+    xfce_notify_gbus_complete_close_all_notifications(skeleton, invocation);
+
+    return TRUE;
+}
+
 static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
                                                GDBusMethodInvocation   *invocation,
                                                XfceNotifyDaemon *xndaemon)
@@ -1519,6 +1560,9 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->do_not_disturb = G_VALUE_TYPE(value)
                                  ? g_value_get_boolean(value)
                                  : FALSE;
+        if (xndaemon->do_not_disturb) {
+            close_all_notifications(xndaemon);
+        }
     } else if(!strcmp(property, "/notification-log")) {
         xndaemon->notification_log = G_VALUE_TYPE(value)
                                      ? g_value_get_boolean(value)
