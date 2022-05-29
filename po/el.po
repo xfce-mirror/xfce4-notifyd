@@ -155,7 +155,7 @@ msgstr "Η προεπισκόπηση ειδοποιήσεων απέτυχε"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr "<b>Εμφανίζονται μόνο οι επείγουσες ειδοποιήσεις.</b>\nΗ καταγραφή είναι%s."
+msgstr "<b>Εμφανίζονται μόνο οι επείγουσες ειδοποιήσεις.</b>\nΗ καταγραφή είναι %s."
 
 #: ../xfce4-notifyd-config/main.c:515
 msgid "enabled"
@@ -212,11 +212,11 @@ msgstr "Εμφάνιση πληροφοριών έκδοσης"
 
 #: ../xfce4-notifyd-config/main.c:996
 msgid "Settings manager socket"
-msgstr "Υποδοχή διαχειριστή ρυθμίσεων"
+msgstr "Διαχείριση ρυθμίσεων υποδοχής"
 
 #: ../xfce4-notifyd-config/main.c:996
 msgid "SOCKET_ID"
-msgstr "SOCKET_ID"
+msgstr "_ID ΥΠΟΔΟΧΗΣ"
 
 #: ../xfce4-notifyd-config/main.c:1006
 #, c-format
