@@ -17,7 +17,8 @@ dist_intltool = \
 distclean_intltool = \
 	intltool-extract \
 	intltool-merge \
-	intltool-update
+	intltool-update \
+	./po/.intltool-merge-cache.lock
 
 distuninstallcheck_listfiles = \
 	find . -type f -print | grep -v ./share/icons/hicolor/icon-theme.cache

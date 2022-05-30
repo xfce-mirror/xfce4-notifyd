@@ -18,7 +18,7 @@ m4_define([notifications_spec_version], [1.2])
 
 dnl init autoconf
 AC_INIT([xfce4-notifyd], [xfce4_notifyd_version],
-        [https://bugzilla.xfce.org/enter_bug.cgi?product=Xfce4-notifyd],
+        [https://gitlab.xfce.org/apps/xfce4-notifyd],
         [xfce4-notifyd])
 AC_PREREQ([2.59c])
 AC_CONFIG_SRCDIR([xfce4-notifyd/main.c])
@@ -32,8 +32,7 @@ AM_MAINTAINER_MODE()
 
 dnl set helper path prefix
 AC_ARG_WITH([helper-path-prefix],
-            [AC_HELP_STRING([--with-helper-path-prefix=PATH],
-                            [Path prefix under which helper executables will be installed (default: $libdir)])],
+            [AS_HELP_STRING([--with-helper-path-prefix=PATH],[Path prefix under which helper executables will be installed (default: $libdir)])],
             [HELPER_PATH_PREFIX="$withval"],
             [HELPER_PATH_PREFIX="$libdir"])
 AC_SUBST([HELPER_PATH_PREFIX])
@@ -44,7 +43,7 @@ AC_USE_SYSTEM_EXTENSIONS()
 dnl check for basic programs
 AC_PROG_CC()
 AM_PROG_CC_C_O()
-AC_PROG_LD()
+LT_PATH_LD([])
 AC_PROG_INSTALL()
 IT_PROG_INTLTOOL()
 LT_PREREQ([2.2.6])
