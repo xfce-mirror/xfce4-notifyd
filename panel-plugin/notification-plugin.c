@@ -228,7 +228,6 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   notification_plugin_update_icon (notification_plugin, state);
 
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
-  gtk_container_add (GTK_CONTAINER (panel_plugin), notification_plugin->button);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "xfce4-notification-plugin");
 
