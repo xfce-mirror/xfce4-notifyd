@@ -53,6 +53,10 @@ typedef struct
 
     /* handlers */
     guint            menu_size_allocate_next_handler;
+
+    /* file monitor */
+    GFile           *log_file;
+    GFileMonitor    *log_file_monitor;
 }
 NotificationPlugin;
 

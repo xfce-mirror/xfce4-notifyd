@@ -205,8 +205,6 @@ static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotificationPlugin    *notification_plugin;
-  GFile                 *log_file;
-  GFileMonitor          *log_file_monitor;
   gchar                 *notify_log_path = NULL;
   gboolean               state;
 
@@ -230,7 +228,6 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   notification_plugin_update_icon (notification_plugin, state);
 
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
-  gtk_container_add (GTK_CONTAINER (panel_plugin), notification_plugin->button);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "xfce4-notification-plugin");
 
@@ -248,10 +245,14 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
 
   /* Start monitoring the log file for changes */
   notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
-  log_file = g_file_new_for_path (notify_log_path);
-  log_file_monitor = g_file_monitor_file (log_file, G_FILE_MONITOR_NONE, NULL, NULL);
-  g_signal_connect (log_file_monitor, "changed",
-                    G_CALLBACK (notification_plugin_log_file_changed), notification_plugin);
+  if (notify_log_path) {
+      notification_plugin->log_file = g_file_new_for_path (notify_log_path);
+      notification_plugin->log_file_monitor = g_file_monitor_file (notification_plugin->log_file,
+                                                                   G_FILE_MONITOR_NONE, NULL, NULL);
+      g_signal_connect (notification_plugin->log_file_monitor, "changed",
+                        G_CALLBACK (notification_plugin_log_file_changed), notification_plugin);
+      g_free (notify_log_path);
+  }
 
   /* Start monitoring the "do not disturb" setting in xfconf */
   g_signal_connect (G_OBJECT (notification_plugin->channel), "property-changed::" "/do-not-disturb",
@@ -267,6 +268,14 @@ notification_plugin_free (XfcePanelPlugin *plugin,
                           NotificationPlugin    *notification_plugin)
 {
   GtkWidget *dialog;
+
+  /* detach from the file monitor */
+  if (notification_plugin->log_file_monitor != NULL)
+    {
+      g_file_monitor_cancel (notification_plugin->log_file_monitor);
+      g_object_unref (notification_plugin->log_file_monitor);
+      g_object_unref (notification_plugin->log_file);
+    }
 
   /* check if the dialog is still open. if so, destroy it */
   dialog = g_object_get_data (G_OBJECT (plugin), "dialog");
