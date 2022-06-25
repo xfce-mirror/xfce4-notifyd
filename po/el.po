@@ -221,7 +221,7 @@ msgstr "_ID ΥΠΟΔΟΧΗΣ"
 #: ../xfce4-notifyd-config/main.c:1006
 #, c-format
 msgid "Type '%s --help' for usage."
-msgstr "Πληκτρολογήστε για βοήθεια '%s --help'."
+msgstr "Για πληροφορίες χρήσης πληκτρολογήστε '%s --help'."
 
 #: ../xfce4-notifyd-config/main.c:1021
 #, c-format
