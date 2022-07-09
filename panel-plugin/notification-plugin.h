@@ -40,6 +40,10 @@ typedef struct
     XfcePanelPlugin *plugin;
     XfconfChannel   *channel;
 
+    /* file monitor */
+    GFile           *log_file;
+    GFileMonitor    *log_file_monitor;
+
     /* state */
     gboolean         new_notifications;
 
