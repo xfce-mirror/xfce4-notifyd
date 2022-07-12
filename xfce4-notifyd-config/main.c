@@ -62,7 +62,7 @@ typedef struct
 
 typedef struct
 {
-    gchar *app_name;
+    const gchar *app_name;
     gint count;
 } LogAppCount;
 
