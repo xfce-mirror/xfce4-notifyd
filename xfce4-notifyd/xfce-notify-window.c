@@ -598,6 +598,9 @@ xfce_notify_window_new_with_actions(const gchar *summary,
     window = g_object_new(XFCE_TYPE_NOTIFY_WINDOW,
                           "type", GTK_WINDOW_TOPLEVEL, NULL);
 
+    window->original_x = -1;
+    window->original_y = -1;
+
     xfce_notify_window_set_summary(window, summary);
     xfce_notify_window_set_body(window, body);
     xfce_notify_window_set_icon_name(window, icon_name);
@@ -799,6 +802,9 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
             window->fade_id = 0;
         }
         gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
+        /* reset the sliding-out window to its original position */
+        if (window->do_slideout && window->original_x >= 0)
+            gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
 
         xfce_notify_window_start_expiration (window);
     }
