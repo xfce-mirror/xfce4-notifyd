@@ -813,6 +813,8 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
     g_free (notify_log_icon_folder);
     g_date_time_unref (today);
     g_free (timestamp);
+    if (notify_log)
+        g_key_file_unref (notify_log);
 
     gtk_widget_show_all (log_listbox);
 
