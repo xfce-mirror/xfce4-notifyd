@@ -60,6 +60,12 @@ typedef struct
     GtkWidget  *do_slideout_label;
 } NotificationSlideoutWidgets;
 
+typedef struct
+{
+    const gchar *app_name;
+    gint count;
+} LogAppCount;
+
 static void
 xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
                                                const char         *action,
@@ -304,7 +310,7 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
     application_box = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (selected_application_row)), 0));
     application_label = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 1));
     application_name = gtk_label_get_text (GTK_LABEL(application_label));
-    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 2));
+    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 3));
     muted = gtk_switch_get_active (GTK_SWITCH (mute_switch));
 
     val = g_new0 (GValue, 1);
@@ -343,7 +349,7 @@ xfce4_notifyd_row_activated (GtkListBox *known_applications_listbox,
     gboolean muted;
 
     application_box = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (selected_application_row)), 0));
-    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 2));
+    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 3));
     muted = !gtk_switch_get_active (GTK_SWITCH (mute_switch));
     gtk_switch_set_active (GTK_SWITCH (mute_switch), muted);
 }
@@ -375,6 +381,158 @@ listbox_remove_all (GtkWidget *widget, gpointer user_data)
     gtk_container_remove (GTK_CONTAINER (container), widget);
 }
 
+static gint
+xfce_notify_sort_apps_in_log (gconstpointer a, gconstpointer b)
+{
+    const LogAppCount *entry1 = *((LogAppCount **) a);
+    const LogAppCount *entry2 = *((LogAppCount **) b);
+
+    return entry2->count - entry1->count;
+}
+
+static GPtrArray *
+xfce_notify_count_apps_in_log (GKeyFile *notify_log,
+                               GPtrArray *known_applications)
+{
+    GPtrArray *log_stats;
+    gint i, j;
+
+    log_stats = g_ptr_array_new ();
+
+    if (notify_log) {
+        gchar **groups;
+        gsize num_groups = 0;
+        LogAppCount *entry;
+        GValue *known_application;
+
+        groups = g_key_file_get_groups (notify_log, &num_groups);
+
+        if (known_applications != NULL)
+        {
+            for (i = 0; i < known_applications->len; i++)
+            {
+                gint count = 0;
+
+                known_application = g_ptr_array_index (known_applications, i);
+
+                /* Sum up notifications per application */
+                for (j = 0; groups && groups[j]; j++)
+                {
+                    const gchar *group = groups[j];
+                    gchar *app_name;
+
+                    app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
+                    if (g_strcmp0 (g_value_get_string (known_application), app_name) == 0)
+                        count++;
+
+                    g_free (app_name);
+                }
+
+                entry = g_new0 (LogAppCount, 1);
+                entry->count = count;
+                entry->app_name = g_value_get_string (known_application);
+                g_ptr_array_add (log_stats, entry);
+            }
+        }
+    }
+    else
+        return NULL;
+
+    g_ptr_array_sort(log_stats, xfce_notify_sort_apps_in_log);
+    return log_stats;
+}
+
+static void
+xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
+                                            GtkWidget *known_applications_listbox,
+                                            GPtrArray *muted_applications,
+                                            const gchar *known_application,
+                                            gint count)
+{
+    GtkWidget *hbox;
+    GtkWidget *label;
+    GtkWidget *icon;
+    GtkWidget *mute_switch;
+    GdkPixbuf *pix = NULL;
+    GtkIconInfo *icon_info = NULL;
+    GtkIconInfo *icon_info_lower = NULL;
+    gchar *desktop_icon_name, *icon_name_lower;
+    const gchar *icon_name;
+    guint i;
+    const char *format = "<span style=\"italic\">\%s</span>";
+    char *markup;
+
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    label = gtk_label_new (known_application);
+    if (xfce_str_is_empty(known_application)) {
+        known_application = g_strdup(_("Unspecified applications"));
+        markup = g_markup_printf_escaped (format, known_application);
+        gtk_label_set_markup (GTK_LABEL (label), markup);
+        g_free (markup);
+    }
+
+    /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
+    icon_name = g_strdelimit ((gchar *) known_application," ",'-');
+    icon_name_lower = g_ascii_strdown (icon_name, -1);
+    icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+    icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_lower, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+    desktop_icon_name = notify_icon_name_from_desktop_id (icon_name_lower);
+    /* Find icons in the right priority: normal icon name with fallback, lowercase icon name with fallback,
+        Desktop file icon property or empty. */
+    if (icon_info) {
+        pix = gtk_icon_info_load_icon (icon_info, NULL);
+        icon = gtk_image_new_from_pixbuf (gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+    }
+    else if (icon_info_lower) {
+        pix = gtk_icon_info_load_icon (icon_info_lower, NULL);
+        icon = gtk_image_new_from_pixbuf (gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+    }
+    else if (desktop_icon_name)
+        icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+    else
+        icon = gtk_image_new ();
+    g_free (icon_name_lower);
+    g_free (desktop_icon_name);
+    desktop_icon_name = NULL;
+    if (pix)
+        g_object_unref (G_OBJECT (pix));
+    gtk_image_set_pixel_size (GTK_IMAGE (icon), 24);
+
+#if GTK_CHECK_VERSION (3, 16, 0)
+    gtk_label_set_xalign (GTK_LABEL (label), 0);
+#else
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+#endif
+    mute_switch = gtk_switch_new ();
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign (mute_switch, GTK_ALIGN_CENTER);
+    gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+    gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, TRUE, 3);
+    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
+    label = gtk_label_new (NULL);
+    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
+    gtk_label_set_xalign (GTK_LABEL (label), 1);
+    if (count > 0)
+        gtk_label_set_text (GTK_LABEL (label), g_strdup_printf("%d", count));
+
+    gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
+    gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
+    /* Set correct initial value as to whether an application is muted */
+    if (muted_applications != NULL) {
+        for (i = 0; i < muted_applications->len; i++) {
+            GValue *muted_application;
+            muted_application = g_ptr_array_index (muted_applications, i);
+            if (g_str_match_string (g_value_get_string (muted_application), known_application, FALSE) == TRUE) {
+                gtk_switch_set_active (GTK_SWITCH (mute_switch), FALSE);
+                break;
+            }
+            else
+                continue;
+        }
+    }
+    g_signal_connect (G_OBJECT (mute_switch), "state-set", G_CALLBACK (xfce4_notifyd_switch_activated), channel);
+}
+
 static void
 xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                                const gchar *property,
@@ -382,16 +540,14 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                                gpointer user_data)
 {
     GtkWidget *known_applications_listbox = user_data;
-    GtkWidget *hbox;
-    GtkWidget *label;
-    GtkWidget *icon;
-    GtkWidget *mute_switch;
     GtkCallback func = listbox_remove_all;
     GPtrArray *known_applications;
+    GPtrArray *known_applications_sorted;
     GPtrArray *muted_applications;
     GValue *known_application;
+    GKeyFile *notify_log;
+    GPtrArray *notify_log_stats;
     guint i, j;
-    const gchar *icon_name;
 
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
@@ -402,69 +558,34 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     gtk_container_foreach (GTK_CONTAINER (known_applications_listbox), func, known_applications_listbox);
 
     if (known_applications != NULL) {
-        for (i = 0; i < known_applications->len; i++) {
-            GdkPixbuf *pix = NULL;
-            GtkIconInfo *icon_info = NULL;
-            GtkIconInfo *icon_info_lower = NULL;
-            gchar *desktop_icon_name, *icon_name_lower;
+        /* Sort the apps based on their appearance in the log */
+        notify_log = xfce_notify_log_get();
+        if (notify_log) {
+            known_applications_sorted = xfce_notify_count_apps_in_log (notify_log, known_applications);
+            g_key_file_unref (notify_log);
+        }
 
-            known_application = g_ptr_array_index (known_applications, i);
-            hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-            label = gtk_label_new (g_value_get_string (known_application));
-            /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
-            icon_name = g_strdelimit ((gchar *) g_value_get_string (known_application)," ",'-');
-            icon_name_lower = g_ascii_strdown (icon_name, -1);
-            icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-            icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_lower, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-            desktop_icon_name = notify_icon_name_from_desktop_id (icon_name_lower);
-            /* Find icons in the right priority: normal icon name with fallback, lowercase icon name with fallback,
-               Desktop file icon property or empty. */
-            if (icon_info) {
-                pix = gtk_icon_info_load_icon (icon_info, NULL);
-                icon = gtk_image_new_from_pixbuf (gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+        if (known_applications_sorted != NULL) {
+            for (i = 0; i < known_applications_sorted->len; i++) {
+                LogAppCount *application;
+                application = g_ptr_array_index (known_applications_sorted, i);
+                xfce4_notifyd_known_application_insert_row (channel,
+                                                            known_applications_listbox,
+                                                            muted_applications,
+                                                            application->app_name,
+                                                            application->count);
             }
-            else if (icon_info_lower) {
-                pix = gtk_icon_info_load_icon (icon_info_lower, NULL);
-                icon = gtk_image_new_from_pixbuf (gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+            g_ptr_array_free (known_applications_sorted, TRUE);
+        }
+        else {
+            for (i = 0; i < known_applications->len; i++) {
+                known_application = g_ptr_array_index (known_applications, i);
+                xfce4_notifyd_known_application_insert_row (channel,
+                                                            known_applications_listbox,
+                                                            muted_applications,
+                                                            g_value_get_string (known_application),
+                                                            0);
             }
-            else if (desktop_icon_name)
-                icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-            else
-                icon = gtk_image_new ();
-            g_free (icon_name_lower);
-            g_free (desktop_icon_name);
-            desktop_icon_name = NULL;
-            if (pix)
-                g_object_unref (G_OBJECT (pix));
-            gtk_image_set_pixel_size (GTK_IMAGE (icon), 24);
-
-#if GTK_CHECK_VERSION (3, 16, 0)
-            gtk_label_set_xalign (GTK_LABEL (label), 0);
-#else
-            gtk_widget_set_halign (label, GTK_ALIGN_START);
-#endif
-            mute_switch = gtk_switch_new ();
-            gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-            gtk_widget_set_valign (mute_switch, GTK_ALIGN_CENTER);
-            gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
-            gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, TRUE, 3);
-            gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
-            gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
-            gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
-            /* Set correct initial value as to whether an application is muted */
-            if (muted_applications != NULL) {
-                for (j = 0; j < muted_applications->len; j++) {
-                    GValue *muted_application;
-                    muted_application = g_ptr_array_index (muted_applications, j);
-                    if (g_str_match_string (g_value_get_string (muted_application), g_value_get_string (known_application), FALSE) == TRUE) {
-                        gtk_switch_set_active (GTK_SWITCH (mute_switch), FALSE);
-                        break;
-                    }
-                    else
-                        continue;
-                }
-            }
-            g_signal_connect (G_OBJECT (mute_switch), "state-set", G_CALLBACK (xfce4_notifyd_switch_activated), channel);
         }
     }
     xfconf_array_free (known_applications);
@@ -703,6 +824,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
     g_free (notify_log_icon_folder);
     g_date_time_unref (today);
     g_free (timestamp);
+    g_key_file_unref (notify_log);
 
     gtk_widget_show_all (log_listbox);
 
