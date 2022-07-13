@@ -459,9 +459,18 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     gchar *desktop_icon_name, *icon_name_lower;
     const gchar *icon_name;
     guint i;
+    const char *format = "<span style=\"italic\">\%s</span>";
+    char *markup;
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     label = gtk_label_new (known_application);
+    if (xfce_str_is_empty(known_application)) {
+        known_application = g_strdup(_("Unspecified applications"));
+        markup = g_markup_printf_escaped (format, known_application);
+        gtk_label_set_markup (GTK_LABEL (label), markup);
+        g_free (markup);
+    }
+
     /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
     icon_name = g_strdelimit ((gchar *) known_application," ",'-');
     icon_name_lower = g_ascii_strdown (icon_name, -1);
