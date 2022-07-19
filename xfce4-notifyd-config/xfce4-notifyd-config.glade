@@ -869,7 +869,7 @@
                       <object class="GtkSpinButton" id="log_max_size">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">The maximum amount of entries to be retained in the log. Please note that a large log may lead to performance penalties. 0 means no limit.</property>
+                        <property name="tooltip_text" translatable="yes">The maximum number of entries to be retained in the log. Please note that a large log may lead to performance penalties. 0 means no limit.</property>
                         <property name="halign">end</property>
                         <property name="width_chars">5</property>
                         <property name="adjustment">adjustment3</property>
