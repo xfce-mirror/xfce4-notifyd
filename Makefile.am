@@ -50,15 +50,14 @@ common_cflags = \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(XFCONF_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
+	$(GIO_CFLAGS) \
+	$(GIO_UNIX_CFLAGS) \
 	$(GTK3_CFLAGS)
 
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
-	$(LIBX11_CFLAGS) \
-	$(GIO_CFLAGS) \
-	$(GIO_UNIX_CFLAGS)
-
+	$(LIBX11_CFLAGS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
@@ -70,13 +69,13 @@ common_ldadd = \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(XFCONF_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
+	$(GIO_LIBS) \
+	$(GIO_UNIX_LIBS) \
 	$(GTK3_LIBS)
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
-	$(LIBX11_LIBS)	\
-	$(GIO_LIBS) \
-	$(GIO_UNIX_LIBS)
+	$(LIBX11_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
