@@ -5,15 +5,15 @@
 # Translators:
 # Ken DEGUCHI <kdeguchi@sz.tokoha-u.ac.jp>, 2017
 # Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016-2018
-# UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020
+# UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022
 # Ken DEGUCHI <kdeguchi@sz.tokoha-u.ac.jp>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-04 12:49+0100\n"
-"PO-Revision-Date: 2021-01-04 11:49+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2022-07-19 12:51+0200\n"
+"PO-Revision-Date: 2013-07-03 18:39+0000\n"
+"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-apps/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,27 +21,27 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../common/xfce-notify-log.c:491
+#: ../common/xfce-notify-log.c:522
 msgid "Do you really want to clear the notification log?"
 msgstr "本当に通知ログをクリアしますか?"
 
-#: ../common/xfce-notify-log.c:495
+#: ../common/xfce-notify-log.c:526
 msgid "Clear notification log"
 msgstr "通知ログをクリア"
 
-#: ../common/xfce-notify-log.c:498
+#: ../common/xfce-notify-log.c:529
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: ../common/xfce-notify-log.c:500 ../xfce4-notifyd-config/main.c:972
+#: ../common/xfce-notify-log.c:531 ../xfce4-notifyd-config/main.c:1094
 msgid "Clear"
 msgstr "クリア"
 
-#: ../common/xfce-notify-log.c:516 ../common/xfce-notify-log.c:524
+#: ../common/xfce-notify-log.c:547 ../common/xfce-notify-log.c:555
 msgid "include icon cache"
 msgstr "アイコンキャッシュを含む"
 
-#: ../panel-plugin/notification-plugin.c:225
+#: ../panel-plugin/notification-plugin.c:227
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -87,19 +87,19 @@ msgstr "デスクトップ通知プラグインです"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:139
+#: ../panel-plugin/notification-plugin-log.c:140
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>邪魔しないでください(_D)</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:335
+#: ../panel-plugin/notification-plugin-log.c:336
 msgid "No notifications"
 msgstr "通知はありません"
 
-#: ../panel-plugin/notification-plugin-log.c:356
+#: ../panel-plugin/notification-plugin-log.c:357
 msgid "_Clear log"
 msgstr "ログをクリアする(_C)"
 
-#: ../panel-plugin/notification-plugin-log.c:364
+#: ../panel-plugin/notification-plugin-log.c:365
 msgid "_Notification settings…"
 msgstr "通知設定(_N)…"
 
@@ -112,7 +112,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfceパネルのための通知プラグイン"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:817
+#: ../xfce4-notifyd-config/main.c:939
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 通知デーモン"
 
@@ -130,101 +130,105 @@ msgstr "通知デーモンを開始できません"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "他の通知デーモンが起動しているため、終了します。\n"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:84
 msgid "Notification Preview"
 msgstr "通知プレビュー"
 
-#: ../xfce4-notifyd-config/main.c:79
+#: ../xfce4-notifyd-config/main.c:85
 msgid "This is what notifications will look like"
 msgstr "通知はこのように表示されます。"
 
-#: ../xfce4-notifyd-config/main.c:84
+#: ../xfce4-notifyd-config/main.c:90
 msgid "Button"
 msgstr "ボタン"
 
-#: ../xfce4-notifyd-config/main.c:91
+#: ../xfce4-notifyd-config/main.c:97
 msgid "Notification preview failed"
 msgstr "通知のプレビューに失敗しました"
 
-#: ../xfce4-notifyd-config/main.c:508
+#: ../xfce4-notifyd-config/main.c:468
+msgid "Unspecified applications"
+msgstr "特定不能のアプリケーション"
+
+#: ../xfce4-notifyd-config/main.c:627
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>現在は緊急の通知のみ表示されます。</b>\n通知のロギングは %s になっています。"
 
-#: ../xfce4-notifyd-config/main.c:515
+#: ../xfce4-notifyd-config/main.c:634
 msgid "enabled"
 msgstr "有効"
 
-#: ../xfce4-notifyd-config/main.c:515
+#: ../xfce4-notifyd-config/main.c:634
 msgid "disabled"
 msgstr "無効"
 
-#: ../xfce4-notifyd-config/main.c:595
+#: ../xfce4-notifyd-config/main.c:714
 msgid "Yesterday and before"
 msgstr "昨日より前"
 
-#: ../xfce4-notifyd-config/main.c:819
+#: ../xfce4-notifyd-config/main.c:941
 msgid "Settings daemon is unavailable"
 msgstr "設定デーモンは使用できません"
 
-#: ../xfce4-notifyd-config/main.c:905
+#: ../xfce4-notifyd-config/main.c:1027
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>既知のアプリケーションはまだありません。</b></big>\nアプリケーションが通知メッセージを送信すると\nこのリストに追加されます。"
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:1072
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>空のログ</b></big>\n通知ログはまだありません。"
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:1080
 msgid "Refresh"
 msgstr "更新"
 
-#: ../xfce4-notifyd-config/main.c:959
+#: ../xfce4-notifyd-config/main.c:1081
 msgid "Refresh the notification log"
 msgstr "通知ログを更新"
 
-#: ../xfce4-notifyd-config/main.c:965
+#: ../xfce4-notifyd-config/main.c:1087
 msgid "Open"
 msgstr "開く"
 
-#: ../xfce4-notifyd-config/main.c:966
+#: ../xfce4-notifyd-config/main.c:1088
 msgid "Open the notification log in an external editor"
 msgstr "外部エディターで通知ログを開く"
 
-#: ../xfce4-notifyd-config/main.c:973
+#: ../xfce4-notifyd-config/main.c:1095
 msgid "Clear the notification log"
 msgstr "通知ログをクリア"
 
-#: ../xfce4-notifyd-config/main.c:995
+#: ../xfce4-notifyd-config/main.c:1117
 msgid "Display version information"
 msgstr "バージョン情報を表示する"
 
-#: ../xfce4-notifyd-config/main.c:996
+#: ../xfce4-notifyd-config/main.c:1118
 msgid "Settings manager socket"
 msgstr "設定マネージャーソケット"
 
-#: ../xfce4-notifyd-config/main.c:996
+#: ../xfce4-notifyd-config/main.c:1118
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1128
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' と入力すると使用法が表示されます。"
 
-#: ../xfce4-notifyd-config/main.c:1021
+#: ../xfce4-notifyd-config/main.c:1143
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, version 2 の条項下でリリースされています。\n"
 
-#: ../xfce4-notifyd-config/main.c:1022
+#: ../xfce4-notifyd-config/main.c:1144
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "バグは %s まで報告してください。\n"
