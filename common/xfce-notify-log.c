@@ -105,15 +105,48 @@ notify_icon_name_from_desktop_id (const gchar *desktop_id)
     g_free (resource);
     if (rcfile)
     {
-        if (xfce_rc_has_group (rcfile, "Desktop Entry"))
+        if (xfce_rc_has_group (rcfile, G_KEY_FILE_DESKTOP_GROUP))
         {
-            xfce_rc_set_group (rcfile, "Desktop Entry");
-            icon_file = g_strdup (xfce_rc_read_entry (rcfile, "Icon", NULL));
+            xfce_rc_set_group (rcfile, G_KEY_FILE_DESKTOP_GROUP);
+            icon_file = g_strdup (xfce_rc_read_entry (rcfile,
+                                                      G_KEY_FILE_DESKTOP_KEY_ICON,
+                                                      NULL));
             /* At this point: icon_file might be NULL */
         }
         xfce_rc_close (rcfile);
     }
     return icon_file;
+}
+
+gchar *
+notify_icon_name_from_desktop_file (const gchar *desktop_file_path)
+{
+    GKeyFile *desktop_file;
+    gchar *icon_name = NULL;
+
+    g_return_val_if_fail (g_path_is_absolute (desktop_file_path), NULL);
+
+    desktop_file = g_key_file_new ();
+    if (g_key_file_load_from_file (desktop_file,
+                                   desktop_file_path,
+                                   G_KEY_FILE_NONE,
+                                   NULL)) {
+        if (g_key_file_has_group (desktop_file, G_KEY_FILE_DESKTOP_GROUP)) {
+            if (g_key_file_has_key (desktop_file,
+                                    G_KEY_FILE_DESKTOP_GROUP,
+                                    G_KEY_FILE_DESKTOP_KEY_ICON,
+                                    NULL))
+                {
+                    icon_name = g_key_file_get_value (desktop_file,
+                                                      G_KEY_FILE_DESKTOP_GROUP,
+                                                      G_KEY_FILE_DESKTOP_KEY_ICON,
+                                                      NULL);
+                }
+        }
+        g_key_file_free (desktop_file);
+    }
+
+    return icon_name;
 }
 
 GKeyFile *
