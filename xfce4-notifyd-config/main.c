@@ -395,7 +395,6 @@ xfce_notify_count_apps_in_log (GKeyFile *notify_log,
                                GPtrArray *known_applications)
 {
     GPtrArray *log_stats;
-    gint i, j;
 
     log_stats = g_ptr_array_new ();
 
@@ -409,6 +408,7 @@ xfce_notify_count_apps_in_log (GKeyFile *notify_log,
 
         if (known_applications != NULL)
         {
+            gsize i, j;
             for (i = 0; i < known_applications->len; i++)
             {
                 gint count = 0;
@@ -546,8 +546,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GPtrArray *muted_applications;
     GValue *known_application;
     GKeyFile *notify_log;
-    GPtrArray *notify_log_stats;
-    guint i, j;
+    guint i;
 
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
