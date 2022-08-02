@@ -506,9 +506,11 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
             desktop_icon_name = notify_icon_name_from_desktop_file (g_desktop_app_info_get_filename (appinfo));
 
             icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-            g_strfreev (match);
-            g_free (matches);
         }
+
+        for (gchar ***p = matches; *p != NULL; p++)
+            g_strfreev (*p);
+        g_free (matches);
         else {
             icon = gtk_image_new ();
         }
