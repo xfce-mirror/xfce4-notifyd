@@ -570,6 +570,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     label = gtk_label_new (NULL);
     gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
     gtk_label_set_xalign (GTK_LABEL (label), 1);
+    gtk_widget_set_sensitive (label, FALSE);
     if (count > 0)
         gtk_label_set_text (GTK_LABEL (label), g_strdup_printf("%d", count));
 
