@@ -455,93 +455,130 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     GtkWidget *label;
     GtkWidget *icon;
     GtkWidget *mute_switch;
-    GdkPixbuf *pix = NULL;
-    GtkIconInfo *icon_info = NULL;
-    GtkIconInfo *icon_info_lower = NULL;
-    gchar *desktop_icon_name, *icon_name_lower;
-    const gchar *icon_name;
     guint i;
-    const char *format = "<span style=\"italic\">\%s</span>";
-    char *markup;
+    gchar *desktop_id;
+    GDesktopAppInfo *appinfo;
+    gchar *app_name = NULL;
+    gchar *desktop_icon_name = NULL;
+    gchar ***matches;
 
+    /* Pack all widgets into a box */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-    label = gtk_label_new (known_application);
-    if (xfce_str_is_empty(known_application)) {
+    gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
+
+    /* Application icon and name */
+    icon = gtk_image_new ();
+    label = gtk_label_new (NULL);
+#if GTK_CHECK_VERSION (3, 16, 0)
+    gtk_label_set_xalign (GTK_LABEL (label), 0);
+#else
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+#endif
+
+    desktop_id = g_strdup_printf ("%s.desktop", known_application);
+    appinfo = g_desktop_app_info_new (desktop_id);
+    g_free (desktop_id);
+
+    /* All applications that don't supply their name at all */
+    if (xfce_str_is_empty (known_application)) {
+        const char *format = "<span style=\"italic\">\%s</span>";
+        char *markup;
+
         known_application = g_strdup(_("Unspecified applications"));
         markup = g_markup_printf_escaped (format, known_application);
         gtk_label_set_markup (GTK_LABEL (label), markup);
         g_free (markup);
     }
-
-    /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
-    icon_name = g_strdelimit ((gchar *) known_application," ",'-');
-    icon_name_lower = g_ascii_strdown (icon_name, -1);
-    icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-    icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_lower, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-    desktop_icon_name = notify_icon_name_from_desktop_id (icon_name_lower);
-    /* Find icons in the right priority: normal icon name with fallback, lowercase icon name with fallback,
-        Desktop file icon property or empty. */
-    if (icon_info) {
-        pix = gtk_icon_info_load_icon (icon_info, NULL);
-        icon = gtk_image_new_from_pixbuf (gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+    /* Try to find the correct desktop file based on the application name */
+    else if (appinfo) {
+        desktop_icon_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
+                                                        G_KEY_FILE_DESKTOP_KEY_ICON);
+        gtk_image_set_from_icon_name (GTK_IMAGE (icon), desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+        app_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
+                                                G_KEY_FILE_DESKTOP_KEY_NAME);
+        gtk_label_set_text (GTK_LABEL (label), app_name);
     }
-    else if (icon_info_lower) {
-        pix = gtk_icon_info_load_icon (icon_info_lower, NULL);
-        icon = gtk_image_new_from_pixbuf (gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
-    }
-    else if (desktop_icon_name)
-        icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+    /* Fallback: Try to find the correct desktop file
+       As the GIO matching algorithm is unknown and subject to change we naively pick the first match */
     else {
-        /* As the matching algorithm is unknown and subject to change (according to the GIO docs), we naively pick the first match */
-        gchar ***matches;
-
         matches = g_desktop_app_info_search (known_application);
 
         if (matches[0]) {
-            GDesktopAppInfo *appinfo;
             gchar **match;
 
             match = matches[0];
             appinfo = g_desktop_app_info_new (match[0]);
             desktop_icon_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
                                                               G_KEY_FILE_DESKTOP_KEY_ICON);
+            app_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
+                                                    G_KEY_FILE_DESKTOP_KEY_NAME);
+            gtk_label_set_text (GTK_LABEL (label), app_name);
 
-            icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+            gtk_image_set_from_icon_name (GTK_IMAGE (icon), desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
 
             for (gchar ***p = matches; *p != NULL; p++)
                 g_strfreev (*p);
+
             g_free (matches);
         }
+        /* Last resort: Let's try to naively load icon names and just set the name provided by the application */
         else {
-            icon = gtk_image_new ();
+            GdkPixbuf *pix = NULL;
+            GtkIconInfo *icon_info = NULL;
+            GtkIconInfo *icon_info_lower = NULL;
+            gchar *icon_name_lower;
+            const gchar *icon_name;
+
+            gtk_label_set_text (GTK_LABEL (label), known_application);
+            /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
+            icon_name = g_strdelimit ((gchar *) known_application," ",'-');
+            icon_name_lower = g_ascii_strdown (icon_name, -1);
+            icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+
+            /* Find icons in the right priority:
+                    1. normal icon name with fallback
+                    2. lowercase icon name with fallback */
+            if (icon_info) {
+                pix = gtk_icon_info_load_icon (icon_info, NULL);
+                gtk_image_set_from_pixbuf (GTK_IMAGE (icon), gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+            }
+            else {
+                icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_lower, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+                if (icon_info_lower) {
+                    pix = gtk_icon_info_load_icon (icon_info_lower, NULL);
+                    gtk_image_set_from_pixbuf (GTK_IMAGE (icon), gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+                }
+            }
+
+            g_free (icon_name_lower);
+
+            if (pix)
+                g_object_unref (G_OBJECT (pix));
         }
     }
-    g_free (icon_name_lower);
+
+    if (app_name)
+        g_free (app_name);
     g_free (desktop_icon_name);
     desktop_icon_name = NULL;
-    if (pix)
-        g_object_unref (G_OBJECT (pix));
-    gtk_image_set_pixel_size (GTK_IMAGE (icon), 24);
 
-#if GTK_CHECK_VERSION (3, 16, 0)
-    gtk_label_set_xalign (GTK_LABEL (label), 0);
-#else
-    gtk_widget_set_halign (label, GTK_ALIGN_START);
-#endif
-    mute_switch = gtk_switch_new ();
-    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign (mute_switch, GTK_ALIGN_CENTER);
-    gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+    gtk_image_set_pixel_size (GTK_IMAGE (icon), 24);
     gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, TRUE, 3);
     gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
+
+    /* Number of notifications in the log (if enabled) */
     label = gtk_label_new (NULL);
     gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
     gtk_label_set_xalign (GTK_LABEL (label), 1);
     if (count > 0)
         gtk_label_set_text (GTK_LABEL (label), g_strdup_printf("%d", count));
 
-    gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
-    gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
+    /* The mute switch */
+    mute_switch = gtk_switch_new ();
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign (mute_switch, GTK_ALIGN_CENTER);
+    gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+
     /* Set correct initial value as to whether an application is muted */
     if (muted_applications != NULL) {
         for (i = 0; i < muted_applications->len; i++) {
@@ -555,7 +592,9 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                 continue;
         }
     }
+
     g_signal_connect (G_OBJECT (mute_switch), "state-set", G_CALLBACK (xfce4_notifyd_switch_activated), channel);
+    gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
 }
 
 static void
