@@ -29,6 +29,8 @@
 #include <string.h>
 #endif
 
+#include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
@@ -489,8 +491,31 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     }
     else if (desktop_icon_name)
         icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-    else
-        icon = gtk_image_new ();
+    else {
+        /* As the matching algorithm is unknown and subject to change (according to the GIO docs), we naively pick the first match */
+        gchar ***matches;
+
+        matches = g_desktop_app_info_search (known_application);
+
+        if (matches[0]) {
+            GDesktopAppInfo *appinfo;
+            gchar **match;
+
+            match = matches[0];
+            appinfo = g_desktop_app_info_new (match[0]);
+            desktop_icon_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
+                                                              G_KEY_FILE_DESKTOP_KEY_ICON);
+
+            icon = gtk_image_new_from_icon_name (desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+
+            for (gchar ***p = matches; *p != NULL; p++)
+                g_strfreev (*p);
+            g_free (matches);
+        }
+        else {
+            icon = gtk_image_new ();
+        }
+    }
     g_free (icon_name_lower);
     g_free (desktop_icon_name);
     desktop_icon_name = NULL;

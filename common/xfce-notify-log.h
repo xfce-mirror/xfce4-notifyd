@@ -28,6 +28,9 @@ GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
 
 gchar     *notify_icon_name_from_desktop_id (const gchar *desktop_id);
 
+gchar     *notify_get_from_desktop_file (const gchar *desktop_file_path,
+                                         const gchar *key);
+
 GKeyFile  *xfce_notify_log_get (void);
 
 void       xfce_notify_log_insert (const gchar *app_name,
