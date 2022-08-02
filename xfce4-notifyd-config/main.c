@@ -456,11 +456,8 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     GtkWidget *icon;
     GtkWidget *mute_switch;
     guint i;
-    gchar *desktop_id;
-    GDesktopAppInfo *appinfo;
     gchar *app_name = NULL;
     gchar *desktop_icon_name = NULL;
-    gchar ***matches;
 
     /* Pack all widgets into a box */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
@@ -475,9 +472,6 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     gtk_widget_set_halign (label, GTK_ALIGN_START);
 #endif
 
-    desktop_id = g_strdup_printf ("%s.desktop", known_application);
-    appinfo = g_desktop_app_info_new (desktop_id);
-    g_free (desktop_id);
 
     /* All applications that don't supply their name at all */
     if (xfce_str_is_empty (known_application)) {
@@ -489,39 +483,13 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         gtk_label_set_markup (GTK_LABEL (label), markup);
         g_free (markup);
     }
-    /* Try to find the correct desktop file based on the application name */
-    else if (appinfo) {
-        desktop_icon_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
-                                                        G_KEY_FILE_DESKTOP_KEY_ICON);
-        gtk_image_set_from_icon_name (GTK_IMAGE (icon), desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-        app_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
-                                                G_KEY_FILE_DESKTOP_KEY_NAME);
-        gtk_label_set_text (GTK_LABEL (label), app_name);
-    }
-    /* Fallback: Try to find the correct desktop file
-       As the GIO matching algorithm is unknown and subject to change we naively pick the first match */
     else {
-        matches = g_desktop_app_info_search (known_application);
-
-        if (matches[0]) {
-            gchar **match;
-
-            match = matches[0];
-            appinfo = g_desktop_app_info_new (match[0]);
-            desktop_icon_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
-                                                              G_KEY_FILE_DESKTOP_KEY_ICON);
-            app_name = notify_get_from_desktop_file (g_desktop_app_info_get_filename (appinfo),
-                                                    G_KEY_FILE_DESKTOP_KEY_NAME);
-            gtk_label_set_text (GTK_LABEL (label), app_name);
-
+        /* Try to find the correct icon based on the desktop file */
+        desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
+        if (desktop_icon_name) {
             gtk_image_set_from_icon_name (GTK_IMAGE (icon), desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-
-            for (gchar ***p = matches; *p != NULL; p++)
-                g_strfreev (*p);
-
-            g_free (matches);
         }
-        /* Last resort: Let's try to naively load icon names and just set the name provided by the application */
+        /* Fallback: Try to naively load icon names */
         else {
             GdkPixbuf *pix = NULL;
             GtkIconInfo *icon_info = NULL;
@@ -529,7 +497,6 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
             gchar *icon_name_lower;
             const gchar *icon_name;
 
-            gtk_label_set_text (GTK_LABEL (label), known_application);
             /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
             icon_name = g_strdelimit ((gchar *) known_application," ",'-');
             icon_name_lower = g_ascii_strdown (icon_name, -1);
@@ -555,10 +522,21 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
             if (pix)
                 g_object_unref (G_OBJECT (pix));
         }
+
+        /* Try to find the correct application name based on the desktop file */
+        app_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_NAME);
+        if (app_name) {
+            gtk_label_set_text (GTK_LABEL (label), app_name);
+        }
+        /* Fallback: Just set the name provided by the application */
+        else {
+            gtk_label_set_text (GTK_LABEL (label), known_application);
+        }
     }
 
     if (app_name)
         g_free (app_name);
+
     g_free (desktop_icon_name);
     desktop_icon_name = NULL;
 
