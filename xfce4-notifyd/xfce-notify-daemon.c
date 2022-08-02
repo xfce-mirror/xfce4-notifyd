@@ -1342,9 +1342,9 @@ notify_notify (XfceNotifyGBus *skeleton,
         }
     }
     else if (desktop_id) {
-        gchar *icon_name = notify_icon_name_from_desktop_id (desktop_id);
-        xfce_notify_window_set_icon_name (window, icon_name);
-        g_free (icon_name);
+        app_icon = notify_get_from_desktop_file (desktop_id, G_KEY_FILE_DESKTOP_KEY_ICON);
+
+        xfce_notify_window_set_icon_name (window, app_icon);
     }
 
     if (xndaemon->notification_log == TRUE &&
