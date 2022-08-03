@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 12:51+0200\n"
+"POT-Creation-Date: 2022-08-03 00:50+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2016-2018,2020,2022\n"
 "Language-Team: Bulgarian (http://www.transifex.com/xfce/xfce-apps/language/bg/)\n"
@@ -21,23 +21,23 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:522
+#: ../common/xfce-notify-log.c:555
 msgid "Do you really want to clear the notification log?"
 msgstr "Наистина ли искате да изчистите лога с уведомленията?"
 
-#: ../common/xfce-notify-log.c:526
+#: ../common/xfce-notify-log.c:559
 msgid "Clear notification log"
 msgstr "Изчисти лога с уведомленията"
 
-#: ../common/xfce-notify-log.c:529
+#: ../common/xfce-notify-log.c:562
 msgid "Cancel"
 msgstr "Отказ"
 
-#: ../common/xfce-notify-log.c:531 ../xfce4-notifyd-config/main.c:1094
+#: ../common/xfce-notify-log.c:564 ../xfce4-notifyd-config/main.c:1118
 msgid "Clear"
 msgstr "Изчистване"
 
-#: ../common/xfce-notify-log.c:547 ../common/xfce-notify-log.c:555
+#: ../common/xfce-notify-log.c:580 ../common/xfce-notify-log.c:588
 msgid "include icon cache"
 msgstr "Включи кеша на иконите"
 
@@ -112,7 +112,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Добавка за уведомления на Xfce панел"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:939
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Xfce Notify Daemon"
 msgstr "Демон за уведомления в Xfce"
 
@@ -130,105 +130,105 @@ msgstr "Неуспех при стартиране на услугата за у
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Още една услуга за уведомления е стартирана, излизане\n"
 
-#: ../xfce4-notifyd-config/main.c:84
+#: ../xfce4-notifyd-config/main.c:86
 msgid "Notification Preview"
 msgstr "Преглед на уведомление"
 
-#: ../xfce4-notifyd-config/main.c:85
+#: ../xfce4-notifyd-config/main.c:87
 msgid "This is what notifications will look like"
 msgstr "Уведомлението ще изглежда по този начин"
 
-#: ../xfce4-notifyd-config/main.c:90
+#: ../xfce4-notifyd-config/main.c:92
 msgid "Button"
 msgstr "Бутон"
 
-#: ../xfce4-notifyd-config/main.c:97
+#: ../xfce4-notifyd-config/main.c:99
 msgid "Notification preview failed"
 msgstr "Предварителният преглед на уведомленията е неуспешен"
 
-#: ../xfce4-notifyd-config/main.c:468
+#: ../xfce4-notifyd-config/main.c:470
 msgid "Unspecified applications"
 msgstr "Неуточнени приложения"
 
-#: ../xfce4-notifyd-config/main.c:627
+#: ../xfce4-notifyd-config/main.c:651
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>В момента се показват само спешни уведомления.</b>\nРегистрирането на уведомленията е %s"
 
-#: ../xfce4-notifyd-config/main.c:634
+#: ../xfce4-notifyd-config/main.c:658
 msgid "enabled"
 msgstr "включено"
 
-#: ../xfce4-notifyd-config/main.c:634
+#: ../xfce4-notifyd-config/main.c:658
 msgid "disabled"
 msgstr "изключено"
 
-#: ../xfce4-notifyd-config/main.c:714
+#: ../xfce4-notifyd-config/main.c:738
 msgid "Yesterday and before"
 msgstr "Вчера или преди това"
 
-#: ../xfce4-notifyd-config/main.c:941
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Settings daemon is unavailable"
 msgstr "Демонът за настройките е недостъпен"
 
-#: ../xfce4-notifyd-config/main.c:1027
+#: ../xfce4-notifyd-config/main.c:1051
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>В момента няма познати приложения.</b></big>\nВеднага, след, като някое приложение изпрати уведомление,\nто ще се появи в този списък."
 
-#: ../xfce4-notifyd-config/main.c:1072
+#: ../xfce4-notifyd-config/main.c:1096
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Празен запис</b></big>\nНяма записани уведомления."
 
-#: ../xfce4-notifyd-config/main.c:1080
+#: ../xfce4-notifyd-config/main.c:1104
 msgid "Refresh"
 msgstr "Обновяване"
 
-#: ../xfce4-notifyd-config/main.c:1081
+#: ../xfce4-notifyd-config/main.c:1105
 msgid "Refresh the notification log"
 msgstr "Обновяване на лога с уведомлениета"
 
-#: ../xfce4-notifyd-config/main.c:1087
+#: ../xfce4-notifyd-config/main.c:1111
 msgid "Open"
 msgstr "Отваряне"
 
-#: ../xfce4-notifyd-config/main.c:1088
+#: ../xfce4-notifyd-config/main.c:1112
 msgid "Open the notification log in an external editor"
 msgstr "Отваряне на лога с уведомленията с допълнителен редактор"
 
-#: ../xfce4-notifyd-config/main.c:1095
+#: ../xfce4-notifyd-config/main.c:1119
 msgid "Clear the notification log"
 msgstr "Изчистване на лога с уведомленията"
 
-#: ../xfce4-notifyd-config/main.c:1117
+#: ../xfce4-notifyd-config/main.c:1141
 msgid "Display version information"
 msgstr "Показване на информация за версията"
 
-#: ../xfce4-notifyd-config/main.c:1118
+#: ../xfce4-notifyd-config/main.c:1142
 msgid "Settings manager socket"
 msgstr "Гнездо за мениджъра на настройките"
 
-#: ../xfce4-notifyd-config/main.c:1118
+#: ../xfce4-notifyd-config/main.c:1142
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:1128
+#: ../xfce4-notifyd-config/main.c:1152
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Въведете „%s --help“ за показване на потребителското ръководство."
 
-#: ../xfce4-notifyd-config/main.c:1143
+#: ../xfce4-notifyd-config/main.c:1167
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Разпространява се под условията на GNU General Public License версия 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1144
+#: ../xfce4-notifyd-config/main.c:1168
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Моля, докладвайте грешки на %s.\n"
@@ -370,9 +370,9 @@ msgstr "Ограничаване размера на дневника"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid ""
-"The maximum amount of entries to be retained in the log. Please note that a "
+"The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr "Максималното количество записи, които трябва да се запазят в дневника. Моля, обърнете внимание, че дневник с голям размер може да доведе до проблеми с производителността. 0 означава без ограничение."
+msgstr "Максималният брой записи, които трябва да се запазят в дневника. Моля, обърнете внимание, че голям журнал може да доведе до намаляване на производителност. 0 означава без ограничение."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
