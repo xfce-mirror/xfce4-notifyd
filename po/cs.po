@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-04 12:49+0100\n"
-"PO-Revision-Date: 2021-01-04 11:49+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2022-08-03 00:50+0200\n"
+"PO-Revision-Date: 2013-07-03 18:39+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2016-2020\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,27 +21,27 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: ../common/xfce-notify-log.c:491
+#: ../common/xfce-notify-log.c:555
 msgid "Do you really want to clear the notification log?"
 msgstr "Opravdu chcete vymazat protokol s oznámeními?"
 
-#: ../common/xfce-notify-log.c:495
+#: ../common/xfce-notify-log.c:559
 msgid "Clear notification log"
 msgstr "Vymazat protokol v oznámeními"
 
-#: ../common/xfce-notify-log.c:498
+#: ../common/xfce-notify-log.c:562
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../common/xfce-notify-log.c:500 ../xfce4-notifyd-config/main.c:972
+#: ../common/xfce-notify-log.c:564 ../xfce4-notifyd-config/main.c:1118
 msgid "Clear"
 msgstr "Vymazat"
 
-#: ../common/xfce-notify-log.c:516 ../common/xfce-notify-log.c:524
+#: ../common/xfce-notify-log.c:580 ../common/xfce-notify-log.c:588
 msgid "include icon cache"
 msgstr "zahrnout vyrovnávací paměť pro ikony"
 
-#: ../panel-plugin/notification-plugin.c:225
+#: ../panel-plugin/notification-plugin.c:227
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -87,19 +87,19 @@ msgstr "Toto je zásuvný modul Oznámení"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:139
+#: ../panel-plugin/notification-plugin-log.c:140
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Nerušit</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:335
+#: ../panel-plugin/notification-plugin-log.c:336
 msgid "No notifications"
 msgstr "Žádná oznámení"
 
-#: ../panel-plugin/notification-plugin-log.c:356
+#: ../panel-plugin/notification-plugin-log.c:357
 msgid "_Clear log"
 msgstr "_Vymazat protokol"
 
-#: ../panel-plugin/notification-plugin-log.c:364
+#: ../panel-plugin/notification-plugin-log.c:365
 msgid "_Notification settings…"
 msgstr "_Nastavení oznámení…"
 
@@ -112,7 +112,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Zásuvný modul Oznámení pro panel Xfce"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:817
+#: ../xfce4-notifyd-config/main.c:963
 msgid "Xfce Notify Daemon"
 msgstr "Služba oznamování pro prostředí Xfce"
 
@@ -130,101 +130,105 @@ msgstr "Nelze spustit službu pro oznamování"
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Již je spuštěna jiná služba pro oznamování, ukončování\n"
 
-#: ../xfce4-notifyd-config/main.c:78
+#: ../xfce4-notifyd-config/main.c:86
 msgid "Notification Preview"
 msgstr "Náhled oznámení"
 
-#: ../xfce4-notifyd-config/main.c:79
+#: ../xfce4-notifyd-config/main.c:87
 msgid "This is what notifications will look like"
 msgstr "Takto bude vypadat oznámení"
 
-#: ../xfce4-notifyd-config/main.c:84
+#: ../xfce4-notifyd-config/main.c:92
 msgid "Button"
 msgstr "Tlačítko"
 
-#: ../xfce4-notifyd-config/main.c:91
+#: ../xfce4-notifyd-config/main.c:99
 msgid "Notification preview failed"
 msgstr "Náhled oznámení se nezdařil"
 
-#: ../xfce4-notifyd-config/main.c:508
+#: ../xfce4-notifyd-config/main.c:470
+msgid "Unspecified applications"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:651
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "Aktuálně jsou zobrazována pouze neodkladná oznámení.</b>\nProtokolování oznámení je %s."
 
-#: ../xfce4-notifyd-config/main.c:515
+#: ../xfce4-notifyd-config/main.c:658
 msgid "enabled"
 msgstr "povoleno"
 
-#: ../xfce4-notifyd-config/main.c:515
+#: ../xfce4-notifyd-config/main.c:658
 msgid "disabled"
 msgstr "zakázáno"
 
-#: ../xfce4-notifyd-config/main.c:595
+#: ../xfce4-notifyd-config/main.c:738
 msgid "Yesterday and before"
 msgstr "Včera a starší"
 
-#: ../xfce4-notifyd-config/main.c:819
+#: ../xfce4-notifyd-config/main.c:965
 msgid "Settings daemon is unavailable"
 msgstr "Služba pro nastavení není dostupná"
 
-#: ../xfce4-notifyd-config/main.c:905
+#: ../xfce4-notifyd-config/main.c:1051
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Aktuálně zde nejsou žádné známé aplikace.</b></big>\nJakmile aplikace pošle oznámení, objeví se v\ntomto seznamu."
 
-#: ../xfce4-notifyd-config/main.c:950
+#: ../xfce4-notifyd-config/main.c:1096
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Protokol je prázdný</b></big>\nDosud nebyla zaprotokolována žádná oznámení."
 
-#: ../xfce4-notifyd-config/main.c:958
+#: ../xfce4-notifyd-config/main.c:1104
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: ../xfce4-notifyd-config/main.c:959
+#: ../xfce4-notifyd-config/main.c:1105
 msgid "Refresh the notification log"
 msgstr "Obnoví protokol s oznámeními"
 
-#: ../xfce4-notifyd-config/main.c:965
+#: ../xfce4-notifyd-config/main.c:1111
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../xfce4-notifyd-config/main.c:966
+#: ../xfce4-notifyd-config/main.c:1112
 msgid "Open the notification log in an external editor"
 msgstr "Otevře protokol s oznámeními v externím editoru"
 
-#: ../xfce4-notifyd-config/main.c:973
+#: ../xfce4-notifyd-config/main.c:1119
 msgid "Clear the notification log"
 msgstr "Vymaže protokol s oznámeními"
 
-#: ../xfce4-notifyd-config/main.c:995
+#: ../xfce4-notifyd-config/main.c:1141
 msgid "Display version information"
 msgstr "Zobrazit informace o verzi"
 
-#: ../xfce4-notifyd-config/main.c:996
+#: ../xfce4-notifyd-config/main.c:1142
 msgid "Settings manager socket"
 msgstr "Soket správce nastavení"
 
-#: ../xfce4-notifyd-config/main.c:996
+#: ../xfce4-notifyd-config/main.c:1142
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:1006
+#: ../xfce4-notifyd-config/main.c:1152
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Informace o použití získáte příkazem '%s --help'"
 
-#: ../xfce4-notifyd-config/main.c:1021
+#: ../xfce4-notifyd-config/main.c:1167
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vydáno pod podmínkami licence  GNU General Public License, verze 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1022
+#: ../xfce4-notifyd-config/main.c:1168
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prosímte, abyste hlásili chyby na adresu %s.\n"
@@ -366,9 +370,9 @@ msgstr "Limit velikosti protokolu"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid ""
-"The maximum amount of entries to be retained in the log. Please note that a "
+"The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr "Maximální počet položek, které zůstanou uchovány v protokolu. Pozor, nadměrná velikost protokolu může vést ke snížení výkonu. 0 znamená bez limitu."
+msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
