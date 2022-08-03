@@ -370,7 +370,7 @@ msgstr "Limiet voor logboekomvang"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Het maximale aantal aantekeningen in het logboek. Houd er a.u.b. rekening mee dat een groot logboek prestatieverlies kan veroorzaken. 0 betekent geen begrenzing."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
