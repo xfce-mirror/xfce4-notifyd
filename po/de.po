@@ -375,7 +375,7 @@ msgstr "Begrenzung der Protokollgröße"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Die maximale Anzahl der Einträge, die im Protokoll gespeichert werden sollen. Bitte beachten Sie, dass ein großes Protokoll zu Leistungseinbußen führen kann. 0 bedeutet keine Begrenzung."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
