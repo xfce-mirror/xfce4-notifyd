@@ -342,21 +342,6 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
 }
 
 static void
-xfce4_notifyd_row_activated (GtkListBox *known_applications_listbox,
-                             GtkListBoxRow *selected_application_row,
-                             gpointer user_data)
-{
-    GtkWidget *application_box;
-    GtkWidget *mute_switch;
-    gboolean muted;
-
-    application_box = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (selected_application_row)), 0));
-    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 3));
-    muted = !gtk_switch_get_active (GTK_SWITCH (mute_switch));
-    gtk_switch_set_active (GTK_SWITCH (mute_switch), muted);
-}
-
-static void
 xfce4_notifyd_switch_activated (GtkSwitch *mute_switch,
                                 gboolean state,
                                 gpointer user_data)
@@ -1091,9 +1076,6 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     xfce4_notifyd_known_applications_changed (channel, KNOWN_APPLICATIONS_PROP, NULL, known_applications_listbox);
     gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
     gtk_widget_show_all (placeholder_label);
-    g_signal_connect (G_OBJECT (known_applications_listbox), "row-activated",
-                      G_CALLBACK (xfce4_notifyd_row_activated),
-                      channel);
     g_signal_connect (G_OBJECT (channel),
                       "property-changed::" KNOWN_APPLICATIONS_PROP,
                       G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
