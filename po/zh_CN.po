@@ -375,7 +375,7 @@ msgstr "日志大小限制"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "日志中保留的最大条目数。请注意，较大的日志可能会导致性能下降。 0 表示没有限制。"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
