@@ -32,6 +32,8 @@
 #include <libxfce4util/libxfce4util.h>
 
 #include <gdk/gdkx.h>
+#include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
 #include <glib.h>
 #include <gtk/gtk.h>
 
@@ -90,36 +92,8 @@ notify_pixbuf_from_image_data (GVariant *image_data)
     return pix;
 }
 
-gchar *
-notify_icon_name_from_desktop_id (const gchar *desktop_id)
-{
-    gchar *icon_file = NULL;
-    gchar *resource;
-    XfceRc *rcfile;
-
-    resource = g_strdup_printf("applications%c%s.desktop",
-                               G_DIR_SEPARATOR,
-                               desktop_id);
-    rcfile = xfce_rc_config_open(XFCE_RESOURCE_DATA,
-                                 resource, TRUE);
-    g_free (resource);
-    if (rcfile)
-    {
-        if (xfce_rc_has_group (rcfile, G_KEY_FILE_DESKTOP_GROUP))
-        {
-            xfce_rc_set_group (rcfile, G_KEY_FILE_DESKTOP_GROUP);
-            icon_file = g_strdup (xfce_rc_read_entry (rcfile,
-                                                      G_KEY_FILE_DESKTOP_KEY_ICON,
-                                                      NULL));
-            /* At this point: icon_file might be NULL */
-        }
-        xfce_rc_close (rcfile);
-    }
-    return icon_file;
-}
-
-gchar *
-notify_get_from_desktop_file (const gchar *desktop_file_path, const gchar *key)
+static gchar *
+notify_read_from_desktop_file (const gchar *desktop_file_path, const gchar *key)
 {
     GKeyFile *desktop_file;
     gchar *value = NULL;
@@ -144,6 +118,44 @@ notify_get_from_desktop_file (const gchar *desktop_file_path, const gchar *key)
                 }
         }
         g_key_file_free (desktop_file);
+    }
+
+    return value;
+}
+
+gchar *
+notify_get_from_desktop_file (const gchar *desktop_file, const gchar *key)
+{
+    GDesktopAppInfo *appinfo;
+    gchar *filename;
+    gchar *value = NULL;
+
+    filename = g_strdup_printf ("%s.desktop", desktop_file);
+    appinfo = g_desktop_app_info_new (filename);
+    g_free (filename);
+
+    if (appinfo) {
+        value = notify_read_from_desktop_file (g_desktop_app_info_get_filename (appinfo), key);
+    }
+    /* Fallback: Try to find the correct desktop file
+       As the GIO matching algorithm is unknown and subject to change we naively pick the first match */
+    else {
+        gchar ***matches;
+
+        matches = g_desktop_app_info_search (desktop_file);
+
+        if (matches[0]) {
+            gchar **match;
+
+            match = matches[0];
+            appinfo = g_desktop_app_info_new (match[0]);
+            value = notify_read_from_desktop_file (g_desktop_app_info_get_filename (appinfo), key);
+
+            for (gchar ***p = matches; *p != NULL; p++)
+                g_strfreev (*p);
+
+            g_free (matches);
+        }
     }
 
     return value;
@@ -287,9 +299,12 @@ xfce_notify_log_keyfile_insert1 (GKeyFile *notify_log,
         g_key_file_set_string (notify_log, group, "app_icon", app_icon);
     }
     else if (desktop_id) {
-        gchar *icon_name = notify_icon_name_from_desktop_id (desktop_id);
-        g_key_file_set_string (notify_log, group, "app_icon", icon_name);
-        g_free (icon_name);
+        gchar *icon_name = notify_get_from_desktop_file (desktop_id, G_KEY_FILE_DESKTOP_KEY_ICON);
+
+        if (icon_name) {
+            g_key_file_set_string (notify_log, group, "app_icon", icon_name);
+            g_free (icon_name);
+        }
     }
 
     timeout = g_strdup_printf ("%d", expire_timeout);
