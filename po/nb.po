@@ -374,7 +374,7 @@ msgstr "Største loggstørrelse"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Største antall oppføringer i loggen. Legg merke til at en stor logg vil føre til problemer med ytelsen. 0 betyr ingen grense."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
