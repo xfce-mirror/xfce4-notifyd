@@ -146,7 +146,7 @@ msgstr "Преглед обавештења није успео"
 
 #: ../xfce4-notifyd-config/main.c:470
 msgid "Unspecified applications"
-msgstr ""
+msgstr "Неодређени програми"
 
 #: ../xfce4-notifyd-config/main.c:651
 #, c-format
@@ -370,7 +370,7 @@ msgstr "Бележи ограничење величине"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Највећи број уноса који ће се задржавати у дневнику. Молим, обратите пажњу да већи дневник може успорити рад. 0 значи без ограничења."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
