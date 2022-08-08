@@ -371,7 +371,7 @@ msgstr "Kufi madhësie regjistrash"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Numri maksimum i zërave për t’u mbajtur te regjistri. Ju lutemi, kini parasysh se një regjistër i madh mund të ketë pasoja mbi funksionimin. 0 do të thotë pa kufi."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
