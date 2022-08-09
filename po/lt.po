@@ -370,7 +370,7 @@ msgstr "Žurnalo dydžio apribojimas"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Didžiausias, žurnale saugomų įrašų, skaičius. Turėkite omenyje, kad didelis žurnalas gali neigiamai paveikti našumą. 0 reiškia be apribojimo."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
