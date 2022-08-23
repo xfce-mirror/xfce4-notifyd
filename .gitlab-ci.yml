@@ -9,5 +9,5 @@ image:
 test:
   stage: build
   script:
-    - apt install libnotify-bin
+    - sudo apt update && sudo apt install libnotify-bin
     - tests/test-logging.sh
