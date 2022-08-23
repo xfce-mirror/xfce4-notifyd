@@ -13,7 +13,9 @@ else
 fi
 
 # Send a test notification
+echo "Sending test notification..."
 notify-send -a 'xfce4-notifyd-test' "Test notification summary" "Test notification sent at $TIMESTAMP"
+sleep 5
 
 # Check if the log file exists
 if [ -f "$LOG_FILE" ]; then
