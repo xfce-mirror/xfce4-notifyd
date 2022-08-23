@@ -7,4 +7,4 @@ image: schuellerf/xfce-test:latest
 test:
   stage: build
   script:
-    - tests/test-logging.sh
+    - xfce4-session & tests/test-logging.sh
