@@ -10,4 +10,5 @@ test:
   stage: build
   script:
     - sudo apt update && sudo apt install libnotify-bin
+    - ./xfce4-notifyd/xfce4-notifyd
     - tests/test-logging.sh
