@@ -9,7 +9,7 @@ if [[ "$LOG_ENABLED" == "true" ]]; then
 	echo "Log is enabled"
 else
 	echo "Log is disabled - enabling..."
-	xfconf-query -c xfce4-notifyd -p /notification-log -s true --create
+	xfconf-query -c xfce4-notifyd -p /notification-log -t bool -s true --create
 fi
 
 # Send a test notification
