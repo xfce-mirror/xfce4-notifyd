@@ -2,3 +2,11 @@ include:
   - project: 'xfce/xfce4-dev-tools'
     file: '/ci/build_project.yml'
 
+image:
+  name: schuellerf/xfce-test:latest
+  entrypoint: ["xfce4-session"]
+
+test:
+  stage: build
+  script:
+    - tests/test-logging.sh
