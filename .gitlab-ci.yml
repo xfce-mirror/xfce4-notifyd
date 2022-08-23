@@ -4,7 +4,7 @@ include:
 
 image:
   name: schuellerf/xfce-test:latest
-  entrypoint: ["startxfce4"]
+  entrypoint: ["/usr/bin/dbus-run-session"]
 
 test:
   stage: build
