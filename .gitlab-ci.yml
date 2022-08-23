@@ -2,3 +2,13 @@ include:
   - project: 'xfce/xfce4-dev-tools'
     file: '/ci/build_project.yml'
 
+image:
+  name: schuellerf/xfce-test:latest
+  entrypoint: ["/usr/bin/dbus-run-session"]
+
+test:
+  stage: build
+  script:
+    - sudo apt update && sudo apt install libnotify-bin
+    - ./xfce4-notifyd/xfce4-notifyd
+    - tests/test-logging.sh
