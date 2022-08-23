@@ -1,9 +1,14 @@
+*~
 *.o
 *.a
+*.d
 *.lo
 *.la
 .*.swp
 .*.swo
+*.tar.bz2
+*.patch
+*.diff
 stamp-*
 *-stamp
 
