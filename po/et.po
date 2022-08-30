@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Priit Jõerüüt <transifex@joeruut.com>, 2020
+# Priit Jõerüüt <transifex@joeruut.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-03 00:50+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Priit Jõerüüt <transifex@joeruut.com>, 2020\n"
+"Last-Translator: Priit Jõerüüt <transifex@joeruut.com>, 2020,2022\n"
 "Language-Team: Estonian (http://www.transifex.com/xfce/xfce-apps/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -145,7 +145,7 @@ msgstr "Teadete eelvaate kuvamine ei õnnestunud"
 
 #: ../xfce4-notifyd-config/main.c:470
 msgid "Unspecified applications"
-msgstr ""
+msgstr "Määratlemata rakendused"
 
 #: ../xfce4-notifyd-config/main.c:651
 #, c-format
@@ -369,7 +369,7 @@ msgstr "Logi suuruse piir"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Logisse salvestatv maksimaalne teadete arv. Palun arvesta, et väga suur logi võib arvuti jõudlust kahjustada. 0 tähendab, et logitavate teadete arvul piiri pole."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
