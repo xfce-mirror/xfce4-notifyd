@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
+# kEdAR, 2022
 # Michal Várady <miko.vaji@gmail.com>, 2016-2020
 # Pavel Borecki <pavel.borecki@gmail.com>, 2018
 # Petr Šimáček <petr.simacek@gmail.com>, 2017
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-03 00:50+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2016-2020\n"
+"Last-Translator: kEdAR, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,7 +156,7 @@ msgstr ""
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr "Aktuálně jsou zobrazována pouze neodkladná oznámení.</b>\nProtokolování oznámení je %s."
+msgstr "<b>Aktuálně jsou zobrazována pouze neodkladná oznámení.</b>\nProtokolování oznámení je %s."
 
 #: ../xfce4-notifyd-config/main.c:658
 msgid "enabled"
@@ -284,7 +285,7 @@ msgstr "Služba pro oznámení není spuštěna. Oznámení se nebudou zobrazova
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "</b>Aktuálně se zobrazují pouze urgentní oznámení.</b>"
+msgstr "<b>Aktuálně se zobrazují pouze urgentní oznámení.</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "Show _Preview"
