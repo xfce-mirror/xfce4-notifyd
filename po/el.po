@@ -152,7 +152,7 @@ msgstr "Η προεπισκόπηση ειδοποιήσεων απέτυχε"
 
 #: ../xfce4-notifyd-config/main.c:470
 msgid "Unspecified applications"
-msgstr ""
+msgstr "Μη καθορισμένες εφαρμογές"
 
 #: ../xfce4-notifyd-config/main.c:651
 #, c-format
@@ -376,7 +376,7 @@ msgstr "Μέγιστος αριθμός εγγραφών"
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr ""
+msgstr "Ο μέγιστος αριθμός εγγραφών στο αρχείο καταγραφών. Παρακαλώ λάβετε υπόψη ότι, ο μεγάλος αριθμός εγγραφών μπορεί να έχει επιπτώσεις στην απόδοση. Το 0 σημαίνει χωρίς όριο."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log"
