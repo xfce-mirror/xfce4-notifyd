@@ -93,6 +93,7 @@ void xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
 
 void xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
                                         gint value,
+                                        gboolean full_with_value,
                                         GtkCssProvider *css_provider);
 void xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window);
 
