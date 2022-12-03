@@ -97,7 +97,7 @@ msgstr "<b>_Μην ενοχλείτε</b>"
 
 #: ../panel-plugin/notification-plugin-log.c:336
 msgid "No notifications"
-msgstr "Όχι ειδοποιήσεις"
+msgstr "Χωρίς ειδοποιήσεις"
 
 #: ../panel-plugin/notification-plugin-log.c:357
 msgid "_Clear log"
