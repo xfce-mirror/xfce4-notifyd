@@ -1,3 +1,10 @@
+0.6.5 (2022-12-16)
+=====
+- Fix segfault crash.
+- Translation Updates:
+  Czech, Greek, Hebrew, Kazakh, Occitan (post 1500), Portuguese
+  (Brazil)
+
 0.6.4
 ======
 - settings: Improve app icon and name matching
