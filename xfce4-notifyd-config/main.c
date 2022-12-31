@@ -85,7 +85,7 @@ xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window)
     notification =
         notify_notification_new(_("Notification Preview"),
                                 _("This is what notifications will look like"),
-                                "xfce4-notifyd");
+                                "org.xfce.notification");
 
     notify_notification_add_action(notification,
                                    "button",
@@ -456,6 +456,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     GtkWidget *icon;
     GtkWidget *mute_switch;
     guint i;
+    gint scale_factor = gtk_widget_get_scale_factor(known_applications_listbox);
     gchar *app_name = NULL;
     gchar *desktop_icon_name = NULL;
 
@@ -493,34 +494,44 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         else {
             GdkPixbuf *pix = NULL;
             GtkIconInfo *icon_info = NULL;
-            GtkIconInfo *icon_info_lower = NULL;
             gchar *icon_name_lower;
             const gchar *icon_name;
+
+            /* Find icons in the right priority:
+               1. normal icon name with fallback
+               2. lowercase icon name with fallback */
 
             /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
             icon_name = g_strdelimit ((gchar *) known_application," ",'-');
             icon_name_lower = g_ascii_strdown (icon_name, -1);
-            icon_info = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-
-            /* Find icons in the right priority:
-                    1. normal icon name with fallback
-                    2. lowercase icon name with fallback */
-            if (icon_info) {
-                pix = gtk_icon_info_load_icon (icon_info, NULL);
-                gtk_image_set_from_pixbuf (GTK_IMAGE (icon), gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+            icon_info = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default(),
+                                                              icon_name,
+                                                              24, scale_factor,
+                                                              GTK_ICON_LOOKUP_GENERIC_FALLBACK
+                                                              | GTK_ICON_LOOKUP_FORCE_SIZE);
+            if (icon_info == NULL) {
+                icon_info = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default(),
+                                                                  icon_name_lower,
+                                                                  24, scale_factor,
+                                                                  GTK_ICON_LOOKUP_GENERIC_FALLBACK
+                                                                  | GTK_ICON_LOOKUP_FORCE_SIZE);
             }
-            else {
-                icon_info_lower = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), icon_name_lower, 24, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-                if (icon_info_lower) {
-                    pix = gtk_icon_info_load_icon (icon_info_lower, NULL);
-                    gtk_image_set_from_pixbuf (GTK_IMAGE (icon), gdk_pixbuf_scale_simple (pix, 24, 24, GDK_INTERP_BILINEAR));
+
+            if (icon_info != NULL) {
+                pix = gtk_icon_info_load_icon (icon_info, NULL);
+
+                if (G_LIKELY (pix != NULL)) {
+                    cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf (pix, scale_factor, NULL);
+                    gtk_image_set_from_surface (GTK_IMAGE (icon), surface);
+
+                    g_object_unref (pix);
+                    cairo_surface_destroy (surface);
                 }
+
+                g_object_unref (icon_info);
             }
 
             g_free (icon_name_lower);
-
-            if (pix)
-                g_object_unref (G_OBJECT (pix));
         }
 
         /* Try to find the correct application name based on the desktop file */
@@ -706,6 +717,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
     GdkPixbuf *pixbuf = NULL;
     gchar *notify_log_icon_folder;
     gchar *notify_log_icon_path;
+    gint scale_factor = gtk_widget_get_scale_factor (log_listbox);
 
     today = g_date_time_new_now_local ();
     timestamp = g_date_time_format (today, "%F");
@@ -795,10 +807,16 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
             if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
                 pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
-                                                            24, 24, FALSE, NULL);
-                app_icon = gtk_image_new_from_pixbuf (pixbuf);
-                if (pixbuf)
+                                                            24 * scale_factor, 24 * scale_factor,
+                                                            TRUE, NULL);
+                if (G_LIKELY (pixbuf != NULL)) {
+                    cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale_factor, NULL);
+                    app_icon = gtk_image_new_from_surface (surface);
                     g_object_unref (pixbuf);
+                    cairo_surface_destroy (surface);
+                } else {
+                    app_icon = gtk_image_new ();
+                }
             } else {
                 app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
                 gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
