@@ -689,42 +689,35 @@ void
 xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
                                   const gchar *icon_name)
 {
-    gboolean icon_set = FALSE;
+    GIcon *icon = NULL;
 
     g_return_if_fail (XFCE_IS_NOTIFY_WINDOW (window));
 
     if (icon_name && *icon_name) {
-        gint w, h;
-        GdkPixbuf *pix = NULL;
-        GIcon *icon;
+        gboolean is_absolute, is_uri;
 
-        gtk_icon_size_lookup (GTK_ICON_SIZE_DIALOG, &w, &h);
+        is_absolute = g_path_is_absolute (icon_name);
+        is_uri = g_str_has_prefix(icon_name, "file://");
 
-        if (g_path_is_absolute (icon_name)) {
-            pix = gdk_pixbuf_new_from_file_at_size (icon_name, w, h, NULL);
+        if (is_absolute || is_uri) {
+            GFile *file = is_absolute ? g_file_new_for_path (icon_name) : g_file_new_for_uri (icon_name);
+
+            if (g_file_query_exists (file, NULL) && g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_REGULAR) {
+                icon = g_file_icon_new (file);
+            }
+            g_object_unref (file);
         }
-        else if (g_str_has_prefix (icon_name, "file://")) {
-            gchar *filename = g_filename_from_uri (icon_name, NULL, NULL);
-            if (filename)
-              pix = gdk_pixbuf_new_from_file_at_size (filename, w, h, NULL);
-            g_free (filename);
-        }
-        else {
+
+        if (icon == NULL) {
             icon = g_themed_icon_new_with_default_fallbacks (icon_name);
-            gtk_image_set_from_gicon (GTK_IMAGE (window->icon), icon, GTK_ICON_SIZE_DIALOG);
-            icon_set = TRUE;
-        }
-
-        if (pix) {
-            gtk_image_set_from_pixbuf (GTK_IMAGE (window->icon), pix);
-            g_object_unref (G_OBJECT (pix));
-            icon_set = TRUE;
         }
     }
 
-    if (icon_set)
+    if (icon != NULL) {
+        gtk_image_set_from_gicon (GTK_IMAGE (window->icon), icon, GTK_ICON_SIZE_DIALOG);
         gtk_widget_show (window->icon_box);
-    else {
+        g_object_unref (icon);
+    } else {
         gtk_image_clear (GTK_IMAGE (window->icon));
         gtk_widget_hide (window->icon_box);
     }
@@ -737,48 +730,55 @@ void
 xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
                                    GdkPixbuf *pixbuf)
 {
-    GdkPixbuf *p_free = NULL;
+    cairo_surface_t *surface = NULL;
+    gint scale_factor;
 
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window)
                      && (!pixbuf || GDK_IS_PIXBUF(pixbuf)));
 
+    scale_factor = gtk_widget_get_scale_factor(GTK_WIDGET(window));
+
     if(pixbuf) {
-        gint w, h, pw, ph;
+        gint w, h, size, pw, ph;
 
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
+        size = MIN(w, h) * scale_factor;
         pw = gdk_pixbuf_get_width(pixbuf);
         ph = gdk_pixbuf_get_height(pixbuf);
 
-        if(w > h)
-            w = h;
-        if(pw > w || ph > w) {
+        if(pw > size || ph > size) {
+            GdkPixbuf *pix_scaled;
             gint nw, nh;
 
             if(pw > ph) {
-                nw = w;
-                nh = w * ((gdouble)ph/pw);
+                nw = size;
+                nh = size * ((gdouble)ph/pw);
             } else {
-                nw = w * ((gdouble)pw/ph);
-                nh = w;
+                nw = size * ((gdouble)pw/ph);
+                nh = size;
             }
 
-            pixbuf = p_free = gdk_pixbuf_scale_simple(pixbuf, nw, nh,
-                                                      GDK_INTERP_BILINEAR);
+            pix_scaled = gdk_pixbuf_scale_simple(pixbuf, nw, nh,
+                                                 GDK_INTERP_BILINEAR);
+            g_object_unref(pixbuf);
+            pixbuf = pix_scaled;
         }
+
+        surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, NULL);
+        g_object_unref(pixbuf);
     }
 
-    gtk_image_set_from_pixbuf(GTK_IMAGE(window->icon), pixbuf);
+    gtk_image_set_from_surface(GTK_IMAGE(window->icon), surface);
 
-    if(pixbuf)
+    if (surface != NULL) {
         gtk_widget_show(window->icon_box);
-    else
+        cairo_surface_destroy(surface);
+    } else {
         gtk_widget_hide(window->icon_box);
+    }
 
     if(gtk_widget_get_realized(GTK_WIDGET(window)))
         gtk_widget_queue_draw(GTK_WIDGET(window));
-
-    if(p_free)
-        g_object_unref(G_OBJECT(p_free));
 }
 
 void
