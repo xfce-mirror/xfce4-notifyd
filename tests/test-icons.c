@@ -57,6 +57,7 @@ show_notification (NotifyNotification *notification) {
 int main (int argc, char **argv)
 {
     NotifyNotification *notification;
+    gint scale_factor;
     GdkPixbuf *image_data;
     gchar test_body[60];
 
@@ -69,9 +70,12 @@ int main (int argc, char **argv)
 
     gtk_init(&argc, &argv);
 
-    image_data = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-                                           IMAGE_DATA, 48,
-                                           GTK_ICON_LOOKUP_GENERIC_FALLBACK, NULL);
+    scale_factor = gdk_monitor_get_scale_factor (gdk_display_get_primary_monitor (gdk_display_get_default ()));
+    image_data = gtk_icon_theme_load_icon_for_scale (gtk_icon_theme_get_default (),
+                                                     IMAGE_DATA,
+                                                     48, scale_factor,
+                                                     GTK_ICON_LOOKUP_GENERIC_FALLBACK
+                                                     | GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
 
     g_print ("%s\n * %s\n * %s\n * %s\n * %s\n\n",
              "The following icons are required in your icon-theme for these tests to work:",
