@@ -1048,5 +1048,10 @@ xfce_notify_window_closed(XfceNotifyWindow *window,
                      && reason >= XFCE_NOTIFY_CLOSE_REASON_EXPIRED
                      && reason <= XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
 
+    // do not close urgent notifications when using close all
+    if (reason == XFCE_NOTIFY_CLOSE_REASON_CLOSE_ALL && window->expire_timeout == 0) {
+        return;
+    }
+
     g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0, reason);
 }
