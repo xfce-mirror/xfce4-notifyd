@@ -342,6 +342,37 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
 }
 
 static void
+xfce4_notifyd_remove_known_application (GtkButton *button,
+                                        XfconfChannel *channel)
+{
+    gchar *app_name;
+    GPtrArray *known_applications;
+    guint i;
+
+    known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
+
+    app_name = g_object_get_data (G_OBJECT (button), "app_name");
+
+    for (i = 0; i < known_applications->len; i++) {
+        GValue *known_application;
+
+        known_application = g_ptr_array_index (known_applications, i);
+
+        if (g_str_match_string (app_name, g_value_get_string (known_application), FALSE) == TRUE) {
+            if (!g_ptr_array_remove_index (known_applications, i))
+                g_warning ("Could not remove %s from the list of muted applications. %i", app_name, i);
+            break;
+        }
+
+    }
+
+    if (!xfconf_channel_set_arrayv (channel, KNOWN_APPLICATIONS_PROP, known_applications))
+        g_warning ("Could not remove %s from the list of known applications.", app_name);
+
+    g_free (app_name);
+}
+
+static void
 xfce4_notifyd_row_activated (GtkListBox *known_applications_listbox,
                              GtkListBoxRow *selected_application_row,
                              gpointer user_data)
@@ -455,6 +486,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     GtkWidget *label;
     GtkWidget *icon;
     GtkWidget *mute_switch;
+    GtkWidget *button;
     guint i;
     gint scale_factor = gtk_widget_get_scale_factor(known_applications_listbox);
     gchar *app_name = NULL;
@@ -472,7 +504,6 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
 #else
     gtk_widget_set_halign (label, GTK_ALIGN_START);
 #endif
-
 
     /* All applications that don't supply their name at all */
     if (xfce_str_is_empty (known_application)) {
@@ -562,6 +593,13 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     gtk_widget_set_sensitive (label, FALSE);
     if (count > 0)
         gtk_label_set_text (GTK_LABEL (label), g_strdup_printf("%d", count));
+
+    /* The delete button */
+    button = gtk_button_new_from_icon_name ("edit-delete-symbolic", GTK_ICON_SIZE_MENU);
+    gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+    g_object_set_data (G_OBJECT (button), "app_name", g_strdup (known_application));
+    gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, TRUE, 3);
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (xfce4_notifyd_remove_known_application), channel);
 
     /* The mute switch */
     mute_switch = gtk_switch_new ();
