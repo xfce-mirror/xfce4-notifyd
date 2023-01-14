@@ -38,6 +38,7 @@ missing
 mkinstalldirs
 .deps
 .dirstamp
+compile_flags.txt
 
 po/.intltool-merge-cache*
 po/Makefile.in
