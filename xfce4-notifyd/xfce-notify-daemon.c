@@ -96,6 +96,93 @@ enum
     URGENCY_CRITICAL,
 };
 
+// This deliberately leaves out '/theme', as that one is handled in
+// a special way.
+const struct {
+    const gchar *name;
+    GType type;
+    gsize offset;
+    union {
+        gint i;
+        guint u;
+        gdouble d;
+        gboolean b;
+    } default_value;
+} settings[] = {
+    {
+        .name = "/expire-timeout",
+        .type = G_TYPE_INT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, expire_timeout),
+        .default_value.i = -1,
+    },
+    {
+        .name = "/initial-opacity",
+        .type = G_TYPE_DOUBLE,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, initial_opacity),
+        .default_value.d = 0.9,
+    },
+    {
+        .name = "/notify-location",
+        .type = G_TYPE_UINT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, notify_location),
+        .default_value.u = GTK_CORNER_TOP_RIGHT,
+    },
+    {
+        .name = "/do-fadeout",
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_fadeout),
+        .default_value.b = TRUE,
+    },
+    {
+        .name = "/do-slideout",
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_slideout),
+        .default_value.b = FALSE,
+    },
+    {
+        .name = "/show-text-with-gauge",
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_text_with_gauge),
+        .default_value.b = FALSE,
+    },
+    {
+        .name = "/primary-monitor",
+        .type = G_TYPE_UINT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, primary_monitor),
+        .default_value.u = 0,
+    },
+    {
+        .name = "/do-not-disturb",
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_not_disturb),
+        .default_value.b = FALSE,
+    },
+    {
+        .name = "/notification-log",
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, notification_log),
+        .default_value.b = FALSE,
+    },
+    {
+        .name = "/log-level",
+        .type = G_TYPE_UINT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_level),
+        .default_value.u = 0,
+    },
+    {
+        .name = "/log-level-apps",
+        .type = G_TYPE_UINT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_level_apps),
+        .default_value.u = 0,
+    },
+    {
+        .name = "/log-max-size",
+        .type = G_TYPE_UINT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_max_size),
+        .default_value.u = 100,
+    },
+};
+
 static void xfce_notify_daemon_screen_changed(GdkScreen *screen,
                                               gpointer user_data);
 static gboolean xfce_notify_daemon_update_reserved_rectangles(gpointer key,
@@ -1493,59 +1580,53 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
 {
     XfceNotifyDaemon *xndaemon = user_data;
 
-    if(!strcmp(property, "/expire-timeout")) {
-        xndaemon->expire_timeout = G_VALUE_TYPE(value)
-                                 ? g_value_get_int(value) : -1;
-        if(xndaemon->expire_timeout != -1)
-            xndaemon->expire_timeout *= 1000;
-    } else if(!strcmp(property, "/initial-opacity")) {
-        xndaemon->initial_opacity = G_VALUE_TYPE(value)
-                                  ? g_value_get_double(value) : 0.9;
-    } else if(!strcmp(property, "/theme")) {
+    if (g_strcmp0(property, "/theme") == 0) {
         xfce_notify_daemon_set_theme(xndaemon,
-                                     G_VALUE_TYPE(value)
+                                     G_VALUE_TYPE(value) == G_TYPE_STRING
                                      ? g_value_get_string(value)
                                      : "Default");
-    } else if(!strcmp(property, "/notify-location")) {
-        xndaemon->notify_location = G_VALUE_TYPE(value)
-                                  ? g_value_get_uint(value)
-                                  : GTK_CORNER_TOP_RIGHT;
-    } else if(!strcmp(property, "/do-fadeout")) {
-        xndaemon->do_fadeout = G_VALUE_TYPE(value)
-                               ? g_value_get_boolean(value)
-                               : TRUE;
-    } else if(!strcmp(property, "/do-slideout")) {
-       xndaemon->do_slideout = G_VALUE_TYPE(value)
-                               ? g_value_get_boolean(value)
-                               : FALSE;
-    } else if(!strcmp(property, "/primary-monitor")) {
-        xndaemon->primary_monitor = G_VALUE_TYPE(value)
-                                    ? g_value_get_uint(value)
-                                    : 0;
-    } else if(!strcmp(property, "/do-not-disturb")) {
-        xndaemon->do_not_disturb = G_VALUE_TYPE(value)
-                                 ? g_value_get_boolean(value)
-                                 : FALSE;
-    } else if(!strcmp(property, "/notification-log")) {
-        xndaemon->notification_log = G_VALUE_TYPE(value)
-                                     ? g_value_get_boolean(value)
-                                     : FALSE;
-    } else if(!strcmp(property, "/log-level")) {
-        xndaemon->log_level = G_VALUE_TYPE(value)
-                                  ? g_value_get_uint(value)
-                                  : 0;
-    } else if(!strcmp(property, "/log-level-apps")) {
-        xndaemon->log_level_apps = G_VALUE_TYPE(value)
-                                  ? g_value_get_uint(value)
-                                  : 0;
-    } else if(!strcmp(property, "/log-max-size")) {
-        xndaemon->log_max_size = G_VALUE_TYPE(value)
-                                 ? g_value_get_uint(value)
-                                 : 100;
-    } else if (strcmp(property, "/show-text-with-gauge") == 0) {
-        xndaemon->show_text_with_gauge = G_VALUE_TYPE(value)
-                                         ? g_value_get_boolean(value)
-                                         : FALSE;
+    } else {
+        for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
+            if (g_strcmp0(property, settings[i].name) == 0) {
+                guint8 *loc = ((guint8 *)xndaemon) + settings[i].offset;
+                switch (settings[i].type) {
+                    case G_TYPE_INT:
+                        *(gint *)loc = G_VALUE_TYPE(value) == settings[i].type
+                            ? g_value_get_int(value)
+                            : settings[i].default_value.i;
+                        break;
+
+                    case G_TYPE_UINT:
+                        *(guint *)loc = G_VALUE_TYPE(value) == settings[i].type
+                            ? g_value_get_uint(value)
+                            : settings[i].default_value.u;
+                        break;
+
+                    case G_TYPE_DOUBLE:
+                        *(gdouble *)loc = G_VALUE_TYPE(value) == settings[i].type
+                            ? g_value_get_double(value)
+                            : settings[i].default_value.d;
+                        break;
+
+                    case G_TYPE_BOOLEAN:
+                        *(gboolean *)loc = G_VALUE_TYPE(value) == settings[i].type
+                            ? g_value_get_boolean(value)
+                            : settings[i].default_value.b;
+                        break;
+
+                    default:
+                        g_critical("Unhandled property type %s", g_type_name(settings[i].type));
+                        break;
+                }
+
+                if (settings[i].offset == G_STRUCT_OFFSET(XfceNotifyDaemon, expire_timeout)) {
+                    if (xndaemon->expire_timeout != -1) {
+                        xndaemon->expire_timeout *= 1000;
+                    }
+                }
+                break;
+            }
+        }
     }
 }
 
@@ -1558,54 +1639,48 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
 
     xndaemon->settings = xfconf_channel_new("xfce4-notifyd");
 
-    xndaemon->expire_timeout = xfconf_channel_get_int(xndaemon->settings,
-                                                    "/expire-timeout",
-                                                    -1);
-    if(xndaemon->expire_timeout != -1)
-        xndaemon->expire_timeout *= 1000;
-
-    xndaemon->initial_opacity = xfconf_channel_get_double(xndaemon->settings,
-                                                        "/initial-opacity",
-                                                        0.9);
-
     theme = xfconf_channel_get_string(xndaemon->settings,
                                       "/theme", "Default");
     xfce_notify_daemon_set_theme(xndaemon, theme);
     g_free(theme);
 
-    xndaemon->notify_location = xfconf_channel_get_uint(xndaemon->settings,
-                                                      "/notify-location",
-                                                      GTK_CORNER_TOP_RIGHT);
+    for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
+        guint8 *loc = ((guint8 *)xndaemon) + settings[i].offset;
+        switch (settings[i].type) {
+            case G_TYPE_INT:
+                *(gint *)loc = xfconf_channel_get_int(xndaemon->settings,
+                                                      settings[i].name,
+                                                      settings[i].default_value.i);
+                break;
 
-    xndaemon->do_fadeout = xfconf_channel_get_bool(xndaemon->settings,
-                                                "/do-fadeout", TRUE);
+            case G_TYPE_UINT:
+                *(guint *)loc = xfconf_channel_get_uint(xndaemon->settings,
+                                                        settings[i].name,
+                                                        settings[i].default_value.u);
+                break;
 
-    xndaemon->do_slideout = xfconf_channel_get_bool(xndaemon->settings,
-                                                "/do-slideout", FALSE);
+            case G_TYPE_DOUBLE:
+                *(gdouble *)loc = xfconf_channel_get_double(xndaemon->settings,
+                                                            settings[i].name,
+                                                            settings[i].default_value.d);
+                break;
 
-    xndaemon->primary_monitor = xfconf_channel_get_uint(xndaemon->settings,
-                                                        "/primary-monitor", 0);
+            case G_TYPE_BOOLEAN:
+                *(gboolean *)loc = xfconf_channel_get_bool(xndaemon->settings,
+                                                           settings[i].name,
+                                                           settings[i].default_value.b);
+                break;
 
-    xndaemon->do_not_disturb = xfconf_channel_get_bool(xndaemon->settings,
-                                                       "/do-not-disturb",
-                                                       FALSE);
+            default:
+                g_critical("Unhandled property type %s", g_type_name(settings[i].type));
+                break;
+        }
+    }
 
-    xndaemon->notification_log = xfconf_channel_get_bool(xndaemon->settings,
-                                                         "/notification-log",
-                                                         FALSE);
-    xndaemon->log_level = xfconf_channel_get_uint(xndaemon->settings,
-                                                        "/log-level",
-                                                        0);
-    xndaemon->log_level_apps = xfconf_channel_get_uint(xndaemon->settings,
-                                                        "/log-level-apps",
-                                                        0);
-    xndaemon->log_max_size = xfconf_channel_get_uint(xndaemon->settings,
-                                                     "/log-max-size",
-                                                     100);
+    if (xndaemon->expire_timeout != -1) {
+        xndaemon->expire_timeout *= 1000;
+    }
 
-    xndaemon->show_text_with_gauge = xfconf_channel_get_bool(xndaemon->settings,
-                                                             "/show-text-with-gauge",
-                                                             FALSE);
     /* Clean up old notifications from the backlog */
     xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 
