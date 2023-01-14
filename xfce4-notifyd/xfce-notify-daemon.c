@@ -1248,35 +1248,32 @@ notify_notify (XfceNotifyGBus *skeleton,
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
        notifications which do not expire. */
-    if (expire_timeout != 0)
+    if (xndaemon->do_not_disturb == TRUE ||
+        application_is_muted == TRUE)
     {
-        if (xndaemon->do_not_disturb == TRUE ||
-            application_is_muted == TRUE)
-        {
-            /* Notifications marked as transient will never be logged */
-            if (xndaemon->notification_log == TRUE &&
-                transient == FALSE) {
-                /* Either log in DND mode or always for muted apps */
-                if ((xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE) ||
-                    xndaemon->log_level == 1)
-                      /* Log either all, all except muted or only muted applications */
-                      if (xndaemon->log_level_apps == 0 ||
-                          (xndaemon->log_level_apps == 1 && application_is_muted == FALSE) ||
-                          (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)) {
-                          xfce_notify_log_insert (new_app_name, summary, body,
-                                                  image_data, image_path, app_icon,
-                                                  desktop_id, expire_timeout, actions,
-                                                  xndaemon->log_max_size);
-                      }
-            }
-
-            xfce_notify_gbus_complete_notify (skeleton, invocation, OUT_id);
-            if (image_data)
-                g_variant_unref (image_data);
-            if (desktop_id)
-                g_free (desktop_id);
-            return TRUE;
+        /* Notifications marked as transient will never be logged */
+        if (xndaemon->notification_log == TRUE &&
+            transient == FALSE) {
+            /* Either log in DND mode or always for muted apps */
+            if ((xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE) ||
+                xndaemon->log_level == 1)
+                  /* Log either all, all except muted or only muted applications */
+                  if (xndaemon->log_level_apps == 0 ||
+                      (xndaemon->log_level_apps == 1 && application_is_muted == FALSE) ||
+                      (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)) {
+                      xfce_notify_log_insert (new_app_name, summary, body,
+                                              image_data, image_path, app_icon,
+                                              desktop_id, expire_timeout, actions,
+                                              xndaemon->log_max_size);
+                  }
         }
+
+        xfce_notify_gbus_complete_notify (skeleton, invocation, OUT_id);
+        if (image_data)
+            g_variant_unref (image_data);
+        if (desktop_id)
+            g_free (desktop_id);
+        return TRUE;
     }
 
     if(replaces_id
