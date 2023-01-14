@@ -960,6 +960,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkWidget *icon;
     GtkWidget *primary_monitor;
     GtkWidget *do_fadeout;
+    GtkWidget *show_text_with_gauge;
     GtkAdjustment *adj;
     GError *error = NULL;
     gchar *current_theme;
@@ -1056,6 +1057,10 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
         gtk_widget_set_sensitive (slideout_widgets.do_slideout_label, FALSE);
         gtk_widget_set_sensitive (slideout_widgets.do_slideout, FALSE);
     }
+
+    show_text_with_gauge = GTK_WIDGET(gtk_builder_get_object(builder, "show_text_with_gauge"));
+    xfconf_g_property_bind(channel, "/show-text-with-gauge", G_TYPE_BOOLEAN,
+                           G_OBJECT(show_text_with_gauge), "active");
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
     g_signal_connect(G_OBJECT(btn), "clicked",
