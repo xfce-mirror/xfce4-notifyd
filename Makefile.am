@@ -269,6 +269,36 @@ xfce4-notifyd-config/xfce4-notifyd-config.ui.h: $(srcdir)/xfce4-notifyd-config/x
 	xdt-csource --static --name=xfce4_notifyd_config_ui $< >$@ \
 	)
 
+all-local: compile_flags.txt
+
+compile_flags.txt: $(shell find . -name Makefile)
+	rm -f $@
+	for flag in \
+		-DPACKAGE=\"xfce4-notifyd\" \
+		-DGETTEXT_PACKAGE=\"xfce4-notifyd\" \
+		-DVERSION=\"1.0.0\" \
+		-DLOCALEDIR=\"$(localedir)\" \
+		-DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
+		-DG_LOG_DOMAIN=\"xfce4-notification-plugin\" \
+		-DNOTIFICATIONS_SPEC_VERSION=\"1.2\" \
+		-I$(top_srcdir) \
+		$(GTK3_CFLAGS) \
+		$(LIBXFCE4UTIL_CFLAGS) \
+		$(LIBXFCE4UI_CFLAGS) \
+		$(LIBXFCE4PANEL_CFLAGS) \
+		$(XFCONF_CFLAGS) \
+		$(PLATFORM_CFLAGS) \
+		$(PLATFORM_CPPFLAGS) \
+		$(LIBXFCE4UI_LIBS) \
+		$(GTK3_LIBS) \
+		$(LIBXFCE4UTIL_LIBS) \
+		$(LIBXFCE4UI_LIBS) \
+		$(LIBXFCE4PANEL_LIBS) \
+		$(XFCONF_LIBS) \
+	; do \
+		echo "$$flag" >> $@ || exit 1; \
+	done
+
 endif
 
 install-data-hook:
