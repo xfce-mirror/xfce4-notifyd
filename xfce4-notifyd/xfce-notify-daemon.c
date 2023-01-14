@@ -64,6 +64,7 @@ struct _XfceNotifyDaemon
     gboolean do_slideout;
     gboolean do_not_disturb;
     gboolean notification_log;
+    gboolean show_text_with_gauge;
     gint primary_monitor;
     gint log_level;
     gint log_level_apps;
@@ -1362,10 +1363,15 @@ notify_notify (XfceNotifyGBus *skeleton,
     xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout, xndaemon->do_slideout);
     xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
 
-    if (value_hint_set)
+    if (value_hint_set) {
         xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);
-    else
+        if (!xndaemon->show_text_with_gauge) {
+            xfce_notify_window_set_summary(window, NULL);
+            xfce_notify_window_set_body(window, NULL);
+        }
+    } else {
         xfce_notify_window_unset_gauge_value(window);
+    }
 
     gtk_widget_realize(GTK_WIDGET(window));
 
@@ -1536,6 +1542,10 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
         xndaemon->log_max_size = G_VALUE_TYPE(value)
                                  ? g_value_get_uint(value)
                                  : 100;
+    } else if (strcmp(property, "/show-text-with-gauge") == 0) {
+        xndaemon->show_text_with_gauge = G_VALUE_TYPE(value)
+                                         ? g_value_get_boolean(value)
+                                         : FALSE;
     }
 }
 
@@ -1592,6 +1602,10 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     xndaemon->log_max_size = xfconf_channel_get_uint(xndaemon->settings,
                                                      "/log-max-size",
                                                      100);
+
+    xndaemon->show_text_with_gauge = xfconf_channel_get_bool(xndaemon->settings,
+                                                             "/show-text-with-gauge",
+                                                             FALSE);
     /* Clean up old notifications from the backlog */
     xfconf_channel_reset_property (xndaemon->settings, "/backlog", TRUE);
 
