@@ -62,7 +62,8 @@ struct _XfceNotifyWindow
     guint32 icon_only:1,
             has_summary_text:1,
             has_body_text:1,
-            has_actions;
+            has_guage_value:1,
+            has_actions:1;
 
     GtkWidget *icon_box;
     GtkWidget *icon;
@@ -928,16 +929,21 @@ xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
             return;
         }
 
-        gtk_widget_hide(window->content_box);
+        if (window->has_guage_value) {
+            gtk_widget_hide(window->summary);
+            gtk_widget_hide(window->body);
+        } else {
+            gtk_widget_hide(window->content_box);
 
-        /* set a wider size on the icon box so it takes up more space */
-        gtk_widget_realize(window->icon);
-        gtk_widget_get_preferred_size (window->icon, NULL, &req);
-        gtk_widget_set_size_request(window->icon_box, req.width * 4, -1);
-        /* and center it */
-        g_object_set (window->icon_box,
-                      "halign", GTK_ALIGN_CENTER,
-                      NULL);
+            /* set a wider size on the icon box so it takes up more space */
+            gtk_widget_realize(window->icon);
+            gtk_widget_get_preferred_size (window->icon, NULL, &req);
+            gtk_widget_set_size_request(window->icon_box, req.width * 4, -1);
+            /* and center it */
+            g_object_set (window->icon_box,
+                          "halign", GTK_ALIGN_CENTER,
+                          NULL);
+        }
     } else {
         g_object_set (window->icon_box,
                       "halign", GTK_ALIGN_START,
@@ -960,8 +966,12 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
     else if(value < 0)
         value = 0;
 
-    gtk_widget_hide(window->summary);
-    gtk_widget_hide(window->body);
+    if (!window->has_summary_text) {
+        gtk_widget_hide(window->summary);
+    }
+    if (!window->has_body_text) {
+        gtk_widget_hide(window->body);
+    }
     gtk_widget_hide(window->button_box);
 
     if(!window->gauge) {
@@ -997,12 +1007,15 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
 
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(window->gauge),
                                   value / 100.0);
+    window->has_guage_value = TRUE;
 }
 
 void
 xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window)
 {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    window->has_guage_value = FALSE;
 
     if(window->gauge) {
         GtkWidget *align = gtk_widget_get_parent(window->gauge);

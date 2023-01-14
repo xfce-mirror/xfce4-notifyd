@@ -1357,8 +1357,6 @@ notify_notify (XfceNotifyGBus *skeleton,
                                 desktop_id, expire_timeout, actions,
                                 xndaemon->log_max_size);
 
-    xfce_notify_window_set_icon_only(window, x_canonical);
-
     xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout, xndaemon->do_slideout);
     xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
 
@@ -1366,6 +1364,8 @@ notify_notify (XfceNotifyGBus *skeleton,
         xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);
     else
         xfce_notify_window_unset_gauge_value(window);
+
+    xfce_notify_window_set_icon_only(window, x_canonical);
 
     gtk_widget_realize(GTK_WIDGET(window));
 
