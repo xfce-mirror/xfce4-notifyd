@@ -62,7 +62,7 @@ struct _XfceNotifyWindow
     guint32 icon_only:1,
             has_summary_text:1,
             has_body_text:1,
-            has_actions;
+            has_actions:1;
 
     GtkWidget *icon_box;
     GtkWidget *icon;
@@ -960,8 +960,6 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
     else if(value < 0)
         value = 0;
 
-    gtk_widget_hide(window->summary);
-    gtk_widget_hide(window->body);
     gtk_widget_hide(window->button_box);
 
     if(!window->gauge) {
