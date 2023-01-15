@@ -5,7 +5,7 @@
 # Translators:
 # Alper Tekinalp <alper.tekinalp@gmail.com>, 2020
 # Demiray Muhterem <mdemiray@msn.com>, 2018,2020,2022
-# Emin Tufan Çetin <etcetin@gmail.com>, 2020
+# Emin Tufan Çetin <etcetin@gmail.com>, 2020,2023
 # Emin Tufan Çetin <etcetin@gmail.com>, 2017,2020
 # Gökmen Görgen <gkmngrgn@gmail.com>, 2008
 # Necdet Yücel <necdetyucel@gmail.com>, 2013,2016-2018
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 00:50+0200\n"
+"POT-Creation-Date: 2023-01-15 00:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Demiray Muhterem <mdemiray@msn.com>, 2018,2020,2022\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>, 2020,2023\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,27 +25,27 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../common/xfce-notify-log.c:555
+#: ../common/xfce-notify-log.c:572
 msgid "Do you really want to clear the notification log?"
-msgstr "Bildirim günlüğünü silmek istiyor musunuz?"
+msgstr "Bildirim günlüğünü temizlemek istiyor musunuz?"
 
-#: ../common/xfce-notify-log.c:559
+#: ../common/xfce-notify-log.c:576
 msgid "Clear notification log"
-msgstr "Bildirim günlüğünü temiz"
+msgstr "Bildirim günlüğünü temizle"
 
-#: ../common/xfce-notify-log.c:562
+#: ../common/xfce-notify-log.c:579
 msgid "Cancel"
 msgstr "İptal"
 
-#: ../common/xfce-notify-log.c:564 ../xfce4-notifyd-config/main.c:1118
+#: ../common/xfce-notify-log.c:581 ../xfce4-notifyd-config/main.c:1141
 msgid "Clear"
 msgstr "Temizle"
 
-#: ../common/xfce-notify-log.c:580 ../common/xfce-notify-log.c:588
+#: ../common/xfce-notify-log.c:597 ../common/xfce-notify-log.c:605
 msgid "include icon cache"
-msgstr "simge ön belleğini dahil et"
+msgstr "simge ön belleğini içer"
 
-#: ../panel-plugin/notification-plugin.c:227
+#: ../panel-plugin/notification-plugin.c:225
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -54,7 +54,7 @@ msgstr "Bildiriler"
 #: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "Bu adres açılamadıl: %s"
+msgstr "Bu adres açılamadı: %s"
 
 #. create the dialog
 #: ../panel-plugin/notification-plugin-dialogs.c:77
@@ -81,7 +81,7 @@ msgstr "Yalnızca bugünden itibaren bildirimleri göster"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:124
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "'Logu temizle' onay kutusunu gizle"
+msgstr "'Günlüğü temizle' onay kutusunu gizle"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:161
 msgid "This is the notification plugin"
@@ -116,7 +116,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Xfce paneli için bildirim eklentisi"
 
 #: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:963
+#: ../xfce4-notifyd-config/main.c:985
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Bildiri Servisi"
 
@@ -129,7 +129,7 @@ msgstr "Bilinmeyen seçenek, \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Bildiri servisinin başlaması olanaksız"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:405
+#: ../xfce4-notifyd/xfce-notify-daemon.c:493
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Başka bir bildirim servisi zaten çalıştığından çıkılıyor\n"
@@ -150,89 +150,89 @@ msgstr "Düğme"
 msgid "Notification preview failed"
 msgstr "Bildirim ön izleme başarısız"
 
-#: ../xfce4-notifyd-config/main.c:470
+#: ../xfce4-notifyd-config/main.c:467
 msgid "Unspecified applications"
 msgstr "Belirtilmemiş uygulamalar"
 
-#: ../xfce4-notifyd-config/main.c:651
+#: ../xfce4-notifyd-config/main.c:665
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Şu anda yalnızca acil bildirimler gösterilmektedir.</b>\nBildirim kaydı %s."
 
-#: ../xfce4-notifyd-config/main.c:658
+#: ../xfce4-notifyd-config/main.c:672
 msgid "enabled"
 msgstr "etkin"
 
-#: ../xfce4-notifyd-config/main.c:658
+#: ../xfce4-notifyd-config/main.c:672
 msgid "disabled"
-msgstr "devredışı"
+msgstr "devre dışı"
 
-#: ../xfce4-notifyd-config/main.c:738
+#: ../xfce4-notifyd-config/main.c:753
 msgid "Yesterday and before"
 msgstr "Dün ve daha önce"
 
-#: ../xfce4-notifyd-config/main.c:965
+#: ../xfce4-notifyd-config/main.c:987
 msgid "Settings daemon is unavailable"
 msgstr "Servis ayarları kullanılamıyor"
 
-#: ../xfce4-notifyd-config/main.c:1051
+#: ../xfce4-notifyd-config/main.c:1077
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Şu anda bilinen uygulama bulunmamaktadır.</b></big>\nBir uygulama bildirim gönderir göndermez, \nbu listede görünecektir."
 
-#: ../xfce4-notifyd-config/main.c:1096
+#: ../xfce4-notifyd-config/main.c:1119
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "Günlük boş</b></big>\nHenüz bildirim kaydedilmedi."
 
-#: ../xfce4-notifyd-config/main.c:1104
+#: ../xfce4-notifyd-config/main.c:1127
 msgid "Refresh"
 msgstr "Yenile"
 
-#: ../xfce4-notifyd-config/main.c:1105
+#: ../xfce4-notifyd-config/main.c:1128
 msgid "Refresh the notification log"
 msgstr "Bildirim günlüğünü yenile"
 
-#: ../xfce4-notifyd-config/main.c:1111
+#: ../xfce4-notifyd-config/main.c:1134
 msgid "Open"
 msgstr "Aç"
 
-#: ../xfce4-notifyd-config/main.c:1112
+#: ../xfce4-notifyd-config/main.c:1135
 msgid "Open the notification log in an external editor"
 msgstr "Bildirim günlüğünü dış düzenleyiciyle aç"
 
-#: ../xfce4-notifyd-config/main.c:1119
+#: ../xfce4-notifyd-config/main.c:1142
 msgid "Clear the notification log"
 msgstr "Bildirim günlüğünü temizle"
 
-#: ../xfce4-notifyd-config/main.c:1141
+#: ../xfce4-notifyd-config/main.c:1164
 msgid "Display version information"
 msgstr "Sürüm bilgisini göster"
 
-#: ../xfce4-notifyd-config/main.c:1142
+#: ../xfce4-notifyd-config/main.c:1165
 msgid "Settings manager socket"
 msgstr "Ayarlar yöneticisi yuvası"
 
-#: ../xfce4-notifyd-config/main.c:1142
+#: ../xfce4-notifyd-config/main.c:1165
 msgid "SOCKET_ID"
-msgstr "YUVA _ID'Sİ"
+msgstr "YUVA _KİMLİĞİ"
 
-#: ../xfce4-notifyd-config/main.c:1152
+#: ../xfce4-notifyd-config/main.c:1175
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Kullanım seçenekleri için '%s --help' yazın."
 
-#: ../xfce4-notifyd-config/main.c:1167
+#: ../xfce4-notifyd-config/main.c:1190
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Genel Kamu Lisansı'nın ikinci sürümünün koşulları altında yayınlanmıştır\n"
 
-#: ../xfce4-notifyd-config/main.c:1168
+#: ../xfce4-notifyd-config/main.c:1191
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Hatayı bize bildirin, %s.\n"
@@ -251,7 +251,7 @@ msgstr "tümü"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid "all except blocked"
-msgstr "engellenmişler hariç tümü"
+msgstr "engellenmişler dışında tümü"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "only blocked"
@@ -324,7 +324,7 @@ msgstr "_Tema"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "Do not disturb"
-msgstr "Rahatsız etmeyin"
+msgstr "Rahatsız etme"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "<b>Behavior</b>"
@@ -349,36 +349,46 @@ msgid "Show notifications on"
 msgstr "Bildirimleri burada göster"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid ""
+"Show the notification summary and body when the notification is a percent "
+"value, such as audio volume or screen brightness"
+msgstr "Bildirim, ses düzeyi veya ekran parlaklığı gibi yüzde değeri olduğunda bildirim özetini ve gövdesini göster"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Show text with percent _values"
+msgstr "Yüzde _değerleriyle metin göster"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "General"
 msgstr "Genel"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>Her uygulama için bildirimleri açın veya kapatın</b>"
+msgstr "<b>Her bir uygulama için bildirimleri aç ya da kapat</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Applications"
 msgstr "Uygulamalar"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "Log notifications"
 msgstr "Bildirim günlükleri"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Log applications"
 msgstr "Uygulama günlükleri"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log size limit"
-msgstr "Log boyutu sınırı"
+msgstr "Günlük boyutu sınırı"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
-msgstr "Günlükte tutulacak maksimum giriş sayısı. Lütfen büyük bir günlüğün performans sorunlarına yol açabileceğini unutmayın. 0 limit yok demektir."
+msgstr "Günlükte tutulacak en çok giriş sayısı. Lütfen büyük günlüğün başarım sorunlarına yol açabileceğini unutmayın. 0, sınırsız demektir."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log"
 msgstr "Günlük"
 
