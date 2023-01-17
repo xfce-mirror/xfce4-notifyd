@@ -1257,12 +1257,12 @@ notify_notify (XfceNotifyGBus *skeleton,
 
         if (g_strcmp0 (key, "urgency") == 0)
         {
-            urgency = g_variant_get_byte(value);
-            if (g_variant_is_of_type (value, G_VARIANT_TYPE_BYTE) &&
-                (urgency == URGENCY_CRITICAL))
-            {
-                /* don't expire urgent notifications */
-                expire_timeout = 0;
+            if (g_variant_is_of_type (value, G_VARIANT_TYPE_BYTE)) {
+                urgency = g_variant_get_byte(value);
+                if (urgency == URGENCY_CRITICAL) {
+                    /* don't expire urgent notifications */
+                    expire_timeout = 0;
+                }
             }
             g_variant_unref(value);
         }
