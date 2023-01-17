@@ -760,12 +760,11 @@ xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
 
             pix_scaled = gdk_pixbuf_scale_simple(pixbuf, nw, nh,
                                                  GDK_INTERP_BILINEAR);
-            g_object_unref(pixbuf);
-            pixbuf = pix_scaled;
+            surface = gdk_cairo_surface_create_from_pixbuf(pix_scaled, scale_factor, NULL);
+            g_object_unref(pix_scaled);
+        } else {
+            surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, NULL);
         }
-
-        surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, NULL);
-        g_object_unref(pixbuf);
     }
 
     gtk_image_set_from_surface(GTK_IMAGE(window->icon), surface);
