@@ -706,9 +706,7 @@ xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
                 icon = g_file_icon_new (file);
             }
             g_object_unref (file);
-        }
-
-        if (icon == NULL) {
+        } else {
             icon = g_themed_icon_new_with_default_fallbacks (icon_name);
         }
     }
@@ -722,8 +720,9 @@ xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
         gtk_widget_hide (window->icon_box);
     }
 
-    if (gtk_widget_get_realized (GTK_WIDGET (window)))
-        gtk_widget_queue_draw (GTK_WIDGET (window));
+    if (gtk_widget_get_realized(GTK_WIDGET(window))) {
+        gtk_widget_queue_draw(GTK_WIDGET(window));
+    }
 }
 
 void
