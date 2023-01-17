@@ -730,15 +730,13 @@ void
 xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
                                    GdkPixbuf *pixbuf)
 {
-    cairo_surface_t *surface = NULL;
-    gint scale_factor;
-
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window)
                      && (!pixbuf || GDK_IS_PIXBUF(pixbuf)));
 
-    scale_factor = gtk_widget_get_scale_factor(GTK_WIDGET(window));
-
     if(pixbuf) {
+        GdkWindow *for_window = gtk_widget_get_window(GTK_WIDGET(window));
+        gint scale_factor = gtk_widget_get_scale_factor(GTK_WIDGET(window));
+        cairo_surface_t *surface;
         gint w, h, size, pw, ph;
 
         gtk_icon_size_lookup(GTK_ICON_SIZE_DIALOG, &w, &h);
@@ -760,24 +758,23 @@ xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
 
             pix_scaled = gdk_pixbuf_scale_simple(pixbuf, nw, nh,
                                                  GDK_INTERP_BILINEAR);
-            surface = gdk_cairo_surface_create_from_pixbuf(pix_scaled, scale_factor, NULL);
+            surface = gdk_cairo_surface_create_from_pixbuf(pix_scaled, scale_factor, for_window);
             g_object_unref(pix_scaled);
         } else {
-            surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, NULL);
+            surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, for_window);
         }
-    }
 
-    gtk_image_set_from_surface(GTK_IMAGE(window->icon), surface);
-
-    if (surface != NULL) {
+        gtk_image_set_from_surface(GTK_IMAGE(window->icon), surface);
         gtk_widget_show(window->icon_box);
         cairo_surface_destroy(surface);
     } else {
+        gtk_image_clear(GTK_IMAGE(window->icon));
         gtk_widget_hide(window->icon_box);
     }
 
-    if(gtk_widget_get_realized(GTK_WIDGET(window)))
+    if(gtk_widget_get_realized(GTK_WIDGET(window))) {
         gtk_widget_queue_draw(GTK_WIDGET(window));
+    }
 }
 
 void
