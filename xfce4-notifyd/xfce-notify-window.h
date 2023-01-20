@@ -55,6 +55,10 @@ GtkWidget *xfce_notify_window_new_with_actions(const gchar *summary,
                                                const gchar **actions,
                                                GtkCssProvider *css_provider);
 
+void xfce_notify_window_set_id(XfceNotifyWindow *window,
+                               guint id);
+guint xfce_notify_window_get_id(XfceNotifyWindow *window);
+
 void xfce_notify_window_set_summary(XfceNotifyWindow *window,
                                     const gchar *summary);
 void xfce_notify_window_set_body(XfceNotifyWindow *window,

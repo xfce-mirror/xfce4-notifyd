@@ -570,12 +570,15 @@ xfce_notify_daemon_window_action_invoked(XfceNotifyWindow *window,
                                          gpointer user_data)
 {
     XfceNotifyDaemon *xndaemon = user_data;
-    guint id = GPOINTER_TO_UINT(g_object_get_data(G_OBJECT(window),
-                                                  "--notify-id"));
+    guint id = xfce_notify_window_get_id(window);
 
-    xfce_notify_gbus_emit_action_invoked (XFCE_NOTIFY_GBUS(xndaemon),
-                                          id,
-                                          action);
+    if (G_LIKELY(id > 0)) {
+        xfce_notify_gbus_emit_action_invoked (XFCE_NOTIFY_GBUS(xndaemon),
+                                              id,
+                                              action);
+    } else {
+        g_warning("Notify window somehow didn't have an ID");
+    }
 }
 
 static void
@@ -584,7 +587,7 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
                                  gpointer user_data)
 {
     XfceNotifyDaemon *xndaemon = user_data;
-    gpointer id_p = g_object_get_data(G_OBJECT(window), "--notify-id");
+    guint id = xfce_notify_window_get_id(window);
     GList *list;
     gint monitor = xfce_notify_window_get_last_monitor(window);
 
@@ -593,11 +596,15 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     list = g_list_remove(list, xfce_notify_window_get_geometry(window));
     xndaemon->reserved_rectangles[monitor] = list;
 
-    g_tree_remove(xndaemon->active_notifications, id_p);
+    if (G_LIKELY(id > 0)) {
+        g_tree_remove(xndaemon->active_notifications, GUINT_TO_POINTER(id));
 
-    xfce_notify_gbus_emit_notification_closed (XFCE_NOTIFY_GBUS(xndaemon),
-                                               GPOINTER_TO_UINT(id_p),
-                                               (guint)reason);
+        xfce_notify_gbus_emit_notification_closed (XFCE_NOTIFY_GBUS(xndaemon),
+                                                   id,
+                                                   (guint)reason);
+    } else {
+        g_warning("Notify window somehow didn't have an ID");
+    }
 }
 
 static void
@@ -1206,10 +1213,8 @@ notify_notify (XfceNotifyGBus *skeleton,
                                                                         expire_timeout,
                                                                         actions,
                                                                         xndaemon->css_provider));
+        xfce_notify_window_set_id(window, OUT_id);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
-
-        g_object_set_data(G_OBJECT(window), "--notify-id",
-                          GUINT_TO_POINTER(OUT_id));
 
         g_tree_insert(xndaemon->active_notifications,
                       GUINT_TO_POINTER(OUT_id), window);

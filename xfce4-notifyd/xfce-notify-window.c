@@ -54,6 +54,8 @@ struct _XfceNotifyWindow
 {
     GtkWindow parent;
 
+    guint id;
+
     GdkRectangle geometry;
     gint last_monitor;
 
@@ -673,6 +675,21 @@ xfce_notify_window_new_with_actions(const gchar *summary,
     xfce_notify_window_set_actions(window, actions, css_provider);
 
     return GTK_WIDGET(window);
+}
+
+void
+xfce_notify_window_set_id(XfceNotifyWindow *window,
+                          guint id)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+    window->id = id;
+}
+
+guint
+xfce_notify_window_get_id(XfceNotifyWindow *window)
+{
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0);
+    return window->id;
 }
 
 void
