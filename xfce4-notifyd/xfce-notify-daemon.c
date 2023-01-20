@@ -31,12 +31,15 @@
 #include <string.h>
 #endif
 
-#include <libxfce4util/libxfce4util.h>
-#include <libxfce4ui/libxfce4ui.h>
-
-#include <gdk/gdkx.h>
 #include <gio/gio.h>
 
+#ifdef ENABLE_X11
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+#endif
+
+#include <libxfce4util/libxfce4util.h>
+#include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 
 #include <common/xfce-notify-log.h>
@@ -193,16 +196,12 @@ static void  xfce_notify_daemon_constructed(GObject *obj);
 
 static GQuark xfce_notify_daemon_get_n_monitors_quark(void);
 
+#ifdef ENABLE_X11
 static GdkFilterReturn xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
                                                           GdkEvent *event,
                                                           gpointer user_data);
+#endif
 
-static void xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
-                                           GdkRectangle *src2,
-                                           GdkRectangle *dest);
-static void xfce_notify_daemon_get_workarea(GdkScreen *screen,
-                                            guint monitor,
-                                            GdkRectangle *rect);
 static void daemon_quit (XfceNotifyDaemon *xndaemon);
 
 /* DBus method callbacks  forward declarations */
@@ -278,7 +277,6 @@ xfce_notify_daemon_get_n_monitors_quark(void)
     return quark;
 }
 
-#if GTK_CHECK_VERSION (3, 22, 0)
 static gint
 xfce_notify_daemon_get_monitor_index (GdkDisplay *display,
                                       GdkMonitor *monitor)
@@ -294,46 +292,8 @@ xfce_notify_daemon_get_monitor_index (GdkDisplay *display,
 
     return 0;
 }
-#endif
 
-static gint
-xfce_notify_daemon_get_primary_monitor (GdkScreen *screen)
-{
-#if GTK_CHECK_VERSION (3, 22, 0)
-    GdkDisplay *display = gdk_screen_get_display (screen);
-    GdkMonitor *monitor =gdk_display_get_primary_monitor (display);
-
-    return xfce_notify_daemon_get_monitor_index (display, monitor);
-#else
-    return gdk_screen_get_primary_monitor (screen);
-#endif
-}
-
-static gint
-xfce_notify_daemon_get_monitor_at_point (GdkScreen *screen,
-                                         gint x,
-                                         gint y)
-{
-#if GTK_CHECK_VERSION (3, 22, 0)
-    GdkDisplay *display = gdk_screen_get_display (screen);
-    GdkMonitor *monitor = gdk_display_get_monitor_at_point (display, x, y);
-
-    return xfce_notify_daemon_get_monitor_index (display, monitor);
-#else
-    return gdk_screen_get_monitor_at_point (screen, x, y);
-#endif
-}
-
-static inline gint
-xfce_notify_daemon_get_n_monitors (GdkScreen *screen)
-{
-#if GTK_CHECK_VERSION (3, 22, 0)
-    return gdk_display_get_n_monitors (gdk_screen_get_display (screen));
-#else
-    return gdk_screen_get_n_monitors (screen);
-#endif
-}
-
+#ifdef ENABLE_X11
 static GdkFilterReturn
 xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
                                    GdkEvent *event,
@@ -347,24 +307,28 @@ xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
        && xndaemon->monitors_workarea)
     {
         GdkScreen *screen = gdk_event_get_screen(event);
-        int nmonitor = xfce_notify_daemon_get_n_monitors (screen);
+        GdkDisplay *display = gdk_screen_get_display(screen);
+        int nmonitor = gdk_display_get_n_monitors(display);
         int j;
 
         DBG("got _NET_WORKAREA change on rootwin!");
 
-        for(j = 0; j < nmonitor; j++)
-            xfce_notify_daemon_get_workarea(screen, j,
-                                            &(xndaemon->monitors_workarea[j]));
+        for(j = 0; j < nmonitor; j++) {
+            GdkMonitor *monitor = gdk_display_get_monitor(display, j);
+            gdk_monitor_get_workarea(monitor, &(xndaemon->monitors_workarea[j]));
+        }
     }
 
     return GDK_FILTER_CONTINUE;
 }
+#endif
 
 static void
 xfce_notify_daemon_screen_changed(GdkScreen *screen,
                                   gpointer user_data)
 {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(user_data);
+    GdkDisplay *display = gdk_screen_get_display(screen);
     gint j;
     gint new_nmonitor;
     gint old_nmonitor;
@@ -373,7 +337,7 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
         /* Placement data not initialized, don't update it */
         return;
 
-    new_nmonitor = xfce_notify_daemon_get_n_monitors (screen);
+    new_nmonitor = gdk_display_get_n_monitors(display);
     old_nmonitor = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(screen), XND_N_MONITORS));
 
     DBG("Got 'screen-changed' signal");
@@ -390,9 +354,9 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
 
     xndaemon->monitors_workarea = g_new0(GdkRectangle, new_nmonitor);
     for(j = 0; j < new_nmonitor; j++) {
+        GdkMonitor *monitor = gdk_display_get_monitor(display, j);
         DBG("Screen changed, updating workarea for monitor %d", j);
-        xfce_notify_daemon_get_workarea(screen, j,
-                                        &(xndaemon->monitors_workarea[j]));
+        gdk_monitor_get_workarea(monitor, &(xndaemon->monitors_workarea[j]));
     }
 
     /* Initialize a new reserved rectangles array for screen */
@@ -408,8 +372,8 @@ static void
 xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
 {
     GdkScreen *screen = gdk_screen_get_default();
-    gint nmonitor = xfce_notify_daemon_get_n_monitors (screen);
-    GdkWindow *groot;
+    GdkDisplay *display = gdk_screen_get_display(screen);
+    gint nmonitor = gdk_display_get_n_monitors(display);
     int j;
 
     g_object_set_qdata(G_OBJECT(screen), XND_N_MONITORS, GINT_TO_POINTER(nmonitor));
@@ -420,14 +384,19 @@ xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
     xndaemon->reserved_rectangles = g_new0(GList *, nmonitor);
     xndaemon->monitors_workarea = g_new0(GdkRectangle, nmonitor);
 
-    for(j = 0; j < nmonitor; j++)
-        xfce_notify_daemon_get_workarea(screen, j,
-                                        &(xndaemon->monitors_workarea[j]));
+    for(j = 0; j < nmonitor; j++) {
+        GdkMonitor *monitor = gdk_display_get_monitor(display, j);
+        gdk_monitor_get_workarea(monitor, &(xndaemon->monitors_workarea[j]));
+    }
 
-    /* Monitor root window changes */
-    groot = gdk_screen_get_root_window(screen);
-    gdk_window_set_events(groot, gdk_window_get_events(groot) | GDK_PROPERTY_CHANGE_MASK);
-    gdk_window_add_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+        /* Monitor root window changes */
+        GdkWindow *groot = gdk_screen_get_root_window(screen);
+        gdk_window_set_events(groot, gdk_window_get_events(groot) | GDK_PROPERTY_CHANGE_MASK);
+        gdk_window_add_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
+    }
+#endif
 }
 
 
@@ -549,13 +518,16 @@ xfce_notify_daemon_finalize(GObject *obj)
 
 
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {
+      GdkScreen *screen = gdk_screen_get_default ();
+      gint nmonitor =  gdk_display_get_n_monitors(gdk_screen_get_display(screen));
       gint i;
 
-      GdkScreen *screen = gdk_screen_get_default ();
-      GdkWindow *groot = gdk_screen_get_root_window(screen);
-      gint nmonitor = xfce_notify_daemon_get_n_monitors (screen);
-
-      gdk_window_remove_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
+#ifdef ENABLE_X11
+      if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+          GdkWindow *groot = gdk_screen_get_root_window(screen);
+          gdk_window_remove_filter(groot, xfce_notify_rootwin_watch_workarea, xndaemon);
+      }
+#endif
 
       for(i = 0; i < nmonitor; i++) {
           if (xndaemon->reserved_rectangles[i])
@@ -623,158 +595,6 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
                                                (guint)reason);
 }
 
-/* Gets the largest rectangle in src1 which does not contain src2.
- * src2 is totally included in src1. */
-/*
- *                    1
- *          ____________________
- *          |            ^      |
- *          |           d1      |
- *      4   |         ___|_     | 2
- *          | < d4  >|_____|<d2>|
- *          |            ^      |
- *          |___________d3______|
- *
- *                    3
- */
-static void
-xfce_gdk_rectangle_largest_box(GdkRectangle *src1,
-                               GdkRectangle *src2,
-                               GdkRectangle *dest)
-{
-    gint d1, d2, d3, d4; /* distance to the different sides of src1, see drawing above */
-    gint max;
-
-    d1 = src2->y - src1->y;
-    d4 = src2->x - src1->x;
-    d2 = src1->width - d4 - src2->width;
-    d3 = src1->height - d1 - src2->height;
-
-    /* Get the max of rectangles implied by d1, d2, d3 and d4 */
-    max = MAX (d1 * src1->width, d2 * src1->height);
-    max = MAX (max, d3 * src1->width);
-    max = MAX (max, d4 * src1->height);
-
-    if (max == d1 * src1->width) {
-        dest->x = src1->x;
-        dest->y = src1->y;
-        dest->height = d1;
-        dest->width = src1->width;
-    }
-    else if (max == d2 * src1->height) {
-        dest->x = src2->x + src2->width;
-        dest->y = src1->y;
-        dest->width = d2;
-        dest->height = src1->height;
-    }
-    else if (max == d3 * src1->width) {
-        dest->x = src1->x;
-        dest->y = src2->y + src2->height;
-        dest->width = src1->width;
-        dest->height = d3;
-    }
-    else {
-        /* max == d4 * src1->height */
-        dest->x = src1->x;
-        dest->y = src1->y;
-        dest->height = src1->height;
-        dest->width = d4;
-    }
-}
-
-static inline void
-translate_origin(GdkRectangle *src1,
-                 gint xoffset,
-                 gint yoffset)
-{
-    src1->x += xoffset;
-    src1->y += yoffset;
-}
-
-/* Returns the workarea (largest non-panel/dock occupied rectangle) for a given
-   monitor. */
-static void
-xfce_notify_daemon_get_workarea(GdkScreen *screen,
-                                guint monitor_num,
-                                GdkRectangle *workarea)
-{
-    GdkDisplay *display;
-    GList *windows_list, *l;
-    gint monitor_xoff, monitor_yoff;
-
-    DBG("Computing the workarea.");
-
-    display = gdk_screen_get_display(screen);
-
-    /* Defaults */
-#if GTK_CHECK_VERSION (3, 22, 0)
-    gdk_monitor_get_geometry (gdk_display_get_monitor (display, monitor_num), workarea);
-#else
-    gdk_screen_get_monitor_geometry(screen, monitor_num, workarea);
-#endif
-
-    monitor_xoff = workarea->x;
-    monitor_yoff = workarea->y;
-
-    /* Sync the display */
-    gdk_display_sync(display);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gdk_window_process_all_updates();
-G_GNUC_END_IGNORE_DEPRECATIONS
-
-    windows_list = gdk_screen_get_window_stack(screen);
-
-    if(!windows_list)
-        DBG("No windows in stack.");
-
-    for(l = g_list_first(windows_list); l != NULL; l = g_list_next(l)) {
-        GdkWindow *window = l->data;
-        GdkWindowTypeHint type_hint;
-
-        gdk_x11_display_error_trap_push(display);
-        type_hint = gdk_window_get_type_hint(window);
-        gdk_display_flush(display);
-
-        if (gdk_x11_display_error_trap_pop(display)) {
-            DBG("Got invalid window in stack, could not get type hint");
-            continue;
-        }
-
-        if(type_hint == GDK_WINDOW_TYPE_HINT_DOCK) {
-            GdkRectangle window_geom, intersection;
-
-            gdk_x11_display_error_trap_push(display);
-            gdk_window_get_frame_extents(window, &window_geom);
-            gdk_display_flush(display);
-
-            if (gdk_x11_display_error_trap_pop(display)) {
-                DBG("Got invalid window in stack, could not get frame extents");
-                continue;
-            }
-
-            DBG("Got a dock window: x(%d), y(%d), w(%d), h(%d)",
-                window_geom.x,
-                window_geom.y,
-                window_geom.width,
-                window_geom.height);
-
-            if(gdk_rectangle_intersect(workarea, &window_geom, &intersection)){
-                translate_origin(workarea, -monitor_xoff, -monitor_yoff);
-                translate_origin(&intersection, -monitor_xoff, -monitor_yoff);
-
-                xfce_gdk_rectangle_largest_box(workarea, &intersection, workarea);
-
-                translate_origin(workarea, monitor_xoff, monitor_yoff);
-                translate_origin(&intersection, monitor_xoff, monitor_yoff);
-            }
-        }
-
-        g_object_unref(window);
-    }
-
-    g_list_free(windows_list);
-}
-
 static void
 xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
                                         GtkAllocation *allocation,
@@ -785,13 +605,10 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GdkScreen *p_screen = NULL;
     GdkDevice *pointer;
     GdkScreen *widget_screen;
-#if GTK_CHECK_VERSION (3, 20, 0)
-    GdkSeat *seat;
-#else
     GdkDisplay *display;
-    GdkDeviceManager *device_manager;
-#endif
-    gint x, y, monitor, old_monitor, max_width;
+    GdkSeat *seat;
+    GdkMonitor *monitor;
+    gint x, y, monitor_num, old_monitor, max_width;
     GdkRectangle old_geom, geom, initial, widget_geom;
     GList *list;
     gboolean found = FALSE;
@@ -810,25 +627,22 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     old_monitor = xfce_notify_window_get_last_monitor(window);
 
     widget_screen = gtk_widget_get_screen (widget);
-#if GTK_CHECK_VERSION (3, 20, 0)
-    seat = gdk_display_get_default_seat (gdk_display_get_default());
+    display = gdk_screen_get_display(widget_screen);
+    seat = gdk_display_get_default_seat(display);
     pointer = gdk_seat_get_pointer (seat);
-#else
-    display = gdk_screen_get_display (widget_screen);
-    device_manager = gdk_display_get_device_manager (display);
-    pointer = gdk_device_manager_get_client_pointer (device_manager);
-#endif
 
     gdk_device_get_position (pointer, &p_screen, &x, &y);
 
-    if (xndaemon->primary_monitor == 1)
-        monitor = xfce_notify_daemon_get_primary_monitor (widget_screen);
-    else
-        monitor = xfce_notify_daemon_get_monitor_at_point (p_screen, x, y);
+    if (xndaemon->primary_monitor == 1) {
+        monitor = gdk_display_get_primary_monitor(display);
+    } else {
+        monitor = gdk_display_get_monitor_at_point(display, x, y);
+    }
+    monitor_num = xfce_notify_daemon_get_monitor_index(display, monitor);
 
-    DBG("We are on the monitor %i", monitor);
+    DBG("We are on the monitor %i", monitor_num);
 
-    geom = xndaemon->monitors_workarea[monitor];
+    geom = xndaemon->monitors_workarea[monitor_num];
 
     DBG("Workarea: (%i,%i), width: %i, height:%i",
         geom.x, geom.y, geom.width, geom.height);
@@ -837,7 +651,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         /* Notification has already been placed previously. */
         GdkRectangle geom_union;
         gdk_rectangle_union(&old_geom, &geom, &geom_union);
-        if(monitor == old_monitor && allocation->width == old_geom.width && allocation->height == old_geom.height
+        if(monitor_num == old_monitor && allocation->width == old_geom.width && allocation->height == old_geom.height
            && gdk_rectangle_equal(&geom, &geom_union) && p_screen == gtk_window_get_screen(GTK_WINDOW(widget)))
         {
             /* No updates are necessary */
@@ -886,17 +700,17 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     max_width = 0;
 
     /* Get the list of reserved places */
-    list = xndaemon->reserved_rectangles[monitor];
+    list = xndaemon->reserved_rectangles[monitor_num];
 
     if(!list) {
         /* If the list is empty, there are no displayed notifications */
         DBG("No notifications on this monitor");
 
         xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
-        xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor);
+        xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor_num);
 
         list = g_list_prepend(list, xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
-        xndaemon->reserved_rectangles[monitor] = list;
+        xndaemon->reserved_rectangles[monitor_num] = list;
 
         DBG("Notification position: x=%i y=%i", widget_geom.x, widget_geom.y);
         gtk_window_move(GTK_WINDOW(widget), widget_geom.x, widget_geom.y);
@@ -1018,10 +832,10 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     }
 
     xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
-    xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor);
+    xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor_num);
 
     list = g_list_prepend(list, xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
-    xndaemon->reserved_rectangles[monitor] = list;
+    xndaemon->reserved_rectangles[monitor_num] = list;
 
     DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
     gtk_window_move(GTK_WINDOW(widget), widget_geom.x, widget_geom.y);

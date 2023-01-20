@@ -31,6 +31,11 @@
 
 #include <libxfce4ui/libxfce4ui.h>
 
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <gtk-layer-shell.h>
+#endif
+
 #include "xfce-notify-window.h"
 #include "xfce-notify-enum-types.h"
 
@@ -189,6 +194,16 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->do_fadeout = DEFAULT_DO_FADEOUT;
     window->do_slideout = DEFAULT_DO_SLIDEOUT;
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        gtk_layer_init_for_window(GTK_WINDOW(window));
+        gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_TOP);
+        gtk_layer_set_namespace(GTK_WINDOW(window), "notification");
+        gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
+        gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
+    }
+#endif
+
     gtk_widget_set_name (GTK_WIDGET(window), "XfceNotifyWindow");
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
     gtk_window_stick(GTK_WINDOW(window));
@@ -340,6 +355,13 @@ xfce_notify_window_realize(GtkWidget *widget)
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->geometry.x);
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->geometry.y);
+    }
+#endif
+
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->realize(widget);
 
     gdk_window_set_type_hint(gtk_widget_get_window(widget),
@@ -427,8 +449,17 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
                 g_source_remove(window->fade_id);
                 window->fade_id = 0;
                 /* reset the sliding-out window to its original position */
-                if (window->do_slideout)
-                    gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
+                if (window->do_slideout) {
+#ifdef ENABLE_WAYLAND
+                    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->original_x);
+                        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->original_y);
+                    } else
+#endif
+                    {
+                        gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
+                    }
+                }
             }
         }
         gtk_widget_set_opacity(GTK_WIDGET(widget), 1.0);
@@ -488,7 +519,15 @@ xfce_notify_window_expire_timeout(gpointer data)
     if(fade_transparent && window->do_fadeout) {
         /* remember the original position of the window before we slide it out */
         if (window->do_slideout) {
-            gtk_window_get_position (GTK_WINDOW (window), &window->original_x, &window->original_y);
+#ifdef ENABLE_WAYLAND
+            if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                window->original_x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
+                window->original_y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+            } else
+#endif
+            {
+                gtk_window_get_position (GTK_WINDOW (window), &window->original_x, &window->original_y);
+            }
             animation_timeout = FADE_CHANGE_TIMEOUT / 2;
         }
         else
@@ -516,7 +555,16 @@ xfce_notify_window_fade_timeout(gpointer data)
 
     /* slide out animation */
     if (window->do_slideout) {
-        gtk_window_get_position (GTK_WINDOW (window), &x, &y);
+#ifdef ENABLE_WAYLAND
+        if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+            x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
+            y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+        } else
+#endif
+        {
+            gtk_window_get_position (GTK_WINDOW (window), &x, &y);
+        }
+
         if (window->notify_location == GTK_CORNER_TOP_RIGHT ||
             window->notify_location == GTK_CORNER_BOTTOM_RIGHT)
             x = x + 10;
@@ -525,7 +573,17 @@ xfce_notify_window_fade_timeout(gpointer data)
             x = x - 10;
         else
             g_warning("Invalid notify location: %d", window->notify_location);
-        gtk_window_move (GTK_WINDOW (window), x, y);
+
+
+#ifdef ENABLE_WAYLAND
+        if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+            gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, x);
+            gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, y);
+        } else
+#endif
+        {
+            gtk_window_move (GTK_WINDOW (window), x, y);
+        }
     }
 
     /* fade-out animation */
@@ -664,6 +722,13 @@ xfce_notify_window_set_geometry(XfceNotifyWindow *window,
                                 GdkRectangle rectangle)
 {
     window->geometry = rectangle;
+
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->geometry.x);
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->geometry.y);
+    }
+#endif
 }
 
 GdkRectangle *
@@ -798,8 +863,17 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
         }
         gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
         /* reset the sliding-out window to its original position */
-        if (window->do_slideout && window->original_x >= 0)
-            gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
+        if (window->do_slideout && window->original_x >= 0) {
+#ifdef ENABLE_WAYLAND
+            if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->original_x);
+                gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->original_y);
+            } else
+#endif
+            {
+                gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
+            }
+        }
 
         xfce_notify_window_start_expiration (window);
     }
