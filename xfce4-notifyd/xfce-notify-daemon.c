@@ -52,8 +52,6 @@
 
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
-#define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"
-#define MUTED_APPLICATIONS_PROP       "/applications/muted_applications"
 
 struct _XfceNotifyDaemon
 {

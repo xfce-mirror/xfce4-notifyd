@@ -20,6 +20,8 @@
 #ifndef __XFCE_NOTIFY_COMMON_H__
 #define __XFCE_NOTIFY_COMMON_H__
 
+#define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
+#define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
 
 #endif  /* __XFCE_NOTIFY_COMMON_H__ */

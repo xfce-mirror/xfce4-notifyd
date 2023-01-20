@@ -43,8 +43,6 @@
 
 #include "xfce4-notifyd-config.ui.h"
 
-#define KNOWN_APPLICATIONS_PROP       "/applications/known_applications"
-#define MUTED_APPLICATIONS_PROP       "/applications/muted_applications"
 #define LOG_DISPLAY_LIMIT             100
 
 typedef struct
