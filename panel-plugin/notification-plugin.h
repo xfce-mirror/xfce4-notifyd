@@ -33,6 +33,7 @@ G_BEGIN_DECLS
 #define SETTING_HIDE_CLEAR_PROMPT "/plugin/hide-clear-prompt"
 #define DEFAULT_LOG_ICON_SIZE     16
 #define SETTING_LOG_ICON_SIZE     "/plugin/log-icon-size"
+#define SETTING_HIDE_ON_READ      "/plugin/hide-on-read"
 
 /* plugin structure */
 typedef struct
@@ -57,6 +58,8 @@ typedef struct
 
     /* handlers */
     guint            menu_size_allocate_next_handler;
+
+    gboolean         hide_on_read;
 }
 NotificationPlugin;
 

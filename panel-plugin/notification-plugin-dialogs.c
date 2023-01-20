@@ -122,6 +122,15 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   xfconf_g_property_bind (notification_plugin->channel, SETTING_HIDE_CLEAR_PROMPT, G_TYPE_BOOLEAN,
                           G_OBJECT (check), "active");
 
+  label = gtk_label_new(_("Hide panel button when no unread notifications"));
+  gtk_label_set_xalign(GTK_LABEL(label), 0);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
+  check = gtk_switch_new();
+  gtk_widget_set_halign(check, GTK_ALIGN_END);
+  gtk_grid_attach(GTK_GRID(grid), check, 1, 3, 1, 1);
+  xfconf_g_property_bind(notification_plugin->channel, SETTING_HIDE_ON_READ, G_TYPE_BOOLEAN,
+                         G_OBJECT(check), "active");
+
   /* link the dialog to the plugin, so we can destroy it when the plugin
    * is closed, but the dialog is still open */
   g_object_set_data (G_OBJECT (plugin), "dialog", dialog);
