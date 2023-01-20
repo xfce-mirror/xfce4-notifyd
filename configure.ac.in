@@ -15,6 +15,7 @@ m4_define([xfce4_notifyd_version_tag], [git])
 m4_define([xfce4_notifyd_version], [xfce4_notifyd_version_major().xfce4_notifyd_version_minor().xfce4_notifyd_version_micro()ifelse(xfce4_notifyd_version_tag(), [git], [xfce4_notifyd_version_tag()-xfce4_notifyd_version_build()], [xfce4_notifyd_version_tag()])])
 
 m4_define([notifications_spec_version], [1.2])
+m4_define([gtk_minimum_version], [3.22])
 
 dnl init autoconf
 AC_INIT([xfce4-notifyd], [xfce4_notifyd_version],
@@ -64,16 +65,30 @@ dnl check for required packages
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.56.0])
 XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.56.0])
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.56.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_minimum_version])
 XDT_CHECK_PACKAGE([LIBNOTIFY], [libnotify], [0.7.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
 
-PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.20], [HAVE_GTK_320=true], [
-  PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.14], [HAVE_GTK_320=false], [])
-])
-AM_CONDITIONAL([HAVE_GTK_320], [test "x$HAVE_GTK_320" = "xtrue"])
+XDT_CHECK_OPTIONAL_PACKAGE([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version])
+XDT_CHECK_OPTIONAL_PACKAGE([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version])
+XDT_CHECK_OPTIONAL_PACKAGE([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0])
+
+if test x"$GDK_X11_FOUND" = x"yes"; then
+    enable_x11=yes
+    AC_DEFINE([ENABLE_X11], [1], [Set if X11 is enabled])
+else
+    enable_x11=no
+fi
+
+if test x"$GDK_WAYLAND_FOUND" = x"yes" -a x"$GTK_LAYER_SHELL_FOUND" = x"yes"; then
+    enable_wayland=yes
+    AC_DEFINE([ENABLE_WAYLAND], [1], [Set if Wayland is enabled])
+else
+    enable_wayland=no
+fi
 
 dnl ***********************************
 dnl *** Check for gdbus-codegen ***
@@ -144,6 +159,8 @@ echo "Build Configuration:"
 echo
 echo "* Installation prefix:       $libdir"
 echo "* Debug Support:             $enable_debug"
+echo "* X11 Support:               $enable_x11"
+echo "* Wayland Support:           $enable_wayland"
 if test "x$use_dbus_start_daemon" = "xyes"; then
 echo "* Startup method:            DBus"
 else
