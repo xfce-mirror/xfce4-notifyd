@@ -38,6 +38,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <libnotify/notify.h>
 
+#include <common/xfce-notify-common.h>
 #include <common/xfce-notify-log.h>
 
 #include "xfce4-notifyd-config.ui.h"
@@ -454,6 +455,86 @@ known_application_menu_data_free(KnownApplicationMenuData *menu_data)
     g_slice_free(KnownApplicationMenuData, menu_data);
 }
 
+static gboolean
+xfce_g_strv_remove(gchar **strv,
+                   const gchar *to_remove)
+{
+    gint i;
+
+    for (i = 0; strv[i] != NULL; ++i) {
+        if (strcmp(strv[i], to_remove) == 0) {
+            break;
+        }
+    }
+
+    if (G_LIKELY(strv[i] != NULL)) {
+        gint remaining = g_strv_length(&strv[i+1]);
+
+        g_free(strv[i]);
+
+        if (remaining > 0) {
+            memmove(&strv[i], &strv[i+1], remaining * sizeof(gchar *));
+        }
+        strv[i+remaining] = NULL;
+
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+static void
+xfce_add_to_string_list_property(XfconfChannel *channel,
+                                 const gchar *property_name,
+                                 gchar **strv,
+                                 const gchar *to_add)
+{
+    if (strv == NULL || !g_strv_contains((const gchar *const *)strv, to_add)) {
+        gint len = strv == NULL ? 0 : g_strv_length(strv);
+        gchar **new_strv = g_new(gchar *, len + 2);
+        if (len > 0) {
+            memcpy(new_strv, strv, len * sizeof(gchar *));
+        }
+        new_strv[len] = (gchar *)to_add;
+        new_strv[len + 1] = NULL;
+        xfconf_channel_set_string_list(channel, property_name, (const gchar *const *)new_strv);
+        g_free(new_strv);
+    }
+}
+
+static void
+xfce_remove_from_string_list_property(XfconfChannel *channel,
+                                      const gchar *property_name,
+                                      gchar **strv,
+                                      const gchar *to_remove)
+{
+    if (strv != NULL) {
+        if (xfce_g_strv_remove(strv, to_remove)) {
+            if (strv[0] == NULL) {
+                xfconf_channel_reset_property(channel, property_name, FALSE);
+            } else {
+                xfconf_channel_set_string_list(channel, property_name, (const gchar *const *)strv);
+            }
+        }
+    }
+}
+
+static void
+known_application_deny_critical_toggled(GtkWidget *item,
+                                        KnownApplicationMenuData *menu_data)
+{
+    gchar **denied_critical_notifications = xfconf_channel_get_string_list(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
+    gboolean is_denied = !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item));
+
+    if (!is_denied) {
+        xfce_remove_from_string_list_property(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, menu_data->known_application);
+    } else {
+        xfce_add_to_string_list_property(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, menu_data->known_application);
+    }
+
+    g_strfreev(denied_critical_notifications);
+}
+
 static void
 known_application_delete(GtkWidget *item,
                          KnownApplicationMenuData *menu_data)
@@ -461,28 +542,16 @@ known_application_delete(GtkWidget *item,
     gchar **known_applications = xfconf_channel_get_string_list(menu_data->channel, KNOWN_APPLICATIONS_PROP);
 
     if (G_LIKELY(known_applications != NULL)) {
-        gint i;
+        gchar **muted_applications = xfconf_channel_get_string_list(menu_data->channel, MUTED_APPLICATIONS_PROP);
+        gchar **denied_critical_notifications = xfconf_channel_get_string_list(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
 
-        for (i = 0; known_applications[i] != NULL; ++i) {
-            if (strcmp(known_applications[i], menu_data->known_application) == 0) {
-                break;
-            }
-        }
-
-        if (G_LIKELY(known_applications[i] != NULL)) {
-            gint remaining = g_strv_length(&known_applications[i+1]);
-
-            g_free(known_applications[i]);
-
-            if (remaining > 0) {
-                memmove(&known_applications[i], &known_applications[i+1], remaining * sizeof(gchar *));
-            }
-            known_applications[i+remaining] = NULL;
-
-            xfconf_channel_set_string_list(menu_data->channel, KNOWN_APPLICATIONS_PROP, (const gchar *const *)known_applications);
-        }
+        xfce_remove_from_string_list_property(menu_data->channel, KNOWN_APPLICATIONS_PROP, known_applications, menu_data->known_application);
+        xfce_remove_from_string_list_property(menu_data->channel, MUTED_APPLICATIONS_PROP, muted_applications, menu_data->known_application);
+        xfce_remove_from_string_list_property(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, menu_data->known_application);
 
         g_strfreev(known_applications);
+        g_strfreev(muted_applications);
+        g_strfreev(denied_critical_notifications);
     }
 
     gtk_container_remove(GTK_CONTAINER(menu_data->listbox), menu_data->row);
@@ -494,14 +563,25 @@ known_application_button_press(GtkWidget *eventbox,
                                KnownApplicationMenuData *menu_data)
 {
     if (evt->button == GDK_BUTTON_SECONDARY) {
+        gchar **denied_critical_notifications = xfconf_channel_get_string_list(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
+        gboolean is_denied_critical = denied_critical_notifications != NULL
+            && g_strv_contains((const gchar *const *)denied_critical_notifications, menu_data->known_application);
         gchar *label;
         GtkWidget *menu, *item;
+
+        g_strfreev(denied_critical_notifications);
 
         gtk_list_box_select_row(GTK_LIST_BOX(menu_data->listbox), GTK_LIST_BOX_ROW(menu_data->row));
 
         menu = gtk_menu_new();
         g_signal_connect(menu, "selection-done",
                          G_CALLBACK(gtk_widget_destroy), NULL);
+
+        item = gtk_check_menu_item_new_with_mnemonic(_("Allow _Critical Notifications"));
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), !is_denied_critical);
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+        g_signal_connect(item, "toggled",
+                         G_CALLBACK(known_application_deny_critical_toggled), menu_data);
 
         label = g_strdup_printf(_("_Delete Application \"%s\""), menu_data->known_application_name);
         item = gtk_menu_item_new_with_mnemonic(label);

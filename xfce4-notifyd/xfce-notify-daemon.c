@@ -42,6 +42,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 
+#include <common/xfce-notify-common.h>
 #include <common/xfce-notify-log.h>
 
 #include "xfce-notify-gbus.h"
@@ -83,6 +84,8 @@ struct _XfceNotifyDaemon
     GdkRectangle *monitors_workarea;
 
     guint32 last_notification_id;
+
+    GHashTable *denied_critical_notifications;
 };
 
 typedef struct
@@ -492,6 +495,8 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 
     /* CSS Styling provider  */
     xndaemon->css_provider = gtk_css_provider_new ();
+
+    xndaemon->denied_critical_notifications = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 }
 
 static void
@@ -544,6 +549,8 @@ xfce_notify_daemon_finalize(GObject *obj)
 
     if(xndaemon->settings)
         g_object_unref(xndaemon->settings);
+
+    g_hash_table_destroy(xndaemon->denied_critical_notifications);
 
     G_OBJECT_CLASS(xfce_notify_daemon_parent_class)->finalize(obj);
 }
@@ -1073,10 +1080,6 @@ notify_notify (XfceNotifyGBus *skeleton,
         {
             if (g_variant_is_of_type (value, G_VARIANT_TYPE_BYTE)) {
                 urgency = g_variant_get_byte(value);
-                if (urgency == URGENCY_CRITICAL) {
-                    /* don't expire urgent notifications */
-                    expire_timeout = 0;
-                }
             }
             g_variant_unref(value);
         }
@@ -1142,6 +1145,14 @@ notify_notify (XfceNotifyGBus *skeleton,
         new_app_name = g_strdup (desktop_id);
     else
         new_app_name = g_strdup (app_name);
+
+    if (urgency == URGENCY_CRITICAL && g_hash_table_contains(xndaemon->denied_critical_notifications, new_app_name)) {
+        urgency = URGENCY_NORMAL;
+    }
+    if (urgency == URGENCY_CRITICAL) {
+        /* don't expire urgent notifications */
+        expire_timeout = 0;
+    }
 
     notify_update_known_applications (xndaemon->settings, new_app_name);
 
@@ -1399,6 +1410,21 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                      G_VALUE_TYPE(value) == G_TYPE_STRING
                                      ? g_value_get_string(value)
                                      : "Default");
+    } else if (g_strcmp0(property, DENIED_CRITICAL_NOTIFICATIONS_PROP) == 0) {
+        g_hash_table_remove_all(xndaemon->denied_critical_notifications);
+
+        if (G_VALUE_TYPE(value) == G_TYPE_PTR_ARRAY) {
+            GPtrArray *strs = g_value_get_boxed(value);
+
+            for (guint i = 0; i < strs->len; ++i) {
+                GValue *str_value = g_ptr_array_index(strs, i);
+                if (G_VALUE_HOLDS_STRING(str_value)) {
+                    g_hash_table_insert(xndaemon->denied_critical_notifications,
+                                        g_value_dup_string(str_value),
+                                        GUINT_TO_POINTER(TRUE));
+                }
+            }
+        }
     } else {
         for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
             if (g_strcmp0(property, settings[i].name) == 0) {
@@ -1449,6 +1475,7 @@ static gboolean
 xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                	GError **error)
 {
+    gchar **strs;
     gchar *theme;
 
     xndaemon->settings = xfconf_channel_new("xfce4-notifyd");
@@ -1457,6 +1484,15 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                       "/theme", "Default");
     xfce_notify_daemon_set_theme(xndaemon, theme);
     g_free(theme);
+
+    strs = xfconf_channel_get_string_list(xndaemon->settings, DENIED_CRITICAL_NOTIFICATIONS_PROP);
+    if (strs != NULL) {
+        for (gint i = 0; strs[i] != NULL; ++i) {
+            g_hash_table_insert(xndaemon->denied_critical_notifications, strs[i], GUINT_TO_POINTER(TRUE));
+        }
+        g_free(strs);  // hash table owns the elements now
+        strs = NULL;
+    }
 
     for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
         guint8 *loc = ((guint8 *)xndaemon) + settings[i].offset;
