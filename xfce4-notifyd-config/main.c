@@ -68,6 +68,15 @@ typedef struct
     gint count;
 } LogAppCount;
 
+typedef struct
+{
+    XfconfChannel *channel;
+    GtkWidget *listbox;
+    GtkWidget *row;
+    gchar *known_application;
+    gchar *known_application_name;
+} KnownApplicationMenuData;
+
 static void
 xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
                                                const char         *action,
@@ -294,7 +303,7 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
                                 GtkListBoxRow *selected_application_row,
                                 XfconfChannel *channel)
 {
-
+    GtkWidget *application_eventbox;
     GtkWidget *application_box;
     GtkWidget *application_label;
     GtkWidget *mute_switch;
@@ -309,7 +318,8 @@ xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
     if (muted_applications == NULL)
         muted_applications = g_ptr_array_new ();
 
-    application_box = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (selected_application_row)), 0));
+    application_eventbox = gtk_bin_get_child(GTK_BIN(selected_application_row));
+    application_box = gtk_bin_get_child(GTK_BIN(application_eventbox));
     application_label = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 1));
     application_name = gtk_label_get_text (GTK_LABEL(application_label));
     mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 3));
@@ -348,17 +358,22 @@ xfce4_notifyd_switch_activated (GtkSwitch *mute_switch,
 {
     XfconfChannel *channel = user_data;
     GtkWidget *row_box;
-    GtkWidget *selected_application_row;
+    GtkWidget *selected_application_row = NULL;
     GtkWidget *known_applications_listbox;
 
     g_return_if_fail (XFCONF_IS_CHANNEL (channel));
 
     row_box = gtk_widget_get_parent (GTK_WIDGET (mute_switch));
     selected_application_row = gtk_widget_get_parent (GTK_WIDGET (row_box));
-    known_applications_listbox = gtk_widget_get_parent (GTK_WIDGET (selected_application_row));
-    xfce4_notifyd_mute_application (GTK_LIST_BOX (known_applications_listbox),
-                                    GTK_LIST_BOX_ROW (selected_application_row),
-                                    channel);
+    while (selected_application_row != NULL && !GTK_IS_LIST_BOX_ROW(selected_application_row)) {
+        selected_application_row = gtk_widget_get_parent(selected_application_row);
+    }
+    if (selected_application_row != NULL) {
+        known_applications_listbox = gtk_widget_get_parent (GTK_WIDGET (selected_application_row));
+        xfce4_notifyd_mute_application (GTK_LIST_BOX (known_applications_listbox),
+                                        GTK_LIST_BOX_ROW (selected_application_row),
+                                        channel);
+    }
 }
 
 static void
@@ -430,12 +445,90 @@ xfce_notify_count_apps_in_log (GKeyFile *notify_log,
 }
 
 static void
+known_application_menu_data_free(KnownApplicationMenuData *menu_data)
+{
+    g_object_unref(menu_data->channel);
+    g_object_unref(menu_data->listbox);
+    g_free(menu_data->known_application);
+    g_free(menu_data->known_application_name);
+    g_slice_free(KnownApplicationMenuData, menu_data);
+}
+
+static void
+known_application_delete(GtkWidget *item,
+                         KnownApplicationMenuData *menu_data)
+{
+    gchar **known_applications = xfconf_channel_get_string_list(menu_data->channel, KNOWN_APPLICATIONS_PROP);
+
+    if (G_LIKELY(known_applications != NULL)) {
+        gint i;
+
+        for (i = 0; known_applications[i] != NULL; ++i) {
+            if (strcmp(known_applications[i], menu_data->known_application) == 0) {
+                break;
+            }
+        }
+
+        if (G_LIKELY(known_applications[i] != NULL)) {
+            gint remaining = g_strv_length(&known_applications[i+1]);
+
+            g_free(known_applications[i]);
+
+            if (remaining > 0) {
+                memmove(&known_applications[i], &known_applications[i+1], remaining * sizeof(gchar *));
+            }
+            known_applications[i+remaining] = NULL;
+
+            xfconf_channel_set_string_list(menu_data->channel, KNOWN_APPLICATIONS_PROP, (const gchar *const *)known_applications);
+        }
+
+        g_strfreev(known_applications);
+    }
+
+    gtk_container_remove(GTK_CONTAINER(menu_data->listbox), menu_data->row);
+}
+
+static gboolean
+known_application_button_press(GtkWidget *eventbox,
+                               GdkEventButton *evt,
+                               KnownApplicationMenuData *menu_data)
+{
+    if (evt->button == GDK_BUTTON_SECONDARY) {
+        gchar *label;
+        GtkWidget *menu, *item;
+
+        gtk_list_box_select_row(GTK_LIST_BOX(menu_data->listbox), GTK_LIST_BOX_ROW(menu_data->row));
+
+        menu = gtk_menu_new();
+        g_signal_connect(menu, "selection-done",
+                         G_CALLBACK(gtk_widget_destroy), NULL);
+
+        label = g_strdup_printf(_("_Delete Application \"%s\""), menu_data->known_application_name);
+        item = gtk_menu_item_new_with_mnemonic(label);
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+        g_signal_connect(item, "activate",
+                         G_CALLBACK(known_application_delete), menu_data);
+        g_free(label);
+
+        gtk_widget_show_all(menu);
+
+        gtk_menu_popup_at_pointer(GTK_MENU(menu), (GdkEvent *)evt);
+
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+static void
 xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                                             GtkWidget *known_applications_listbox,
                                             GPtrArray *muted_applications,
                                             const gchar *known_application,
                                             gint count)
 {
+    GtkWidget *row;
+    GtkWidget *eventbox;
     GtkWidget *hbox;
     GtkWidget *label;
     GtkWidget *icon;
@@ -445,9 +538,15 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     gchar *app_name = NULL;
     gchar *desktop_icon_name = NULL;
 
+    row = gtk_list_box_row_new();
+    gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), row, -1);
+
+    eventbox = gtk_event_box_new();
+    gtk_container_add(GTK_CONTAINER(row), eventbox);
+
     /* Pack all widgets into a box */
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-    gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), hbox, -1);
+    gtk_container_add(GTK_CONTAINER(eventbox), hbox);
 
     /* Application icon and name */
     icon = gtk_image_new ();
@@ -470,6 +569,12 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         g_free (markup);
     }
     else {
+        KnownApplicationMenuData *menu_data = g_slice_new0(KnownApplicationMenuData);
+        menu_data->channel = g_object_ref(channel);
+        menu_data->listbox = g_object_ref(known_applications_listbox);
+        menu_data->row = row;
+        menu_data->known_application = g_strdup(known_application);
+
         /* Try to find the correct icon based on the desktop file */
         desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
         if (desktop_icon_name) {
@@ -522,12 +627,21 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         /* Try to find the correct application name based on the desktop file */
         app_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_NAME);
         if (app_name) {
+            menu_data->known_application_name = g_strdup(app_name);
             gtk_label_set_text (GTK_LABEL (label), app_name);
         }
         /* Fallback: Just set the name provided by the application */
         else {
+            menu_data->known_application_name = g_strdup(known_application);
             gtk_label_set_text (GTK_LABEL (label), known_application);
         }
+
+        gtk_widget_add_events(eventbox, GDK_BUTTON_PRESS_MASK);
+        g_signal_connect(eventbox, "button-press-event",
+                         G_CALLBACK(known_application_button_press), menu_data);
+        g_object_set_data_full(G_OBJECT(row),
+                               "xfce4-notifyd-known-application-menu-data", menu_data,
+                               (GDestroyNotify)known_application_menu_data_free);
     }
 
     if (app_name)
