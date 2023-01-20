@@ -28,6 +28,7 @@ xfce4_notifyd_PROGRAMS = xfce4-notifyd/xfce4-notifyd
 bin_PROGRAMS = xfce4-notifyd-config/xfce4-notifyd-config
 
 xfce4_notifyd_xfce4_notifyd_SOURCES = \
+	common/xfce-notify-common.h \
 	xfce4-notifyd/main.c \
 	xfce4-notifyd/xfce-notify-gbus.c \
 	xfce4-notifyd/xfce-notify-gbus.h \
@@ -41,6 +42,7 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 	xfce4-notifyd/xfce-notify-window.h
 
 xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
+	common/xfce-notify-common.h \
 	xfce4-notifyd-config/main.c \
 	xfce4-notifyd-config/xfce4-notifyd-config.ui.h
 
