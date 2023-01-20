@@ -57,7 +57,8 @@ common_cflags = \
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
-	$(LIBX11_CFLAGS)
+	$(LIBX11_CFLAGS) \
+	$(GTK_LAYER_SHELL_CFLAGS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
@@ -75,7 +76,8 @@ common_ldadd = \
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
-	$(LIBX11_LIBS)
+	$(LIBX11_LIBS) \
+	$(GTK_LAYER_SHELL_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
 	$(common_ldadd) \
@@ -119,11 +121,7 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 icon_dir = $(datadir)/icons/hicolor
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(icon_dir)
 
-if HAVE_GTK_320
 theme_dir = gtk-3.20
-else
-theme_dir = gtk-3.0
-endif
 
 brightthemedir = $(datadir)/themes/Bright/xfce-notify-4.0
 dist_brighttheme_DATA = themes/$(theme_dir)/Bright/gtk.css
@@ -274,6 +272,7 @@ all-local: compile_flags.txt
 compile_flags.txt: $(shell find . -name Makefile)
 	rm -f $@
 	for flag in \
+		-DHAVE_CONFIG_H=1 \
 		-DPACKAGE=\"xfce4-notifyd\" \
 		-DGETTEXT_PACKAGE=\"xfce4-notifyd\" \
 		-DVERSION=\"1.0.0\" \
@@ -287,6 +286,7 @@ compile_flags.txt: $(shell find . -name Makefile)
 		$(LIBXFCE4UI_CFLAGS) \
 		$(LIBXFCE4PANEL_CFLAGS) \
 		$(XFCONF_CFLAGS) \
+		$(GTK_LAYER_SHELL_CFLAGS) \
 		$(PLATFORM_CFLAGS) \
 		$(PLATFORM_CPPFLAGS) \
 		$(LIBXFCE4UI_LIBS) \
@@ -295,6 +295,7 @@ compile_flags.txt: $(shell find . -name Makefile)
 		$(LIBXFCE4UI_LIBS) \
 		$(LIBXFCE4PANEL_LIBS) \
 		$(XFCONF_LIBS) \
+		$(GTK_LAYER_SHELL_LIBS) \
 	; do \
 		echo "$$flag" >> $@ || exit 1; \
 	done
