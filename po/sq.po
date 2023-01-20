@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-15 00:48+0100\n"
+"POT-Creation-Date: 2023-01-20 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2008,2020,2022-2023\n"
 "Language-Team: Albanian (http://www.transifex.com/xfce/xfce-apps/language/sq/)\n"
@@ -20,27 +20,27 @@ msgstr ""
 "Language: sq\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:572
+#: ../common/xfce-notify-log.c:571
 msgid "Do you really want to clear the notification log?"
 msgstr "Doni vërtet të pastrohet regjistri i njoftimeve?"
 
-#: ../common/xfce-notify-log.c:576
+#: ../common/xfce-notify-log.c:575
 msgid "Clear notification log"
 msgstr "Spastro regjistër njoftimesh"
 
-#: ../common/xfce-notify-log.c:579
+#: ../common/xfce-notify-log.c:578
 msgid "Cancel"
 msgstr "Anuloje"
 
-#: ../common/xfce-notify-log.c:581 ../xfce4-notifyd-config/main.c:1141
+#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1255
 msgid "Clear"
 msgstr "Spastroje"
 
-#: ../common/xfce-notify-log.c:597 ../common/xfce-notify-log.c:605
+#: ../common/xfce-notify-log.c:596 ../common/xfce-notify-log.c:604
 msgid "include icon cache"
 msgstr "përfshi fshehtinë ikonash"
 
-#: ../panel-plugin/notification-plugin.c:225
+#: ../panel-plugin/notification-plugin.c:251
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -70,19 +70,23 @@ msgstr "_Mbylle"
 msgid "Number of notifications to show"
 msgstr "Numër njoftimesh për shfaqje"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:111
+#: ../panel-plugin/notification-plugin-dialogs.c:107
 msgid "Only show notifications from today"
 msgstr "Shfaq njoftime vetëm për sot"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:124
+#: ../panel-plugin/notification-plugin-dialogs.c:116
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Fshihe dialogun e ripohimit “Spastro regjistrin”"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:161
+#: ../panel-plugin/notification-plugin-dialogs.c:125
+msgid "Hide panel button when no unread notifications"
+msgstr "Fshihe butonin e panelit, kur s’ka njoftime të palexuara"
+
+#: ../panel-plugin/notification-plugin-dialogs.c:158
 msgid "This is the notification plugin"
 msgstr "Kjo është shtojca e njoftimeve"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:163
+#: ../panel-plugin/notification-plugin-dialogs.c:160
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Të drejta kopjimi © 2017 Simon Steinbeiß\n"
 
@@ -90,15 +94,15 @@ msgstr "Të drejta kopjimi © 2017 Simon Steinbeiß\n"
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Mos më shqetësoni</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:336
+#: ../panel-plugin/notification-plugin-log.c:324
 msgid "No notifications"
 msgstr "S’ka njoftime"
 
-#: ../panel-plugin/notification-plugin-log.c:357
+#: ../panel-plugin/notification-plugin-log.c:345
 msgid "_Clear log"
 msgstr "_Spastroje regjistrin"
 
-#: ../panel-plugin/notification-plugin-log.c:365
+#: ../panel-plugin/notification-plugin-log.c:353
 msgid "_Notification settings…"
 msgstr "_Rregullime njoftimesh…"
 
@@ -110,124 +114,129 @@ msgstr "Shtojcë Njoftimesh"
 msgid "Notification plugin for the Xfce panel"
 msgstr "Shtojcë njoftimesh për panelin e Xfce-së"
 
-#: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:985
+#: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
+#: ../xfce4-notifyd-config/main.c:1099
 msgid "Xfce Notify Daemon"
 msgstr "Demoni Xfce Notify"
 
-#: ../xfce4-notifyd/main.c:56
+#: ../xfce4-notifyd/main.c:61
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Mundësi \"%s\" e panjohur\n"
 
-#: ../xfce4-notifyd/main.c:65
+#: ../xfce4-notifyd/main.c:79
 msgid "Unable to start notification daemon"
 msgstr "S’arrihet të niset demoni i njoftimeve"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:493
+#: ../xfce4-notifyd/xfce-notify-daemon.c:462
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Po xhiron një tjetër demon njoftimesh, po dilet\n"
 
-#: ../xfce4-notifyd-config/main.c:86
+#: ../xfce4-notifyd-config/main.c:95
 msgid "Notification Preview"
 msgstr "Paraparje Njoftimi"
 
-#: ../xfce4-notifyd-config/main.c:87
+#: ../xfce4-notifyd-config/main.c:96
 msgid "This is what notifications will look like"
 msgstr "Ja se si do të duket njoftimi"
 
-#: ../xfce4-notifyd-config/main.c:92
+#: ../xfce4-notifyd-config/main.c:101
 msgid "Button"
 msgstr "Buton"
 
-#: ../xfce4-notifyd-config/main.c:99
+#: ../xfce4-notifyd-config/main.c:108
 msgid "Notification preview failed"
 msgstr "Paraparja e njoftimit dështoi"
 
-#: ../xfce4-notifyd-config/main.c:467
+#: ../xfce4-notifyd-config/main.c:506
+#, c-format
+msgid "_Delete Application \"%s\""
+msgstr "_Fshije Aplikacionin “%s”"
+
+#: ../xfce4-notifyd-config/main.c:566
 msgid "Unspecified applications"
 msgstr "Aplikacione të paspecifikuar"
 
-#: ../xfce4-notifyd-config/main.c:665
+#: ../xfce4-notifyd-config/main.c:779
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Hëpërhë shfaqen vetëm njoftimet urgjente.</b>\nRegjistri i njoftimeve është %s."
 
-#: ../xfce4-notifyd-config/main.c:672
+#: ../xfce4-notifyd-config/main.c:786
 msgid "enabled"
 msgstr "të aktivizuar"
 
-#: ../xfce4-notifyd-config/main.c:672
+#: ../xfce4-notifyd-config/main.c:786
 msgid "disabled"
 msgstr "të çaktivizuar"
 
-#: ../xfce4-notifyd-config/main.c:753
+#: ../xfce4-notifyd-config/main.c:867
 msgid "Yesterday and before"
 msgstr "Dje dhe më herët"
 
-#: ../xfce4-notifyd-config/main.c:987
+#: ../xfce4-notifyd-config/main.c:1101
 msgid "Settings daemon is unavailable"
 msgstr "Demoni i rregullimeve s’kapet dot"
 
-#: ../xfce4-notifyd-config/main.c:1077
+#: ../xfce4-notifyd-config/main.c:1191
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Hëpërhë s’ka aplikacione të njohura.</b></big>\nSapo një aplikacion të dërgojë një njoftim\nai do të shfaqet te kjo listë."
 
-#: ../xfce4-notifyd-config/main.c:1119
+#: ../xfce4-notifyd-config/main.c:1233
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Regjistër i zbrazët</b></big>\nEnde s’është regjistruar ndonjë njoftim."
 
-#: ../xfce4-notifyd-config/main.c:1127
+#: ../xfce4-notifyd-config/main.c:1241
 msgid "Refresh"
 msgstr "Rifreskoje"
 
-#: ../xfce4-notifyd-config/main.c:1128
+#: ../xfce4-notifyd-config/main.c:1242
 msgid "Refresh the notification log"
 msgstr "Rifresko regjistër njoftimesh"
 
-#: ../xfce4-notifyd-config/main.c:1134
+#: ../xfce4-notifyd-config/main.c:1248
 msgid "Open"
 msgstr "Hape"
 
-#: ../xfce4-notifyd-config/main.c:1135
+#: ../xfce4-notifyd-config/main.c:1249
 msgid "Open the notification log in an external editor"
 msgstr "Hapeni regjistrin e njoftimeve në një përpunues të jashtëm"
 
-#: ../xfce4-notifyd-config/main.c:1142
+#: ../xfce4-notifyd-config/main.c:1256
 msgid "Clear the notification log"
 msgstr "Spastro regjistër njoftimesh"
 
-#: ../xfce4-notifyd-config/main.c:1164
+#: ../xfce4-notifyd-config/main.c:1278
 msgid "Display version information"
 msgstr "Shfaq të dhëna versioni"
 
-#: ../xfce4-notifyd-config/main.c:1165
+#: ../xfce4-notifyd-config/main.c:1279
 msgid "Settings manager socket"
 msgstr "\"Socket\" përgjegjësi rregullimesh"
 
-#: ../xfce4-notifyd-config/main.c:1165
+#: ../xfce4-notifyd-config/main.c:1279
 msgid "SOCKET_ID"
 msgstr "_ID SOCKET-i"
 
-#: ../xfce4-notifyd-config/main.c:1175
+#: ../xfce4-notifyd-config/main.c:1289
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Për përdorimin, shtypni '%s --help'."
 
-#: ../xfce4-notifyd-config/main.c:1190
+#: ../xfce4-notifyd-config/main.c:1304
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Hedhur në qarkullim sipas kushteve të Licencës së Përgjithshme Publike GNU, versioni 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1191
+#: ../xfce4-notifyd-config/main.c:1305
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ju lutemi, raportoni të meta te %s.\n"
