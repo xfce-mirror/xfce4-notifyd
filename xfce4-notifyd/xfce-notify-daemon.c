@@ -878,7 +878,7 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
 {
     const gchar *const capabilities[] =
     {
-        "actions", "body", "body-hyperlinks", "body-markup", "icon-static",
+        "actions", "body", "body-markup", "icon-static",
         "x-canonical-private-icon-only", NULL
     };
 
