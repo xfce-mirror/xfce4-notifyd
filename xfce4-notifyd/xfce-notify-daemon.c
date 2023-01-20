@@ -1059,7 +1059,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     gboolean transient = FALSE;
     GVariant *item;
     GVariantIter iter;
-    guint OUT_id = xfce_notify_daemon_generate_id(xndaemon);
+    guint OUT_id = replaces_id != 0 ? replaces_id : xfce_notify_daemon_generate_id(xndaemon);
     gboolean application_is_muted = FALSE;
 
     g_variant_iter_init (&iter, hints);
@@ -1200,8 +1200,6 @@ notify_notify (XfceNotifyGBus *skeleton,
         xfce_notify_window_set_actions(window, actions, xndaemon->css_provider);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
-
-        OUT_id = replaces_id;
     } else {
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
