@@ -29,6 +29,11 @@
 
 #include <gtk/gtk.h>
 
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <gtk-layer-shell.h>
+#endif
+
 #include <xfconf/xfconf.h>
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
@@ -57,6 +62,15 @@ main(int argc,
             return 1;
         }
     }
+
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        if (!gtk_layer_is_supported()) {
+            g_error("Your Wayland compositor does not support the layer-shell protocol, which is required");
+            return 1;
+        }
+    }
+#endif
 
     xndaemon = xfce_notify_daemon_new_unique(&error);
     if(!xndaemon) {
