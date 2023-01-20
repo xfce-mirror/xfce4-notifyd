@@ -138,11 +138,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   label = gtk_label_new (NULL);
   gtk_label_set_markup_with_mnemonic (GTK_LABEL (label), _("<b>_Do not disturb</b>"));
-#if GTK_CHECK_VERSION (3, 16, 0)
   gtk_label_set_xalign (GTK_LABEL (label), 0);
-#else
-  gtk_widget_set_halign (label, GTK_ALIGN_START);
-#endif
   notification_plugin->do_not_disturb_switch = gtk_switch_new ();
   gtk_box_pack_start (GTK_BOX (box), label, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (box), notification_plugin->do_not_disturb_switch, FALSE, FALSE, 0);
@@ -239,11 +235,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       g_free (tmp);
       summary = gtk_label_new (NULL);
       gtk_label_set_markup (GTK_LABEL (summary), markup);
-#if GTK_CHECK_VERSION (3, 16, 0)
       gtk_label_set_xalign (GTK_LABEL (summary), 0);
-#else
-      gtk_widget_set_halign (summary, GTK_ALIGN_START);
-#endif
       gtk_label_set_ellipsize (GTK_LABEL (summary), PANGO_ELLIPSIZE_END);
       gtk_label_set_max_width_chars (GTK_LABEL (summary), 40);
       g_free (markup);
@@ -259,11 +251,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         g_free (tmp1);
       }
       g_free (tmp);
-#if GTK_CHECK_VERSION (3, 16, 0)
       gtk_label_set_xalign (GTK_LABEL (body), 0);
-#else
-      gtk_widget_set_halign (body, GTK_ALIGN_START);
-#endif
       gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
       gtk_label_set_max_width_chars (GTK_LABEL (body), 40);
 

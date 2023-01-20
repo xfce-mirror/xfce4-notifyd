@@ -66,17 +66,12 @@ void
 notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
 {
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), TRUE);
-#if GTK_CHECK_VERSION (3, 22, 0)
   gtk_menu_popup_at_widget (GTK_MENU (notification_plugin->menu),
                             notification_plugin->button,
                             xfce_panel_plugin_get_orientation (notification_plugin->plugin) == GTK_ORIENTATION_VERTICAL
                             ? GDK_GRAVITY_NORTH_EAST : GDK_GRAVITY_SOUTH_WEST,
                             GDK_GRAVITY_NORTH_WEST,
                             NULL);
-#else
-  gtk_menu_popup (GTK_MENU (notification_plugin->menu), NULL, NULL,
-                  xfce_panel_plugin_position_menu, notification_plugin, 0, 0);
-#endif
   xfce_panel_plugin_register_menu (notification_plugin->plugin,
                                    GTK_MENU (notification_plugin->menu));
 }

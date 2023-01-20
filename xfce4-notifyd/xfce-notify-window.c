@@ -184,10 +184,8 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gint screen_width;
     gdouble padding = DEFAULT_PADDING;
     GtkCssProvider *provider;
-#if GTK_CHECK_VERSION (3, 22, 0)
     GdkMonitor *monitor;
     GdkRectangle geometry;
-#endif
 
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
@@ -230,17 +228,13 @@ xfce_notify_window_init(XfceNotifyWindow *window)
         gtk_widget_set_visual (GTK_WIDGET(window), visual);
     }
 
-    /* Use the screen width to get a maximum width for the notification bubble.
+    /* Use the monitor width to get a maximum width for the notification bubble.
        This assumes that a character is 10px wide and we want a third of the
-       screen as maximum width. */
-#if GTK_CHECK_VERSION (3, 22, 0)
+       monitor as maximum width. */
     monitor = gdk_display_get_monitor_at_window (gtk_widget_get_display (GTK_WIDGET (window)),
                                                  gdk_screen_get_root_window (screen));
     gdk_monitor_get_geometry (monitor, &geometry);
     screen_width = geometry.width / 30;
-#else
-    screen_width = gdk_screen_get_width (screen) / 30;
-#endif
 
     gtk_widget_style_get(GTK_WIDGET(window),
                          "padding", &padding,
@@ -280,9 +274,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_label_set_line_wrap_mode (GTK_LABEL (window->summary), PANGO_WRAP_WORD_CHAR);
     gtk_label_set_lines (GTK_LABEL (window->summary), 1);
     gtk_widget_set_halign (window->summary, GTK_ALIGN_FILL);
-#if GTK_CHECK_VERSION (3, 16, 0)
     gtk_label_set_xalign (GTK_LABEL(window->summary), 0);
-#endif
     gtk_widget_set_valign (window->summary, GTK_ALIGN_BASELINE);
     gtk_box_pack_start(GTK_BOX(vbox), window->summary, TRUE, TRUE, 0);
 
@@ -294,9 +286,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     gtk_label_set_line_wrap_mode (GTK_LABEL (window->body), PANGO_WRAP_WORD_CHAR);
     gtk_label_set_lines (GTK_LABEL (window->body), 6);
     gtk_widget_set_halign (window->body, GTK_ALIGN_FILL);
-#if GTK_CHECK_VERSION (3, 16, 0)
     gtk_label_set_xalign (GTK_LABEL(window->body), 0);
-#endif
     gtk_widget_set_valign (window->body, GTK_ALIGN_BASELINE);
     gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
 
