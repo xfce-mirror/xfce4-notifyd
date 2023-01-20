@@ -115,6 +115,8 @@ static gboolean xfce_notify_window_enter_leave(GtkWidget *widget,
                                                GdkEventCrossing *evt);
 static gboolean xfce_notify_window_button_release(GtkWidget *widget,
                                                   GdkEventButton *evt);
+static gboolean xfce_notify_window_motion_notify(GtkWidget *widget,
+                                                 GdkEventMotion *evt);
 static gboolean xfce_notify_window_configure_event(GtkWidget *widget,
                                                    GdkEventConfigure *evt);
 static gboolean xfce_notify_window_expire_timeout(gpointer data);
@@ -143,6 +145,7 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->draw = xfce_notify_window_draw;
     widget_class->enter_notify_event = xfce_notify_window_enter_leave;
     widget_class->leave_notify_event = xfce_notify_window_enter_leave;
+    widget_class->motion_notify_event =xfce_notify_window_motion_notify;
     widget_class->button_release_event = xfce_notify_window_button_release;
     widget_class->configure_event = xfce_notify_window_configure_event;
 
@@ -429,37 +432,51 @@ xfce_notify_window_enter_leave(GtkWidget *widget,
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
-    if(evt->type == GDK_ENTER_NOTIFY) {
-        if(window->expire_timeout) {
-            if(window->expire_id) {
-                g_source_remove(window->expire_id);
-                window->expire_id = 0;
-            }
-            if(window->fade_id) {
-                g_source_remove(window->fade_id);
-                window->fade_id = 0;
-                /* reset the sliding-out window to its original position */
-                if (window->do_slideout) {
+    if (evt->type == GDK_LEAVE_NOTIFY && evt->detail != GDK_NOTIFY_INFERIOR) {
+        if (window->expire_id == 0) {
+            xfce_notify_window_start_expiration(window);
+        }
+        window->mouse_hover = FALSE;
+        gtk_widget_queue_draw(widget);
+    }
+
+    return FALSE;
+}
+
+static gboolean
+xfce_notify_window_motion_notify(GtkWidget *widget,
+                                 GdkEventMotion *evt)
+{
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
+
+    if (window->expire_timeout != 0) {
+        if (window->expire_id != 0) {
+            g_source_remove(window->expire_id);
+            window->expire_id = 0;
+        }
+
+        if (window->fade_id != 0) {
+            g_source_remove(window->fade_id);
+            window->fade_id = 0;
+
+            /* reset the sliding-out window to its original position */
+            if (window->do_slideout) {
 #ifdef ENABLE_WAYLAND
-                    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-                        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->original_x);
-                        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->original_y);
-                    } else
+                if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->original_x);
+                    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->original_y);
+                } else
 #endif
-                    {
-                        gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
-                    }
+                {
+                    gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
                 }
             }
         }
+    }
+
+    if (!window->mouse_hover) {
         gtk_widget_set_opacity(GTK_WIDGET(widget), 1.0);
         window->mouse_hover = TRUE;
-        gtk_widget_queue_draw(widget);
-    } else if(evt->type == GDK_LEAVE_NOTIFY
-              && evt->detail != GDK_NOTIFY_INFERIOR)
-    {
-        xfce_notify_window_start_expiration(window);
-        window->mouse_hover = FALSE;
         gtk_widget_queue_draw(widget);
     }
 
