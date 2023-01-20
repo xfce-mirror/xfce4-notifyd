@@ -106,6 +106,9 @@ cb_menu_deactivate (GtkMenuShell *menu,
                     NotificationPlugin *notification_plugin)
 {
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), FALSE);
+  gtk_widget_set_visible(notification_plugin->button,
+                         !notification_plugin->hide_on_read
+                         || notification_plugin->new_notifications);
 }
 
 
@@ -138,22 +141,46 @@ cb_menu_size_allocate (GtkWidget          *menu,
 
 
 
+static void
+cb_hide_on_read_changed(XfconfChannel *channel,
+                        const gchar *property_name,
+                        const GValue *value,
+                        NotificationPlugin *notification_plugin)
+{
+  if (G_VALUE_HOLDS_BOOLEAN(value)) {
+    notification_plugin->hide_on_read = g_value_get_boolean(value);
+    gtk_widget_set_visible(notification_plugin->button,
+                           !notification_plugin->hide_on_read
+                           || notification_plugin->new_notifications
+                           || gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(notification_plugin->button)));
+  }
+}
+
+
+
 void
 notification_plugin_update_icon (NotificationPlugin *notification_plugin,
                                  gboolean state)
 {
-  if (state && !notification_plugin->new_notifications)
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-disabled-symbolic", GTK_ICON_SIZE_MENU);
-  else if (!state && !notification_plugin->new_notifications)
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-symbolic", GTK_ICON_SIZE_MENU);
-  else if (state && notification_plugin->new_notifications)
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-disabled-new-symbolic", GTK_ICON_SIZE_MENU);
-  else if (!state && notification_plugin->new_notifications)
-    gtk_image_set_from_icon_name (GTK_IMAGE (notification_plugin->image),
-                                  "notification-new-symbolic", GTK_ICON_SIZE_MENU);
+  const gchar *icon_name = NULL;
+
+  if (state && !notification_plugin->new_notifications) {
+    icon_name = "notification-disabled-symbolic";
+  } else if (!state && !notification_plugin->new_notifications) {
+    icon_name = "notification-symbolic";
+  } else if (state && notification_plugin->new_notifications) {
+    icon_name = "notification-disabled-new-symbolic";
+  } else if (!state && notification_plugin->new_notifications) {
+    icon_name = "notification-new-symbolic";
+  }
+
+  if (G_LIKELY(icon_name != NULL)) {
+    gtk_image_set_from_icon_name(GTK_IMAGE(notification_plugin->image), icon_name, GTK_ICON_SIZE_MENU);
+  }
+  gtk_widget_set_visible(notification_plugin->button,
+                         !notification_plugin->hide_on_read
+                         || notification_plugin->new_notifications
+                         || gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(notification_plugin->button)));
 }
 
 
@@ -211,6 +238,10 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   xfconf_init (NULL);
   notification_plugin->channel = xfconf_channel_new ("xfce4-notifyd");
 
+  notification_plugin->hide_on_read = xfconf_channel_get_bool(notification_plugin->channel, SETTING_HIDE_ON_READ, FALSE);
+  g_signal_connect(notification_plugin->channel, "property-changed::" SETTING_HIDE_ON_READ,
+                   G_CALLBACK(cb_hide_on_read_changed), notification_plugin);
+
   /* As the plugin is starting up we presume there are no new notifications */
   notification_plugin->new_notifications = FALSE;
 
@@ -220,11 +251,12 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   gtk_widget_set_tooltip_text (GTK_WIDGET (notification_plugin->button), _("Notifications"));
   notification_plugin->image = gtk_image_new ();
   state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
-  notification_plugin_update_icon (notification_plugin, state);
 
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "xfce4-notification-plugin");
+
+  notification_plugin_update_icon(notification_plugin, state);
 
   /* Create the menu */
   notification_plugin->menu = notification_plugin_menu_new (notification_plugin);
