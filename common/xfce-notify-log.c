@@ -31,7 +31,6 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include <gdk/gdkx.h>
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <glib.h>

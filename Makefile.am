@@ -121,11 +121,7 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 icon_dir = $(datadir)/icons/hicolor
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(icon_dir)
 
-if HAVE_GTK_320
 theme_dir = gtk-3.20
-else
-theme_dir = gtk-3.0
-endif
 
 brightthemedir = $(datadir)/themes/Bright/xfce-notify-4.0
 dist_brighttheme_DATA = themes/$(theme_dir)/Bright/gtk.css
