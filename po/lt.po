@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 12:51+0100\n"
+"POT-Creation-Date: 2023-01-21 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Moo, 2015-2018,2020,2022-2023\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-apps/language/lt/)\n"
@@ -31,7 +31,7 @@ msgstr "Išvalyti pranešimų žurnalą"
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1255
+#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1344
 msgid "Clear"
 msgstr "Išvalyti"
 
@@ -89,19 +89,19 @@ msgstr "Tai yra pranešimų įskiepis"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Autorių teisės © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:140
+#: ../panel-plugin/notification-plugin-log.c:141
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Netrukdyti</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:324
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "No notifications"
 msgstr "Nėra pranešimų"
 
-#: ../panel-plugin/notification-plugin-log.c:345
+#: ../panel-plugin/notification-plugin-log.c:343
 msgid "_Clear log"
 msgstr "Iš_valyti žurnalą"
 
-#: ../panel-plugin/notification-plugin-log.c:353
+#: ../panel-plugin/notification-plugin-log.c:351
 msgid "_Notification settings…"
 msgstr "_Pranešimų nustatymai…"
 
@@ -114,7 +114,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Pranešimų įskiepis, skirtas Xfce skydeliui"
 
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1099
+#: ../xfce4-notifyd-config/main.c:1179
 msgid "Xfce Notify Daemon"
 msgstr "Xfce pranešimų tarnyba"
 
@@ -127,115 +127,119 @@ msgstr "Nežinomas parametras „%s“\n"
 msgid "Unable to start notification daemon"
 msgstr "Nepavyko paleisti pranešimų tarnybos"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:462
+#: ../xfce4-notifyd/xfce-notify-daemon.c:479
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Yra vykdoma kita pranešimų tarnyba, išeinama\n"
 
-#: ../xfce4-notifyd-config/main.c:95
+#: ../xfce4-notifyd-config/main.c:94
 msgid "Notification Preview"
 msgstr "Pranešimų peržiūra"
 
-#: ../xfce4-notifyd-config/main.c:96
+#: ../xfce4-notifyd-config/main.c:95
 msgid "This is what notifications will look like"
 msgstr "Štai kaip atrodys pranešimai"
 
-#: ../xfce4-notifyd-config/main.c:101
+#: ../xfce4-notifyd-config/main.c:100
 msgid "Button"
 msgstr "Mygtukas"
 
-#: ../xfce4-notifyd-config/main.c:108
+#: ../xfce4-notifyd-config/main.c:107
 msgid "Notification preview failed"
 msgstr "Pranešimų peržiūra nepavyko"
 
-#: ../xfce4-notifyd-config/main.c:506
+#: ../xfce4-notifyd-config/main.c:578
+msgid "Allow _Critical Notifications"
+msgstr "Leisti _kritinius pranešimus"
+
+#: ../xfce4-notifyd-config/main.c:584
 #, c-format
 msgid "_Delete Application \"%s\""
 msgstr "_Ištrinti programą „%s“"
 
-#: ../xfce4-notifyd-config/main.c:566
+#: ../xfce4-notifyd-config/main.c:644
 msgid "Unspecified applications"
 msgstr "Nenurodytos programos"
 
-#: ../xfce4-notifyd-config/main.c:779
+#: ../xfce4-notifyd-config/main.c:857
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Šiuo metu yra rodomi tik skubūs pranešimai.</b>\nPranešimų registravimas yra %s."
 
-#: ../xfce4-notifyd-config/main.c:786
+#: ../xfce4-notifyd-config/main.c:864
 msgid "enabled"
 msgstr "įjungtas"
 
-#: ../xfce4-notifyd-config/main.c:786
+#: ../xfce4-notifyd-config/main.c:864
 msgid "disabled"
 msgstr "išjungtas"
 
-#: ../xfce4-notifyd-config/main.c:867
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Yesterday and before"
 msgstr "Vakar ir anksčiau"
 
-#: ../xfce4-notifyd-config/main.c:1101
+#: ../xfce4-notifyd-config/main.c:1181
 msgid "Settings daemon is unavailable"
 msgstr "Nustatymų tarnyba neprieinama"
 
-#: ../xfce4-notifyd-config/main.c:1191
+#: ../xfce4-notifyd-config/main.c:1280
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Šiuo metu nėra jokių žinomų programų.</b></big>\nKai tik programa atsiųs pranešimą,\nji bus rodoma šiame sąraše."
 
-#: ../xfce4-notifyd-config/main.c:1233
+#: ../xfce4-notifyd-config/main.c:1322
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Žurnalas tuščias</b></big>\nKol kas nebuvo registruota jokių pranešimų."
 
-#: ../xfce4-notifyd-config/main.c:1241
+#: ../xfce4-notifyd-config/main.c:1330
 msgid "Refresh"
 msgstr "Įkelti iš naujo"
 
-#: ../xfce4-notifyd-config/main.c:1242
+#: ../xfce4-notifyd-config/main.c:1331
 msgid "Refresh the notification log"
 msgstr "Iš naujo įkelti pranešimų žurnalą"
 
-#: ../xfce4-notifyd-config/main.c:1248
+#: ../xfce4-notifyd-config/main.c:1337
 msgid "Open"
 msgstr "Atverti"
 
-#: ../xfce4-notifyd-config/main.c:1249
+#: ../xfce4-notifyd-config/main.c:1338
 msgid "Open the notification log in an external editor"
 msgstr "Atverti pranešimų žurnalą išoriniame redaktoriuje"
 
-#: ../xfce4-notifyd-config/main.c:1256
+#: ../xfce4-notifyd-config/main.c:1345
 msgid "Clear the notification log"
 msgstr "Išvalyti pranešimų žurnalą"
 
-#: ../xfce4-notifyd-config/main.c:1278
+#: ../xfce4-notifyd-config/main.c:1367
 msgid "Display version information"
 msgstr "Rodyti versijos informaciją"
 
-#: ../xfce4-notifyd-config/main.c:1279
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "Settings manager socket"
 msgstr "Nustatymų tvarkytuvės lizdas"
 
-#: ../xfce4-notifyd-config/main.c:1279
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "SOCKET_ID"
 msgstr "LIZDO_ID"
 
-#: ../xfce4-notifyd-config/main.c:1289
+#: ../xfce4-notifyd-config/main.c:1378
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Pabandykite „%s --help“, jei norite daugiau informacijos."
 
-#: ../xfce4-notifyd-config/main.c:1304
+#: ../xfce4-notifyd-config/main.c:1393
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Išleista pagal GNU General Public License sąlygas, versija 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1305
+#: ../xfce4-notifyd-config/main.c:1394
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Apie klaidas pranešti %s.\n"
@@ -362,36 +366,46 @@ msgid "Show text with percent _values"
 msgstr "Rodyti tekstą su procentinėmis _reikšmėmis"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "Tam, kad būtų girdimas pranešimų garsas, Išvaizdos nustatymuose varnele privalo būti pažymėtas nustatymas „Įjungti įvykių garsus“"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "_Mute sounds"
+msgstr "_Nutildyti garsus"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
 msgstr "Bendra"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Rodyti ar blokuoti pranešimus atskiroms programoms</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
 msgstr "Programos"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log notifications"
 msgstr "Registruoti pranešimus"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log applications"
 msgstr "Registruoti programas"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log size limit"
 msgstr "Žurnalo dydžio apribojimas"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr "Didžiausias, žurnale saugomų įrašų, skaičius. Turėkite omenyje, kad didelis žurnalas gali neigiamai paveikti našumą. 0 reiškia be apribojimo."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "Log"
 msgstr "Žurnalas"
 
