@@ -900,6 +900,7 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
                                          XfceNotifyDaemon *xndaemon)
 {
     const gchar *const capabilities[] = {
+        "action-icons",
         "actions",
         "body",
         "body-hyperlinks",
@@ -1087,6 +1088,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
     gboolean transient = FALSE;
+    gboolean actions_are_icon_names = FALSE;
 #ifdef ENABLE_SOUND
     gboolean has_sound = FALSE;
     ca_proplist *sound_props = NULL;
@@ -1168,8 +1170,12 @@ notify_notify (XfceNotifyGBus *skeleton,
         {
             transient = TRUE;
             g_variant_unref(value);
-        }
-        else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
+        } else if (g_strcmp0(key, "action-icons") == 0) {
+            if (g_variant_is_of_type(value, G_VARIANT_TYPE_BOOLEAN)) {
+                actions_are_icon_names = g_variant_get_boolean(value);
+            }
+            g_variant_unref(value);
+        } else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
         {
             x_canonical = TRUE;
             g_variant_unref(value);
@@ -1276,7 +1282,7 @@ notify_notify (XfceNotifyGBus *skeleton,
     {
         xfce_notify_window_set_summary(window, summary);
         xfce_notify_window_set_body(window, body);
-        xfce_notify_window_set_actions(window, actions, xndaemon->css_provider);
+        xfce_notify_window_set_actions(window, actions, actions_are_icon_names, xndaemon->css_provider);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 #ifdef ENABLE_SOUND
@@ -1287,6 +1293,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                                                                         app_icon,
                                                                         expire_timeout,
                                                                         actions,
+                                                                        actions_are_icon_names,
                                                                         xndaemon->css_provider));
         xfce_notify_window_set_id(window, OUT_id);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
