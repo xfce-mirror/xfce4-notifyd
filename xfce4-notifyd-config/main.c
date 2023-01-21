@@ -646,11 +646,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     /* Application icon and name */
     icon = gtk_image_new ();
     label = gtk_label_new (NULL);
-#if GTK_CHECK_VERSION (3, 16, 0)
     gtk_label_set_xalign (GTK_LABEL (label), 0);
-#else
-    gtk_widget_set_halign (label, GTK_ALIGN_START);
-#endif
 
 
     /* All applications that don't supply their name at all */
@@ -989,11 +985,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             } else {
                 gtk_label_set_text(GTK_LABEL(summary), markup);
             }
-#if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (summary), 0);
-#else
-            gtk_widget_set_halign (summary, GTK_ALIGN_START);
-#endif
             g_free (markup);
             tmp = g_key_file_get_string (notify_log, group, "body", NULL);
             body = gtk_label_new (NULL);
@@ -1004,11 +996,7 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
                 gtk_label_set_text(GTK_LABEL(body), tmp);
             }
             g_free (tmp);
-#if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (body), 0);
-#else
-            gtk_widget_set_halign (body, GTK_ALIGN_START);
-#endif
             gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
             tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
             notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
