@@ -955,7 +955,11 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             markup = g_markup_printf_escaped (format, tmp);
             g_free (tmp);
             summary = gtk_label_new (NULL);
-            gtk_label_set_markup (GTK_LABEL (summary), markup);
+            if (xfce_notify_is_markup_valid(markup)) {
+                gtk_label_set_markup (GTK_LABEL (summary), markup);
+            } else {
+                gtk_label_set_text(GTK_LABEL(summary), markup);
+            }
 #if GTK_CHECK_VERSION (3, 16, 0)
             gtk_label_set_xalign (GTK_LABEL (summary), 0);
 #else
@@ -965,13 +969,10 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             tmp = g_key_file_get_string (notify_log, group, "body", NULL);
             body = gtk_label_new (NULL);
             g_object_ref (body);
-            gtk_label_set_markup (GTK_LABEL (body), tmp);
-            if (g_strcmp0 (gtk_label_get_text (GTK_LABEL (body)), "") == 0) {
-                gchar *tmp1;
-
-                tmp1 = g_markup_escape_text (tmp, -1);
-                gtk_label_set_text (GTK_LABEL (body), tmp1);
-                g_free (tmp1);
+            if (xfce_notify_is_markup_valid(tmp)) {
+                gtk_label_set_markup (GTK_LABEL (body), tmp);
+            } else {
+                gtk_label_set_text(GTK_LABEL(body), tmp);
             }
             g_free (tmp);
 #if GTK_CHECK_VERSION (3, 16, 0)

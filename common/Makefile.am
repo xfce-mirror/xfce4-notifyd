@@ -5,6 +5,8 @@ noinst_LTLIBRARIES = \
 	libxfce-notifyd-common.la
 
 libxfce_notifyd_common_la_SOURCES = \
+	xfce-notify-common.c \
+	xfce-notify-common.h \
 	xfce-notify-log.c \
 	xfce-notify-log.h
 

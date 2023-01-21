@@ -34,6 +34,7 @@
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4panel/libxfce4panel.h>
 
+#include <common/xfce-notify-common.h>
 #include <common/xfce-notify-log.h>
 
 #include "notification-plugin.h"
@@ -242,13 +243,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
       tmp = g_key_file_get_string (notify_log, group, "body", NULL);
       body = gtk_label_new (NULL);
-      gtk_label_set_markup (GTK_LABEL (body), tmp);
-      if (g_strcmp0 (gtk_label_get_text(GTK_LABEL (body)), "") == 0) {
-        gchar *tmp1;
-
-        tmp1 = g_markup_escape_text (tmp, -1);
-        gtk_label_set_text (GTK_LABEL (body), tmp1);
-        g_free (tmp1);
+      if (xfce_notify_is_markup_valid(tmp)) {
+          gtk_label_set_markup (GTK_LABEL (body), tmp);
+      } else {
+          gtk_label_set_text(GTK_LABEL(body), tmp);
       }
       g_free (tmp);
       gtk_label_set_xalign (GTK_LABEL (body), 0);

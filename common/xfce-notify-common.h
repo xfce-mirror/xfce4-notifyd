@@ -20,9 +20,17 @@
 #ifndef __XFCE_NOTIFY_COMMON_H__
 #define __XFCE_NOTIFY_COMMON_H__
 
+#include <glib.h>
+
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
 #define MUTE_SOUNDS_PROP                    "/mute-sounds"
+
+G_BEGIN_DECLS
+
+gboolean xfce_notify_is_markup_valid(const gchar *markup);
+
+G_END_DECLS
 
 #endif  /* __XFCE_NOTIFY_COMMON_H__ */
