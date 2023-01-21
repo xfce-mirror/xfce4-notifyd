@@ -122,40 +122,52 @@ notify_read_from_desktop_file (const gchar *desktop_file_path, const gchar *key)
     return value;
 }
 
+static gchar *
+notify_get_from_desktop_file_resolved(const gchar *desktop_file, const gchar *key)
+{
+    GDesktopAppInfo *appinfo = g_desktop_app_info_new(desktop_file);
+
+    if (appinfo != NULL) {
+        gchar *value = notify_read_from_desktop_file(g_desktop_app_info_get_filename(appinfo), key);
+        g_object_unref(appinfo);
+        return value;
+    } else {
+        return NULL;
+    }
+}
+
 gchar *
 notify_get_from_desktop_file (const gchar *desktop_file, const gchar *key)
 {
-    GDesktopAppInfo *appinfo;
-    gchar *filename;
     gchar *value = NULL;
+    gchar *filename;
 
     filename = g_strdup_printf ("%s.desktop", desktop_file);
-    appinfo = g_desktop_app_info_new (filename);
+    value = notify_get_from_desktop_file_resolved(filename, key);
     g_free (filename);
 
-    if (appinfo) {
-        value = notify_read_from_desktop_file (g_desktop_app_info_get_filename (appinfo), key);
-    }
     /* Fallback: Try to find the correct desktop file
        As the GIO matching algorithm is unknown and subject to change we naively pick the first match */
-    else {
-        gchar ***matches;
+    if (value == NULL) {
+        gchar ***matches = g_desktop_app_info_search (desktop_file);
 
-        matches = g_desktop_app_info_search (desktop_file);
+        if (matches != NULL) {
+            for (gsize i = 0; matches[i] != NULL; ++i) {
+                for (gsize j = 0; matches[i][j] != NULL; ++j) {
+                    value = notify_get_from_desktop_file_resolved(matches[i][j], key);
+                    if (value != NULL) {
+                        break;
+                    }
+                }
 
-        if (matches[0]) {
-            gchar **match;
+                g_strfreev(matches[i]);
 
-            match = matches[0];
-            appinfo = g_desktop_app_info_new (match[0]);
-            if (appinfo != NULL) {
-                value = notify_read_from_desktop_file (g_desktop_app_info_get_filename (appinfo), key);
+                if (value != NULL) {
+                    break;
+                }
             }
 
-            for (gchar ***p = matches; *p != NULL; p++)
-                g_strfreev (*p);
-
-            g_free (matches);
+            g_free(matches);
         }
     }
 

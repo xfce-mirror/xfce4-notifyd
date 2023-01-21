@@ -690,9 +690,10 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                 g_object_unref(file);
             } else {
                 gicon = g_themed_icon_new_with_default_fallbacks(desktop_icon_name);
-                if (!test_gicon_exists(gicon, icon_size, scale_factor)) {
-                    g_clear_object(&gicon);
-                }
+            }
+
+            if (!test_gicon_exists(gicon, icon_size, scale_factor)) {
+                g_clear_object(&gicon);
             }
         }
 
