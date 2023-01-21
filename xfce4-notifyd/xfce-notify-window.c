@@ -36,6 +36,10 @@
 #include <gtk-layer-shell.h>
 #endif
 
+#ifdef ENABLE_SOUND
+#include <canberra-gtk.h>
+#endif
+
 #include "xfce-notify-window.h"
 #include "xfce-notify-enum-types.h"
 
@@ -87,6 +91,10 @@ struct _XfceNotifyWindow
     gboolean do_fadeout;
     gboolean do_slideout;
     GtkCornerType notify_location;
+
+#ifdef ENABLE_SOUND
+    ca_proplist *sound_props;
+#endif
 };
 
 typedef struct
@@ -342,6 +350,14 @@ xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 static void
 xfce_notify_window_finalize(GObject *object)
 {
+#ifdef ENABLE_SOUND
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
+
+    if (window->sound_props != NULL) {
+        ca_proplist_destroy(window->sound_props);
+    }
+#endif
+
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->finalize(object);
 }
 
@@ -363,6 +379,22 @@ xfce_notify_window_realize(GtkWidget *widget)
                              GDK_WINDOW_TYPE_HINT_NOTIFICATION);
     gdk_window_set_override_redirect(gtk_widget_get_window(widget), TRUE);
     xfce_notify_window_start_expiration(window);
+
+#ifdef ENABLE_SOUND
+    if (window->sound_props != NULL) {
+        ca_context *ctx;
+        const gchar *summary;
+
+        summary = gtk_label_get_text(GTK_LABEL(window->summary));
+        if (summary != NULL) {
+            ca_proplist_sets(window->sound_props, CA_PROP_EVENT_DESCRIPTION, summary);
+        }
+        ca_gtk_proplist_set_for_widget(window->sound_props, widget);
+
+        ctx = ca_gtk_context_get_for_screen(gtk_widget_get_screen(widget));
+        ca_context_play_full(ctx, window->id, window->sound_props, NULL, NULL);
+    }
+#endif
 }
 
 static void
@@ -1130,6 +1162,21 @@ void xfce_notify_window_set_notify_location(XfceNotifyWindow *window,
 
     window->notify_location = notify_location;
 }
+
+#ifdef ENABLE_SOUND
+void
+xfce_notify_window_set_sound_props(XfceNotifyWindow *window,
+                                   ca_proplist *props)
+{
+    if (window->sound_props != props) {
+        if (window->sound_props != NULL) {
+            ca_proplist_destroy(window->sound_props);
+        }
+
+        window->sound_props = props;
+    }
+}
+#endif
 
 void
 xfce_notify_window_closed(XfceNotifyWindow *window,
