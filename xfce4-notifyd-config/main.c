@@ -598,6 +598,25 @@ known_application_button_press(GtkWidget *eventbox,
     }
 }
 
+static gboolean
+test_gicon_exists(GIcon *gicon,
+                  gint size,
+                  gint scale)
+{
+    GtkIconInfo *icon_info = gtk_icon_theme_lookup_by_gicon_for_scale(gtk_icon_theme_get_default(),
+                                                                      gicon,
+                                                                      size,
+                                                                      scale,
+                                                                      GTK_ICON_LOOKUP_USE_BUILTIN);
+    gboolean exists = icon_info != NULL;
+
+    if (icon_info != NULL) {
+        g_object_unref(icon_info);
+    }
+
+    return exists;
+}
+
 static void
 xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                                             GtkWidget *known_applications_listbox,
@@ -648,58 +667,69 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     }
     else {
         KnownApplicationMenuData *menu_data = g_slice_new0(KnownApplicationMenuData);
+        GIcon *gicon = NULL;
+        gint icon_width, icon_height, icon_size;
+
         menu_data->channel = g_object_ref(channel);
         menu_data->listbox = g_object_ref(known_applications_listbox);
         menu_data->row = row;
         menu_data->known_application = g_strdup(known_application);
 
+        gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
+        icon_size = MIN(icon_width, icon_height);
+
         /* Try to find the correct icon based on the desktop file */
         desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
-        if (desktop_icon_name && gtk_icon_theme_has_icon(gtk_icon_theme_get_default(), desktop_icon_name)) {
-            gtk_image_set_from_icon_name (GTK_IMAGE (icon), desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+        if (desktop_icon_name != NULL) {
+            if (g_path_is_absolute(desktop_icon_name)
+                && g_file_test(desktop_icon_name, G_FILE_TEST_EXISTS)
+                && !g_file_test(desktop_icon_name, G_FILE_TEST_IS_DIR))
+            {
+                GFile *file = g_file_new_for_path(desktop_icon_name);
+                gicon = g_file_icon_new(file);
+                g_object_unref(file);
+            } else {
+                gicon = g_themed_icon_new_with_default_fallbacks(desktop_icon_name);
+                if (!test_gicon_exists(gicon, icon_size, scale_factor)) {
+                    g_clear_object(&gicon);
+                }
+            }
         }
-        /* Fallback: Try to naively load icon names */
-        else {
-            GdkPixbuf *pix = NULL;
-            GtkIconInfo *icon_info = NULL;
-            gchar *icon_name_lower;
-            const gchar *icon_name;
 
+        /* Fallback: Try to naively load icon names */
+        if (gicon == NULL) {
             /* Find icons in the right priority:
                1. normal icon name with fallback
                2. lowercase icon name with fallback */
 
-            /* Make sure spaces are converted to dashes so GTK_ICON_LOOKUP_GENERIC_FALLBACK works as expected */
-            icon_name = g_strdelimit ((gchar *) known_application," ",'-');
-            icon_name_lower = g_ascii_strdown (icon_name, -1);
-            icon_info = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default(),
-                                                              icon_name,
-                                                              24, scale_factor,
-                                                              GTK_ICON_LOOKUP_GENERIC_FALLBACK
-                                                              | GTK_ICON_LOOKUP_FORCE_SIZE);
-            if (icon_info == NULL) {
-                icon_info = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default(),
-                                                                  icon_name_lower,
-                                                                  24, scale_factor,
-                                                                  GTK_ICON_LOOKUP_GENERIC_FALLBACK
-                                                                  | GTK_ICON_LOOKUP_FORCE_SIZE);
+            gicon = g_themed_icon_new_with_default_fallbacks(known_application);
+            if (!test_gicon_exists(gicon, icon_size, scale_factor)) {
+                g_clear_object(&gicon);
             }
 
-            if (icon_info != NULL) {
-                pix = gtk_icon_info_load_icon (icon_info, NULL);
+            if (gicon == NULL) {
+                gchar *icon_name_dashed = g_strdelimit(g_strdup(known_application), " .", '-');
 
-                if (G_LIKELY (pix != NULL)) {
-                    cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf (pix, scale_factor, NULL);
-                    gtk_image_set_from_surface (GTK_IMAGE (icon), surface);
+                gicon = g_themed_icon_new_with_default_fallbacks(icon_name_dashed);
+                if (!test_gicon_exists(gicon, icon_size, scale_factor)) {
+                    gchar *icon_name_dashed_lower = g_ascii_strdown(icon_name_dashed, -1);
 
-                    g_object_unref (pix);
-                    cairo_surface_destroy (surface);
+                    g_clear_object(&gicon);
+                    gicon = g_themed_icon_new_with_default_fallbacks(icon_name_dashed_lower);
+                    if (!test_gicon_exists(gicon, icon_size, scale_factor)) {
+                        g_clear_object(&gicon);
+                    }
+
+                    g_free(icon_name_dashed_lower);
                 }
 
-                g_object_unref (icon_info);
+                g_free(icon_name_dashed);
             }
+        }
 
-            g_free (icon_name_lower);
+        if (G_LIKELY(gicon != NULL)) {
+            gtk_image_set_from_gicon(GTK_IMAGE(icon), gicon, GTK_ICON_SIZE_LARGE_TOOLBAR);
+            g_object_unref(gicon);
         }
 
         /* Try to find the correct application name based on the desktop file */
