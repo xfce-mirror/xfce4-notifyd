@@ -60,6 +60,7 @@ xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
 	$(common_cflags) \
 	$(LIBX11_CFLAGS) \
+	$(CANBERRA_GTK_CFLAGS) \
 	$(GTK_LAYER_SHELL_CFLAGS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_CFLAGS = \
@@ -79,6 +80,7 @@ common_ldadd = \
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
 	$(LIBX11_LIBS) \
+	$(CANBERRA_GTK_LIBS) \
 	$(GTK_LAYER_SHELL_LIBS)
 
 xfce4_notifyd_config_xfce4_notifyd_config_LDADD = \
