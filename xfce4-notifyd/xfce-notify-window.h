@@ -23,6 +23,10 @@
 
 #include <gtk/gtk.h>
 
+#ifdef ENABLE_SOUND
+#include <canberra-gtk.h>
+#endif
+
 #define XFCE_TYPE_NOTIFY_WINDOW     (xfce_notify_window_get_type())
 #define XFCE_NOTIFY_WINDOW(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_WINDOW, XfceNotifyWindow))
 #define XFCE_IS_NOTIFY_WINDOW(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_WINDOW))
@@ -106,6 +110,12 @@ void xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
 
 void xfce_notify_window_set_notify_location(XfceNotifyWindow *window,
                                             GtkCornerType notify_location);
+
+#ifdef ENABLE_SOUND
+void xfce_notify_window_set_sound_props(XfceNotifyWindow *window,
+                                        ca_proplist *props);
+#endif
+
 /* signal trigger */
 void xfce_notify_window_closed(XfceNotifyWindow *window,
                                XfceNotifyCloseReason reason);
