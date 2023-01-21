@@ -1,3 +1,39 @@
+0.7.0 (2023-01-21)
+=====
+- Properly validate markup
+- Update glade file to remove use of deprecated properties
+- Support the 'action-icons' hint
+- Add support for notification sounds
+- Clean up notification ID storage
+- Revert "Remove body-hyperlinks from GetCapabilities"
+- Remove body-hyperlinks from GetCapabilities
+- Return replaces_id if provided
+- Remove xfconf prop name define duplication
+- Add ability to disallow certain apps to send critical notifications
+- Add a context menu that allows individual known application deletion
+- Fix a slide-out loop when the mouse pointer is in the way
+- Add option to hide panel button when no unread notifications
+- Remove more pre-GTK-3.22 guards
+- Bump GTK minimum to 2.22 and remove/ifdef X11-isms
+- Support Wayland
+- Don't set a nonsensical icon name
+- Clean up xfce_notify_window_set_icon_pixbuf()
+- xfce_notify_window_set_icon_pixbuf() shouldn't take ownership
+- Move urgency hint fetch inside check for correct type
+- DRY up the configuration handling
+- Add pref to show summary & body with gauge values
+- Update glade file to latest version
+- settings: Disable single click to mute apps (Fixes #5)
+- Do not treat zero expiration time as urgent
+- Add compile_flags.txt generation
+- Fix incorrect icon name for preview notification
+- Fix blurry icons when UI scale factor > 1
+- build: Let xdt-depends.m4 macros set GLib macros
+- Translation Updates:
+  Albanian, Bulgarian, Chinese (China), Dutch, French, German, Greek,
+  Hebrew, Italian, Japanese, Korean, Lithuanian, Polish, Portuguese,
+  Portuguese (Brazil), Spanish, Turkish
+
 0.6.5 (2022-12-16)
 =====
 - Fix segfault crash.
