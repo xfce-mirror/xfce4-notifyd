@@ -655,7 +655,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
 
         /* Try to find the correct icon based on the desktop file */
         desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
-        if (desktop_icon_name) {
+        if (desktop_icon_name && gtk_icon_theme_has_icon(gtk_icon_theme_get_default(), desktop_icon_name)) {
             gtk_image_set_from_icon_name (GTK_IMAGE (icon), desktop_icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
         }
         /* Fallback: Try to naively load icon names */
