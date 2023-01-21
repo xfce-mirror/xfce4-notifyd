@@ -668,7 +668,7 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
 GtkWidget *
 xfce_notify_window_new(void)
 {
-    return xfce_notify_window_new_with_actions(NULL, NULL, NULL, -1, NULL, NULL);
+    return xfce_notify_window_new_with_actions(NULL, NULL, NULL, -1, NULL, FALSE, NULL);
 }
 
 GtkWidget *
@@ -681,6 +681,7 @@ xfce_notify_window_new_full(const gchar *summary,
                                                icon_name,
                                                expire_timeout,
                                                NULL,
+                                               FALSE,
                                                NULL);
 }
 
@@ -690,6 +691,7 @@ xfce_notify_window_new_with_actions(const gchar *summary,
                                     const gchar *icon_name,
                                     gint expire_timeout,
                                     const gchar **actions,
+                                    gboolean actions_are_icon_names,
                                     GtkCssProvider *css_provider)
 {
     XfceNotifyWindow *window;
@@ -704,7 +706,7 @@ xfce_notify_window_new_with_actions(const gchar *summary,
     xfce_notify_window_set_body(window, body);
     xfce_notify_window_set_icon_name(window, icon_name);
     xfce_notify_window_set_expire_timeout(window, expire_timeout);
-    xfce_notify_window_set_actions(window, actions, css_provider);
+    xfce_notify_window_set_actions(window, actions, actions_are_icon_names, css_provider);
 
     return GTK_WIDGET(window);
 }
@@ -938,8 +940,10 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
 void
 xfce_notify_window_set_actions(XfceNotifyWindow *window,
                                const gchar **actions,
+                               gboolean actions_are_icon_names,
                                GtkCssProvider *css_provider)
 {
+    GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
     gint i;
     GList *children, *l;
 
@@ -961,8 +965,7 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
     for(i = 0; actions && actions[i]; i += 2) {
         const gchar *cur_action_id = actions[i];
         const gchar *cur_button_text = actions[i+1];
-        GtkWidget *btn, *lbl;
-        gchar *cur_button_text_escaped;
+        GtkWidget *btn, *img = NULL, *lbl;
         gdouble padding;
 
         if(!cur_button_text || !cur_action_id || !*cur_action_id)
@@ -989,19 +992,35 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
                          G_CALLBACK(xfce_notify_window_button_clicked),
                          window);
 
-        cur_button_text_escaped = g_markup_printf_escaped("<span size='small'>%s</span>",
-                                                          cur_button_text);
+        if (actions_are_icon_names && gtk_icon_theme_has_icon(icon_theme, cur_action_id)) {
+            GIcon *icon = g_themed_icon_new_with_default_fallbacks(cur_action_id);
 
-        lbl = gtk_label_new(NULL);
-        gtk_label_set_markup(GTK_LABEL(lbl), cur_button_text_escaped);
-        gtk_label_set_use_markup(GTK_LABEL(lbl), TRUE);
-        gtk_widget_show(lbl);
-        gtk_container_add(GTK_CONTAINER(btn), lbl);
-        gtk_style_context_add_provider (gtk_widget_get_style_context (btn),
-                                        GTK_STYLE_PROVIDER (css_provider),
-                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+            img = gtk_image_new_from_gicon(icon, GTK_ICON_SIZE_BUTTON);
+            gtk_widget_set_tooltip_text(img, cur_button_text);
+            atk_object_set_description(gtk_widget_get_accessible(img), cur_button_text);
+            gtk_widget_show(img);
+            gtk_container_add(GTK_CONTAINER(btn), img);
 
-        g_free(cur_button_text_escaped);
+            gtk_widget_set_tooltip_text(btn, cur_button_text);
+
+            g_object_unref(icon);
+        }
+
+        if (img == NULL) {
+            gchar *cur_button_text_escaped = g_markup_printf_escaped("<span size='small'>%s</span>",
+                                                                     cur_button_text);
+
+            lbl = gtk_label_new(NULL);
+            gtk_label_set_markup(GTK_LABEL(lbl), cur_button_text_escaped);
+            gtk_label_set_use_markup(GTK_LABEL(lbl), TRUE);
+            gtk_widget_show(lbl);
+            gtk_container_add(GTK_CONTAINER(btn), lbl);
+            gtk_style_context_add_provider (gtk_widget_get_style_context (btn),
+                                            GTK_STYLE_PROVIDER (css_provider),
+                                            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+            g_free(cur_button_text_escaped);
+        }
     }
 
     if(gtk_widget_get_realized(GTK_WIDGET(window)))
