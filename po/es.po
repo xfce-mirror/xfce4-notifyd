@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-21 00:51+0100\n"
+"POT-Creation-Date: 2023-01-21 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>, 2021-2023\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-apps/language/es/)\n"
@@ -40,7 +40,7 @@ msgstr "Borrar el registro de notificaciones"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1333
+#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1344
 msgid "Clear"
 msgstr "Borrar"
 
@@ -98,19 +98,19 @@ msgstr "Complemento para las notificaciones"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:140
+#: ../panel-plugin/notification-plugin-log.c:141
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_No molestar</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:324
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "No notifications"
 msgstr "Sin notificaciones"
 
-#: ../panel-plugin/notification-plugin-log.c:345
+#: ../panel-plugin/notification-plugin-log.c:343
 msgid "_Clear log"
 msgstr "_Borrar el registro"
 
-#: ../panel-plugin/notification-plugin-log.c:353
+#: ../panel-plugin/notification-plugin-log.c:351
 msgid "_Notification settings…"
 msgstr "_Configuración de las notificaciones…"
 
@@ -123,7 +123,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Notificaciones para el panel de Xfce"
 
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1177
+#: ../xfce4-notifyd-config/main.c:1179
 msgid "Xfce Notify Daemon"
 msgstr "Servicio de notificaciones de Xfce"
 
@@ -136,7 +136,7 @@ msgstr "Opción desconocida: «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "No se puede iniciar el servicio de notificaciones"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:463
+#: ../xfce4-notifyd/xfce-notify-daemon.c:479
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Hay otro servicio de notificaciones en ejecución. Saliendo.\n"
@@ -159,12 +159,12 @@ msgstr "No se ha podido mostrar una vista previa de las notificaciones"
 
 #: ../xfce4-notifyd-config/main.c:578
 msgid "Allow _Critical Notifications"
-msgstr "_Permitir notificaciones críticas"
+msgstr "Permitir las notificaciones _críticas"
 
 #: ../xfce4-notifyd-config/main.c:584
 #, c-format
 msgid "_Delete Application \"%s\""
-msgstr "Eliminar la aplicación «%s»"
+msgstr "_Eliminar la aplicación «%s»"
 
 #: ../xfce4-notifyd-config/main.c:644
 msgid "Unspecified applications"
@@ -189,66 +189,66 @@ msgstr "desactivado"
 msgid "Yesterday and before"
 msgstr "Ayer y antes"
 
-#: ../xfce4-notifyd-config/main.c:1179
+#: ../xfce4-notifyd-config/main.c:1181
 msgid "Settings daemon is unavailable"
 msgstr "El servicio de configuración no está disponible"
 
-#: ../xfce4-notifyd-config/main.c:1269
+#: ../xfce4-notifyd-config/main.c:1280
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Actualmente no hay aplicaciones conocidas.</b></big>\nEn cuanto una aplicación envíe una notificación\naparecerá en esta lista."
 
-#: ../xfce4-notifyd-config/main.c:1311
+#: ../xfce4-notifyd-config/main.c:1322
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Registro vacío</b></big>\nTodavía no se ha registrado ninguna notificación."
 
-#: ../xfce4-notifyd-config/main.c:1319
+#: ../xfce4-notifyd-config/main.c:1330
 msgid "Refresh"
 msgstr "Actualizar"
 
-#: ../xfce4-notifyd-config/main.c:1320
+#: ../xfce4-notifyd-config/main.c:1331
 msgid "Refresh the notification log"
 msgstr "Actualizar el registro de notificaciones"
 
-#: ../xfce4-notifyd-config/main.c:1326
+#: ../xfce4-notifyd-config/main.c:1337
 msgid "Open"
 msgstr "Abrir"
 
-#: ../xfce4-notifyd-config/main.c:1327
+#: ../xfce4-notifyd-config/main.c:1338
 msgid "Open the notification log in an external editor"
 msgstr "Abrir el registro de notificaciones con un editor externo"
 
-#: ../xfce4-notifyd-config/main.c:1334
+#: ../xfce4-notifyd-config/main.c:1345
 msgid "Clear the notification log"
 msgstr "Borrar el registro de notificaciones"
 
-#: ../xfce4-notifyd-config/main.c:1356
+#: ../xfce4-notifyd-config/main.c:1367
 msgid "Display version information"
 msgstr "Mostrar información de la versión"
 
-#: ../xfce4-notifyd-config/main.c:1357
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "Settings manager socket"
 msgstr "Socket del gestor de configuración"
 
-#: ../xfce4-notifyd-config/main.c:1357
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "SOCKET_ID"
 msgstr "ID_DEL_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:1367
+#: ../xfce4-notifyd-config/main.c:1378
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Escriba «%s --help» para su uso."
 
-#: ../xfce4-notifyd-config/main.c:1382
+#: ../xfce4-notifyd-config/main.c:1393
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Se ha publicado según los términos de la Licencia Pública General de GNU, versión 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1383
+#: ../xfce4-notifyd-config/main.c:1394
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Informe de errores a %s.\n"
@@ -328,7 +328,7 @@ msgstr "Des_vanecer"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "_Slide out"
-msgstr "De_slizar"
+msgstr "Desli_zar"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "Default _position"
@@ -375,36 +375,46 @@ msgid "Show text with percent _values"
 msgstr "Mostrar texto con _valores porcentuales"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "Para escuchar los sonidos de las notificaciones, se debe activar la opción «Activar sonidos de eventos» en el diálogo de configuración de la apariencia."
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "_Mute sounds"
+msgstr "_Silenciar los sonidos"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
 msgstr "General"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Mostrar o bloquear notificaciones por aplicación</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
 msgstr "Aplicaciones"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log notifications"
 msgstr "Registrar las notificaciones"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log applications"
 msgstr "Registrar las aplicaciones"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log size limit"
 msgstr "Límite de tamaño del registro"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr "El número máximo de entradas que se conservarán en el registro. Tenga en cuenta que un registro extenso puede ocasionar penalizaciones en el rendimiento. 0 significa que no hay límite."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "Log"
 msgstr "Registro"
 
