@@ -23,5 +23,6 @@
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
+#define MUTE_SOUNDS_PROP                    "/mute-sounds"
 
 #endif  /* __XFCE_NOTIFY_COMMON_H__ */
