@@ -551,8 +551,6 @@ known_application_delete(GtkWidget *item,
         g_strfreev(muted_applications);
         g_strfreev(denied_critical_notifications);
     }
-
-    gtk_container_remove(GTK_CONTAINER(menu_data->listbox), menu_data->row);
 }
 
 static gboolean
