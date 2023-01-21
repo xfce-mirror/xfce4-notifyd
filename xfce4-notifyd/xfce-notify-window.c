@@ -40,6 +40,8 @@
 #include <canberra-gtk.h>
 #endif
 
+#include <common/xfce-notify-common.h>
+
 #include "xfce-notify-window.h"
 #include "xfce-notify-enum-types.h"
 
@@ -752,16 +754,10 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if(body && *body) {
-        /* Try to set the body with markup and in case this fails (empty label)
-           fall back to escaping the whole string and showing it plainly.
-           This equals pango_parse_markup extended by checking for valid hyperlinks
-           (which is not supported by pango). */
-        gtk_label_set_markup (GTK_LABEL (window->body), body);
-        if (g_strcmp0 (gtk_label_get_text(GTK_LABEL (window->body)), "") == 0 ) {
-            gchar *tmp;
-            tmp = g_markup_escape_text (body, -1);
-            gtk_label_set_text (GTK_LABEL (window->body), body);
-            g_free (tmp);
+        if (xfce_notify_is_markup_valid(body)) {
+            gtk_label_set_markup (GTK_LABEL (window->body), body);
+        } else {
+            gtk_label_set_text(GTK_LABEL(window->body), body);
         }
         gtk_widget_show(window->body);
         window->has_body_text = TRUE;
