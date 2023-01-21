@@ -42,6 +42,10 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 
+#ifdef ENABLE_SOUND
+#include <canberra-gtk.h>
+#endif
+
 #include <common/xfce-notify-common.h>
 #include <common/xfce-notify-log.h>
 
@@ -84,6 +88,10 @@ struct _XfceNotifyDaemon
     guint32 last_notification_id;
 
     GHashTable *denied_critical_notifications;
+
+#ifdef ENABLE_SOUND
+    gboolean mute_sounds;
+#endif
 };
 
 typedef struct
@@ -149,6 +157,14 @@ const struct {
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_text_with_gauge),
         .default_value.b = FALSE,
     },
+#ifdef ENABLE_SOUND
+    {
+        .name = MUTE_SOUNDS_PROP,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, mute_sounds),
+        .default_value.b = FALSE,
+    },
+#endif
     {
         .name = "/primary-monitor",
         .type = G_TYPE_UINT,
@@ -883,10 +899,17 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
                                          GDBusMethodInvocation   *invocation,
                                          XfceNotifyDaemon *xndaemon)
 {
-    const gchar *const capabilities[] =
-    {
-        "actions", "body", "body-hyperlinks", "body-markup", "icon-static",
-        "x-canonical-private-icon-only", NULL
+    const gchar *const capabilities[] = {
+        "actions",
+        "body",
+        "body-hyperlinks",
+        "body-markup",
+        "icon-static",
+#ifdef ENABLE_SOUND
+        "sound",
+#endif
+        "x-canonical-private-icon-only",
+        NULL,
     };
 
     xfce_notify_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
@@ -1064,10 +1087,24 @@ notify_notify (XfceNotifyGBus *skeleton,
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
     gboolean transient = FALSE;
+#ifdef ENABLE_SOUND
+    gboolean has_sound = FALSE;
+    ca_proplist *sound_props = NULL;
+    int ca_err;
+#endif
     GVariant *item;
     GVariantIter iter;
     guint OUT_id = replaces_id != 0 ? replaces_id : xfce_notify_daemon_generate_id(xndaemon);
     gboolean application_is_muted = FALSE;
+
+#ifdef ENABLE_SOUND
+    if (!xndaemon->mute_sounds) {
+        ca_err = ca_proplist_create(&sound_props);
+        if (ca_err != CA_SUCCESS) {
+            g_message("Failed to create sound property list: %s", ca_strerror(ca_err));
+        }
+    }
+#endif
 
     g_variant_iter_init (&iter, hints);
 
@@ -1137,6 +1174,33 @@ notify_notify (XfceNotifyGBus *skeleton,
             x_canonical = TRUE;
             g_variant_unref(value);
         }
+#ifdef ENABLE_SOUND
+        else if (g_strcmp0(key, "sound-file") == 0) {
+            if (g_variant_is_of_type(value, G_VARIANT_TYPE_STRING)) {
+                if (sound_props != NULL) {
+                    ca_proplist_sets(sound_props, CA_PROP_MEDIA_FILENAME, g_variant_get_string(value, NULL));
+                    has_sound = TRUE;
+                }
+            }
+            g_variant_unref(value);
+        } else if (g_strcmp0(key, "sound-name") == 0) {
+            if (g_variant_is_of_type(value, G_VARIANT_TYPE_STRING)) {
+                if (sound_props != NULL) {
+                    ca_proplist_sets(sound_props, CA_PROP_EVENT_ID, g_variant_get_string(value, NULL));
+                    has_sound = TRUE;
+                }
+            }
+            g_variant_unref(value);
+        } else if (g_strcmp0(key, "suppress-sound") == 0) {
+            if (g_variant_is_of_type(value, G_VARIANT_TYPE_BOOLEAN)) {
+                if (sound_props != NULL && g_variant_get_boolean(value)) {
+                    ca_proplist_destroy(sound_props);
+                    sound_props = NULL;
+                }
+            }
+            g_variant_unref(value);
+        }
+#endif
         else
         {
             g_variant_unref(value);
@@ -1165,6 +1229,14 @@ notify_notify (XfceNotifyGBus *skeleton,
         expire_timeout = xndaemon->expire_timeout;
 
     application_is_muted = notify_application_is_muted (xndaemon->settings, new_app_name);
+
+#ifdef ENABLE_SOUND
+    if (sound_props != NULL && !has_sound) {
+        ca_proplist_destroy(sound_props);
+        sound_props = NULL;
+    }
+#endif
+
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
        notifications. */
@@ -1207,6 +1279,9 @@ notify_notify (XfceNotifyGBus *skeleton,
         xfce_notify_window_set_actions(window, actions, xndaemon->css_provider);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
+#ifdef ENABLE_SOUND
+        xfce_notify_window_set_sound_props(window, sound_props);
+#endif
     } else {
         window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
                                                                         app_icon,
@@ -1215,6 +1290,9 @@ notify_notify (XfceNotifyGBus *skeleton,
                                                                         xndaemon->css_provider));
         xfce_notify_window_set_id(window, OUT_id);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
+#ifdef ENABLE_SOUND
+        xfce_notify_window_set_sound_props(window, sound_props);
+#endif
 
         g_tree_insert(xndaemon->active_notifications,
                       GUINT_TO_POINTER(OUT_id), window);
