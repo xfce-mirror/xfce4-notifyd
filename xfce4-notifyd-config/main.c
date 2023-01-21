@@ -1151,6 +1151,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
     GtkToolItem *log_open_button;
     GtkWidget *icon;
     GtkWidget *primary_monitor;
+    GtkWidget *mute_sounds;
     GtkWidget *do_fadeout;
     GtkWidget *show_text_with_gauge;
     GtkAdjustment *adj;
@@ -1204,6 +1205,15 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
                            G_OBJECT(primary_monitor), "active");
     if(gtk_combo_box_get_active(GTK_COMBO_BOX(primary_monitor)) == -1)
         gtk_combo_box_set_active(GTK_COMBO_BOX(primary_monitor), 0);
+
+    mute_sounds = GTK_WIDGET(gtk_builder_get_object(builder, "mute_sounds"));
+#ifdef ENABLE_SOUND
+    xfconf_g_property_bind(channel, MUTE_SOUNDS_PROP, G_TYPE_BOOLEAN,
+                           G_OBJECT(mute_sounds), "active");
+#else
+    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(builder, "mute_sounds_label")));
+    gtk_widget_hide(mute_sounds);
+#endif
 
     // Appearance
     theme_combo = GTK_WIDGET(gtk_builder_get_object(builder, "theme_combo"));
