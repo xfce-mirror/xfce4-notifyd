@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-21 00:51+0100\n"
+"POT-Creation-Date: 2023-01-21 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2013,2016-2018,2020,2022-2023\n"
 "Language-Team: Dutch (http://www.transifex.com/xfce/xfce-apps/language/nl/)\n"
@@ -31,7 +31,7 @@ msgstr "Meldingenlogboek leegmaken"
 msgid "Cancel"
 msgstr "Afbreken"
 
-#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1333
+#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1344
 msgid "Clear"
 msgstr "Wissen"
 
@@ -89,19 +89,19 @@ msgstr "Dit is het meldingen-invoegsel"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Auteursrecht © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:140
+#: ../panel-plugin/notification-plugin-log.c:141
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Niet storen</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:324
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "No notifications"
 msgstr "Geen meldingen"
 
-#: ../panel-plugin/notification-plugin-log.c:345
+#: ../panel-plugin/notification-plugin-log.c:343
 msgid "_Clear log"
 msgstr "Logboek _wissen"
 
-#: ../panel-plugin/notification-plugin-log.c:353
+#: ../panel-plugin/notification-plugin-log.c:351
 msgid "_Notification settings…"
 msgstr "Meldingsinstellingen..."
 
@@ -114,7 +114,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Meldingen-invoegsel voor de Xfce-werkbalk"
 
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1177
+#: ../xfce4-notifyd-config/main.c:1179
 msgid "Xfce Notify Daemon"
 msgstr "Xfce Melding-achtergronddienst"
 
@@ -127,7 +127,7 @@ msgstr "Onbekende optie '%s'\n"
 msgid "Unable to start notification daemon"
 msgstr "Kan de meldingsdienst niet starten"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:463
+#: ../xfce4-notifyd/xfce-notify-daemon.c:479
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Bezig met afsluiten, want er draait reeds een andere achtergronddienst voor meldingen\n"
@@ -180,66 +180,66 @@ msgstr "uitgeschakeld"
 msgid "Yesterday and before"
 msgstr "Gisteren en daarvoor"
 
-#: ../xfce4-notifyd-config/main.c:1179
+#: ../xfce4-notifyd-config/main.c:1181
 msgid "Settings daemon is unavailable"
 msgstr "Instellingendienst is niet beschikbaar"
 
-#: ../xfce4-notifyd-config/main.c:1269
+#: ../xfce4-notifyd-config/main.c:1280
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Er zijn thans geen bekende toepassingen.</b></big>\nZodra een toepassing een melding verstuurt\nzal die in de lijst verschijnen."
 
-#: ../xfce4-notifyd-config/main.c:1311
+#: ../xfce4-notifyd-config/main.c:1322
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Leeg logboek</b></big>\nEr staan nog geen meldingen in het logboek."
 
-#: ../xfce4-notifyd-config/main.c:1319
+#: ../xfce4-notifyd-config/main.c:1330
 msgid "Refresh"
 msgstr "Verversen"
 
-#: ../xfce4-notifyd-config/main.c:1320
+#: ../xfce4-notifyd-config/main.c:1331
 msgid "Refresh the notification log"
 msgstr "Ververs het meldingenlogboek"
 
-#: ../xfce4-notifyd-config/main.c:1326
+#: ../xfce4-notifyd-config/main.c:1337
 msgid "Open"
 msgstr "Openen"
 
-#: ../xfce4-notifyd-config/main.c:1327
+#: ../xfce4-notifyd-config/main.c:1338
 msgid "Open the notification log in an external editor"
 msgstr "Open het meldingenlogboek in een externe tekstbewerker"
 
-#: ../xfce4-notifyd-config/main.c:1334
+#: ../xfce4-notifyd-config/main.c:1345
 msgid "Clear the notification log"
 msgstr "Wis het meldingenlogboek"
 
-#: ../xfce4-notifyd-config/main.c:1356
+#: ../xfce4-notifyd-config/main.c:1367
 msgid "Display version information"
 msgstr "Toon versie-informatie"
 
-#: ../xfce4-notifyd-config/main.c:1357
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "Settings manager socket"
 msgstr "Contactpunt voor instellingenbeheerder"
 
-#: ../xfce4-notifyd-config/main.c:1357
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "SOCKET_ID"
 msgstr "CONTACTPUNT_ID"
 
-#: ../xfce4-notifyd-config/main.c:1367
+#: ../xfce4-notifyd-config/main.c:1378
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Tik '%s --help' voor handleiding."
 
-#: ../xfce4-notifyd-config/main.c:1382
+#: ../xfce4-notifyd-config/main.c:1393
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vrijgegeven onder de voorwaarden der GNU General Public License, versie 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1383
+#: ../xfce4-notifyd-config/main.c:1394
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fouten graag melden aan %s.\n"
@@ -266,7 +266,7 @@ msgstr "alleen geblokkeerde"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "display with mouse pointer"
-msgstr "Scherm met muispijl"
+msgstr "scherm met muispijl"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "primary display"
@@ -323,7 +323,7 @@ msgstr "_Wegglijden"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid "Default _position"
-msgstr "Standaardpositie"
+msgstr "Standaard_positie"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "_Theme"
@@ -366,36 +366,46 @@ msgid "Show text with percent _values"
 msgstr "Toon tekst met _percentages"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "De instelling 'Gebeurtenisgeluiden inschakelen' in het dialoogvenster van de instellingen voor het uiterlijk, moet zijn aangevinkt om meldingsgeluiden te horen"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "_Mute sounds"
+msgstr "Geluiden _dempen"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
 msgstr "Algemeen"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Toon of blokkeer meldingen per toepassing</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
 msgstr "Toepassingen"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log notifications"
 msgstr "Leg meldingen vast in een logboek"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log applications"
 msgstr "Leg toepassingen vast in een logboek"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log size limit"
 msgstr "Limiet voor logboekomvang"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr "Het maximale aantal aantekeningen in het logboek. Houd er a.u.b. rekening mee dat een groot logboek prestatieverlies kan veroorzaken. 0 betekent geen begrenzing."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "Log"
 msgstr "Logboek"
 
