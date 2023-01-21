@@ -73,9 +73,9 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
 
-XDT_CHECK_OPTIONAL_PACKAGE([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version])
-XDT_CHECK_OPTIONAL_PACKAGE([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version])
-XDT_CHECK_OPTIONAL_PACKAGE([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0])
+XDT_CHECK_OPTIONAL_PACKAGE([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version], [gdk-x11], [X11 backend for GDK])
+XDT_CHECK_OPTIONAL_PACKAGE([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version], [gdk-wayland], [Wayland backend for GDK])
+XDT_CHECK_OPTIONAL_PACKAGE([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0], [gtk-layer-shell], [gtk-layer-shell Wayland library])
 
 if test x"$GDK_X11_FOUND" = x"yes"; then
     enable_x11=yes
@@ -96,7 +96,7 @@ AC_ARG_ENABLE([sound],
                               [Whether or not to enable sound support (default=auto)])],
               [enable_sound=$enableval],
               [enable_sound=auto])
-XDT_CHECK_OPTIONAL_PACKAGE([CANBERRA_GTK], [libcanberra-gtk3], [canberra_minimum_version])
+XDT_CHECK_OPTIONAL_PACKAGE([CANBERRA_GTK], [libcanberra-gtk3], [canberra_minimum_version], [canberra], [Canberra sound theme library])
 
 if test x"$enable_sound" != x"no"; then
     if test x"$CANBERRA_GTK_FOUND" = x"yes"; then
