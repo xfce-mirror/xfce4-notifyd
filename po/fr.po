@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 12:51+0100\n"
+"POT-Creation-Date: 2023-01-22 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Wallon Wallon, 2022-2023\n"
 "Language-Team: French (http://www.transifex.com/xfce/xfce-apps/language/fr/)\n"
@@ -27,23 +27,23 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: ../common/xfce-notify-log.c:571
+#: ../common/xfce-notify-log.c:581
 msgid "Do you really want to clear the notification log?"
 msgstr "Voulez-vous vraiment effacer le journal des notifications ?"
 
-#: ../common/xfce-notify-log.c:575
+#: ../common/xfce-notify-log.c:585
 msgid "Clear notification log"
 msgstr "Effacer le journal des notifications"
 
-#: ../common/xfce-notify-log.c:578
+#: ../common/xfce-notify-log.c:588
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1255
+#: ../common/xfce-notify-log.c:590 ../xfce4-notifyd-config/main.c:1363
 msgid "Clear"
 msgstr "Effacer"
 
-#: ../common/xfce-notify-log.c:596 ../common/xfce-notify-log.c:604
+#: ../common/xfce-notify-log.c:606 ../common/xfce-notify-log.c:614
 msgid "include icon cache"
 msgstr "inclure le cache des icônes"
 
@@ -97,19 +97,19 @@ msgstr "Ceci est le greffon de notification"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:140
+#: ../panel-plugin/notification-plugin-log.c:141
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Ne pas déranger</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:324
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "No notifications"
 msgstr "Aucune notification"
 
-#: ../panel-plugin/notification-plugin-log.c:345
+#: ../panel-plugin/notification-plugin-log.c:343
 msgid "_Clear log"
 msgstr "_Effacer le journal"
 
-#: ../panel-plugin/notification-plugin-log.c:353
+#: ../panel-plugin/notification-plugin-log.c:351
 msgid "_Notification settings…"
 msgstr "_Paramètres de notification…"
 
@@ -122,7 +122,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Greffon de notification pour le tableau de bord Xfce"
 
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1099
+#: ../xfce4-notifyd-config/main.c:1197
 msgid "Xfce Notify Daemon"
 msgstr "Démon de notification Xfce"
 
@@ -135,115 +135,126 @@ msgstr "Option inconnue : « %s »\n"
 msgid "Unable to start notification daemon"
 msgstr "Impossible de démarrer le démon de notification"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:462
+#: ../xfce4-notifyd/xfce-notify-daemon.c:480
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Un autre démon de notification est en cours d’exécution, arrêt.\n"
 
-#: ../xfce4-notifyd-config/main.c:95
+#: ../xfce4-notifyd-config/main.c:104
 msgid "Notification Preview"
 msgstr "Aperçu des notifications"
 
-#: ../xfce4-notifyd-config/main.c:96
+#: ../xfce4-notifyd-config/main.c:105
 msgid "This is what notifications will look like"
 msgstr "Voici à quoi ressembleront les notifications"
 
-#: ../xfce4-notifyd-config/main.c:101
+#: ../xfce4-notifyd-config/main.c:110
 msgid "Button"
 msgstr "Bouton"
 
-#: ../xfce4-notifyd-config/main.c:108
+#: ../xfce4-notifyd-config/main.c:117
 msgid "Notification preview failed"
 msgstr "Impossible d’afficher un aperçu des notifications."
 
-#: ../xfce4-notifyd-config/main.c:506
+#: ../xfce4-notifyd-config/main.c:570
 #, c-format
-msgid "_Delete Application \"%s\""
-msgstr "_Supprimer l'application \"%s\""
+msgid ""
+"Are you sure you want to delete notification settings for application "
+"\"%s\"?"
+msgstr "Êtes-vous sûr de vouloir supprimer les paramètres de notification de l'application \"%s\"?"
 
-#: ../xfce4-notifyd-config/main.c:566
+#: ../xfce4-notifyd-config/main.c:574
+msgid "Delete"
+msgstr "Effacer"
+
+#: ../xfce4-notifyd-config/main.c:576
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
+msgid "Forget Application"
+msgstr "Oublier l'application"
+
+#: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
 msgstr "Applications non spécifiées"
 
-#: ../xfce4-notifyd-config/main.c:779
+#: ../xfce4-notifyd-config/main.c:883
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Seules les notifications urgentes sont actuellement affichées.</b>\nLa journalisation des notifications est %s."
 
-#: ../xfce4-notifyd-config/main.c:786
+#: ../xfce4-notifyd-config/main.c:890
 msgid "enabled"
 msgstr "activée"
 
-#: ../xfce4-notifyd-config/main.c:786
+#: ../xfce4-notifyd-config/main.c:890
 msgid "disabled"
 msgstr "désactivée"
 
-#: ../xfce4-notifyd-config/main.c:867
+#: ../xfce4-notifyd-config/main.c:971
 msgid "Yesterday and before"
 msgstr "Hier et antérieur"
 
-#: ../xfce4-notifyd-config/main.c:1101
+#: ../xfce4-notifyd-config/main.c:1199
 msgid "Settings daemon is unavailable"
 msgstr "Le démon des paramètres est indisponible"
 
-#: ../xfce4-notifyd-config/main.c:1191
+#: ../xfce4-notifyd-config/main.c:1299
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Il n’y a aucune application connue actuellement.</b></big>\nDès qu’une application envoie une notification\nelle apparaît dans cette liste."
 
-#: ../xfce4-notifyd-config/main.c:1233
+#: ../xfce4-notifyd-config/main.c:1341
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Journal vide</b></big>\nAucune notification enregistrée."
 
-#: ../xfce4-notifyd-config/main.c:1241
+#: ../xfce4-notifyd-config/main.c:1349
 msgid "Refresh"
 msgstr "Actualiser"
 
-#: ../xfce4-notifyd-config/main.c:1242
+#: ../xfce4-notifyd-config/main.c:1350
 msgid "Refresh the notification log"
 msgstr "Actualiser le journal des notifications"
 
-#: ../xfce4-notifyd-config/main.c:1248
+#: ../xfce4-notifyd-config/main.c:1356
 msgid "Open"
 msgstr "Ouvrir"
 
-#: ../xfce4-notifyd-config/main.c:1249
+#: ../xfce4-notifyd-config/main.c:1357
 msgid "Open the notification log in an external editor"
 msgstr "Ouvrir le journal des notifications dans un éditeur externe"
 
-#: ../xfce4-notifyd-config/main.c:1256
+#: ../xfce4-notifyd-config/main.c:1364
 msgid "Clear the notification log"
 msgstr "Effacer le journal des notifications"
 
-#: ../xfce4-notifyd-config/main.c:1278
+#: ../xfce4-notifyd-config/main.c:1386
 msgid "Display version information"
 msgstr "Afficher les informations de version"
 
-#: ../xfce4-notifyd-config/main.c:1279
+#: ../xfce4-notifyd-config/main.c:1387
 msgid "Settings manager socket"
 msgstr "Socket du gestionnaire de paramètres"
 
-#: ../xfce4-notifyd-config/main.c:1279
+#: ../xfce4-notifyd-config/main.c:1387
 msgid "SOCKET_ID"
 msgstr "ID_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:1289
+#: ../xfce4-notifyd-config/main.c:1397
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Taper « %s --help » pour les infos d’utilisation."
 
-#: ../xfce4-notifyd-config/main.c:1304
+#: ../xfce4-notifyd-config/main.c:1412
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Publié sous les termes de la GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1305
+#: ../xfce4-notifyd-config/main.c:1413
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Merci de signaler les bogues à %s.\n"
@@ -370,38 +381,60 @@ msgid "Show text with percent _values"
 msgstr "Afficher le texte avec des _valeurs en pourcentage"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "Le paramètre «Activer les sons d'événement» dans la boîte de dialogue Paramètres d'apparence doit être coché pour entendre les sons de notification"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "_Mute sounds"
+msgstr "_Désactiver les sons"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
 msgstr "Général"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Afficher ou bloquer les notifications par application</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
 msgstr "Applications"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log notifications"
 msgstr "Consigner les notifications"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log applications"
 msgstr "Consigner les applications"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log size limit"
 msgstr "Taille limite du journal"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr "Le nombre maximum d'entrées à conserver dans le journal. Veuillez noter qu'un journal volumineux peut entraîner des dégradations de performances. 0 signifie aucune limite."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "Log"
 msgstr "Journal"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
+msgid "Mute application"
+msgstr "Application de mise en sourdine"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
+msgid "Allow critical notifications"
+msgstr "Autoriser les notifications critiques"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
+msgid "Include in log"
+msgstr "Inclure dans le journal"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
