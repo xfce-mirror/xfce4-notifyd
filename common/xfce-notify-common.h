@@ -25,6 +25,7 @@
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
+#define EXCLUDED_FROM_LOG_APPLICATIONS_PROP "/applications/excluded-from-log"
 #define MUTE_SOUNDS_PROP                    "/mute-sounds"
 
 G_BEGIN_DECLS
