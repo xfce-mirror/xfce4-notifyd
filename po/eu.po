@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 00:50+0200\n"
+"POT-Creation-Date: 2023-01-22 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: beriain, 2020-2021\n"
 "Language-Team: Basque (http://www.transifex.com/xfce/xfce-apps/language/eu/)\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:555
+#: ../common/xfce-notify-log.c:581
 msgid "Do you really want to clear the notification log?"
 msgstr "Berri-emateen erregistroa garbitu nahi duzu?"
 
-#: ../common/xfce-notify-log.c:559
+#: ../common/xfce-notify-log.c:585
 msgid "Clear notification log"
 msgstr "Berri-emateen erregistroa garbitu"
 
-#: ../common/xfce-notify-log.c:562
+#: ../common/xfce-notify-log.c:588
 msgid "Cancel"
 msgstr "Utzi"
 
-#: ../common/xfce-notify-log.c:564 ../xfce4-notifyd-config/main.c:1118
+#: ../common/xfce-notify-log.c:590 ../xfce4-notifyd-config/main.c:1363
 msgid "Clear"
 msgstr "Garbitu"
 
-#: ../common/xfce-notify-log.c:580 ../common/xfce-notify-log.c:588
+#: ../common/xfce-notify-log.c:606 ../common/xfce-notify-log.c:614
 msgid "include icon cache"
 msgstr "ikonoen cache-a barne"
 
-#: ../panel-plugin/notification-plugin.c:227
+#: ../panel-plugin/notification-plugin.c:251
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
@@ -68,35 +68,39 @@ msgstr "It_xi"
 msgid "Number of notifications to show"
 msgstr "Erakusteko berri-emate kopurua"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:111
+#: ../panel-plugin/notification-plugin-dialogs.c:107
 msgid "Only show notifications from today"
 msgstr "Erakutsi gaurko berri-emateak soilik"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:124
+#: ../panel-plugin/notification-plugin-dialogs.c:116
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Ezkutatu 'Erregistroa garbitu' baieztapen leihoa"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:161
+#: ../panel-plugin/notification-plugin-dialogs.c:125
+msgid "Hide panel button when no unread notifications"
+msgstr ""
+
+#: ../panel-plugin/notification-plugin-dialogs.c:158
 msgid "This is the notification plugin"
 msgstr "Hau berri-emate plugina da"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:163
+#: ../panel-plugin/notification-plugin-dialogs.c:160
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:140
+#: ../panel-plugin/notification-plugin-log.c:141
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>Ez gogaitu</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:336
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "No notifications"
 msgstr "Berri-ematerik ez"
 
-#: ../panel-plugin/notification-plugin-log.c:357
+#: ../panel-plugin/notification-plugin-log.c:343
 msgid "_Clear log"
 msgstr "Erregistroa garbitu"
 
-#: ../panel-plugin/notification-plugin-log.c:365
+#: ../panel-plugin/notification-plugin-log.c:351
 msgid "_Notification settings…"
 msgstr "Berri-emate ezarpenak…"
 
@@ -108,124 +112,140 @@ msgstr "Berri-emate plugina"
 msgid "Notification plugin for the Xfce panel"
 msgstr "Berri-emate plugina Xfce panelerako"
 
-#: ../xfce4-notifyd/main.c:53 ../xfce4-notifyd/main.c:63
-#: ../xfce4-notifyd-config/main.c:963
+#: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
+#: ../xfce4-notifyd-config/main.c:1197
 msgid "Xfce Notify Daemon"
 msgstr "Xfce berri-emate deabrua"
 
-#: ../xfce4-notifyd/main.c:56
+#: ../xfce4-notifyd/main.c:61
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "\"%s\" aukera ezezaguna\n"
 
-#: ../xfce4-notifyd/main.c:65
+#: ../xfce4-notifyd/main.c:79
 msgid "Unable to start notification daemon"
 msgstr "Ezin da berri-emate deabrua abiarazi"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:405
+#: ../xfce4-notifyd/xfce-notify-daemon.c:480
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Beste berri-emate deabru bat martxan da, irteten\n"
 
-#: ../xfce4-notifyd-config/main.c:86
+#: ../xfce4-notifyd-config/main.c:104
 msgid "Notification Preview"
 msgstr "Berri-emate aurreikuspena"
 
-#: ../xfce4-notifyd-config/main.c:87
+#: ../xfce4-notifyd-config/main.c:105
 msgid "This is what notifications will look like"
 msgstr "Hau da berri-emate batek izango duen itxura"
 
-#: ../xfce4-notifyd-config/main.c:92
+#: ../xfce4-notifyd-config/main.c:110
 msgid "Button"
 msgstr "Behean"
 
-#: ../xfce4-notifyd-config/main.c:99
+#: ../xfce4-notifyd-config/main.c:117
 msgid "Notification preview failed"
 msgstr "Berri-emate aurreikuspenak huts egin du"
 
-#: ../xfce4-notifyd-config/main.c:470
+#: ../xfce4-notifyd-config/main.c:570
+#, c-format
+msgid ""
+"Are you sure you want to delete notification settings for application "
+"\"%s\"?"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:574
+msgid "Delete"
+msgstr "Ezabatu"
+
+#: ../xfce4-notifyd-config/main.c:576
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
+msgid "Forget Application"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:651
+#: ../xfce4-notifyd-config/main.c:883
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Orain premiazko berri-emateak erakutsiko dira soilik.</b>\nBerri-emateen erregistroa %s dago."
 
-#: ../xfce4-notifyd-config/main.c:658
+#: ../xfce4-notifyd-config/main.c:890
 msgid "enabled"
 msgstr "gaituta"
 
-#: ../xfce4-notifyd-config/main.c:658
+#: ../xfce4-notifyd-config/main.c:890
 msgid "disabled"
 msgstr "ezgaituta"
 
-#: ../xfce4-notifyd-config/main.c:738
+#: ../xfce4-notifyd-config/main.c:971
 msgid "Yesterday and before"
 msgstr "Atzo eta lehenago"
 
-#: ../xfce4-notifyd-config/main.c:965
+#: ../xfce4-notifyd-config/main.c:1199
 msgid "Settings daemon is unavailable"
 msgstr "Ezarpen deabrua ez dago erabilgarri"
 
-#: ../xfce4-notifyd-config/main.c:1051
+#: ../xfce4-notifyd-config/main.c:1299
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Une honetan ez dago aplikazio ezagunik.</b></big>\nAplikazioren batek berri-emateren bat bidaltzen duen\nbezain azkar zerrenda honetan agertuko da."
 
-#: ../xfce4-notifyd-config/main.c:1096
+#: ../xfce4-notifyd-config/main.c:1341
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Erregistroa hutsik</b></big>\nEz da berri-ematerik erregistratu oraindik."
 
-#: ../xfce4-notifyd-config/main.c:1104
+#: ../xfce4-notifyd-config/main.c:1349
 msgid "Refresh"
 msgstr "Freskatu"
 
-#: ../xfce4-notifyd-config/main.c:1105
+#: ../xfce4-notifyd-config/main.c:1350
 msgid "Refresh the notification log"
 msgstr "Berri-emateen erregistroa freskatu"
 
-#: ../xfce4-notifyd-config/main.c:1111
+#: ../xfce4-notifyd-config/main.c:1356
 msgid "Open"
 msgstr "Ireki"
 
-#: ../xfce4-notifyd-config/main.c:1112
+#: ../xfce4-notifyd-config/main.c:1357
 msgid "Open the notification log in an external editor"
 msgstr "Berri-emateen erregistroa kanpoko editore batean ireki"
 
-#: ../xfce4-notifyd-config/main.c:1119
+#: ../xfce4-notifyd-config/main.c:1364
 msgid "Clear the notification log"
 msgstr "Berri-emateen erregistroa garbitu"
 
-#: ../xfce4-notifyd-config/main.c:1141
+#: ../xfce4-notifyd-config/main.c:1386
 msgid "Display version information"
 msgstr "Bistarazi bertsio argibideak"
 
-#: ../xfce4-notifyd-config/main.c:1142
+#: ../xfce4-notifyd-config/main.c:1387
 msgid "Settings manager socket"
 msgstr "Ezarpena kudeatzaile socket-a"
 
-#: ../xfce4-notifyd-config/main.c:1142
+#: ../xfce4-notifyd-config/main.c:1387
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:1152
+#: ../xfce4-notifyd-config/main.c:1397
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Idatzi '%s --help' laguntzarentzat."
 
-#: ../xfce4-notifyd-config/main.c:1167
+#: ../xfce4-notifyd-config/main.c:1412
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera argitaratua\n"
 
-#: ../xfce4-notifyd-config/main.c:1168
+#: ../xfce4-notifyd-config/main.c:1413
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
@@ -342,38 +362,70 @@ msgid "Show notifications on"
 msgstr "Erakutsi berri-emateak"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
+msgid ""
+"Show the notification summary and body when the notification is a percent "
+"value, such as audio volume or screen brightness"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+msgid "Show text with percent _values"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "_Mute sounds"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
 msgstr "Orokorra"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Erakutsi edo blokeatu aplikazio bakoitzeko berri-emateak</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
 msgstr "Aplikazioak"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log notifications"
 msgstr "Berri-emateak erregistratu"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log applications"
 msgstr "Aplikazioak erregistratu"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log size limit"
 msgstr "Erregistroaren neurriaren muga"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "Log"
 msgstr "Erregistroa"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
+msgid "Mute application"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
+msgid "Allow critical notifications"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
+msgid "Include in log"
+msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
