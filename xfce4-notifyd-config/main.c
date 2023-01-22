@@ -64,7 +64,8 @@ typedef struct
 
 typedef struct
 {
-    const gchar *app_name;
+    const gchar *app_id;
+    gchar *app_name;
     gint count;
 } LogAppCount;
 
@@ -485,28 +486,34 @@ xfce_notify_sort_apps_in_log (gconstpointer a, gconstpointer b)
     const LogAppCount *entry1 = *((LogAppCount **) a);
     const LogAppCount *entry2 = *((LogAppCount **) b);
 
-    return entry2->count - entry1->count;
+    gint count_diff = entry2->count - entry1->count;
+    if (count_diff != 0) {
+        return count_diff;
+    } else {
+        return g_utf8_collate(entry1->app_name, entry2->app_name);
+    }
 }
 
 static GPtrArray *
 xfce_notify_count_apps_in_log (GKeyFile *notify_log,
                                GPtrArray *known_applications)
 {
-    GPtrArray *log_stats = NULL;
+    GPtrArray *log_stats = g_ptr_array_new();
 
-    if (notify_log != NULL) {
-        if (known_applications != NULL) {
-            GHashTable *counts = g_hash_table_new(g_str_hash, g_str_equal);
-            gsize num_groups = 0;
-            gchar **groups = g_key_file_get_groups (notify_log, &num_groups);
-            GList *keys;
+    if (known_applications != NULL) {
+        GHashTable *counts = g_hash_table_new(g_str_hash, g_str_equal);
+        GList *keys;
 
-            for (guint i = 0; i < known_applications->len; ++i) {
-                GValue *known_application = g_ptr_array_index(known_applications, i);
-                if (G_VALUE_HOLDS_STRING(known_application)) {
-                    g_hash_table_insert(counts, (gchar *)g_value_get_string(known_application), GUINT_TO_POINTER(0));
-                }
+        for (guint i = 0; i < known_applications->len; ++i) {
+            GValue *known_application = g_ptr_array_index(known_applications, i);
+            if (G_VALUE_HOLDS_STRING(known_application)) {
+                g_hash_table_insert(counts, (gchar *)g_value_get_string(known_application), GUINT_TO_POINTER(0));
             }
+        }
+
+        if (notify_log != NULL) {
+            gsize num_groups = 0;
+            gchar **groups = g_key_file_get_groups(notify_log, &num_groups);
 
             for (gsize i = 0; i < num_groups; ++i) {
                 gchar *app_name = g_key_file_get_string(notify_log, groups[i], "app_name", NULL);
@@ -515,20 +522,29 @@ xfce_notify_count_apps_in_log (GKeyFile *notify_log,
                     g_hash_table_replace(counts, app_name, GUINT_TO_POINTER(GPOINTER_TO_UINT(g_hash_table_lookup(counts, app_name)) + 1));
                 }
             }
-
-            log_stats = g_ptr_array_new ();
-            keys = g_hash_table_get_keys(counts);
-            for (GList *l = keys; l != NULL; l = l->next) {
-                LogAppCount *entry = g_new0(LogAppCount, 1);
-                entry->app_name = l->data;
-                entry->count =  GPOINTER_TO_UINT(g_hash_table_lookup(counts, entry->app_name));
-                g_ptr_array_add(log_stats, entry);
-            }
-            g_list_free(keys);
-
-            g_hash_table_destroy(counts);
-            g_ptr_array_sort(log_stats, xfce_notify_sort_apps_in_log);
         }
+
+        keys = g_hash_table_get_keys(counts);
+        for (GList *l = keys; l != NULL; l = l->next) {
+            LogAppCount *entry = g_new0(LogAppCount, 1);
+            const gchar *app_id = l->data;
+            gchar *app_name;
+
+            app_name = notify_get_from_desktop_file(app_id, G_KEY_FILE_DESKTOP_KEY_NAME);
+            if (app_name == NULL) {
+                /* Fallback: Just set the name provided by the application */
+                app_name = g_strdup(app_id);
+            }
+
+            entry->app_id = app_id;
+            entry->app_name = app_name;
+            entry->count = GPOINTER_TO_UINT(g_hash_table_lookup(counts, app_id));
+            g_ptr_array_add(log_stats, entry);
+        }
+        g_list_free(keys);
+
+        g_hash_table_destroy(counts);
+        g_ptr_array_sort(log_stats, xfce_notify_sort_apps_in_log);
     }
 
     return log_stats;
@@ -604,6 +620,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                                             const gchar *const *denied_critical_applications,
                                             const gchar *const *excluded_from_log_applications,
                                             const gchar *known_application,
+                                            const gchar *app_name,
                                             gint count)
 {
     GtkBuilder *builder;
@@ -619,7 +636,6 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     guint i;
     gint icon_width, icon_height, icon_size;
     gint scale_factor = gtk_widget_get_scale_factor(known_applications_listbox);
-    gchar *app_name = NULL;
     gchar *desktop_icon_name = NULL;
 
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
@@ -730,16 +746,8 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
             g_object_unref(gicon);
         }
 
-        /* Try to find the correct application name based on the desktop file */
-        app_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_NAME);
-        if (app_name) {
-            signal_data->known_application_name = g_strdup(app_name);
-            gtk_label_set_text(GTK_LABEL(app_label), app_name);
-        } else {
-            /* Fallback: Just set the name provided by the application */
-            signal_data->known_application_name = g_strdup(known_application);
-            gtk_label_set_text(GTK_LABEL(app_label), known_application);
-        }
+        signal_data->known_application_name = g_strdup(app_name);
+        gtk_label_set_text(GTK_LABEL(app_label), app_name);
 
         /* Set correct initial value as to whether an application is muted */
         if (muted_applications != NULL) {
@@ -782,7 +790,6 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                                (GDestroyNotify)known_application_signal_data_free);
     }
 
-    g_free(app_name);
     g_free(desktop_icon_name);
 }
 
@@ -799,7 +806,6 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GPtrArray *muted_applications;
     gchar **denied_critical_applications;
     gchar **excluded_from_log_applications;
-    GValue *known_application;
     GKeyFile *notify_log;
     guint i;
 
@@ -816,36 +822,24 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     if (known_applications != NULL) {
         /* Sort the apps based on their appearance in the log */
         notify_log = xfce_notify_log_get();
-        if (notify_log) {
-            known_applications_sorted = xfce_notify_count_apps_in_log (notify_log, known_applications);
-            g_key_file_unref (notify_log);
+        known_applications_sorted = xfce_notify_count_apps_in_log(notify_log, known_applications);
+        g_key_file_unref (notify_log);
 
-            for (i = 0; i < known_applications_sorted->len; i++) {
-                LogAppCount *application;
-                application = g_ptr_array_index (known_applications_sorted, i);
-                xfce4_notifyd_known_application_insert_row (channel,
-                                                            known_applications_listbox,
-                                                            muted_applications,
-                                                            (const gchar *const *)denied_critical_applications,
-                                                            (const gchar *const *)excluded_from_log_applications,
-                                                            application->app_name,
-                                                            application->count);
-            }
-            g_ptr_array_free (known_applications_sorted, TRUE);
+        for (i = 0; i < known_applications_sorted->len; i++) {
+            LogAppCount *application = g_ptr_array_index(known_applications_sorted, i);
+            xfce4_notifyd_known_application_insert_row(channel,
+                                                       known_applications_listbox,
+                                                       muted_applications,
+                                                       (const gchar *const *)denied_critical_applications,
+                                                       (const gchar *const *)excluded_from_log_applications,
+                                                       application->app_id,
+                                                       application->app_name,
+                                                       application->count);
+            g_free(application->app_name);
         }
-        else {
-            for (i = 0; i < known_applications->len; i++) {
-                known_application = g_ptr_array_index (known_applications, i);
-                xfce4_notifyd_known_application_insert_row (channel,
-                                                            known_applications_listbox,
-                                                            muted_applications,
-                                                            (const gchar *const *)denied_critical_applications,
-                                                            (const gchar *const *)excluded_from_log_applications,
-                                                            g_value_get_string (known_application),
-                                                            0);
-            }
-        }
+        g_ptr_array_free(known_applications_sorted, TRUE);
     }
+
     xfconf_array_free (known_applications);
     xfconf_array_free (muted_applications);
     g_strfreev(denied_critical_applications);
