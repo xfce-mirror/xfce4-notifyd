@@ -88,6 +88,7 @@ struct _XfceNotifyDaemon
     guint32 last_notification_id;
 
     GHashTable *denied_critical_notifications;
+    GHashTable *excluded_from_log;
 
 #ifdef ENABLE_SOUND
     gboolean mute_sounds;
@@ -511,6 +512,7 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
     xndaemon->css_provider = gtk_css_provider_new ();
 
     xndaemon->denied_critical_notifications = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+    xndaemon->excluded_from_log = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 }
 
 static void
@@ -565,6 +567,7 @@ xfce_notify_daemon_finalize(GObject *obj)
         g_object_unref(xndaemon->settings);
 
     g_hash_table_destroy(xndaemon->denied_critical_notifications);
+    g_hash_table_destroy(xndaemon->excluded_from_log);
 
     G_OBJECT_CLASS(xfce_notify_daemon_parent_class)->finalize(obj);
 }
@@ -1251,8 +1254,10 @@ notify_notify (XfceNotifyGBus *skeleton,
             application_is_muted == TRUE)
         {
             /* Notifications marked as transient will never be logged */
-            if (xndaemon->notification_log == TRUE &&
-                transient == FALSE) {
+            if (xndaemon->notification_log == TRUE
+                && transient == FALSE
+                && !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
+            {
                 /* Either log in DND mode or always for muted apps */
                 if ((xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE) ||
                     xndaemon->log_level == 1)
@@ -1350,11 +1355,14 @@ notify_notify (XfceNotifyGBus *skeleton,
     if (xndaemon->notification_log == TRUE &&
         xndaemon->log_level == 1 &&
         xndaemon->log_level_apps <= 1 &&
-        transient == FALSE)
+        transient == FALSE &&
+        !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
+    {
         xfce_notify_log_insert (new_app_name, summary, body,
                                 image_data, image_path, app_icon,
                                 desktop_id, expire_timeout, actions,
                                 xndaemon->log_max_size);
+    }
 
     xfce_notify_window_set_icon_only(window, x_canonical);
 
@@ -1496,8 +1504,20 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                      G_VALUE_TYPE(value) == G_TYPE_STRING
                                      ? g_value_get_string(value)
                                      : "Default");
-    } else if (g_strcmp0(property, DENIED_CRITICAL_NOTIFICATIONS_PROP) == 0) {
-        g_hash_table_remove_all(xndaemon->denied_critical_notifications);
+    } else if (g_strcmp0(property, DENIED_CRITICAL_NOTIFICATIONS_PROP) == 0
+               || g_strcmp0(property, EXCLUDED_FROM_LOG_APPLICATIONS_PROP) == 0)
+    {
+        GHashTable *hashtable;
+
+        if (g_strcmp0(property, DENIED_CRITICAL_NOTIFICATIONS_PROP) == 0) {
+            hashtable = xndaemon->denied_critical_notifications;
+        } else if (g_strcmp0(property, EXCLUDED_FROM_LOG_APPLICATIONS_PROP) == 0) {
+            hashtable = xndaemon->excluded_from_log;
+        } else {
+            return;
+        }
+
+        g_hash_table_remove_all(hashtable);
 
         if (G_VALUE_TYPE(value) == G_TYPE_PTR_ARRAY) {
             GPtrArray *strs = g_value_get_boxed(value);
@@ -1505,7 +1525,7 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
             for (guint i = 0; i < strs->len; ++i) {
                 GValue *str_value = g_ptr_array_index(strs, i);
                 if (G_VALUE_HOLDS_STRING(str_value)) {
-                    g_hash_table_insert(xndaemon->denied_critical_notifications,
+                    g_hash_table_insert(hashtable,
                                         g_value_dup_string(str_value),
                                         GUINT_TO_POINTER(TRUE));
                 }
@@ -1579,6 +1599,16 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
         g_free(strs);  // hash table owns the elements now
         strs = NULL;
     }
+
+    strs = xfconf_channel_get_string_list(xndaemon->settings, EXCLUDED_FROM_LOG_APPLICATIONS_PROP);
+    if (strs != NULL) {
+        for (gint i = 0; strs[i] != NULL; ++i) {
+            g_hash_table_insert(xndaemon->excluded_from_log, strs[i], GUINT_TO_POINTER(TRUE));
+        }
+        g_free(strs);  // hash table owns the elements now
+        strs = NULL;
+    }
+
 
     for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
         guint8 *loc = ((guint8 *)xndaemon) + settings[i].offset;
