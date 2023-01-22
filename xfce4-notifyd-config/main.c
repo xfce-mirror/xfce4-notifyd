@@ -77,6 +77,7 @@ typedef struct
     GtkWidget *app_label;
     GtkWidget *mute_switch;
     GtkWidget *allow_criticals;
+    GtkWidget *include_in_log;
 } KnownApplicationSignalData;
 
 static void handle_app_switch_property_changed(XfconfChannel *channel,
@@ -410,6 +411,14 @@ xfce4_notifyd_allow_criticals_switch_activated(GtkSwitch *sw,
 }
 
 static void
+xfce4_notifyd_include_in_log_switch_activated(GtkSwitch *sw,
+                                              gboolean state,
+                                              KnownApplicationSignalData *signal_data)
+{
+    handle_app_switch_widget_toggled(signal_data, EXCLUDED_FROM_LOG_APPLICATIONS_PROP, !state);
+}
+
+static void
 handle_app_switch_property_changed(XfconfChannel *channel,
                                    const gchar *property_name,
                                    const GValue *value,
@@ -429,6 +438,10 @@ handle_app_switch_property_changed(XfconfChannel *channel,
     } else if (g_strcmp0(property_name, DENIED_CRITICAL_NOTIFICATIONS_PROP) == 0) {
         switch_to_set = signal_data->allow_criticals;
         callback_to_block = xfce4_notifyd_allow_criticals_switch_activated;
+        reverse_sense = TRUE;
+    } else if (g_strcmp0(property_name, EXCLUDED_FROM_LOG_APPLICATIONS_PROP) == 0) {
+        switch_to_set = signal_data->include_in_log;
+        callback_to_block = xfce4_notifyd_include_in_log_switch_activated;
         reverse_sense = TRUE;
     } else {
         return;
@@ -589,6 +602,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                                             GtkWidget *known_applications_listbox,
                                             GPtrArray *muted_applications,
                                             const gchar *const *denied_critical_applications,
+                                            const gchar *const *excluded_from_log_applications,
                                             const gchar *known_application,
                                             gint count)
 {
@@ -600,6 +614,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     GtkWidget *icon;
     GtkWidget *mute_switch;
     GtkWidget *allow_criticals;
+    GtkWidget *include_in_log;
     GtkWidget *delete_button;
     guint i;
     gint icon_width, icon_height, icon_size;
@@ -622,6 +637,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
     log_count_label = GTK_WIDGET(gtk_builder_get_object(builder, "app_log_count"));
     mute_switch = GTK_WIDGET(gtk_builder_get_object(builder, "app_mute"));
     allow_criticals = GTK_WIDGET(gtk_builder_get_object(builder, "allow_critical_notifications"));
+    include_in_log = GTK_WIDGET(gtk_builder_get_object(builder, "include_in_log"));
     delete_button = GTK_WIDGET(gtk_builder_get_object(builder, "delete_app"));
 
     row = gtk_list_box_row_new();
@@ -645,6 +661,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
 
         gtk_widget_set_sensitive(mute_switch, FALSE);
         gtk_widget_set_sensitive(allow_criticals, FALSE);
+        gtk_widget_set_sensitive(include_in_log, FALSE);
         gtk_widget_set_sensitive(delete_button, FALSE);
     } else {
         KnownApplicationSignalData *signal_data = g_slice_new0(KnownApplicationSignalData);
@@ -655,6 +672,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         signal_data->app_label = app_label;
         signal_data->mute_switch = mute_switch;
         signal_data->allow_criticals = allow_criticals;
+        signal_data->include_in_log = include_in_log;
 
         /* Try to find the correct icon based on the desktop file */
         desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
@@ -748,6 +766,14 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         g_signal_connect(channel, "property-changed::" DENIED_CRITICAL_NOTIFICATIONS_PROP,
                          G_CALLBACK(handle_app_switch_property_changed), signal_data);
 
+        gtk_switch_set_active(GTK_SWITCH(include_in_log),
+                              excluded_from_log_applications == NULL
+                              || !g_strv_contains(excluded_from_log_applications, known_application));
+        g_signal_connect(include_in_log, "state-set",
+                         G_CALLBACK(xfce4_notifyd_include_in_log_switch_activated), signal_data);
+        g_signal_connect(channel, "property-changed::" EXCLUDED_FROM_LOG_APPLICATIONS_PROP,
+                         G_CALLBACK(handle_app_switch_property_changed), signal_data);
+
         g_signal_connect(delete_button, "clicked",
                          G_CALLBACK(known_application_delete_clicked), signal_data);
 
@@ -772,6 +798,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GPtrArray *known_applications_sorted;
     GPtrArray *muted_applications;
     gchar **denied_critical_applications;
+    gchar **excluded_from_log_applications;
     GValue *known_application;
     GKeyFile *notify_log;
     guint i;
@@ -779,6 +806,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
     denied_critical_applications = xfconf_channel_get_string_list(channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
+    excluded_from_log_applications = xfconf_channel_get_string_list(channel, EXCLUDED_FROM_LOG_APPLICATIONS_PROP);
 
     /* TODO: Check the old list versus the new one and only add/remove rows
              as needed instead instead of cleaning up the whole widget */
@@ -799,6 +827,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                                                             known_applications_listbox,
                                                             muted_applications,
                                                             (const gchar *const *)denied_critical_applications,
+                                                            (const gchar *const *)excluded_from_log_applications,
                                                             application->app_name,
                                                             application->count);
             }
@@ -811,6 +840,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                                                             known_applications_listbox,
                                                             muted_applications,
                                                             (const gchar *const *)denied_critical_applications,
+                                                            (const gchar *const *)excluded_from_log_applications,
                                                             g_value_get_string (known_application),
                                                             0);
             }
@@ -819,6 +849,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     xfconf_array_free (known_applications);
     xfconf_array_free (muted_applications);
     g_strfreev(denied_critical_applications);
+    g_strfreev(excluded_from_log_applications);
     gtk_widget_show_all (known_applications_listbox);
 }
 
