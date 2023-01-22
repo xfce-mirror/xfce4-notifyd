@@ -1277,6 +1277,11 @@ notify_notify (XfceNotifyGBus *skeleton,
                 g_variant_unref (image_data);
             if (desktop_id)
                 g_free (desktop_id);
+#ifdef ENABLE_SOUND
+            if (sound_props != NULL) {
+                ca_proplist_destroy(sound_props);
+            }
+#endif
             return TRUE;
         }
     }
