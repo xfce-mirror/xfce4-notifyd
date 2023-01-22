@@ -153,18 +153,16 @@ notify_get_from_desktop_file (const gchar *desktop_file, const gchar *key)
 
         if (matches != NULL) {
             for (gsize i = 0; matches[i] != NULL; ++i) {
-                for (gsize j = 0; matches[i][j] != NULL; ++j) {
-                    value = notify_get_from_desktop_file_resolved(matches[i][j], key);
-                    if (value != NULL) {
-                        break;
+                if (value == NULL) {
+                    for (gsize j = 0; matches[i][j] != NULL; ++j) {
+                        value = notify_get_from_desktop_file_resolved(matches[i][j], key);
+                        if (value != NULL) {
+                            break;
+                        }
                     }
                 }
 
                 g_strfreev(matches[i]);
-
-                if (value != NULL) {
-                    break;
-                }
             }
 
             g_free(matches);
