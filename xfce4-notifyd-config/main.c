@@ -42,6 +42,7 @@
 #include <common/xfce-notify-log.h>
 
 #include "xfce4-notifyd-config.ui.h"
+#include "xfce4-notifyd-config-known-app.ui.h"
 
 #define LOG_DISPLAY_LIMIT             100
 
@@ -70,11 +71,18 @@ typedef struct
 typedef struct
 {
     XfconfChannel *channel;
-    GtkWidget *listbox;
-    GtkWidget *row;
     gchar *known_application;
     gchar *known_application_name;
-} KnownApplicationMenuData;
+
+    GtkWidget *app_label;
+    GtkWidget *mute_switch;
+    GtkWidget *allow_criticals;
+} KnownApplicationSignalData;
+
+static void handle_app_switch_property_changed(XfconfChannel *channel,
+                                               const gchar *property_name,
+                                               const GValue *value,
+                                               KnownApplicationSignalData *signal_data);
 
 static void
 xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
@@ -297,81 +305,157 @@ display_header_func (GtkListBoxRow *row,
     }
 }
 
-static void
-xfce4_notifyd_mute_application (GtkListBox *known_applications_listbox,
-                                GtkListBoxRow *selected_application_row,
-                                XfconfChannel *channel)
+static gboolean
+xfce_g_strv_remove(gchar **strv,
+                   const gchar *to_remove)
 {
-    GtkWidget *application_eventbox;
-    GtkWidget *application_box;
-    GtkWidget *application_label;
-    GtkWidget *mute_switch;
-    gboolean muted;
-    GPtrArray *muted_applications;
-    GValue *val;
-    guint i;
-    const gchar *application_name;
-    gchar *new_app_name;
+    gint i;
 
-    muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
-    if (muted_applications == NULL)
-        muted_applications = g_ptr_array_new ();
-
-    application_eventbox = gtk_bin_get_child(GTK_BIN(selected_application_row));
-    application_box = gtk_bin_get_child(GTK_BIN(application_eventbox));
-    application_label = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 1));
-    application_name = gtk_label_get_text (GTK_LABEL(application_label));
-    mute_switch = GTK_WIDGET (g_list_nth_data (gtk_container_get_children (GTK_CONTAINER (application_box)), 3));
-    muted = gtk_switch_get_active (GTK_SWITCH (mute_switch));
-
-    val = g_new0 (GValue, 1);
-    g_value_init (val, G_TYPE_STRING);
-    new_app_name = g_strdup (application_name);
-    g_value_take_string (val, new_app_name);
-    if (muted == TRUE && muted_applications != NULL) {
-        for (i = 0; i < muted_applications->len; i++) {
-            GValue *muted_application;
-            muted_application = g_ptr_array_index (muted_applications, i);
-            if (g_str_match_string (g_value_get_string (val), g_value_get_string (muted_application), FALSE) == TRUE) {
-                if (!g_ptr_array_remove_index (muted_applications, i))
-                    g_warning ("Could not remove %s from the list of muted applications. %i", new_app_name, i);
-                break;
-            }
-
+    for (i = 0; strv[i] != NULL; ++i) {
+        if (strcmp(strv[i], to_remove) == 0) {
+            break;
         }
-
     }
-    else
-        g_ptr_array_add (muted_applications, val);
 
-    if (!xfconf_channel_set_arrayv (channel, MUTED_APPLICATIONS_PROP, muted_applications))
-        g_warning ("Could not add %s to the list of muted applications.", new_app_name);
+    if (G_LIKELY(strv[i] != NULL)) {
+        gint remaining = g_strv_length(&strv[i+1]);
 
-    xfconf_array_free (muted_applications);
+        g_free(strv[i]);
+
+        if (remaining > 0) {
+            memmove(&strv[i], &strv[i+1], remaining * sizeof(gchar *));
+        }
+        strv[i+remaining] = NULL;
+
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 static void
-xfce4_notifyd_switch_activated (GtkSwitch *mute_switch,
-                                gboolean state,
-                                gpointer user_data)
+xfce_add_to_string_list_property(XfconfChannel *channel,
+                                 const gchar *property_name,
+                                 gchar **strv,
+                                 const gchar *to_add)
 {
-    XfconfChannel *channel = user_data;
-    GtkWidget *row_box;
-    GtkWidget *selected_application_row = NULL;
-    GtkWidget *known_applications_listbox;
-
-    g_return_if_fail (XFCONF_IS_CHANNEL (channel));
-
-    row_box = gtk_widget_get_parent (GTK_WIDGET (mute_switch));
-    selected_application_row = gtk_widget_get_parent (GTK_WIDGET (row_box));
-    while (selected_application_row != NULL && !GTK_IS_LIST_BOX_ROW(selected_application_row)) {
-        selected_application_row = gtk_widget_get_parent(selected_application_row);
+    if (strv == NULL || !g_strv_contains((const gchar *const *)strv, to_add)) {
+        gint len = strv == NULL ? 0 : g_strv_length(strv);
+        gchar **new_strv = g_new(gchar *, len + 2);
+        if (len > 0) {
+            memcpy(new_strv, strv, len * sizeof(gchar *));
+        }
+        new_strv[len] = (gchar *)to_add;
+        new_strv[len + 1] = NULL;
+        xfconf_channel_set_string_list(channel, property_name, (const gchar *const *)new_strv);
+        g_free(new_strv);
     }
-    if (selected_application_row != NULL) {
-        known_applications_listbox = gtk_widget_get_parent (GTK_WIDGET (selected_application_row));
-        xfce4_notifyd_mute_application (GTK_LIST_BOX (known_applications_listbox),
-                                        GTK_LIST_BOX_ROW (selected_application_row),
-                                        channel);
+}
+
+static void
+xfce_remove_from_string_list_property(XfconfChannel *channel,
+                                      const gchar *property_name,
+                                      gchar **strv,
+                                      const gchar *to_remove)
+{
+    if (strv != NULL) {
+        if (xfce_g_strv_remove(strv, to_remove)) {
+            if (strv[0] == NULL) {
+                xfconf_channel_reset_property(channel, property_name, FALSE);
+            } else {
+                xfconf_channel_set_string_list(channel, property_name, (const gchar *const *)strv);
+            }
+        }
+    }
+}
+
+static void
+handle_app_switch_widget_toggled(KnownApplicationSignalData *signal_data,
+                                 const gchar *property_name,
+                                 gboolean add_to_list)
+{
+    gchar **strs = xfconf_channel_get_string_list(signal_data->channel, property_name);
+
+    g_signal_handlers_block_by_func(signal_data->channel,
+                                    handle_app_switch_property_changed,
+                                    signal_data);
+    if (add_to_list) {
+        xfce_add_to_string_list_property(signal_data->channel, property_name, strs, signal_data->known_application);
+    } else {
+        xfce_remove_from_string_list_property(signal_data->channel, property_name, strs, signal_data->known_application);
+    }
+    g_signal_handlers_unblock_by_func(signal_data->channel,
+                                      handle_app_switch_property_changed,
+                                      signal_data);
+
+
+    g_strfreev(strs);
+}
+
+static void
+xfce4_notifyd_mute_switch_activated(GtkSwitch *sw,
+                                    gboolean state,
+                                    KnownApplicationSignalData *signal_data)
+{
+    handle_app_switch_widget_toggled(signal_data, MUTED_APPLICATIONS_PROP, state);
+    gtk_widget_set_sensitive(signal_data->app_label, !state);
+}
+
+static void
+xfce4_notifyd_allow_criticals_switch_activated(GtkSwitch *sw,
+                                               gboolean state,
+                                               KnownApplicationSignalData *signal_data)
+{
+    handle_app_switch_widget_toggled(signal_data, DENIED_CRITICAL_NOTIFICATIONS_PROP, !state);
+}
+
+static void
+handle_app_switch_property_changed(XfconfChannel *channel,
+                                   const gchar *property_name,
+                                   const GValue *value,
+                                   KnownApplicationSignalData *signal_data)
+{
+    gboolean found = FALSE;
+    GtkWidget *switch_to_set;
+    GtkWidget *label_to_sensitize = NULL;
+    gpointer callback_to_block;
+    gboolean reverse_sense;
+
+    if (g_strcmp0(property_name, MUTED_APPLICATIONS_PROP) == 0) {
+        switch_to_set = signal_data->mute_switch;
+        label_to_sensitize = signal_data->app_label;
+        callback_to_block = xfce4_notifyd_mute_switch_activated;
+        reverse_sense = FALSE;
+    } else if (g_strcmp0(property_name, DENIED_CRITICAL_NOTIFICATIONS_PROP) == 0) {
+        switch_to_set = signal_data->allow_criticals;
+        callback_to_block = xfce4_notifyd_allow_criticals_switch_activated;
+        reverse_sense = TRUE;
+    } else {
+        return;
+    }
+
+    if (G_VALUE_HOLDS(value, G_TYPE_PTR_ARRAY)) {
+        GPtrArray *strs = g_value_get_boxed(value);
+        for (guint i = 0; i < strs->len; ++i) {
+            const GValue *str = g_ptr_array_index(strs, i);
+            if (G_VALUE_HOLDS_STRING(str)) {
+                if (g_strcmp0(g_value_get_string(str), signal_data->known_application) == 0) {
+                    found = TRUE;
+                    break;
+                }
+            }
+        }
+    }
+
+    g_signal_handlers_block_by_func(signal_data->mute_switch,
+                                    callback_to_block,
+                                    signal_data);
+    gtk_switch_set_active(GTK_SWITCH(switch_to_set), reverse_sense ? !found : found);
+    g_signal_handlers_unblock_by_func(signal_data->mute_switch,
+                                      callback_to_block,
+                                      signal_data);
+    if (label_to_sensitize != NULL) {
+        gtk_widget_set_sensitive(label_to_sensitize, reverse_sense ? found : !found);
     }
 }
 
@@ -444,156 +528,47 @@ xfce_notify_count_apps_in_log (GKeyFile *notify_log,
 }
 
 static void
-known_application_menu_data_free(KnownApplicationMenuData *menu_data)
+known_application_signal_data_free(KnownApplicationSignalData *signal_data)
 {
-    g_object_unref(menu_data->channel);
-    g_object_unref(menu_data->listbox);
-    g_free(menu_data->known_application);
-    g_free(menu_data->known_application_name);
-    g_slice_free(KnownApplicationMenuData, menu_data);
-}
+    g_signal_handlers_disconnect_by_func(signal_data->channel,
+                                         handle_app_switch_property_changed,
+                                         signal_data);
 
-static gboolean
-xfce_g_strv_remove(gchar **strv,
-                   const gchar *to_remove)
-{
-    gint i;
-
-    for (i = 0; strv[i] != NULL; ++i) {
-        if (strcmp(strv[i], to_remove) == 0) {
-            break;
-        }
-    }
-
-    if (G_LIKELY(strv[i] != NULL)) {
-        gint remaining = g_strv_length(&strv[i+1]);
-
-        g_free(strv[i]);
-
-        if (remaining > 0) {
-            memmove(&strv[i], &strv[i+1], remaining * sizeof(gchar *));
-        }
-        strv[i+remaining] = NULL;
-
-        return TRUE;
-    } else {
-        return FALSE;
-    }
+    g_object_unref(signal_data->channel);
+    g_free(signal_data->known_application);
+    g_free(signal_data->known_application_name);
+    g_slice_free(KnownApplicationSignalData, signal_data);
 }
 
 static void
-xfce_add_to_string_list_property(XfconfChannel *channel,
-                                 const gchar *property_name,
-                                 gchar **strv,
-                                 const gchar *to_add)
+known_application_delete_clicked(GtkWidget *button,
+                                 KnownApplicationSignalData *signal_data)
 {
-    if (strv == NULL || !g_strv_contains((const gchar *const *)strv, to_add)) {
-        gint len = strv == NULL ? 0 : g_strv_length(strv);
-        gchar **new_strv = g_new(gchar *, len + 2);
-        if (len > 0) {
-            memcpy(new_strv, strv, len * sizeof(gchar *));
-        }
-        new_strv[len] = (gchar *)to_add;
-        new_strv[len + 1] = NULL;
-        xfconf_channel_set_string_list(channel, property_name, (const gchar *const *)new_strv);
-        g_free(new_strv);
-    }
-}
+    gchar *confirm_text = g_strdup_printf( _("Are you sure you want to delete notification settings for application \"%s\"?"),
+                                          signal_data->known_application_name);
+    if (xfce_dialog_confirm(GTK_WINDOW(gtk_widget_get_toplevel(button)),
+                            "edit-delete",
+                            _("Delete"),
+                            confirm_text,
+                            _("Forget Application")))
+    {
+        gchar **known_applications = xfconf_channel_get_string_list(signal_data->channel, KNOWN_APPLICATIONS_PROP);
 
-static void
-xfce_remove_from_string_list_property(XfconfChannel *channel,
-                                      const gchar *property_name,
-                                      gchar **strv,
-                                      const gchar *to_remove)
-{
-    if (strv != NULL) {
-        if (xfce_g_strv_remove(strv, to_remove)) {
-            if (strv[0] == NULL) {
-                xfconf_channel_reset_property(channel, property_name, FALSE);
-            } else {
-                xfconf_channel_set_string_list(channel, property_name, (const gchar *const *)strv);
-            }
+        if (G_LIKELY(known_applications != NULL)) {
+            gchar **muted_applications = xfconf_channel_get_string_list(signal_data->channel, MUTED_APPLICATIONS_PROP);
+            gchar **denied_critical_notifications = xfconf_channel_get_string_list(signal_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
+
+            xfce_remove_from_string_list_property(signal_data->channel, KNOWN_APPLICATIONS_PROP, known_applications, signal_data->known_application);
+            xfce_remove_from_string_list_property(signal_data->channel, MUTED_APPLICATIONS_PROP, muted_applications, signal_data->known_application);
+            xfce_remove_from_string_list_property(signal_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, signal_data->known_application);
+
+            g_strfreev(known_applications);
+            g_strfreev(muted_applications);
+            g_strfreev(denied_critical_notifications);
         }
     }
-}
 
-static void
-known_application_deny_critical_toggled(GtkWidget *item,
-                                        KnownApplicationMenuData *menu_data)
-{
-    gchar **denied_critical_notifications = xfconf_channel_get_string_list(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
-    gboolean is_denied = !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item));
-
-    if (!is_denied) {
-        xfce_remove_from_string_list_property(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, menu_data->known_application);
-    } else {
-        xfce_add_to_string_list_property(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, menu_data->known_application);
-    }
-
-    g_strfreev(denied_critical_notifications);
-}
-
-static void
-known_application_delete(GtkWidget *item,
-                         KnownApplicationMenuData *menu_data)
-{
-    gchar **known_applications = xfconf_channel_get_string_list(menu_data->channel, KNOWN_APPLICATIONS_PROP);
-
-    if (G_LIKELY(known_applications != NULL)) {
-        gchar **muted_applications = xfconf_channel_get_string_list(menu_data->channel, MUTED_APPLICATIONS_PROP);
-        gchar **denied_critical_notifications = xfconf_channel_get_string_list(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
-
-        xfce_remove_from_string_list_property(menu_data->channel, KNOWN_APPLICATIONS_PROP, known_applications, menu_data->known_application);
-        xfce_remove_from_string_list_property(menu_data->channel, MUTED_APPLICATIONS_PROP, muted_applications, menu_data->known_application);
-        xfce_remove_from_string_list_property(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, menu_data->known_application);
-
-        g_strfreev(known_applications);
-        g_strfreev(muted_applications);
-        g_strfreev(denied_critical_notifications);
-    }
-}
-
-static gboolean
-known_application_button_press(GtkWidget *eventbox,
-                               GdkEventButton *evt,
-                               KnownApplicationMenuData *menu_data)
-{
-    if (evt->button == GDK_BUTTON_SECONDARY) {
-        gchar **denied_critical_notifications = xfconf_channel_get_string_list(menu_data->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
-        gboolean is_denied_critical = denied_critical_notifications != NULL
-            && g_strv_contains((const gchar *const *)denied_critical_notifications, menu_data->known_application);
-        gchar *label;
-        GtkWidget *menu, *item;
-
-        g_strfreev(denied_critical_notifications);
-
-        gtk_list_box_select_row(GTK_LIST_BOX(menu_data->listbox), GTK_LIST_BOX_ROW(menu_data->row));
-
-        menu = gtk_menu_new();
-        g_signal_connect(menu, "selection-done",
-                         G_CALLBACK(gtk_widget_destroy), NULL);
-
-        item = gtk_check_menu_item_new_with_mnemonic(_("Allow _Critical Notifications"));
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), !is_denied_critical);
-        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        g_signal_connect(item, "toggled",
-                         G_CALLBACK(known_application_deny_critical_toggled), menu_data);
-
-        label = g_strdup_printf(_("_Delete Application \"%s\""), menu_data->known_application_name);
-        item = gtk_menu_item_new_with_mnemonic(label);
-        gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-        g_signal_connect(item, "activate",
-                         G_CALLBACK(known_application_delete), menu_data);
-        g_free(label);
-
-        gtk_widget_show_all(menu);
-
-        gtk_menu_popup_at_pointer(GTK_MENU(menu), (GdkEvent *)evt);
-
-        return TRUE;
-    } else {
-        return FALSE;
-    }
+    g_free(confirm_text);
 }
 
 static gboolean
@@ -619,35 +594,50 @@ static void
 xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
                                             GtkWidget *known_applications_listbox,
                                             GPtrArray *muted_applications,
+                                            const gchar *const *denied_critical_applications,
                                             const gchar *known_application,
                                             gint count)
 {
+    GtkBuilder *builder;
     GtkWidget *row;
-    GtkWidget *eventbox;
-    GtkWidget *hbox;
-    GtkWidget *label;
+    GtkWidget *expander;
+    GtkWidget *app_label;
+    GtkWidget *log_count_label;
     GtkWidget *icon;
     GtkWidget *mute_switch;
+    GtkWidget *allow_criticals;
+    GtkWidget *delete_button;
     guint i;
+    gint icon_width, icon_height, icon_size;
     gint scale_factor = gtk_widget_get_scale_factor(known_applications_listbox);
     gchar *app_name = NULL;
     gchar *desktop_icon_name = NULL;
 
+    gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
+    icon_size = MIN(icon_width, icon_height);
+
+    builder = gtk_builder_new_from_string(xfce4_notifyd_config_known_app_ui, xfce4_notifyd_config_known_app_ui_length);
+    if (G_UNLIKELY(builder == NULL)) {
+        g_critical("Unable to load known app UI description");
+        return;
+    }
+
+    expander = GTK_WIDGET(gtk_builder_get_object(builder, "app_item"));
+    icon = GTK_WIDGET(gtk_builder_get_object(builder, "app_icon"));
+    app_label = GTK_WIDGET(gtk_builder_get_object(builder, "app_name"));
+    log_count_label = GTK_WIDGET(gtk_builder_get_object(builder, "app_log_count"));
+    mute_switch = GTK_WIDGET(gtk_builder_get_object(builder, "app_mute"));
+    allow_criticals = GTK_WIDGET(gtk_builder_get_object(builder, "allow_critical_notifications"));
+    delete_button = GTK_WIDGET(gtk_builder_get_object(builder, "delete_app"));
+
     row = gtk_list_box_row_new();
-    gtk_list_box_insert (GTK_LIST_BOX (known_applications_listbox), row, -1);
+    gtk_list_box_insert(GTK_LIST_BOX(known_applications_listbox), row, -1);
+    gtk_container_add(GTK_CONTAINER(row), expander);
 
-    eventbox = gtk_event_box_new();
-    gtk_container_add(GTK_CONTAINER(row), eventbox);
-
-    /* Pack all widgets into a box */
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-    gtk_container_add(GTK_CONTAINER(eventbox), hbox);
-
-    /* Application icon and name */
-    icon = gtk_image_new ();
-    label = gtk_label_new (NULL);
-    gtk_label_set_xalign (GTK_LABEL (label), 0);
-
+    /* Number of notifications in the log (if enabled) */
+    if (count > 0) {
+        gtk_label_set_text (GTK_LABEL(log_count_label), g_strdup_printf("%d", count));
+    }
 
     /* All applications that don't supply their name at all */
     if (xfce_str_is_empty (known_application)) {
@@ -656,21 +646,21 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
 
         known_application = g_strdup(_("Unspecified applications"));
         markup = g_markup_printf_escaped (format, known_application);
-        gtk_label_set_markup (GTK_LABEL (label), markup);
+        gtk_label_set_markup (GTK_LABEL (app_label), markup);
         g_free (markup);
-    }
-    else {
-        KnownApplicationMenuData *menu_data = g_slice_new0(KnownApplicationMenuData);
+
+        gtk_widget_set_sensitive(mute_switch, FALSE);
+        gtk_widget_set_sensitive(allow_criticals, FALSE);
+        gtk_widget_set_sensitive(delete_button, FALSE);
+    } else {
+        KnownApplicationSignalData *signal_data = g_slice_new0(KnownApplicationSignalData);
         GIcon *gicon = NULL;
-        gint icon_width, icon_height, icon_size;
 
-        menu_data->channel = g_object_ref(channel);
-        menu_data->listbox = g_object_ref(known_applications_listbox);
-        menu_data->row = row;
-        menu_data->known_application = g_strdup(known_application);
-
-        gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
-        icon_size = MIN(icon_width, icon_height);
+        signal_data->channel = g_object_ref(channel);
+        signal_data->known_application = g_strdup(known_application);
+        signal_data->app_label = app_label;
+        signal_data->mute_switch = mute_switch;
+        signal_data->allow_criticals = allow_criticals;
 
         /* Try to find the correct icon based on the desktop file */
         desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
@@ -723,6 +713,7 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         }
 
         if (G_LIKELY(gicon != NULL)) {
+            gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
             gtk_image_set_from_gicon(GTK_IMAGE(icon), gicon, GTK_ICON_SIZE_LARGE_TOOLBAR);
             g_object_unref(gicon);
         }
@@ -730,63 +721,49 @@ xfce4_notifyd_known_application_insert_row (XfconfChannel *channel,
         /* Try to find the correct application name based on the desktop file */
         app_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_NAME);
         if (app_name) {
-            menu_data->known_application_name = g_strdup(app_name);
-            gtk_label_set_text (GTK_LABEL (label), app_name);
+            signal_data->known_application_name = g_strdup(app_name);
+            gtk_label_set_text(GTK_LABEL(app_label), app_name);
+        } else {
+            /* Fallback: Just set the name provided by the application */
+            signal_data->known_application_name = g_strdup(known_application);
+            gtk_label_set_text(GTK_LABEL(app_label), known_application);
         }
-        /* Fallback: Just set the name provided by the application */
-        else {
-            menu_data->known_application_name = g_strdup(known_application);
-            gtk_label_set_text (GTK_LABEL (label), known_application);
-        }
 
-        gtk_widget_add_events(eventbox, GDK_BUTTON_PRESS_MASK);
-        g_signal_connect(eventbox, "button-press-event",
-                         G_CALLBACK(known_application_button_press), menu_data);
-        g_object_set_data_full(G_OBJECT(row),
-                               "xfce4-notifyd-known-application-menu-data", menu_data,
-                               (GDestroyNotify)known_application_menu_data_free);
-    }
-
-    if (app_name)
-        g_free (app_name);
-
-    g_free (desktop_icon_name);
-    desktop_icon_name = NULL;
-
-    gtk_image_set_pixel_size (GTK_IMAGE (icon), 24);
-    gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, TRUE, 3);
-    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
-
-    /* Number of notifications in the log (if enabled) */
-    label = gtk_label_new (NULL);
-    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
-    gtk_label_set_xalign (GTK_LABEL (label), 1);
-    gtk_widget_set_sensitive (label, FALSE);
-    if (count > 0)
-        gtk_label_set_text (GTK_LABEL (label), g_strdup_printf("%d", count));
-
-    /* The mute switch */
-    mute_switch = gtk_switch_new ();
-    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign (mute_switch, GTK_ALIGN_CENTER);
-    gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
-
-    /* Set correct initial value as to whether an application is muted */
-    if (muted_applications != NULL) {
-        for (i = 0; i < muted_applications->len; i++) {
-            GValue *muted_application;
-            muted_application = g_ptr_array_index (muted_applications, i);
-            if (g_str_match_string (g_value_get_string (muted_application), known_application, FALSE) == TRUE) {
-                gtk_switch_set_active (GTK_SWITCH (mute_switch), FALSE);
-                break;
+        /* Set correct initial value as to whether an application is muted */
+        if (muted_applications != NULL) {
+            for (i = 0; i < muted_applications->len; i++) {
+                GValue *muted_application;
+                muted_application = g_ptr_array_index (muted_applications, i);
+                if (g_str_match_string (g_value_get_string (muted_application), known_application, FALSE) == TRUE) {
+                    gtk_widget_set_sensitive(app_label, FALSE);
+                    gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+                    break;
+                }
             }
-            else
-                continue;
         }
+        g_signal_connect(mute_switch, "state-set",
+                         G_CALLBACK(xfce4_notifyd_mute_switch_activated), signal_data);
+        g_signal_connect(channel, "property-changed::" MUTED_APPLICATIONS_PROP,
+                         G_CALLBACK(handle_app_switch_property_changed), signal_data);
+
+        gtk_switch_set_active(GTK_SWITCH(allow_criticals),
+                              denied_critical_applications == NULL
+                              || !g_strv_contains(denied_critical_applications, known_application));
+        g_signal_connect(allow_criticals, "state-set",
+                         G_CALLBACK(xfce4_notifyd_allow_criticals_switch_activated), signal_data);
+        g_signal_connect(channel, "property-changed::" DENIED_CRITICAL_NOTIFICATIONS_PROP,
+                         G_CALLBACK(handle_app_switch_property_changed), signal_data);
+
+        g_signal_connect(delete_button, "clicked",
+                         G_CALLBACK(known_application_delete_clicked), signal_data);
+
+        g_object_set_data_full(G_OBJECT(row),
+                               "xfce4-notifyd-known-application-signal-data", signal_data,
+                               (GDestroyNotify)known_application_signal_data_free);
     }
 
-    g_signal_connect (G_OBJECT (mute_switch), "state-set", G_CALLBACK (xfce4_notifyd_switch_activated), channel);
-    gtk_box_pack_end (GTK_BOX (hbox), mute_switch, FALSE, TRUE, 3);
+    g_free(app_name);
+    g_free(desktop_icon_name);
 }
 
 static void
@@ -800,12 +777,14 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     GPtrArray *known_applications;
     GPtrArray *known_applications_sorted;
     GPtrArray *muted_applications;
+    gchar **denied_critical_applications;
     GValue *known_application;
     GKeyFile *notify_log;
     guint i;
 
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (channel, MUTED_APPLICATIONS_PROP);
+    denied_critical_applications = xfconf_channel_get_string_list(channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
 
     /* TODO: Check the old list versus the new one and only add/remove rows
              as needed instead instead of cleaning up the whole widget */
@@ -825,6 +804,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                 xfce4_notifyd_known_application_insert_row (channel,
                                                             known_applications_listbox,
                                                             muted_applications,
+                                                            (const gchar *const *)denied_critical_applications,
                                                             application->app_name,
                                                             application->count);
             }
@@ -836,6 +816,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
                 xfce4_notifyd_known_application_insert_row (channel,
                                                             known_applications_listbox,
                                                             muted_applications,
+                                                            (const gchar *const *)denied_critical_applications,
                                                             g_value_get_string (known_application),
                                                             0);
             }
@@ -843,6 +824,7 @@ xfce4_notifyd_known_applications_changed (XfconfChannel *channel,
     }
     xfconf_array_free (known_applications);
     xfconf_array_free (muted_applications);
+    g_strfreev(denied_critical_applications);
     gtk_widget_show_all (known_applications_listbox);
 }
 
@@ -1291,6 +1273,7 @@ xfce4_notifyd_config_setup_dialog(GtkBuilder *builder)
      *******************/
     known_applications_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_scrolled_window"));
     known_applications_listbox = gtk_list_box_new ();
+    gtk_list_box_set_selection_mode(GTK_LIST_BOX(known_applications_listbox), GTK_SELECTION_NONE);
     gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
 

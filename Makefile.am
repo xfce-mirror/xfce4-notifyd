@@ -44,7 +44,8 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
 	common/xfce-notify-common.h \
 	xfce4-notifyd-config/main.c \
-	xfce4-notifyd-config/xfce4-notifyd-config.ui.h
+	xfce4-notifyd-config/xfce4-notifyd-config.ui.h \
+	xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
 
 common_cflags = \
 	-I$(builddir)	\
@@ -170,7 +171,8 @@ built_xfce4_notifyd += \
 	xfce4-notifyd/xfce-notify-enum-types.h
 
 built_xfce4_notifyd_config = \
-	xfce4-notifyd-config/xfce4-notifyd-config.ui.h
+	xfce4-notifyd-config/xfce4-notifyd-config.ui.h \
+	xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
 
 clean_xfce4_notifyd += \
 	xfce4-notifyd/stamp-xfce-notify-enum-types.h \
@@ -184,6 +186,7 @@ clean_xfce4_notifyd_config = \
 
 dist_xfce4_notifyd_config = \
 	xfce4-notifyd-config/xfce4-notifyd-config.glade \
+	xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade \
 	$(desktop_in_files)
 
 dist_noinst_DATA = \
@@ -266,10 +269,8 @@ xfce4-notifyd/xfce-notify-enum-types.c: $(srcdir)/xfce4-notifyd/xfce-notify-wind
 	&& rm -f xfce4-notifyd/xgen-xnetc \
 	)
 
-xfce4-notifyd-config/xfce4-notifyd-config.ui.h: $(srcdir)/xfce4-notifyd-config/xfce4-notifyd-config.glade
-	$(AM_V_GEN) ( \
-	xdt-csource --static --name=xfce4_notifyd_config_ui $< >$@ \
-	)
+xfce4-notifyd-config/%.ui.h: $(srcdir)/xfce4-notifyd-config/%.glade Makefile
+	$(AM_V_GEN) xdt-csource --static --name=$(subst -,_,$(basename $(notdir $<)))_ui $< > $@
 
 all-local: compile_flags.txt
 

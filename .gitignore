@@ -49,6 +49,7 @@ po/*.gmo
 xfce4-notifyd-config/xfce4-notifyd-config
 xfce4-notifyd-config/xfce4-notifyd-config.desktop
 xfce4-notifyd-config/xfce4-notifyd-config.ui.h
+xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
 
 xfce4-notifyd/notify-dbus.h
 xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service
