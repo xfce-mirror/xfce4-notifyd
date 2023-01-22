@@ -479,51 +479,45 @@ static GPtrArray *
 xfce_notify_count_apps_in_log (GKeyFile *notify_log,
                                GPtrArray *known_applications)
 {
-    GPtrArray *log_stats;
+    GPtrArray *log_stats = NULL;
 
-    log_stats = g_ptr_array_new ();
+    if (notify_log != NULL) {
+        if (known_applications != NULL) {
+            GHashTable *counts = g_hash_table_new(g_str_hash, g_str_equal);
+            gsize num_groups = 0;
+            gchar **groups = g_key_file_get_groups (notify_log, &num_groups);
+            GList *keys;
 
-    if (notify_log) {
-        gchar **groups;
-        gsize num_groups = 0;
-        LogAppCount *entry;
-        GValue *known_application;
-
-        groups = g_key_file_get_groups (notify_log, &num_groups);
-
-        if (known_applications != NULL)
-        {
-            gsize i, j;
-            for (i = 0; i < known_applications->len; i++)
-            {
-                gint count = 0;
-
-                known_application = g_ptr_array_index (known_applications, i);
-
-                /* Sum up notifications per application */
-                for (j = 0; groups && groups[j]; j++)
-                {
-                    const gchar *group = groups[j];
-                    gchar *app_name;
-
-                    app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
-                    if (g_strcmp0 (g_value_get_string (known_application), app_name) == 0)
-                        count++;
-
-                    g_free (app_name);
+            for (guint i = 0; i < known_applications->len; ++i) {
+                GValue *known_application = g_ptr_array_index(known_applications, i);
+                if (G_VALUE_HOLDS_STRING(known_application)) {
+                    g_hash_table_insert(counts, (gchar *)g_value_get_string(known_application), GUINT_TO_POINTER(0));
                 }
-
-                entry = g_new0 (LogAppCount, 1);
-                entry->count = count;
-                entry->app_name = g_value_get_string (known_application);
-                g_ptr_array_add (log_stats, entry);
             }
+
+            for (gsize i = 0; i < num_groups; ++i) {
+                gchar *app_name = g_key_file_get_string(notify_log, groups[i], "app_name", NULL);
+
+                if (g_hash_table_contains(counts, app_name)) {
+                    g_hash_table_replace(counts, app_name, GUINT_TO_POINTER(GPOINTER_TO_UINT(g_hash_table_lookup(counts, app_name)) + 1));
+                }
+            }
+
+            log_stats = g_ptr_array_new ();
+            keys = g_hash_table_get_keys(counts);
+            for (GList *l = keys; l != NULL; l = l->next) {
+                LogAppCount *entry = g_new0(LogAppCount, 1);
+                entry->app_name = l->data;
+                entry->count =  GPOINTER_TO_UINT(g_hash_table_lookup(counts, entry->app_name));
+                g_ptr_array_add(log_stats, entry);
+            }
+            g_list_free(keys);
+
+            g_hash_table_destroy(counts);
+            g_ptr_array_sort(log_stats, xfce_notify_sort_apps_in_log);
         }
     }
-    else
-        return NULL;
 
-    g_ptr_array_sort(log_stats, xfce_notify_sort_apps_in_log);
     return log_stats;
 }
 
