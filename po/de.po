@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 12:51+0100\n"
+"POT-Creation-Date: 2023-01-21 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Andreas Eitel <github-aneitel@online.de>, 2018,2020,2022-2023\n"
 "Language-Team: German (http://www.transifex.com/xfce/xfce-apps/language/de/)\n"
@@ -36,7 +36,7 @@ msgstr "Benachrichtigungsprotokoll leeren"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1255
+#: ../common/xfce-notify-log.c:580 ../xfce4-notifyd-config/main.c:1344
 msgid "Clear"
 msgstr "Leeren"
 
@@ -94,19 +94,19 @@ msgstr "Das ist die Benachrichtigungserweiterung"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Urheberrecht © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:140
+#: ../panel-plugin/notification-plugin-log.c:141
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Bitte nicht stören</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:324
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "No notifications"
 msgstr "Keine Benachrichtigungen"
 
-#: ../panel-plugin/notification-plugin-log.c:345
+#: ../panel-plugin/notification-plugin-log.c:343
 msgid "_Clear log"
 msgstr "Protokoll _leeren"
 
-#: ../panel-plugin/notification-plugin-log.c:353
+#: ../panel-plugin/notification-plugin-log.c:351
 msgid "_Notification settings…"
 msgstr "Benachrichtigungs_einstellungen …"
 
@@ -119,7 +119,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Benachrichtigungserweiterung für die Xfce-Leiste"
 
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1099
+#: ../xfce4-notifyd-config/main.c:1179
 msgid "Xfce Notify Daemon"
 msgstr "Xfce-Benachrichtigungsdienst"
 
@@ -132,115 +132,119 @@ msgstr "Unbekannte Option »%s«\n"
 msgid "Unable to start notification daemon"
 msgstr "Benachrichtigungsdienst konnte nicht gestartet werden"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:462
+#: ../xfce4-notifyd/xfce-notify-daemon.c:479
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Ein anderer Benachrichtigungsdienst läuft – es wird beendet\n"
 
-#: ../xfce4-notifyd-config/main.c:95
+#: ../xfce4-notifyd-config/main.c:94
 msgid "Notification Preview"
 msgstr "Benachrichtigungsvorschau"
 
-#: ../xfce4-notifyd-config/main.c:96
+#: ../xfce4-notifyd-config/main.c:95
 msgid "This is what notifications will look like"
 msgstr "So werden Benachrichtigungen aussehen"
 
-#: ../xfce4-notifyd-config/main.c:101
+#: ../xfce4-notifyd-config/main.c:100
 msgid "Button"
 msgstr "Knopf"
 
-#: ../xfce4-notifyd-config/main.c:108
+#: ../xfce4-notifyd-config/main.c:107
 msgid "Notification preview failed"
 msgstr "Benachrichtigungsvorschau fehlgeschlagen"
 
-#: ../xfce4-notifyd-config/main.c:506
+#: ../xfce4-notifyd-config/main.c:578
+msgid "Allow _Critical Notifications"
+msgstr "_Kritische Benachrichtigungen zulassen"
+
+#: ../xfce4-notifyd-config/main.c:584
 #, c-format
 msgid "_Delete Application \"%s\""
 msgstr "_Anwendung \"%s\" löschen"
 
-#: ../xfce4-notifyd-config/main.c:566
+#: ../xfce4-notifyd-config/main.c:644
 msgid "Unspecified applications"
 msgstr "Nicht spezifizierte Anwendungen"
 
-#: ../xfce4-notifyd-config/main.c:779
+#: ../xfce4-notifyd-config/main.c:857
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Derzeit werden nur dringende Benachrichtigungen angezeigt.</b>\nBenachrichtigungsprotokollierung ist %s."
 
-#: ../xfce4-notifyd-config/main.c:786
+#: ../xfce4-notifyd-config/main.c:864
 msgid "enabled"
 msgstr "Aktiviert"
 
-#: ../xfce4-notifyd-config/main.c:786
+#: ../xfce4-notifyd-config/main.c:864
 msgid "disabled"
 msgstr "Deaktiviert"
 
-#: ../xfce4-notifyd-config/main.c:867
+#: ../xfce4-notifyd-config/main.c:945
 msgid "Yesterday and before"
 msgstr "Gestern und davor"
 
-#: ../xfce4-notifyd-config/main.c:1101
+#: ../xfce4-notifyd-config/main.c:1181
 msgid "Settings daemon is unavailable"
 msgstr "Einstellungsdienst nicht verfügbar"
 
-#: ../xfce4-notifyd-config/main.c:1191
+#: ../xfce4-notifyd-config/main.c:1280
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Derzeit gibt es keine bekannten Anwendungen.</b></big>\nSobald eine Anwendung eine Benachrichtigung sendet.\nwird sie in dieser Liste erscheinen."
 
-#: ../xfce4-notifyd-config/main.c:1233
+#: ../xfce4-notifyd-config/main.c:1322
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Leeres Protokoll</b></big>\nEs wurden keine Benachrichtigungen aufgezeichnet."
 
-#: ../xfce4-notifyd-config/main.c:1241
+#: ../xfce4-notifyd-config/main.c:1330
 msgid "Refresh"
 msgstr "Auffrischen"
 
-#: ../xfce4-notifyd-config/main.c:1242
+#: ../xfce4-notifyd-config/main.c:1331
 msgid "Refresh the notification log"
 msgstr "Benachrichtigungsprotokoll auffrischen"
 
-#: ../xfce4-notifyd-config/main.c:1248
+#: ../xfce4-notifyd-config/main.c:1337
 msgid "Open"
 msgstr "Öffnen"
 
-#: ../xfce4-notifyd-config/main.c:1249
+#: ../xfce4-notifyd-config/main.c:1338
 msgid "Open the notification log in an external editor"
 msgstr "Benachrichtigungsprotokoll in einem externen Programm öffnen"
 
-#: ../xfce4-notifyd-config/main.c:1256
+#: ../xfce4-notifyd-config/main.c:1345
 msgid "Clear the notification log"
 msgstr "Benachrichtigungsprotokoll leeren"
 
-#: ../xfce4-notifyd-config/main.c:1278
+#: ../xfce4-notifyd-config/main.c:1367
 msgid "Display version information"
 msgstr "Versionsinformationen anzeigen"
 
-#: ../xfce4-notifyd-config/main.c:1279
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "Settings manager socket"
 msgstr "Einstellungsverwaltungsanschluss"
 
-#: ../xfce4-notifyd-config/main.c:1279
+#: ../xfce4-notifyd-config/main.c:1368
 msgid "SOCKET_ID"
 msgstr "ANSCHLUSS_KENNUNG"
 
-#: ../xfce4-notifyd-config/main.c:1289
+#: ../xfce4-notifyd-config/main.c:1378
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "»%s --help« eingeben, um Hinweise zur Benutzung zu erhalten."
 
-#: ../xfce4-notifyd-config/main.c:1304
+#: ../xfce4-notifyd-config/main.c:1393
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Veröffentlicht unter den Bedingungen der »GNU General Public License, Version 2«\n"
 
-#: ../xfce4-notifyd-config/main.c:1305
+#: ../xfce4-notifyd-config/main.c:1394
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Fehlerberichte bitte an %s melden.\n"
@@ -367,36 +371,46 @@ msgid "Show text with percent _values"
 msgstr "Text mit prozentualen _Werten anzeigen"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "Die Einstellung \"Ereignistöne aktivieren\" im Dialogfeld \"Erscheinungsbild\" muss aktiviert sein, damit Benachrichtigungstöne zu hören sind"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+msgid "_Mute sounds"
+msgstr "Töne stu_mmschalten"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
 msgstr "Allgemein"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Show or block notifications per application</b>"
 msgstr "<b>Benachrichtigungen pro Anwendung anzeigen oder blockieren</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Log notifications"
 msgstr "Benachrichtigungen protokollieren"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Log applications"
 msgstr "Anwendungen protokollieren"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Log size limit"
 msgstr "Begrenzung der Protokollgröße"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid ""
 "The maximum number of entries to be retained in the log. Please note that a "
 "large log may lead to performance penalties. 0 means no limit."
 msgstr "Die maximale Anzahl der Einträge, die im Protokoll gespeichert werden sollen. Bitte beachten Sie, dass ein großes Protokoll zu Leistungseinbußen führen kann. 0 bedeutet keine Begrenzung."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "Log"
 msgstr "Protokoll"
 
