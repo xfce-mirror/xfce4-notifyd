@@ -2,12 +2,9 @@
 /*
  *  xfce4-notifyd
  *
- *  Copyright (c) 2008-2009 Brian Tarricone <bjt23@cornell.edu>
+ *  Copyright (c) 2008-2023 Brian Tarricone <bjt23@cornell.edu>
  *  Copyright (c) 2009 Jérôme Guelfucci <jeromeg@xfce.org>
  *  Copyright (c) 2015 Ali Abdallah    <ali@xfce.org>
- *
- *  The workarea per monitor code is taken from
- *  http://trac.galago-project.org/attachment/ticket/5/10-nd-improve-multihead-support.patch
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
