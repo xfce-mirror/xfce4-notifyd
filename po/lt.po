@@ -153,7 +153,7 @@ msgstr "Pranešimų peržiūra nepavyko"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "Ar tikrai norite ištrinti programos „%s“ pranešimų nustatymus?"
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
@@ -162,7 +162,7 @@ msgstr "Pašalinti"
 #: ../xfce4-notifyd-config/main.c:576
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
-msgstr ""
+msgstr "Pamiršti programą"
 
 #: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
@@ -418,15 +418,15 @@ msgstr "Žurnalas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
 msgid "Mute application"
-msgstr ""
+msgstr "Nutildyti programą"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow critical notifications"
-msgstr ""
+msgstr "Leisti kritinius pranešimus"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
-msgstr ""
+msgstr "Įtraukti į žurnalą"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
