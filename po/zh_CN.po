@@ -158,7 +158,7 @@ msgstr "无法预览通知"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "您确认要删除应用程序 \"%s\" 的通知设置？"
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
@@ -381,11 +381,11 @@ msgstr "显示带有百分比值的文本"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "必须选中外观设置对话框中的\"启用事件声音\"设置才能听到通知声音"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "_Mute sounds"
-msgstr ""
+msgstr "静音(_M)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
@@ -427,11 +427,11 @@ msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow critical notifications"
-msgstr ""
+msgstr "允许关键通知"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
-msgstr ""
+msgstr "包含在日志中"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
