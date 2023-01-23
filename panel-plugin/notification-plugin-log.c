@@ -113,12 +113,12 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gchar *timestamp;
   gsize num_groups = 0;
   GtkCallback func = notification_plugin_menu_clear;
-  GdkPixbuf *pixbuf = NULL;
   gchar *notify_log_icon_folder;
   gchar *notify_log_icon_path;
   int log_icon_size;
   gboolean state;
   gboolean no_notifications = FALSE;
+  gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
 
   today = g_date_time_new_now_local ();
   timestamp = g_date_time_format (today, "%F");
@@ -191,7 +191,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
     for (i = numberof_groups; i > log_length; i--) {
       GtkWidget *grid;
-      GtkWidget *summary, *body, *app_icon;
+      GtkWidget *summary, *body, *app_icon = NULL;
       const gchar *group = groups[i];
       const char *format = "<b>\%s</b>";
       const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
@@ -255,22 +255,31 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
       tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
       notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
-      if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS))
+      if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)
+          && !g_file_test(notify_log_icon_path, G_FILE_TEST_IS_DIR))
       {
-          pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
-                                                      log_icon_size, log_icon_size,
-                                                      FALSE, NULL);
-          app_icon = gtk_image_new_from_pixbuf (pixbuf);
-      }
-      else
-      {
+          GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
+                                                                 log_icon_size * scale_factor,
+                                                                 log_icon_size * scale_factor,
+                                                                 TRUE,
+                                                                 NULL);
+          if (pixbuf != NULL) {
+              cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, NULL);
+              app_icon = gtk_image_new_from_surface(surface);
+              cairo_surface_destroy(surface);
+              g_object_unref(pixbuf);
+          }
+      } else if (gtk_icon_theme_has_icon(gtk_icon_theme_get_default(), tmp)) {
           app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
+          gtk_image_set_pixel_size(GTK_IMAGE(app_icon), log_icon_size);
+      }
+      if (app_icon == NULL) {
+          app_icon = gtk_image_new();
       }
       g_free (tmp);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), app_icon);
 G_GNUC_END_IGNORE_DEPRECATIONS
-      gtk_image_set_pixel_size (GTK_IMAGE (app_icon), log_icon_size);
 
       grid = gtk_grid_new ();
       gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
