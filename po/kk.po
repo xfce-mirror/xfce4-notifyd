@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010,2013,2016-2020,2022
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010,2013,2016-2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-22 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010,2013,2016-2020,2022\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010,2013,2016-2020,2022-2023\n"
 "Language-Team: Kazakh (http://www.transifex.com/xfce/xfce-apps/language/kk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,7 +78,7 @@ msgstr "\"Журналды тазарту\" растау сұхбатын жас
 
 #: ../panel-plugin/notification-plugin-dialogs.c:125
 msgid "Hide panel button when no unread notifications"
-msgstr ""
+msgstr "Оқылмаған хабарламалар жоқ болса, панель батырмасын жасыру"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:158
 msgid "This is the notification plugin"
@@ -152,7 +152,7 @@ msgstr "Сынау хабарламасын көрсету сәтсіз"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "\"%s\" қолданбасы үшін хабарламалар  баптауларын өшіру керек пе?"
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
@@ -161,7 +161,7 @@ msgstr "Өшіру"
 #: ../xfce4-notifyd-config/main.c:576
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
-msgstr ""
+msgstr "Қолданба тұралы ұмыту"
 
 #: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
@@ -365,21 +365,21 @@ msgstr "Хабарламаларды көрсету"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "Хабарлама аудио дыбысы немесе экран жарықтылығы сияқты пайызбен берілсе, хабарлама қорытындысын мен денесін көрсету"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Пайыз мә_ндерімен мәтінді көрсету"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "Хабарламалар дыбыстарын есту үшін, \"Сыртқы түрі\" баптаулар сұхбат терезесінде \"Оқиғалар дыбыстарын іске қосу\" белгіленген болуы тиіс"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "_Mute sounds"
-msgstr ""
+msgstr "Дыбыстарды _басу"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
@@ -417,15 +417,15 @@ msgstr "Журнал"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
 msgid "Mute application"
-msgstr ""
+msgstr "Қолданба дыбысын басу"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow critical notifications"
-msgstr ""
+msgstr "Қатаң хабарландыруларды рұқсат ету"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
-msgstr ""
+msgstr "Журналға қосу"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
