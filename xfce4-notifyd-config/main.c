@@ -914,16 +914,19 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
     GtkCallback func = listbox_remove_all;
     gint i;
     GDateTime *today;
-    gchar *timestamp;
+    gchar *today_timestamp;
     GtkWidget *limit_button;
     gsize num_groups = 0;
-    GdkPixbuf *pixbuf = NULL;
     gchar *notify_log_icon_folder;
-    gchar *notify_log_icon_path;
-    gint scale_factor = gtk_widget_get_scale_factor (log_listbox);
+    gint scale_factor = gtk_widget_get_scale_factor(log_listbox);
+    gint icon_width, icon_height, icon_size;
+    cairo_surface_t *empty_app_icon = NULL;
+
+    gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
+    icon_size = MIN(icon_width, icon_height);
 
     today = g_date_time_new_now_local ();
-    timestamp = g_date_time_format (today, "%F");
+    today_timestamp = g_date_time_format (today, "%F");
 
     gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
     notify_log = xfce_notify_log_get();
@@ -942,31 +945,24 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
 
         /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
         for (i = log_length; groups && groups[i]; i += 1) {
-            GtkWidget *grid;
-            GtkWidget *summary, *body, *app_icon;
             const gchar *group = groups[i];
-            const char *format = "<b>\%s</b>";
-            const char *tooltip_format_simple = "<b>\%s</b> - \%s";
-            char *markup;
+            GtkWidget *grid;
+            GtkWidget *summary, *body = NULL, *app_icon = NULL;
             gchar *app_name;
-            gchar *tooltip_timestamp = NULL;
-            gchar *tmp;
-            GDateTime *log_timestamp;
-            GDateTime *local_timestamp = NULL;
+            gchar *timestamp;
+            gchar *summary_text;
+            gchar *body_text;
+            gchar *tooltip_text;
+            cairo_surface_t *icon;
 
-            log_timestamp = g_date_time_new_from_iso8601 (group, NULL);
-            if (log_timestamp != NULL)
-            {
-                local_timestamp = g_date_time_to_local (log_timestamp);
-                g_date_time_unref (log_timestamp);
-            }
+            app_name = g_key_file_get_string(notify_log, group, "app_name", NULL);
+            timestamp = notify_log_format_timestamp(group);
+            summary_text = notify_log_format_summary(notify_log, group);
+            body_text = notify_log_format_body(notify_log, group);
+            icon = notify_log_load_icon(notify_log, group, notify_log_icon_folder, icon_size, scale_factor);
+            tooltip_text = notify_log_format_tooltip(app_name, timestamp, body_text);
 
-            if (local_timestamp != NULL) {
-                tooltip_timestamp = g_date_time_format (local_timestamp, "%c");
-                g_date_time_unref (local_timestamp);
-            }
-
-            if (g_ascii_strncasecmp (timestamp, group, 10) == 0 && yesterday == FALSE) {
+            if (g_ascii_strncasecmp(today_timestamp, group, 10) == 0 && yesterday == FALSE) {
                 GtkWidget *header;
                 header = gtk_label_new (_("Yesterday and before"));
                 gtk_widget_set_sensitive (header, FALSE);
@@ -976,86 +972,57 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
                 yesterday = TRUE;
             }
 
-            app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
-            tmp = g_key_file_get_string (notify_log, group, "summary", NULL);
-            markup = g_markup_printf_escaped (format, tmp);
-            g_free (tmp);
-            summary = gtk_label_new (NULL);
-            if (xfce_notify_is_markup_valid(markup)) {
-                gtk_label_set_markup (GTK_LABEL (summary), markup);
-            } else {
-                gtk_label_set_text(GTK_LABEL(summary), markup);
+            summary = g_object_new(GTK_TYPE_LABEL,
+                                   "use-markup", TRUE,
+                                   "label", summary_text,
+                                   "xalign", 0.0,
+                                   NULL);
+            if (body_text != NULL) {
+                body = g_object_new(GTK_TYPE_LABEL,
+                                    "use-markup", TRUE,
+                                    "label", body_text,
+                                    "xalign", 0.0,
+                                    "ellipsize", PANGO_ELLIPSIZE_END,
+                                    NULL);
             }
-            gtk_label_set_xalign (GTK_LABEL (summary), 0);
-            g_free (markup);
-            tmp = g_key_file_get_string (notify_log, group, "body", NULL);
-            body = gtk_label_new (NULL);
-            g_object_ref (body);
-            if (xfce_notify_is_markup_valid(tmp)) {
-                gtk_label_set_markup (GTK_LABEL (body), tmp);
+
+            if (icon != NULL) {
+                app_icon = gtk_image_new_from_surface(icon);
             } else {
-                gtk_label_set_text(GTK_LABEL(body), tmp);
-            }
-            g_free (tmp);
-            gtk_label_set_xalign (GTK_LABEL (body), 0);
-            gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
-            tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
-            notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
-            if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)) {
-                pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
-                                                            24 * scale_factor, 24 * scale_factor,
-                                                            TRUE, NULL);
-                if (G_LIKELY (pixbuf != NULL)) {
-                    cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale_factor, NULL);
-                    app_icon = gtk_image_new_from_surface (surface);
-                    g_object_unref (pixbuf);
-                    cairo_surface_destroy (surface);
-                } else {
-                    app_icon = gtk_image_new ();
+                if (empty_app_icon == NULL) {
+                    empty_app_icon = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
+                                                                icon_size * scale_factor,
+                                                                icon_size * scale_factor);
+                    cairo_surface_set_device_scale(empty_app_icon, scale_factor, scale_factor);
                 }
-            } else {
-                app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
-                gtk_image_set_pixel_size (GTK_IMAGE (app_icon), 24);
+                app_icon = gtk_image_new_from_surface(empty_app_icon);
             }
-            g_free (notify_log_icon_path);
-            g_free (tmp);
-            gtk_widget_set_margin_start (app_icon, 3);
+            gtk_widget_set_margin_start(app_icon, 3);
+
             // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
-            grid = gtk_grid_new ();
-            gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
-            gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (app_icon), 0, 0 , 1, 2);
-
+            grid = gtk_grid_new();
+            gtk_grid_set_column_spacing(GTK_GRID(grid), 6);
+            gtk_widget_set_tooltip_markup(grid, tooltip_text);
+            if (app_icon != NULL) {
+                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(app_icon), 0, 0 , 1, 2);
+            }
             /* Handle icon-only notifications */
-            tmp = g_key_file_get_string (notify_log, group, "body", NULL);
-            if (g_strcmp0 (tmp, "") == 0) {
-                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
-                if (tooltip_timestamp != NULL) {
-                    markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
-                }
-                else {
-                    markup = g_strdup_printf (format, app_name);
-                }
+            if (body == NULL) {
+                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 2);
+            } else {
+                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 1);
+                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(body), 1, 1, 1, 1);
             }
-            else {
-                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
-                gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
-                if (tooltip_timestamp != NULL) {
-                    markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
-                }
-                else {
-                    markup = g_strdup_printf (format, app_name);
-                }
-            }
-            g_free (tmp);
-            g_free (app_name);
-            g_free (tooltip_timestamp);
-            g_object_unref (body);
-            body = NULL;
-
-            gtk_widget_set_tooltip_markup (grid, markup);
-            g_free (markup);
-
             gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
+
+            g_free(app_name);
+            g_free(timestamp);
+            g_free(summary_text);
+            g_free(body_text);
+            g_free(tooltip_text);
+            if (icon) {
+                cairo_surface_destroy(icon);
+            }
         }
         if (log_length > 0) {
             gchar *limit_label;
@@ -1077,9 +1044,12 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
 
     g_free (notify_log_icon_folder);
     g_date_time_unref (today);
-    g_free (timestamp);
+    g_free (today_timestamp);
     if (notify_log)
         g_key_file_unref (notify_log);
+    if (empty_app_icon != NULL) {
+        cairo_surface_destroy(empty_app_icon);
+    }
 
     gtk_widget_show_all (log_listbox);
 

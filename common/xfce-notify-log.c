@@ -36,6 +36,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#include "xfce-notify-common.h"
 #include "xfce-notify-log.h"
 
 static void
@@ -631,4 +632,126 @@ GtkWidget *xfce_notify_clear_log_dialog (void)
     gtk_window_set_icon_name (GTK_WINDOW (dialog), "edit-clear");
 
     return dialog;
+}
+
+gchar *
+notify_log_format_timestamp(const gchar *timestamp) {
+    gchar *formatted = NULL;
+    GDateTime *log_timestamp = g_date_time_new_from_iso8601(timestamp, NULL);
+
+    if (log_timestamp != NULL) {
+        GDateTime *local_timestamp = g_date_time_to_local(log_timestamp);
+        g_date_time_unref(log_timestamp);
+
+        if (local_timestamp != NULL) {
+            formatted = g_date_time_format (local_timestamp, "%c");
+            g_date_time_unref (local_timestamp);
+        }
+    }
+
+    return formatted;
+}
+
+gchar *
+notify_log_format_summary(GKeyFile *notify_log, const gchar *group) {
+    gchar *summary = g_key_file_get_string(notify_log, group, "summary", NULL);
+    gchar *formatted = g_markup_printf_escaped("<b>%s</b>", summary);
+    g_free(summary);
+    return formatted;
+}
+
+gchar *
+notify_log_format_body(GKeyFile *notify_log, const gchar *group) {
+    gchar *body = g_key_file_get_string(notify_log, group, "body", NULL);
+
+    if (g_strcmp0(body, "") == 0) {
+        g_free(body);
+        return NULL;
+    } else if (xfce_notify_is_markup_valid(body)) {
+        return body;
+    } else {
+        gchar *escaped = g_markup_escape_text(body, -1);
+        g_free(body);
+        return escaped;
+    }
+}
+
+cairo_surface_t *
+notify_log_load_icon(GKeyFile *notify_log,
+                     const gchar *group,
+                     const gchar *notify_log_icon_folder,
+                     gint size,
+                     gint scale)
+{
+    cairo_surface_t *surface = NULL;
+    GdkPixbuf *pixbuf = NULL;
+    GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+    gchar *icon_name = g_key_file_get_string(notify_log, group, "app_icon", NULL);
+
+    if (icon_name != NULL) {
+        gchar *icon_path = g_strconcat(notify_log_icon_folder , icon_name, ".png", NULL);
+
+        if (g_file_test(icon_path, G_FILE_TEST_EXISTS) && !g_file_test(icon_path, G_FILE_TEST_IS_DIR)) {
+            pixbuf = gdk_pixbuf_new_from_file_at_scale(icon_path, size * scale, size * scale, TRUE, NULL);
+        }
+
+        if (pixbuf == NULL && gtk_icon_theme_has_icon(icon_theme, icon_name)) {
+            pixbuf = gtk_icon_theme_load_icon_for_scale(icon_theme,
+                                                        icon_name,
+                                                        size,
+                                                        scale,
+                                                        GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                        NULL);
+        }
+
+        g_free(icon_path);
+    }
+
+    if (pixbuf == NULL) {
+        gchar *app_name = g_key_file_get_string(notify_log, group, "app_name", NULL);
+        gchar *app_icon_name = notify_get_from_desktop_file(app_name, "Icon");
+
+        if (app_icon_name != NULL) {
+            if (g_path_is_absolute(app_icon_name)
+                && g_file_test(app_icon_name, G_FILE_TEST_EXISTS)
+                && !g_file_test(app_icon_name, G_FILE_TEST_IS_DIR))
+            {
+                pixbuf = gdk_pixbuf_new_from_file_at_scale(app_icon_name, size * scale, size * scale, TRUE, NULL);
+            }
+
+            if (pixbuf == NULL && gtk_icon_theme_has_icon(icon_theme, app_icon_name)) {
+                pixbuf = gtk_icon_theme_load_icon_for_scale(icon_theme,
+                                                            app_icon_name,
+                                                            size,
+                                                            scale,
+                                                            GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                            NULL);
+            }
+        }
+
+        g_free(app_name);
+        g_free(app_icon_name);
+    }
+
+    if (pixbuf != NULL) {
+        surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale, NULL);
+        g_object_unref(pixbuf);
+    }
+
+    g_free(icon_name);
+
+    return surface;
+}
+
+gchar *
+notify_log_format_tooltip(const gchar *app_name, const gchar *timestamp, const gchar *body_text) {
+    if (timestamp != NULL && body_text != NULL) {
+        return g_strdup_printf("<b>%s</b> - %s\n%s", app_name, timestamp, body_text);
+    } else if (timestamp != NULL) {
+        return g_strdup_printf("<b>%s</b> - %s", app_name, timestamp);
+    } else if (body_text == NULL) {
+        return g_strdup_printf("<b>%s</b>\n%s", app_name, body_text);
+    } else {
+        return g_strdup_printf("<b>%s</b>", app_name);
+    }
 }

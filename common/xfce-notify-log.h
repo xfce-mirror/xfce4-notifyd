@@ -20,9 +20,12 @@
 #ifndef __XFCE_NOTIFY_LOG_H_
 #define __XFCE_NOTIFY_LOG_H_
 
+#include <gtk/gtk.h>
 
 #define XFCE_NOTIFY_LOG_FILE  "xfce4/notifyd/log"
 #define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
+
+G_BEGIN_DECLS
 
 GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
 
@@ -45,5 +48,17 @@ void       xfce_notify_log_insert (const gchar *app_name,
 GtkWidget *xfce_notify_clear_log_dialog (void);
 
 void xfce_notify_log_clear (void);
+
+gchar *notify_log_format_timestamp(const gchar *timestamp);
+gchar *notify_log_format_summary(GKeyFile *notify_log, const gchar *group);
+gchar *notify_log_format_body(GKeyFile *notify_log, const gchar *group);
+cairo_surface_t *notify_log_load_icon(GKeyFile *notify_log,
+                                      const gchar *group,
+                                      const gchar *notify_log_icon_folder,
+                                      gint size,
+                                      gint scale);
+gchar *notify_log_format_tooltip(const gchar *app_name, const gchar *timestamp, const gchar *body_text);
+
+G_END_DECLS
 
 #endif /* __XFCE_NOTIFY_LOG_H_ */

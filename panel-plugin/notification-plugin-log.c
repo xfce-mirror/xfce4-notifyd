@@ -110,18 +110,17 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   GKeyFile *notify_log;
   gint i;
   GDateTime *today;
-  gchar *timestamp;
+  gchar *today_timestamp;
   gsize num_groups = 0;
   GtkCallback func = notification_plugin_menu_clear;
   gchar *notify_log_icon_folder;
-  gchar *notify_log_icon_path;
   int log_icon_size;
   gboolean state;
   gboolean no_notifications = FALSE;
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
 
   today = g_date_time_new_now_local ();
-  timestamp = g_date_time_format (today, "%F");
+  today_timestamp = g_date_time_format (today, "%F");
 
   /* Clean up the list and re-fill it */
   gtk_container_foreach (GTK_CONTAINER (menu), func, menu);
@@ -190,136 +189,89 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
     for (i = numberof_groups; i > log_length; i--) {
-      GtkWidget *grid;
-      GtkWidget *summary, *body, *app_icon = NULL;
       const gchar *group = groups[i];
-      const char *format = "<b>\%s</b>";
-      const char *tooltip_format = "<b>\%s</b> - \%s\n\%s";
-      const char *tooltip_format_simple = "<b>\%s</b> - \%s";
-      char *markup;
+      GtkWidget *grid;
+      GtkWidget *summary, *body = NULL, *app_icon = NULL;
       gchar *app_name;
-      gchar *tooltip_timestamp = NULL;
-      gchar *tmp;
-      GDateTime *log_timestamp;
-      GDateTime *local_timestamp = NULL;
+      gchar *timestamp;
+      gchar *summary_text;
+      gchar *body_text;
+      cairo_surface_t *icon;
+      gchar *tooltip_text;
 
       /* optionally only show notifications from today */
       if (log_only_today == TRUE) {
-        if (g_ascii_strncasecmp (timestamp, group, 10) != 0) {
+        if (g_ascii_strncasecmp(today_timestamp, group, 10) != 0) {
           no_notifications = TRUE;
           continue;
-        }
-        else
+        } else {
           numberof_notifications_shown++;
+        }
       }
+
+      app_name = g_key_file_get_string(notify_log, group, "app_name", NULL);
+      timestamp = notify_log_format_timestamp(group);
+      summary_text = notify_log_format_summary(notify_log, group);
+      body_text = notify_log_format_body(notify_log, group);
+      icon = notify_log_load_icon(notify_log, group, notify_log_icon_folder, log_icon_size, scale_factor);
+      tooltip_text = notify_log_format_tooltip(app_name, timestamp, body_text);
+
+      summary = g_object_new(GTK_TYPE_LABEL,
+                             "use-markup", TRUE,
+                             "label", summary_text,
+                             "max-width-chars", 40,
+                             "ellipsize", PANGO_ELLIPSIZE_END,
+                             "xalign", 0.0,
+                             NULL);
+      if (body_text != NULL) {
+        body = g_object_new(GTK_TYPE_LABEL,
+                            "use-markup", TRUE,
+                            "label", body_text,
+                            "max-width-chars", 40,
+                            "ellipsize", PANGO_ELLIPSIZE_END,
+                            "xalign", 0.0,
+                            NULL);
+      }
+      if (icon != NULL) {
+        app_icon = gtk_image_new_from_surface(icon);
+      }
+
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       mi = gtk_image_menu_item_new ();
+      gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), app_icon);
 G_GNUC_END_IGNORE_DEPRECATIONS
+      gtk_widget_set_tooltip_markup(mi, tooltip_text);
 
-      log_timestamp = g_date_time_new_from_iso8601 (group, NULL);
-
-      if (log_timestamp != NULL)
-      {
-        local_timestamp = g_date_time_to_local (log_timestamp);
-        g_date_time_unref (log_timestamp);
-      }
-
-      if (local_timestamp != NULL) {
-        tooltip_timestamp = g_date_time_format (local_timestamp, "%c");
-        g_date_time_unref (local_timestamp);
-      }
-
-      app_name = g_key_file_get_string (notify_log, group, "app_name", NULL);
-
-      tmp = g_key_file_get_string (notify_log, group, "summary", NULL);
-      markup = g_markup_printf_escaped (format, tmp);
-      g_free (tmp);
-      summary = gtk_label_new (NULL);
-      gtk_label_set_markup (GTK_LABEL (summary), markup);
-      gtk_label_set_xalign (GTK_LABEL (summary), 0);
-      gtk_label_set_ellipsize (GTK_LABEL (summary), PANGO_ELLIPSIZE_END);
-      gtk_label_set_max_width_chars (GTK_LABEL (summary), 40);
-      g_free (markup);
-
-      tmp = g_key_file_get_string (notify_log, group, "body", NULL);
-      body = gtk_label_new (NULL);
-      if (xfce_notify_is_markup_valid(tmp)) {
-          gtk_label_set_markup (GTK_LABEL (body), tmp);
-      } else {
-          gtk_label_set_text(GTK_LABEL(body), tmp);
-      }
-      g_free (tmp);
-      gtk_label_set_xalign (GTK_LABEL (body), 0);
-      gtk_label_set_ellipsize (GTK_LABEL (body), PANGO_ELLIPSIZE_END);
-      gtk_label_set_max_width_chars (GTK_LABEL (body), 40);
-
-      tmp = g_key_file_get_string (notify_log, group, "app_icon", NULL);
-      notify_log_icon_path = g_strconcat (notify_log_icon_folder , tmp, ".png", NULL);
-      if (g_file_test (notify_log_icon_path, G_FILE_TEST_EXISTS)
-          && !g_file_test(notify_log_icon_path, G_FILE_TEST_IS_DIR))
-      {
-          GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_scale (notify_log_icon_path,
-                                                                 log_icon_size * scale_factor,
-                                                                 log_icon_size * scale_factor,
-                                                                 TRUE,
-                                                                 NULL);
-          if (pixbuf != NULL) {
-              cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(pixbuf, scale_factor, NULL);
-              app_icon = gtk_image_new_from_surface(surface);
-              cairo_surface_destroy(surface);
-              g_object_unref(pixbuf);
-          }
-      } else if (gtk_icon_theme_has_icon(gtk_icon_theme_get_default(), tmp)) {
-          app_icon = gtk_image_new_from_icon_name (tmp, GTK_ICON_SIZE_LARGE_TOOLBAR);
-          gtk_image_set_pixel_size(GTK_IMAGE(app_icon), log_icon_size);
-      }
-      if (app_icon == NULL) {
-          app_icon = gtk_image_new();
-      }
-      g_free (tmp);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-      gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), app_icon);
-G_GNUC_END_IGNORE_DEPRECATIONS
-
-      grid = gtk_grid_new ();
+      grid = gtk_grid_new();
       gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
-
-
-      /* Handle icon-only notifications */
-      tmp = g_key_file_get_string (notify_log, group, "body", NULL);
-      if (g_strcmp0 (tmp, "") == 0) {
-        gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 2);
-        if (tooltip_timestamp != NULL) {
-          markup = g_strdup_printf (tooltip_format_simple, app_name, tooltip_timestamp);
-        }
-        else {
-          markup = g_strdup_printf (format, app_name);
-        }
+      if (body == NULL) {
+        gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 2);
+      } else {
+        gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 1);
+        gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(body), 1, 1, 1, 1);
       }
-      else {
-        gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (summary), 1, 0, 1, 1);
-        gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (body), 1, 1, 1, 1);
-        markup = g_strdup_printf (tooltip_format, app_name, tooltip_timestamp, tmp);
+      gtk_container_add(GTK_CONTAINER(mi), GTK_WIDGET(grid));
+
+      gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+      gtk_widget_show_all(mi);
+
+      g_free(app_name);
+      g_free(timestamp);
+      g_free(summary_text);
+      g_free(body_text);
+      g_free(tooltip_text);
+      if (icon != NULL) {
+          cairo_surface_destroy(icon);
       }
-      g_free (tmp);
-      g_free (app_name);
-      g_free (tooltip_timestamp);
-
-      gtk_widget_set_tooltip_markup (mi, markup);
-      g_free (markup);
-
-      gtk_widget_show_all (grid);
-      gtk_container_add (GTK_CONTAINER (mi), GTK_WIDGET (grid));
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-      gtk_widget_show (mi);
     }
+
     g_strfreev (groups);
     g_key_file_free (notify_log);
     if (numberof_notifications_shown > 0)
       no_notifications = FALSE;
   }
 
-  g_free (timestamp);
+  g_free (today_timestamp);
   g_date_time_unref (today);
 
   /* Show a placeholder label when there are no notifications */
