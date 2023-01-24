@@ -68,6 +68,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   GtkWidget *dialog;
   GtkWidget *grid, *spin, *label, *check;
   GtkAdjustment *adjustment;
+  gint log_icon_size;
   gdouble log_display_limit;
   gint grid_row = 0;
 
@@ -85,9 +86,6 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   gtk_window_set_icon_name (GTK_WINDOW (dialog), ICON_NAME);
   gtk_widget_show (dialog);
 
-  log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
-                                              SETTING_LOG_DISPLAY_LIMIT, DEFAULT_LOG_DISPLAY_LIMIT);
-  adjustment = gtk_adjustment_new (log_display_limit, 0.0, 100.0, 1.0, 5.0, 0.0);
   grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
   gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
@@ -101,6 +99,21 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
                                      "fill", TRUE,
                                      NULL);
 
+
+  log_icon_size = xfconf_channel_get_int(notification_plugin->channel, SETTING_LOG_ICON_SIZE, DEFAULT_LOG_ICON_SIZE);
+  adjustment = gtk_adjustment_new(log_icon_size, 0, 256, 1, 8, 0);
+  label = gtk_label_new (_("Notification icon size"));
+  gtk_label_set_xalign (GTK_LABEL (label), 0);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, grid_row, 1, 1);
+  spin = gtk_spin_button_new (adjustment, 1.0, 0);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (spin), 1, grid_row, 1, 1);
+  xfconf_g_property_bind (notification_plugin->channel, SETTING_LOG_ICON_SIZE, G_TYPE_INT,
+                          G_OBJECT (spin), "value");
+  ++grid_row;
+
+  log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
+                                              SETTING_LOG_DISPLAY_LIMIT, DEFAULT_LOG_DISPLAY_LIMIT);
+  adjustment = gtk_adjustment_new (log_display_limit, 0.0, 100.0, 1.0, 5.0, 0.0);
   label = gtk_label_new (_("Number of notifications to show"));
   gtk_label_set_xalign (GTK_LABEL (label), 0);
   gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, grid_row, 1, 1);
