@@ -518,7 +518,7 @@ xfce_notify_count_apps_in_log (GKeyFile *notify_log,
             for (gsize i = 0; i < num_groups; ++i) {
                 gchar *app_name = g_key_file_get_string(notify_log, groups[i], "app_name", NULL);
 
-                if (g_hash_table_contains(counts, app_name)) {
+                if (app_name != NULL && g_hash_table_contains(counts, app_name)) {
                     g_hash_table_replace(counts, app_name, GUINT_TO_POINTER(GPOINTER_TO_UINT(g_hash_table_lookup(counts, app_name)) + 1));
                 }
             }
