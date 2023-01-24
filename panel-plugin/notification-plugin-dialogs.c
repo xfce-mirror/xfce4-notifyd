@@ -69,6 +69,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   GtkWidget *grid, *spin, *label, *check;
   GtkAdjustment *adjustment;
   gdouble log_display_limit;
+  gint grid_row = 0;
 
   /* block the plugin menu */
   xfce_panel_plugin_block_menu (plugin);
@@ -95,41 +96,49 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   gtk_widget_set_margin_top (grid, 12);
   gtk_widget_set_margin_bottom (grid, 12);
   gtk_container_add_with_properties (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
-						                         grid, "expand", TRUE, "fill", TRUE, NULL);
+                                     grid,
+                                     "expand", TRUE,
+                                     "fill", TRUE,
+                                     NULL);
+
   label = gtk_label_new (_("Number of notifications to show"));
   gtk_label_set_xalign (GTK_LABEL (label), 0);
-  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, grid_row, 1, 1);
   spin = gtk_spin_button_new (adjustment, 1.0, 0);
-  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (spin), 1, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (spin), 1, grid_row, 1, 1);
   xfconf_g_property_bind (notification_plugin->channel, SETTING_LOG_DISPLAY_LIMIT, G_TYPE_INT,
                           G_OBJECT (spin), "value");
+  ++grid_row;
 
   label = gtk_label_new (_("Only show notifications from today"));
   gtk_label_set_xalign (GTK_LABEL (label), 0);
-  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, grid_row, 1, 1);
   check = gtk_switch_new ();
   gtk_widget_set_halign (check, GTK_ALIGN_END);
-  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (check), 1, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (check), 1, grid_row, 1, 1);
   xfconf_g_property_bind (notification_plugin->channel, SETTING_LOG_ONLY_TODAY, G_TYPE_BOOLEAN,
                           G_OBJECT (check), "active");
+  ++grid_row;
 
   label = gtk_label_new (_("Hide 'Clear log' confirmation dialog"));
   gtk_label_set_xalign (GTK_LABEL (label), 0);
-  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, 2, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (label), 0, grid_row, 1, 1);
   check = gtk_switch_new ();
   gtk_widget_set_halign (check, GTK_ALIGN_END);
-  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (check), 1, 2, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET (check), 1, grid_row, 1, 1);
   xfconf_g_property_bind (notification_plugin->channel, SETTING_HIDE_CLEAR_PROMPT, G_TYPE_BOOLEAN,
                           G_OBJECT (check), "active");
+  ++grid_row;
 
   label = gtk_label_new(_("Hide panel button when no unread notifications"));
   gtk_label_set_xalign(GTK_LABEL(label), 0);
-  gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, grid_row, 1, 1);
   check = gtk_switch_new();
   gtk_widget_set_halign(check, GTK_ALIGN_END);
-  gtk_grid_attach(GTK_GRID(grid), check, 1, 3, 1, 1);
+  gtk_grid_attach(GTK_GRID(grid), check, 1, grid_row, 1, 1);
   xfconf_g_property_bind(notification_plugin->channel, SETTING_HIDE_ON_READ, G_TYPE_BOOLEAN,
                          G_OBJECT(check), "active");
+  ++grid_row;
 
   /* link the dialog to the plugin, so we can destroy it when the plugin
    * is closed, but the dialog is still open */
