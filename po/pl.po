@@ -167,7 +167,7 @@ msgstr "Czy na pewno chcesz usunąć ustawienia powiadomień dla aplikacji „%s
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
-msgstr "Usuwa wydarzenie"
+msgstr "Usuń"
 
 #: ../xfce4-notifyd-config/main.c:576
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
