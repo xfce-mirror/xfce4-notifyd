@@ -807,7 +807,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-bottom">6</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Show or block notifications per application&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Per-application notification settings&lt;/b&gt;</property>
                         <property name="use-markup">True</property>
                         <property name="xalign">0</property>
                       </object>
