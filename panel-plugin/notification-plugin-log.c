@@ -190,10 +190,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
     for (i = numberof_groups; i > log_length; i--) {
       const gchar *group = groups[i];
-      GtkWidget *grid;
-      GtkWidget *summary, *body = NULL, *app_icon = NULL;
+      GtkWidget *hbox;
+      GtkWidget *timestamp, *summary, *body = NULL, *app_icon = NULL;
       gchar *app_name;
-      gchar *timestamp;
+      gchar *timestamp_text;
       gchar *summary_text;
       gchar *body_text;
       cairo_surface_t *icon;
@@ -210,24 +210,28 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       }
 
       app_name = g_key_file_get_string(notify_log, group, "app_name", NULL);
-      timestamp = notify_log_format_timestamp(group);
+      timestamp_text = notify_log_format_timestamp(group);
       summary_text = notify_log_format_summary(notify_log, group);
       body_text = notify_log_format_body(notify_log, group);
       icon = notify_log_load_icon(notify_log, group, notify_log_icon_folder, log_icon_size, scale_factor);
-      tooltip_text = notify_log_format_tooltip(app_name, timestamp, body_text);
+      tooltip_text = notify_log_format_tooltip(app_name, timestamp_text, body_text);
 
       summary = g_object_new(GTK_TYPE_LABEL,
                              "use-markup", TRUE,
                              "label", summary_text,
-                             "max-width-chars", 40,
+                             "max-width-chars", 30,
                              "ellipsize", PANGO_ELLIPSIZE_END,
                              "xalign", 0.0,
                              NULL);
+      timestamp = g_object_new(GTK_TYPE_LABEL,
+                               "label", timestamp_text,
+                               "xalign", 1.0,
+                               NULL);
       if (body_text != NULL) {
         body = g_object_new(GTK_TYPE_LABEL,
                             "use-markup", TRUE,
                             "label", body_text,
-                            "max-width-chars", 40,
+                            "max-width-chars", 60,
                             "ellipsize", PANGO_ELLIPSIZE_END,
                             "xalign", 0.0,
                             NULL);
@@ -242,21 +246,27 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_GNUC_END_IGNORE_DEPRECATIONS
       gtk_widget_set_tooltip_markup(mi, tooltip_text);
 
-      grid = gtk_grid_new();
-      gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+      hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
+      gtk_widget_show(hbox);
+      gtk_box_pack_start(GTK_BOX(hbox), summary, TRUE, TRUE, 0);
+      gtk_box_pack_end(GTK_BOX(hbox), timestamp, FALSE, FALSE, 0);
+
       if (body == NULL) {
-        gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 2);
+        gtk_container_add(GTK_CONTAINER(mi), hbox);
       } else {
-        gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 1);
-        gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(body), 1, 1, 1, 1);
+        GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+        gtk_widget_show(vbox);
+        gtk_container_add(GTK_CONTAINER(mi), vbox);
+
+        gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+        gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
       }
-      gtk_container_add(GTK_CONTAINER(mi), GTK_WIDGET(grid));
 
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
       gtk_widget_show_all(mi);
 
       g_free(app_name);
-      g_free(timestamp);
+      g_free(timestamp_text);
       g_free(summary_text);
       g_free(body_text);
       g_free(tooltip_text);
