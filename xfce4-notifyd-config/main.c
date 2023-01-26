@@ -946,21 +946,21 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
         /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
         for (i = log_length; groups && groups[i]; i += 1) {
             const gchar *group = groups[i];
-            GtkWidget *grid;
-            GtkWidget *summary, *body = NULL, *app_icon = NULL;
+            GtkWidget *hbox;
+            GtkWidget *summary, *timestamp, *body = NULL, *app_icon = NULL;
             gchar *app_name;
-            gchar *timestamp;
+            gchar *timestamp_text;
             gchar *summary_text;
             gchar *body_text;
             gchar *tooltip_text;
             cairo_surface_t *icon;
 
             app_name = g_key_file_get_string(notify_log, group, "app_name", NULL);
-            timestamp = notify_log_format_timestamp(group);
+            timestamp_text = notify_log_format_timestamp(group);
             summary_text = notify_log_format_summary(notify_log, group);
             body_text = notify_log_format_body(notify_log, group);
             icon = notify_log_load_icon(notify_log, group, notify_log_icon_folder, icon_size, scale_factor);
-            tooltip_text = notify_log_format_tooltip(app_name, timestamp, body_text);
+            tooltip_text = notify_log_format_tooltip(app_name, timestamp_text, body_text);
 
             if (g_ascii_strncasecmp(today_timestamp, group, 10) == 0 && yesterday == FALSE) {
                 GtkWidget *header;
@@ -975,8 +975,13 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             summary = g_object_new(GTK_TYPE_LABEL,
                                    "use-markup", TRUE,
                                    "label", summary_text,
+                                   "ellipsize", PANGO_ELLIPSIZE_END,
                                    "xalign", 0.0,
                                    NULL);
+            timestamp = g_object_new(GTK_TYPE_LABEL,
+                                     "label", timestamp_text,
+                                     "xalign", 1.0,
+                                     NULL);
             if (body_text != NULL) {
                 body = g_object_new(GTK_TYPE_LABEL,
                                     "use-markup", TRUE,
@@ -999,24 +1004,33 @@ xfce4_notifyd_log_populate (NotificationLogWidgets *log_widgets)
             }
             gtk_widget_set_margin_start(app_icon, 3);
 
-            // TODO: actions and timeout are missing (timeout is only interesting for urgent messages) - do we need that?
-            grid = gtk_grid_new();
-            gtk_grid_set_column_spacing(GTK_GRID(grid), 6);
-            gtk_widget_set_tooltip_markup(grid, tooltip_text);
-            if (app_icon != NULL) {
-                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(app_icon), 0, 0 , 1, 2);
-            }
-            /* Handle icon-only notifications */
+            hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
+            gtk_widget_set_tooltip_markup(hbox, tooltip_text);
+
+            gtk_box_pack_start(GTK_BOX(hbox), app_icon, FALSE, FALSE, 0);
             if (body == NULL) {
-                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 2);
+                /* Handle icon-only notifications */
+                GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+                gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+
+                gtk_box_pack_start(GTK_BOX(vbox), timestamp, FALSE, FALSE, 0);
+                gtk_box_pack_start(GTK_BOX(vbox), summary, FALSE, FALSE, 0);
             } else {
-                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(summary), 1, 0, 1, 1);
-                gtk_grid_attach(GTK_GRID(grid), GTK_WIDGET(body), 1, 1, 1, 1);
+                GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+                GtkWidget *inner_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+
+                gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+                gtk_box_pack_start(GTK_BOX(vbox), inner_hbox, FALSE, FALSE, 0);
+
+                gtk_box_pack_start(GTK_BOX(inner_hbox), summary, TRUE, TRUE, 0);
+                gtk_box_pack_end(GTK_BOX(inner_hbox), timestamp, FALSE, FALSE, 0);
+
+                gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
             }
-            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), grid, 0);
+            gtk_list_box_insert (GTK_LIST_BOX (log_listbox), hbox, 0);
 
             g_free(app_name);
-            g_free(timestamp);
+            g_free(timestamp_text);
             g_free(summary_text);
             g_free(body_text);
             g_free(tooltip_text);
