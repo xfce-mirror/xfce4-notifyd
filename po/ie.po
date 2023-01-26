@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 12:49+0100\n"
+"POT-Creation-Date: 2023-01-26 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Interlingue (http://www.transifex.com/xfce/xfce-apps/language/ie/)\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Language: ie\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../common/xfce-notify-log.c:581
+#: ../common/xfce-notify-log.c:582
 msgid "Do you really want to clear the notification log?"
 msgstr "Esque vu vole vacuar li diarium de notificationes?"
 
-#: ../common/xfce-notify-log.c:585
+#: ../common/xfce-notify-log.c:586
 msgid "Clear notification log"
 msgstr "Vacuar li diarium de notificationes"
 
-#: ../common/xfce-notify-log.c:588
+#: ../common/xfce-notify-log.c:589
 msgid "Cancel"
 msgstr "Anullar"
 
-#: ../common/xfce-notify-log.c:590 ../xfce4-notifyd-config/main.c:1363
+#: ../common/xfce-notify-log.c:591 ../xfce4-notifyd-config/main.c:1347
 msgid "Clear"
 msgstr "Vacuar"
 
-#: ../common/xfce-notify-log.c:606 ../common/xfce-notify-log.c:614
+#: ../common/xfce-notify-log.c:607 ../common/xfce-notify-log.c:615
 msgid "include icon cache"
 msgstr "includer li cache de icones"
 
@@ -49,57 +49,61 @@ msgid "Unable to open the following url: %s"
 msgstr "Ne successat aperter li sequent URL: %s"
 
 #. create the dialog
-#: ../panel-plugin/notification-plugin-dialogs.c:77
+#: ../panel-plugin/notification-plugin-dialogs.c:79
 msgid "Notification Plugin Settings"
 msgstr "Parametres del plugin de notificationes"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:80
+#: ../panel-plugin/notification-plugin-dialogs.c:82
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid "_Help"
 msgstr "Au_xilie"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:81
+#: ../panel-plugin/notification-plugin-dialogs.c:83
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid "_Close"
 msgstr "_Cluder"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:99
+#: ../panel-plugin/notification-plugin-dialogs.c:105
+msgid "Notification icon size"
+msgstr ""
+
+#: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
 msgstr "Li max númere de notificationes"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:107
+#: ../panel-plugin/notification-plugin-dialogs.c:126
 msgid "Only show notifications from today"
 msgstr "Monstrar solmen notificationes de hodie"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:116
+#: ../panel-plugin/notification-plugin-dialogs.c:136
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-dialogs.c:125
+#: ../panel-plugin/notification-plugin-dialogs.c:146
 msgid "Hide panel button when no unread notifications"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-dialogs.c:158
+#: ../panel-plugin/notification-plugin-dialogs.c:180
 msgid "This is the notification plugin"
 msgstr "Ti-ci es li plugin de notificationes"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:160
+#: ../panel-plugin/notification-plugin-dialogs.c:182
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:141
+#: ../panel-plugin/notification-plugin-log.c:140
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>Ne _disturbar</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:322
+#: ../panel-plugin/notification-plugin-log.c:293
 msgid "No notifications"
 msgstr "Null notificationes"
 
-#: ../panel-plugin/notification-plugin-log.c:343
+#: ../panel-plugin/notification-plugin-log.c:314
 msgid "_Clear log"
 msgstr "_Vacuar li diarium"
 
-#: ../panel-plugin/notification-plugin-log.c:351
+#: ../panel-plugin/notification-plugin-log.c:322
 msgid "_Notification settings…"
 msgstr "Parametres de _notificationes..."
 
@@ -112,7 +116,7 @@ msgid "Notification plugin for the Xfce panel"
 msgstr "Plugin de notificationes por li panel Xfce"
 
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1197
+#: ../xfce4-notifyd-config/main.c:1181
 msgid "Xfce Notify Daemon"
 msgstr "Daemon de notificationes Xfce"
 
@@ -125,7 +129,7 @@ msgstr "Ínconosset option «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "Ne successat li daemon de notificationes"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:480
+#: ../xfce4-notifyd/xfce-notify-daemon.c:477
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Un altri daemon de notificationes es executent, fini se\n"
@@ -181,70 +185,70 @@ msgstr "permisset"
 msgid "disabled"
 msgstr "depermisset"
 
-#: ../xfce4-notifyd-config/main.c:971
+#: ../xfce4-notifyd-config/main.c:967
 msgid "Yesterday and before"
 msgstr "Yer e ante"
 
-#: ../xfce4-notifyd-config/main.c:1199
+#: ../xfce4-notifyd-config/main.c:1183
 msgid "Settings daemon is unavailable"
 msgstr "Daemon de parametres es índisponibil"
 
-#: ../xfce4-notifyd-config/main.c:1299
+#: ../xfce4-notifyd-config/main.c:1283
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Bentost ne hay conosset applicationes.</b></big>\nQuande un application invita un notification\nit va aparir in ti-ci liste."
 
-#: ../xfce4-notifyd-config/main.c:1341
+#: ../xfce4-notifyd-config/main.c:1325
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Diarium es vacui</b></big>\nNull notificationes ancor inregistrat."
 
-#: ../xfce4-notifyd-config/main.c:1349
+#: ../xfce4-notifyd-config/main.c:1333
 msgid "Refresh"
 msgstr "Refriscar"
 
-#: ../xfce4-notifyd-config/main.c:1350
+#: ../xfce4-notifyd-config/main.c:1334
 msgid "Refresh the notification log"
 msgstr "Refriscar li diarium de notificationes"
 
-#: ../xfce4-notifyd-config/main.c:1356
+#: ../xfce4-notifyd-config/main.c:1340
 msgid "Open"
 msgstr "Aperter"
 
-#: ../xfce4-notifyd-config/main.c:1357
+#: ../xfce4-notifyd-config/main.c:1341
 msgid "Open the notification log in an external editor"
 msgstr "Aperter li diarium de notificationes in un redactor extern"
 
-#: ../xfce4-notifyd-config/main.c:1364
+#: ../xfce4-notifyd-config/main.c:1348
 msgid "Clear the notification log"
 msgstr "Vacuar li diarium de notificationes"
 
-#: ../xfce4-notifyd-config/main.c:1386
+#: ../xfce4-notifyd-config/main.c:1370
 msgid "Display version information"
 msgstr "Monstra li information del version"
 
-#: ../xfce4-notifyd-config/main.c:1387
+#: ../xfce4-notifyd-config/main.c:1371
 msgid "Settings manager socket"
 msgstr "Socket del gerente de parametres"
 
-#: ../xfce4-notifyd-config/main.c:1387
+#: ../xfce4-notifyd-config/main.c:1371
 msgid "SOCKET_ID"
 msgstr "ID_DE_SOCKET"
 
-#: ../xfce4-notifyd-config/main.c:1397
+#: ../xfce4-notifyd-config/main.c:1381
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Tippa '%s --help' por li usage."
 
-#: ../xfce4-notifyd-config/main.c:1412
+#: ../xfce4-notifyd-config/main.c:1396
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Released under the terms of the GNU General Public License, version 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1413
+#: ../xfce4-notifyd-config/main.c:1397
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Ples raportar errores a <%s>.\n"
@@ -385,8 +389,8 @@ msgid "General"
 msgstr "General"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
-msgid "<b>Show or block notifications per application</b>"
-msgstr "<b>Monstrar o blocar notificationes por application</b>"
+msgid "<b>Per-application notification settings</b>"
+msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -419,7 +423,7 @@ msgid "Mute application"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
-msgid "Allow critical notifications"
+msgid "Allow urgent notifications"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
