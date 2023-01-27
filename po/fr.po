@@ -75,7 +75,7 @@ msgstr "_Fermer"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "Taille de l'icône de notification"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -400,7 +400,7 @@ msgstr "Général"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Paramètres de notification par application</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -434,7 +434,7 @@ msgstr "Application de mise en sourdine"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Autoriser les notifications urgentes"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
