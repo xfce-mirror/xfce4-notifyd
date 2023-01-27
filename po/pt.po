@@ -69,7 +69,7 @@ msgstr "Fe_char"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "Tamanho dos ícones de notificação"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -85,7 +85,7 @@ msgstr "Ocultar a caixa de diálogo de confirmação 'Limpar registo'"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:146
 msgid "Hide panel button when no unread notifications"
-msgstr "Ocultar botão do painel quando não há notificações não lidas"
+msgstr "Ocultar botão do painel quando não houver notificações não lidas"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:180
 msgid "This is the notification plugin"
@@ -382,7 +382,7 @@ msgstr "Mostrar texto com _valores percentuais"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr "A definição \"Ativar sons de eventos\" na janela Definições de aparência deve ser ativada para ouvir sons de notificação"
+msgstr "A configuração \"Ativar sons de eventos\" na janela Definições de aparência deve ser ativada para ouvir sons de notificação"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "_Mute sounds"
@@ -394,7 +394,7 @@ msgstr "Geral"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Definições de notificação por aplicação</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -428,7 +428,7 @@ msgstr "Silenciar aplicação"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Permitir notificações urgentes"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
