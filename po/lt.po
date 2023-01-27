@@ -67,7 +67,7 @@ msgstr "_Užverti"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "Pranešimų piktogramų dydis"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -392,7 +392,7 @@ msgstr "Bendra"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Atskirų programų pranešimų nustatymai</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -426,7 +426,7 @@ msgstr "Nutildyti programą"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Leisti skubius pranešimus"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
