@@ -71,7 +71,7 @@ msgstr "_Lukk"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "Varslingsikonets størrelse"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -161,7 +161,7 @@ msgstr "Forhåndsvisning av varsel feilet"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette varslingsinnstillingene for programmet «%s»?"
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
@@ -170,7 +170,7 @@ msgstr "Slett"
 #: ../xfce4-notifyd-config/main.c:576
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
-msgstr ""
+msgstr "Glem program"
 
 #: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
@@ -396,7 +396,7 @@ msgstr "Generelt"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Varslingsinnstilling per program</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -426,15 +426,15 @@ msgstr "Logg"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
 msgid "Mute application"
-msgstr ""
+msgstr "Demp program"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Tillat viktige varsler"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
-msgstr ""
+msgstr "Ta med i loggen"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
