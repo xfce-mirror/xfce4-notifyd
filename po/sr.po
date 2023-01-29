@@ -392,7 +392,7 @@ msgstr "Опште"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Поставке обавештења по програму</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -426,7 +426,7 @@ msgstr "Утишај програм"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Дозволи хитна обавештења"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
