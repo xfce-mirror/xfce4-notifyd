@@ -271,14 +271,35 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                     G_CALLBACK (cb_menu_size_allocate), notification_plugin);
 
   /* Start monitoring the log file for changes */
-  notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
-  if (notify_log_path) {
+  notify_log_path = xfce_resource_save_location(XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE, TRUE);
+  if (G_LIKELY(notify_log_path != NULL)) {
+    GError *error = NULL;
+
     notification_plugin->log_file = g_file_new_for_path (notify_log_path);
+    if (!g_file_query_exists(notification_plugin->log_file, NULL)) {
+      GFileOutputStream *stream = g_file_create(notification_plugin->log_file, G_FILE_CREATE_NONE, NULL, &error);
+      if (G_LIKELY(stream != NULL)) {
+        g_output_stream_close(G_OUTPUT_STREAM(stream), NULL, NULL);
+        g_object_unref(stream);
+      } else if (error != NULL) {
+        if (error->domain != G_IO_ERROR || error->code != G_IO_ERROR_EXISTS) {
+          g_warning("Unable to create notification log file at '%s' (%d): %s",
+                    notify_log_path, error->code, error->message);
+        }
+        g_clear_error(&error);
+      }
+    }
+
     notification_plugin->log_file_monitor = g_file_monitor_file (notification_plugin->log_file,
-                                                                 G_FILE_MONITOR_NONE, NULL, NULL);
-    if (notification_plugin->log_file_monitor != NULL)
+                                                                 G_FILE_MONITOR_NONE, NULL, &error);
+    if (G_LIKELY(notification_plugin->log_file_monitor != NULL)) {
       g_signal_connect (notification_plugin->log_file_monitor, "changed",
                         G_CALLBACK (notification_plugin_log_file_changed), notification_plugin);
+    } else if (error != NULL) {
+      g_warning("Failed to create monitor for notification log file at '%s' (%d): %s",
+                notify_log_path, error->code, error->message);
+      g_clear_error(&error);
+    }
     g_free (notify_log_path);
   }
 
