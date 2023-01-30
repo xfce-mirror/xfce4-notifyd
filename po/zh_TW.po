@@ -6,14 +6,14 @@
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2009
 # 黃柏諺 <s8321414@gmail.com>, 2016-2018
 # Walter Cheuk <wwycheuk@gmail.com>, 2013-2014
-# 黃柏諺 <s8321414@gmail.com>, 2020,2022
+# 黃柏諺 <s8321414@gmail.com>, 2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-26 12:51+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2023\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/xfce/xfce-apps/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +69,7 @@ msgstr "關閉(_C)"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "通知圖示大小"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -85,7 +85,7 @@ msgstr "隱藏「清除紀錄」確認對話框"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:146
 msgid "Hide panel button when no unread notifications"
-msgstr ""
+msgstr "沒有未讀通知時隱藏面板按鈕"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:180
 msgid "This is the notification plugin"
@@ -159,7 +159,7 @@ msgstr "通知預覽失敗"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "您確定要刪除應用程式「%s」的通知設定嗎？"
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
@@ -168,7 +168,7 @@ msgstr "刪除"
 #: ../xfce4-notifyd-config/main.c:576
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
-msgstr ""
+msgstr "忘記應用程式"
 
 #: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
@@ -372,21 +372,21 @@ msgstr "顯示通知在"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "當通知為百分比值（如音訊音量或螢幕亮度）時，顯示通知摘要與正文。"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "顯示帶有百分比值的文字(_V)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "必須勾選外觀設定對話方塊中的「啟用事件音效」設定才能聽到通知音效"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "_Mute sounds"
-msgstr ""
+msgstr "靜音(_M)"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "General"
@@ -394,7 +394,7 @@ msgstr "一般"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>每個應用程式的通知設定</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -424,15 +424,15 @@ msgstr "記錄"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
 msgid "Mute application"
-msgstr ""
+msgstr "靜音應用程式"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "允許緊急通知"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
-msgstr ""
+msgstr "包含在紀錄檔中"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
