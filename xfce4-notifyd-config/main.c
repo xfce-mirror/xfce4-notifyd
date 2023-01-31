@@ -1064,6 +1064,16 @@ xfce_notify_log_clear_button_clicked(GtkButton *button, SettingsPanel *panel) {
     gtk_widget_destroy (dialog);
 }
 
+static void
+xfce_notify_log_mark_read_clicked(GtkWidget *button, SettingsPanel *panel) {
+    xfce_notify_log_mark_all_read(panel->log);
+}
+
+static void
+xfce_notify_log_changed_check_unread(XfceNotifyLog *log, GtkWidget *button) {
+    gtk_widget_set_sensitive(button, xfce_notify_log_count_unread_messages(log) > 0);
+}
+
 static void xfce4_notifyd_show_help(GtkButton *button,
                                     GtkWidget *dialog)
 {
@@ -1122,6 +1132,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *log_scrolled_window;
     GtkToolItem *log_clear_button;
     GtkToolItem *log_refresh_button;
+    GtkToolItem *log_mark_read_button;
     GtkWidget *icon;
     GtkWidget *primary_monitor;
     GtkWidget *mute_sounds;
@@ -1303,8 +1314,19 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     gtk_toolbar_insert(panel->log_widgets.log_toolbar, GTK_TOOL_ITEM(log_clear_button), -1);
     g_signal_connect (G_OBJECT (log_clear_button), "clicked",
                       G_CALLBACK (xfce_notify_log_clear_button_clicked), panel);
-    gtk_widget_show_all (GTK_WIDGET(panel->log_widgets.log_toolbar));
 
+    icon = gtk_image_new_from_icon_name("notification-new-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_pixel_size(GTK_IMAGE(icon), 16);
+    log_mark_read_button = gtk_tool_button_new(icon, _("Mark All Read"));
+    gtk_widget_set_sensitive(GTK_WIDGET(log_mark_read_button), panel->log != NULL && xfce_notify_log_count_unread_messages(panel->log) > 0);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(log_mark_read_button), _("Mark all unread notifications as read"));
+    gtk_toolbar_insert(panel->log_widgets.log_toolbar, GTK_TOOL_ITEM(log_mark_read_button), -1);
+    g_signal_connect(log_mark_read_button, "clicked",
+                     G_CALLBACK(xfce_notify_log_mark_read_clicked), panel);
+    g_signal_connect(panel->log, "changed",
+                     G_CALLBACK(xfce_notify_log_changed_check_unread), log_mark_read_button);
+
+    gtk_widget_show_all (GTK_WIDGET(panel->log_widgets.log_toolbar));
     xfce4_notifyd_log_populate (panel);
 
     return dlg;
