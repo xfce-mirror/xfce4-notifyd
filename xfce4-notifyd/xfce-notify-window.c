@@ -61,6 +61,7 @@ struct _XfceNotifyWindow
     GtkWindow parent;
 
     guint id;
+    gchar *log_id;
 
     GdkRectangle geometry;
     gint last_monitor;
@@ -352,13 +353,15 @@ xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 static void
 xfce_notify_window_finalize(GObject *object)
 {
-#ifdef ENABLE_SOUND
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
 
+#ifdef ENABLE_SOUND
     if (window->sound_props != NULL) {
         ca_proplist_destroy(window->sound_props);
     }
 #endif
+
+    g_free(window->log_id);
 
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->finalize(object);
 }
@@ -726,6 +729,23 @@ xfce_notify_window_get_id(XfceNotifyWindow *window)
 {
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0);
     return window->id;
+}
+
+void
+xfce_notify_window_set_log_id(XfceNotifyWindow *window,
+                              const gchar *id)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    g_free(window->log_id);
+    window->log_id = g_strdup(id);
+}
+
+const gchar *
+xfce_notify_window_get_log_id(XfceNotifyWindow *window)
+{
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), NULL);
+    return window->log_id;
 }
 
 void
