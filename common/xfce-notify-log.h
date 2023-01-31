@@ -1,7 +1,7 @@
 /*
  *  xfce4-notifyd
  *
- *  Copyright (c) 2016 Simon Steinbeiß <ochosi@xfce.org>
+ *  Copyright (c) 2023 Brian Tarricone <brian@tarricone.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,48 +17,60 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef __XFCE_NOTIFY_LOG_H_
-#define __XFCE_NOTIFY_LOG_H_
+#ifndef __XFCE_NOTIFY_LOG_H__
+#define __XFCE_NOTIFY_LOG_H__
 
-#include <gtk/gtk.h>
-
-#define XFCE_NOTIFY_LOG_FILE  "xfce4/notifyd/log"
-#define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
+#include <glib-object.h>
+#include <sqlite3.h>
 
 G_BEGIN_DECLS
 
-GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
+G_DECLARE_FINAL_TYPE(XfceNotifyLog, xfce_notify_log, XFCE, NOTIFY_LOG, GObject)
+#define XFCE_TYPE_NOTIFY_LOG (xfce_notify_log_get_type())
 
-gchar     *notify_get_from_desktop_file (const gchar *desktop_file,
-                                         const gchar *key);
+typedef struct _XfceNotifyLogEntryAction {
+    gchar *id;
+    gchar *label;
+} XfceNotifyLogEntryAction;
 
-GKeyFile  *xfce_notify_log_get (void);
+typedef struct _XfceNotifyLogEntry {
+    gchar *id;
+    GDateTime *timestamp;
+    gchar *app_id;
+    gchar *app_name;
+    gchar *icon_id;
+    gchar *summary;
+    gchar *body;
+    GList *actions;
+    gint expire_timeout;
+    gboolean is_read;
+} XfceNotifyLogEntry;
 
-void       xfce_notify_log_insert (const gchar *app_name,
-                                   const gchar *summary,
-                                   const gchar *body,
-                                   GVariant *image_data,
-                                   const gchar *image_path,
-                                   const gchar *app_icon,
-                                   const gchar *desktop_id,
-                                   gint expire_timeout,
-                                   const gchar **actions,
-                                   gint log_max_size);
+XfceNotifyLog *xfce_notify_log_open(GError **error);
 
-GtkWidget *xfce_notify_clear_log_dialog (void);
+XfceNotifyLogEntry *xfce_notify_log_get(XfceNotifyLog *log,
+                                        const gchar *id);
+GList *xfce_notify_log_read(XfceNotifyLog *log,
+                            const gchar *start_after_id,
+                            guint count);
 
-void xfce_notify_log_clear (void);
+guint xfce_notify_log_count_unread_messages(XfceNotifyLog *log);
+GHashTable *xfce_notify_log_get_app_id_counts(XfceNotifyLog *log);
 
-gchar *notify_log_format_timestamp(const gchar *timestamp);
-gchar *notify_log_format_summary(GKeyFile *notify_log, const gchar *group);
-gchar *notify_log_format_body(GKeyFile *notify_log, const gchar *group);
-cairo_surface_t *notify_log_load_icon(GKeyFile *notify_log,
-                                      const gchar *group,
-                                      const gchar *notify_log_icon_folder,
-                                      gint size,
-                                      gint scale);
-gchar *notify_log_format_tooltip(const gchar *app_name, const gchar *timestamp, const gchar *body_text);
+gboolean xfce_notify_log_write(XfceNotifyLog *log,
+                               XfceNotifyLogEntry *entry);
+gboolean xfce_notify_log_mark_read(XfceNotifyLog *log,
+                                   const gchar *id);
+
+gboolean xfce_notify_log_delete(XfceNotifyLog *log,
+                                const gchar *id);
+gboolean xfce_notify_log_delete_before(XfceNotifyLog *log,
+                                       GDateTime *oldest_to_keep);
+
+gboolean xfce_notify_log_clear(XfceNotifyLog *log);
+
+void xfce_notify_log_entry_free(XfceNotifyLogEntry *entry);
 
 G_END_DECLS
 
-#endif /* __XFCE_NOTIFY_LOG_H_ */
+#endif  /* __XFCE_NOTIFY_LOG_H__ */
