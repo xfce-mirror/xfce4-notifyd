@@ -1,4 +1,5 @@
 common/xfce-notify-log.c
+common/xfce-notify-log-util.c
 panel-plugin/notification-plugin.c
 panel-plugin/notification-plugin-dialogs.c
 panel-plugin/notification-plugin-log.c
