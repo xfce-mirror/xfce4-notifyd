@@ -101,6 +101,12 @@ notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
 }
 
 
+static void
+notification_plugin_mark_all_read(GtkWidget *widget, NotificationPlugin *notification_plugin) {
+  xfce_notify_log_mark_all_read(notification_plugin->log);
+}
+
+
 void
 notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 {
@@ -319,6 +325,17 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_show (mi);
   g_signal_connect (mi, "activate", G_CALLBACK (notification_plugin_clear_log_dialog),
                     notification_plugin);
+
+  image = gtk_image_new_from_icon_name("notification-new-symbolic", GTK_ICON_SIZE_MENU);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  mi = gtk_image_menu_item_new_with_mnemonic(_("_Mark all read"));
+  gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), image);
+G_GNUC_END_IGNORE_DEPRECATIONS
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+  gtk_widget_set_sensitive(mi, notification_plugin->log != NULL && xfce_notify_log_count_unread_messages(notification_plugin->log) > 0);
+  gtk_widget_show(mi);
+  g_signal_connect(mi, "activate",
+                   G_CALLBACK(notification_plugin_mark_all_read), notification_plugin);
 
   mi = gtk_menu_item_new_with_mnemonic (_("_Notification settings…"));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);

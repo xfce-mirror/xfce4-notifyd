@@ -79,6 +79,7 @@ typedef struct _XfceNotifyLog {
     sqlite3_stmt *stmt_count_app_ids;
     sqlite3_stmt *stmt_write;
     sqlite3_stmt *stmt_mark_read;
+    sqlite3_stmt *stmt_mark_all_read;
     sqlite3_stmt *stmt_delete;
     sqlite3_stmt *stmt_delete_before;
     sqlite3_stmt *stmt_delete_all;
@@ -238,6 +239,9 @@ xfce_notify_log_finalize(GObject *object) {
     if (log->stmt_mark_read != NULL) {
         sqlite3_finalize(log->stmt_mark_read);
     }
+    if (log->stmt_mark_all_read != NULL) {
+        sqlite3_finalize(log->stmt_mark_all_read);
+    }
     if (log->stmt_delete != NULL) {
         sqlite3_finalize(log->stmt_delete);
     }
@@ -340,6 +344,10 @@ prepare_statements(XfceNotifyLog *log, GError **error) {
     }
 
     if (G_LIKELY(log->stmt_mark_read != NULL)) {
+        log->stmt_mark_all_read = prepare_statement(log->db, "UPDATE " TABLE " SET " COL_IS_READ " = TRUE", error);
+    }
+
+    if (G_LIKELY(log->stmt_mark_all_read != NULL)) {
         log->stmt_delete = prepare_statement(log->db, "DELETE FROM " TABLE " WHERE " COL_ID " = :" COL_ID, error);
     }
 
@@ -751,6 +759,22 @@ xfce_notify_log_mark_read(XfceNotifyLog *log, const gchar *id) {
 
     sqlite3_reset(log->stmt_mark_read);
     sqlite3_clear_bindings(log->stmt_mark_read);
+
+    return rc == SQLITE_DONE;
+}
+
+gboolean
+xfce_notify_log_mark_all_read(XfceNotifyLog *log) {
+    int rc;
+
+    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+
+    rc = sqlite3_step(log->stmt_mark_all_read);
+    if (G_UNLIKELY(rc != SQLITE_DONE)) {
+        g_warning("Failed to mark all log entries read: %s", sqlite3_errmsg(log->db));
+    }
+
+    sqlite3_reset(log->stmt_mark_all_read);
 
     return rc == SQLITE_DONE;
 }

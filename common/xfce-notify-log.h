@@ -61,6 +61,7 @@ gboolean xfce_notify_log_write(XfceNotifyLog *log,
                                XfceNotifyLogEntry *entry);
 gboolean xfce_notify_log_mark_read(XfceNotifyLog *log,
                                    const gchar *id);
+gboolean xfce_notify_log_mark_all_read(XfceNotifyLog *log);
 
 gboolean xfce_notify_log_delete(XfceNotifyLog *log,
                                 const gchar *id);
