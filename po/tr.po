@@ -73,7 +73,7 @@ msgstr "_Kapat"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "Bildirim simgesi boyutu"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -398,7 +398,7 @@ msgstr "Genel"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Uygulama başına bildirim ayarları</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -432,7 +432,7 @@ msgstr "Uygulamayı sessize al"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Acil bildirimlere izin ver"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
