@@ -1627,8 +1627,7 @@ main(int argc,
     }
 
     if (!notify_init ("Xfce4-notifyd settings")) {
-      g_error ("Failed to initialize libnotify.");
-      return EXIT_FAILURE;
+      g_warning("Failed to initialize libnotify.");
     }
 
     builder = gtk_builder_new();
