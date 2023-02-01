@@ -44,6 +44,9 @@ typedef struct _XfceNotifyLogEntry {
     GList *actions;
     gint expire_timeout;
     gboolean is_read;
+
+    /*< private >*/
+    gint ref_count;
 } XfceNotifyLogEntry;
 
 XfceNotifyLog *xfce_notify_log_open(GError **error);
@@ -70,7 +73,9 @@ gboolean xfce_notify_log_delete_before(XfceNotifyLog *log,
 
 gboolean xfce_notify_log_clear(XfceNotifyLog *log);
 
-void xfce_notify_log_entry_free(XfceNotifyLogEntry *entry);
+XfceNotifyLogEntry *xfce_notify_log_entry_new_empty(void);
+XfceNotifyLogEntry *xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry);
+void xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry);
 
 G_END_DECLS
 
