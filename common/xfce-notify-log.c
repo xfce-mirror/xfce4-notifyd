@@ -65,6 +65,21 @@
 
 #define BIND_INDEX(stmt, param_name) sqlite3_bind_parameter_index(stmt, ":" param_name)
 
+typedef enum {
+    XFCE_NOTIFY_QUEUE_ITEM_WRITE,
+    XFCE_NOTIFY_QUEUE_ITEM_MARK_READ,
+    XFCE_NOTIFY_QUEUE_ITEM_DELETE,
+    XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE,
+} XfceNotifyLogQueueItemType;
+
+typedef struct {
+    XfceNotifyLogQueueItemType type;
+    union {
+        XfceNotifyLogEntry *entry;
+        gchar *id;
+        GDateTime *timestamp;
+    } param;
+} XfceNotifyLogQueueItem;
 
 typedef struct _XfceNotifyLog {
     GObject parent;
@@ -85,6 +100,9 @@ typedef struct _XfceNotifyLog {
     sqlite3_stmt *stmt_delete_all;
 
     GFileMonitor *monitor;
+
+    guint write_queue_id;
+    GQueue *write_queue;
 } XfceNotifyLog;
 
 enum {
@@ -93,13 +111,14 @@ enum {
     N_SIGNALS,
 };
 
-
 static void xfce_notify_log_initable_init(GInitableIface *iface);
 static gboolean xfce_notify_log_initable_real_init(GInitable *initable,
                                                    GCancellable *cancellable,
                                                    GError **error);
 
 static void xfce_notify_log_finalize(GObject *object);
+
+static void xfce_notify_log_queue_item_free(XfceNotifyLogQueueItem *item);
 
 static GFile *notify_log_dir(void);
 static GError *transform_error(sqlite3 *db,
@@ -120,6 +139,9 @@ static void db_file_changed(GFileMonitor *monitor,
                             GFile *other_file,
                             GFileMonitorEvent event_type,
                             XfceNotifyLog *log);
+
+static gboolean process_write_queue(gpointer data);
+static void queue_write(XfceNotifyLog *log, XfceNotifyLogQueueItem *item);
 
 static gboolean migrate_old_keyfile(XfceNotifyLog *log);
 
@@ -152,7 +174,9 @@ xfce_notify_log_initable_init(GInitableIface *iface) {
 }
 
 static void
-xfce_notify_log_init(XfceNotifyLog *log) {}
+xfce_notify_log_init(XfceNotifyLog *log) {
+    log->write_queue = g_queue_new();
+}
 
 static gboolean
 xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellable, GError **error) {
@@ -210,6 +234,21 @@ xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellabl
 static void
 xfce_notify_log_finalize(GObject *object) {
     XfceNotifyLog *log = XFCE_NOTIFY_LOG(object);
+    gint queue_drain_attempts = 20;
+
+    if (log->write_queue_id != 0) {
+        g_source_remove(log->write_queue_id);
+        log->write_queue_id = 0;
+    }
+
+    while (!g_queue_is_empty(log->write_queue) && queue_drain_attempts > 0) {
+        process_write_queue(log);
+        --queue_drain_attempts;
+    }
+    if (!g_queue_is_empty(log->write_queue)) {
+        g_critical("Unable to write all queued operations to log before finalizing");
+    }
+    g_queue_free_full(log->write_queue, (GDestroyNotify)xfce_notify_log_queue_item_free);
 
     if (log->monitor != NULL) {
         g_object_unref(log->monitor);
@@ -467,7 +506,7 @@ stmt_parse_actions(sqlite3_stmt *stmt, int col_num) {
 
 static XfceNotifyLogEntry *
 stmt_get_log_entry(sqlite3_stmt *stmt, GTimeZone *default_tz) {
-    XfceNotifyLogEntry *entry = g_new0(XfceNotifyLogEntry, 1);
+    XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
     gint64 timestamp_utc;
     const unsigned char *tz_identifier;
     GTimeZone *tz = NULL;
@@ -509,7 +548,7 @@ stmt_get_log_entry(sqlite3_stmt *stmt, GTimeZone *default_tz) {
     entry->is_read = sqlite3_column_int(stmt, COL_INDEX(COL_IS_READ)) != 0 ? TRUE : FALSE;
 
     if (G_UNLIKELY(entry->id == NULL || entry->timestamp == NULL)) {
-        xfce_notify_log_entry_free(entry);
+        xfce_notify_log_entry_unref(entry);
         entry = NULL;
     }
 
@@ -695,19 +734,12 @@ serialize_actions(GList *actions, guint *bytes) {
     return data;
 }
 
-gboolean
-xfce_notify_log_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
+static int
+xfce_notify_log_real_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
     int rc;
     gint64 timestamp;
     void *actions_blob;
     guint actions_blob_len = 0;
-
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(entry != NULL, FALSE);
-
-    if (entry->id == NULL) {
-        entry->id = g_uuid_string_random();
-    }
 
     DBG("writing new entry with id %s", entry->id);
 
@@ -734,15 +766,31 @@ xfce_notify_log_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
     sqlite3_reset(log->stmt_write);
     sqlite3_clear_bindings(log->stmt_write);
 
-    return rc == SQLITE_DONE;
+    return rc;
 }
 
 gboolean
-xfce_notify_log_mark_read(XfceNotifyLog *log, const gchar *id) {
-    int rc;
+xfce_notify_log_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
+    XfceNotifyLogQueueItem *item;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(id != NULL && id[0] != '\0', FALSE);
+    g_return_val_if_fail(entry != NULL, FALSE);
+
+    if (entry->id == NULL) {
+        entry->id = g_uuid_string_random();
+    }
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_WRITE;
+    item->param.entry = xfce_notify_log_entry_ref(entry);
+    queue_write(log, item);
+
+    return TRUE;
+}
+
+static int
+xfce_notify_log_real_mark_read(XfceNotifyLog *log, const gchar *id) {
+    int rc;
 
     rc = sqlite3_bind_text(log->stmt_mark_read,
                            BIND_INDEX(log->stmt_mark_read, COL_ID),
@@ -760,14 +808,27 @@ xfce_notify_log_mark_read(XfceNotifyLog *log, const gchar *id) {
     sqlite3_reset(log->stmt_mark_read);
     sqlite3_clear_bindings(log->stmt_mark_read);
 
-    return rc == SQLITE_DONE;
+    return rc;
 }
 
 gboolean
-xfce_notify_log_mark_all_read(XfceNotifyLog *log) {
-    int rc;
+xfce_notify_log_mark_read(XfceNotifyLog *log, const gchar *id) {
+    XfceNotifyLogQueueItem *item;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+    g_return_val_if_fail(id != NULL && id[0] != '\0', FALSE);
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_MARK_READ;
+    item->param.id = g_strdup(id);
+    queue_write(log, item);
+
+    return TRUE;
+}
+
+static int
+xfce_notify_log_real_mark_all_read(XfceNotifyLog *log) {
+    int rc;
 
     rc = sqlite3_step(log->stmt_mark_all_read);
     if (G_UNLIKELY(rc != SQLITE_DONE)) {
@@ -776,15 +837,25 @@ xfce_notify_log_mark_all_read(XfceNotifyLog *log) {
 
     sqlite3_reset(log->stmt_mark_all_read);
 
-    return rc == SQLITE_DONE;
+    return rc;
 }
 
 gboolean
-xfce_notify_log_delete(XfceNotifyLog *log, const gchar *id) {
-    int rc;
+xfce_notify_log_mark_all_read(XfceNotifyLog *log) {
+    XfceNotifyLogQueueItem *item;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(id != NULL, FALSE);
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_MARK_READ;
+    queue_write(log, item);
+
+    return TRUE;
+}
+
+static int
+xfce_notify_log_real_delete(XfceNotifyLog *log, const gchar *id) {
+    int rc;
 
     rc = sqlite3_bind_text(log->stmt_delete,
                            BIND_INDEX(log->stmt_delete, COL_ID),
@@ -802,15 +873,27 @@ xfce_notify_log_delete(XfceNotifyLog *log, const gchar *id) {
     sqlite3_reset(log->stmt_delete);
     sqlite3_clear_bindings(log->stmt_delete);
 
-    return rc == SQLITE_DONE;
+    return rc;
 }
 
 gboolean
-xfce_notify_log_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
-    int rc;
+xfce_notify_log_delete(XfceNotifyLog *log, const gchar *id) {
+    XfceNotifyLogQueueItem *item;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(oldest_to_keep != NULL, FALSE);
+    g_return_val_if_fail(id != NULL && id[0] != '\0', FALSE);
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE;
+    item->param.id = g_strdup(id);
+    queue_write(log, item);
+
+    return TRUE;
+}
+
+static int
+xfce_notify_log_real_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
+    int rc;
 
     rc = sqlite3_bind_int64(log->stmt_delete,
                             BIND_INDEX(log->stmt_delete, COL_TIMESTAMP),
@@ -826,14 +909,27 @@ xfce_notify_log_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
     sqlite3_reset(log->stmt_delete_before);
     sqlite3_clear_bindings(log->stmt_delete_before);
 
-    return rc == SQLITE_DONE;
+    return rc;
 }
 
 gboolean
-xfce_notify_log_clear(XfceNotifyLog *log) {
-    int rc;
+xfce_notify_log_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
+    XfceNotifyLogQueueItem *item;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+    g_return_val_if_fail(oldest_to_keep != NULL, FALSE);
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE;
+    item->param.timestamp = g_date_time_ref(oldest_to_keep);
+    queue_write(log, item);
+
+    return TRUE;
+}
+
+static int
+xfce_notify_log_real_clear(XfceNotifyLog *log) {
+    int rc;
 
     rc = sqlite3_step(log->stmt_delete_all);
     if (G_UNLIKELY(rc != SQLITE_DONE)) {
@@ -842,7 +938,20 @@ xfce_notify_log_clear(XfceNotifyLog *log) {
 
     sqlite3_reset(log->stmt_delete_all);
 
-    return rc == SQLITE_DONE;
+    return rc;
+}
+
+gboolean
+xfce_notify_log_clear(XfceNotifyLog *log) {
+    XfceNotifyLogQueueItem *item;
+
+    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE;
+    queue_write(log, item);
+
+    return TRUE;
 }
 
 static inline void
@@ -852,9 +961,25 @@ xfce_notify_log_entry_action_free(XfceNotifyLogEntryAction *action) {
     g_free(action);
 }
 
+XfceNotifyLogEntry *
+xfce_notify_log_entry_new_empty(void) {
+    XfceNotifyLogEntry *entry = g_new0(XfceNotifyLogEntry, 1);
+    g_atomic_ref_count_init(&entry->ref_count);
+    return entry;
+}
+
+XfceNotifyLogEntry *
+xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry) {
+    g_return_val_if_fail(entry != NULL, NULL);
+    g_atomic_ref_count_inc(&entry->ref_count);
+    return entry;
+}
+
 void
-xfce_notify_log_entry_free(XfceNotifyLogEntry *entry) {
-    if (entry != NULL) {
+xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry) {
+    g_return_if_fail(entry != NULL);
+
+    if (g_atomic_ref_count_dec(&entry->ref_count)) {
         g_free(entry->id);
         if (G_LIKELY(entry->timestamp != NULL)) {
             g_date_time_unref(entry->timestamp);
@@ -866,6 +991,122 @@ xfce_notify_log_entry_free(XfceNotifyLogEntry *entry) {
         g_free(entry->body);
         g_list_free_full(entry->actions, (GDestroyNotify)xfce_notify_log_entry_action_free);
         g_free(entry);
+    }
+}
+
+static void
+xfce_notify_log_queue_item_free(XfceNotifyLogQueueItem *item) {
+    g_return_if_fail(item != NULL);
+
+    switch (item->type) {
+        case XFCE_NOTIFY_QUEUE_ITEM_WRITE:
+            xfce_notify_log_entry_unref(item->param.entry);
+            break;
+
+        case XFCE_NOTIFY_QUEUE_ITEM_MARK_READ:
+        case XFCE_NOTIFY_QUEUE_ITEM_DELETE:
+            g_free(item->param.id);
+            break;
+
+        case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
+            g_date_time_unref(item->param.timestamp);
+            break;
+
+        default:
+            g_assert_not_reached();
+            break;
+    }
+
+    g_free(item);
+}
+
+static gboolean
+process_write_queue(gpointer data) {
+    XfceNotifyLog *log = XFCE_NOTIFY_LOG(data);
+    XfceNotifyLogQueueItem *item;
+    gboolean ret = G_SOURCE_REMOVE;
+
+    while ((item = g_queue_pop_head(log->write_queue)) != NULL) {
+        int rc;
+
+        switch (item->type) {
+            case XFCE_NOTIFY_QUEUE_ITEM_WRITE:
+                rc = xfce_notify_log_real_write(log, item->param.entry);
+                break;
+
+            case XFCE_NOTIFY_QUEUE_ITEM_MARK_READ:
+                if (item->param.id != NULL) {
+                    rc = xfce_notify_log_real_mark_read(log, item->param.id);
+                } else {
+                    rc = xfce_notify_log_real_mark_all_read(log);
+                }
+                break;
+
+            case XFCE_NOTIFY_QUEUE_ITEM_DELETE:
+                if (item->param.id != NULL) {
+                    rc = xfce_notify_log_real_delete(log, item->param.id);
+                } else {
+                    rc = xfce_notify_log_real_clear(log);
+                }
+                break;
+
+            case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
+                rc = xfce_notify_log_real_delete_before(log, item->param.timestamp);
+                break;
+
+            default:
+                g_assert_not_reached();
+                break;
+        }
+
+        if (rc == SQLITE_BUSY || rc == SQLITE_LOCKED) {
+            DBG("log DB busy/locked; requeueing");
+            g_queue_push_head(log->write_queue, item);
+            ret = G_SOURCE_CONTINUE;
+            break;
+        } else {
+            if (rc != SQLITE_OK && rc != SQLITE_DONE && rc != SQLITE_ROW) {
+                switch (item->type) {
+                    case XFCE_NOTIFY_QUEUE_ITEM_WRITE:
+                        g_warning("Failed to write new entry to DB: %s", sqlite3_errstr(rc));
+                        break;
+
+                    case XFCE_NOTIFY_QUEUE_ITEM_MARK_READ:
+                        g_warning("Failed to mark item(s) read in DB: %s", sqlite3_errstr(rc));
+                        break;
+
+                    case XFCE_NOTIFY_QUEUE_ITEM_DELETE:
+                        g_warning("Failed to delete item(s) from DB: %s", sqlite3_errstr(rc));
+                        break;
+
+                    case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
+                        g_warning("Failed to delete items from DB: %s", sqlite3_errstr(rc));
+                        break;
+
+                    default:
+                        g_assert_not_reached();
+                        break;
+                }
+            }
+
+            xfce_notify_log_queue_item_free(item);
+        }
+
+    }
+
+    if (ret == G_SOURCE_REMOVE) {
+        log->write_queue_id = 0;
+    }
+
+    return ret;
+}
+
+static void
+queue_write(XfceNotifyLog *log, XfceNotifyLogQueueItem *item) {
+    g_queue_push_tail(log->write_queue, item);
+
+    if (log->write_queue_id == 0) {
+        log->write_queue_id = g_idle_add(process_write_queue, log);
     }
 }
 
@@ -914,9 +1155,9 @@ migrate_old_keyfile(XfceNotifyLog *log) {
             gchar **groups = g_key_file_get_groups(keyfile, NULL);
 
             for (guint i = 0; groups[i] != NULL; ++i) {
-                XfceNotifyLogEntry *entry = g_new0(XfceNotifyLogEntry, 1);
                 gboolean success;
                 gchar *group = groups[i];
+                XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
                 entry->timestamp = g_date_time_new_from_iso8601(group, default_tz);
                 entry->app_id = g_key_file_get_string(keyfile, group, "app_name", NULL);
                 entry->icon_id = g_key_file_get_string(keyfile, group, "app_icon", NULL);
@@ -927,7 +1168,7 @@ migrate_old_keyfile(XfceNotifyLog *log) {
                 entry->is_read = TRUE;
 
                 success = xfce_notify_log_write(log, entry);
-                xfce_notify_log_entry_free(entry);
+                xfce_notify_log_entry_unref(entry);
                 if (G_UNLIKELY(!success)) {
                     migrated = FALSE;
                     break;
