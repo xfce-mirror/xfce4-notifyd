@@ -27,6 +27,10 @@
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
 #define EXCLUDED_FROM_LOG_APPLICATIONS_PROP "/applications/excluded-from-log"
 #define MUTE_SOUNDS_PROP                    "/mute-sounds"
+#define DATETIME_FORMAT_PROP                "/date-time-format"
+#define DATETIME_CUSTOM_FORMAT_PROP         "/date-time-custom-format"
+
+#define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 
 G_BEGIN_DECLS
 

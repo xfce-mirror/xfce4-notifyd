@@ -908,6 +908,8 @@ xfce4_notifyd_log_populate(SettingsPanel *panel) {
     gint has_notifications = FALSE;
     gint scale_factor = gtk_widget_get_scale_factor(log_listbox);
     gint icon_width, icon_height, icon_size;
+    XfceDateTimeFormat dt_format;
+    gchar *custom_dt_format;
     cairo_surface_t *empty_app_icon = NULL;
 
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
@@ -916,6 +918,9 @@ xfce4_notifyd_log_populate(SettingsPanel *panel) {
     today = g_date_time_new_now_local ();
     today_year = g_date_time_get_year(today);
     today_day = g_date_time_get_day_of_year(today);
+
+    dt_format = xfconf_channel_get_int(panel->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
+    custom_dt_format = xfconf_channel_get_string(panel->channel, DATETIME_CUSTOM_FORMAT_PROP, NULL);
 
     gtk_container_foreach(GTK_CONTAINER(log_listbox), listbox_remove_all, log_listbox);
 
@@ -938,14 +943,16 @@ xfce4_notifyd_log_populate(SettingsPanel *panel) {
             gchar *timestamp_text;
             gchar *summary_text;
             gchar *body_text;
+            gchar *tooltip_timestamp_text;
             gchar *tooltip_text;
             cairo_surface_t *icon;
 
-            timestamp_text = notify_log_format_timestamp(entry->timestamp);
+            timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
             summary_text = notify_log_format_summary(entry->summary);
             body_text = notify_log_format_body(entry->body);
             icon = notify_log_load_icon(xfce_notify_log_get_icon_folder(), entry->icon_id, entry->app_id, icon_size, scale_factor);
-            tooltip_text = notify_log_format_tooltip(app_name, timestamp_text, body_text);
+            tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
+            tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
 
             if (!yesterday && (today_year != entry_year || today_day != entry_day)) {
                 GtkWidget *header = gtk_label_new (_("Yesterday and before"));
@@ -1016,6 +1023,7 @@ xfce4_notifyd_log_populate(SettingsPanel *panel) {
             g_free(timestamp_text);
             g_free(summary_text);
             g_free(body_text);
+            g_free(tooltip_timestamp_text);
             g_free(tooltip_text);
             if (icon) {
                 cairo_surface_destroy(icon);
@@ -1029,6 +1037,7 @@ xfce4_notifyd_log_populate(SettingsPanel *panel) {
     }
 
     g_date_time_unref (today);
+    g_free(custom_dt_format);
     if (empty_app_icon != NULL) {
         cairo_surface_destroy(empty_app_icon);
     }
@@ -1114,6 +1123,11 @@ placeholder_label_new (gchar *place_holder_text)
     return label;
 }
 
+static void
+datetime_format_changed(GtkWidget *combo, GtkWidget *entry) {
+    gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
+}
+
 static GtkWidget *
 xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *dlg;
@@ -1138,6 +1152,8 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *mute_sounds;
     GtkWidget *do_fadeout;
     GtkWidget *show_text_with_gauge;
+    GtkWidget *datetime_format;
+    GtkWidget *custom_datetime_format;
     GtkAdjustment *adj;
     gchar *current_theme;
 
@@ -1232,6 +1248,27 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     show_text_with_gauge = GTK_WIDGET(gtk_builder_get_object(builder, "show_text_with_gauge"));
     xfconf_g_property_bind(panel->channel, "/show-text-with-gauge", G_TYPE_BOOLEAN,
                            G_OBJECT(show_text_with_gauge), "active");
+
+    datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "datetime_format"));
+    xfconf_g_property_bind(panel->channel, DATETIME_FORMAT_PROP, G_TYPE_INT,
+                           G_OBJECT(datetime_format), "active");
+    if (gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == -1) {
+        gtk_combo_box_set_active(GTK_COMBO_BOX(datetime_format), XFCE_DATE_TIME_FORMAT_LOCALE);
+    }
+    g_signal_connect_swapped(panel->channel, "property-changed::" DATETIME_FORMAT_PROP,
+                             G_CALLBACK(xfce4_notifyd_log_populate), panel);
+
+    custom_datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "custom_datetime_format"));
+    xfconf_g_property_bind(panel->channel, DATETIME_CUSTOM_FORMAT_PROP, G_TYPE_STRING,
+                           G_OBJECT(custom_datetime_format), "text");
+    if (g_strcmp0(gtk_entry_get_text(GTK_ENTRY(custom_datetime_format)), "") == 0) {
+        gtk_entry_set_text(GTK_ENTRY(custom_datetime_format), DATETIME_CUSTOM_FORMAT_DEFAULT);
+    }
+    gtk_widget_set_sensitive(custom_datetime_format, gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
+    g_signal_connect(datetime_format, "changed",
+                     G_CALLBACK(datetime_format_changed), custom_datetime_format);
+    g_signal_connect_swapped(panel->channel, "property-changed::" DATETIME_CUSTOM_FORMAT_PROP,
+                             G_CALLBACK(xfce4_notifyd_log_populate), panel);
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
     g_signal_connect(G_OBJECT(btn), "clicked",
