@@ -40,6 +40,10 @@
 #include "xfce-notify-common.h"
 #include "xfce-notify-log-util.h"
 
+#ifndef P_
+#define P_(singular, plural, n) ngettext(singular, plural, n)
+#endif
+
 static void
 notify_free (guchar *pixels,
              gpointer data)
@@ -428,17 +432,73 @@ xfce_notify_clear_log_dialog(XfceNotifyLog *log) {
     return dialog;
 }
 
+static gchar *
+notify_log_format_timestamp_relative(GDateTime *timestamp) {
+    gchar *formatted = NULL;
+    GDateTime *now = g_date_time_new_now_local();
+    gint64 now_s = g_date_time_to_unix(now);
+    gint64 timestamp_s = g_date_time_to_unix(timestamp);
+    gint diff = MAX(0, now_s - timestamp_s);
+
+    if (diff == 0) {
+        formatted = g_strdup(_("Now"));
+    } else if (diff < 60) {  // one minute
+        formatted = g_strdup_printf(P_("%d second ago", "%d seconds ago", diff), diff);
+    } else if (diff < 3600) {  // one hour
+        formatted = g_strdup_printf(P_("%d minute ago", "%d minutes ago", diff / 60), diff / 60);
+    } else if (diff < 86400) {  // one day
+        formatted = g_strdup_printf(P_("%d hour ago", "%d hours ago", diff / 3600), diff / 3600);
+    } else if (diff < 604800) { // one week
+        formatted = g_strdup_printf(P_("%d day ago", "%d days ago", diff / 86400), diff / 86400);
+    } else {
+        formatted = g_date_time_format_iso8601(timestamp);
+    }
+
+    g_date_time_unref(now);
+
+    return formatted;
+}
+
 gchar *
-notify_log_format_timestamp(GDateTime *timestamp) {
+notify_log_format_timestamp(GDateTime *timestamp, XfceDateTimeFormat format, const gchar *custom_format) {
+    gchar *formatted = NULL;
     GDateTime *local_timestamp = g_date_time_to_local(timestamp);
 
-    if (local_timestamp != NULL) {
-        gchar *formatted = g_date_time_format(local_timestamp, "%c");
-        g_date_time_unref(local_timestamp);
-        return formatted;
-    } else {
-        return NULL;
+    if (G_UNLIKELY(local_timestamp == NULL)) {
+        local_timestamp = g_date_time_ref(timestamp);
     }
+
+    if (G_UNLIKELY(format < XFCE_DATE_TIME_FORMAT_LOCALE || format > XFCE_DATE_TIME_FORMAT_CUSTOM)) {
+        g_warning("Invalid datetime format %d; using default", format);
+        format = XFCE_DATE_TIME_FORMAT_LOCALE;
+    }
+
+    if (G_UNLIKELY(format == XFCE_DATE_TIME_FORMAT_CUSTOM && (custom_format == NULL || custom_format[0] == '\0'))) {
+        g_warning("Custom format requested, but no custom format provided; using default");
+        format = XFCE_DATE_TIME_FORMAT_LOCALE;
+    }
+
+    switch (format) {
+        case XFCE_DATE_TIME_FORMAT_LOCALE:
+            formatted = g_date_time_format(local_timestamp, "%c");
+            break;
+        case XFCE_DATE_TIME_FORMAT_ISO8601:
+            formatted = g_date_time_format_iso8601(local_timestamp);
+            break;
+        case XFCE_DATE_TIME_FORMAT_RELATIVE:
+            formatted = notify_log_format_timestamp_relative(local_timestamp);
+            break;
+        case XFCE_DATE_TIME_FORMAT_CUSTOM:
+            formatted = g_date_time_format(local_timestamp, custom_format);
+            break;
+        default:
+            g_assert_not_reached();
+            break;
+    }
+
+    g_date_time_unref(local_timestamp);
+
+    return formatted;
 }
 
 gchar *

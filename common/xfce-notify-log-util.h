@@ -28,6 +28,13 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+    XFCE_DATE_TIME_FORMAT_LOCALE,
+    XFCE_DATE_TIME_FORMAT_RELATIVE,
+    XFCE_DATE_TIME_FORMAT_ISO8601,
+    XFCE_DATE_TIME_FORMAT_CUSTOM,
+} XfceDateTimeFormat;
+
 GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
 
 const gchar *xfce_notify_log_get_icon_folder(void);
@@ -47,7 +54,9 @@ cairo_surface_t *notify_log_load_icon(const gchar *notify_log_icon_folder,
                                       gint size,
                                       gint scale);
 
-gchar *notify_log_format_timestamp(GDateTime *timestamp);
+gchar *notify_log_format_timestamp(GDateTime *timestamp,
+                                   XfceDateTimeFormat format,
+                                   const gchar *custom_format);
 gchar *notify_log_format_summary(const gchar *summary);
 gchar *notify_log_format_body(const gchar *body);
 gchar *notify_log_format_tooltip(const gchar *app_name,

@@ -118,6 +118,8 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gchar *notify_log_icon_folder;
   int log_icon_size;
   gboolean state;
+  XfceDateTimeFormat dt_format;
+  gchar *custom_dt_format;
   gboolean no_notifications = FALSE;
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
 
@@ -134,6 +136,8 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                           SETTING_LOG_ICON_SIZE, -1);
   if (log_icon_size == -1)
     log_icon_size = DEFAULT_LOG_ICON_SIZE;
+  dt_format = xfconf_channel_get_int(notification_plugin->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
+  custom_dt_format = xfconf_channel_get_string(notification_plugin->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT);
 
   /* switch for the do not disturb mode of xfce4-notifyd */
   mi = gtk_menu_item_new ();
@@ -192,6 +196,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       gchar *summary_text;
       gchar *body_text;
       cairo_surface_t *icon;
+      gchar *tooltip_timestamp_text;
       gchar *tooltip_text;
 
       /* optionally only show notifications from today */
@@ -210,11 +215,12 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       }
 
       app_name = entry->app_name != NULL ? entry->app_name : entry->app_id;
-      timestamp_text = notify_log_format_timestamp(entry->timestamp);
+      timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
       summary_text = notify_log_format_summary(entry->summary);
       body_text = notify_log_format_body(entry->body);
       icon = notify_log_load_icon(notify_log_icon_folder, entry->icon_id, entry->app_id, log_icon_size, scale_factor);
-      tooltip_text = notify_log_format_tooltip(app_name, timestamp_text, body_text);
+      tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
+      tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
 
       summary = g_object_new(GTK_TYPE_LABEL,
                              "use-markup", TRUE,
@@ -272,6 +278,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       g_free(timestamp_text);
       g_free(summary_text);
       g_free(body_text);
+      g_free(tooltip_timestamp_text);
       g_free(tooltip_text);
       if (icon != NULL) {
           cairo_surface_destroy(icon);
@@ -286,6 +293,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   }
 
   g_date_time_unref (today);
+  g_free(custom_dt_format);
 
   /* Show a placeholder label when there are no notifications */
   if (notification_plugin->log == NULL || no_notifications) {
