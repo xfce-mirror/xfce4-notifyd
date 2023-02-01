@@ -7,7 +7,7 @@
 #XfceNotifyWindow label,
 #XfceNotifyWindow image {
     font-family: Comic Sans MS;
-    font-size: 22;
+    font-size: 22px;
     color: #ffff00;
 }
 
