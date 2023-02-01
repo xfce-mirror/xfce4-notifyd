@@ -283,7 +283,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       if (icon != NULL) {
           cairo_surface_destroy(icon);
       }
-      xfce_notify_log_entry_free(entry);
+      xfce_notify_log_entry_unref(entry);
     }
 
     g_list_free(entries);
