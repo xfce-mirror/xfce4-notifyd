@@ -1227,7 +1227,7 @@ xfce4_notifyd_log_populate(SettingsPanel *panel) {
             if (icon) {
                 cairo_surface_destroy(icon);
             }
-            xfce_notify_log_entry_free(entry);
+            xfce_notify_log_entry_unref(entry);
             g_date_time_unref(entry_local);
 
             has_notifications = TRUE;
