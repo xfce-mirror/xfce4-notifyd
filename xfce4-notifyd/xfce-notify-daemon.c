@@ -1101,8 +1101,8 @@ xfce_notify_log_insert(XfceNotifyLog *log,
                        gint expire_timeout,
                        const gchar **actions)
 {
-    gchar *id;
-    XfceNotifyLogEntry *entry = g_new0(XfceNotifyLogEntry, 1);
+    gchar *id = NULL;
+    XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
     entry->timestamp = g_date_time_ref(timestamp);
     entry->app_id = g_strdup(app_id);
     entry->icon_id = xfce_notify_log_cache_icon(image_data,
@@ -1122,9 +1122,10 @@ xfce_notify_log_insert(XfceNotifyLog *log,
     }
     entry->actions = g_list_reverse(entry->actions);
 
-    xfce_notify_log_write(log, entry);
-    id = g_strdup(entry->id);
-    xfce_notify_log_entry_free(entry);
+    if (xfce_notify_log_write(log, entry)) {
+        id = g_strdup(entry->id);
+    }
+    xfce_notify_log_entry_unref(entry);
 
     return id;
 }
