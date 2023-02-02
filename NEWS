@@ -1,3 +1,24 @@
+0.7.3 (2023-02-01)
+=====
+- Add timestamp to log entries in settings and plugin menu
+- Update description text of apps panel in settings
+- Change text of option to "Allow urgent notifications"
+- Add panel plugin setting for log icon size in menu
+- Make it easier to add things to the panel plugin settings
+- Fix possible segfault when counting apps frequency in log
+- Clean and DRY up the log population code
+- Fix panel plugin menu icon blurriness when UI scale > 1
+- Update XfceNotifyDaemon header comment
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Basque, Belarusian, Bulgarian,
+  Catalan, Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish,
+  Dutch, Eastern Armenian, English (Australia), Estonian, Finnish,
+  French, Galician, Georgian, German, Greek, Hebrew, Hungarian,
+  Icelandic, Indonesian, Interlingue, Italian, Japanese, Kazakh,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Polish, Portuguese,
+  Portuguese (Brazil), Russian, Serbian, Slovak, Slovenian, Spanish,
+  Swedish, Thai, Turkish, Ukrainian
+
 0.7.2 (2023-01-22)
 =====
 - Fix sound proplist memleak when notification isn't shown
