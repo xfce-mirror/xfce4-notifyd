@@ -231,6 +231,13 @@ xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellabl
     return success;
 }
 
+static inline void
+xn_sqlite3_finalize(sqlite3_stmt *stmt) {
+    if (G_LIKELY(stmt != NULL)) {
+        sqlite3_finalize(stmt);
+    }
+}
+
 static void
 xfce_notify_log_finalize(GObject *object) {
     XfceNotifyLog *log = XFCE_NOTIFY_LOG(object);
@@ -254,39 +261,17 @@ xfce_notify_log_finalize(GObject *object) {
         g_object_unref(log->monitor);
     }
 
-    if (log->stmt_get != NULL) {
-        sqlite3_finalize(log->stmt_get);
-    }
-    if (log->stmt_get_timestamp != NULL) {
-        sqlite3_finalize(log->stmt_get_timestamp);
-    }
-    if (log->stmt_read != NULL) {
-        sqlite3_finalize(log->stmt_read);
-    }
-    if (log->stmt_read_with_timestamp != NULL) {
-        sqlite3_finalize(log->stmt_read_with_timestamp);
-    }
-    if (log->stmt_count_unreads != NULL) {
-        sqlite3_finalize(log->stmt_count_unreads);
-    }
-    if (log->stmt_count_app_ids != NULL) {
-        sqlite3_finalize(log->stmt_count_app_ids);
-    }
-    if (log->stmt_write != NULL) {
-        sqlite3_finalize(log->stmt_write);
-    }
-    if (log->stmt_mark_read != NULL) {
-        sqlite3_finalize(log->stmt_mark_read);
-    }
-    if (log->stmt_mark_all_read != NULL) {
-        sqlite3_finalize(log->stmt_mark_all_read);
-    }
-    if (log->stmt_delete != NULL) {
-        sqlite3_finalize(log->stmt_delete);
-    }
-    if (log->stmt_delete_before != NULL) {
-        sqlite3_finalize(log->stmt_delete_before);
-    }
+    xn_sqlite3_finalize(log->stmt_get);
+    xn_sqlite3_finalize(log->stmt_get_timestamp);
+    xn_sqlite3_finalize(log->stmt_read);
+    xn_sqlite3_finalize(log->stmt_read_with_timestamp);
+    xn_sqlite3_finalize(log->stmt_count_unreads);
+    xn_sqlite3_finalize(log->stmt_count_app_ids);
+    xn_sqlite3_finalize(log->stmt_write);
+    xn_sqlite3_finalize(log->stmt_mark_read);
+    xn_sqlite3_finalize(log->stmt_mark_all_read);
+    xn_sqlite3_finalize(log->stmt_delete);
+    xn_sqlite3_finalize(log->stmt_delete_before);
 
     if (log->db != NULL) {
         sqlite3_close(log->db);
@@ -341,65 +326,51 @@ prepare_statements(XfceNotifyLog *log, GError **error) {
                      COL_ACTIONS ", " \
                      COL_EXPIRE_TIMEOUT ", " \
                      COL_IS_READ
-    log->stmt_get = prepare_statement(log->db, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_ID " = :" COL_ID, error);
+#define PREPARE_CHECKED(dest, sql) G_STMT_START{ \
+    dest = prepare_statement(log->db, sql, error); \
+    if (G_UNLIKELY(dest == NULL)) { \
+        return FALSE; \
+    } \
+}G_STMT_END
 
-    if (G_LIKELY(log->stmt_get != NULL)) {
-        log->stmt_get_timestamp = prepare_statement(log->db, "SELECT timestamp FROM " TABLE " WHERE " COL_ID " = :" COL_ID, error);
-    }
+    PREPARE_CHECKED(log->stmt_get, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_ID " = :" COL_ID);
 
-    if (G_LIKELY(log->stmt_get_timestamp != NULL)) {
-        log->stmt_read = prepare_statement(log->db, "SELECT " COLUMN_NAMES " FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT, error);
-    }
+    PREPARE_CHECKED(log->stmt_get_timestamp, "SELECT timestamp FROM " TABLE " WHERE " COL_ID " = :" COL_ID);
 
-    if (G_LIKELY(log->stmt_read != NULL)) {
-        log->stmt_read_with_timestamp = prepare_statement(log->db, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT, error);
-    }
+    PREPARE_CHECKED(log->stmt_read, "SELECT " COLUMN_NAMES " FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT);
 
-    if (G_LIKELY(log->stmt_read_with_timestamp != NULL)) {
-        log->stmt_count_unreads = prepare_statement(log->db, "SELECT COUNT(id) FROM " TABLE " WHERE " COL_IS_READ " = FALSE", error);
-    }
+    PREPARE_CHECKED(log->stmt_read_with_timestamp, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT);
 
-    if (G_LIKELY(log->stmt_count_unreads != NULL)) {
-        log->stmt_count_app_ids = prepare_statement(log->db, "SELECT " COL_APP_ID ", count(" COL_APP_ID ") FROM " TABLE " GROUP BY " COL_APP_ID, error);
-    }
+    PREPARE_CHECKED(log->stmt_count_unreads, "SELECT COUNT(id) FROM " TABLE " WHERE " COL_IS_READ " = FALSE");
 
-    if (G_LIKELY(log->stmt_count_app_ids != NULL)) {
-        log->stmt_write = prepare_statement(log->db, "INSERT INTO " TABLE " (" COLUMN_NAMES ") VALUES ("
-                                            ":" COL_ID ", "
-                                            ":" COL_TIMESTAMP ", "
-                                            ":" COL_TZ_IDENTIFIER ", "
-                                            ":" COL_APP_ID ", "
-                                            ":" COL_APP_NAME ", "
-                                            ":" COL_ICON_ID ", "
-                                            ":" COL_SUMMARY ", "
-                                            ":" COL_BODY ", "
-                                            ":" COL_ACTIONS ", "
-                                            ":" COL_EXPIRE_TIMEOUT ", "
-                                            ":" COL_IS_READ ")", error);
-    }
+    PREPARE_CHECKED(log->stmt_count_app_ids, "SELECT " COL_APP_ID ", count(" COL_APP_ID ") FROM " TABLE " GROUP BY " COL_APP_ID);
 
-    if (G_LIKELY(log->stmt_write != NULL)) {
-        log->stmt_mark_read = prepare_statement(log->db, "UPDATE " TABLE " SET " COL_IS_READ " = TRUE WHERE " COL_ID " = :" COL_ID, error);
-    }
+    PREPARE_CHECKED(log->stmt_write, "INSERT INTO " TABLE " (" COLUMN_NAMES ") VALUES ("
+                                     ":" COL_ID ", "
+                                     ":" COL_TIMESTAMP ", "
+                                     ":" COL_TZ_IDENTIFIER ", "
+                                     ":" COL_APP_ID ", "
+                                     ":" COL_APP_NAME ", "
+                                     ":" COL_ICON_ID ", "
+                                     ":" COL_SUMMARY ", "
+                                     ":" COL_BODY ", "
+                                     ":" COL_ACTIONS ", "
+                                     ":" COL_EXPIRE_TIMEOUT ", "
+                                     ":" COL_IS_READ ")");
 
-    if (G_LIKELY(log->stmt_mark_read != NULL)) {
-        log->stmt_mark_all_read = prepare_statement(log->db, "UPDATE " TABLE " SET " COL_IS_READ " = TRUE", error);
-    }
+    PREPARE_CHECKED(log->stmt_mark_read, "UPDATE " TABLE " SET " COL_IS_READ " = TRUE WHERE " COL_ID " = :" COL_ID);
 
-    if (G_LIKELY(log->stmt_mark_all_read != NULL)) {
-        log->stmt_delete = prepare_statement(log->db, "DELETE FROM " TABLE " WHERE " COL_ID " = :" COL_ID, error);
-    }
+    PREPARE_CHECKED(log->stmt_mark_all_read, "UPDATE " TABLE " SET " COL_IS_READ " = TRUE");
 
-    if (G_LIKELY(log->stmt_delete != NULL)) {
-        log->stmt_delete_before = prepare_statement(log->db, "DELETE FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP, error);
-    }
+    PREPARE_CHECKED(log->stmt_delete, "DELETE FROM " TABLE " WHERE " COL_ID " = :" COL_ID);
 
-    if (G_LIKELY(log->stmt_delete_before != NULL)) {
-        log->stmt_delete_all = prepare_statement(log->db, "DELETE FROM " TABLE, error);
-    }
+    PREPARE_CHECKED(log->stmt_delete_before, "DELETE FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP);
 
-    return log->stmt_delete_all != NULL;
+    PREPARE_CHECKED(log->stmt_delete_all, "DELETE FROM " TABLE);
+
+    return TRUE;
 #undef COLUMN_NAMES
+#undef PREPARE_CHECKED
 }
 
 static void
