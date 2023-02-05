@@ -56,6 +56,9 @@ XfceNotifyLogEntry *xfce_notify_log_get(XfceNotifyLog *log,
 GList *xfce_notify_log_read(XfceNotifyLog *log,
                             const gchar *start_after_id,
                             guint count);
+GList *xfce_notify_log_read_unread(XfceNotifyLog *log,
+                                   const gchar *start_after_id,
+                                   guint count);
 
 guint xfce_notify_log_count_unread_messages(XfceNotifyLog *log);
 GHashTable *xfce_notify_log_get_app_id_counts(XfceNotifyLog *log);
