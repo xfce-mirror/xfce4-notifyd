@@ -44,6 +44,8 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
 	common/xfce-notify-common.h \
 	xfce4-notifyd-config/main.c \
+	xfce4-notifyd-config/xfce-notify-log-viewer.c \
+	xfce4-notifyd-config/xfce-notify-log-viewer.h \
 	xfce4-notifyd-config/xfce4-notifyd-config.ui.h \
 	xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
 

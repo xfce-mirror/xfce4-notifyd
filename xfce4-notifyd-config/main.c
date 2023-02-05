@@ -42,16 +42,9 @@
 #include <common/xfce-notify-log.h>
 #include <common/xfce-notify-log-util.h>
 
+#include "xfce-notify-log-viewer.h"
 #include "xfce4-notifyd-config.ui.h"
 #include "xfce4-notifyd-config-known-app.ui.h"
-
-#define LOG_DISPLAY_LIMIT             100
-
-#define LOG_ENTRY_ID_KEY  "xfce4-notify-log-entry-id"
-
-#ifndef P_
-#define P_(singular, plural, n)  ngettext(singular, plural, n)
-#endif
 
 typedef struct
 {
@@ -59,9 +52,6 @@ typedef struct
     GtkWidget  *log_level_apps;
     GtkWidget  *log_level_apps_label;
     GtkWidget  *infobar_label;
-    GtkWidget  *log_listbox;
-    GtkWidget  *last_clicked_row;
-    GtkToolbar *log_toolbar;
 } NotificationLogWidgets;
 
 typedef struct
@@ -907,381 +897,6 @@ xfce4_notifyd_log_activated (GtkSwitch *log_switch,
     g_free (markup);
 }
 
-static void
-log_entry_delete_clicked(GtkWidget *mi, SettingsPanel *panel) {
-    GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(panel->log_widgets.log_listbox));
-
-    for (GList *l = selected; l != NULL; l = l->next) {
-        GtkWidget *row = GTK_WIDGET(l->data);
-        const gchar *id = g_object_get_data(G_OBJECT(row), LOG_ENTRY_ID_KEY);
-
-        if (id != NULL) {
-            if (xfce_notify_log_delete(panel->log, id)) {
-                gtk_container_remove(GTK_CONTAINER(panel->log_widgets.log_listbox), row);
-            }
-        }
-    }
-
-    g_list_free(selected);
-}
-
-static void
-set_last_clicked_row(SettingsPanel *panel, GtkWidget *row) {
-    if (panel->log_widgets.last_clicked_row != NULL) {
-        g_object_remove_weak_pointer(G_OBJECT(panel->log_widgets.last_clicked_row), (gpointer *)&panel->log_widgets.last_clicked_row);
-    }
-
-    if (row != NULL) {
-        panel->log_widgets.last_clicked_row = row;
-        g_object_add_weak_pointer(G_OBJECT(row), (gpointer *)&panel->log_widgets.last_clicked_row);
-    }
-}
-
-static gboolean
-log_entry_button_press(GtkWidget *eventbox, GdkEventButton *evt, SettingsPanel *panel) {
-    GtkWidget *menu;
-    GtkWidget *mi;
-    GtkWidget *row = gtk_widget_get_parent(eventbox);
-
-    g_return_val_if_fail(GTK_IS_LIST_BOX_ROW(row), FALSE);
-
-    if (evt->type == GDK_BUTTON_PRESS) {
-        if (evt->button == GDK_BUTTON_PRIMARY) {
-            // I'm not sure why, but GtkListBox implements weird GTK_SELECTION_MULTIPLE
-            // behavior where when you click different rows without holding any modifier
-            // keys, more rows get selected (as if you were holding ctrl), and there's
-            // no way to de-select rows once they're selected.
-
-            GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(panel->log_widgets.log_listbox));
-            gboolean have_selection = selected != NULL;
-            g_list_free(selected);
-
-            if (!have_selection) {
-                gtk_list_box_select_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(row));
-            } else if ((evt->state & GDK_SHIFT_MASK) != 0) {
-                if (G_UNLIKELY(panel->log_widgets.last_clicked_row == NULL)) {
-                    gtk_list_box_select_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(row));
-                } else {
-                    GList *rows = gtk_container_get_children(GTK_CONTAINER(panel->log_widgets.log_listbox));
-                    gboolean start_selection = FALSE;
-                    gboolean stop_selection = FALSE;
-
-                    gtk_list_box_unselect_all(GTK_LIST_BOX(panel->log_widgets.log_listbox));
-                    for (GList *l = rows; l != NULL; l = l->next) {
-                        GtkWidget *cur_row = GTK_WIDGET(l->data);
-
-                        if (cur_row == row || cur_row == panel->log_widgets.last_clicked_row) {
-                            if (!start_selection) {
-                                start_selection = TRUE;
-                            } else {
-                                stop_selection = TRUE;
-                            }
-                        }
-
-                        if (start_selection) {
-                            gtk_list_box_select_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(cur_row));
-                        }
-
-                        if (stop_selection) {
-                            break;
-                        }
-                    }
-
-                    g_list_free(rows);
-                }
-            } else if ((evt->state & GDK_CONTROL_MASK) != 0) {
-                if (gtk_list_box_row_is_selected(GTK_LIST_BOX_ROW(row))) {
-                    gtk_list_box_unselect_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(row));
-                } else {
-                    gtk_list_box_select_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(row));
-                }
-            } else {
-                gtk_list_box_unselect_all(GTK_LIST_BOX(panel->log_widgets.log_listbox));
-                gtk_list_box_select_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(row));
-            }
-
-            set_last_clicked_row(panel, row);
-
-            return TRUE;
-        } else if (evt->button == GDK_BUTTON_SECONDARY) {
-            GList *selected;
-            gint n_selected;
-
-            if ((evt->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK)) == 0) {
-                if (!gtk_list_box_row_is_selected(GTK_LIST_BOX_ROW(GTK_LIST_BOX_ROW(row)))) {
-                    gtk_list_box_unselect_all(GTK_LIST_BOX(panel->log_widgets.log_listbox));
-                    gtk_list_box_select_row(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_LIST_BOX_ROW(row));
-                    set_last_clicked_row(panel, row);
-                }
-            }
-
-            selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(panel->log_widgets.log_listbox));
-            n_selected = g_list_length(selected);
-            g_list_free(selected);
-
-            if (n_selected > 0) {
-                gchar *label = g_strdup_printf(P_("_Delete log entry", "_Delete %d log entries", n_selected), n_selected);
-
-                menu = gtk_menu_new();
-                g_signal_connect(menu, "selection-done",
-                                 G_CALLBACK(gtk_widget_destroy), NULL);
-
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-                mi = gtk_image_menu_item_new_with_mnemonic(label);
-                gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), gtk_image_new_from_icon_name("edit-delete-symbolic", GTK_ICON_SIZE_MENU));
-G_GNUC_END_IGNORE_DEPRECATIONS
-                gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-                g_signal_connect(mi, "activate",
-                                 G_CALLBACK(log_entry_delete_clicked), panel);
-
-                gtk_widget_show_all(menu);
-
-                gtk_menu_popup_at_pointer(GTK_MENU(menu), (GdkEvent *)evt);
-
-                g_free(label);
-
-                return TRUE;
-            }
-        }
-    }
-
-
-    return FALSE;
-}
-
-// GtkListBox's selection behavvior is bizarre, so we have to reimplement it (see above)
-static gboolean
-log_listbox_button_press(GtkWidget *listbox, GdkEventButton *evt, SettingsPanel *panel) {
-    GtkListBoxRow *row = gtk_list_box_get_row_at_y(GTK_LIST_BOX(listbox), evt->y);
-
-    if (row != NULL) {
-        GtkWidget *eventbox = gtk_bin_get_child(GTK_BIN(row));
-
-        if (GTK_IS_EVENT_BOX(eventbox)) {
-            gboolean ret;
-            gint x, y;
-            GdkEvent *copy;
-
-            gtk_widget_translate_coordinates(listbox, eventbox, evt->x, evt->y, &x, &y);
-            copy = gdk_event_copy((GdkEvent *)evt);
-            copy->button.x = x;
-            copy->button.y = y;
-            if (copy->button.window != NULL) {
-                g_object_unref(copy->button.window);
-            }
-            copy->button.window = g_object_ref(gtk_widget_get_window(eventbox));
-
-            ret = log_entry_button_press(eventbox, &copy->button, panel);
-            gdk_event_free(copy);
-
-            return ret;
-        }
-    }
-
-    return FALSE;
-}
-
-static void
-xfce4_notifyd_log_populate(SettingsPanel *panel) {
-    GtkWidget *const log_listbox = panel->log_widgets.log_listbox;
-    GDateTime *today;
-    gint today_year, today_day;
-    gint has_notifications = FALSE;
-    gint scale_factor = gtk_widget_get_scale_factor(log_listbox);
-    gint icon_width, icon_height, icon_size;
-    XfceDateTimeFormat dt_format;
-    gchar *custom_dt_format;
-    cairo_surface_t *empty_app_icon = NULL;
-
-    gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
-    icon_size = MIN(icon_width, icon_height);
-
-    today = g_date_time_new_now_local ();
-    today_year = g_date_time_get_year(today);
-    today_day = g_date_time_get_day_of_year(today);
-
-    dt_format = xfconf_channel_get_int(panel->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
-    custom_dt_format = xfconf_channel_get_string(panel->channel, DATETIME_CUSTOM_FORMAT_PROP, NULL);
-
-    gtk_container_foreach(GTK_CONTAINER(log_listbox), listbox_remove_all, log_listbox);
-
-    if (panel->log != NULL) {
-        GList *entries;
-        gboolean yesterday = FALSE;
-
-        // TODO: implement progressive loading (maybe we will need to go to GtkTreeView for this)
-        entries = xfce_notify_log_read(panel->log, NULL, LOG_DISPLAY_LIMIT);
-
-        /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
-        for (GList *l = entries; l != NULL; l = l->next) {
-            XfceNotifyLogEntry *entry = l->data;
-            GDateTime *entry_local = g_date_time_to_local(entry->timestamp);
-            gint entry_year = g_date_time_get_year(entry_local);
-            gint entry_day = g_date_time_get_day_of_year(entry_local);
-            GtkWidget *row, *eventbox, *hbox;
-            GtkWidget *summary, *timestamp, *body = NULL, *app_icon = NULL;
-            const gchar *app_name = entry->app_name != NULL ? entry->app_name : entry->app_id;
-            gchar *timestamp_text;
-            gchar *summary_text;
-            gchar *body_text;
-            gchar *tooltip_timestamp_text;
-            gchar *tooltip_text;
-            cairo_surface_t *icon;
-
-            timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
-            summary_text = notify_log_format_summary(entry->summary);
-            body_text = notify_log_format_body(entry->body);
-            icon = notify_log_load_icon(xfce_notify_log_get_icon_folder(), entry->icon_id, entry->app_id, icon_size, scale_factor);
-            tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
-            tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
-
-            if (!yesterday && (today_year != entry_year || today_day != entry_day)) {
-                GtkWidget *header_row;
-                GtkWidget *header;
-
-                header_row = gtk_list_box_row_new();
-                gtk_list_box_row_set_selectable(GTK_LIST_BOX_ROW(header_row), FALSE);
-                gtk_list_box_insert(GTK_LIST_BOX(log_listbox), header_row, -1);
-
-                header = gtk_label_new (_("Yesterday and before"));
-                gtk_widget_set_sensitive (header, FALSE);
-                gtk_widget_set_margin_top (header, 3);
-                gtk_widget_set_margin_bottom (header, 3);
-                gtk_container_add(GTK_CONTAINER(header_row), header);
-
-                yesterday = TRUE;
-            }
-
-            summary = g_object_new(GTK_TYPE_LABEL,
-                                   "use-markup", TRUE,
-                                   "label", summary_text,
-                                   "ellipsize", PANGO_ELLIPSIZE_END,
-                                   "xalign", 0.0,
-                                   NULL);
-            timestamp = g_object_new(GTK_TYPE_LABEL,
-                                     "label", timestamp_text,
-                                     "xalign", 1.0,
-                                     NULL);
-            if (body_text != NULL) {
-                body = g_object_new(GTK_TYPE_LABEL,
-                                    "use-markup", TRUE,
-                                    "label", body_text,
-                                    "xalign", 0.0,
-                                    "ellipsize", PANGO_ELLIPSIZE_END,
-                                    NULL);
-            }
-
-            if (icon != NULL) {
-                app_icon = gtk_image_new_from_surface(icon);
-            } else {
-                if (empty_app_icon == NULL) {
-                    empty_app_icon = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
-                                                                icon_size * scale_factor,
-                                                                icon_size * scale_factor);
-                    cairo_surface_set_device_scale(empty_app_icon, scale_factor, scale_factor);
-                }
-                app_icon = gtk_image_new_from_surface(empty_app_icon);
-            }
-            gtk_widget_set_margin_start(app_icon, 3);
-
-            row = gtk_list_box_row_new();
-            g_object_set_data_full(G_OBJECT(row), LOG_ENTRY_ID_KEY, g_strdup(entry->id), g_free);
-
-            eventbox = gtk_event_box_new();
-            gtk_widget_add_events(eventbox, GDK_BUTTON_PRESS_MASK);
-            gtk_container_add(GTK_CONTAINER(row), eventbox);
-            g_signal_connect(eventbox, "button-press-event",
-                             G_CALLBACK(log_entry_button_press), panel);
-
-            hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
-            gtk_widget_set_tooltip_markup(hbox, tooltip_text);
-            gtk_container_add(GTK_CONTAINER(eventbox), hbox);
-
-            gtk_box_pack_start(GTK_BOX(hbox), app_icon, FALSE, FALSE, 0);
-            if (body == NULL) {
-                /* Handle icon-only notifications */
-                GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-                gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
-
-                gtk_box_pack_start(GTK_BOX(vbox), timestamp, FALSE, FALSE, 0);
-                gtk_box_pack_start(GTK_BOX(vbox), summary, FALSE, FALSE, 0);
-            } else {
-                GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-                GtkWidget *inner_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
-
-                gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
-                gtk_box_pack_start(GTK_BOX(vbox), inner_hbox, FALSE, FALSE, 0);
-
-                gtk_box_pack_start(GTK_BOX(inner_hbox), summary, TRUE, TRUE, 0);
-                gtk_box_pack_end(GTK_BOX(inner_hbox), timestamp, FALSE, FALSE, 0);
-
-                gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
-            }
-            gtk_list_box_insert(GTK_LIST_BOX(log_listbox), row, -1);
-
-            g_free(timestamp_text);
-            g_free(summary_text);
-            g_free(body_text);
-            g_free(tooltip_timestamp_text);
-            g_free(tooltip_text);
-            if (icon) {
-                cairo_surface_destroy(icon);
-            }
-            xfce_notify_log_entry_unref(entry);
-            g_date_time_unref(entry_local);
-
-            has_notifications = TRUE;
-        }
-        g_list_free(entries);
-    }
-
-    g_date_time_unref (today);
-    g_free(custom_dt_format);
-    if (empty_app_icon != NULL) {
-        cairo_surface_destroy(empty_app_icon);
-    }
-
-    gtk_widget_show_all (log_listbox);
-
-    /* Update "clear log" button sensitivity */
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_toolbar_get_nth_item (panel->log_widgets.log_toolbar, 1)), has_notifications);
-}
-
-static void
-xfce4_notifyd_log_refresh (GtkButton *button, SettingsPanel *panel) {
-    if (panel->log == NULL) {
-        panel->log = xfce_notify_log_open(NULL);
-    }
-    if (panel->log != NULL) {
-        xfce4_notifyd_log_populate(panel);
-    }
-}
-
-static void
-xfce_notify_log_clear_button_clicked(GtkButton *button, SettingsPanel *panel) {
-    GtkWidget *log_listbox = panel->log_widgets.log_listbox;
-    GtkCallback func = listbox_remove_all;
-    GtkWidget *dialog;
-    gint result;
-
-    dialog = xfce_notify_clear_log_dialog(panel->log);
-    result = gtk_dialog_run (GTK_DIALOG (dialog));
-    /* Clear the listbox widget too in case the log is cleared */
-    if (result == GTK_RESPONSE_OK)
-        gtk_container_foreach (GTK_CONTAINER (log_listbox), func, log_listbox);
-    gtk_widget_destroy (dialog);
-}
-
-static void
-xfce_notify_log_mark_read_clicked(GtkWidget *button, SettingsPanel *panel) {
-    xfce_notify_log_mark_all_read(panel->log);
-}
-
-static void
-xfce_notify_log_changed_check_unread(XfceNotifyLog *log, GtkWidget *button) {
-    gtk_widget_set_sensitive(button, xfce_notify_log_count_unread_messages(log) > 0);
-}
-
 static void xfce4_notifyd_show_help(GtkButton *button,
                                     GtkWidget *dialog)
 {
@@ -1307,21 +922,6 @@ static void xfce_notify_bus_name_vanished_cb (GDBusConnection *connection,
     gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), TRUE);
 }
 
-static GtkWidget *
-placeholder_label_new (gchar *place_holder_text)
-{
-    GtkWidget *label;
-    label = gtk_label_new ("");
-    gtk_label_set_markup (GTK_LABEL (label), place_holder_text);
-    gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_CENTER);
-    gtk_widget_set_sensitive (label, FALSE);
-    gtk_widget_set_margin_start (label, 24);
-    gtk_widget_set_margin_end (label, 24);
-    gtk_widget_set_margin_top (label, 24);
-    gtk_widget_set_margin_bottom (label, 24);
-    return label;
-}
-
 static void
 datetime_format_changed(GtkWidget *combo, GtkWidget *entry) {
     gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
@@ -1342,11 +942,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *do_not_disturb_switch;
     GtkWidget *do_not_disturb_info;
     GtkWidget *log_switch;
-    GtkWidget *log_scrolled_window;
-    GtkToolItem *log_clear_button;
-    GtkToolItem *log_refresh_button;
-    GtkToolItem *log_mark_read_button;
-    GtkWidget *icon;
+    GtkWidget *log_viewer_box;
     GtkWidget *primary_monitor;
     GtkWidget *mute_sounds;
     GtkWidget *do_fadeout;
@@ -1454,8 +1050,6 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     if (gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == -1) {
         gtk_combo_box_set_active(GTK_COMBO_BOX(datetime_format), XFCE_DATE_TIME_FORMAT_LOCALE);
     }
-    g_signal_connect_swapped(panel->channel, "property-changed::" DATETIME_FORMAT_PROP,
-                             G_CALLBACK(xfce4_notifyd_log_populate), panel);
 
     custom_datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "custom_datetime_format"));
     xfconf_g_property_bind(panel->channel, DATETIME_CUSTOM_FORMAT_PROP, G_TYPE_STRING,
@@ -1466,8 +1060,6 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     gtk_widget_set_sensitive(custom_datetime_format, gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
     g_signal_connect(datetime_format, "changed",
                      G_CALLBACK(datetime_format_changed), custom_datetime_format);
-    g_signal_connect_swapped(panel->channel, "property-changed::" DATETIME_CUSTOM_FORMAT_PROP,
-                             G_CALLBACK(xfce4_notifyd_log_populate), panel);
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "preview_button"));
     g_signal_connect(G_OBJECT(btn), "clicked",
@@ -1482,9 +1074,9 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
 
-    placeholder_label = placeholder_label_new (_("<big><b>Currently there are no known applications.</b></big>"
-                                                 "\nAs soon as an application sends a notification"
-                                                 "\nit will appear in this list."));
+    placeholder_label = xfce_notify_create_placeholder_label(_("<big><b>Currently there are no known applications.</b></big>"
+                                                               "\nAs soon as an application sends a notification"
+                                                               "\nit will appear in this list."));
     /* Initialize the list of known applications */
     xfce4_notifyd_known_applications_changed (panel, KNOWN_APPLICATIONS_PROP, NULL, known_applications_listbox);
     gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
@@ -1520,53 +1112,11 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
         gtk_combo_box_set_active(GTK_COMBO_BOX(panel->log_widgets.log_level_apps), 0);
     xfce4_notifyd_log_activated (GTK_SWITCH (log_switch), gtk_switch_get_active (GTK_SWITCH(log_switch)), panel);
 
-    log_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "log_scrolled_window"));
-    panel->log_widgets.log_listbox = gtk_list_box_new ();
-    gtk_list_box_set_selection_mode(GTK_LIST_BOX(panel->log_widgets.log_listbox), GTK_SELECTION_MULTIPLE);
-    gtk_container_add (GTK_CONTAINER (log_scrolled_window), panel->log_widgets.log_listbox);
-    gtk_list_box_set_header_func (GTK_LIST_BOX (panel->log_widgets.log_listbox), display_header_func, NULL, NULL);
-    if (panel->log == NULL) {
-        placeholder_label = placeholder_label_new(_("Unable to open notification log"));
-    } else {
-        placeholder_label = placeholder_label_new (_("<big><b>Empty log</b></big>"
-                                                     "\nNo notifications have been logged yet."));
-    }
-    gtk_widget_show_all (placeholder_label);
-    gtk_list_box_set_placeholder (GTK_LIST_BOX (panel->log_widgets.log_listbox), placeholder_label);
-    g_signal_connect(panel->log_widgets.log_listbox, "button-press-event",
-                     G_CALLBACK(log_listbox_button_press), panel);
-
-    panel->log_widgets.log_toolbar = GTK_TOOLBAR (gtk_builder_get_object (builder, "log_toolbar"));
-    icon = gtk_image_new_from_icon_name ("view-refresh-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
-    log_refresh_button = gtk_tool_button_new (icon, _("Refresh"));
-    gtk_widget_set_tooltip_text (GTK_WIDGET (log_refresh_button), _("Refresh the notification log"));
-    gtk_toolbar_insert(panel->log_widgets.log_toolbar, GTK_TOOL_ITEM(log_refresh_button), -1);
-    g_signal_connect (G_OBJECT (log_refresh_button), "clicked",
-                      G_CALLBACK (xfce4_notifyd_log_refresh), panel);
-
-    icon = gtk_image_new_from_icon_name ("edit-clear-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_image_set_pixel_size (GTK_IMAGE (icon), 16);
-    log_clear_button = gtk_tool_button_new (icon, _("Clear"));
-    gtk_widget_set_tooltip_text (GTK_WIDGET (log_clear_button), _("Clear the notification log"));
-    gtk_widget_set_sensitive(GTK_WIDGET(log_clear_button), panel->log != NULL);
-    gtk_toolbar_insert(panel->log_widgets.log_toolbar, GTK_TOOL_ITEM(log_clear_button), -1);
-    g_signal_connect (G_OBJECT (log_clear_button), "clicked",
-                      G_CALLBACK (xfce_notify_log_clear_button_clicked), panel);
-
-    icon = gtk_image_new_from_icon_name("notification-new-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_image_set_pixel_size(GTK_IMAGE(icon), 16);
-    log_mark_read_button = gtk_tool_button_new(icon, _("Mark All Read"));
-    gtk_widget_set_sensitive(GTK_WIDGET(log_mark_read_button), panel->log != NULL && xfce_notify_log_count_unread_messages(panel->log) > 0);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(log_mark_read_button), _("Mark all unread notifications as read"));
-    gtk_toolbar_insert(panel->log_widgets.log_toolbar, GTK_TOOL_ITEM(log_mark_read_button), -1);
-    g_signal_connect(log_mark_read_button, "clicked",
-                     G_CALLBACK(xfce_notify_log_mark_read_clicked), panel);
-    g_signal_connect(panel->log, "changed",
-                     G_CALLBACK(xfce_notify_log_changed_check_unread), log_mark_read_button);
-
-    gtk_widget_show_all (GTK_WIDGET(panel->log_widgets.log_toolbar));
-    xfce4_notifyd_log_populate (panel);
+    log_viewer_box = GTK_WIDGET(gtk_builder_get_object(builder, "log_viewer_box"));
+    gtk_box_pack_start(GTK_BOX(log_viewer_box),
+                      xfce_notify_log_viewer_new(panel->channel, panel->log),
+                      TRUE, TRUE, 0);
+    gtk_widget_show_all(log_viewer_box);
 
     return dlg;
 }
