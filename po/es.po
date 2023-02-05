@@ -76,7 +76,7 @@ msgstr "_Cerrar"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:105
 msgid "Notification icon size"
-msgstr ""
+msgstr "Tamaño del icono de notificación"
 
 #: ../panel-plugin/notification-plugin-dialogs.c:117
 msgid "Number of notifications to show"
@@ -166,7 +166,7 @@ msgstr "No se ha podido mostrar una vista previa de las notificaciones"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "¿Seguro que quiere eliminar la configuración de notificaciones de la aplicación «%s»?"
 
 #: ../xfce4-notifyd-config/main.c:574
 msgid "Delete"
@@ -175,7 +175,7 @@ msgstr "Borrar"
 #: ../xfce4-notifyd-config/main.c:576
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
-msgstr ""
+msgstr "Olvidar la aplicación"
 
 #: ../xfce4-notifyd-config/main.c:673
 msgid "Unspecified applications"
@@ -401,7 +401,7 @@ msgstr "General"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Configuración de notificaciones por aplicación</b>"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Applications"
@@ -431,15 +431,15 @@ msgstr "Registro"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
 msgid "Mute application"
-msgstr ""
+msgstr "Silenciar la aplicación"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Permitir notificaciones urgentes"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
-msgstr ""
+msgstr "Incluir en el registro"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
 msgid "Customize how notifications appear on your screen"
