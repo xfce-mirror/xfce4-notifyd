@@ -44,12 +44,18 @@ typedef struct _XfceNotifyLogViewer {
     XfconfChannel *channel;
     XfceNotifyLog *log;
 
+    GtkWidget *scroller;
     GtkWidget *listbox;
     GtkWidget *last_clicked_row;
+    GtkWidget *loading_row;
 
     GtkWidget *toolbar;
     GtkToolItem *clear_log_button;
     GtkToolItem *mark_read_button;
+
+    gboolean yesterday_header_added;
+    gchar *last_entry_id;
+    guint load_items_id;
 } XfceNotifyLogViewer;
 
 enum {
@@ -67,6 +73,7 @@ static void xfce_notify_log_viewer_get_property(GObject *obj,
                                                 guint prop_id,
                                                 GValue *value,
                                                 GParamSpec *pspec);
+static void xfce_notify_log_viewer_dispose(GObject *obj);
 static void xfce_notify_log_viewer_finalize(GObject *obj);
 
 static void xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer);
@@ -84,6 +91,9 @@ static gboolean xfce_notify_log_viewer_listbox_button_press(GtkWidget *listbox,
                                                             GdkEventButton *evt,
                                                             XfceNotifyLogViewer *viewer);
 
+static void xfce_notify_log_viewer_scroll_edge_reached(XfceNotifyLogViewer *viewer,
+                                                       GtkPositionType pos);
+
 
 G_DEFINE_TYPE(XfceNotifyLogViewer, xfce_notify_log_viewer, GTK_TYPE_BOX)
 
@@ -95,6 +105,7 @@ xfce_notify_log_viewer_class_init(XfceNotifyLogViewerClass *klass) {
     gobject_class->constructed = xfce_notify_log_viewer_constructed;
     gobject_class->set_property = xfce_notify_log_viewer_set_property;
     gobject_class->get_property = xfce_notify_log_viewer_get_property;
+    gobject_class->dispose = xfce_notify_log_viewer_dispose;
     gobject_class->finalize = xfce_notify_log_viewer_finalize;
 
     g_object_class_install_property(gobject_class,
@@ -120,7 +131,6 @@ xfce_notify_log_viewer_init(XfceNotifyLogViewer *viewer) {}
 static void
 xfce_notify_log_viewer_constructed(GObject *obj) {
     XfceNotifyLogViewer *viewer = XFCE_NOTIFY_LOG_VIEWER(obj);
-    GtkWidget *sw;
     GtkWidget *placeholder_label;
     GtkWidget *icon;
     GtkToolItem *button;
@@ -131,9 +141,11 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     gtk_icon_size_lookup(GTK_ICON_SIZE_SMALL_TOOLBAR, &icon_width, &icon_height);
     icon_size = MIN(icon_width, icon_height);
 
-    sw = gtk_scrolled_window_new(NULL, NULL);
-    gtk_box_pack_start(GTK_BOX(viewer), sw, TRUE, TRUE, 0);
-    gtk_widget_show(sw);
+    viewer->scroller = gtk_scrolled_window_new(NULL, NULL);
+    gtk_box_pack_start(GTK_BOX(viewer), viewer->scroller, TRUE, TRUE, 0);
+    gtk_widget_show(viewer->scroller);
+    g_signal_connect_swapped(viewer->scroller, "edge-reached",
+                             G_CALLBACK(xfce_notify_log_viewer_scroll_edge_reached), viewer);
     
     viewer->listbox = gtk_list_box_new();
     gtk_list_box_set_selection_mode(GTK_LIST_BOX(viewer->listbox), GTK_SELECTION_MULTIPLE);
@@ -145,7 +157,7 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
                                                                    "\nNo notifications have been logged yet."));
     }
     gtk_list_box_set_placeholder(GTK_LIST_BOX(viewer->listbox), placeholder_label);
-    gtk_container_add(GTK_CONTAINER(sw), viewer->listbox);
+    gtk_container_add(GTK_CONTAINER(viewer->scroller), viewer->listbox);
     gtk_widget_show(viewer->listbox);
     g_signal_connect(viewer->listbox, "button-press-event",
                      G_CALLBACK(xfce_notify_log_viewer_listbox_button_press), viewer);
@@ -237,6 +249,18 @@ xfce_notify_log_viewer_get_property(GObject *obj, guint prop_id, GValue *value, 
 }
 
 static void
+xfce_notify_log_viewer_dispose(GObject *obj) {
+    XfceNotifyLogViewer *viewer = XFCE_NOTIFY_LOG_VIEWER(obj);
+
+    if (viewer->load_items_id != 0) {
+        g_source_remove(viewer->load_items_id);
+        viewer->load_items_id = 0;
+    }
+
+    G_OBJECT_CLASS(xfce_notify_log_viewer_parent_class)->dispose(obj);
+}
+
+static void
 xfce_notify_log_viewer_finalize(GObject *obj) {
     XfceNotifyLogViewer *viewer = XFCE_NOTIFY_LOG_VIEWER(obj);
 
@@ -252,10 +276,10 @@ xfce_notify_log_viewer_finalize(GObject *obj) {
         g_object_unref(viewer->log);
     }
 
+    g_free(viewer->last_entry_id);
+
     G_OBJECT_CLASS(xfce_notify_log_viewer_parent_class)->finalize(obj);
 }
-
-
 
 static void
 xfce_notify_log_viewer_listbox_display_header_func(GtkListBoxRow *row,
@@ -447,161 +471,147 @@ xfce_notify_log_viewer_listbox_button_press(GtkWidget *listbox, GdkEventButton *
 }
 
 static void
-xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer) {
+xfce_notify_log_viewer_add_entries(XfceNotifyLogViewer *viewer, GList *entries) {
     GDateTime *today;
     gint today_year, today_day;
-    gint has_notifications = FALSE;
     gint icon_width, icon_height, icon_size;
     XfceDateTimeFormat dt_format;
     gchar *custom_dt_format;
-    GList *children;
     gint scale_factor = gtk_widget_get_scale_factor(viewer->listbox);
     cairo_surface_t *empty_app_icon = NULL;
 
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
     icon_size = MIN(icon_width, icon_height);
 
-    today = g_date_time_new_now_local ();
+    today = g_date_time_new_now_local();
     today_year = g_date_time_get_year(today);
     today_day = g_date_time_get_day_of_year(today);
 
     dt_format = xfconf_channel_get_int(viewer->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
     custom_dt_format = xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, NULL);
 
-    children = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
-    for (GList *l = children; l != NULL; l = l->next) {
-        gtk_container_remove(GTK_CONTAINER(viewer->listbox), GTK_WIDGET(l->data));
-    }
-    g_list_free(children);
+    for (GList *l = entries; l != NULL; l = l->next) {
+        XfceNotifyLogEntry *entry = l->data;
+        GDateTime *entry_local = g_date_time_to_local(entry->timestamp);
+        gint entry_year = g_date_time_get_year(entry_local);
+        gint entry_day = g_date_time_get_day_of_year(entry_local);
+        GtkWidget *row, *eventbox, *hbox;
+        GtkWidget *summary, *timestamp, *body = NULL, *app_icon = NULL;
+        const gchar *app_name = entry->app_name != NULL ? entry->app_name : entry->app_id;
+        gchar *timestamp_text;
+        gchar *summary_text;
+        gchar *body_text;
+        gchar *tooltip_timestamp_text;
+        gchar *tooltip_text;
+        cairo_surface_t *icon;
 
-    if (viewer->log != NULL) {
-        GList *entries;
-        gboolean yesterday = FALSE;
+        timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
+        summary_text = notify_log_format_summary(entry->summary);
+        body_text = notify_log_format_body(entry->body);
+        icon = notify_log_load_icon(xfce_notify_log_get_icon_folder(), entry->icon_id, entry->app_id, icon_size, scale_factor);
+        tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
+        tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
 
-        // TODO: implement progressive loading (maybe we will need to go to GtkTreeView for this)
-        entries = xfce_notify_log_read(viewer->log, NULL, LOG_DISPLAY_LIMIT);
+        if (!viewer->yesterday_header_added && (today_year != entry_year || today_day != entry_day)) {
+            GtkWidget *header_row;
+            GtkWidget *header;
 
-        /* Notifications are only shown until LOG_DISPLAY_LIMIT is hit */
-        for (GList *l = entries; l != NULL; l = l->next) {
-            XfceNotifyLogEntry *entry = l->data;
-            GDateTime *entry_local = g_date_time_to_local(entry->timestamp);
-            gint entry_year = g_date_time_get_year(entry_local);
-            gint entry_day = g_date_time_get_day_of_year(entry_local);
-            GtkWidget *row, *eventbox, *hbox;
-            GtkWidget *summary, *timestamp, *body = NULL, *app_icon = NULL;
-            const gchar *app_name = entry->app_name != NULL ? entry->app_name : entry->app_id;
-            gchar *timestamp_text;
-            gchar *summary_text;
-            gchar *body_text;
-            gchar *tooltip_timestamp_text;
-            gchar *tooltip_text;
-            cairo_surface_t *icon;
+            header_row = gtk_list_box_row_new();
+            gtk_list_box_row_set_selectable(GTK_LIST_BOX_ROW(header_row), FALSE);
+            gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), header_row, -1);
 
-            timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
-            summary_text = notify_log_format_summary(entry->summary);
-            body_text = notify_log_format_body(entry->body);
-            icon = notify_log_load_icon(xfce_notify_log_get_icon_folder(), entry->icon_id, entry->app_id, icon_size, scale_factor);
-            tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
-            tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
+            header = gtk_label_new (_("Yesterday and before"));
+            gtk_widget_set_sensitive (header, FALSE);
+            gtk_widget_set_margin_top (header, 3);
+            gtk_widget_set_margin_bottom (header, 3);
+            gtk_container_add(GTK_CONTAINER(header_row), header);
 
-            if (!yesterday && (today_year != entry_year || today_day != entry_day)) {
-                GtkWidget *header_row;
-                GtkWidget *header;
-
-                header_row = gtk_list_box_row_new();
-                gtk_list_box_row_set_selectable(GTK_LIST_BOX_ROW(header_row), FALSE);
-                gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), header_row, -1);
-
-                header = gtk_label_new (_("Yesterday and before"));
-                gtk_widget_set_sensitive (header, FALSE);
-                gtk_widget_set_margin_top (header, 3);
-                gtk_widget_set_margin_bottom (header, 3);
-                gtk_container_add(GTK_CONTAINER(header_row), header);
-
-                yesterday = TRUE;
-            }
-
-            summary = g_object_new(GTK_TYPE_LABEL,
-                                   "use-markup", TRUE,
-                                   "label", summary_text,
-                                   "ellipsize", PANGO_ELLIPSIZE_END,
-                                   "xalign", 0.0,
-                                   NULL);
-            timestamp = g_object_new(GTK_TYPE_LABEL,
-                                     "label", timestamp_text,
-                                     "xalign", 1.0,
-                                     NULL);
-            if (body_text != NULL) {
-                body = g_object_new(GTK_TYPE_LABEL,
-                                    "use-markup", TRUE,
-                                    "label", body_text,
-                                    "xalign", 0.0,
-                                    "ellipsize", PANGO_ELLIPSIZE_END,
-                                    NULL);
-            }
-
-            if (icon != NULL) {
-                app_icon = gtk_image_new_from_surface(icon);
-            } else {
-                if (empty_app_icon == NULL) {
-                    empty_app_icon = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
-                                                                icon_size * scale_factor,
-                                                                icon_size * scale_factor);
-                    cairo_surface_set_device_scale(empty_app_icon, scale_factor, scale_factor);
-                }
-                app_icon = gtk_image_new_from_surface(empty_app_icon);
-            }
-            gtk_widget_set_margin_start(app_icon, 3);
-
-            row = gtk_list_box_row_new();
-            g_object_set_data_full(G_OBJECT(row), LOG_ENTRY_ID_KEY, g_strdup(entry->id), g_free);
-
-            eventbox = gtk_event_box_new();
-            gtk_widget_add_events(eventbox, GDK_BUTTON_PRESS_MASK);
-            gtk_container_add(GTK_CONTAINER(row), eventbox);
-            g_signal_connect(eventbox, "button-press-event",
-                             G_CALLBACK(xfce_notify_log_viewer_listbox_row_button_press), viewer);
-
-            hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
-            gtk_widget_set_tooltip_markup(hbox, tooltip_text);
-            gtk_container_add(GTK_CONTAINER(eventbox), hbox);
-
-            gtk_box_pack_start(GTK_BOX(hbox), app_icon, FALSE, FALSE, 0);
-            if (body == NULL) {
-                /* Handle icon-only notifications */
-                GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-                gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
-
-                gtk_box_pack_start(GTK_BOX(vbox), timestamp, FALSE, FALSE, 0);
-                gtk_box_pack_start(GTK_BOX(vbox), summary, FALSE, FALSE, 0);
-            } else {
-                GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-                GtkWidget *inner_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
-
-                gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
-                gtk_box_pack_start(GTK_BOX(vbox), inner_hbox, FALSE, FALSE, 0);
-
-                gtk_box_pack_start(GTK_BOX(inner_hbox), summary, TRUE, TRUE, 0);
-                gtk_box_pack_end(GTK_BOX(inner_hbox), timestamp, FALSE, FALSE, 0);
-
-                gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
-            }
-            gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), row, -1);
-
-            g_free(timestamp_text);
-            g_free(summary_text);
-            g_free(body_text);
-            g_free(tooltip_timestamp_text);
-            g_free(tooltip_text);
-            if (icon) {
-                cairo_surface_destroy(icon);
-            }
-            xfce_notify_log_entry_unref(entry);
-            g_date_time_unref(entry_local);
-
-            has_notifications = TRUE;
+            viewer->yesterday_header_added = TRUE;;
         }
-        g_list_free(entries);
+
+        summary = g_object_new(GTK_TYPE_LABEL,
+                               "use-markup", TRUE,
+                               "label", summary_text,
+                               "ellipsize", PANGO_ELLIPSIZE_END,
+                               "xalign", 0.0,
+                               NULL);
+        timestamp = g_object_new(GTK_TYPE_LABEL,
+                                 "label", timestamp_text,
+                                 "xalign", 1.0,
+                                 NULL);
+        if (body_text != NULL) {
+            body = g_object_new(GTK_TYPE_LABEL,
+                                "use-markup", TRUE,
+                                "label", body_text,
+                                "xalign", 0.0,
+                                "ellipsize", PANGO_ELLIPSIZE_END,
+                                NULL);
+        }
+
+        if (icon != NULL) {
+            app_icon = gtk_image_new_from_surface(icon);
+        } else {
+            if (empty_app_icon == NULL) {
+                empty_app_icon = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
+                                                            icon_size * scale_factor,
+                                                            icon_size * scale_factor);
+                cairo_surface_set_device_scale(empty_app_icon, scale_factor, scale_factor);
+            }
+            app_icon = gtk_image_new_from_surface(empty_app_icon);
+        }
+        gtk_widget_set_margin_start(app_icon, 3);
+
+        row = gtk_list_box_row_new();
+        g_object_set_data_full(G_OBJECT(row), LOG_ENTRY_ID_KEY, g_strdup(entry->id), g_free);
+
+        eventbox = gtk_event_box_new();
+        gtk_widget_add_events(eventbox, GDK_BUTTON_PRESS_MASK);
+        gtk_container_add(GTK_CONTAINER(row), eventbox);
+        g_signal_connect(eventbox, "button-press-event",
+                         G_CALLBACK(xfce_notify_log_viewer_listbox_row_button_press), viewer);
+
+        hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
+        gtk_widget_set_tooltip_markup(hbox, tooltip_text);
+        gtk_container_add(GTK_CONTAINER(eventbox), hbox);
+
+        gtk_box_pack_start(GTK_BOX(hbox), app_icon, FALSE, FALSE, 0);
+        if (body == NULL) {
+            /* Handle icon-only notifications */
+            GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+            gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+
+            gtk_box_pack_start(GTK_BOX(vbox), timestamp, FALSE, FALSE, 0);
+            gtk_box_pack_start(GTK_BOX(vbox), summary, FALSE, FALSE, 0);
+        } else {
+            GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+            GtkWidget *inner_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+
+            gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+            gtk_box_pack_start(GTK_BOX(vbox), inner_hbox, FALSE, FALSE, 0);
+
+            gtk_box_pack_start(GTK_BOX(inner_hbox), summary, TRUE, TRUE, 0);
+            gtk_box_pack_end(GTK_BOX(inner_hbox), timestamp, FALSE, FALSE, 0);
+
+            gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
+        }
+
+        gtk_widget_show_all(row);
+        gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), row, -1);
+
+        if (l->next == NULL) {
+            g_free(viewer->last_entry_id);
+            viewer->last_entry_id = g_strdup(entry->id);
+        }
+
+        g_free(timestamp_text);
+        g_free(summary_text);
+        g_free(body_text);
+        g_free(tooltip_timestamp_text);
+        g_free(tooltip_text);
+        if (icon) {
+            cairo_surface_destroy(icon);
+        }
+        g_date_time_unref(entry_local);
     }
 
     g_date_time_unref(today);
@@ -609,10 +619,31 @@ xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer) {
     if (empty_app_icon != NULL) {
         cairo_surface_destroy(empty_app_icon);
     }
+}
 
-    gtk_widget_show_all(viewer->listbox);
+static void
+xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer) {
+    GList *children;
 
-    gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), has_notifications);
+    children = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
+    for (GList *l = children; l != NULL; l = l->next) {
+        gtk_container_remove(GTK_CONTAINER(viewer->listbox), GTK_WIDGET(l->data));
+    }
+    g_list_free(children);
+
+    viewer->yesterday_header_added = FALSE;
+    g_free(viewer->last_entry_id);
+    viewer->last_entry_id = NULL;
+    viewer->loading_row = NULL;
+
+    if (viewer->log != NULL) {
+        GList *entries = xfce_notify_log_read(viewer->log, NULL, LOG_DISPLAY_LIMIT);
+        xfce_notify_log_viewer_add_entries(viewer, entries);
+        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+    }
+
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button),
+                             gtk_list_box_get_row_at_index(GTK_LIST_BOX(viewer->listbox), 0) != NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button),
                              viewer->log != NULL && xfce_notify_log_count_unread_messages(viewer->log) > 0);
 }
@@ -661,6 +692,53 @@ static void
 xfce_notify_log_viewer_log_changed(XfceNotifyLogViewer *viewer) {
     // TODO: intelligently re-populate log
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), xfce_notify_log_count_unread_messages(viewer->log) > 0);
+}
+
+static gboolean
+scroll_to_bottom_idled(GtkAdjustment *adj) {
+    gtk_adjustment_set_value(adj, gtk_adjustment_get_upper(adj));
+    g_object_unref(adj);
+    return FALSE;
+}
+
+static gboolean
+load_items_idled(XfceNotifyLogViewer *viewer) {
+    GList *entries;
+
+    viewer->load_items_id = 0;
+
+    if (G_LIKELY(viewer->loading_row != NULL)) {
+        gtk_widget_destroy(viewer->loading_row);
+        viewer->loading_row = NULL;
+    }
+
+    entries = xfce_notify_log_read(viewer->log, viewer->last_entry_id, LOG_DISPLAY_LIMIT);
+    xfce_notify_log_viewer_add_entries(viewer, entries);
+    g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+
+    return FALSE;
+}
+
+static void
+xfce_notify_log_viewer_scroll_edge_reached(XfceNotifyLogViewer *viewer, GtkPositionType pos) {
+    if (pos == GTK_POS_BOTTOM && viewer->loading_row == NULL && viewer->log != NULL) {
+        GtkWidget *row;
+        GtkWidget *label;
+
+        row = gtk_list_box_row_new();
+        gtk_widget_show(row);
+        gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), row, -1);
+
+        label = xfce_notify_create_placeholder_label(_("<big><i>Loading more log entries...</i></big>"));
+        gtk_widget_show(label);
+        gtk_container_add(GTK_CONTAINER(row), label);
+
+        viewer->loading_row = row;
+
+        g_idle_add((GSourceFunc)scroll_to_bottom_idled,
+                   g_object_ref(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(viewer->scroller))));
+        viewer->load_items_id = g_idle_add((GSourceFunc)load_items_idled, viewer);
+    }
 }
 
 GtkWidget *
