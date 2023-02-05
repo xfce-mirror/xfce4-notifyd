@@ -42,6 +42,11 @@ G_BEGIN_DECLS
 #define VALUE_SHOW_ALL            "show-all"
 #define VALUE_SHOW_UNREAD         "show-unread"
 
+#define SETTING_AFTER_MENU_SHOWN  "/plugin/after-menu-shown"
+#define VALUE_MARK_ALL_READ       "mark-all-read"
+#define VALUE_MARK_SHOWN_READ     "mark-shown-read"
+#define VALUE_DO_NOTHING          "do-nothing"
+
 /* plugin structure */
 typedef struct
 {
