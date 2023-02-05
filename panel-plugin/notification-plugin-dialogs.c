@@ -104,6 +104,9 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   xfconf_g_property_bind(notification_plugin->channel, SETTING_HIDE_ON_READ, G_TYPE_BOOLEAN,
                          G_OBJECT(gtk_builder_get_object(builder, "hide_on_read")), "active");
 
+  xfconf_g_property_bind(notification_plugin->channel, SETTING_SHOW_IN_MENU, G_TYPE_STRING,
+                         G_OBJECT(gtk_builder_get_object(builder, "show_in_menu")), "active-id");
+
   /* link the dialog to the plugin, so we can destroy it when the plugin
    * is closed, but the dialog is still open */
   g_object_set_data(G_OBJECT(plugin), "dialog", dialog);
