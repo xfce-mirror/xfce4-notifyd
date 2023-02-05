@@ -52,3 +52,16 @@ xfce_notify_is_markup_valid(const gchar *markup) {
 
     return valid;
 }
+
+GtkWidget *
+xfce_notify_create_placeholder_label(const gchar *markup) {
+    GtkWidget *label = gtk_label_new("");
+    gtk_label_set_markup(GTK_LABEL(label), markup);
+    gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+    gtk_widget_set_sensitive(label, FALSE);
+    gtk_widget_set_margin_start(label, 24);
+    gtk_widget_set_margin_end(label, 24);
+    gtk_widget_set_margin_top(label, 24);
+    gtk_widget_set_margin_bottom(label, 24);
+    return label;
+}
