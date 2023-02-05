@@ -120,6 +120,8 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gboolean state;
   XfceDateTimeFormat dt_format;
   gchar *custom_dt_format;
+  const gchar *show_in_menu;
+  gboolean only_unread;
   gboolean no_notifications = FALSE;
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
 
@@ -138,6 +140,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     log_icon_size = DEFAULT_LOG_ICON_SIZE;
   dt_format = xfconf_channel_get_int(notification_plugin->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
   custom_dt_format = xfconf_channel_get_string(notification_plugin->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT);
+
+  show_in_menu = xfconf_channel_get_string(notification_plugin->channel, SETTING_SHOW_IN_MENU, VALUE_SHOW_ALL);
+  only_unread = g_strcmp0(show_in_menu, VALUE_SHOW_UNREAD) == 0;
 
   /* switch for the do not disturb mode of xfce4-notifyd */
   mi = gtk_menu_item_new ();
@@ -175,11 +180,14 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
     log_only_today = xfconf_channel_get_bool (notification_plugin->channel,
                                               SETTING_LOG_ONLY_TODAY, FALSE);
-
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
 
-    entries = xfce_notify_log_read(notification_plugin->log, NULL, log_display_limit);
+    if (only_unread) {
+        entries = xfce_notify_log_read_unread(notification_plugin->log, NULL, log_display_limit);
+    } else {
+        entries = xfce_notify_log_read(notification_plugin->log, NULL, log_display_limit);
+    }
 
     /* Check if the menu is going to be empty despite there being a log file, e.g.
        when showing only the notifications of today but the log only contains entries
@@ -302,6 +310,8 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     mi = gtk_menu_item_new ();
     if (notification_plugin->log == NULL) {
       label = gtk_label_new(_("Unable to open notification log"));
+    } else if (only_unread) {
+      label = gtk_label_new(_("No unread notifications"));
     } else {
       label = gtk_label_new (_("No notifications"));
     }

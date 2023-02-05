@@ -90,6 +90,8 @@ typedef struct _XfceNotifyLog {
     sqlite3_stmt *stmt_get_timestamp;
     sqlite3_stmt *stmt_read;
     sqlite3_stmt *stmt_read_with_timestamp;
+    sqlite3_stmt *stmt_read_unread;
+    sqlite3_stmt *stmt_read_unread_with_timestamp;
     sqlite3_stmt *stmt_count_unreads;
     sqlite3_stmt *stmt_count_app_ids;
     sqlite3_stmt *stmt_write;
@@ -265,6 +267,8 @@ xfce_notify_log_finalize(GObject *object) {
     xn_sqlite3_finalize(log->stmt_get_timestamp);
     xn_sqlite3_finalize(log->stmt_read);
     xn_sqlite3_finalize(log->stmt_read_with_timestamp);
+    xn_sqlite3_finalize(log->stmt_read_unread);
+    xn_sqlite3_finalize(log->stmt_read_unread_with_timestamp);
     xn_sqlite3_finalize(log->stmt_count_unreads);
     xn_sqlite3_finalize(log->stmt_count_app_ids);
     xn_sqlite3_finalize(log->stmt_write);
@@ -340,6 +344,10 @@ prepare_statements(XfceNotifyLog *log, GError **error) {
     PREPARE_CHECKED(log->stmt_read, "SELECT " COLUMN_NAMES " FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT);
 
     PREPARE_CHECKED(log->stmt_read_with_timestamp, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT);
+
+    PREPARE_CHECKED(log->stmt_read_unread, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_IS_READ " = FALSE ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT);
+
+    PREPARE_CHECKED(log->stmt_read_unread_with_timestamp, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_IS_READ " = FALSE AND " COL_TIMESTAMP " < :" COL_TIMESTAMP " ORDER BY " COL_TIMESTAMP " DESC LIMIT :" BIND_LIMIT);
 
     PREPARE_CHECKED(log->stmt_count_unreads, "SELECT COUNT(id) FROM " TABLE " WHERE " COL_IS_READ " = FALSE");
 
@@ -562,8 +570,8 @@ xfce_notify_log_get(XfceNotifyLog *log, const gchar *id) {
     return entry;
 }
 
-GList *
-xfce_notify_log_read(XfceNotifyLog *log, const gchar *start_after_id, guint count) {
+static GList *
+xfce_notify_log_read_internal(XfceNotifyLog *log, const gchar *start_after_id, gboolean only_unread, guint count) {
     GList *entries = NULL;
     sqlite3_stmt *stmt;
     int rc  = SQLITE_OK;
@@ -572,7 +580,7 @@ xfce_notify_log_read(XfceNotifyLog *log, const gchar *start_after_id, guint coun
     g_return_val_if_fail(count > 0, NULL);
 
     if (start_after_id == NULL) {
-        stmt = log->stmt_read;
+        stmt = only_unread ? log->stmt_read_unread : log->stmt_read;
     } else {
         gint64 start_after_timestamp = G_MININT64;
 
@@ -592,7 +600,7 @@ xfce_notify_log_read(XfceNotifyLog *log, const gchar *start_after_id, guint coun
         sqlite3_reset(log->stmt_get_timestamp);
         sqlite3_clear_bindings(log->stmt_get_timestamp);
 
-        stmt = log->stmt_read_with_timestamp;
+        stmt = only_unread ? log->stmt_read_unread_with_timestamp : log->stmt_read_with_timestamp;
         if (rc == SQLITE_OK) {
             rc = sqlite3_bind_int64(stmt, BIND_INDEX(stmt, COL_TIMESTAMP), start_after_timestamp);
         }
@@ -626,6 +634,16 @@ xfce_notify_log_read(XfceNotifyLog *log, const gchar *start_after_id, guint coun
     sqlite3_clear_bindings(stmt);
 
     return entries;
+}
+
+GList *
+xfce_notify_log_read(XfceNotifyLog *log, const gchar *start_after_id, guint count) {
+    return xfce_notify_log_read_internal(log, start_after_id, FALSE, count);
+}
+
+GList *
+xfce_notify_log_read_unread(XfceNotifyLog *log, const gchar *start_after_id, guint count) {
+    return xfce_notify_log_read_internal(log, start_after_id, TRUE, count);
 }
 
 guint
