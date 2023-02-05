@@ -38,6 +38,10 @@ G_BEGIN_DECLS
 #define SETTING_LOG_ICON_SIZE     "/plugin/log-icon-size"
 #define SETTING_HIDE_ON_READ      "/plugin/hide-on-read"
 
+#define SETTING_SHOW_IN_MENU      "/plugin/show-in-menu"
+#define VALUE_SHOW_ALL            "show-all"
+#define VALUE_SHOW_UNREAD         "show-unread"
+
 /* plugin structure */
 typedef struct
 {
