@@ -20,7 +20,7 @@
 #ifndef __XFCE_NOTIFY_COMMON_H__
 #define __XFCE_NOTIFY_COMMON_H__
 
-#include <glib.h>
+#include <gtk/gtk.h>
 
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
@@ -35,6 +35,8 @@
 G_BEGIN_DECLS
 
 gboolean xfce_notify_is_markup_valid(const gchar *markup);
+
+GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);
 
 G_END_DECLS
 
