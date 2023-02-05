@@ -20,9 +20,12 @@
 #ifndef __NOTIFICATION_PLUGIN_H__
 #define __NOTIFICATION_PLUGIN_H__
 
-G_BEGIN_DECLS
-
 #include <xfconf/xfconf.h>
+#include <libxfce4panel/libxfce4panel.h>
+
+#include <common/xfce-notify-log.h>
+
+G_BEGIN_DECLS
 
 #define ICON_NAME                 "org.xfce.notification"
 #define XFCE_NOTIFY_LOG_FILE      "xfce4/notifyd/log"
@@ -41,9 +44,8 @@ typedef struct
     XfcePanelPlugin *plugin;
     XfconfChannel   *channel;
 
-    /* file monitor */
-    GFile           *log_file;
-    GFileMonitor    *log_file_monitor;
+    /* log */
+    XfceNotifyLog *log;
 
     /* state */
     gboolean         new_notifications;
