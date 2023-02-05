@@ -122,6 +122,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gchar *custom_dt_format;
   const gchar *show_in_menu;
   gboolean only_unread;
+  const gchar *after_menu_shown;
+  gboolean mark_shown_read;
+  gboolean mark_all_read;
   gboolean no_notifications = FALSE;
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
 
@@ -143,6 +146,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
 
   show_in_menu = xfconf_channel_get_string(notification_plugin->channel, SETTING_SHOW_IN_MENU, VALUE_SHOW_ALL);
   only_unread = g_strcmp0(show_in_menu, VALUE_SHOW_UNREAD) == 0;
+
+  after_menu_shown = xfconf_channel_get_string(notification_plugin->channel, SETTING_AFTER_MENU_SHOWN, VALUE_MARK_ALL_READ);
+  mark_shown_read = g_strcmp0(after_menu_shown, VALUE_MARK_SHOWN_READ) == 0;
+  mark_all_read = g_strcmp0(after_menu_shown, VALUE_MARK_ALL_READ) == 0;
 
   /* switch for the do not disturb mode of xfce4-notifyd */
   mi = gtk_menu_item_new ();
@@ -279,7 +286,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
       gtk_widget_show_all(mi);
 
-      if (!entry->is_read) {
+      if (mark_shown_read && !entry->is_read) {
         xfce_notify_log_mark_read(notification_plugin->log, entry->id);
       }
 
@@ -302,6 +309,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   g_date_time_unref (today);
   g_free(custom_dt_format);
+
+  if (notification_plugin->log != NULL && mark_all_read) {
+    xfce_notify_log_mark_all_read(notification_plugin->log);
+  }
 
   /* Show a placeholder label when there are no notifications */
   if (notification_plugin->log == NULL || no_notifications) {

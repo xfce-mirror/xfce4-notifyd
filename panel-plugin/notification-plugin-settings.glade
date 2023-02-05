@@ -80,7 +80,7 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=2 n-rows=8 -->
+          <!-- n-columns=2 n-rows=9 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -179,7 +179,7 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">6</property>
+                <property name="top-attach">7</property>
               </packing>
             </child>
             <child>
@@ -190,7 +190,7 @@
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">6</property>
+                <property name="top-attach">7</property>
               </packing>
             </child>
             <child>
@@ -203,7 +203,7 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">7</property>
+                <property name="top-attach">8</property>
               </packing>
             </child>
             <child>
@@ -214,7 +214,7 @@
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">7</property>
+                <property name="top-attach">8</property>
               </packing>
             </child>
             <child>
@@ -275,6 +275,35 @@
                 <property name="left-attach">0</property>
                 <property name="top-attach">5</property>
                 <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-start">12</property>
+                <property name="label" translatable="yes">After showing the menu</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="after_menu_shown">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active-id">mark-all-read</property>
+                <items>
+                  <item id="mark-all-read" translatable="yes">Mark all log entries read</item>
+                  <item id="mark-shown-read" translatable="yes">Mark shown log entries read</item>
+                  <item id="do-nothing" translatable="yes">Do nothing</item>
+                </items>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">6</property>
               </packing>
             </child>
           </object>
