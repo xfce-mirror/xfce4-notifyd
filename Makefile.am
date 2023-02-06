@@ -44,6 +44,8 @@ xfce4_notifyd_xfce4_notifyd_SOURCES = \
 xfce4_notifyd_config_xfce4_notifyd_config_SOURCES = \
 	common/xfce-notify-common.h \
 	xfce4-notifyd-config/main.c \
+	xfce4-notifyd-config/xfce-notify-log-viewer.c \
+	xfce4-notifyd-config/xfce-notify-log-viewer.h \
 	xfce4-notifyd-config/xfce4-notifyd-config.ui.h \
 	xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
 
@@ -55,7 +57,8 @@ common_cflags = \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(GIO_UNIX_CFLAGS) \
-	$(GTK3_CFLAGS)
+	$(GTK3_CFLAGS) \
+	$(SQLITE_CFLAGS)
 
 xfce4_notifyd_xfce4_notifyd_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd\" \
@@ -76,7 +79,8 @@ common_ldadd = \
 	$(LIBXFCE4UI_LIBS) \
 	$(GIO_LIBS) \
 	$(GIO_UNIX_LIBS) \
-	$(GTK3_LIBS)
+	$(GTK3_LIBS) \
+	$(SQLITE_LIBS)
 
 xfce4_notifyd_xfce4_notifyd_LDADD = \
 	$(common_ldadd) \
@@ -292,6 +296,7 @@ compile_flags.txt: $(shell find . -name Makefile)
 		$(LIBXFCE4PANEL_CFLAGS) \
 		$(XFCONF_CFLAGS) \
 		$(GTK_LAYER_SHELL_CFLAGS) \
+		$(SQLITE_CFLAGS) \
 		$(PLATFORM_CFLAGS) \
 		$(PLATFORM_CPPFLAGS) \
 		$(LIBXFCE4UI_LIBS) \
@@ -301,6 +306,7 @@ compile_flags.txt: $(shell find . -name Makefile)
 		$(LIBXFCE4PANEL_LIBS) \
 		$(XFCONF_LIBS) \
 		$(GTK_LAYER_SHELL_LIBS) \
+		$(SQLITE_LIBS) \
 	; do \
 		echo "$$flag" >> $@ || exit 1; \
 	done
