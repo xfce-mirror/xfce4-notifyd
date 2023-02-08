@@ -276,6 +276,7 @@ xfce_notify_log_finalize(GObject *object) {
     xn_sqlite3_finalize(log->stmt_mark_all_read);
     xn_sqlite3_finalize(log->stmt_delete);
     xn_sqlite3_finalize(log->stmt_delete_before);
+    xn_sqlite3_finalize(log->stmt_delete_all);
 
     if (log->db != NULL) {
         sqlite3_close(log->db);
