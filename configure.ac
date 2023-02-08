@@ -6,20 +6,15 @@ dnl Copyright (c) 2008 Brian Tarricone <brian@tarricone.org>
 dnl Copyright (c) 2019 Simon Steinbeiss <simon@xfce.org>
 dnl
 
-dnl version info
-m4_define([xfce4_notifyd_version_major], [0])
-m4_define([xfce4_notifyd_version_minor], [7])
-m4_define([xfce4_notifyd_version_micro], [3])
-m4_define([xfce4_notifyd_version_build], [@REVISION@])
-m4_define([xfce4_notifyd_version_tag], [git])
-m4_define([xfce4_notifyd_version], [xfce4_notifyd_version_major().xfce4_notifyd_version_minor().xfce4_notifyd_version_micro()ifelse(xfce4_notifyd_version_tag(), [git], [xfce4_notifyd_version_tag()-xfce4_notifyd_version_build()], [xfce4_notifyd_version_tag()])])
-
 m4_define([notifications_spec_version], [1.2])
 m4_define([gtk_minimum_version], [3.22])
 m4_define([canberra_minimum_version], [0.30])
 
+dnl version info
+XDT_VERSION_INIT([0.7.3], [git])
+
 dnl init autoconf
-AC_INIT([xfce4-notifyd], [xfce4_notifyd_version],
+AC_INIT([xfce4-notifyd], [xdt_version],
         [https://gitlab.xfce.org/apps/xfce4-notifyd],
         [xfce4-notifyd])
 AC_PREREQ([2.59c])
@@ -57,7 +52,7 @@ AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   unistd.h])
 
 dnl Check for i18n support
-XDT_I18N([@LINGUAS@])
+XDT_I18N()
 
 dnl check for x11
 XDT_CHECK_LIBX11_REQUIRE()
