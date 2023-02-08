@@ -1090,6 +1090,7 @@ notify_application_is_muted (XfconfChannel *channel, gchar *new_app_name)
 
 static gchar *
 xfce_notify_log_insert(XfceNotifyLog *log,
+                       gint log_max_size,
                        GDateTime *timestamp,
                        const gchar *app_id,
                        const gchar *summary,
@@ -1124,6 +1125,10 @@ xfce_notify_log_insert(XfceNotifyLog *log,
 
     if (xfce_notify_log_write(log, entry)) {
         id = g_strdup(entry->id);
+
+        if (log_max_size > 0) {
+            xfce_notify_log_truncate(log, log_max_size);
+        }
     }
     xfce_notify_log_entry_unref(entry);
 
@@ -1335,6 +1340,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                               || (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)))
                       {
                           gchar *ignore_id = xfce_notify_log_insert(xndaemon->log,
+                                                                    xndaemon->log_max_size,
                                                                     timestamp,
                                                                     new_app_name,
                                                                     summary,
@@ -1443,6 +1449,7 @@ notify_notify (XfceNotifyGBus *skeleton,
         !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
     {
         gchar *log_id = xfce_notify_log_insert(xndaemon->log,
+                                               xndaemon->log_max_size,
                                                timestamp,
                                                new_app_name,
                                                summary,

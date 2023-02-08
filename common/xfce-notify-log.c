@@ -70,6 +70,7 @@ typedef enum {
     XFCE_NOTIFY_QUEUE_ITEM_MARK_READ,
     XFCE_NOTIFY_QUEUE_ITEM_DELETE,
     XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE,
+    XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE,
 } XfceNotifyLogQueueItemType;
 
 typedef struct {
@@ -78,6 +79,7 @@ typedef struct {
         XfceNotifyLogEntry *entry;
         gchar *id;
         GDateTime *timestamp;
+        guint count;
     } param;
 } XfceNotifyLogQueueItem;
 
@@ -99,6 +101,7 @@ typedef struct _XfceNotifyLog {
     sqlite3_stmt *stmt_mark_all_read;
     sqlite3_stmt *stmt_delete;
     sqlite3_stmt *stmt_delete_before;
+    sqlite3_stmt *stmt_truncate;
     sqlite3_stmt *stmt_delete_all;
 
     GFileMonitor *monitor;
@@ -276,6 +279,7 @@ xfce_notify_log_finalize(GObject *object) {
     xn_sqlite3_finalize(log->stmt_mark_all_read);
     xn_sqlite3_finalize(log->stmt_delete);
     xn_sqlite3_finalize(log->stmt_delete_before);
+    xn_sqlite3_finalize(log->stmt_truncate);
     xn_sqlite3_finalize(log->stmt_delete_all);
 
     if (log->db != NULL) {
@@ -376,6 +380,11 @@ prepare_statements(XfceNotifyLog *log, GError **error) {
     PREPARE_CHECKED(log->stmt_delete_before, "DELETE FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP);
 
     PREPARE_CHECKED(log->stmt_delete_all, "DELETE FROM " TABLE);
+
+    log->stmt_truncate = prepare_statement(log->db, "DELETE FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC OFFSET ?", NULL);
+    if (log->stmt_truncate == NULL) {
+        g_message("Your sqlite library does not support OFFSET/LIMIT with DELETE; falling back to less-efficient deletion method");
+    }
 
     return TRUE;
 #undef COLUMN_NAMES
@@ -955,6 +964,70 @@ xfce_notify_log_clear(XfceNotifyLog *log) {
     return TRUE;
 }
 
+static GList *
+xfce_notify_g_list_last_length(GList *list, guint *length) {
+    guint n = 0;
+
+    while (list != NULL) {
+        ++n;
+        if (list->next == NULL) {
+            *length = n;
+            return list;
+        }
+        list = list->next;
+    }
+
+    *length = 0;
+    return NULL;
+}
+
+static int
+xfce_notify_log_real_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
+    int rc;
+
+    if (n_entries_to_keep == 0) {
+        rc = xfce_notify_log_real_clear(log);
+    } else if (log->stmt_truncate != NULL) {
+        rc = sqlite3_bind_int(log->stmt_truncate, 0, n_entries_to_keep);
+        if (rc == SQLITE_OK) {
+            rc = sqlite3_step(log->stmt_truncate);
+        }
+
+        sqlite3_reset(log->stmt_truncate);
+        sqlite3_clear_bindings(log->stmt_truncate);
+    } else {
+        GList *entries = xfce_notify_log_read(log, NULL, n_entries_to_keep + 1);
+        guint n_entries;
+        GList *last = xfce_notify_g_list_last_length(entries, &n_entries);
+
+        if (n_entries > n_entries_to_keep) {
+            // n_entries guaranteed to be >= 2 here, thus entries != NULL and last != NULL and last->prev != NULL
+            XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
+            rc = xfce_notify_log_real_delete_before(log, last_entry_to_keep->timestamp);
+        } else {
+            rc = SQLITE_OK;
+        }
+
+        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+    }
+
+    return rc;
+}
+
+gboolean
+xfce_notify_log_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
+    XfceNotifyLogQueueItem *item;
+
+    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+
+    item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE;
+    item->param.count = n_entries_to_keep;
+    queue_write(log, item);
+
+    return TRUE;
+}
+
 static inline void
 xfce_notify_log_entry_action_free(XfceNotifyLogEntryAction *action) {
     g_free(action->id);
@@ -1013,6 +1086,9 @@ xfce_notify_log_queue_item_free(XfceNotifyLogQueueItem *item) {
             g_date_time_unref(item->param.timestamp);
             break;
 
+        case XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE:
+            break;
+
         default:
             g_assert_not_reached();
             break;
@@ -1055,6 +1131,10 @@ process_write_queue(gpointer data) {
                 rc = xfce_notify_log_real_delete_before(log, item->param.timestamp);
                 break;
 
+            case XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE:
+                rc = xfce_notify_log_real_truncate(log, item->param.count);
+                break;
+
             default:
                 g_assert_not_reached();
                 break;
@@ -1082,6 +1162,10 @@ process_write_queue(gpointer data) {
 
                     case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
                         g_warning("Failed to delete items from DB: %s", sqlite3_errstr(rc));
+                        break;
+
+                    case XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE:
+                        g_warning("Failed to truncate DB: %s", sqlite3_errstr(rc));
                         break;
 
                     default:
