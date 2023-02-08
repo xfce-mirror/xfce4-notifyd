@@ -73,6 +73,8 @@ gboolean xfce_notify_log_delete(XfceNotifyLog *log,
                                 const gchar *id);
 gboolean xfce_notify_log_delete_before(XfceNotifyLog *log,
                                        GDateTime *oldest_to_keep);
+gboolean xfce_notify_log_truncate(XfceNotifyLog *log,
+                                  guint n_entries_to_keep);
 
 gboolean xfce_notify_log_clear(XfceNotifyLog *log);
 
