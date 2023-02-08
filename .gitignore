@@ -26,7 +26,6 @@ config.log
 config.status
 config.sub
 configure
-configure.ac
 depcomp
 install-sh
 intltool-extract.in
