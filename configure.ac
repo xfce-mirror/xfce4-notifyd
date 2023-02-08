@@ -149,7 +149,7 @@ AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
                    [Set to the version of the freedesktop.org notifications spec we support])
 
 dnl check for debugging support
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG([xdt_debug_default])
 
 AC_CONFIG_FILES(
 [
