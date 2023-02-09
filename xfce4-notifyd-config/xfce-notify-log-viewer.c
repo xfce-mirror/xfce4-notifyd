@@ -302,9 +302,8 @@ log_entry_delete_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
         const gchar *id = g_object_get_data(G_OBJECT(row), LOG_ENTRY_ID_KEY);
 
         if (id != NULL) {
-            if (xfce_notify_log_delete(viewer->log, id)) {
-                gtk_container_remove(GTK_CONTAINER(viewer->listbox), row);
-            }
+            xfce_notify_log_delete(viewer->log, id);
+            gtk_container_remove(GTK_CONTAINER(viewer->listbox), row);
         }
     }
 
