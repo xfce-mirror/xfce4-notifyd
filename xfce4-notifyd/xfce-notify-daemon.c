@@ -74,6 +74,7 @@ struct _XfceNotifyDaemon
     XfceNotifyLog *log;
     gint log_level;
     gint log_level_apps;
+    gboolean log_max_size_enabled;
     gint log_max_size;
 
     GtkCssProvider *css_provider;
@@ -197,10 +198,16 @@ const struct {
         .default_value.u = 0,
     },
     {
-        .name = "/log-max-size",
+        .name = LOG_MAX_SIZE_ENABLED_PROP,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_max_size_enabled),
+        .default_value.b = TRUE,
+    },
+    {
+        .name = LOG_MAX_SIZE_PROP,
         .type = G_TYPE_UINT,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_max_size),
-        .default_value.u = 100,
+        .default_value.u = LOG_MAX_SIZE_DEFAULT,
     },
 };
 
@@ -1339,7 +1346,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                               || (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)))
                       {
                           gchar *ignore_id = xfce_notify_log_insert(xndaemon->log,
-                                                                    xndaemon->log_max_size,
+                                                                    xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
                                                                     timestamp,
                                                                     new_app_name,
                                                                     summary,
@@ -1448,7 +1455,7 @@ notify_notify (XfceNotifyGBus *skeleton,
         !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
     {
         gchar *log_id = xfce_notify_log_insert(xndaemon->log,
-                                               xndaemon->log_max_size,
+                                               xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
                                                timestamp,
                                                new_app_name,
                                                summary,
@@ -1686,6 +1693,7 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     gchar *theme;
 
     xndaemon->settings = xfconf_channel_new("xfce4-notifyd");
+    xfce_notify_migrate_log_max_size_setting(xndaemon->settings);
 
     theme = xfconf_channel_get_string(xndaemon->settings,
                                       "/theme", "Default");

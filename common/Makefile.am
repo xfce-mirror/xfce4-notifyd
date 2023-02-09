@@ -16,11 +16,13 @@ libxfce_notifyd_common_la_CFLAGS = \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(GTK3_CFLAGS) \
 	$(SQLITE_CFLAGS) \
+	$(XFCONF_CFLAGS) \
 	$(PLATFORM_CFLAGS)
 
 libxfce_notifyd_common_la_LIBADD = \
 	$(LIBXFCE4UI_LIBS) \
 	$(GTK3_LIBS) \
+	$(XFCONF_LIBS) \
 	$(SQLITE_LIBS)
 
 libxfce_notifyd_common_la_LDFLAGS = \

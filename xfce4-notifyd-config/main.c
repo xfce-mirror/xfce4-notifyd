@@ -1101,8 +1101,15 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                            G_OBJECT(panel->log_widgets.log_level), "active");
     xfconf_g_property_bind(panel->channel, "/log-level-apps", G_TYPE_UINT,
                           G_OBJECT(panel->log_widgets.log_level_apps), "active");
+
+    xfce_notify_migrate_log_max_size_setting(panel->channel);
+    btn = GTK_WIDGET(gtk_builder_get_object(builder, "log_max_size_enabled"));
+    xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_ENABLED_PROP, G_TYPE_BOOLEAN,
+                           G_OBJECT(btn), "active");
+
     sbtn = GTK_WIDGET (gtk_builder_get_object (builder, "log_max_size"));
-    xfconf_g_property_bind(panel->channel, "/log-max-size", G_TYPE_UINT,
+    g_object_bind_property(btn, "active", sbtn, "sensitive", G_BINDING_SYNC_CREATE);
+    xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_PROP, G_TYPE_UINT,
                            G_OBJECT(sbtn), "value");
 
     /* Initialize the settings' states correctly */

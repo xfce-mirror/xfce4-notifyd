@@ -65,3 +65,14 @@ xfce_notify_create_placeholder_label(const gchar *markup) {
     gtk_widget_set_margin_bottom(label, 24);
     return label;
 }
+
+void
+xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
+    if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
+        guint value = xfconf_channel_get_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
+        xfconf_channel_set_bool(channel, LOG_MAX_SIZE_ENABLED_PROP, value > 0);
+        if (value == 0) {
+            xfconf_channel_set_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
+        }
+    }
+}
