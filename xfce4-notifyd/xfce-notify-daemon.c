@@ -45,6 +45,7 @@
 
 #include <common/xfce-notify-common.h>
 #include <common/xfce-notify-log.h>
+#include <common/xfce-notify-log-util.h>
 
 #include "xfce-notify-gbus.h"
 #include "xfce-notify-daemon.h"
@@ -69,6 +70,8 @@ struct _XfceNotifyDaemon
     gboolean notification_log;
     gboolean show_text_with_gauge;
     gint primary_monitor;
+
+    XfceNotifyLog *log;
     gint log_level;
     gint log_level_apps;
     gint log_max_size;
@@ -497,6 +500,8 @@ static void xfce_notify_daemon_constructed (GObject *obj)
 static void
 xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 {
+    GError *error = NULL;
+
     xndaemon->active_notifications = g_tree_new_full(xfce_direct_compare,
                                                      NULL, NULL,
                                                      (GDestroyNotify)gtk_widget_destroy);
@@ -510,6 +515,14 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 
     xndaemon->denied_critical_notifications = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
     xndaemon->excluded_from_log = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+
+    xndaemon->log = xfce_notify_log_open(&error);
+    if (xndaemon->log == NULL) {
+        g_warning("Unable to open notification log: %s", error != NULL ? error->message : "(uknknown error)");
+        if (error != NULL) {
+            g_error_free(error);
+        }
+    }
 }
 
 static void
@@ -566,6 +579,10 @@ xfce_notify_daemon_finalize(GObject *obj)
     g_hash_table_destroy(xndaemon->denied_critical_notifications);
     g_hash_table_destroy(xndaemon->excluded_from_log);
 
+    if (xndaemon->log != NULL) {
+        g_object_unref(xndaemon->log);
+    }
+
     G_OBJECT_CLASS(xfce_notify_daemon_parent_class)->finalize(obj);
 }
 
@@ -611,6 +628,14 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     list = xndaemon->reserved_rectangles[monitor];
     list = g_list_remove(list, xfce_notify_window_get_geometry(window));
     xndaemon->reserved_rectangles[monitor] = list;
+
+    if (reason == XFCE_NOTIFY_CLOSE_REASON_DISMISSED && xndaemon->log != NULL) {
+        const gchar *log_id = xfce_notify_window_get_log_id(window);
+
+        if (log_id != NULL) {
+            xfce_notify_log_mark_read(xndaemon->log, log_id);
+        }
+    }
 
     if (G_LIKELY(id > 0)) {
         g_tree_remove(xndaemon->active_notifications, GUINT_TO_POINTER(id));
@@ -1063,6 +1088,52 @@ notify_application_is_muted (XfconfChannel *channel, gchar *new_app_name)
     return FALSE;
 }
 
+static gchar *
+xfce_notify_log_insert(XfceNotifyLog *log,
+                       gint log_max_size,
+                       GDateTime *timestamp,
+                       const gchar *app_id,
+                       const gchar *summary,
+                       const gchar *body,
+                       GVariant *image_data,
+                       const gchar *image_path,
+                       const gchar *app_icon,
+                       const gchar *desktop_id,
+                       gint expire_timeout,
+                       const gchar **actions)
+{
+    gchar *id = NULL;
+    XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
+    entry->timestamp = g_date_time_ref(timestamp);
+    entry->app_id = g_strdup(app_id);
+    entry->icon_id = xfce_notify_log_cache_icon(image_data,
+                                                image_path,
+                                                app_icon,
+                                                desktop_id);
+    entry->summary = g_strdup(summary);
+    entry->body = g_strdup(body);
+    entry->expire_timeout = expire_timeout;
+    entry->is_read = FALSE;
+
+    for (gint i = 0; actions != NULL && actions[i] != NULL; i += 2) {
+        XfceNotifyLogEntryAction *action = g_new0(XfceNotifyLogEntryAction, 1);
+        action->id = g_strdup(actions[i]);
+        action->label = g_strdup(actions[i+1]);
+        entry->actions = g_list_prepend(entry->actions, action);
+    }
+    entry->actions = g_list_reverse(entry->actions);
+
+    xfce_notify_log_write(log, entry);
+    id = g_strdup(entry->id);
+    xfce_notify_log_entry_unref(entry);
+
+    if (log_max_size > 0) {
+        xfce_notify_log_truncate(log, log_max_size);
+    }
+
+    return id;
+}
+
 static gboolean
 notify_notify (XfceNotifyGBus *skeleton,
                GDBusMethodInvocation   *invocation,
@@ -1077,6 +1148,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                XfceNotifyDaemon *xndaemon)
 {
     XfceNotifyWindow *window;
+    GDateTime *timestamp;
     GdkPixbuf *pix = NULL;
     GVariant *image_data = NULL;
     GVariant *icon_data = NULL;
@@ -1243,6 +1315,8 @@ notify_notify (XfceNotifyGBus *skeleton,
     }
 #endif
 
+    timestamp = g_date_time_new_now_local();
+
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
        notifications. */
@@ -1259,13 +1333,24 @@ notify_notify (XfceNotifyGBus *skeleton,
                 if ((xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE) ||
                     xndaemon->log_level == 1)
                       /* Log either all, all except muted or only muted applications */
-                      if (xndaemon->log_level_apps == 0 ||
-                          (xndaemon->log_level_apps == 1 && application_is_muted == FALSE) ||
-                          (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)) {
-                          xfce_notify_log_insert (new_app_name, summary, body,
-                                                  image_data, image_path, app_icon,
-                                                  desktop_id, expire_timeout, actions,
-                                                  xndaemon->log_max_size);
+                      if (xndaemon->log != NULL
+                          && (xndaemon->log_level_apps == 0
+                              || (xndaemon->log_level_apps == 1 && application_is_muted == FALSE)
+                              || (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)))
+                      {
+                          gchar *ignore_id = xfce_notify_log_insert(xndaemon->log,
+                                                                    xndaemon->log_max_size,
+                                                                    timestamp,
+                                                                    new_app_name,
+                                                                    summary,
+                                                                    body,
+                                                                    image_data,
+                                                                    image_path,
+                                                                    app_icon,
+                                                                    desktop_id,
+                                                                    expire_timeout,
+                                                                    actions);
+                          g_free(ignore_id);
                       }
             }
 
@@ -1274,6 +1359,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                 g_variant_unref (image_data);
             if (desktop_id)
                 g_free (desktop_id);
+            g_date_time_unref(timestamp);
 #ifdef ENABLE_SOUND
             if (sound_props != NULL) {
                 ca_proplist_destroy(sound_props);
@@ -1355,15 +1441,26 @@ notify_notify (XfceNotifyGBus *skeleton,
     }
 
     if (xndaemon->notification_log == TRUE &&
+        xndaemon->log != NULL &&
         xndaemon->log_level == 1 &&
         xndaemon->log_level_apps <= 1 &&
         transient == FALSE &&
         !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
     {
-        xfce_notify_log_insert (new_app_name, summary, body,
-                                image_data, image_path, app_icon,
-                                desktop_id, expire_timeout, actions,
-                                xndaemon->log_max_size);
+        gchar *log_id = xfce_notify_log_insert(xndaemon->log,
+                                               xndaemon->log_max_size,
+                                               timestamp,
+                                               new_app_name,
+                                               summary,
+                                               body,
+                                               image_data,
+                                               image_path,
+                                               app_icon,
+                                               desktop_id,
+                                               expire_timeout,
+                                               actions);
+        xfce_notify_window_set_log_id(window, log_id);
+        g_free(log_id);
     }
 
     xfce_notify_window_set_icon_only(window, x_canonical);
@@ -1391,6 +1488,8 @@ notify_notify (XfceNotifyGBus *skeleton,
       g_variant_unref (icon_data);
     if (desktop_id)
         g_free (desktop_id);
+    g_date_time_unref(timestamp);
+
     return TRUE;
 }
 
