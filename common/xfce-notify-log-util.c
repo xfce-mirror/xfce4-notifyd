@@ -26,6 +26,10 @@
 #include <string.h>
 #endif
 
+#ifdef HAVE_MATH_H
+#include <math.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -586,6 +590,35 @@ notify_log_load_icon(const gchar *notify_log_icon_folder,
     }
 
     return surface;
+}
+
+void
+notify_log_icon_add_unread_emblem(cairo_surface_t *surface, GdkRGBA *emblem_color) {
+    cairo_t *cr;
+    gdouble width;
+    gdouble height;
+    gdouble xscale;
+    gdouble yscale;
+
+    g_return_if_fail(surface != NULL);
+    g_return_if_fail(emblem_color != NULL);
+
+    width = cairo_image_surface_get_width(surface);
+    height = cairo_image_surface_get_height(surface);
+    cairo_surface_get_device_scale(surface, &xscale, &yscale);
+
+    cr = cairo_create(surface);
+    gdk_cairo_set_source_rgba(cr, emblem_color);
+    cairo_scale(cr, 1 / xscale, 1 / yscale);
+    cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
+    cairo_arc(cr,
+              width - width / 6,
+              height / 6,
+              MIN(width, height) / 6,
+              0,
+              2 * M_PI);
+    cairo_fill(cr);
+    cairo_destroy(cr);
 }
 
 gchar *

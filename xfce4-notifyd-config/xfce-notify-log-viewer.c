@@ -477,10 +477,14 @@ xfce_notify_log_viewer_add_entries(XfceNotifyLogViewer *viewer, GList *entries) 
     XfceDateTimeFormat dt_format;
     gchar *custom_dt_format;
     gint scale_factor = gtk_widget_get_scale_factor(viewer->listbox);
+    GdkRGBA emblem_color;
     cairo_surface_t *empty_app_icon = NULL;
+    cairo_surface_t *empty_unread_app_icon = NULL;
 
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
     icon_size = MIN(icon_width, icon_height);
+
+    gtk_style_context_get_color(gtk_widget_get_style_context(GTK_WIDGET(viewer)), GTK_STATE_FLAG_NORMAL, &emblem_color);
 
     today = g_date_time_new_now_local();
     today_year = g_date_time_get_year(today);
@@ -548,15 +552,25 @@ xfce_notify_log_viewer_add_entries(XfceNotifyLogViewer *viewer, GList *entries) 
         }
 
         if (icon != NULL) {
+            if (!entry->is_read) {
+                notify_log_icon_add_unread_emblem(icon, &emblem_color);
+            }
             app_icon = gtk_image_new_from_surface(icon);
         } else {
-            if (empty_app_icon == NULL) {
-                empty_app_icon = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
-                                                            icon_size * scale_factor,
-                                                            icon_size * scale_factor);
-                cairo_surface_set_device_scale(empty_app_icon, scale_factor, scale_factor);
+            cairo_surface_t **surface = entry->is_read ? &empty_app_icon : &empty_unread_app_icon;
+
+            if (*surface == NULL) {
+                *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,
+                                                      icon_size * scale_factor,
+                                                      icon_size * scale_factor);
+                cairo_surface_set_device_scale(*surface, scale_factor, scale_factor);
+
+                if (!entry->is_read) {
+                    notify_log_icon_add_unread_emblem(*surface, &emblem_color);
+                }
             }
-            app_icon = gtk_image_new_from_surface(empty_app_icon);
+
+            app_icon = gtk_image_new_from_surface(*surface);
         }
         gtk_widget_set_margin_start(app_icon, 3);
 
@@ -617,6 +631,9 @@ xfce_notify_log_viewer_add_entries(XfceNotifyLogViewer *viewer, GList *entries) 
     g_free(custom_dt_format);
     if (empty_app_icon != NULL) {
         cairo_surface_destroy(empty_app_icon);
+    }
+    if (empty_unread_app_icon != NULL) {
+        cairo_surface_destroy(empty_unread_app_icon);
     }
 }
 

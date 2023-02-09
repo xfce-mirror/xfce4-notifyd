@@ -126,6 +126,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gboolean mark_all_read;
   gboolean no_notifications = FALSE;
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
+  GdkRGBA emblem_color;
+
+  gtk_style_context_get_color(gtk_widget_get_style_context(notification_plugin->button), GTK_STATE_FLAG_NORMAL, &emblem_color);
 
   today = g_date_time_new_now_local();
   today_year = g_date_time_get_year(today);
@@ -253,6 +256,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                             NULL);
       }
       if (icon != NULL) {
+        if (!entry->is_read) {
+            notify_log_icon_add_unread_emblem(icon, &emblem_color);
+        }
         app_icon = gtk_image_new_from_surface(icon);
       }
 

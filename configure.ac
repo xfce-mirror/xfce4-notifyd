@@ -51,7 +51,7 @@ LT_INIT([disable-static])
 dnl check for standard header files
 AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   sys/stat.h sys/time.h sys/types.h sys/wait.h \
-                  unistd.h])
+                  unistd.h math.h])
 
 dnl Check for i18n support
 XDT_I18N()
