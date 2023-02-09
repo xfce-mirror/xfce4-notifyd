@@ -19,7 +19,8 @@ libnotification_plugin_la_SOURCES = \
 	notification-plugin-dialogs.c \
 	notification-plugin-dialogs.h \
 	notification-plugin-log.c \
-	notification-plugin-log.h
+	notification-plugin-log.h \
+	notification-plugin-settings.ui.h
 
 libnotification_plugin_la_CFLAGS = \
 	$(LIBXFCE4UTIL_CFLAGS) \
@@ -54,9 +55,23 @@ desktop_DATA =								\
 @INTLTOOL_DESKTOP_RULE@
 
 EXTRA_DIST =								\
-	notification-plugin.desktop.in
+	notification-plugin.desktop.in \
+	notification-plugin-settings.glade
 
 CLEANFILES =								\
 	$(desktop_DATA)
+
+if MAINTAINER_MODE
+
+%.ui.h: $(srcdir)/%.glade Makefile
+	$(AM_V_GEN) xdt-csource --static --name=$(subst -,_,$(basename $(notdir $<)))_ui $< > $@
+
+BUILT_SOURCES = \
+	notification-plugin-settings.ui.h
+
+CLEANFILES += \
+	notification-plugin-settings.ui.h
+
+endif
 
 # vi:set ts=8 sw=8 noet ai nocindent syntax=automake:

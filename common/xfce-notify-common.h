@@ -20,17 +20,30 @@
 #ifndef __XFCE_NOTIFY_COMMON_H__
 #define __XFCE_NOTIFY_COMMON_H__
 
-#include <glib.h>
+#include <gtk/gtk.h>
+#include <xfconf/xfconf.h>
 
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
 #define EXCLUDED_FROM_LOG_APPLICATIONS_PROP "/applications/excluded-from-log"
 #define MUTE_SOUNDS_PROP                    "/mute-sounds"
+#define DATETIME_FORMAT_PROP                "/date-time-format"
+#define DATETIME_CUSTOM_FORMAT_PROP         "/date-time-custom-format"
+#define LOG_MAX_SIZE_ENABLED_PROP           "/log-max-size-enabled"
+#define LOG_MAX_SIZE_PROP                   "/log-max-size"
+
+#define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
+
+#define LOG_MAX_SIZE_DEFAULT                1000
 
 G_BEGIN_DECLS
 
 gboolean xfce_notify_is_markup_valid(const gchar *markup);
+
+GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);
+
+void xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel);
 
 G_END_DECLS
 

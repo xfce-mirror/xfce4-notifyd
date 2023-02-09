@@ -52,3 +52,27 @@ xfce_notify_is_markup_valid(const gchar *markup) {
 
     return valid;
 }
+
+GtkWidget *
+xfce_notify_create_placeholder_label(const gchar *markup) {
+    GtkWidget *label = gtk_label_new("");
+    gtk_label_set_markup(GTK_LABEL(label), markup);
+    gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+    gtk_widget_set_sensitive(label, FALSE);
+    gtk_widget_set_margin_start(label, 24);
+    gtk_widget_set_margin_end(label, 24);
+    gtk_widget_set_margin_top(label, 24);
+    gtk_widget_set_margin_bottom(label, 24);
+    return label;
+}
+
+void
+xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
+    if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
+        guint value = xfconf_channel_get_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
+        xfconf_channel_set_bool(channel, LOG_MAX_SIZE_ENABLED_PROP, value > 0);
+        if (value == 0) {
+            xfconf_channel_set_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
+        }
+    }
+}
