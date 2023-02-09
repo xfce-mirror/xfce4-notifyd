@@ -1123,14 +1123,13 @@ xfce_notify_log_insert(XfceNotifyLog *log,
     }
     entry->actions = g_list_reverse(entry->actions);
 
-    if (xfce_notify_log_write(log, entry)) {
-        id = g_strdup(entry->id);
-
-        if (log_max_size > 0) {
-            xfce_notify_log_truncate(log, log_max_size);
-        }
-    }
+    xfce_notify_log_write(log, entry);
+    id = g_strdup(entry->id);
     xfce_notify_log_entry_unref(entry);
+
+    if (log_max_size > 0) {
+        xfce_notify_log_truncate(log, log_max_size);
+    }
 
     return id;
 }

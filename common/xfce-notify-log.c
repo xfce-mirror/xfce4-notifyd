@@ -821,12 +821,12 @@ xfce_notify_log_real_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(entry != NULL, FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
+    g_return_if_fail(entry != NULL);
 
     if (entry->id == NULL) {
         entry->id = g_uuid_string_random();
@@ -836,8 +836,6 @@ xfce_notify_log_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
     item->type = XFCE_NOTIFY_QUEUE_ITEM_WRITE;
     item->param.entry = xfce_notify_log_entry_ref(entry);
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static int
@@ -863,19 +861,17 @@ xfce_notify_log_real_mark_read(XfceNotifyLog *log, const gchar *id) {
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_mark_read(XfceNotifyLog *log, const gchar *id) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(id != NULL && id[0] != '\0', FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
+    g_return_if_fail(id != NULL && id[0] != '\0');
 
     item = g_new0(XfceNotifyLogQueueItem, 1);
     item->type = XFCE_NOTIFY_QUEUE_ITEM_MARK_READ;
     item->param.id = g_strdup(id);
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static int
@@ -892,17 +888,15 @@ xfce_notify_log_real_mark_all_read(XfceNotifyLog *log) {
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_mark_all_read(XfceNotifyLog *log) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
 
     item = g_new0(XfceNotifyLogQueueItem, 1);
     item->type = XFCE_NOTIFY_QUEUE_ITEM_MARK_READ;
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static int
@@ -928,19 +922,17 @@ xfce_notify_log_real_delete(XfceNotifyLog *log, const gchar *id) {
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_delete(XfceNotifyLog *log, const gchar *id) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(id != NULL && id[0] != '\0', FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
+    g_return_if_fail(id != NULL && id[0] != '\0');
 
     item = g_new0(XfceNotifyLogQueueItem, 1);
     item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE;
     item->param.id = g_strdup(id);
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static int
@@ -964,19 +956,17 @@ xfce_notify_log_real_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
-    g_return_val_if_fail(oldest_to_keep != NULL, FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
+    g_return_if_fail(oldest_to_keep != NULL);
 
     item = g_new0(XfceNotifyLogQueueItem, 1);
     item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE;
     item->param.timestamp = g_date_time_ref(oldest_to_keep);
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static int
@@ -993,17 +983,15 @@ xfce_notify_log_real_clear(XfceNotifyLog *log) {
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_clear(XfceNotifyLog *log) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
 
     item = g_new0(XfceNotifyLogQueueItem, 1);
     item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE;
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static GList *
@@ -1056,18 +1044,16 @@ xfce_notify_log_real_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
     return rc;
 }
 
-gboolean
+void
 xfce_notify_log_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
     XfceNotifyLogQueueItem *item;
 
-    g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), FALSE);
+    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
 
     item = g_new0(XfceNotifyLogQueueItem, 1);
     item->type = XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE;
     item->param.count = n_entries_to_keep;
     queue_write(log, item);
-
-    return TRUE;
 }
 
 static inline void
@@ -1276,13 +1262,15 @@ migrate_old_keyfile(XfceNotifyLog *log) {
 
     if (g_file_query_exists(log_file, NULL)) {
         GKeyFile *keyfile = g_key_file_new();
+        GError *error = NULL;
 
-        if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(log_file), G_KEY_FILE_NONE, NULL))) {
+        if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(log_file), G_KEY_FILE_NONE, &error))) {
+            guint n_entries_migrated = 0;
+            guint drain_attempts = 50;
             GTimeZone *default_tz = g_time_zone_new_local();
             gchar **groups = g_key_file_get_groups(keyfile, NULL);
 
-            for (guint i = 0; groups[i] != NULL; ++i) {
-                gboolean success;
+            for (guint i = 0; groups[i] != NULL; ++i, ++n_entries_migrated) {
                 gchar *group = groups[i];
                 XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
                 entry->timestamp = g_date_time_new_from_iso8601(group, default_tz);
@@ -1294,23 +1282,50 @@ migrate_old_keyfile(XfceNotifyLog *log) {
                 entry->expire_timeout = g_key_file_get_integer(keyfile, group, "expire-timeout", NULL);
                 entry->is_read = TRUE;
 
-                success = xfce_notify_log_write(log, entry);
+                xfce_notify_log_write(log, entry);
                 xfce_notify_log_entry_unref(entry);
-                if (G_UNLIKELY(!success)) {
+            }
+
+            if (n_entries_migrated > 0) {
+                // Manually drain the write queue so we can tell immediately if the existing log
+                // was migrated successfully.
+
+                if (log->write_queue_id != 0) {
+                    g_source_remove(log->write_queue_id);
+                    log->write_queue_id = 0;
+                }
+                while (drain_attempts > 0 && process_write_queue(log) == G_SOURCE_CONTINUE) {
+                    --drain_attempts;
+                }
+
+                if (process_write_queue(log) == G_SOURCE_CONTINUE) {
+                    g_warning("Failed to migrate all old log entries; DB keeps being busy/locked for some reason");
                     migrated = FALSE;
-                    break;
+                    log->write_queue_id = g_idle_add(process_write_queue, log);
+                } else {
+                    GList *migrated_entries = xfce_notify_log_read(log, NULL, n_entries_migrated);
+
+                    if (g_list_length(migrated_entries) < n_entries_migrated) {
+                        g_warning("Failed to migrate some old log entries (expected %d, but only migrated %d)",
+                                  n_entries_migrated,
+                                  g_list_length(migrated_entries));
+                        migrated = FALSE;
+                    }
+
+                    g_list_free_full(migrated_entries, (GDestroyNotify)xfce_notify_log_entry_unref);
                 }
             }
 
             g_time_zone_unref(default_tz);
             g_strfreev(groups);
         } else {
+            g_warning("Unable to read old log keyfile: %s", error != NULL ? error->message : "unknown error");
+            g_clear_error(&error);
             migrated = FALSE;
         }
 
         if (G_LIKELY(migrated)) {
             GFile *dest = g_file_get_child(log_dir, "log.old.safe-to-delete");
-            GError *error = NULL;
             if (!g_file_move(log_file, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error)) {
                 g_warning("Failed to move old log out of the way; you may get duplicate log entries next time (%s)", error != NULL ? error->message : "unknown error");
                 if (error != NULL) {

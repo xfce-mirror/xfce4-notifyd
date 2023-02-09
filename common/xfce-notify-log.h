@@ -60,23 +60,24 @@ GList *xfce_notify_log_read_unread(XfceNotifyLog *log,
                                    const gchar *start_after_id,
                                    guint count);
 
+gboolean xfce_notify_log_has_unread_messages(XfceNotifyLog *log);
 guint xfce_notify_log_count_unread_messages(XfceNotifyLog *log);
 GHashTable *xfce_notify_log_get_app_id_counts(XfceNotifyLog *log);
 
-gboolean xfce_notify_log_write(XfceNotifyLog *log,
-                               XfceNotifyLogEntry *entry);
-gboolean xfce_notify_log_mark_read(XfceNotifyLog *log,
-                                   const gchar *id);
-gboolean xfce_notify_log_mark_all_read(XfceNotifyLog *log);
+void xfce_notify_log_write(XfceNotifyLog *log,
+                           XfceNotifyLogEntry *entry);
+void xfce_notify_log_mark_read(XfceNotifyLog *log,
+                               const gchar *id);
+void xfce_notify_log_mark_all_read(XfceNotifyLog *log);
 
-gboolean xfce_notify_log_delete(XfceNotifyLog *log,
-                                const gchar *id);
-gboolean xfce_notify_log_delete_before(XfceNotifyLog *log,
-                                       GDateTime *oldest_to_keep);
-gboolean xfce_notify_log_truncate(XfceNotifyLog *log,
-                                  guint n_entries_to_keep);
+void xfce_notify_log_delete(XfceNotifyLog *log,
+                            const gchar *id);
+void xfce_notify_log_delete_before(XfceNotifyLog *log,
+                                   GDateTime *oldest_to_keep);
+void xfce_notify_log_truncate(XfceNotifyLog *log,
+                              guint n_entries_to_keep);
 
-gboolean xfce_notify_log_clear(XfceNotifyLog *log);
+void xfce_notify_log_clear(XfceNotifyLog *log);
 
 XfceNotifyLogEntry *xfce_notify_log_entry_new_empty(void);
 XfceNotifyLogEntry *xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry);
