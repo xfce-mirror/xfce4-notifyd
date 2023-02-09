@@ -201,24 +201,14 @@ notification_plugin_dnd_updated (XfconfChannel *channel,
 
 
 static void
-notification_plugin_log_file_changed (GFileMonitor     *monitor,
-                                       GFile            *file,
-                                       GFile            *other_file,
-                                       GFileMonitorEvent event_type,
-                                       gpointer          user_data)
+cb_notification_log_changed(XfceNotifyLog *log,
+                            NotificationPlugin *notification_plugin)
 {
-  NotificationPlugin    *notification_plugin = user_data;
-  gboolean state;
+  gboolean dnd_state;
 
-  state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
-  /* If the log gets cleared, the file gets deleted so make sure not to indicate that
-     there are new notifications */
-  if (event_type == G_FILE_MONITOR_EVENT_DELETED)
-    notification_plugin->new_notifications = FALSE;
-  else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
-    notification_plugin->new_notifications = TRUE;
-
-  notification_plugin_update_icon (notification_plugin, state);
+  notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(log);
+  dnd_state = xfconf_channel_get_bool(notification_plugin->channel, "/do-not-disturb", FALSE);
+  notification_plugin_update_icon(notification_plugin, dnd_state);
 }
 
 
@@ -227,8 +217,8 @@ static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotificationPlugin    *notification_plugin;
-  gchar                 *notify_log_path = NULL;
   gboolean               state;
+  GError *error = NULL;
 
   /* Allocate memory for the plugin structure */
   notification_plugin = g_slice_new0 (NotificationPlugin);
@@ -270,16 +260,13 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   g_signal_connect (notification_plugin->menu, "size-allocate",
                     G_CALLBACK (cb_menu_size_allocate), notification_plugin);
 
-  /* Start monitoring the log file for changes */
-  notify_log_path = xfce_resource_lookup (XFCE_RESOURCE_CACHE, XFCE_NOTIFY_LOG_FILE);
-  if (notify_log_path) {
-    notification_plugin->log_file = g_file_new_for_path (notify_log_path);
-    notification_plugin->log_file_monitor = g_file_monitor_file (notification_plugin->log_file,
-                                                                 G_FILE_MONITOR_NONE, NULL, NULL);
-    if (notification_plugin->log_file_monitor != NULL)
-      g_signal_connect (notification_plugin->log_file_monitor, "changed",
-                        G_CALLBACK (notification_plugin_log_file_changed), notification_plugin);
-    g_free (notify_log_path);
+  notification_plugin->log = xfce_notify_log_open(&error);
+  if (notification_plugin->log == NULL) {
+    g_critical("Unable to open notification log: %s", error->message);
+    g_error_free(error);
+  } else {
+    g_signal_connect(notification_plugin->log, "changed",
+                     G_CALLBACK(cb_notification_log_changed), notification_plugin);
   }
 
   /* Start monitoring the "do not disturb" setting in xfconf */
@@ -297,12 +284,9 @@ notification_plugin_free (XfcePanelPlugin *plugin,
 {
   GtkWidget *dialog;
 
-  /* detach from the file monitor */
-  if (notification_plugin->log_file_monitor != NULL) {
-    g_file_monitor_cancel (notification_plugin->log_file_monitor);
-    g_object_unref (notification_plugin->log_file_monitor);
+  if (notification_plugin->log) {
+      g_object_unref(notification_plugin->log);
   }
-  g_object_unref (notification_plugin->log_file);
 
   /* check if the dialog is still open. if so, destroy it */
   dialog = g_object_get_data (G_OBJECT (plugin), "dialog");

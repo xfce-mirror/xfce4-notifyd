@@ -7,8 +7,10 @@ dnl Copyright (c) 2019 Simon Steinbeiss <simon@xfce.org>
 dnl
 
 m4_define([notifications_spec_version], [1.2])
+m4_define([glib_minimum_version], [2.68])
 m4_define([gtk_minimum_version], [3.22])
 m4_define([canberra_minimum_version], [0.30])
+m4_define([sqlite_minimum_version], [3.34])
 
 dnl version info
 XDT_VERSION_INIT([0.7.3], [git])
@@ -49,7 +51,7 @@ LT_INIT([disable-static])
 dnl check for standard header files
 AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   sys/stat.h sys/time.h sys/types.h sys/wait.h \
-                  unistd.h])
+                  unistd.h math.h])
 
 dnl Check for i18n support
 XDT_I18N()
@@ -58,15 +60,16 @@ dnl check for x11
 XDT_CHECK_LIBX11_REQUIRE()
 
 dnl check for required packages
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.56.0])
-XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.56.0])
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.56.0])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_minimum_version])
+XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [glib_minimum_version])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_minimum_version])
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_minimum_version])
 XDT_CHECK_PACKAGE([LIBNOTIFY], [libnotify], [0.7.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
+XDT_CHECK_PACKAGE([SQLITE], [sqlite3], [sqlite_minimum_version])
 
 XDT_CHECK_OPTIONAL_PACKAGE([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version], [gdk-x11], [X11 backend for GDK])
 XDT_CHECK_OPTIONAL_PACKAGE([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version], [gdk-wayland], [Wayland backend for GDK])
