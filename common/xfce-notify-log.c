@@ -1245,90 +1245,98 @@ parse_keyfile_actions(GKeyFile *keyfile, const gchar *group) {
 
 static gboolean
 migrate_old_keyfile(XfceNotifyLog *log) {
-    gboolean migrated = TRUE;
+    gboolean migrated = FALSE;
     GFile *log_dir = notify_log_dir();
     GFile *log_file = g_file_get_child(log_dir, "log");
+    GFile *log_file_migrating = g_file_get_child(log_dir, "log.migrating");
 
     if (g_file_query_exists(log_file, NULL)) {
-        GKeyFile *keyfile = g_key_file_new();
-        GError *error = NULL;
+        if (g_file_move(log_file, log_file_migrating, G_FILE_COPY_NO_FALLBACK_FOR_MOVE, NULL, NULL, NULL, NULL)) {
+            GKeyFile *keyfile = g_key_file_new();
+            GError *error = NULL;
 
-        if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(log_file), G_KEY_FILE_NONE, &error))) {
-            guint n_entries_migrated = 0;
-            guint drain_attempts = 50;
-            GTimeZone *default_tz = g_time_zone_new_local();
-            gchar **groups = g_key_file_get_groups(keyfile, NULL);
+            if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(log_file_migrating), G_KEY_FILE_NONE, &error))) {
+                guint n_entries_migrated = 0;
+                guint drain_attempts = 50;
+                GTimeZone *default_tz = g_time_zone_new_local();
+                gchar **groups = g_key_file_get_groups(keyfile, NULL);
 
-            for (guint i = 0; groups[i] != NULL; ++i, ++n_entries_migrated) {
-                gchar *group = groups[i];
-                XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
-                entry->timestamp = g_date_time_new_from_iso8601(group, default_tz);
-                entry->app_id = g_key_file_get_string(keyfile, group, "app_name", NULL);
-                entry->icon_id = g_key_file_get_string(keyfile, group, "app_icon", NULL);
-                entry->summary = g_key_file_get_string(keyfile, group, "summary", NULL);
-                entry->body = g_key_file_get_string(keyfile, group, "body", NULL);
-                entry->actions = parse_keyfile_actions(keyfile, group);
-                entry->expire_timeout = g_key_file_get_integer(keyfile, group, "expire-timeout", NULL);
-                entry->is_read = TRUE;
+                for (guint i = 0; groups[i] != NULL; ++i, ++n_entries_migrated) {
+                    gchar *group = groups[i];
+                    XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
+                    entry->timestamp = g_date_time_new_from_iso8601(group, default_tz);
+                    entry->app_id = g_key_file_get_string(keyfile, group, "app_name", NULL);
+                    entry->icon_id = g_key_file_get_string(keyfile, group, "app_icon", NULL);
+                    entry->summary = g_key_file_get_string(keyfile, group, "summary", NULL);
+                    entry->body = g_key_file_get_string(keyfile, group, "body", NULL);
+                    entry->actions = parse_keyfile_actions(keyfile, group);
+                    entry->expire_timeout = g_key_file_get_integer(keyfile, group, "expire-timeout", NULL);
+                    entry->is_read = TRUE;
 
-                xfce_notify_log_write(log, entry);
-                xfce_notify_log_entry_unref(entry);
-            }
-
-            if (n_entries_migrated > 0) {
-                // Manually drain the write queue so we can tell immediately if the existing log
-                // was migrated successfully.
-
-                if (log->write_queue_id != 0) {
-                    g_source_remove(log->write_queue_id);
-                    log->write_queue_id = 0;
-                }
-                while (drain_attempts > 0 && process_write_queue(log) == G_SOURCE_CONTINUE) {
-                    --drain_attempts;
+                    xfce_notify_log_write(log, entry);
+                    xfce_notify_log_entry_unref(entry);
                 }
 
-                if (process_write_queue(log) == G_SOURCE_CONTINUE) {
-                    g_warning("Failed to migrate all old log entries; DB keeps being busy/locked for some reason");
-                    migrated = FALSE;
-                    log->write_queue_id = g_idle_add(process_write_queue, log);
-                } else {
-                    GList *migrated_entries = xfce_notify_log_read(log, NULL, n_entries_migrated);
+                if (n_entries_migrated > 0) {
+                    // Manually drain the write queue so we can tell immediately if the existing log
+                    // was migrated successfully.
 
-                    if (g_list_length(migrated_entries) < n_entries_migrated) {
-                        g_warning("Failed to migrate some old log entries (expected %d, but only migrated %d)",
-                                  n_entries_migrated,
-                                  g_list_length(migrated_entries));
-                        migrated = FALSE;
+                    if (log->write_queue_id != 0) {
+                        g_source_remove(log->write_queue_id);
+                        log->write_queue_id = 0;
+                    }
+                    while (drain_attempts > 0 && process_write_queue(log) == G_SOURCE_CONTINUE) {
+                        --drain_attempts;
                     }
 
-                    g_list_free_full(migrated_entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+                    if (process_write_queue(log) == G_SOURCE_CONTINUE) {
+                        g_warning("Failed to migrate all old log entries; DB keeps being busy/locked for some reason");
+                        log->write_queue_id = g_idle_add(process_write_queue, log);
+                    } else {
+                        GList *migrated_entries = xfce_notify_log_read(log, NULL, n_entries_migrated);
+
+                        if (g_list_length(migrated_entries) < n_entries_migrated) {
+                            g_warning("Failed to migrate some old log entries (expected %d, but only migrated %d)",
+                                      n_entries_migrated,
+                                      g_list_length(migrated_entries));
+                        } else {
+                            migrated = TRUE;
+                        }
+
+                        g_list_free_full(migrated_entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+                    }
+                } else {
+                    // Old log file existed and was readable, but was empty
+                    migrated = TRUE;
                 }
+
+                g_time_zone_unref(default_tz);
+                g_strfreev(groups);
+            } else {
+                g_warning("Unable to read old log keyfile: %s", error != NULL ? error->message : "unknown error");
+                g_clear_error(&error);
             }
 
-            g_time_zone_unref(default_tz);
-            g_strfreev(groups);
-        } else {
-            g_warning("Unable to read old log keyfile: %s", error != NULL ? error->message : "unknown error");
-            g_clear_error(&error);
-            migrated = FALSE;
-        }
-
-        if (G_LIKELY(migrated)) {
-            GFile *dest = g_file_get_child(log_dir, "log.old.safe-to-delete");
-            if (!g_file_move(log_file, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error)) {
-                g_warning("Failed to move old log out of the way; you may get duplicate log entries next time (%s)", error != NULL ? error->message : "unknown error");
-                if (error != NULL) {
-                    g_error_free(error);
+            if (G_LIKELY(migrated)) {
+                GFile *dest = g_file_get_child(log_dir, "log.old.safe-to-delete");
+                if (!g_file_move(log_file_migrating, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error)) {
+                    g_warning("Failed to move old log out of the way; you may get duplicate log entries next time (%s)", error != NULL ? error->message : "unknown error");
+                    if (error != NULL) {
+                        g_error_free(error);
+                    }
                 }
+                g_object_unref(dest);
+            } else {
+                g_file_move(log_file_migrating, log_file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
             }
-            g_object_unref(dest);
-        }
 
-        g_key_file_unref(keyfile);
+            g_key_file_unref(keyfile);
+        }
     }
 
     g_object_unref(log_dir);
     g_object_unref(log_file);
+    g_object_unref(log_file_migrating);
 
     return migrated;
 }
