@@ -74,3 +74,4 @@ panel-plugin/libnotification_plugin_la-notification-plugin-dialogs.lo
 panel-plugin/libnotification_plugin_la-notification-plugin-log.lo
 panel-plugin/libnotification_plugin_la-notification-plugin.lo
 panel-plugin/notification-plugin.desktop
+panel-plugin/notification-plugin-settings.ui.h

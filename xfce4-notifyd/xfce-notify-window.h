@@ -64,6 +64,10 @@ void xfce_notify_window_set_id(XfceNotifyWindow *window,
                                guint id);
 guint xfce_notify_window_get_id(XfceNotifyWindow *window);
 
+void xfce_notify_window_set_log_id(XfceNotifyWindow *window,
+                                   const gchar *id);
+const gchar *xfce_notify_window_get_log_id(XfceNotifyWindow *window);
+
 void xfce_notify_window_set_summary(XfceNotifyWindow *window,
                                     const gchar *summary);
 void xfce_notify_window_set_body(XfceNotifyWindow *window,
