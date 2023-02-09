@@ -206,7 +206,7 @@ cb_notification_log_changed(XfceNotifyLog *log,
 {
   gboolean dnd_state;
 
-  notification_plugin->new_notifications = xfce_notify_log_count_unread_messages(log) > 0;
+  notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(log);
   dnd_state = xfconf_channel_get_bool(notification_plugin->channel, "/do-not-disturb", FALSE);
   notification_plugin_update_icon(notification_plugin, dnd_state);
 }

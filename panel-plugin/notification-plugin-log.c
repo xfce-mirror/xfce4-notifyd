@@ -117,7 +117,6 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   GtkCallback func = notification_plugin_menu_clear;
   gchar *notify_log_icon_folder;
   int log_icon_size;
-  gboolean state;
   XfceDateTimeFormat dt_format;
   gchar *custom_dt_format;
   const gchar *show_in_menu;
@@ -165,10 +164,6 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                           G_OBJECT (notification_plugin->do_not_disturb_switch), "active");
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show_all (mi);
-  /* Reset the notification status icon since all items are now read */
-  state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
-  notification_plugin->new_notifications = FALSE;
-  notification_plugin_update_icon (notification_plugin, state);
   g_signal_connect (mi, "activate",
                     G_CALLBACK (notification_plugin_menu_item_activate), notification_plugin);
 
@@ -361,7 +356,7 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), image);
 G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-  gtk_widget_set_sensitive(mi, notification_plugin->log != NULL && xfce_notify_log_count_unread_messages(notification_plugin->log) > 0);
+  gtk_widget_set_sensitive(mi, notification_plugin->log != NULL && !mark_all_read && xfce_notify_log_has_unread_messages(notification_plugin->log));
   gtk_widget_show(mi);
   g_signal_connect(mi, "activate",
                    G_CALLBACK(notification_plugin_mark_all_read), notification_plugin);

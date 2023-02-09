@@ -188,7 +188,7 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     icon = gtk_image_new_from_icon_name("notification-new-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
     button = gtk_tool_button_new(icon, _("Mark All Read"));
-    gtk_widget_set_sensitive(GTK_WIDGET(button), viewer->log != NULL && xfce_notify_log_count_unread_messages(viewer->log) > 0);
+    gtk_widget_set_sensitive(GTK_WIDGET(button), viewer->log != NULL && xfce_notify_log_has_unread_messages(viewer->log));
     gtk_widget_set_tooltip_text(GTK_WIDGET(button), _("Mark all unread notifications as read"));
     gtk_toolbar_insert(GTK_TOOLBAR(viewer->toolbar), GTK_TOOL_ITEM(button), -1);
     g_signal_connect_swapped(button, "clicked",
@@ -645,7 +645,7 @@ xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer) {
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button),
                              gtk_list_box_get_row_at_index(GTK_LIST_BOX(viewer->listbox), 0) != NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button),
-                             viewer->log != NULL && xfce_notify_log_count_unread_messages(viewer->log) > 0);
+                             viewer->log != NULL && xfce_notify_log_has_unread_messages(viewer->log));
 }
 
 static void
