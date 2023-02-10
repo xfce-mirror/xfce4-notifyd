@@ -777,7 +777,7 @@ xfce_notify_log_viewer_mark_read(XfceNotifyLogViewer *viewer) {
 static void
 xfce_notify_log_viewer_log_changed(XfceNotifyLogViewer *viewer) {
     // TODO: intelligently re-populate log
-    gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), xfce_notify_log_count_unread_messages(viewer->log) > 0);
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), xfce_notify_log_has_unread_messages(viewer->log));
 }
 
 static gboolean
