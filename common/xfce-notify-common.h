@@ -32,6 +32,7 @@
 #define DATETIME_CUSTOM_FORMAT_PROP         "/date-time-custom-format"
 #define LOG_MAX_SIZE_ENABLED_PROP           "/log-max-size-enabled"
 #define LOG_MAX_SIZE_PROP                   "/log-max-size"
+#define DND_ENABLED_PROP                    "/do-not-disturb"
 
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 

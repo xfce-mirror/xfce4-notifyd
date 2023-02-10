@@ -71,11 +71,11 @@ typedef struct
     guint            menu_size_allocate_next_handler;
 
     gboolean         hide_on_read;
+    gint             icon_size;
 }
 NotificationPlugin;
 
-void notification_plugin_update_icon (NotificationPlugin *notification_plugin,
-                                      gboolean            state);
+void notification_plugin_update_icon (NotificationPlugin *notification_plugin);
 
 G_END_DECLS
 

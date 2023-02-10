@@ -1,9 +1,8 @@
 iconsdir = $(datadir)/icons/hicolor/scalable/status
 icons_DATA =								\
 	notification-disabled-symbolic.svg		\
-	notification-disabled-new-symbolic.svg	\
-	notification-new-symbolic.svg			\
-	notification-symbolic.svg
+	notification-symbolic.svg				\
+	org.xfce.notification.unread-emblem-symbolic.svg
 
 EXTRA_DIST =								\
 	$(icons_DATA)

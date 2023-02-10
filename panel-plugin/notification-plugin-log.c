@@ -52,7 +52,6 @@ notification_plugin_menu_item_activate (GtkWidget      *menuitem,
 
   muted = !gtk_switch_get_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch));
   gtk_switch_set_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch), muted);
-  notification_plugin_update_icon (notification_plugin, muted);
 }
 
 
