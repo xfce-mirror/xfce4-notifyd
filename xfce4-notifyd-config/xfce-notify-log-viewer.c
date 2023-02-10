@@ -313,6 +313,34 @@ notify_icon_for_entry(XfceNotifyLogEntry *entry, GtkStyleContext *style_context,
 }
 
 static void
+update_log_entry_icon(GtkListBoxRow *row) {
+    XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
+    GtkWidget *image = g_object_get_data(G_OBJECT(row), LOG_IMAGE_KEY);
+
+    if (G_LIKELY(entry != NULL && image != NULL)) {
+        cairo_surface_t *icon = NULL;
+
+        g_object_get(image,
+                     "surface", &icon,
+                     NULL);
+        if (G_LIKELY(icon != NULL)) {
+            GtkStyleContext *style_context = gtk_widget_get_style_context(image);
+            gint scale_factor = gtk_widget_get_scale_factor(image);
+            gint size = MAX(cairo_image_surface_get_width(icon), cairo_image_surface_get_height(icon)) / scale_factor;
+
+            cairo_surface_destroy(icon);
+
+            icon = notify_icon_for_entry(entry, gtk_widget_get_style_context(image), size, scale_factor);
+            if (!entry->is_read) {
+                notify_log_icon_add_unread_emblem(icon, style_context, size, scale_factor);
+            }
+            gtk_image_set_from_surface(GTK_IMAGE(image), icon);
+            cairo_surface_destroy(icon);
+        }
+    }
+}
+
+static void
 log_entry_mark_read_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
     GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
 
@@ -321,31 +349,9 @@ log_entry_mark_read_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
         XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
 
         if (G_LIKELY(entry != NULL) && !entry->is_read) {
-            GtkWidget *image;
-
             xfce_notify_log_mark_read(viewer->log, entry->id);
             entry->is_read = TRUE;
-
-            image = g_object_get_data(G_OBJECT(row), LOG_IMAGE_KEY);
-            if (G_LIKELY(image != NULL)) {
-                cairo_surface_t *icon = NULL;
-
-                g_object_get(image,
-                             "surface", &icon,
-                             NULL);
-                if (G_LIKELY(icon != NULL)) {
-                    gint scale_factor;
-                    gint size;
-
-                    scale_factor = gtk_widget_get_scale_factor(image);
-                    size = MAX(cairo_image_surface_get_width(icon), cairo_image_surface_get_height(icon)) / scale_factor;
-                    cairo_surface_destroy(icon);
-
-                    icon = notify_icon_for_entry(entry, gtk_widget_get_style_context(image), size, scale_factor);
-                    gtk_image_set_from_surface(GTK_IMAGE(image), icon);
-                    cairo_surface_destroy(icon);
-                }
-            }
+            update_log_entry_icon(GTK_LIST_BOX_ROW(row));
         }
     }
 
@@ -752,7 +758,20 @@ xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
 
 static void
 xfce_notify_log_viewer_mark_read(XfceNotifyLogViewer *viewer) {
+    GList *rows;
+
     xfce_notify_log_mark_all_read(viewer->log);
+
+    rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
+    for (GList *l = rows; l != NULL; l = l->next) {
+        GtkWidget *row = GTK_WIDGET(l->data);
+        XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
+        if (G_LIKELY(entry != NULL) && !entry->is_read) {
+            entry->is_read = TRUE;
+            update_log_entry_icon(GTK_LIST_BOX_ROW(row));
+        }
+    }
+    g_list_free(rows);
 }
 
 static void
