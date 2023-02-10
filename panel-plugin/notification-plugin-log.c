@@ -361,7 +361,7 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), image);
 G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-  gtk_widget_set_sensitive(mi, notification_plugin->log != NULL && !mark_all_read && xfce_notify_log_has_unread_messages(notification_plugin->log));
+  gtk_widget_set_sensitive(mi, notification_plugin->log != NULL && !mark_all_read && notification_plugin->new_notifications);
   gtk_widget_show(mi);
   g_signal_connect(mi, "activate",
                    G_CALLBACK(notification_plugin_mark_all_read), notification_plugin);
