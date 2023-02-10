@@ -593,32 +593,36 @@ notify_log_load_icon(const gchar *notify_log_icon_folder,
 }
 
 void
-notify_log_icon_add_unread_emblem(cairo_surface_t *surface, GdkRGBA *emblem_color) {
-    cairo_t *cr;
-    gdouble width;
-    gdouble height;
-    gdouble xscale;
-    gdouble yscale;
+notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
+                                  GtkStyleContext *style_context,
+                                  gint size,
+                                  gint scale_factor)
+{
+    GIcon *emblem = g_themed_icon_new("org.xfce.notification.unread-emblem-symbolic");
+    GtkIconInfo *emblem_info = gtk_icon_theme_lookup_by_gicon_for_scale(gtk_icon_theme_get_default(),
+                                                                        emblem,
+                                                                        size,
+                                                                        scale_factor,
+                                                                        GTK_ICON_LOOKUP_FORCE_SIZE);
 
-    g_return_if_fail(surface != NULL);
-    g_return_if_fail(emblem_color != NULL);
+    if (G_LIKELY(emblem_info != NULL)) {
+        GdkPixbuf *emblem_pix = gtk_icon_info_load_symbolic_for_context(emblem_info, style_context, NULL, NULL);
 
-    width = cairo_image_surface_get_width(surface);
-    height = cairo_image_surface_get_height(surface);
-    cairo_surface_get_device_scale(surface, &xscale, &yscale);
+        if (G_LIKELY(emblem_pix != NULL)) {
+            cairo_t *cr = cairo_create(surface);
 
-    cr = cairo_create(surface);
-    gdk_cairo_set_source_rgba(cr, emblem_color);
-    cairo_scale(cr, 1 / xscale, 1 / yscale);
-    cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
-    cairo_arc(cr,
-              width - width / 6,
-              height / 6,
-              MIN(width, height) / 6,
-              0,
-              2 * M_PI);
-    cairo_fill(cr);
-    cairo_destroy(cr);
+            cairo_scale(cr, 1.0 / scale_factor, 1.0 / scale_factor);
+            gdk_cairo_set_source_pixbuf(cr, emblem_pix, 0, 0);
+            cairo_paint(cr);
+
+            cairo_destroy(cr);
+            g_object_unref(emblem_pix);
+        }
+
+        g_object_unref(emblem_info);
+    }
+
+    g_object_unref(emblem);
 }
 
 gchar *

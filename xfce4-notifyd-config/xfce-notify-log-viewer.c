@@ -295,7 +295,7 @@ xfce_notify_log_viewer_listbox_display_header_func(GtkListBoxRow *row,
 }
 
 static cairo_surface_t *
-notify_icon_for_entry(XfceNotifyLogEntry *entry, gint size, gint scale_factor, GdkRGBA *emblem_color) {
+notify_icon_for_entry(XfceNotifyLogEntry *entry, GtkStyleContext *style_context, gint size, gint scale_factor) {
     cairo_surface_t *icon = notify_log_load_icon(xfce_notify_log_get_icon_folder(), entry->icon_id, entry->app_id, size, scale_factor);
 
     if (icon == NULL) {
@@ -305,8 +305,8 @@ notify_icon_for_entry(XfceNotifyLogEntry *entry, gint size, gint scale_factor, G
         cairo_surface_set_device_scale(icon, scale_factor, scale_factor);
     }
 
-    if (!entry->is_read && emblem_color != NULL) {
-        notify_log_icon_add_unread_emblem(icon, emblem_color);
+    if (!entry->is_read) {
+        notify_log_icon_add_unread_emblem(icon, style_context, size, scale_factor);
     }
 
     return icon;
@@ -341,7 +341,7 @@ log_entry_mark_read_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
                     size = MAX(cairo_image_surface_get_width(icon), cairo_image_surface_get_height(icon)) / scale_factor;
                     cairo_surface_destroy(icon);
 
-                    icon = notify_icon_for_entry(entry, size, scale_factor, NULL);
+                    icon = notify_icon_for_entry(entry, gtk_widget_get_style_context(image), size, scale_factor);
                     gtk_image_set_from_surface(GTK_IMAGE(image), icon);
                     cairo_surface_destroy(icon);
                 }
@@ -558,13 +558,11 @@ xfce_notify_log_viewer_add_entries(XfceNotifyLogViewer *viewer, GList *entries) 
     gint icon_width, icon_height, icon_size;
     XfceDateTimeFormat dt_format;
     gchar *custom_dt_format;
+    GtkStyleContext *style_context = gtk_widget_get_style_context(GTK_WIDGET(viewer));
     gint scale_factor = gtk_widget_get_scale_factor(viewer->listbox);
-    GdkRGBA emblem_color;
 
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
     icon_size = MIN(icon_width, icon_height);
-
-    gtk_style_context_get_color(gtk_widget_get_style_context(GTK_WIDGET(viewer)), GTK_STATE_FLAG_NORMAL, &emblem_color);
 
     today = g_date_time_new_now_local();
     today_year = g_date_time_get_year(today);
@@ -591,7 +589,7 @@ xfce_notify_log_viewer_add_entries(XfceNotifyLogViewer *viewer, GList *entries) 
         timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
         summary_text = notify_log_format_summary(entry->summary);
         body_text = notify_log_format_body(entry->body);
-        icon = notify_icon_for_entry(entry, icon_size, scale_factor, &emblem_color);
+        icon = notify_icon_for_entry(entry, style_context, icon_size, scale_factor);
         tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
         tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
 

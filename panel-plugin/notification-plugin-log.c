@@ -124,6 +124,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gboolean mark_shown_read;
   gboolean mark_all_read;
   gboolean no_notifications = FALSE;
+  GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->button);
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
   GdkRGBA emblem_color;
 
@@ -256,7 +257,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       }
       if (icon != NULL) {
         if (!entry->is_read) {
-            notify_log_icon_add_unread_emblem(icon, &emblem_color);
+            notify_log_icon_add_unread_emblem(icon, style_context, log_icon_size, scale_factor);
         }
         app_icon = gtk_image_new_from_surface(icon);
       }
