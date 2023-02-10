@@ -126,9 +126,6 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gboolean no_notifications = FALSE;
   GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->button);
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
-  GdkRGBA emblem_color;
-
-  gtk_style_context_get_color(gtk_widget_get_style_context(notification_plugin->button), GTK_STATE_FLAG_NORMAL, &emblem_color);
 
   today = g_date_time_new_now_local();
   today_year = g_date_time_get_year(today);
