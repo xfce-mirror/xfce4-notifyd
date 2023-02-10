@@ -29,6 +29,7 @@
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4panel/libxfce4panel.h>
 
+#include "common/xfce-notify-common.h"
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 #include "notification-plugin-dialogs.h"
@@ -43,6 +44,9 @@ XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
 GtkWidget *notification_plugin_menu_new   (NotificationPlugin *notification_plugin);
 void       notification_plugin_popup_menu (NotificationPlugin *notification_plugin);
 
+static gboolean notification_plugin_size_changed (XfcePanelPlugin *plugin,
+                                                  gint size,
+                                                  NotificationPlugin *notification_plugin);
 
 
 GtkWidget *
@@ -159,24 +163,75 @@ cb_hide_on_read_changed(XfconfChannel *channel,
 
 
 void
-notification_plugin_update_icon (NotificationPlugin *notification_plugin,
-                                 gboolean state)
-{
-  const gchar *icon_name = NULL;
+notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
+  GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+  GIcon *base_icon;
+  GtkIconInfo *icon_info;
+  gint scale_factor;
+  gboolean dnd_enabled; 
 
-  if (state && !notification_plugin->new_notifications) {
-    icon_name = "notification-disabled-symbolic";
-  } else if (!state && !notification_plugin->new_notifications) {
-    icon_name = "notification-symbolic";
-  } else if (state && notification_plugin->new_notifications) {
-    icon_name = "notification-disabled-new-symbolic";
-  } else if (!state && notification_plugin->new_notifications) {
-    icon_name = "notification-new-symbolic";
+  dnd_enabled = xfconf_channel_get_bool(notification_plugin->channel, DND_ENABLED_PROP, FALSE);
+  if (dnd_enabled) {
+    base_icon = g_themed_icon_new_with_default_fallbacks("notification-disabled-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-symbolic");
+  } else {
+    base_icon = g_themed_icon_new_with_default_fallbacks("notification-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-symbolic");
   }
 
-  if (G_LIKELY(icon_name != NULL)) {
-    gtk_image_set_from_icon_name(GTK_IMAGE(notification_plugin->image), icon_name, GTK_ICON_SIZE_MENU);
+  scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
+  icon_info = gtk_icon_theme_lookup_by_gicon_for_scale(icon_theme,
+                                                       base_icon,
+                                                       notification_plugin->icon_size,
+                                                       scale_factor,
+                                                       GTK_ICON_LOOKUP_FORCE_SIZE);
+
+  if (G_LIKELY(icon_info != NULL)) {
+    GdkPixbuf *pix = gtk_icon_info_load_icon(icon_info, NULL);
+
+    if (G_LIKELY(pix != NULL)) {
+      cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(pix, scale_factor, NULL);
+
+      if (notification_plugin->new_notifications) {
+        GIcon *emblem = g_themed_icon_new("org.xfce.notification.unread-emblem-symbolic");
+        GtkIconInfo *emblem_info = gtk_icon_theme_lookup_by_gicon_for_scale(icon_theme,
+                                                                            emblem,
+                                                                            notification_plugin->icon_size,
+                                                                            scale_factor,
+                                                                            GTK_ICON_LOOKUP_FORCE_SIZE);
+
+        if (G_LIKELY(emblem_info != NULL)) {
+          GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->button);
+          GdkPixbuf *emblem_pix = gtk_icon_info_load_symbolic_for_context(emblem_info, style_context, NULL, NULL);
+
+          if (G_LIKELY(emblem_pix != NULL)) {
+            cairo_t *cr = cairo_create(surface);
+
+            cairo_scale(cr, 1.0 / scale_factor, 1.0 / scale_factor);
+            gdk_cairo_set_source_pixbuf(cr, emblem_pix, 0, 0);
+            cairo_paint_with_alpha(cr, dnd_enabled ? 0.7 : 1.0);
+
+            cairo_destroy(cr);
+            g_object_unref(emblem_pix);
+          }
+
+          g_object_unref(emblem_info);
+        }
+
+        g_object_unref(emblem);
+      }
+
+      gtk_image_set_from_surface(GTK_IMAGE(notification_plugin->image), surface);
+
+      cairo_surface_destroy(surface);
+      g_object_unref(pix);
+    }
+
+    g_object_unref(icon_info);
   }
+
+  g_object_unref(base_icon);
+
   gtk_widget_set_visible(notification_plugin->button,
                          !notification_plugin->hide_on_read
                          || notification_plugin->new_notifications
@@ -192,10 +247,7 @@ notification_plugin_dnd_updated (XfconfChannel *channel,
                                  gpointer user_data)
 {
   NotificationPlugin *notification_plugin = user_data;
-  gboolean state;
-
-  state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
-  notification_plugin_update_icon (notification_plugin, state);
+  notification_plugin_update_icon(notification_plugin);
 }
 
 
@@ -204,11 +256,8 @@ static void
 cb_notification_log_changed(XfceNotifyLog *log,
                             NotificationPlugin *notification_plugin)
 {
-  gboolean dnd_state;
-
-  notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(log);
-  dnd_state = xfconf_channel_get_bool(notification_plugin->channel, "/do-not-disturb", FALSE);
-  notification_plugin_update_icon(notification_plugin, dnd_state);
+  notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(notification_plugin->log);
+  notification_plugin_update_icon(notification_plugin);
 }
 
 
@@ -217,12 +266,22 @@ static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotificationPlugin    *notification_plugin;
-  gboolean               state;
   GError *error = NULL;
 
   /* Allocate memory for the plugin structure */
   notification_plugin = g_slice_new0 (NotificationPlugin);
   notification_plugin->plugin = panel_plugin;
+
+  notification_plugin->log = xfce_notify_log_open(&error);
+  if (notification_plugin->log == NULL) {
+    notification_plugin->new_notifications = FALSE;
+    g_critical("Unable to open notification log: %s", error->message);
+    g_error_free(error);
+  } else {
+    notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(notification_plugin->log);
+    g_signal_connect(notification_plugin->log, "changed",
+                     G_CALLBACK(cb_notification_log_changed), notification_plugin);
+  }
 
   /* Initialize xfconf */
   xfconf_init (NULL);
@@ -232,21 +291,20 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   g_signal_connect(notification_plugin->channel, "property-changed::" SETTING_HIDE_ON_READ,
                    G_CALLBACK(cb_hide_on_read_changed), notification_plugin);
 
-  /* As the plugin is starting up we presume there are no new notifications */
-  notification_plugin->new_notifications = FALSE;
 
   /* Create the panel widgets (image-button) */
   xfce_panel_plugin_set_small (panel_plugin, TRUE);
   notification_plugin->button = xfce_panel_create_toggle_button ();
   gtk_widget_set_tooltip_text (GTK_WIDGET (notification_plugin->button), _("Notifications"));
   notification_plugin->image = gtk_image_new ();
-  state = xfconf_channel_get_bool (notification_plugin->channel, "/do-not-disturb", FALSE);
 
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));
   gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "xfce4-notification-plugin");
 
-  notification_plugin_update_icon(notification_plugin, state);
+  notification_plugin_size_changed(notification_plugin->plugin,
+                                   xfce_panel_plugin_get_size(notification_plugin->plugin),
+                                   notification_plugin);
 
   /* Create the menu */
   notification_plugin->menu = notification_plugin_menu_new (notification_plugin);
@@ -259,15 +317,6 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                     G_CALLBACK (cb_menu_deactivate), notification_plugin);
   g_signal_connect (notification_plugin->menu, "size-allocate",
                     G_CALLBACK (cb_menu_size_allocate), notification_plugin);
-
-  notification_plugin->log = xfce_notify_log_open(&error);
-  if (notification_plugin->log == NULL) {
-    g_critical("Unable to open notification log: %s", error->message);
-    g_error_free(error);
-  } else {
-    g_signal_connect(notification_plugin->log, "changed",
-                     G_CALLBACK(cb_notification_log_changed), notification_plugin);
-  }
 
   /* Start monitoring the "do not disturb" setting in xfconf */
   g_signal_connect (G_OBJECT (notification_plugin->channel), "property-changed::" "/do-not-disturb",
@@ -347,7 +396,8 @@ notification_plugin_size_changed (XfcePanelPlugin       *plugin,
     icon_size = width;
 #endif
 
-  gtk_image_set_pixel_size (GTK_IMAGE (notification_plugin->image), icon_size);
+  notification_plugin->icon_size = icon_size;
+  notification_plugin_update_icon(notification_plugin);
 
   return TRUE;
 }
