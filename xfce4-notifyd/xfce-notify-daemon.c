@@ -60,6 +60,7 @@ struct _XfceNotifyDaemon
     XfceNotifyGBusSkeleton parent;
 
     XfceNotifyOrgXfceNotifyd *xfce_iface_skeleton;
+    gboolean expire_timeout_enabled;
     gint expire_timeout;
     guint bus_name_id;
     gdouble initial_opacity;
@@ -124,10 +125,16 @@ const struct {
     } default_value;
 } settings[] = {
     {
-        .name = "/expire-timeout",
+        .name = EXPIRE_TIMEOUT_ENABLED_PROP,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, expire_timeout_enabled),
+        .default_value.b = TRUE,
+    },
+    {
+        .name = EXPIRE_TIMEOUT_PROP,
         .type = G_TYPE_INT,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, expire_timeout),
-        .default_value.i = -1,
+        .default_value.i = EXPIRE_TIMEOUT_DEFAULT,
     },
     {
         .name = "/initial-opacity",
@@ -1310,8 +1317,9 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     notify_update_known_applications (xndaemon->settings, new_app_name);
 
-    if(expire_timeout == -1)
-        expire_timeout = xndaemon->expire_timeout;
+    if (expire_timeout == -1) {
+        expire_timeout = xndaemon->expire_timeout_enabled ? xndaemon->expire_timeout : 0;
+    }
 
     application_is_muted = notify_application_is_muted (xndaemon->settings, new_app_name);
 
