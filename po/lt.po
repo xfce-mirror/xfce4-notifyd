@@ -22,36 +22,36 @@ msgstr ""
 #: ../common/xfce-notify-log.c:201
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Pranešimų žurnalo katalogas (%s) nėra katalogas"
 
 #: ../common/xfce-notify-log.c:213
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Nepavyko atverti pranešimų žurnalo: %s"
 
 #: ../common/xfce-notify-log.c:308
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "Nepavyko paruošti SQL teiginio: %%s (%s)"
 
 #: ../common/xfce-notify-log.c:337
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "galiniai simboliai teiginio gale"
 
 #: ../common/xfce-notify-log.c:457
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Nepavyko sukurti lentelės „notifications“: %s"
 
 #: ../common/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Nepavyko sukurti duomenų bazės laiko žymų indekso: %s"
 
 #: ../common/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Nepavyko sukurti duomenų bazės „is_read“ indekso: %s"
 
 #: ../common/xfce-notify-log-util.c:380
 msgid "Do you really want to clear the notification log?"
@@ -76,7 +76,7 @@ msgstr "įtraukti piktogramų podėlį"
 
 #: ../common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "Dabar"
 
 #: ../panel-plugin/notification-plugin.c:298
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
@@ -104,11 +104,11 @@ msgstr "<b>_Netrukdyti</b>"
 #: ../panel-plugin/notification-plugin-log.c:321
 #: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:155
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Nepavyko atverti pranešimų žurnalo"
 
 #: ../panel-plugin/notification-plugin-log.c:323
 msgid "No unread notifications"
-msgstr ""
+msgstr "Nėra neskaitytų pranešimų"
 
 #: ../panel-plugin/notification-plugin-log.c:325
 msgid "No notifications"
@@ -120,7 +120,7 @@ msgstr "Iš_valyti žurnalą"
 
 #: ../panel-plugin/notification-plugin-log.c:358
 msgid "_Mark all read"
-msgstr ""
+msgstr "Ž_ymėti visus kaip skaitytus"
 
 #: ../panel-plugin/notification-plugin-log.c:367
 msgid "_Notification settings…"
@@ -167,7 +167,7 @@ msgstr "Išvaizda"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:10
 msgid "Show in menu"
-msgstr ""
+msgstr "Rodyti meniu"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:11
 msgid "All notifications"
@@ -183,15 +183,15 @@ msgstr "Elgsena"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:14
 msgid "After showing the menu"
-msgstr ""
+msgstr "Parodžius meniu"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:15
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Žymėti visus žurnalo įrašus kaip skaitytus"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:16
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Žymėti parodytus žurnalo įrašus kaip skaitytus"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:17
 msgid "Do nothing"
@@ -333,15 +333,15 @@ msgstr "Išvalyti pranešimų žurnalą"
 
 #: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:191
 msgid "Mark All Read"
-msgstr ""
+msgstr "Žymėti visus kaip skaitytus"
 
 #: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:193
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "Žymėti visus neskaitytus pranešimus kaip skaitytus"
 
 #: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:491
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Žymėti žurnalo į_rašą kaip skaitytą"
 
 #: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:610
 msgid "Yesterday and before"
@@ -349,7 +349,7 @@ msgstr "Vakar ir anksčiau"
 
 #: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:820
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Įkeliama daugiau žurnalo įrašų..."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "only during \"Do not disturb\""
@@ -381,15 +381,15 @@ msgstr "pirminiame ekrane"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Locale default"
-msgstr ""
+msgstr "Numatytasis pagal lokalę"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "Relative times"
-msgstr ""
+msgstr "Santykiniai laikai"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid "Custom"
@@ -524,7 +524,7 @@ msgstr "Registruoti programas"
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:46
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Kiek daugiausia įrašų gali būti išsaugoma žurnale."
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:47
 msgid "Log size limit"
