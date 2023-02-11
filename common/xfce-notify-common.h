@@ -35,6 +35,7 @@
 #define DND_ENABLED_PROP                    "/do-not-disturb"
 #define EXPIRE_TIMEOUT_ENABLED_PROP         "/expire-timeout-enabled"
 #define EXPIRE_TIMEOUT_PROP                 "/expire-timeout"
+#define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"
 
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000

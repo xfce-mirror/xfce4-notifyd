@@ -1031,6 +1031,10 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                            sbtn, "sensitive",
                            G_BINDING_SYNC_CREATE);
 
+    sbtn = GTK_WIDGET(gtk_builder_get_object(builder, "expire_timeout_allow_override"));
+    xfconf_g_property_bind(panel->channel, EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP, G_TYPE_BOOLEAN,
+                           G_OBJECT(sbtn), "active");
+
     do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));
     gtk_switch_set_active (GTK_SWITCH (do_fadeout), TRUE);
     xfconf_g_property_bind(panel->channel, "/do-fadeout", G_TYPE_BOOLEAN,
