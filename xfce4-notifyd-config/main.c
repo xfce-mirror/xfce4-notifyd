@@ -64,6 +64,8 @@ typedef struct {
     XfconfChannel *channel;
     XfceNotifyLog *log;
 
+    GtkWidget *known_applications_listbox;
+
     NotificationLogWidgets log_widgets;
     NotificationSlideoutWidgets slideout_widgets;
 } SettingsPanel;
@@ -589,13 +591,14 @@ known_application_delete_clicked(GtkWidget *button,
             gchar **muted_applications = xfconf_channel_get_string_list(signal_data->panel->channel, MUTED_APPLICATIONS_PROP);
             gchar **denied_critical_notifications = xfconf_channel_get_string_list(signal_data->panel->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
 
-            xfce_remove_from_string_list_property(signal_data->panel->channel, KNOWN_APPLICATIONS_PROP, known_applications, signal_data->known_application);
             xfce_remove_from_string_list_property(signal_data->panel->channel, MUTED_APPLICATIONS_PROP, muted_applications, signal_data->known_application);
             xfce_remove_from_string_list_property(signal_data->panel->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP, denied_critical_notifications, signal_data->known_application);
+            // Remove from known applications list last; as doing so will indirectly free 'signal_data'
+            xfce_remove_from_string_list_property(signal_data->panel->channel, KNOWN_APPLICATIONS_PROP, known_applications, signal_data->known_application);
 
-            g_strfreev(known_applications);
             g_strfreev(muted_applications);
             g_strfreev(denied_critical_notifications);
+            g_strfreev(known_applications);
         }
     }
 
@@ -802,12 +805,8 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
 }
 
 static void
-xfce4_notifyd_known_applications_changed(SettingsPanel *panel,
-                                         const gchar *property,
-                                         const GValue *value,
-                                         gpointer user_data)
-{
-    GtkWidget *known_applications_listbox = user_data;
+xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
+    GtkWidget *known_applications_listbox = panel->known_applications_listbox;
     GtkCallback func = listbox_remove_all;
     GPtrArray *known_applications;
     GPtrArray *known_applications_sorted;
@@ -1080,7 +1079,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
         APPLICATIONS   *
      *******************/
     known_applications_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_scrolled_window"));
-    known_applications_listbox = gtk_list_box_new ();
+    panel->known_applications_listbox = known_applications_listbox = gtk_list_box_new();
     gtk_list_box_set_selection_mode(GTK_LIST_BOX(known_applications_listbox), GTK_SELECTION_NONE);
     gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
     gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
@@ -1089,12 +1088,11 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                                                                "\nAs soon as an application sends a notification"
                                                                "\nit will appear in this list."));
     /* Initialize the list of known applications */
-    xfce4_notifyd_known_applications_changed (panel, KNOWN_APPLICATIONS_PROP, NULL, known_applications_listbox);
+    xfce4_notifyd_known_applications_changed(panel);
     gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
     gtk_widget_show_all (placeholder_label);
-    g_signal_connect (G_OBJECT (panel->channel),
-                      "property-changed::" KNOWN_APPLICATIONS_PROP,
-                      G_CALLBACK (xfce4_notifyd_known_applications_changed), known_applications_listbox);
+    g_signal_connect_swapped(G_OBJECT (panel->channel), "property-changed::" KNOWN_APPLICATIONS_PROP,
+                             G_CALLBACK(xfce4_notifyd_known_applications_changed), panel);
 
     /**********
         LOG   *
