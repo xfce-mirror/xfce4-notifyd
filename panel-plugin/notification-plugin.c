@@ -317,6 +317,8 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                     G_CALLBACK (cb_menu_deactivate), notification_plugin);
   g_signal_connect (notification_plugin->menu, "size-allocate",
                     G_CALLBACK (cb_menu_size_allocate), notification_plugin);
+  g_signal_connect_swapped(gtk_icon_theme_get_default(), "changed",
+                           G_CALLBACK(notification_plugin_update_icon), notification_plugin);
 
   /* Start monitoring the "do not disturb" setting in xfconf */
   g_signal_connect (G_OBJECT (notification_plugin->channel), "property-changed::" "/do-not-disturb",
