@@ -149,6 +149,7 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     icon_size = MIN(icon_width, icon_height);
 
     viewer->scroller = gtk_scrolled_window_new(NULL, NULL);
+    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(viewer->scroller), GTK_SHADOW_ETCHED_IN);
     gtk_box_pack_start(GTK_BOX(viewer), viewer->scroller, TRUE, TRUE, 0);
     gtk_widget_show(viewer->scroller);
     g_signal_connect_swapped(viewer->scroller, "edge-reached",
