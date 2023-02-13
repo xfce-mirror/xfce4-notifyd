@@ -339,6 +339,10 @@ notification_plugin_free (XfcePanelPlugin *plugin,
       g_object_unref(notification_plugin->log);
   }
 
+  g_signal_handlers_disconnect_by_func(gtk_icon_theme_get_default(),
+                                       notification_plugin_update_icon,
+                                       notification_plugin);
+
   /* check if the dialog is still open. if so, destroy it */
   dialog = g_object_get_data (G_OBJECT (plugin), "dialog");
   if (G_UNLIKELY (dialog != NULL))
