@@ -165,6 +165,7 @@ cb_hide_on_read_changed(XfconfChannel *channel,
 void
 notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
   GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+  GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->image);
   GIcon *base_icon;
   GtkIconInfo *icon_info;
   gint scale_factor;
@@ -187,7 +188,7 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
                                                        GTK_ICON_LOOKUP_FORCE_SIZE);
 
   if (G_LIKELY(icon_info != NULL)) {
-    GdkPixbuf *pix = gtk_icon_info_load_icon(icon_info, NULL);
+    GdkPixbuf *pix = gtk_icon_info_load_symbolic_for_context(icon_info, style_context, NULL, NULL);
 
     if (G_LIKELY(pix != NULL)) {
       cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(pix, scale_factor, NULL);
@@ -201,7 +202,6 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
                                                                             GTK_ICON_LOOKUP_FORCE_SIZE);
 
         if (G_LIKELY(emblem_info != NULL)) {
-          GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->button);
           GdkPixbuf *emblem_pix = gtk_icon_info_load_symbolic_for_context(emblem_info, style_context, NULL, NULL);
 
           if (G_LIKELY(emblem_pix != NULL)) {
