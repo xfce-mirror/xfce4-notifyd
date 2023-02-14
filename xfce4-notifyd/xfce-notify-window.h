@@ -31,6 +31,8 @@
 #define XFCE_NOTIFY_WINDOW(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_WINDOW, XfceNotifyWindow))
 #define XFCE_IS_NOTIFY_WINDOW(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_WINDOW))
 
+#define XFCE_TYPE_NOTIFY_CLOSE_REASON (xfce_notify_close_reason_get_type())
+
 G_BEGIN_DECLS
 
 typedef enum
@@ -44,6 +46,7 @@ typedef enum
 typedef struct _XfceNotifyWindow  XfceNotifyWindow;
 
 GType xfce_notify_window_get_type(void) G_GNUC_CONST;
+GType xfce_notify_close_reason_get_type(void) G_GNUC_CONST;
 
 GtkWidget *xfce_notify_window_new(void);
 
