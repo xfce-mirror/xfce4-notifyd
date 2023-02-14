@@ -65,6 +65,7 @@ struct _XfceNotifyWindow
 
     GdkRectangle geometry;
     gint last_monitor;
+    gboolean override_redirect;
 
     guint expire_timeout;
 
@@ -379,6 +380,8 @@ xfce_notify_window_realize(GtkWidget *widget)
 #endif
 
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->realize(widget);
+
+    gdk_window_set_override_redirect(gtk_widget_get_window(widget), window->override_redirect);
 
     xfce_notify_window_start_expiration(window);
 
@@ -1209,6 +1212,22 @@ xfce_notify_window_set_sound_props(XfceNotifyWindow *window,
     }
 }
 #endif
+
+void
+xfce_notify_window_set_override_redirect(XfceNotifyWindow *window,
+                                         gboolean override_redirect)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    if (window->override_redirect != override_redirect) {
+        window->override_redirect = override_redirect;
+
+        if (gtk_widget_get_realized(GTK_WIDGET(window))) {
+            gdk_window_set_override_redirect(gtk_widget_get_window(GTK_WIDGET(window)),
+                                             window->override_redirect);
+        }
+    }
+}
 
 void
 xfce_notify_window_closed(XfceNotifyWindow *window,

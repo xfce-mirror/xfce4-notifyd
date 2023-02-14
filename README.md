@@ -66,12 +66,24 @@ shouldn't have to worry about this.
 
 ## Configuration
 
-Run `xfce4-notifyd-config` to display the settings dialog. There are no
-hidden settings, which means if you don't see it in the settings dialog,
-it's not changeable.
+Run `xfce4-notifyd-config` to display the settings dialog.
 
 The panel plugin has a separate properties dialog, which shows all configuration
 options for it.
+
+### Hidden Settings
+
+There is currently only one hidden setting (all others are configurable
+via the settings dialog), which can be set using `xfconf-query` (on
+channel `xfce4-notifyd`):
+
+* '/compat/use-override-redirect-windows` (boolean): this defaults to
+  `false`.  If your window manager displays notification windows in a
+  strange way (gives it borders or a titlebar, doesn't allow it above
+  fullscreen windows, etc.), you can try setting this to `true`.  Be
+  aware, though, that notifications may end up being display above your
+  screen saver / screen locker, which you might consider an unacceptable
+  security risk.
 
 
 ## Theming

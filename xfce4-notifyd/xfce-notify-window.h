@@ -122,6 +122,9 @@ void xfce_notify_window_set_sound_props(XfceNotifyWindow *window,
                                         ca_proplist *props);
 #endif
 
+void xfce_notify_window_set_override_redirect(XfceNotifyWindow *window,
+                                              gboolean override_redirect);
+
 /* signal trigger */
 void xfce_notify_window_closed(XfceNotifyWindow *window,
                                XfceNotifyCloseReason reason);
