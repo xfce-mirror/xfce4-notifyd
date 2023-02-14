@@ -43,7 +43,6 @@
 #include <common/xfce-notify-common.h>
 
 #include "xfce-notify-window.h"
-#include "xfce-notify-enum-types.h"
 
 #define DEFAULT_EXPIRE_TIMEOUT 10000
 #define DEFAULT_NORMAL_OPACITY 0.85
@@ -141,6 +140,24 @@ static void xfce_notify_window_button_clicked(GtkWidget *widget,
 
 static guint signals[N_SIGS] = { 0, };
 
+GType
+xfce_notify_close_reason_get_type(void)
+{
+	static GType type = 0;
+
+    if (type == 0) {
+        static const GEnumValue values[] = {
+            { XFCE_NOTIFY_CLOSE_REASON_EXPIRED, "XFCE_NOTIFY_CLOSE_REASON_EXPIRED", "expired" },
+            { XFCE_NOTIFY_CLOSE_REASON_DISMISSED, "XFCE_NOTIFY_CLOSE_REASON_DISMISSED", "dismissed" },
+            { XFCE_NOTIFY_CLOSE_REASON_CLIENT, "XFCE_NOTIFY_CLOSE_REASON_CLIENT", "client" },
+            { XFCE_NOTIFY_CLOSE_REASON_UNKNOWN, "XFCE_NOTIFY_CLOSE_REASON_UNKNOWN", "unknown" },
+            { 0, NULL, NULL },
+        };
+        type = g_enum_register_static("XfceNotifyCloseReason", values);
+    }
+
+    return type;
+}
 
 G_DEFINE_TYPE(XfceNotifyWindow, xfce_notify_window, GTK_TYPE_WINDOW)
 
