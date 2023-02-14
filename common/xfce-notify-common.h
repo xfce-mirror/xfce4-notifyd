@@ -41,6 +41,16 @@
 #define LOG_MAX_SIZE_DEFAULT                1000
 #define EXPIRE_TIMEOUT_DEFAULT              10
 
+// This is a hidden setting that restores the old behabior of using an
+// override-redirect window for the notification windows.  This should be
+// unnecessary for many/most WMs, but some (like openbox) won't ever place
+// notifications above fullscreen windows (for example) without it.  The
+// downside here is that notifications can pop up over your screen saver
+// or screen locker, which many people might consider a security issue.  For
+// that reason, this option will remain hidden (not presented in the GUI),
+// and will be disabled by default.
+#define COMPAT_OVERRIDE_REDIRECT_PROP       "/compat/use-override-redirect-windows"
+
 G_BEGIN_DECLS
 
 gboolean xfce_notify_is_markup_valid(const gchar *markup);

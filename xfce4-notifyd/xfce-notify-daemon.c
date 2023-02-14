@@ -72,6 +72,7 @@ struct _XfceNotifyDaemon
     gboolean notification_log;
     gboolean show_text_with_gauge;
     gint primary_monitor;
+    gboolean windows_use_override_redirect;
 
     XfceNotifyLog *log;
     gint log_level;
@@ -222,6 +223,12 @@ const struct {
         .type = G_TYPE_UINT,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_max_size),
         .default_value.u = LOG_MAX_SIZE_DEFAULT,
+    },
+    {
+        .name = COMPAT_OVERRIDE_REDIRECT_PROP,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, windows_use_override_redirect),
+        .default_value.b = FALSE,
     },
 };
 
@@ -1403,6 +1410,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                                                                         actions_are_icon_names,
                                                                         xndaemon->css_provider));
         xfce_notify_window_set_id(window, OUT_id);
+        xfce_notify_window_set_override_redirect(window, xndaemon->windows_use_override_redirect);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 #ifdef ENABLE_SOUND
         xfce_notify_window_set_sound_props(window, sound_props);
