@@ -166,6 +166,10 @@ AC_CONFIG_FILES(
     common/Makefile
     panel-plugin/Makefile
     po/Makefile.in
+    themes/Makefile
+    tests/Makefile
+    xfce4-notifyd/Makefile
+    xfce4-notifyd-config/Makefile
 ])
 AC_OUTPUT
 
