@@ -6,8 +6,12 @@ xfce4_notifyd_PROGRAMS = \
 xfce4_notifyd_SOURCES = \
 	$(top_srcdir)/common/xfce-notify-common.h \
 	main.c \
+	xfce-notify-fdo-gbus.c \
+	xfce-notify-fdo-gbus.h \
 	xfce-notify-gbus.c \
 	xfce-notify-gbus.h \
+	xfce-notify-log.c \
+	xfce-notify-log.h \
 	xfce-notify-daemon.c \
 	xfce-notify-daemon.h \
 	xfce-notify-marshal.c \
@@ -44,7 +48,9 @@ xfce4_notifyd_LDADD = \
 	$(CANBERRA_GTK_LIBS) \
 	$(GTK_LAYER_SHELL_LIBS)
 
-service_in_files = org.xfce.xfce4-notifyd.Notifications.service.in
+service_in_files = \
+	org.xfce.xfce4-notifyd.Notifications.service.in \
+	org.xfce.xfce4-notifyd.Notifyd.service.in
 systemd_user_in_files = xfce4-notifyd.service.in
 autostart_in_files = xfce4-notifyd.desktop.in
 
@@ -52,7 +58,8 @@ dist_noinst_DATA = \
 	$(service_in_files) \
 	$(systemd_user_in_files) \
 	$(autostart_in_files) \
-	notify-dbus.xml \
+	xfce-notify-dbus.xml \
+	xfce-notify-fdo-dbus.xml \
 	xfce-notify-marshal.list
 
 if USE_DBUS_START_DAEMON
@@ -71,6 +78,8 @@ distclean_autostart = $(autostart_DATA)
 endif
 
 built_xfce4_notifyd = \
+	xfce-notify-fdo-gbus.c \
+	xfce-notify-fdo-gbus.h \
 	xfce-notify-gbus.c \
 	xfce-notify-gbus.h
 
@@ -82,9 +91,6 @@ if MAINTAINER_MODE
 built_xfce4_notifyd += \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h
-
-clean_xfce4_notifyd += \
-	stamp-xfce-notify-marshal.h
 
 endif
 
@@ -104,12 +110,20 @@ DISTCLEANFILES = \
 %.desktop: $(srcdir)/%.desktop.in Makefile
 	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
-xfce-notify-gbus.h:
-xfce-notify-gbus.c: $(srcdir)/notify-dbus.xml Makefile
+xfce-notify-fdo-gbus.h xfce-notify-fdo-gbus.c: $(srcdir)/xfce-notify-fdo-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
 	--interface-prefix org.freedesktop.Notifications \
-	--c-namespace XfceNotify 	\
+	--c-namespace Xfce 	\
+	--generate-c-code xfce-notify-fdo-gbus \
+	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
+	$<
+
+xfce-notify-gbus.h xfce-notify-gbus.c: $(srcdir)/xfce-notify-dbus.xml Makefile
+	$(AM_V_GEN) $(GDBUS_CODEGEN) \
+	--interface-prefix org.xfce.Notifyd \
+	--c-namespace Xfce 	\
 	--generate-c-code xfce-notify-gbus \
+	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
 	$<
 
 if MAINTAINER_MODE

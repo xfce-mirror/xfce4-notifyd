@@ -39,7 +39,7 @@
 #include <libnotify/notify.h>
 
 #include <common/xfce-notify-common.h>
-#include <common/xfce-notify-log.h>
+#include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
 
 #include "xfce-notify-log-viewer.h"
@@ -62,7 +62,7 @@ typedef struct
 
 typedef struct {
     XfconfChannel *channel;
-    XfceNotifyLog *log;
+    XfceNotifyLogGBus *log;
 
     GtkWidget *known_applications_listbox;
 
@@ -504,13 +504,12 @@ xfce_notify_sort_apps_in_log (gconstpointer a, gconstpointer b)
 }
 
 static GPtrArray *
-xfce_notify_count_apps_in_log (XfceNotifyLog *notify_log,
-                               GPtrArray *known_applications)
-{
+xfce_notify_count_apps_in_log(GHashTable *app_id_counts, GPtrArray *known_applications) {
     GPtrArray *log_stats = g_ptr_array_new();
 
     if (known_applications != NULL) {
         GHashTable *counts = g_hash_table_new(g_str_hash, g_str_equal);
+        GList *app_ids;
         GList *keys;
 
         for (guint i = 0; i < known_applications->len; ++i) {
@@ -520,20 +519,14 @@ xfce_notify_count_apps_in_log (XfceNotifyLog *notify_log,
             }
         }
 
-        if (notify_log != NULL) {
-            GHashTable *app_id_counts = xfce_notify_log_get_app_id_counts(notify_log);
-            GList *app_ids = g_hash_table_get_keys(app_id_counts);
-
-            for (GList *l = app_ids; l != NULL; l = l->next) {
-                gchar *app_id = l->data;
-                if (g_hash_table_contains(counts, app_id)) {
-                    g_hash_table_insert(counts, app_id, g_hash_table_lookup(app_id_counts, app_id));
-                }
+        app_ids = g_hash_table_get_keys(app_id_counts);
+        for (GList *l = app_ids; l != NULL; l = l->next) {
+            gchar *app_id = l->data;
+            if (g_hash_table_contains(counts, app_id)) {
+                g_hash_table_insert(counts, app_id, g_hash_table_lookup(app_id_counts, app_id));
             }
-
-            g_list_free(app_ids);
-            g_hash_table_destroy(app_id_counts);
         }
+        g_list_free(app_ids);
 
         keys = g_hash_table_get_keys(counts);
         for (GList *l = keys; l != NULL; l = l->next) {
@@ -805,7 +798,7 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
 }
 
 static void
-xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
+known_application_log_counts_fetched(GObject *source, GAsyncResult *res, SettingsPanel *panel) {
     GtkWidget *known_applications_listbox = panel->known_applications_listbox;
     GtkCallback func = listbox_remove_all;
     GPtrArray *known_applications;
@@ -814,6 +807,36 @@ xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
     gchar **denied_critical_applications;
     gchar **excluded_from_log_applications;
     guint i;
+    GVariant *app_id_countsv = NULL;
+    GHashTable *app_id_counts = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+    GError *error = NULL;
+
+    if (source != NULL
+        && res != NULL
+        && xfce_notify_log_gbus_call_get_app_id_counts_finish(XFCE_NOTIFY_LOG_GBUS(source),
+                                                              &app_id_countsv,
+                                                              res,
+                                                              &error))
+    {
+        if (g_variant_is_of_type(app_id_countsv, G_VARIANT_TYPE("a{su}"))) {
+            GVariantIter *iter = g_variant_iter_new(app_id_countsv);
+            gchar *app_id = NULL;
+            guint count = 0;
+
+            while (g_variant_iter_next(iter, "{su}", &app_id, &count)) {
+                g_hash_table_replace(app_id_counts, app_id != NULL ? app_id : g_strdup(""), GUINT_TO_POINTER(count));
+            }
+            g_variant_iter_free(iter);
+        } else {
+            g_warning("Returned known app ID counts signature is wrong (%s)", g_variant_get_type_string(app_id_countsv));
+        }
+        g_variant_unref(app_id_countsv);
+    } else {
+        if (error != NULL) {
+            g_warning("Failed to fetch known app ID counts from log: %s", error->message);
+            g_clear_error(&error);
+        }
+    }
 
     known_applications = xfconf_channel_get_arrayv (panel->channel, KNOWN_APPLICATIONS_PROP);
     muted_applications = xfconf_channel_get_arrayv (panel->channel, MUTED_APPLICATIONS_PROP);
@@ -821,13 +844,13 @@ xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
     excluded_from_log_applications = xfconf_channel_get_string_list(panel->channel, EXCLUDED_FROM_LOG_APPLICATIONS_PROP);
 
     /* TODO: Check the old list versus the new one and only add/remove rows
-             as needed instead instead of cleaning up the whole widget */
+       as needed instead instead of cleaning up the whole widget */
     /* Clean up the list and re-fill it */
     gtk_container_foreach (GTK_CONTAINER (known_applications_listbox), func, known_applications_listbox);
 
-    if (known_applications != NULL && panel->log != NULL) {
+    if (known_applications != NULL) {
         /* Sort the apps based on their appearance in the log */
-        known_applications_sorted = xfce_notify_count_apps_in_log(panel->log, known_applications);
+        known_applications_sorted = xfce_notify_count_apps_in_log(app_id_counts, known_applications);
 
         for (i = 0; i < known_applications_sorted->len; i++) {
             LogAppCount *application = g_ptr_array_index(known_applications_sorted, i);
@@ -849,6 +872,19 @@ xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
     g_strfreev(denied_critical_applications);
     g_strfreev(excluded_from_log_applications);
     gtk_widget_show_all (known_applications_listbox);
+    g_hash_table_destroy(app_id_counts);
+}
+
+static void
+xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
+    if (panel->log != NULL) {
+        xfce_notify_log_gbus_call_get_app_id_counts(panel->log,
+                                                    NULL,
+                                                    (GAsyncReadyCallback)known_application_log_counts_fetched,
+                                                    panel);
+    } else {
+        known_application_log_counts_fetched(NULL, NULL, panel);
+    }
 }
 
 static void
@@ -1204,9 +1240,15 @@ main(int argc,
     }
 
     panel->channel = xfconf_channel_new("xfce4-notifyd");
-    panel->log = xfce_notify_log_open(&error);
+
+    panel->log = xfce_notify_log_gbus_proxy_new_for_bus_sync(G_BUS_TYPE_SESSION,
+                                                             0,
+                                                             "org.xfce.Notifyd",
+                                                             "/org/xfce/Notifyd",
+                                                             NULL,
+                                                             &error);
     if (panel->log == NULL) {
-        g_warning("Failed to open notification log: %s", error != NULL ? error->message : "(unknown error)");
+        g_warning("Failed to connect to notifiication log over DBus: %s", error != NULL ? error->message : "(unknown error)");
         g_clear_error(&error);
     }
 
