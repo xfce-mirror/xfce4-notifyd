@@ -8,6 +8,8 @@ xfce4_notifyd_SOURCES = \
 	main.c \
 	xfce-notify-gbus.c \
 	xfce-notify-gbus.h \
+	xfce-notify-log.c \
+	xfce-notify-log.h \
 	xfce-notify-daemon.c \
 	xfce-notify-daemon.h \
 	xfce-notify-marshal.c \
@@ -44,7 +46,9 @@ xfce4_notifyd_LDADD = \
 	$(CANBERRA_GTK_LIBS) \
 	$(GTK_LAYER_SHELL_LIBS)
 
-service_in_files = org.xfce.xfce4-notifyd.Notifications.service.in
+service_in_files = \
+	org.xfce.xfce4-notifyd.Notifications.service.in \
+	org.xfce.xfce4-notifyd.Notifyd.service.in
 systemd_user_in_files = xfce4-notifyd.service.in
 autostart_in_files = xfce4-notifyd.desktop.in
 

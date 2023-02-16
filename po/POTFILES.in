@@ -1,4 +1,3 @@
-common/xfce-notify-log.c
 common/xfce-notify-log-util.c
 panel-plugin/notification-plugin.c
 panel-plugin/notification-plugin-dialogs.c
@@ -7,6 +6,7 @@ panel-plugin/notification-plugin-settings.glade
 panel-plugin/notification-plugin.desktop.in
 xfce4-notifyd/main.c
 xfce4-notifyd/xfce-notify-daemon.c
+xfce4-notifyd/xfce-notify-log.c
 xfce4-notifyd/xfce-notify-window.c
 xfce4-notifyd-config/main.c
 xfce4-notifyd-config/xfce-notify-log-viewer.c
