@@ -8,6 +8,8 @@ xfce4_notifyd_SOURCES = \
 	main.c \
 	xfce-notify-gbus.c \
 	xfce-notify-gbus.h \
+	xfce-notify-log.c \
+	xfce-notify-log.h \
 	xfce-notify-daemon.c \
 	xfce-notify-daemon.h \
 	xfce-notify-marshal.c \
