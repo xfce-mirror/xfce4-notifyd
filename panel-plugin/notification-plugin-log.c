@@ -332,15 +332,18 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     if (mark_all_read) {
       xfce_notify_log_gbus_call_mark_all_read(notification_plugin->log, NULL, NULL, NULL);
     } else if (mark_shown_read && entries_shown != NULL) {
-        gchar **ids = g_new0(gchar *, g_list_length(entries_shown) + 1);
-        guint i = 0;
+      GStrvBuilder *builder = g_strv_builder_new();
+      gchar **ids;
 
-        for (GList *l = entries_shown; l != NULL; l = l->next, ++i) {
-            ids[i] = ((XfceNotifyLogEntry *)l->data)->id;
-        }
-        xfce_notify_log_gbus_call_mark_read(notification_plugin->log, (const gchar *const *)ids, NULL, NULL, NULL);
+      for (GList *l = entries_shown; l != NULL; l = l->next) {
+        g_strv_builder_add(builder, ((XfceNotifyLogEntry *)l->data)->id);
+      }
+      ids = g_strv_builder_end(builder);
 
-        g_free(ids);
+      xfce_notify_log_gbus_call_mark_read(notification_plugin->log, (const gchar *const *)ids, NULL, NULL, NULL);
+
+      g_strfreev(ids);
+      g_strv_builder_unref(builder);
     }
 
     g_list_free(entries_shown);
