@@ -27,6 +27,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "common/xfce-notify-common.h"
+#include "common/xfce-notify-log-gbus.h"
 #include "common/xfce-notify-log-util.h"
 #include "xfce-notify-log-viewer.h"
 
@@ -43,7 +44,7 @@ typedef struct _XfceNotifyLogViewer {
     GtkBox parent;
 
     XfconfChannel *channel;
-    XfceNotifyLog *log;
+    XfceNotifyOrgXfceNotifydLog *log;
 
     GtkWidget *scroller;
     GtkWidget *listbox;
@@ -57,18 +58,12 @@ typedef struct _XfceNotifyLogViewer {
     gboolean yesterday_header_added;
     gchar *last_entry_id;
     guint load_items_id;
-
-    gboolean log_update_pending;
-    guint log_update_id;
-    gchar *log_udpate_last_entry_id;
-    GList *log_update_rows_remaining;
-    gint log_update_rows_remaining_index;
 } XfceNotifyLogViewer;
 
 enum {
     PROP0,
     PROP_CHANNEL,
-    PROP_LOG,
+    PROP_LOG_PROXY,
 };
 
 static void xfce_notify_log_viewer_constructed(GObject *obj);
@@ -87,9 +82,7 @@ static void xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer);
 
 static void xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer);
-static void xfce_notify_log_viewer_mark_read(XfceNotifyLogViewer *viewer);
-
-static void xfce_notify_log_viewer_log_changed(XfceNotifyLogViewer *viewer);
+static void xfce_notify_log_viewer_mark_all_read(XfceNotifyLogViewer *viewer);
 
 static void xfce_notify_log_viewer_listbox_display_header_func(GtkListBoxRow *row,
                                                                GtkListBoxRow *before,
@@ -100,6 +93,16 @@ static gboolean xfce_notify_log_viewer_listbox_button_press(GtkWidget *listbox,
 
 static void xfce_notify_log_viewer_scroll_edge_reached(XfceNotifyLogViewer *viewer,
                                                        GtkPositionType pos);
+
+static void xfce_notify_log_viewer_log_row_added(XfceNotifyLogViewer *viewer,
+                                                 const gchar *entry_id);
+static void xfce_notify_log_viewer_log_row_changed(XfceNotifyLogViewer *viewer,
+                                                   const gchar *entry_id);
+static void xfce_notify_log_viewer_log_row_deleted(XfceNotifyLogViewer *viewer,
+                                                   const gchar *entry_id);
+static void xfce_notify_log_viewer_log_truncated(XfceNotifyLogViewer *viewer,
+                                                 guint n_kept_entries);
+static void xfce_notify_log_viewer_log_cleared(XfceNotifyLogViewer *viewer);
 
 
 G_DEFINE_TYPE(XfceNotifyLogViewer, xfce_notify_log_viewer, GTK_TYPE_BOX)
@@ -124,11 +127,11 @@ xfce_notify_log_viewer_class_init(XfceNotifyLogViewerClass *klass) {
                                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
     g_object_class_install_property(gobject_class,
-                                    PROP_LOG,
-                                    g_param_spec_object("log",
-                                                        "log",
-                                                        "XfceNotifyLog instance",
-                                                        XFCE_TYPE_NOTIFY_LOG,
+                                    PROP_LOG_PROXY,
+                                    g_param_spec_object("log-proxy",
+                                                        "log-proxy",
+                                                        "DBus proxy for log interfacae",
+                                                        XFCE_NOTIFY_TYPE_ORG_XFCE_NOTIFYD_LOG,
                                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
@@ -187,7 +190,7 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     gtk_image_set_pixel_size(GTK_IMAGE (icon), icon_size);
     button = gtk_tool_button_new(icon, _("Clear"));
     gtk_widget_set_tooltip_text(GTK_WIDGET(button), _("Clear the notification log"));
-    gtk_widget_set_sensitive(GTK_WIDGET(button), viewer->log != NULL);
+    gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
     gtk_toolbar_insert(GTK_TOOLBAR(viewer->toolbar), GTK_TOOL_ITEM(button), -1);
     g_signal_connect_swapped(G_OBJECT(button), "clicked",
                              G_CALLBACK(xfce_notify_log_viewer_clear), viewer);
@@ -196,22 +199,30 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     icon = gtk_image_new_from_icon_name("checkbox-checked-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
     button = gtk_tool_button_new(icon, _("Mark All Read"));
-    gtk_widget_set_sensitive(GTK_WIDGET(button), viewer->log != NULL && xfce_notify_log_has_unread_messages(viewer->log));
     gtk_widget_set_tooltip_text(GTK_WIDGET(button), _("Mark all unread notifications as read"));
+    gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
     gtk_toolbar_insert(GTK_TOOLBAR(viewer->toolbar), GTK_TOOL_ITEM(button), -1);
     g_signal_connect_swapped(button, "clicked",
-                             G_CALLBACK(xfce_notify_log_viewer_mark_read), viewer);
+                             G_CALLBACK(xfce_notify_log_viewer_mark_all_read), viewer);
     viewer->mark_read_button = button;
-
-    if (viewer->log != NULL) {
-        g_signal_connect_swapped(viewer->log, "changed",
-                                 G_CALLBACK(xfce_notify_log_viewer_log_changed), viewer);
-    }
 
     g_signal_connect_swapped(viewer->channel, "property-changed::" DATETIME_FORMAT_PROP,
                              G_CALLBACK(xfce_notify_log_viewer_populate), viewer);
     g_signal_connect_swapped(viewer->channel, "property-changed::" DATETIME_CUSTOM_FORMAT_PROP,
                              G_CALLBACK(xfce_notify_log_viewer_populate), viewer);
+
+    if (viewer->log != NULL) {
+        g_signal_connect_swapped(viewer->log, "row-added",
+                                 G_CALLBACK(xfce_notify_log_viewer_log_row_added), viewer);
+        g_signal_connect_swapped(viewer->log, "row-changed",
+                                 G_CALLBACK(xfce_notify_log_viewer_log_row_changed), viewer);
+        g_signal_connect_swapped(viewer->log, "row-deleted",
+                                 G_CALLBACK(xfce_notify_log_viewer_log_row_deleted), viewer);
+        g_signal_connect_swapped(viewer->log, "truncated",
+                                 G_CALLBACK(xfce_notify_log_viewer_log_truncated), viewer);
+        g_signal_connect_swapped(viewer->log, "cleared",
+                                 G_CALLBACK(xfce_notify_log_viewer_log_cleared), viewer);
+    }
 
     xfce_notify_log_viewer_populate(viewer);
 }
@@ -225,10 +236,8 @@ xfce_notify_log_viewer_set_property(GObject *obj, guint prop_id, const GValue *v
             viewer->channel = g_value_dup_object(value);
             break;
 
-        case PROP_LOG:
-            if (g_value_get_object(value) != NULL) {
-                viewer->log = g_value_dup_object(value);
-            }
+        case PROP_LOG_PROXY:
+            viewer->log = g_value_dup_object(value);
             break;
 
         default:
@@ -246,7 +255,7 @@ xfce_notify_log_viewer_get_property(GObject *obj, guint prop_id, GValue *value, 
             g_value_set_object(value, viewer->channel);
             break;
 
-        case PROP_LOG:
+        case PROP_LOG_PROXY:
             g_value_set_object(value, viewer->log);
             break;
 
@@ -265,16 +274,6 @@ xfce_notify_log_viewer_dispose(GObject *obj) {
         viewer->load_items_id = 0;
     }
 
-    if (viewer->log_update_id != 0) {
-        g_source_remove(viewer->log_update_id);
-        viewer->log_update_id = 0;
-    }
-
-    g_free(viewer->log_udpate_last_entry_id);
-    viewer->log_udpate_last_entry_id = NULL;
-    g_list_free(viewer->log_update_rows_remaining);
-    viewer->log_update_rows_remaining = NULL;
-
     G_OBJECT_CLASS(xfce_notify_log_viewer_parent_class)->dispose(obj);
 }
 
@@ -288,9 +287,6 @@ xfce_notify_log_viewer_finalize(GObject *obj) {
     g_object_unref(viewer->channel);
 
     if (viewer->log != NULL) {
-        g_signal_handlers_disconnect_by_func(viewer->log,
-                                             xfce_notify_log_viewer_log_changed,
-                                             viewer);
         g_object_unref(viewer->log);
     }
 
@@ -359,33 +355,47 @@ update_log_entry_icon(GtkListBoxRow *row) {
 
 static void
 log_entry_mark_read_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
+    GStrvBuilder *builder = g_strv_builder_new();
     GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
+    gchar **ids;
 
     for (GList *l = selected; l != NULL; l = l->next) {
         GtkWidget *row = GTK_WIDGET(l->data);
         XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
 
         if (G_LIKELY(entry != NULL) && !entry->is_read) {
-            xfce_notify_log_mark_read(viewer->log, entry->id);
+            g_strv_builder_add(builder, entry->id);
         }
     }
+    ids = g_strv_builder_end(builder);
 
+    xfce_notify_org_xfce_notifyd_log_call_mark_read(viewer->log, (const gchar *const *)ids, NULL, NULL, NULL);
+
+    g_strfreev(ids);
+    g_strv_builder_unref(builder);
     g_list_free(selected);
 }
 
 static void
 log_entry_delete_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
+    GStrvBuilder *builder = g_strv_builder_new();
     GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
+    gchar **ids;
 
     for (GList *l = selected; l != NULL; l = l->next) {
         GtkWidget *row = GTK_WIDGET(l->data);
         XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
 
-        if (entry != NULL) {
-            xfce_notify_log_delete(viewer->log, entry->id);
+        if (G_LIKELY(entry != NULL)) {
+            g_strv_builder_add(builder, entry->id);
         }
     }
+    ids = g_strv_builder_end(builder);
 
+    xfce_notify_org_xfce_notifyd_log_call_delete(viewer->log, (const gchar *const *)ids, NULL, NULL, NULL);
+
+    g_strfreev(ids);
+    g_strv_builder_unref(builder);
     g_list_free(selected);
 }
 
@@ -717,8 +727,61 @@ xfce_notify_log_viewer_append_entries(XfceNotifyLogViewer *viewer, GList *entrie
         g_date_time_unref(entry_local);
     }
 
+    if (entries != NULL) {
+        gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), TRUE);
+    }
+
     g_date_time_unref(today);
     g_free(custom_dt_format);
+}
+
+static void
+xfce_notify_log_viewer_list_finshed(GObject *source,
+                                    GAsyncResult *res,
+                                    XfceNotifyLogViewer *viewer)
+{
+    GError *error = NULL;
+    GVariant *entriesv = NULL;
+
+    if (G_LIKELY(viewer->loading_row != NULL)) {
+        gtk_widget_destroy(viewer->loading_row);
+        viewer->loading_row = NULL;
+    }
+
+    if (!xfce_notify_org_xfce_notifyd_log_call_list_finish(XFCE_NOTIFY_ORG_XFCE_NOTIFYD_LOG(source),
+                                                           &entriesv,
+                                                           res,
+                                                           &error))
+    {
+        g_warning("Failed to fetch log entries: %s", error != NULL ? error->message : "(unknown)");
+        if (error != NULL) {
+            g_error_free(error);
+        }
+    } else {
+        GList *entries = notify_log_variant_to_entries(entriesv);
+        g_variant_unref(entriesv);
+        xfce_notify_log_viewer_append_entries(viewer, entries);
+        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+    }
+}
+
+static void
+has_unread_finished(GObject *source, GAsyncResult *res, XfceNotifyLogViewer *viewer) {
+    GError *error = NULL;
+    gboolean has_unread = FALSE;
+
+    if (!xfce_notify_org_xfce_notifyd_log_call_has_unread_finish(XFCE_NOTIFY_ORG_XFCE_NOTIFYD_LOG(source),
+                                                                 &has_unread,
+                                                                 res,
+                                                                 &error))
+    {
+        g_warning("Failed to check if any log messages unread: %s", error != NULL ? error->message : "(unknown)");
+        if (error != NULL) {
+            g_error_free(error);
+        }
+    } else {
+        gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), has_unread);
+    }
 }
 
 static void
@@ -736,288 +799,196 @@ xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer) {
     viewer->last_entry_id = NULL;
     viewer->loading_row = NULL;
 
-    if (viewer->log != NULL) {
-        GList *entries = xfce_notify_log_read(viewer->log, NULL, LOG_DISPLAY_LIMIT);
-        xfce_notify_log_viewer_append_entries(viewer, entries);
-        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
-    }
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), FALSE);
 
-    gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button),
-                             gtk_list_box_get_row_at_index(GTK_LIST_BOX(viewer->listbox), 0) != NULL);
-    gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button),
-                             viewer->log != NULL && xfce_notify_log_has_unread_messages(viewer->log));
+    if (viewer->log != NULL) {
+        xfce_notify_org_xfce_notifyd_log_call_list(viewer->log,
+                                                   "",
+                                                   LOG_DISPLAY_LIMIT,
+                                                   FALSE,
+                                                   NULL,
+                                                   (GAsyncReadyCallback)xfce_notify_log_viewer_list_finshed,
+                                                   viewer);
+
+        xfce_notify_org_xfce_notifyd_log_call_has_unread(viewer->log, NULL, (GAsyncReadyCallback)has_unread_finished, viewer);
+    }
 }
 
 static void
 xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer) {
-    if (viewer->log == NULL) {
-        viewer->log = xfce_notify_log_open(NULL);
-        if (viewer->log != NULL) {
-            g_signal_connect_swapped(viewer->log, "changed",
-                                     G_CALLBACK(xfce_notify_log_viewer_log_changed), viewer);
-        }
-    }
-
-    if (viewer->log != NULL) {
+    if (G_LIKELY(viewer->log != NULL)) {
         xfce_notify_log_viewer_populate(viewer);
     }
 }
 
 static void
 xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
-    GtkWidget *dialog;
-    gint result;
-
-    dialog = xfce_notify_clear_log_dialog(viewer->log);
-    result = gtk_dialog_run(GTK_DIALOG(dialog));
-
-    if (result == GTK_RESPONSE_OK) {
-        /* Clear the listbox widget too in case the log is cleared */
-        GList *children = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
-        for (GList *l = children; l != NULL; l = l->next) {
-            gtk_container_remove(GTK_CONTAINER(viewer->listbox), GTK_WIDGET(l->data));
-        }
-        g_list_free(children);
-    }
-
+    GtkWidget *dialog = xfce_notify_clear_log_dialog(viewer->log);
+    gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }
 
 static void
-xfce_notify_log_viewer_mark_read(XfceNotifyLogViewer *viewer) {
-    GList *rows;
+added_row_fetched(GObject *source, GAsyncResult *res, XfceNotifyLogViewer *viewer) {
+    GVariant *entryv = NULL;
+    GError *error = NULL;
 
-    xfce_notify_log_mark_all_read(viewer->log);
+    if (!xfce_notify_org_xfce_notifyd_log_call_get_finish(XFCE_NOTIFY_ORG_XFCE_NOTIFYD_LOG(source),
+                                                          &entryv,
+                                                          res,
+                                                          &error))
+    {
+        g_warning("Failed to fetch added row: %s", error != NULL ? error->message : "(unknown)");
+        g_clear_error(&error);
+    } else {
+        XfceNotifyLogEntry *entry = notify_log_variant_to_entry(entryv);
+        if (G_LIKELY(entry != NULL)) {
+            gint icon_width, icon_height;
 
-    rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
-    for (GList *l = rows; l != NULL; l = l->next) {
-        GtkWidget *row = GTK_WIDGET(l->data);
-        XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
-        if (G_LIKELY(entry != NULL) && !entry->is_read) {
-            entry->is_read = TRUE;
-            update_log_entry_icon(GTK_LIST_BOX_ROW(row));
+            gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
+            xfce_notify_log_viewer_insert_entry(viewer,
+                                                entry,
+                                                0,
+                                                xfconf_channel_get_int(viewer->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE),
+                                                xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT),
+                                                MIN(icon_width, icon_height));
+
+            if (!entry->is_read) {
+                gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), TRUE);
+            }
+            gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), TRUE);
+
+            xfce_notify_log_entry_unref(entry);
+        }
+        g_variant_unref(entryv);
+    }
+}
+
+static void
+xfce_notify_log_viewer_log_row_added(XfceNotifyLogViewer *viewer, const gchar *entry_id) {
+    xfce_notify_org_xfce_notifyd_log_call_get(viewer->log, entry_id, NULL, (GAsyncReadyCallback)added_row_fetched, viewer);
+}
+
+typedef struct {
+    XfceNotifyLogViewer *viewer;
+    GtkWidget *row;
+} RowChangeData;
+
+static void
+changed_row_fetched(GSource *source, GAsyncResult *res, RowChangeData *data) {
+    GVariant *entryv = NULL;
+    GError *error = NULL;
+
+    if (!xfce_notify_org_xfce_notifyd_log_call_get_finish(XFCE_NOTIFY_ORG_XFCE_NOTIFYD_LOG(source),
+                                                          &entryv,
+                                                          res,
+                                                          &error))
+    {
+        g_warning("Failed to fetch changed row: %s", error != NULL ? error->message : "(unknown)");
+        g_clear_error(&error);
+    } else {
+        XfceNotifyLogEntry *entry = notify_log_variant_to_entry(entryv);
+        if (G_LIKELY(entry != NULL)) {
+            g_object_set_data_full(G_OBJECT(data->row), LOG_ENTRY_KEY, entry, (GDestroyNotify)xfce_notify_log_entry_unref);
+            update_log_entry_icon(GTK_LIST_BOX_ROW(data->row));
         }
     }
+
+    g_object_unref(data->viewer);
+    g_object_unref(data->row);
+    g_free(data);
+}
+
+static void
+xfce_notify_log_viewer_log_row_changed(XfceNotifyLogViewer *viewer, const gchar *entry_id) {
+    GList *rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
+    gboolean update_all = entry_id == NULL || entry_id[0] == '\0';
+
+    for (GList *l = rows; l != NULL; l = l->next) {
+        XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(l->data), LOG_ENTRY_KEY);
+        if (G_LIKELY(entry != NULL) && (update_all || g_strcmp0(entry_id, entry->id) == 0)) {
+            RowChangeData *data = g_new0(RowChangeData, 1);
+            data->viewer = g_object_ref(viewer);
+            data->row = g_object_ref(l->data);
+            xfce_notify_org_xfce_notifyd_log_call_get(viewer->log, entry->id, NULL, (GAsyncReadyCallback)changed_row_fetched, data);
+            if (!update_all) {
+                break;
+            }
+        }
+    }
+
+    xfce_notify_org_xfce_notifyd_log_call_has_unread(viewer->log, NULL, (GAsyncReadyCallback)has_unread_finished, viewer);
+
     g_list_free(rows);
 }
 
-static GList *
-find_matching_entry(GList *entries, XfceNotifyLogEntry *entry) {
-    for (GList *l = entries; l != NULL; l = l->next) {
-        XfceNotifyLogEntry *e = l->data;
-        if (g_strcmp0(e->id, entry->id) == 0) {
-            return l;
-        } else if (g_date_time_compare(e->timestamp, entry->timestamp) < 0) {
+static void
+xfce_notify_log_viewer_log_row_deleted(XfceNotifyLogViewer *viewer, const gchar *entry_id) {
+    GList *rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
+
+    for (GList *l = rows; l != NULL; l = l->next) {
+        XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(l->data), LOG_ENTRY_KEY);
+        if (G_LIKELY(entry != NULL) && g_strcmp0(entry_id, entry->id) == 0) {
+            gtk_container_remove(GTK_CONTAINER(viewer->listbox), GTK_WIDGET(l->data));
             break;
         }
     }
 
-    return NULL;
-}
+    g_list_free(rows);
 
-static gboolean
-update_log_idled(XfceNotifyLogViewer *viewer) {
-    XfceDateTimeFormat dt_format;
-    const gchar *custom_dt_format;
-    gint icon_width, icon_height, icon_size;
-    GList *rows;
-    GList *entries, *el;
-    GList *rows_remaining = NULL;
-    gint row_num = viewer->log_update_rows_remaining_index;
-
-    dt_format = xfconf_channel_get_int(viewer->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
-    custom_dt_format = xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, NULL);
-
-    gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
-    icon_size = MIN(icon_width, icon_height);
-
-    if (viewer->log_update_rows_remaining != NULL) {
-        DBG("subsequent run; using log rows remaining");
-        rows = viewer->log_update_rows_remaining;
-        viewer->log_update_rows_remaining = NULL;
-    } else {
-        DBG("first run, fetching all rows");
-        rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
-    }
-
-    entries = xfce_notify_log_read(viewer->log, viewer->log_udpate_last_entry_id, LOG_DISPLAY_LIMIT);
-    g_free(viewer->log_udpate_last_entry_id);
-    viewer->log_udpate_last_entry_id = NULL;
-    DBG("fetched %d entries from DB", g_list_length(entries));
-
-    el = entries;
-    for (GList *rl = rows; rl != NULL && el != NULL; rl = rl->next) {
-        GtkWidget *row = GTK_WIDGET(rl->data);
-        XfceNotifyLogEntry *row_entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
-
-        if (G_LIKELY(row_entry != NULL)) {
-            GList *matching;
-
-            DBG("checking row with id %s", row_entry->id);
-
-            matching = find_matching_entry(el, row_entry);
-            if (matching == NULL) {
-                // existing row is not in log; remove it
-                DBG("row not found in DB; removing");
-                gtk_container_remove(GTK_CONTAINER(viewer->listbox), row);
-            } else {
-                XfceNotifyLogEntry *matching_entry = matching->data;
-
-                DBG("row found");
-
-                // we might have some new entries before this one; if so, add them
-                while (matching != el) {
-                    XfceNotifyLogEntry *new_entry = el->data;
-
-                    DBG("inserting new entry %s before match", new_entry->id);
-                    xfce_notify_log_viewer_insert_entry(viewer, new_entry, row_num, dt_format, custom_dt_format, icon_size);
-                    xfce_notify_log_entry_unref(new_entry);
-
-                    ++row_num;
-                    el = el->next;
-                }
-
-                if (row_entry->is_read != matching_entry->is_read) {
-                    DBG("updating read state for %s", row_entry->id);
-                    row_entry->is_read = matching_entry->is_read;
-                    update_log_entry_icon(GTK_LIST_BOX_ROW(row));
-                }
-                ++row_num;
-
-                if (el->next == NULL) {
-                    DBG("no next entry from DB; updating last ID for next run");
-                    viewer->log_udpate_last_entry_id = g_strdup(matching_entry->id);
-                }
-                el = matching->next;
-
-                xfce_notify_log_entry_unref(matching_entry);
-            }
-        } else {
-            ++row_num;
-        }
-
-        rows_remaining = rl->next;
-    }
-
-    for (GList *l = el; l != NULL; l = l->next) {
-        XfceNotifyLogEntry *new_entry = l->data;
-
-        DBG("have some trailing rows; adding %s", new_entry->id);
-        xfce_notify_log_viewer_insert_entry(viewer, new_entry, row_num, dt_format, custom_dt_format, icon_size);
-        xfce_notify_log_entry_unref(new_entry);
-
-        if (el->next == NULL) {
-            viewer->log_udpate_last_entry_id = g_strdup(new_entry->id);
-        }
-
-        ++row_num;
-    }
-
-    g_list_free(entries);
-
-    if (rows_remaining != NULL) {
-        DBG("have more rows");
-
-        if (rows_remaining->prev != NULL) {
-            rows_remaining->prev->next = NULL;
-            rows_remaining->prev = NULL;
-        }
-        g_list_free(rows);
-
-        viewer->log_update_rows_remaining = rows_remaining;
-        viewer->log_update_rows_remaining_index = row_num;
-
-        return G_SOURCE_CONTINUE;
-    } else {
-        GList *last_row;
-
-        DBG("no more rows remaining; done updating");
-
-        viewer->log_update_id = 0;
-
-        g_free(viewer->last_entry_id);
-        viewer->last_entry_id = NULL;
-
-        last_row = g_list_last(rows);
-        if (G_LIKELY(last_row != NULL)) {
-            XfceNotifyLogEntry *last_entry = g_object_get_data(G_OBJECT(last_row->data), LOG_ENTRY_KEY);
-            if (G_LIKELY(last_entry != NULL)) {
-                viewer->last_entry_id = g_strdup(last_entry->id);
-            }
-        }
-
-        gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), xfce_notify_log_has_unread_messages(viewer->log));
-
-        return G_SOURCE_REMOVE;
-    }
-}
-
-static gboolean
-update_log_timeout(XfceNotifyLogViewer *viewer) {
-    viewer->log_update_id = g_idle_add((GSourceFunc)update_log_idled, viewer);
-    return G_SOURCE_REMOVE;
+    xfce_notify_org_xfce_notifyd_log_call_has_unread(viewer->log, NULL, (GAsyncReadyCallback)has_unread_finished, viewer);
 }
 
 static void
-xfce_notify_log_viewer_log_changed(XfceNotifyLogViewer *viewer) {
-    if (viewer->load_items_id != 0) {
-        viewer->log_update_pending = TRUE;
-    } else {
-        if (viewer->log_update_id != 0) {
-            g_source_remove(viewer->log_update_id);
-            viewer->log_update_id = 0;
+xfce_notify_log_viewer_log_truncated(XfceNotifyLogViewer *viewer, guint n_kept_entries) {
+    GList *rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
+    guint n = 0;
+
+    for (GList *l = rows; l != NULL; l = l->next) {
+        XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(l->data), LOG_ENTRY_KEY);
+        if (G_LIKELY(entry != NULL)) {
+            if (n > n_kept_entries) {
+                gtk_container_remove(GTK_CONTAINER(viewer->listbox), GTK_WIDGET(l->data));
+            }
+            ++n;
         }
-
-        g_free(viewer->log_udpate_last_entry_id);
-        viewer->log_udpate_last_entry_id = NULL;
-
-        g_list_free(viewer->log_update_rows_remaining);
-        viewer->log_update_rows_remaining = NULL;
-        viewer->log_update_rows_remaining_index = 0;
-
-        viewer->log_update_id = g_timeout_add_seconds(1, (GSourceFunc)update_log_timeout, viewer);
     }
+
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), n_kept_entries > 0);
+    xfce_notify_org_xfce_notifyd_log_call_has_unread(viewer->log, NULL, (GAsyncReadyCallback)has_unread_finished, viewer);
+
+    g_list_free(rows);
 }
 
-static gboolean
-scroll_to_bottom_idled(GtkAdjustment *adj) {
-    gtk_adjustment_set_value(adj, gtk_adjustment_get_upper(adj));
-    g_object_unref(adj);
-    return FALSE;
+static void
+xfce_notify_log_viewer_log_cleared(XfceNotifyLogViewer *viewer) {
+    GList *rows = gtk_container_get_children(GTK_CONTAINER(viewer->listbox));
+
+    for (GList *l = rows; l != NULL; l = l->next) {
+        gtk_container_remove(GTK_CONTAINER(viewer->listbox), GTK_WIDGET(l->data));
+    }
+
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), FALSE);
+
+    g_list_free(rows);
 }
 
-static gboolean
-load_items_idled(XfceNotifyLogViewer *viewer) {
-    GList *entries;
-
-    viewer->load_items_id = 0;
-
-    entries = xfce_notify_log_read(viewer->log, viewer->last_entry_id, LOG_DISPLAY_LIMIT);
-
-    if (G_LIKELY(viewer->loading_row != NULL)) {
-        gtk_widget_destroy(viewer->loading_row);
-        viewer->loading_row = NULL;
-    }
-
-    xfce_notify_log_viewer_append_entries(viewer, entries);
-    g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
-
-    if (viewer->log_update_pending) {
-        viewer->log_update_pending = FALSE;
-        xfce_notify_log_viewer_log_changed(viewer);
-    }
-
-    return FALSE;
+static void
+xfce_notify_log_viewer_mark_all_read(XfceNotifyLogViewer *viewer) {
+    xfce_notify_org_xfce_notifyd_log_call_mark_all_read(viewer->log, NULL, NULL, NULL);
 }
 
 static void
 xfce_notify_log_viewer_scroll_edge_reached(XfceNotifyLogViewer *viewer, GtkPositionType pos) {
-    if (viewer->log_update_id == 0 && pos == GTK_POS_BOTTOM && viewer->loading_row == NULL && viewer->log != NULL) {
+    if (pos == GTK_POS_BOTTOM && viewer->loading_row == NULL && viewer->log != NULL) {
         GtkWidget *row;
         GtkWidget *label;
+        GtkAdjustment *adj;
         gchar *label_text;
 
-        row = gtk_list_box_row_new();
+        viewer->loading_row = row = gtk_list_box_row_new();
         gtk_widget_show(row);
         gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), row, -1);
 
@@ -1026,21 +997,27 @@ xfce_notify_log_viewer_scroll_edge_reached(XfceNotifyLogViewer *viewer, GtkPosit
         gtk_widget_show(label);
         gtk_container_add(GTK_CONTAINER(row), label);
 
-        viewer->loading_row = row;
+        adj = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(viewer->scroller));
+        gtk_adjustment_set_value(adj, gtk_adjustment_get_upper(adj));
 
-        g_idle_add((GSourceFunc)scroll_to_bottom_idled,
-                   g_object_ref(gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(viewer->scroller))));
-        viewer->load_items_id = g_idle_add((GSourceFunc)load_items_idled, viewer);
+        xfce_notify_org_xfce_notifyd_log_call_list(viewer->log,
+                                                   viewer->last_entry_id != NULL ? viewer->last_entry_id : "",
+                                                   LOG_DISPLAY_LIMIT,
+                                                   FALSE,
+                                                   NULL,
+                                                   (GAsyncReadyCallback)xfce_notify_log_viewer_list_finshed,
+                                                   viewer);
 
         g_free(label_text);
     }
 }
 
 GtkWidget *
-xfce_notify_log_viewer_new(XfconfChannel *channel, XfceNotifyLog *log) {
+xfce_notify_log_viewer_new(XfconfChannel *channel,
+                           XfceNotifyOrgXfceNotifydLog *log) {
     return g_object_new(XFCE_TYPE_NOTIFY_LOG_VIEWER,
                         "orientation", GTK_ORIENTATION_VERTICAL,
                         "channel", channel,
-                        "log", log,
+                        "log-proxy", log,
                         NULL);
 }
