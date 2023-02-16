@@ -2,7 +2,8 @@
 
 <node name="/org/freedesktop/Notifications">
     <interface name="org.freedesktop.Notifications">
-       <annotation name="org.gtk.GDBus.C.Name" value="GBus" /> 
+        <annotation name="org.gtk.GDBus.C.Name" value="NotifyFdoGBus"/>
+
         <method name="GetCapabilities">
             <arg direction="out" name="capabilities" type="as"/>
         </method>
@@ -43,6 +44,9 @@
     </interface>
     
     <interface name="org.xfce.Notifyd">
-        <method name="Quit"/>
+        <annotation name="org.gtk.GDBus.C.Name" value="NotifyOldGBus"/>
+        <method name="Quit">
+            <annotation name="org.freedesktop.DBus.Deprecated" value="true"/>
+        </method>
     </interface>
 </node>
