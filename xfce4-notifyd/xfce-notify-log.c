@@ -21,6 +21,8 @@
 #include <config.h>
 #endif
 
+#include <sqlite3.h>
+
 #include <gio/gio.h>
 
 #include <libxfce4util/libxfce4util.h>
@@ -69,7 +71,6 @@ typedef enum {
     XFCE_NOTIFY_QUEUE_ITEM_WRITE,
     XFCE_NOTIFY_QUEUE_ITEM_MARK_READ,
     XFCE_NOTIFY_QUEUE_ITEM_DELETE,
-    XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE,
     XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE,
 } XfceNotifyLogQueueItemType;
 
@@ -78,7 +79,6 @@ typedef struct {
     union {
         XfceNotifyLogEntry *entry;
         gchar *id;
-        GDateTime *timestamp;
         guint count;
     } param;
 } XfceNotifyLogQueueItem;
@@ -112,7 +112,11 @@ typedef struct _XfceNotifyLog {
 } XfceNotifyLog;
 
 enum {
-    SIG_CHANGED = 0,
+    SIG_ROW_ADDED,
+    SIG_ROW_CHANGED,
+    SIG_ROW_DELETED,
+    SIG_TRUNCATED,
+    SIG_CLEARED,
 
     N_SIGNALS,
 };
@@ -135,17 +139,6 @@ static gboolean prepare_statements(XfceNotifyLog *log,
 static gboolean ensure_tables(XfceNotifyLog *log,
                               GError **error);
 
-static void db_changed_callback(void *data,
-                                int what,
-                                char const *database,
-                                char const *table,
-                                sqlite_int64 rowid);
-static void db_file_changed(GFileMonitor *monitor,
-                            GFile *file,
-                            GFile *other_file,
-                            GFileMonitorEvent event_type,
-                            XfceNotifyLog *log);
-
 static gboolean process_write_queue(gpointer data);
 static void queue_write(XfceNotifyLog *log, XfceNotifyLogQueueItem *item);
 
@@ -164,7 +157,48 @@ xfce_notify_log_class_init(XfceNotifyLogClass *klass) {
 
     gobject_class->finalize = xfce_notify_log_finalize;
 
-    log_signals[SIG_CHANGED] = g_signal_new("changed",
+    log_signals[SIG_ROW_ADDED] = g_signal_new("row-added",
+                                              XFCE_TYPE_NOTIFY_LOG,
+                                              G_SIGNAL_RUN_LAST,
+                                              0,
+                                              NULL,
+                                              NULL,
+                                              g_cclosure_marshal_VOID__STRING,
+                                              G_TYPE_NONE, 1,
+                                              G_TYPE_STRING);
+
+    log_signals[SIG_ROW_CHANGED] = g_signal_new("row-changed",
+                                                XFCE_TYPE_NOTIFY_LOG,
+                                                G_SIGNAL_RUN_LAST,
+                                                0,
+                                                NULL,
+                                                NULL,
+                                                g_cclosure_marshal_VOID__STRING,
+                                                G_TYPE_NONE, 1,
+                                                G_TYPE_STRING);
+
+    log_signals[SIG_ROW_DELETED] = g_signal_new("row-deleted",
+                                                XFCE_TYPE_NOTIFY_LOG,
+                                                G_SIGNAL_RUN_LAST,
+                                                0,
+                                                NULL,
+                                                NULL,
+                                                g_cclosure_marshal_VOID__STRING,
+                                                G_TYPE_NONE, 1,
+                                                G_TYPE_STRING);
+
+
+    log_signals[SIG_TRUNCATED] = g_signal_new("truncated",
+                                              XFCE_TYPE_NOTIFY_LOG,
+                                              G_SIGNAL_RUN_LAST,
+                                              0,
+                                              NULL,
+                                              NULL,
+                                              g_cclosure_marshal_VOID__UINT,
+                                              G_TYPE_NONE, 1,
+                                              G_TYPE_UINT);
+
+    log_signals[SIG_CLEARED] = g_signal_new("cleared",
                                             XFCE_TYPE_NOTIFY_LOG,
                                             G_SIGNAL_RUN_LAST,
                                             0,
@@ -219,14 +253,6 @@ xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellabl
             sqlite3_db_config(log->db, SQLITE_DBCONFIG_DEFENSIVE, 1, NULL);
 
             migrate_old_keyfile(log);
-
-            sqlite3_update_hook(log->db,
-                                db_changed_callback,
-                                log);
-
-            log->monitor = g_file_monitor_file(log_file, G_FILE_MONITOR_NONE, NULL, NULL);
-            g_signal_connect(log->monitor, "changed",
-                             G_CALLBACK(db_file_changed), log);
         }
 
         g_object_unref(log_file);
@@ -412,22 +438,6 @@ prepare_statements(XfceNotifyLog *log, GError **error) {
     return TRUE;
 #undef COLUMN_NAMES
 #undef PREPARE_CHECKED
-}
-
-static void
-db_changed_callback(void *data, int what, char const *database, char const *table, sqlite_int64 rowid) {
-    XfceNotifyLog *log = XFCE_NOTIFY_LOG(data);
-    g_signal_emit(log, log_signals[SIG_CHANGED], 0, NULL);
-}
-
-static void
-db_file_changed(GFileMonitor *monitor,
-                GFile *file,
-                GFile *other_file,
-                GFileMonitorEvent event_type,
-                XfceNotifyLog *log)
-{
-    g_signal_emit(log, log_signals[SIG_CHANGED], 0, NULL);
 }
 
 static gboolean
@@ -925,40 +935,6 @@ xfce_notify_log_delete(XfceNotifyLog *log, const gchar *id) {
 }
 
 static int
-xfce_notify_log_real_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
-    int rc;
-
-    rc = sqlite3_bind_int64(log->stmt_delete,
-                            BIND_INDEX(log->stmt_delete, COL_TIMESTAMP),
-                            g_date_time_to_unix(oldest_to_keep));
-    if (G_LIKELY(rc == SQLITE_OK)) {
-        rc = sqlite3_step(log->stmt_delete);
-    }
-
-    if (G_UNLIKELY(rc != SQLITE_DONE)) {
-        g_warning("Failed to delete log entries %s", sqlite3_errmsg(log->db));
-    }
-
-    sqlite3_reset(log->stmt_delete_before);
-    sqlite3_clear_bindings(log->stmt_delete_before);
-
-    return rc;
-}
-
-void
-xfce_notify_log_delete_before(XfceNotifyLog *log, GDateTime *oldest_to_keep) {
-    XfceNotifyLogQueueItem *item;
-
-    g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
-    g_return_if_fail(oldest_to_keep != NULL);
-
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE;
-    item->param.timestamp = g_date_time_ref(oldest_to_keep);
-    queue_write(log, item);
-}
-
-static int
 xfce_notify_log_real_clear(XfceNotifyLog *log) {
     int rc;
 
@@ -1022,7 +998,15 @@ xfce_notify_log_real_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
         if (n_entries > n_entries_to_keep) {
             // n_entries guaranteed to be >= 2 here, thus entries != NULL and last != NULL and last->prev != NULL
             XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
-            rc = xfce_notify_log_real_delete_before(log, last_entry_to_keep->timestamp);
+            rc = sqlite3_bind_int64(log->stmt_delete_before,
+                                    BIND_INDEX(log->stmt_delete_before, COL_TIMESTAMP),
+                                    g_date_time_to_unix(last_entry_to_keep->timestamp) * 1000000 + g_date_time_get_microsecond(last_entry_to_keep->timestamp));
+            if (rc == SQLITE_OK) {
+                rc = sqlite3_step(log->stmt_delete_before);
+            }
+
+            sqlite3_reset(log->stmt_delete_before);
+            sqlite3_clear_bindings(log->stmt_delete_before);
         } else {
             rc = SQLITE_OK;
         }
@@ -1045,46 +1029,6 @@ xfce_notify_log_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
     queue_write(log, item);
 }
 
-static inline void
-xfce_notify_log_entry_action_free(XfceNotifyLogEntryAction *action) {
-    g_free(action->id);
-    g_free(action->label);
-    g_free(action);
-}
-
-XfceNotifyLogEntry *
-xfce_notify_log_entry_new_empty(void) {
-    XfceNotifyLogEntry *entry = g_new0(XfceNotifyLogEntry, 1);
-    g_atomic_ref_count_init(&entry->ref_count);
-    return entry;
-}
-
-XfceNotifyLogEntry *
-xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry) {
-    g_return_val_if_fail(entry != NULL, NULL);
-    g_atomic_ref_count_inc(&entry->ref_count);
-    return entry;
-}
-
-void
-xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry) {
-    g_return_if_fail(entry != NULL);
-
-    if (g_atomic_ref_count_dec(&entry->ref_count)) {
-        g_free(entry->id);
-        if (G_LIKELY(entry->timestamp != NULL)) {
-            g_date_time_unref(entry->timestamp);
-        }
-        g_free(entry->app_id);
-        g_free(entry->app_name);
-        g_free(entry->icon_id);
-        g_free(entry->summary);
-        g_free(entry->body);
-        g_list_free_full(entry->actions, (GDestroyNotify)xfce_notify_log_entry_action_free);
-        g_free(entry);
-    }
-}
-
 static void
 xfce_notify_log_queue_item_free(XfceNotifyLogQueueItem *item) {
     g_return_if_fail(item != NULL);
@@ -1097,10 +1041,6 @@ xfce_notify_log_queue_item_free(XfceNotifyLogQueueItem *item) {
         case XFCE_NOTIFY_QUEUE_ITEM_MARK_READ:
         case XFCE_NOTIFY_QUEUE_ITEM_DELETE:
             g_free(item->param.id);
-            break;
-
-        case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
-            g_date_time_unref(item->param.timestamp);
             break;
 
         case XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE:
@@ -1122,34 +1062,45 @@ process_write_queue(gpointer data) {
 
     while ((item = g_queue_pop_head(log->write_queue)) != NULL) {
         int rc;
+        GValue signal_params[2] = { G_VALUE_INIT, G_VALUE_INIT };
+        guint sig_id = 0;
 
         switch (item->type) {
             case XFCE_NOTIFY_QUEUE_ITEM_WRITE:
                 rc = xfce_notify_log_real_write(log, item->param.entry);
+                g_value_init(&signal_params[1], G_TYPE_STRING);
+                g_value_set_string(&signal_params[1], item->param.entry->id);
+                sig_id = log_signals[SIG_ROW_ADDED];
                 break;
 
             case XFCE_NOTIFY_QUEUE_ITEM_MARK_READ:
                 if (item->param.id != NULL) {
                     rc = xfce_notify_log_real_mark_read(log, item->param.id);
+                    g_value_init(&signal_params[1], G_TYPE_STRING);
+                    g_value_set_string(&signal_params[1], item->param.id);
                 } else {
                     rc = xfce_notify_log_real_mark_all_read(log);
                 }
+                sig_id = log_signals[SIG_ROW_CHANGED];
                 break;
 
             case XFCE_NOTIFY_QUEUE_ITEM_DELETE:
                 if (item->param.id != NULL) {
                     rc = xfce_notify_log_real_delete(log, item->param.id);
+                    g_value_init(&signal_params[1], G_TYPE_STRING);
+                    g_value_set_string(&signal_params[1], item->param.id);
+                    sig_id = log_signals[SIG_ROW_DELETED];
                 } else {
                     rc = xfce_notify_log_real_clear(log);
+                    sig_id = log_signals[SIG_CLEARED];
                 }
-                break;
-
-            case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
-                rc = xfce_notify_log_real_delete_before(log, item->param.timestamp);
                 break;
 
             case XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE:
                 rc = xfce_notify_log_real_truncate(log, item->param.count);
+                g_value_init(&signal_params[1], G_TYPE_UINT);
+                g_value_set_uint(&signal_params[1], item->param.count);
+                sig_id = log_signals[SIG_TRUNCATED];
                 break;
 
             default:
@@ -1177,10 +1128,6 @@ process_write_queue(gpointer data) {
                         g_warning("Failed to delete item(s) from DB: %s", sqlite3_errstr(rc));
                         break;
 
-                    case XFCE_NOTIFY_QUEUE_ITEM_DELETE_BEFORE:
-                        g_warning("Failed to delete items from DB: %s", sqlite3_errstr(rc));
-                        break;
-
                     case XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE:
                         g_warning("Failed to truncate DB: %s", sqlite3_errstr(rc));
                         break;
@@ -1189,6 +1136,11 @@ process_write_queue(gpointer data) {
                         g_assert_not_reached();
                         break;
                 }
+            } else if (sig_id != 0 && sqlite3_changes(log->db) > 0) {
+                g_value_init_from_instance(&signal_params[0], log);
+                g_signal_emitv(signal_params, sig_id, 0, NULL);
+                g_value_unset(&signal_params[0]);
+                g_value_unset(&signal_params[1]);
             }
 
             xfce_notify_log_queue_item_free(item);
