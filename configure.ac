@@ -119,34 +119,6 @@ if test x"$GDBUS_CODEGEN" = x"no"; then
   a custom location for it.])
 fi
 
-dnl legacy support
-AC_ARG_ENABLE([old-notification-closed-signature],
-              [AS_HELP_STRING([--enable-old-notification-closed-signature],
-                              [Use the old NotificationClosed signal signature that leaves out the 'reason' parameter.  You want to enable this if your system has libnotify 0.4.4 or earlier.])],
-              [use_old_nc_sig=$enableval], [use_old_nc_sig=no])
-AS_IF([test "x$use_old_nc_sig" = "xyes"],
-      [AC_DEFINE([USE_OLD_NOTIFICATION_CHANGED_SIGNATURE], [1],
-                 [Set if we should use the old NotificationClosed signal signature])])
-
-dnl legacy support
-AC_ARG_ENABLE([old-get-server-information-signature],
-              [AS_HELP_STRING([--enable-old-get-server-information-signature],
-                              [Use the old GetServerInformation method signature that leaves out the 'spec_version' parameter. (default=no)])],
-              [use_old_gsi_sig=$enableval], [use_old_gsi_sig=no])
-AS_IF([test "x$use_old_gsi_sig" = "xyes"],
-      [AC_DEFINE([USE_OLD_GET_SERVER_INFORMATION_SIGNATURE], [1],
-                 [Set if we should use the old GetServerInformation method signature])])
-AM_CONDITIONAL([USE_OLD_GET_SERVER_INFORMATION_SIGNATURE],
-               [test "x$use_old_gsi_sig" = "xyes"])
-
-dnl dbus start daemon
-AC_ARG_ENABLE([dbus-start-daemon],
-              [AS_HELP_STRING([--enable-dbus-start-daemon],
-                              [Start daemon via DBus instead of regular session autostart. (default=no)])],
-              [use_dbus_start_daemon=$enableval], [use_dbus_start_daemon=no])
-AM_CONDITIONAL([USE_DBUS_START_DAEMON],
-               [test "x$use_dbus_start_daemon" = "xyes"])
-
 dnl create #define for spec version
 AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
                    [Set to the version of the freedesktop.org notifications spec we support])
