@@ -1139,10 +1139,10 @@ process_write_queue(gpointer data) {
             } else if (sig_id != 0 && sqlite3_changes(log->db) > 0) {
                 g_value_init_from_instance(&signal_params[0], log);
                 g_signal_emitv(signal_params, sig_id, 0, NULL);
-                g_value_unset(&signal_params[0]);
-                g_value_unset(&signal_params[1]);
             }
 
+            g_value_unset(&signal_params[0]);
+            g_value_unset(&signal_params[1]);
             xfce_notify_log_queue_item_free(item);
         }
 
