@@ -253,11 +253,96 @@ notification_plugin_dnd_updated (XfconfChannel *channel,
 
 
 static void
-cb_notification_log_changed(XfceNotifyLog *log,
-                            NotificationPlugin *notification_plugin)
+notification_plugin_has_unread_ready(GObject *source,
+                                     GAsyncResult *res,
+                                     NotificationPlugin *notification_plugin)
 {
-  notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(notification_plugin->log);
-  notification_plugin_update_icon(notification_plugin);
+    gboolean success;
+    gboolean has_unread = FALSE;
+    GError *error = NULL;
+
+    success = xfce_notify_log_gbus_call_has_unread_finish(XFCE_NOTIFY_LOG_GBUS(source),
+                                                          &has_unread,
+                                                          res,
+                                                          &error);
+    if (G_UNLIKELY(!success)) {
+        g_warning("Unable to check for unread messages: %s", error != NULL ? error->message : "(unknown)");
+        if (error != NULL) {
+            g_error_free(error);
+        }
+    }
+
+    notification_plugin->new_notifications = has_unread;
+    notification_plugin_update_icon(notification_plugin);
+}
+
+
+
+static void
+notification_plugin_log_changed(NotificationPlugin *notification_plugin) {
+  xfce_notify_log_gbus_call_has_unread(notification_plugin->log,
+                                       NULL,
+                                       (GAsyncReadyCallback)notification_plugin_has_unread_ready,
+                                       notification_plugin);
+}
+
+
+
+static void
+notification_plugin_bus_proxy_connected(GObject *source,
+                                        GAsyncResult *res,
+                                        NotificationPlugin *notification_plugin)
+{
+  GError *error = NULL;
+
+  notification_plugin->log = xfce_notify_log_gbus_proxy_new_finish(res, &error);
+  if (G_UNLIKELY(notification_plugin->log == NULL)) {
+    g_warning("Could not connect to notification daemon; log will be unavailable: %s", error != NULL ? error->message : "(unknown)");
+    if (error != NULL) {
+      g_error_free(error);
+    }
+  } else {
+    g_signal_connect_swapped(notification_plugin->log, "row-added",
+                             G_CALLBACK(notification_plugin_log_changed), notification_plugin);
+    g_signal_connect_swapped(notification_plugin->log, "row-changed",
+                             G_CALLBACK(notification_plugin_log_changed), notification_plugin);
+    g_signal_connect_swapped(notification_plugin->log, "row-deleted",
+                             G_CALLBACK(notification_plugin_log_changed), notification_plugin);
+    g_signal_connect_swapped(notification_plugin->log, "truncated",
+                             G_CALLBACK(notification_plugin_log_changed), notification_plugin);
+    g_signal_connect_swapped(notification_plugin->log, "cleared",
+                             G_CALLBACK(notification_plugin_log_changed), notification_plugin);
+    xfce_notify_log_gbus_call_has_unread(notification_plugin->log,
+                                         NULL,
+                                         (GAsyncReadyCallback)notification_plugin_has_unread_ready,
+                                         notification_plugin);
+  }
+}
+
+
+
+  static void
+notification_plugin_bus_connected(GObject *source,
+                                  GAsyncResult *res,
+                                  NotificationPlugin *notification_plugin)
+{
+  GError *error = NULL;
+
+  notification_plugin->gbus = g_bus_get_finish(res, &error);
+  if (G_UNLIKELY(notification_plugin->gbus == NULL)) {
+    g_warning("Could not connect to session bus; log will be unavailable: %s", error != NULL ? error->message : "(unknown)");
+    if (error != NULL) {
+      g_error_free(error);
+    }
+  } else {
+    xfce_notify_log_gbus_proxy_new(notification_plugin->gbus,
+                                   0,
+                                   "org.xfce.Notifyd",
+                                   "/org/xfce/Notifyd",
+                                   NULL,
+                                   (GAsyncReadyCallback)notification_plugin_bus_proxy_connected,
+                                   notification_plugin);
+  }
 }
 
 
@@ -266,22 +351,10 @@ static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotificationPlugin    *notification_plugin;
-  GError *error = NULL;
 
   /* Allocate memory for the plugin structure */
   notification_plugin = g_slice_new0 (NotificationPlugin);
   notification_plugin->plugin = panel_plugin;
-
-  notification_plugin->log = xfce_notify_log_open(&error);
-  if (notification_plugin->log == NULL) {
-    notification_plugin->new_notifications = FALSE;
-    g_critical("Unable to open notification log: %s", error->message);
-    g_error_free(error);
-  } else {
-    notification_plugin->new_notifications = xfce_notify_log_has_unread_messages(notification_plugin->log);
-    g_signal_connect(notification_plugin->log, "changed",
-                     G_CALLBACK(cb_notification_log_changed), notification_plugin);
-  }
 
   /* Initialize xfconf */
   xfconf_init (NULL);
@@ -324,6 +397,11 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   g_signal_connect (G_OBJECT (notification_plugin->channel), "property-changed::" "/do-not-disturb",
                     G_CALLBACK (notification_plugin_dnd_updated), notification_plugin);
 
+  g_bus_get(G_BUS_TYPE_SESSION,
+            NULL,
+            (GAsyncReadyCallback)notification_plugin_bus_connected,
+            notification_plugin);
+
   return notification_plugin;
 }
 
@@ -335,8 +413,11 @@ notification_plugin_free (XfcePanelPlugin *plugin,
 {
   GtkWidget *dialog;
 
-  if (notification_plugin->log) {
+  if (notification_plugin->log != NULL) {
       g_object_unref(notification_plugin->log);
+  }
+  if (notification_plugin->gbus != NULL) {
+      g_object_unref(notification_plugin->gbus);
   }
 
   g_signal_handlers_disconnect_by_func(gtk_icon_theme_get_default(),
