@@ -593,7 +593,7 @@ xfce_notify_log_viewer_insert_entry(XfceNotifyLogViewer *viewer,
     gint scale_factor = gtk_widget_get_scale_factor(GTK_WIDGET(viewer));
     GtkWidget *row, *eventbox, *hbox;
     GtkWidget *summary, *timestamp, *body = NULL, *app_icon = NULL;
-    const gchar *app_name = entry->app_name != NULL ? entry->app_name : entry->app_id;
+    const gchar *app_name = entry->app_name != NULL && entry->app_name[0] != '\0' ? entry->app_name : entry->app_id;
     gchar *timestamp_text;
     gchar *summary_text;
     gchar *body_text;

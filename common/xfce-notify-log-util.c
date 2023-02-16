@@ -512,7 +512,7 @@ notify_log_format_summary(const gchar *summary) {
 
 gchar *
 notify_log_format_body(const gchar *body) {
-    if (g_strcmp0(body, "") == 0) {
+    if (body == NULL || body[0] == '\0') {
         return NULL;
     } else if (xfce_notify_is_markup_valid(body)) {
         return g_strdup(body);
@@ -532,7 +532,7 @@ notify_log_load_icon(const gchar *notify_log_icon_folder,
     GdkPixbuf *pixbuf = NULL;
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
 
-    if (icon_id != NULL) {
+    if (icon_id != NULL && icon_id[0] != '\0') {
         if (g_path_is_absolute(icon_id)
             && g_file_test(icon_id, G_FILE_TEST_EXISTS)
             && !g_file_test(icon_id, G_FILE_TEST_IS_DIR))
@@ -560,7 +560,7 @@ notify_log_load_icon(const gchar *notify_log_icon_folder,
         }
     }
 
-    if (pixbuf == NULL) {
+    if (pixbuf == NULL && app_id != NULL && app_id[0] != '\0') {
         gchar *app_icon_name = notify_get_from_desktop_file(app_id, "Icon");
 
         if (app_icon_name != NULL) {

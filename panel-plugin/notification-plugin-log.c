@@ -243,7 +243,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
         }
       }
 
-      app_name = entry->app_name != NULL ? entry->app_name : entry->app_id;
+      app_name = entry->app_name != NULL && entry->app_name[0] != '\0' ? entry->app_name : entry->app_id;
       timestamp_text = notify_log_format_timestamp(entry->timestamp, dt_format, custom_dt_format);
       summary_text = notify_log_format_summary(entry->summary);
       body_text = notify_log_format_body(entry->body);
