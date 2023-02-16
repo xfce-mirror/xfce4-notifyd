@@ -45,17 +45,22 @@ po/Makefile.in.in
 po/POTFILES
 po/*.gmo
 
+common/xfce-notify-log-gbus.c
+common/xfce-notify-log-gbus.h
+
 xfce4-notifyd-config/xfce4-notifyd-config
 xfce4-notifyd-config/xfce4-notifyd-config.desktop
 xfce4-notifyd-config/xfce4-notifyd-config.ui.h
 xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
 
 xfce4-notifyd/notify-dbus.h
-xfce4-notifyd/org.xfce.xfce4-notifyd.Notifications.service
+xfce4-notifyd/*.service
 xfce4-notifyd/xfce-notify-enum-types.c
 xfce4-notifyd/xfce-notify-enum-types.h
 xfce4-notifyd/xfce-notify-marshal.c
 xfce4-notifyd/xfce-notify-marshal.h
+xfce4-notifyd/xfce-notify-fdo-gbus.c
+xfce4-notifyd/xfce-notify-fdo-gbus.h
 xfce4-notifyd/xfce-notify-gbus.c
 xfce4-notifyd/xfce-notify-gbus.h
 xfce4-notifyd/xfce4-notifyd.service

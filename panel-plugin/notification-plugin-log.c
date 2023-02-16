@@ -35,7 +35,8 @@
 #include <libxfce4panel/libxfce4panel.h>
 
 #include <common/xfce-notify-common.h>
-#include <common/xfce-notify-log.h>
+#include <common/xfce-notify-log-gbus.h>
+#include <common/xfce-notify-log-types.h>
 #include <common/xfce-notify-log-util.h>
 
 #include "notification-plugin.h"
@@ -91,7 +92,7 @@ notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
   GtkWidget *dialog;
 	
   if (xfconf_channel_get_bool (notification_plugin->channel, SETTING_HIDE_CLEAR_PROMPT, FALSE)) {
-    xfce_notify_log_clear(notification_plugin->log);
+    xfce_notify_log_gbus_call_clear(notification_plugin->log, NULL, NULL, NULL);
   } else {
     dialog = xfce_notify_clear_log_dialog(notification_plugin->log);
     gtk_dialog_run (GTK_DIALOG (dialog));
@@ -102,7 +103,7 @@ notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
 
 static void
 notification_plugin_mark_all_read(GtkWidget *widget, NotificationPlugin *notification_plugin) {
-  xfce_notify_log_mark_all_read(notification_plugin->log);
+  xfce_notify_log_gbus_call_mark_all_read(notification_plugin->log, NULL, NULL, NULL);
 }
 
 
@@ -123,6 +124,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   const gchar *after_menu_shown;
   gboolean mark_shown_read;
   gboolean mark_all_read;
+  gboolean has_error = FALSE;
   gboolean no_notifications = FALSE;
   GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->button);
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
@@ -172,11 +174,16 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   gtk_widget_show (mi);
 
-  if (notification_plugin->log != NULL) {
-    GList *entries;
+  has_error = notification_plugin->log == NULL;
+
+  if (!has_error) {
+    GVariant *entriesv = NULL;
+    GList *entries = NULL;
+    GList *entries_shown = NULL;
     int log_display_limit;
     int numberof_notifications_shown = 0;
     gboolean log_only_today;
+    GError *error = NULL;
 
     log_display_limit = xfconf_channel_get_int (notification_plugin->channel,
                                                 SETTING_LOG_DISPLAY_LIMIT, -1);
@@ -185,10 +192,22 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     if (log_display_limit == -1)
       log_display_limit = DEFAULT_LOG_DISPLAY_LIMIT;
 
-    if (only_unread) {
-        entries = xfce_notify_log_read_unread(notification_plugin->log, NULL, log_display_limit);
+    if (!xfce_notify_log_gbus_call_list_sync(notification_plugin->log,
+                                             "",
+                                             log_display_limit,
+                                             only_unread,
+                                             &entriesv,
+                                             NULL,
+                                             &error))
+    {
+        g_warning("Failed to fetch log entries: %s", error != NULL ? error->message : "(unknown)");
+        if (error != NULL) {
+            g_error_free(error);
+        }
+        has_error = TRUE;
     } else {
-        entries = xfce_notify_log_read(notification_plugin->log, NULL, log_display_limit);
+        entries = notify_log_variant_to_entries(entriesv);
+        g_variant_unref(entriesv);
     }
 
     /* Check if the menu is going to be empty despite there being a log file, e.g.
@@ -284,9 +303,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
       gtk_widget_show_all(mi);
 
-      if (mark_shown_read && !entry->is_read) {
-        xfce_notify_log_mark_read(notification_plugin->log, entry->id);
-      }
+      entries_shown = g_list_prepend(entries_shown, entry);
 
       g_free(timestamp_text);
       g_free(summary_text);
@@ -296,28 +313,38 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       if (icon != NULL) {
           cairo_surface_destroy(icon);
       }
-      xfce_notify_log_entry_unref(entry);
     }
-
-    g_list_free(entries);
 
     if (numberof_notifications_shown > 0)
       no_notifications = FALSE;
+
+    if (mark_all_read) {
+      xfce_notify_log_gbus_call_mark_all_read(notification_plugin->log, NULL, NULL, NULL);
+    } else if (mark_shown_read && entries_shown != NULL) {
+        gchar **ids = g_new0(gchar *, g_list_length(entries_shown) + 1);
+        guint i = 0;
+
+        for (GList *l = entries_shown; l != NULL; l = l->next, ++i) {
+            ids[i] = ((XfceNotifyLogEntry *)l->data)->id;
+        }
+        xfce_notify_log_gbus_call_mark_read(notification_plugin->log, (const gchar *const *)ids, NULL, NULL, NULL);
+
+        g_free(ids);
+    }
+
+    g_list_free(entries_shown);
+    g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
   }
 
   g_date_time_unref (today);
   g_free(custom_dt_format);
 
-  if (notification_plugin->log != NULL && mark_all_read) {
-    xfce_notify_log_mark_all_read(notification_plugin->log);
-  }
-
   /* Show a placeholder label when there are no notifications */
-  if (notification_plugin->log == NULL || no_notifications) {
+  if (has_error || no_notifications) {
     GtkStyleContext *context;
     GtkBorder padding;
     mi = gtk_menu_item_new ();
-    if (notification_plugin->log == NULL) {
+    if (has_error) {
       label = gtk_label_new(_("Unable to open notification log"));
     } else if (only_unread) {
       label = gtk_label_new(_("No unread notifications"));
@@ -353,7 +380,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   g_signal_connect (mi, "activate", G_CALLBACK (notification_plugin_clear_log_dialog),
                     notification_plugin);
 
-  image = gtk_image_new_from_icon_name("notification-new-symbolic", GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_icon_name("checkbox-checked-symbolic", GTK_ICON_SIZE_MENU);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   mi = gtk_image_menu_item_new_with_mnemonic(_("_Mark all read"));
   gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), image);
