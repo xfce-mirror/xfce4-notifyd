@@ -263,11 +263,22 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                "xalign", 1.0,
                                NULL);
       if (body_text != NULL) {
+        gchar *p = strchr(body_text, '\n');
+        if (p != NULL) {
+          p = strchr(p + 1, '\n');
+          if (p != NULL) {
+            *p = '\0';
+          }
+        }
+
         body = g_object_new(GTK_TYPE_LABEL,
                             "use-markup", TRUE,
                             "label", body_text,
+                            "lines", 1,
                             "max-width-chars", 60,
                             "ellipsize", PANGO_ELLIPSIZE_END,
+                            "wrap", TRUE,
+                            "wrap-mode", PANGO_WRAP_WORD_CHAR,
                             "xalign", 0.0,
                             NULL);
       }
