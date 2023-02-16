@@ -115,6 +115,7 @@ xfce-notify-fdo-gbus.h xfce-notify-fdo-gbus.c: $(srcdir)/xfce-notify-fdo-dbus.xm
 	--interface-prefix org.freedesktop.Notifications \
 	--c-namespace Xfce 	\
 	--generate-c-code xfce-notify-fdo-gbus \
+	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
 	$<
 
 xfce-notify-gbus.h xfce-notify-gbus.c: $(srcdir)/xfce-notify-dbus.xml Makefile
@@ -122,6 +123,7 @@ xfce-notify-gbus.h xfce-notify-gbus.c: $(srcdir)/xfce-notify-dbus.xml Makefile
 	--interface-prefix org.xfce.Notifyd \
 	--c-namespace Xfce 	\
 	--generate-c-code xfce-notify-gbus \
+	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
 	$<
 
 if MAINTAINER_MODE
