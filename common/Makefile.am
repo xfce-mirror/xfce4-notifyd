@@ -36,6 +36,7 @@ xfce-notify-log-gbus.h xfce-notify-log-gbus.c: $(srcdir)/xfce-notify-log-dbus.xm
 	--interface-prefix org.xfce.Notifyd.Log \
 	--c-namespace Xfce \
 	--generate-c-code xfce-notify-log-gbus \
+	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
 	$<
 
 dist_noinst_DATA = \
