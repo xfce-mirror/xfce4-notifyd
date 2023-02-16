@@ -21,33 +21,13 @@
 #define __XFCE_NOTIFY_LOG_H__
 
 #include <glib-object.h>
-#include <sqlite3.h>
+
+#include <common/xfce-notify-log-types.h>
 
 G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE(XfceNotifyLog, xfce_notify_log, XFCE, NOTIFY_LOG, GObject)
 #define XFCE_TYPE_NOTIFY_LOG (xfce_notify_log_get_type())
-
-typedef struct _XfceNotifyLogEntryAction {
-    gchar *id;
-    gchar *label;
-} XfceNotifyLogEntryAction;
-
-typedef struct _XfceNotifyLogEntry {
-    gchar *id;
-    GDateTime *timestamp;
-    gchar *app_id;
-    gchar *app_name;
-    gchar *icon_id;
-    gchar *summary;
-    gchar *body;
-    GList *actions;
-    gint expire_timeout;
-    gboolean is_read;
-
-    /*< private >*/
-    gatomicrefcount ref_count;
-} XfceNotifyLogEntry;
 
 XfceNotifyLog *xfce_notify_log_open(GError **error);
 
@@ -72,16 +52,10 @@ void xfce_notify_log_mark_all_read(XfceNotifyLog *log);
 
 void xfce_notify_log_delete(XfceNotifyLog *log,
                             const gchar *id);
-void xfce_notify_log_delete_before(XfceNotifyLog *log,
-                                   GDateTime *oldest_to_keep);
 void xfce_notify_log_truncate(XfceNotifyLog *log,
                               guint n_entries_to_keep);
 
 void xfce_notify_log_clear(XfceNotifyLog *log);
-
-XfceNotifyLogEntry *xfce_notify_log_entry_new_empty(void);
-XfceNotifyLogEntry *xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry);
-void xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry);
 
 G_END_DECLS
 

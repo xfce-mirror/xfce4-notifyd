@@ -350,7 +350,7 @@ static void xfce_notify_clear_icon_cache (void)
 }
 
 typedef struct {
-    XfceNotifyLog *log;
+    XfceNotifyLogGBus *log;
     GtkWidget *include_log;
 } ClearLogResponseData;
 
@@ -361,7 +361,7 @@ xfce_notify_clear_log_dialog_cb(GtkWidget *dialog, gint response, ClearLogRespon
         if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rdata->include_log))) {
             xfce_notify_clear_icon_cache();
         }
-        xfce_notify_log_clear(rdata->log);
+        xfce_notify_log_gbus_call_clear(rdata->log, NULL, NULL, NULL);
     }
 }
 
@@ -373,7 +373,7 @@ notify_closure_free(gpointer data,
 }
 
 GtkWidget *
-xfce_notify_clear_log_dialog(XfceNotifyLog *log) {
+xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log) {
     GtkWidget *dialog, *grid, *icon, *label, *content_area, *checkbutton;
     GtkDialogFlags flags = GTK_DIALOG_MODAL;
     gchar *icon_cache_size;
@@ -636,4 +636,85 @@ notify_log_format_tooltip(const gchar *app_name, const gchar *timestamp, const g
     } else {
         return g_strdup_printf("<b>%s</b>", app_name);
     }
+}
+
+GList *
+notify_log_variant_to_entries(GVariant *variant) {
+    GList *entries = NULL;
+    GVariantIter *iter = g_variant_iter_new(variant);
+    GVariant *entryv = NULL;
+
+    while ((entryv = g_variant_iter_next_value(iter)) != NULL) {
+        XfceNotifyLogEntry *entry = notify_log_variant_to_entry(entryv);
+        if (G_LIKELY(entry != NULL)) {
+            entries = g_list_prepend(entries, entry);
+        }
+        g_variant_unref(entryv);
+    }
+    entries = g_list_reverse(entries);
+
+    g_variant_iter_free(iter);
+
+    return entries;
+}
+
+XfceNotifyLogEntry *
+notify_log_variant_to_entry(GVariant *variant) {
+    XfceNotifyLogEntry *entry;
+    gint64 timestamp_utc = 0;
+    gchar *tz_identifier = NULL;
+    GVariantIter *actions = NULL;
+    GDateTime *dt_utc_no_us;
+    GDateTime *dt_utc;
+    GTimeZone *tz = NULL;
+
+    g_return_val_if_fail(g_variant_is_of_type(variant, G_VARIANT_TYPE("(sxssssssa(ss)ib)")), NULL);
+
+    entry = xfce_notify_log_entry_new_empty();
+    g_variant_get(variant,
+                  "(sxssssssa(ss)ib)",
+                  &entry->id,
+                  &timestamp_utc,
+                  &tz_identifier,
+                  &entry->app_id,
+                  &entry->app_name,
+                  &entry->icon_id,
+                  &entry->summary,
+                  &entry->body,
+                  &actions,
+                  &entry->expire_timeout,
+                  &entry->is_read);
+
+    dt_utc_no_us = g_date_time_new_from_unix_utc(timestamp_utc / 1000000);
+    dt_utc = g_date_time_add(dt_utc_no_us, timestamp_utc % 1000000);
+    if (G_LIKELY(tz_identifier != NULL && tz_identifier[0] != '\0')) {
+        tz = g_time_zone_new_identifier(tz_identifier);
+    }
+    if (G_UNLIKELY(tz == NULL)) {
+        tz = g_time_zone_new_local();
+    }
+
+    entry->timestamp = g_date_time_to_timezone(dt_utc, tz);
+    g_date_time_unref(dt_utc);
+    g_date_time_unref(dt_utc_no_us);
+    g_time_zone_unref(tz);
+
+    if (actions != NULL) {
+        gchar *id = NULL;
+        gchar *label = NULL;
+
+        while (g_variant_iter_next(actions, "(ss)", &id, &label)) {
+            XfceNotifyLogEntryAction *action = g_new0(XfceNotifyLogEntryAction, 1);
+            action->id = id;
+            action->label = label;
+            entry->actions = g_list_prepend(entry->actions, action);
+            id = NULL;
+            label = NULL;
+        }
+        entry->actions = g_list_reverse(entry->actions);
+
+        g_variant_iter_free(actions);
+    }
+
+    return entry;
 }

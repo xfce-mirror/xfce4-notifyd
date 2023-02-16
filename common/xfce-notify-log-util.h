@@ -22,7 +22,8 @@
 
 #include <gtk/gtk.h>
 
-#include "xfce-notify-log.h"
+#include "xfce-notify-log-gbus.h"
+#include "xfce-notify-log-types.h"
 
 #define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
 
@@ -46,7 +47,7 @@ gchar *xfce_notify_log_cache_icon(GVariant *v_image_data,
 gchar *notify_get_from_desktop_file (const gchar *desktop_file,
                                      const gchar *key);
 
-GtkWidget *xfce_notify_clear_log_dialog(XfceNotifyLog *log);
+GtkWidget *xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log);
 
 cairo_surface_t *notify_log_load_icon(const gchar *notify_log_icon_folder,
                                       const gchar *icon_id,
@@ -66,6 +67,9 @@ gchar *notify_log_format_body(const gchar *body);
 gchar *notify_log_format_tooltip(const gchar *app_name,
                                  const gchar *timestamp,
                                  const gchar *body_text);
+
+GList *notify_log_variant_to_entries(GVariant *variant);
+XfceNotifyLogEntry *notify_log_variant_to_entry(GVariant *variant);
 
 G_END_DECLS
 
