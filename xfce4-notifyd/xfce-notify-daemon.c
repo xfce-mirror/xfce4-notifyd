@@ -48,6 +48,7 @@
 #include <common/xfce-notify-log-util.h>
 
 #include "xfce-notify-daemon.h"
+#include "xfce-notify-fdo-gbus.h"
 #include "xfce-notify-gbus.h"
 #include "xfce-notify-log.h"
 #include "xfce-notify-window.h"
@@ -58,10 +59,11 @@
 
 struct _XfceNotifyDaemon
 {
-    XfceNotifyGBusSkeleton parent;
+    XfceNotifyFdoGBusSkeleton parent;
 
-    XfceNotifyOrgXfceNotifyd *xfce_iface_skeleton;
+    XfceNotifyGBus *xfce_iface_skeleton;
     XfceNotifyLogGBus *log_iface_skeleton;
+    XfceNotifyOldGBus *xfce_old_iface_skeleton;
 
     gboolean expire_timeout_enabled;
     gint expire_timeout;
@@ -105,8 +107,7 @@ struct _XfceNotifyDaemon
 
 typedef struct
 {
-    XfceNotifyGBusSkeletonClass  parent;
-
+    XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
 
@@ -242,7 +243,7 @@ static gboolean xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                                               gpointer value,
                                                               gpointer data);
 static void xfce_notify_daemon_finalize(GObject *obj);
-static void  xfce_notify_daemon_constructed(GObject *obj);
+static void xfce_notify_daemon_constructed(GObject *obj);
 
 static GQuark xfce_notify_daemon_get_n_monitors_quark(void);
 
@@ -255,9 +256,9 @@ static GdkFilterReturn xfce_notify_rootwin_watch_workarea(GdkXEvent *gxevent,
 static void daemon_quit (XfceNotifyDaemon *xndaemon);
 
 /* DBus method callbacks  forward declarations */
-static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
-                                		 GDBusMethodInvocation   *invocation,
-                                         XfceNotifyDaemon *xndaemon);
+static gboolean notify_get_capabilities(XfceNotifyFdoGBus *skeleton,
+                                        GDBusMethodInvocation   *invocation,
+                                        XfceNotifyDaemon *xndaemon);
 
 static void notify_update_known_applications (XfconfChannel *channel,
                                               gchar *app_name);
@@ -265,36 +266,40 @@ static void notify_update_known_applications (XfconfChannel *channel,
 static gboolean notify_application_is_muted (XfconfChannel *channel,
                                              gchar *new_app_name);
 
-static gboolean notify_notify (XfceNotifyGBus *skeleton,
-                               GDBusMethodInvocation   *invocation,
-                               const gchar *app_name,
-                               guint replaces_id,
-                               const gchar *app_icon,
-                               const gchar *summary,
-                               const gchar *body,
-                               const gchar **actions,
-                               GVariant *hints,
-                               gint expire_timeout,
-                               XfceNotifyDaemon *xndaemon);
+static gboolean notify_notify(XfceNotifyFdoGBus *skeleton,
+                              GDBusMethodInvocation   *invocation,
+                              const gchar *app_name,
+                              guint replaces_id,
+                              const gchar *app_icon,
+                              const gchar *summary,
+                              const gchar *body,
+                              const gchar **actions,
+                              GVariant *hints,
+                              gint expire_timeout,
+                              XfceNotifyDaemon *xndaemon);
 
 
-static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
-                                           GDBusMethodInvocation   *invocation,
-                                           guint id,
-                                           XfceNotifyDaemon *xndaemon);
+static gboolean notify_close_notification(XfceNotifyFdoGBus *skeleton,
+                                          GDBusMethodInvocation *invocation,
+                                          guint id,
+                                          XfceNotifyDaemon *xndaemon);
 
 
-static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
-                                               GDBusMethodInvocation *invocation,
-                                               XfceNotifyDaemon *xndaemon);
+static gboolean notify_get_server_information(XfceNotifyFdoGBus *skeleton,
+                                              GDBusMethodInvocation *invocation,
+                                              XfceNotifyDaemon *xndaemon);
 
 
-static gboolean notify_quit (XfceNotifyOrgXfceNotifyd *skeleton,
-                             GDBusMethodInvocation   *invocation,
-                             XfceNotifyDaemon *xndaemon);
+static gboolean xfce_notify_quit(XfceNotifyGBus *skeleton,
+                                 GDBusMethodInvocation *invocation,
+                                 XfceNotifyDaemon *xndaemon);
+
+static gboolean xfce_notify_old_quit(XfceNotifyOldGBus *skeleton,
+                                     GDBusMethodInvocation *invocation,
+                                     XfceNotifyDaemon *xndaemon);
 
 
-G_DEFINE_TYPE(XfceNotifyDaemon, xfce_notify_daemon, XFCE_NOTIFY_TYPE_GBUS_SKELETON)
+G_DEFINE_TYPE(XfceNotifyDaemon, xfce_notify_daemon, XFCE_TYPE_NOTIFY_FDO_GBUS)
 
 
 static void
@@ -718,20 +723,34 @@ xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
             gtk_main_quit();
         }
 
-        xndaemon->xfce_iface_skeleton  = xfce_notify_org_xfce_notifyd_skeleton_new();
-        exported = g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton),
+        xndaemon->xfce_old_iface_skeleton  = xfce_notify_old_gbus_skeleton_new();
+        exported = g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_old_iface_skeleton),
                                                     connection,
                                                     "/org/freedesktop/Notifications",
                                                     &error);
         if (exported) {
-            g_signal_connect(xndaemon->xfce_iface_skeleton, "handle-quit",
-                             G_CALLBACK(notify_quit), xndaemon);
+            g_signal_connect(xndaemon->xfce_old_iface_skeleton, "handle-quit",
+                             G_CALLBACK(xfce_notify_old_quit), xndaemon);
         } else {
             g_warning("Failed to export interface: %s", error->message);
             g_error_free(error);
             gtk_main_quit();
         }
     } else if (g_strcmp0(name, "org.xfce.Notifyd") == 0) {
+        xndaemon->xfce_iface_skeleton  = xfce_notify_gbus_skeleton_new();
+        exported = g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton),
+                                                    connection,
+                                                    "/org/xfce/Notifyd",
+                                                    &error);
+        if (exported) {
+            g_signal_connect(xndaemon->xfce_iface_skeleton, "handle-quit",
+                             G_CALLBACK(xfce_notify_quit), xndaemon);
+        } else {
+            g_warning("Failed to export interface: %s", error->message);
+            g_error_free(error);
+            gtk_main_quit();
+        }
+
         xndaemon->log_iface_skeleton = xfce_notify_log_gbus_skeleton_new();
         exported = g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(xndaemon->log_iface_skeleton),
                                                     connection,
@@ -874,11 +893,11 @@ xfce_notify_daemon_finalize(GObject *obj)
         g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon));
     }
 
-    if (xndaemon->xfce_iface_skeleton &&
-        g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton),
+    if (xndaemon->xfce_old_iface_skeleton &&
+        g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_old_iface_skeleton),
                                                  connection))
     {
-        g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_iface_skeleton));
+        g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_old_iface_skeleton));
     }
 
     if (xndaemon->log_iface_skeleton != NULL
@@ -946,9 +965,9 @@ xfce_notify_daemon_window_action_invoked(XfceNotifyWindow *window,
     guint id = xfce_notify_window_get_id(window);
 
     if (G_LIKELY(id > 0)) {
-        xfce_notify_gbus_emit_action_invoked (XFCE_NOTIFY_GBUS(xndaemon),
-                                              id,
-                                              action);
+        xfce_notify_fdo_gbus_emit_action_invoked(XFCE_NOTIFY_FDO_GBUS(xndaemon),
+                                                 id,
+                                                 action);
     } else {
         g_warning("Notify window somehow didn't have an ID");
     }
@@ -980,9 +999,9 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     if (G_LIKELY(id > 0)) {
         g_tree_remove(xndaemon->active_notifications, GUINT_TO_POINTER(id));
 
-        xfce_notify_gbus_emit_notification_closed (XFCE_NOTIFY_GBUS(xndaemon),
-                                                   id,
-                                                   (guint)reason);
+        xfce_notify_fdo_gbus_emit_notification_closed(XFCE_NOTIFY_FDO_GBUS(xndaemon),
+                                                      id,
+                                                      (guint)reason);
     } else {
         g_warning("Notify window somehow didn't have an ID");
     }
@@ -1248,9 +1267,9 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
 
 
 
-static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
-                                         GDBusMethodInvocation   *invocation,
-                                         XfceNotifyDaemon *xndaemon)
+static gboolean notify_get_capabilities(XfceNotifyFdoGBus *skeleton,
+                                        GDBusMethodInvocation *invocation,
+                                        XfceNotifyDaemon *xndaemon)
 {
     const gchar *const capabilities[] = {
         "action-icons",
@@ -1266,7 +1285,7 @@ static gboolean notify_get_capabilities (XfceNotifyGBus *skeleton,
         NULL,
     };
 
-    xfce_notify_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
+    xfce_notify_fdo_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
 
     return TRUE;
 }
@@ -1463,17 +1482,17 @@ xfce_notify_log_insert(XfceNotifyLog *log,
 }
 
 static gboolean
-notify_notify (XfceNotifyGBus *skeleton,
-               GDBusMethodInvocation   *invocation,
-               const gchar *app_name,
-               guint replaces_id,
-               const gchar *app_icon,
-               const gchar *summary,
-               const gchar *body,
-               const gchar **actions,
-               GVariant *hints,
-               gint expire_timeout,
-               XfceNotifyDaemon *xndaemon)
+notify_notify(XfceNotifyFdoGBus *skeleton,
+              GDBusMethodInvocation   *invocation,
+              const gchar *app_name,
+              guint replaces_id,
+              const gchar *app_icon,
+              const gchar *summary,
+              const gchar *body,
+              const gchar **actions,
+              GVariant *hints,
+              gint expire_timeout,
+              XfceNotifyDaemon *xndaemon)
 {
     XfceNotifyWindow *window;
     GDateTime *timestamp;
@@ -1683,7 +1702,7 @@ notify_notify (XfceNotifyGBus *skeleton,
                       }
             }
 
-            xfce_notify_gbus_complete_notify (skeleton, invocation, OUT_id);
+            xfce_notify_fdo_gbus_complete_notify (skeleton, invocation, OUT_id);
             if (image_data)
                 g_variant_unref (image_data);
             if (desktop_id)
@@ -1810,7 +1829,7 @@ notify_notify (XfceNotifyGBus *skeleton,
 
     gtk_widget_realize(GTK_WIDGET(window));
 
-    xfce_notify_gbus_complete_notify(skeleton, invocation, OUT_id);
+    xfce_notify_fdo_gbus_complete_notify(skeleton, invocation, OUT_id);
 
     if (image_data)
       g_variant_unref (image_data);
@@ -1824,10 +1843,11 @@ notify_notify (XfceNotifyGBus *skeleton,
 }
 
 
-static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
-                                           GDBusMethodInvocation   *invocation,
-                                           guint id,
-                                           XfceNotifyDaemon *xndaemon)
+static gboolean
+notify_close_notification(XfceNotifyFdoGBus *skeleton,
+                          GDBusMethodInvocation *invocation,
+                          guint id,
+                          XfceNotifyDaemon *xndaemon)
 {
     XfceNotifyWindow *window = g_tree_lookup(xndaemon->active_notifications,
                                              GUINT_TO_POINTER(id));
@@ -1835,39 +1855,49 @@ static gboolean notify_close_notification (XfceNotifyGBus *skeleton,
     if(window)
         xfce_notify_window_closed(window, XFCE_NOTIFY_CLOSE_REASON_CLIENT);
 
-    xfce_notify_gbus_complete_close_notification(skeleton, invocation);
+    xfce_notify_fdo_gbus_complete_close_notification(skeleton, invocation);
 
     return TRUE;
 }
 
-static gboolean notify_get_server_information (XfceNotifyGBus *skeleton,
-                                               GDBusMethodInvocation   *invocation,
-                                               XfceNotifyDaemon *xndaemon)
+static gboolean
+notify_get_server_information (XfceNotifyFdoGBus *skeleton,
+                               GDBusMethodInvocation *invocation,
+                               XfceNotifyDaemon *xndaemon)
 {
-    xfce_notify_gbus_complete_get_server_information(skeleton,
-                                                     invocation,
-                                                     "Xfce Notify Daemon",
-                                                     "Xfce",
-                                                     VERSION,
-                                                     NOTIFICATIONS_SPEC_VERSION);
+    xfce_notify_fdo_gbus_complete_get_server_information(skeleton,
+                                                         invocation,
+                                                         "Xfce Notify Daemon",
+                                                         "Xfce",
+                                                         VERSION,
+                                                         NOTIFICATIONS_SPEC_VERSION);
 
     return TRUE;
 }
 
 
-static void daemon_quit (XfceNotifyDaemon *xndaemon)
-{
+static void
+daemon_quit(XfceNotifyDaemon *xndaemon) {
     gint i, main_level = gtk_main_level();
     for(i = 0; i < main_level; ++i)
         gtk_main_quit();
 }
 
 
-static gboolean notify_quit (XfceNotifyOrgXfceNotifyd *skeleton,
-                             GDBusMethodInvocation   *invocation,
-                             XfceNotifyDaemon *xndaemon)
-{
-    xfce_notify_org_xfce_notifyd_complete_quit (skeleton, invocation);
+static gboolean
+xfce_notify_old_quit(XfceNotifyOldGBus *skeleton, GDBusMethodInvocation *invocation, XfceNotifyDaemon *xndaemon) {
+    g_message("Method org.freedesktop.Notifications.Quit is deprecated and will be removed in a future version; please use org.xfce.Notifyd.Quit instead");
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    xfce_notify_old_gbus_complete_quit(skeleton, invocation);
+G_GNUC_END_IGNORE_DEPRECATIONS
+    daemon_quit(xndaemon);
+    return TRUE;
+}
+
+
+static gboolean
+xfce_notify_quit(XfceNotifyGBus *skeleton, GDBusMethodInvocation *invocation, XfceNotifyDaemon *xndaemon) {
+    xfce_notify_gbus_complete_quit(skeleton, invocation);
     daemon_quit(xndaemon);
     return TRUE;
 }
