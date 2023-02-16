@@ -45,6 +45,9 @@ po/Makefile.in.in
 po/POTFILES
 po/*.gmo
 
+common/xfce-notify-log-gbus.c
+common/xfce-notify-log-gbus.h
+
 xfce4-notifyd-config/xfce4-notifyd-config
 xfce4-notifyd-config/xfce4-notifyd-config.desktop
 xfce4-notifyd-config/xfce4-notifyd-config.ui.h

@@ -25,7 +25,7 @@
 
 #include <xfconf/xfconf.h>
 
-#include "common/xfce-notify-log.h"
+#include <common/xfce-notify-log-gbus.h>
 
 G_BEGIN_DECLS
 
@@ -33,7 +33,7 @@ G_DECLARE_FINAL_TYPE(XfceNotifyLogViewer, xfce_notify_log_viewer, XFCE, NOTIFY_L
 #define XFCE_TYPE_NOTIFY_LOG_VIEWER (xfce_notify_log_viewer_get_type())
 
 GtkWidget *xfce_notify_log_viewer_new(XfconfChannel *channel,
-                                      XfceNotifyLog *log);
+                                      XfceNotifyOrgXfceNotifydLog *log);
 
 G_END_DECLS
 
