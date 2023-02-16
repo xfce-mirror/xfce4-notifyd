@@ -23,12 +23,11 @@
 #include <xfconf/xfconf.h>
 #include <libxfce4panel/libxfce4panel.h>
 
-#include <common/xfce-notify-log.h>
+#include <common/xfce-notify-log-gbus.h>
 
 G_BEGIN_DECLS
 
 #define ICON_NAME                 "org.xfce.notification"
-#define XFCE_NOTIFY_LOG_FILE      "xfce4/notifyd/log"
 #define XFCE_NOTIFY_ICON_PATH     "xfce4/notifyd/icons/"
 #define SETTING_LOG_DISPLAY_LIMIT "/plugin/log-display-limit"
 #define DEFAULT_LOG_DISPLAY_LIMIT 10
@@ -54,7 +53,8 @@ typedef struct
     XfconfChannel   *channel;
 
     /* log */
-    XfceNotifyLog *log;
+    GDBusConnection *gbus;
+    XfceNotifyLogGBus *log;
 
     /* state */
     gboolean         new_notifications;
