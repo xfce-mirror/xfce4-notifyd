@@ -6,6 +6,7 @@ panel-plugin/notification-plugin-settings.glade
 panel-plugin/notification-plugin.desktop.in
 xfce4-notifyd/main.c
 xfce4-notifyd/xfce-notify-daemon.c
+xfce4-notifyd/xfce-notify-daemon-log.c
 xfce4-notifyd/xfce-notify-log.c
 xfce4-notifyd/xfce-notify-window.c
 xfce4-notifyd-config/main.c

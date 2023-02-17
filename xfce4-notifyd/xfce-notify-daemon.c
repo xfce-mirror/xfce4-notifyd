@@ -48,6 +48,7 @@
 #include <common/xfce-notify-log-util.h>
 
 #include "xfce-notify-daemon.h"
+#include "xfce-notify-daemon-log.h"
 #include "xfce-notify-fdo-gbus.h"
 #include "xfce-notify-gbus.h"
 #include "xfce-notify-log.h"
@@ -62,7 +63,6 @@ struct _XfceNotifyDaemon
     XfceNotifyFdoGBusSkeleton parent;
 
     XfceNotifyGBus *xfce_iface_skeleton;
-    XfceNotifyLogGBus *log_iface_skeleton;
     XfceNotifyOldGBus *xfce_old_iface_skeleton;
 
     gboolean expire_timeout_enabled;
@@ -80,6 +80,7 @@ struct _XfceNotifyDaemon
     gint primary_monitor;
     gboolean windows_use_override_redirect;
 
+    XfceNotifyDaemonLog *xndlog;
     XfceNotifyLog *log;
     gint log_level;
     gint log_level_apps;
@@ -459,236 +460,6 @@ xfce_notify_daemon_init_placement_data(XfceNotifyDaemon *xndaemon)
 }
 
 static void
-variant_build_log_entry(GVariantBuilder *builder, XfceNotifyLogEntry *entry) {
-#define SAFES(str) ((str) != NULL ? (str) : "")
-    g_variant_builder_add(builder, "s", SAFES(entry->id));
-    g_variant_builder_add(builder, "x", g_date_time_to_unix(entry->timestamp) * 1000000 + g_date_time_get_microsecond(entry->timestamp));
-    g_variant_builder_add(builder, "s", SAFES(g_time_zone_get_identifier(g_date_time_get_timezone(entry->timestamp))));
-    g_variant_builder_add(builder, "s", SAFES(entry->app_id));
-    g_variant_builder_add(builder, "s", SAFES(entry->app_name));
-    g_variant_builder_add(builder, "s", SAFES(entry->icon_id));
-    g_variant_builder_add(builder, "s", SAFES(entry->summary));
-    g_variant_builder_add(builder, "s", SAFES(entry->body));
-    g_variant_builder_open(builder, G_VARIANT_TYPE("a(ss)"));
-    for (GList *l = entry->actions; l != NULL; l = l->next) {
-        XfceNotifyLogEntryAction *action = l->data;
-        g_variant_builder_open(builder, G_VARIANT_TYPE("(ss)"));
-        g_variant_builder_add(builder, "s", SAFES(action->id));
-        g_variant_builder_add(builder, "s", SAFES(action->label));
-        g_variant_builder_close(builder);
-    }
-    g_variant_builder_close(builder);
-    g_variant_builder_add(builder, "i", entry->expire_timeout);
-    g_variant_builder_add(builder, "b", entry->is_read);
-#undef SAFES
-}
-
-static gboolean
-notify_log_get(XfceNotifyLogGBus *object,
-               GDBusMethodInvocation *invocation,
-               const gchar *arg_id,
-               XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        XfceNotifyLogEntry *entry = xfce_notify_log_get(xndaemon->log, arg_id);
-
-        if (entry == NULL) {
-            g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_NOT_FOUND, _("Log entry not found"));
-        } else {
-            GVariantBuilder builder;
-            GVariant *ret;
-
-            g_variant_builder_init(&builder, G_VARIANT_TYPE("(sxssssssa(ss)ib)"));
-            variant_build_log_entry(&builder, entry);
-            ret = g_variant_builder_end(&builder);
-            xfce_notify_log_gbus_complete_get(object, invocation, ret);
-
-            g_variant_builder_clear(&builder);
-            xfce_notify_log_entry_unref(entry);
-        }
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_list(XfceNotifyLogGBus *object,
-                GDBusMethodInvocation *invocation,
-                const gchar *arg_start_after_id,
-                guint arg_count,
-                gboolean arg_only_unread,
-                XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        GList *entries;
-        GVariantBuilder builder;
-        GVariant *ret;
-        const gchar *start_after_id = arg_start_after_id != NULL && arg_start_after_id[0] != '\0' ? arg_start_after_id : NULL;
-
-        if (arg_only_unread) {
-            entries = xfce_notify_log_read_unread(xndaemon->log, start_after_id, arg_count);
-        } else {
-            entries = xfce_notify_log_read(xndaemon->log, start_after_id, arg_count);
-        }
-
-        g_variant_builder_init(&builder, G_VARIANT_TYPE("a(sxssssssa(ss)ib)"));
-        for (GList *l = entries; l != NULL; l = l->next) {
-            XfceNotifyLogEntry *entry = l->data;
-            g_variant_builder_open(&builder, G_VARIANT_TYPE("(sxssssssa(ss)ib)"));
-            variant_build_log_entry(&builder, entry);
-            g_variant_builder_close(&builder);
-        }
-
-        ret = g_variant_builder_end(&builder);
-        xfce_notify_log_gbus_complete_list(object, invocation, ret);
-
-        g_variant_builder_clear(&builder);
-        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_has_unread(XfceNotifyLogGBus *object,
-                      GDBusMethodInvocation *invocation,
-                      XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        xfce_notify_log_gbus_complete_has_unread(object,
-                                                 invocation,
-                                                 xfce_notify_log_has_unread_messages(xndaemon->log));
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_get_app_id_counts(XfceNotifyLogGBus *object,
-                             GDBusMethodInvocation *invocation,
-                             XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        GHashTable *counts = xfce_notify_log_get_app_id_counts(xndaemon->log);
-        GVariantBuilder builder;
-        GVariant *ret;
-        GHashTableIter iter;
-        gpointer key, value;
-
-        g_variant_builder_init(&builder, G_VARIANT_TYPE("a{su}"));
-
-        g_hash_table_iter_init(&iter, counts);
-        while (g_hash_table_iter_next(&iter, &key, &value)) {
-            const gchar *app_id = key;
-            guint count = GPOINTER_TO_UINT(value);
-
-            g_variant_builder_open(&builder, G_VARIANT_TYPE("{su}"));
-            g_variant_builder_add(&builder, "s", app_id);
-            g_variant_builder_add(&builder, "u", count);
-            g_variant_builder_close(&builder);
-        }
-
-        ret = g_variant_builder_end(&builder);
-        xfce_notify_log_gbus_complete_get_app_id_counts(object, invocation, ret);
-        
-        g_variant_builder_clear(&builder);
-        g_hash_table_destroy(counts);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_mark_read(XfceNotifyLogGBus *object,
-                     GDBusMethodInvocation *invocation,
-                     const gchar *const *arg_ids,
-                     XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        for (guint i = 0; arg_ids[i] != NULL; ++i) {
-            xfce_notify_log_mark_read(xndaemon->log, arg_ids[i]);
-        }
-        xfce_notify_log_gbus_complete_mark_read(object, invocation);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_mark_all_read(XfceNotifyLogGBus *object,
-                         GDBusMethodInvocation *invocation,
-                         XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        xfce_notify_log_mark_all_read(xndaemon->log);
-        xfce_notify_log_gbus_complete_mark_all_read(object, invocation);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_delete(XfceNotifyLogGBus *object,
-                  GDBusMethodInvocation *invocation,
-                  const gchar *const *arg_ids,
-                  XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        for (guint i = 0; arg_ids[i] != NULL; ++i) {
-            xfce_notify_log_delete(xndaemon->log, arg_ids[i]);
-        }
-        xfce_notify_log_gbus_complete_delete(object, invocation);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_truncate(XfceNotifyLogGBus *object,
-                    GDBusMethodInvocation *invocation,
-                    guint arg_entries_to_keep,
-                    XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        xfce_notify_log_truncate(xndaemon->log, arg_entries_to_keep);
-        xfce_notify_log_gbus_complete_truncate(object, invocation);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static gboolean
-notify_log_clear(XfceNotifyLogGBus *object,
-                 GDBusMethodInvocation *invocation,
-                 XfceNotifyDaemon *xndaemon)
-{
-    if (xndaemon->log == NULL) {
-        g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
-    } else {
-        xfce_notify_log_clear(xndaemon->log);
-        xfce_notify_log_gbus_complete_clear(object, invocation);
-    }
-
-    return G_DBUS_METHOD_INVOCATION_HANDLED;
-}
-
-static void
 xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
                                   const gchar *name,
                                   gpointer user_data)
@@ -751,31 +522,8 @@ xfce_notify_bus_name_acquired_cb (GDBusConnection *connection,
             gtk_main_quit();
         }
 
-        xndaemon->log_iface_skeleton = xfce_notify_log_gbus_skeleton_new();
-        exported = g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(xndaemon->log_iface_skeleton),
-                                                    connection,
-                                                    "/org/xfce/Notifyd",
-                                                    &error);
-        if (exported) {
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-get",
-                             G_CALLBACK(notify_log_get), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-list",
-                             G_CALLBACK(notify_log_list), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-has-unread",
-                             G_CALLBACK(notify_log_has_unread), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-get-app-id-counts",
-                             G_CALLBACK(notify_log_get_app_id_counts), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-mark-read",
-                             G_CALLBACK(notify_log_mark_read), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-mark-all-read",
-                             G_CALLBACK(notify_log_mark_all_read), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-delete",
-                             G_CALLBACK(notify_log_delete), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-truncate",
-                             G_CALLBACK(notify_log_truncate), xndaemon);
-            g_signal_connect(xndaemon->log_iface_skeleton, "handle-clear",
-                             G_CALLBACK(notify_log_clear), xndaemon);
-        } else {
+        xndaemon->xndlog = xfce_notify_daemon_log_new(connection, xndaemon->log, &error);
+        if (xndaemon->xndlog == NULL) {
             g_warning("Failed to export interface: %s", error->message);
             g_error_free(error);
             gtk_main_quit();
@@ -816,27 +564,37 @@ xfce_notify_daemon_constructed(GObject *obj) {
 
 static void
 log_row_added(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    xfce_notify_log_gbus_emit_row_added(xndaemon->log_iface_skeleton, entry_id);
+    if (xndaemon->xndlog != NULL) {
+        xfce_notify_log_gbus_emit_row_added(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id);
+    }
 }
 
 static void
 log_row_changed(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    xfce_notify_log_gbus_emit_row_changed(xndaemon->log_iface_skeleton, entry_id != NULL ? entry_id : "");
+    if (xndaemon->xndlog != NULL) {
+        xfce_notify_log_gbus_emit_row_changed(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id != NULL ? entry_id : "");
+    }
 }
 
 static void
 log_row_deleted(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    xfce_notify_log_gbus_emit_row_deleted(xndaemon->log_iface_skeleton, entry_id);
+    if (xndaemon->xndlog != NULL) {
+        xfce_notify_log_gbus_emit_row_deleted(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id);
+    }
 }
 
 static void
 log_truncated(XfceNotifyLog *log, guint n_kept_entries, XfceNotifyDaemon *xndaemon) {
-    xfce_notify_log_gbus_emit_truncated(xndaemon->log_iface_skeleton, n_kept_entries);
+    if (xndaemon->xndlog != NULL) {
+        xfce_notify_log_gbus_emit_truncated(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), n_kept_entries);
+    }
 }
 
 static void
 log_cleared(XfceNotifyLog *log, XfceNotifyDaemon *xndaemon) {
-    xfce_notify_log_gbus_emit_cleared(xndaemon->log_iface_skeleton);
+    if (xndaemon->xndlog != NULL) {
+        xfce_notify_log_gbus_emit_cleared(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog));
+    }
 }
 
 static void
@@ -900,11 +658,8 @@ xfce_notify_daemon_finalize(GObject *obj)
         g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON(xndaemon->xfce_old_iface_skeleton));
     }
 
-    if (xndaemon->log_iface_skeleton != NULL
-        && g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndaemon->log_iface_skeleton),
-                                                    connection))
-    {
-        g_dbus_interface_skeleton_unexport(G_DBUS_INTERFACE_SKELETON(xndaemon->log_iface_skeleton));
+    if (xndaemon->xndlog != NULL) {
+        g_object_unref(xndaemon->xndlog);
     }
 
     if(xndaemon->reserved_rectangles && xndaemon->monitors_workarea) {

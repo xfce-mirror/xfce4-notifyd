@@ -14,6 +14,8 @@ xfce4_notifyd_SOURCES = \
 	xfce-notify-log.h \
 	xfce-notify-daemon.c \
 	xfce-notify-daemon.h \
+	xfce-notify-daemon-log.c \
+	xfce-notify-daemon-log.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h \
 	xfce-notify-window.c \
