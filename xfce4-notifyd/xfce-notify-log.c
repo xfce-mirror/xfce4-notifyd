@@ -1256,7 +1256,7 @@ migrate_old_keyfile(XfceNotifyLog *log) {
                     }
                 } else {
                     // Old log file existed and was readable, but was empty
-                    migrated = TRUE;
+                    g_file_delete(log_file_migrating, NULL, NULL);
                 }
 
                 g_time_zone_unref(default_tz);
