@@ -1109,7 +1109,7 @@ process_write_queue(gpointer data) {
         }
 
         if (rc == SQLITE_BUSY || rc == SQLITE_LOCKED) {
-            DBG("log DB busy/locked; requeueing");
+            g_message("Log DB busy/locked; requeueing write");
             g_queue_push_head(log->write_queue, item);
             ret = G_SOURCE_CONTINUE;
             break;
