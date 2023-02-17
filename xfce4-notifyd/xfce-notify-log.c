@@ -1167,9 +1167,8 @@ queue_write(XfceNotifyLog *log, XfceNotifyLogQueueItem *item) {
 static GList *
 parse_keyfile_actions(GKeyFile *keyfile, const gchar *group) {
     GList *actions = NULL;
-    gint i = 0;
 
-    for (;;) {
+    for (gint i = 0; ; ++i) {
         gchar *action_id_key = g_strdup_printf("action-id-%d", i);
         gchar *action_label_key = g_strdup_printf("action-label-%d", i);
         gchar *action_id = g_key_file_get_string(keyfile, group, action_id_key, NULL);
@@ -1188,8 +1187,6 @@ parse_keyfile_actions(GKeyFile *keyfile, const gchar *group) {
             g_free(action_label);
             break;
         }
-
-        ++i;
     }
 
     return g_list_reverse(actions);
