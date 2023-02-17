@@ -49,6 +49,9 @@ built_xfce4_notifyd_config = \
 	xfce4-notifyd-config.ui.h \
 	xfce4-notifyd-config-known-app.ui.h
 
+%.ui.h: $(srcdir)/%.glade Makefile
+	$(AM_V_GEN) xdt-csource --static --name=$(subst -,_,$(basename $(notdir $<)))_ui $< > $@
+
 endif
 
 dist_noinst_DATA = \
@@ -62,7 +65,3 @@ BUILT_SOURCES = \
 CLEANFILES = \
 	$(built_xfce4_notifyd_config) \
 	$(desktop_DATA)
-
-%.ui.h: $(srcdir)/%.glade Makefile
-	$(AM_V_GEN) xdt-csource --static --name=$(subst -,_,$(basename $(notdir $<)))_ui $< > $@
-
