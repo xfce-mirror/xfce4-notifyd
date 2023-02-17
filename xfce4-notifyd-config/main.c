@@ -1250,6 +1250,8 @@ main(int argc,
     if (panel->log == NULL) {
         g_warning("Failed to connect to notifiication log over DBus: %s", error != NULL ? error->message : "(unknown error)");
         g_clear_error(&error);
+    } else {
+        g_dbus_proxy_set_default_timeout(G_DBUS_PROXY(panel->log), 1500);
     }
 
     settings_dialog = xfce4_notifyd_config_setup_dialog(panel, builder);

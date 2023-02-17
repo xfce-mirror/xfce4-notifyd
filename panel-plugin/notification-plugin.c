@@ -318,6 +318,8 @@ notification_plugin_bus_proxy_connected(GObject *source,
                                                                         notification_plugin);
     }
   } else {
+    g_dbus_proxy_set_default_timeout(G_DBUS_PROXY(notification_plugin->log), 1500);
+
     g_signal_connect_swapped(notification_plugin->log, "row-added",
                              G_CALLBACK(notification_plugin_log_changed), notification_plugin);
     g_signal_connect_swapped(notification_plugin->log, "row-changed",
