@@ -1198,11 +1198,11 @@ migrate_old_keyfile(XfceNotifyLog *log) {
     GFile *log_dir = notify_log_dir();
     GFile *log_file = g_file_get_child(log_dir, "log");
     GFile *log_file_migrating = g_file_get_child(log_dir, "log.migrating");
+    GError *error = NULL;
 
     if (g_file_query_exists(log_file, NULL)) {
-        if (g_file_move(log_file, log_file_migrating, G_FILE_COPY_NO_FALLBACK_FOR_MOVE, NULL, NULL, NULL, NULL)) {
+        if (g_file_move(log_file, log_file_migrating, G_FILE_COPY_NO_FALLBACK_FOR_MOVE, NULL, NULL, NULL, &error)) {
             GKeyFile *keyfile = g_key_file_new();
-            GError *error = NULL;
 
             if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(log_file_migrating), G_KEY_FILE_NONE, &error))) {
                 guint n_entries_migrated = 0;
@@ -1270,9 +1270,7 @@ migrate_old_keyfile(XfceNotifyLog *log) {
                 GFile *dest = g_file_get_child(log_dir, "log.old.safe-to-delete");
                 if (!g_file_move(log_file_migrating, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error)) {
                     g_warning("Failed to move old log out of the way; you may get duplicate log entries next time (%s)", error != NULL ? error->message : "unknown error");
-                    if (error != NULL) {
-                        g_error_free(error);
-                    }
+                    g_clear_error(&error);
                 }
                 g_object_unref(dest);
             } else {
@@ -1280,6 +1278,15 @@ migrate_old_keyfile(XfceNotifyLog *log) {
             }
 
             g_key_file_unref(keyfile);
+        } else {
+            if (error != NULL) {
+                if (error->domain != G_IO_ERROR || error->code != G_IO_ERROR_NOT_FOUND) {
+                    g_warning("Failed to move/lock old log file; will not be able to migrate it: %s", error->message);
+                }
+                g_clear_error(&error);
+            } else {
+                g_warning("Failed to move/lock old log file; will not be able to migrate it");
+            }
         }
     }
 
