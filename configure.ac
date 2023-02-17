@@ -13,7 +13,7 @@ m4_define([canberra_minimum_version], [0.30])
 m4_define([sqlite_minimum_version], [3.34])
 
 dnl version info
-XDT_VERSION_INIT([0.8.1])
+XDT_VERSION_INIT([0.8.1], [git])
 
 dnl init autoconf
 AC_INIT([xfce4-notifyd], [xdt_version],
