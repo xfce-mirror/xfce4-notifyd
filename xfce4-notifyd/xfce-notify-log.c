@@ -139,6 +139,7 @@ static gboolean prepare_statements(XfceNotifyLog *log,
 static gboolean ensure_tables(XfceNotifyLog *log,
                               GError **error);
 
+static XfceNotifyLogQueueItem *xfce_notify_log_queue_item_new(XfceNotifyLogQueueItemType item_type);
 static gboolean process_write_queue(gpointer data);
 static void queue_write(XfceNotifyLog *log, XfceNotifyLogQueueItem *item);
 
@@ -831,8 +832,7 @@ xfce_notify_log_write(XfceNotifyLog *log, XfceNotifyLogEntry *entry) {
         entry->id = g_uuid_string_random();
     }
 
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_WRITE;
+    item = xfce_notify_log_queue_item_new(XFCE_NOTIFY_QUEUE_ITEM_WRITE);
     item->param.entry = xfce_notify_log_entry_ref(entry);
     queue_write(log, item);
 }
@@ -867,8 +867,7 @@ xfce_notify_log_mark_read(XfceNotifyLog *log, const gchar *id) {
     g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
     g_return_if_fail(id != NULL && id[0] != '\0');
 
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_MARK_READ;
+    item = xfce_notify_log_queue_item_new(XFCE_NOTIFY_QUEUE_ITEM_MARK_READ);
     item->param.id = g_strdup(id);
     queue_write(log, item);
 }
@@ -893,8 +892,7 @@ xfce_notify_log_mark_all_read(XfceNotifyLog *log) {
 
     g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
 
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_MARK_READ;
+    item = xfce_notify_log_queue_item_new(XFCE_NOTIFY_QUEUE_ITEM_MARK_READ);
     queue_write(log, item);
 }
 
@@ -928,8 +926,7 @@ xfce_notify_log_delete(XfceNotifyLog *log, const gchar *id) {
     g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
     g_return_if_fail(id != NULL && id[0] != '\0');
 
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE;
+    item = xfce_notify_log_queue_item_new(XFCE_NOTIFY_QUEUE_ITEM_DELETE);
     item->param.id = g_strdup(id);
     queue_write(log, item);
 }
@@ -954,8 +951,7 @@ xfce_notify_log_clear(XfceNotifyLog *log) {
 
     g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
 
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_DELETE;
+    item = xfce_notify_log_queue_item_new(XFCE_NOTIFY_QUEUE_ITEM_DELETE);
     queue_write(log, item);
 }
 
@@ -1023,10 +1019,16 @@ xfce_notify_log_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
 
     g_return_if_fail(XFCE_IS_NOTIFY_LOG(log));
 
-    item = g_new0(XfceNotifyLogQueueItem, 1);
-    item->type = XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE;
+    item = xfce_notify_log_queue_item_new(XFCE_NOTIFY_QUEUE_ITEM_TRUNCATE);
     item->param.count = n_entries_to_keep;
     queue_write(log, item);
+}
+
+static XfceNotifyLogQueueItem *
+xfce_notify_log_queue_item_new(XfceNotifyLogQueueItemType item_type) {
+    XfceNotifyLogQueueItem *item = g_new0(XfceNotifyLogQueueItem, 1);
+    item->type = item_type;
+    return item;
 }
 
 static void
