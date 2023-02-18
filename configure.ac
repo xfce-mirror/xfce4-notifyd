@@ -44,7 +44,6 @@ AC_PROG_CC()
 AM_PROG_CC_C_O()
 LT_PATH_LD([])
 AC_PROG_INSTALL()
-IT_PROG_INTLTOOL()
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
 
@@ -54,7 +53,11 @@ AC_CHECK_HEADERS([errno.h fcntl.h  grp.h signal.h stdlib.h string.h \
                   unistd.h math.h])
 
 dnl Check for i18n support
-XDT_I18N()
+GETTEXT_PACKAGE="$PACKAGE"
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.21])
 
 dnl check for x11
 XDT_CHECK_LIBX11_REQUIRE()
@@ -162,7 +165,7 @@ AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
 dnl check for debugging support
 XDT_FEATURE_DEBUG([xdt_debug_default])
 
-AC_CONFIG_FILES(
+AC_CONFIG_FILES( po/Makefile.in
 [
     Makefile
     icons/Makefile
@@ -173,7 +176,6 @@ AC_CONFIG_FILES(
     icons/symbolic/Makefile
     common/Makefile
     panel-plugin/Makefile
-    po/Makefile.in
     themes/Makefile
     tests/Makefile
     xfce4-notifyd/Makefile

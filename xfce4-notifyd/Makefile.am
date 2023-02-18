@@ -54,12 +54,13 @@ service_in_files = \
 	org.xfce.xfce4-notifyd.Notifications.service.in \
 	org.xfce.xfce4-notifyd.Notifyd.service.in
 systemd_user_in_files = xfce4-notifyd.service.in
+autostart_in_in_files = xfce4-notifyd.desktop.in.in
 autostart_in_files = xfce4-notifyd.desktop.in
 
 dist_noinst_DATA = \
 	$(service_in_files) \
 	$(systemd_user_in_files) \
-	$(autostart_in_files) \
+	$(autostart_in_in_files) \
 	xfce-notify-dbus.xml \
 	xfce-notify-fdo-dbus.xml \
 	xfce-notify-marshal.list
@@ -76,7 +77,7 @@ else
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 
-distclean_autostart = $(autostart_DATA)
+distclean_autostart = $(autostart_DATA) $(autostart_in_files)
 endif
 
 built_xfce4_notifyd = \
@@ -100,8 +101,11 @@ DISTCLEANFILES = \
 %.service: $(srcdir)/%.service.in Makefile
 	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
-%.desktop: $(srcdir)/%.desktop.in Makefile
+%.desktop.in: $(srcdir)/%.desktop.in.in Makefile
 	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+
+%.desktop: %.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 xfce-notify-fdo-gbus.h xfce-notify-fdo-gbus.c: $(srcdir)/xfce-notify-fdo-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
