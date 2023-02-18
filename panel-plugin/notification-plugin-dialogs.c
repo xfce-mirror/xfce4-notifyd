@@ -31,7 +31,6 @@
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 #include "notification-plugin-dialogs.h"
-#include "notification-plugin-settings.ui.h"
 
 /* the website url */
 #define PLUGIN_WEBSITE "https://docs.xfce.org/apps/notifyd/start"
@@ -71,7 +70,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   gint log_icon_size;
   gdouble log_display_limit;
 
-  builder = gtk_builder_new_from_string(notification_plugin_settings_ui, notification_plugin_settings_ui_length);
+  builder = gtk_builder_new_from_resource("/org/xfce/notifyd/panel-plugin/notification-plugin-settings.glade");
   if (G_UNLIKELY(builder == NULL)) {
       g_critical("Unable to read settings UI description");
       return;
