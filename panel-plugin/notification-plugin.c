@@ -33,6 +33,7 @@
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 #include "notification-plugin-dialogs.h"
+#include "notification-plugin-settings-ui.h"
 
 /* prototypes */
 static void
@@ -503,6 +504,8 @@ notification_plugin_construct (XfcePanelPlugin *plugin)
 
   /* setup transation domain */
   xfce_textdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
+
+  notification_plugin_settings_ui_register_resource();
 
   /* create the plugin */
   notification_plugin = notification_plugin_new (plugin);
