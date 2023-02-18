@@ -105,19 +105,19 @@ DISTCLEANFILES = \
 
 xfce-notify-fdo-gbus.h xfce-notify-fdo-gbus.c: $(srcdir)/xfce-notify-fdo-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.freedesktop.Notifications \
-	--c-namespace Xfce 	\
-	--generate-c-code xfce-notify-fdo-gbus \
-	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
-	$<
+		--interface-prefix org.freedesktop.Notifications \
+		--c-namespace Xfce 	\
+		--generate-c-code xfce-notify-fdo-gbus \
+		--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
+		$<
 
 xfce-notify-gbus.h xfce-notify-gbus.c: $(srcdir)/xfce-notify-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.xfce.Notifyd \
-	--c-namespace Xfce 	\
-	--generate-c-code xfce-notify-gbus \
-	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
-	$<
+		--interface-prefix org.xfce.Notifyd \
+		--c-namespace Xfce 	\
+		--generate-c-code xfce-notify-gbus \
+		--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
+		$<
 
 xfce-notify-marshal.h: $(srcdir)/xfce-notify-marshal.list Makefile
 	$(AM_V_GEN) $(GLIB_GENMARSHAL) --quiet --prefix=xfce_notify_marshal --header $< > $@
