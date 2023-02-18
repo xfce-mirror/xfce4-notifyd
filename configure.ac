@@ -119,6 +119,19 @@ if test x"$GDBUS_CODEGEN" = x"no"; then
   a custom location for it.])
 fi
 
+AC_ARG_VAR([GLIB_COMPILE_RESOURCES], [GResource compiler/generator])
+AC_MSG_CHECKING([for glib-compile-resources])
+if test x"$GLIB_COMPILE_RESOURCES" = x""; then
+    GLIB_COMPILE_RESOURCES=`$PKG_CONFIG --variable=glib_compile_resources gio-2.0`
+fi
+if test -x "$GLIB_COMPILE_RESOURCES"; then
+    AC_MSG_RESULT([$GLIB_COMPILE_RESOURCES])
+else
+    AC_MSG_ERROR([could not find glib-compile-resources in \$PATH. You can run
+./configure GLIB_COMPILE_RESOURCES=/path/to/glib-compile-resources
+to define a custom location for it.])
+fi
+
 dnl dbus start daemon
 AC_ARG_ENABLE([dbus-start-daemon],
               [AS_HELP_STRING([--enable-dbus-start-daemon],

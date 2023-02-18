@@ -50,8 +50,8 @@ common/xfce-notify-log-gbus.h
 
 xfce4-notifyd-config/xfce4-notifyd-config
 xfce4-notifyd-config/xfce4-notifyd-config.desktop
-xfce4-notifyd-config/xfce4-notifyd-config.ui.h
-xfce4-notifyd-config/xfce4-notifyd-config-known-app.ui.h
+xfce4-notifyd-config/xfce-notify-config-ui.c
+xfce4-notifyd-config/xfce-notify-config-ui.h
 
 xfce4-notifyd/notify-dbus.h
 xfce4-notifyd/*.service
@@ -79,4 +79,5 @@ panel-plugin/libnotification_plugin_la-notification-plugin-dialogs.lo
 panel-plugin/libnotification_plugin_la-notification-plugin-log.lo
 panel-plugin/libnotification_plugin_la-notification-plugin.lo
 panel-plugin/notification-plugin.desktop
-panel-plugin/notification-plugin-settings.ui.h
+panel-plugin/notification-plugin-settings-ui.c
+panel-plugin/notification-plugin-settings-ui.h
