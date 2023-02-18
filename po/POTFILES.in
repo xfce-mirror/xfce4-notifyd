@@ -9,9 +9,9 @@ xfce4-notifyd/xfce-notify-daemon.c
 xfce4-notifyd/xfce-notify-daemon-log.c
 xfce4-notifyd/xfce-notify-log.c
 xfce4-notifyd/xfce-notify-window.c
+xfce4-notifyd/xfce4-notifyd.desktop.in
 xfce4-notifyd-config/main.c
 xfce4-notifyd-config/xfce-notify-log-viewer.c
 xfce4-notifyd-config/xfce4-notifyd-config.glade
 xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade
-# files added by intltool-prepare
 xfce4-notifyd-config/xfce4-notifyd-config.desktop.in

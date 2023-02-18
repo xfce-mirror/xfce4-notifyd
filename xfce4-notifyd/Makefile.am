@@ -101,7 +101,7 @@ DISTCLEANFILES = \
 	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
 %.desktop: $(srcdir)/%.desktop.in Makefile
-	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o - | sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" > $@
 
 xfce-notify-fdo-gbus.h xfce-notify-fdo-gbus.c: $(srcdir)/xfce-notify-fdo-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \

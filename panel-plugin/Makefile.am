@@ -47,7 +47,6 @@ libnotification_plugin_la_LIBADD = \
 desktopdir = $(datadir)/xfce4/panel/plugins
 desktop_in_files = notification-plugin.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
 
 glade_files = \
 	notification-plugin-settings.glade
@@ -67,6 +66,9 @@ BUILT_SOURCES = \
 CLEANFILES = \
 	$(built_sources) \
 	$(desktop_DATA)
+
+%.desktop: $(srcdir)/%.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 %-ui.h: $(srcdir)/%-ui.gresource.xml $(glade_files) Makefile
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header --manual-register $<
