@@ -42,9 +42,8 @@
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
 
+#include "xfce-notify-config-ui.h"
 #include "xfce-notify-log-viewer.h"
-#include "xfce4-notifyd-config.ui.h"
-#include "xfce4-notifyd-config-known-app.ui.h"
 
 typedef struct
 {
@@ -645,7 +644,7 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
     icon_size = MIN(icon_width, icon_height);
 
-    builder = gtk_builder_new_from_string(xfce4_notifyd_config_known_app_ui, xfce4_notifyd_config_known_app_ui_length);
+    builder = gtk_builder_new_from_resource("/org/xfce/notifyd/settings/xfce4-notifyd-config-known-app.glade");
     if (G_UNLIKELY(builder == NULL)) {
         g_critical("Unable to load known app UI description");
         return;
@@ -1232,8 +1231,9 @@ main(int argc,
       g_warning("Failed to initialize libnotify.");
     }
 
-    builder = gtk_builder_new();
-    gtk_builder_add_from_string(builder, xfce4_notifyd_config_ui, xfce4_notifyd_config_ui_length, NULL);
+    xfce_notify_config_ui_register_resource();
+
+    builder = gtk_builder_new_from_resource("/org/xfce/notifyd/settings/xfce4-notifyd-config.glade");
     if(G_UNLIKELY(!builder)) {
         g_error("Unable to read embedded UI definition file");
         return EXIT_FAILURE;

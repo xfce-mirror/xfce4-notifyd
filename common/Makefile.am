@@ -33,11 +33,11 @@ libxfce_notifyd_common_la_LDFLAGS = \
 
 xfce-notify-log-gbus.h xfce-notify-log-gbus.c: $(srcdir)/xfce-notify-log-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.xfce.Notifyd.Log \
-	--c-namespace Xfce \
-	--generate-c-code xfce-notify-log-gbus \
-	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
-	$<
+		--interface-prefix org.xfce.Notifyd.Log \
+		--c-namespace Xfce \
+		--generate-c-code xfce-notify-log-gbus \
+		--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
+		$<
 
 dist_noinst_DATA = \
 	xfce-notify-log-dbus.xml

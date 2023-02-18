@@ -7,8 +7,8 @@ xfce4_notifyd_config_SOURCES = \
 	main.c \
 	xfce-notify-log-viewer.c \
 	xfce-notify-log-viewer.h \
-	xfce4-notifyd-config.ui.h \
-	xfce4-notifyd-config-known-app.ui.h
+	xfce-notify-config-ui.h \
+	xfce-notify-config-ui.c
 
 xfce4_notifyd_config_CFLAGS = \
 	-DG_LOG_DOMAIN=\"xfce4-notifyd-config\" \
@@ -41,22 +41,18 @@ dist_man1_MANS = \
 desktopdir = $(datadir)/applications
 desktop_in_files = xfce4-notifyd-config.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
 
-if MAINTAINER_MODE
+glade_files = \
+	xfce4-notifyd-config.glade \
+	xfce4-notifyd-config-known-app.glade
 
 built_xfce4_notifyd_config = \
-	xfce4-notifyd-config.ui.h \
-	xfce4-notifyd-config-known-app.ui.h
-
-%.ui.h: $(srcdir)/%.glade Makefile
-	$(AM_V_GEN) xdt-csource --static --name=$(subst -,_,$(basename $(notdir $<)))_ui $< > $@
-
-endif
+	xfce-notify-config-ui.h \
+	xfce-notify-config-ui.c
 
 dist_noinst_DATA = \
-	xfce4-notifyd-config.glade \
-	xfce4-notifyd-config-known-app.glade \
+	xfce-notify-config-ui.gresource.xml \
+	$(glade_files) \
 	$(desktop_in_files)
 
 BUILT_SOURCES = \
@@ -65,3 +61,12 @@ BUILT_SOURCES = \
 CLEANFILES = \
 	$(built_xfce4_notifyd_config) \
 	$(desktop_DATA)
+
+%.desktop: $(srcdir)/%.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
+%-ui.h: $(srcdir)/%-ui.gresource.xml $(glade_files) Makefile
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header --manual-register $<
+
+%-ui.c: $(srcdir)/%-ui.gresource.xml $(glade_files) Makefile
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source --manual-register $<
