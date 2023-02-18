@@ -83,24 +83,15 @@ built_xfce4_notifyd = \
 	xfce-notify-fdo-gbus.c \
 	xfce-notify-fdo-gbus.h \
 	xfce-notify-gbus.c \
-	xfce-notify-gbus.h
-
-clean_xfce4_notifyd = \
-	$(built_xfce4_notifyd)
-
-if MAINTAINER_MODE
-
-built_xfce4_notifyd += \
+	xfce-notify-gbus.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h
-
-endif
 
 BUILT_SOURCES = \
 	$(built_xfce4_notifyd)
 
 CLEANFILES = \
-	$(clean_xfce4_notifyd)
+	$(built_xfce4_notifyd)
 
 DISTCLEANFILES = \
 	$(distclean_autostart) \
@@ -128,12 +119,8 @@ xfce-notify-gbus.h xfce-notify-gbus.c: $(srcdir)/xfce-notify-dbus.xml Makefile
 	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
 	$<
 
-if MAINTAINER_MODE
-
 xfce-notify-marshal.h: $(srcdir)/xfce-notify-marshal.list Makefile
-	$(AM_V_GEN) glib-genmarshal --prefix=xfce_notify_marshal --header $< > $@
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --quiet --prefix=xfce_notify_marshal --header $< > $@
 
 xfce-notify-marshal.c: $(srcdir)/xfce-notify-marshal.list Makefile
-	$(AM_V_GEN) glib-genmarshal --prefix=xfce_notify_marshal --include-header xfce-notify-marshal.h --body $< > $@
-
-endif
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --quiet --prefix=xfce_notify_marshal --include-header xfce-notify-marshal.h --body $< > $@

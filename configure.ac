@@ -132,6 +132,19 @@ else
 to define a custom location for it.])
 fi
 
+AC_ARG_VAR([GLIB_GENMARSHAL], [gclosure marshalling function generator])
+AC_MSG_CHECKING([for glib-genmarshal])
+if test x"$GLIB_GENMARSHAL" = x""; then
+    GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`
+fi
+if test -x "$GLIB_GENMARSHAL"; then
+    AC_MSG_RESULT([$GLIB_GENMARSHAL])
+else
+    AC_MSG_ERROR([could not find glib-genmarshal in \$PATH. You can run
+./configure GLIB_GENMARSHAL=/path/to/glib-genmarshal
+to define a custom location for it.])
+fi
+
 dnl dbus start daemon
 AC_ARG_ENABLE([dbus-start-daemon],
               [AS_HELP_STRING([--enable-dbus-start-daemon],
