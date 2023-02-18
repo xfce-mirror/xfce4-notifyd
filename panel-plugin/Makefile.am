@@ -20,7 +20,8 @@ libnotification_plugin_la_SOURCES = \
 	notification-plugin-dialogs.h \
 	notification-plugin-log.c \
 	notification-plugin-log.h \
-	notification-plugin-settings.ui.h
+	notification-plugin-settings-ui.c \
+	notification-plugin-settings-ui.h
 
 libnotification_plugin_la_CFLAGS = \
 	$(LIBXFCE4UTIL_CFLAGS) \
@@ -43,35 +44,36 @@ libnotification_plugin_la_LIBADD = \
 	$(LIBXFCE4PANEL_LIBS)	\
 	$(XFCONF_LIBS)
 
-#
-# Desktop file
-#
-desktopdir =								\
-	$(datadir)/xfce4/panel/plugins
+desktopdir = $(datadir)/xfce4/panel/plugins
+desktop_in_files = notification-plugin.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-desktop_DATA =								\
-	notification-plugin.desktop
-
-@INTLTOOL_DESKTOP_RULE@
-
-EXTRA_DIST =								\
-	notification-plugin.desktop.in \
+glade_files = \
 	notification-plugin-settings.glade
 
-CLEANFILES =								\
-	$(desktop_DATA)
+built_sources = \
+	notification-plugin-settings-ui.c \
+	notification-plugin-settings-ui.h
 
-if MAINTAINER_MODE
-
-%.ui.h: $(srcdir)/%.glade Makefile
-	$(AM_V_GEN) xdt-csource --static --name=$(subst -,_,$(basename $(notdir $<)))_ui $< > $@
+dist_noinst_DATA =	\
+	notification-plugin-settings-ui.gresource.xml \
+	$(glade_files) \
+	$(desktop_in_files)
 
 BUILT_SOURCES = \
-	notification-plugin-settings.ui.h
+	$(built_sources)
 
-CLEANFILES += \
-	notification-plugin-settings.ui.h
+CLEANFILES = \
+	$(built_sources) \
+	$(desktop_DATA)
 
-endif
+%.desktop: $(srcdir)/%.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
+%-ui.h: $(srcdir)/%-ui.gresource.xml $(glade_files) Makefile
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header --manual-register $<
+
+%-ui.c: $(srcdir)/%-ui.gresource.xml $(glade_files) Makefile
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source --manual-register $<
 
 # vi:set ts=8 sw=8 noet ai nocindent syntax=automake:

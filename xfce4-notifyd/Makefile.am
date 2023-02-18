@@ -83,57 +83,44 @@ built_xfce4_notifyd = \
 	xfce-notify-fdo-gbus.c \
 	xfce-notify-fdo-gbus.h \
 	xfce-notify-gbus.c \
-	xfce-notify-gbus.h
-
-clean_xfce4_notifyd = \
-	$(built_xfce4_notifyd)
-
-if MAINTAINER_MODE
-
-built_xfce4_notifyd += \
+	xfce-notify-gbus.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h
-
-endif
 
 BUILT_SOURCES = \
 	$(built_xfce4_notifyd)
 
 CLEANFILES = \
-	$(clean_xfce4_notifyd)
+	$(built_xfce4_notifyd)
 
 DISTCLEANFILES = \
 	$(distclean_autostart) \
 	$(distclean_autostart)
 
 %.service: $(srcdir)/%.service.in Makefile
-	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+	$(AM_V_GEN) sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
 %.desktop: $(srcdir)/%.desktop.in Makefile
-	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o - | sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" > $@
 
 xfce-notify-fdo-gbus.h xfce-notify-fdo-gbus.c: $(srcdir)/xfce-notify-fdo-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.freedesktop.Notifications \
-	--c-namespace Xfce 	\
-	--generate-c-code xfce-notify-fdo-gbus \
-	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
-	$<
+		--interface-prefix org.freedesktop.Notifications \
+		--c-namespace Xfce 	\
+		--generate-c-code xfce-notify-fdo-gbus \
+		--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
+		$<
 
 xfce-notify-gbus.h xfce-notify-gbus.c: $(srcdir)/xfce-notify-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.xfce.Notifyd \
-	--c-namespace Xfce 	\
-	--generate-c-code xfce-notify-gbus \
-	--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
-	$<
-
-if MAINTAINER_MODE
+		--interface-prefix org.xfce.Notifyd \
+		--c-namespace Xfce 	\
+		--generate-c-code xfce-notify-gbus \
+		--glib-max-allowed $(GLIB_REQUIRED_VERSION) \
+		$<
 
 xfce-notify-marshal.h: $(srcdir)/xfce-notify-marshal.list Makefile
-	$(AM_V_GEN) glib-genmarshal --prefix=xfce_notify_marshal --header $< > $@
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --quiet --prefix=xfce_notify_marshal --header $< > $@
 
 xfce-notify-marshal.c: $(srcdir)/xfce-notify-marshal.list Makefile
-	$(AM_V_GEN) glib-genmarshal --prefix=xfce_notify_marshal --include-header xfce-notify-marshal.h --body $< > $@
-
-endif
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --quiet --prefix=xfce_notify_marshal --include-header xfce-notify-marshal.h --body $< > $@
