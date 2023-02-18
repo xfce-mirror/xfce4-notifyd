@@ -13,16 +13,6 @@ SUBDIRS = \
 
 dist_autogen = autogen.sh
 dist_misc = TODO
-dist_intltool = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
-
-distclean_intltool = \
-	intltool-extract \
-	intltool-merge \
-	intltool-update \
-	./po/.intltool-merge-cache.lock
 
 distuninstallcheck_listfiles = \
 	find . -type f -print | grep -v ./share/icons/hicolor/icon-theme.cache
@@ -31,14 +21,12 @@ icon_dir = $(datadir)/icons/hicolor
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(icon_dir)
 
 dist_noinst_DATA = \
-	$(dist_misc) \
-	$(dist_intltool)
+	$(dist_misc)
 
 dist_noinst_SCRIPTS = \
 	$(dist_autogen)
 
 DISTCLEANFILES = \
-	$(distclean_intltool) \
 	$(distclean_service) \
 	$(distclean_autostart)
 
@@ -105,3 +93,5 @@ release: gpg-sign
 	-mkdir releases/
 	mv $(PACKAGE)-$(VERSION).tar.bz2* releases/
 	-rm $(PACKAGE)-$(VERSION).tar.gz
+
+EXTRA_DIST = m4/ChangeLog
