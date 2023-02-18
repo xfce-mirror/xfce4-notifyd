@@ -108,15 +108,17 @@ else
     enable_sound=no
 fi
 
-dnl ***********************************
-dnl *** Check for gdbus-codegen ***
-dnl ***********************************
 AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
-AC_PATH_PROG([GDBUS_CODEGEN], [gdbus-codegen], [no])
-if test x"$GDBUS_CODEGEN" = x"no"; then
-  AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
-  ./configure GDBUS_CODEGEN=/path/to/gdbus-codegen to define
-  a custom location for it.])
+AC_MSG_CHECKING([for gdbus-codegen])
+if test x"$GDBUS_CODEGEN" = x""; then
+    GDBUS_CODEGEN=`$PKG_CONFIG --variable=gdbus_codegen gio-2.0`
+fi
+if test -x "$GDBUS_CODEGEN"; then
+    AC_MSG_RESULT([$GDBUS_CODEGEN])
+else
+    AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
+./configure GDBUS_CODEGEN=/path/to/gdbus-codegen
+to define a custom location for it.])
 fi
 
 AC_ARG_VAR([GLIB_COMPILE_RESOURCES], [GResource compiler/generator])
