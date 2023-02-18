@@ -98,7 +98,7 @@ DISTCLEANFILES = \
 	$(distclean_autostart)
 
 %.service: $(srcdir)/%.service.in Makefile
-	sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+	$(AM_V_GEN) sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
 
 %.desktop: $(srcdir)/%.desktop.in Makefile
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o - | sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" > $@
