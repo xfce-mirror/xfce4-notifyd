@@ -1037,18 +1037,25 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
     for(i = 0; actions && actions[i]; i += 2) {
         const gchar *cur_action_id = actions[i];
         const gchar *cur_button_text = actions[i+1];
+        const gchar *icon_name = NULL;
         GtkWidget *btn, *img = NULL, *lbl;
         gdouble padding;
 
         if(!cur_button_text || !cur_action_id || !*cur_action_id)
             break;
-        /* Gnome applications seem to send a "default" action which often has no
-           label or text, because it is intended to be executed when clicking
-           the notification window.
-           See https://developer.gnome.org/notification-spec/
-           As we do not support this for the moment we hide buttons without labels. */
-        if (g_strcmp0 (cur_button_text, "") == 0)
-            continue;
+
+        if (actions_are_icon_names) {
+            icon_name = cur_action_id;
+        }
+
+        if (cur_button_text == NULL || g_strcmp0 (cur_button_text, "") == 0) {
+            // Actions with no label are intended to be the 'default' action; the spec
+            // suggests that clicking the notification will activate the default action,
+            // but we just close them on click, so let's create a button for it.
+            if (icon_name == NULL) {
+                icon_name = "emblem-default-symbolic";
+            }
+        }
 
         gtk_widget_style_get(GTK_WIDGET(window),
                              "padding", &padding,
@@ -1064,16 +1071,23 @@ xfce_notify_window_set_actions(XfceNotifyWindow *window,
                          G_CALLBACK(xfce_notify_window_button_clicked),
                          window);
 
-        if (actions_are_icon_names && gtk_icon_theme_has_icon(icon_theme, cur_action_id)) {
-            GIcon *icon = g_themed_icon_new_with_default_fallbacks(cur_action_id);
+        if (icon_name != NULL && gtk_icon_theme_has_icon(icon_theme, icon_name)) {
+            GIcon *icon = g_themed_icon_new_with_default_fallbacks(icon_name);
+            const gchar *desc;
+
+            if (cur_button_text == NULL || g_strcmp0 (cur_button_text, "") == 0) {
+                desc = _("Default Action");
+            } else {
+                desc = cur_button_text;
+            }
 
             img = gtk_image_new_from_gicon(icon, GTK_ICON_SIZE_BUTTON);
             gtk_widget_set_tooltip_text(img, cur_button_text);
-            atk_object_set_description(gtk_widget_get_accessible(img), cur_button_text);
+            atk_object_set_description(gtk_widget_get_accessible(img), desc);
             gtk_widget_show(img);
             gtk_container_add(GTK_CONTAINER(btn), img);
 
-            gtk_widget_set_tooltip_text(btn, cur_button_text);
+            gtk_widget_set_tooltip_text(btn, desc);
 
             g_object_unref(icon);
         }
