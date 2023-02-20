@@ -75,6 +75,7 @@ struct _XfceNotifyDaemon
     gboolean do_fadeout;
     gboolean do_slideout;
     gboolean do_not_disturb;
+    gboolean gauge_ignores_dnd;
     gboolean notification_log;
     gboolean show_text_with_gauge;
     gint primary_monitor;
@@ -191,6 +192,12 @@ const struct {
         .type = G_TYPE_BOOLEAN,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_not_disturb),
         .default_value.b = FALSE,
+    },
+    {
+        .name = GAUGE_IGNORES_DND_PROP,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, gauge_ignores_dnd),
+        .default_value.b = TRUE,
     },
     {
         .name = "/notification-log",
@@ -1449,7 +1456,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
        application has been muted by the user. Exceptions are "urgent"
        notifications. */
     if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
-        if (xndaemon->do_not_disturb == TRUE ||
+        if ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) ||
             application_is_muted == TRUE)
         {
             /* Notifications marked as transient will never be logged */

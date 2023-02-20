@@ -33,6 +33,7 @@
 #define LOG_MAX_SIZE_ENABLED_PROP           "/log-max-size-enabled"
 #define LOG_MAX_SIZE_PROP                   "/log-max-size"
 #define DND_ENABLED_PROP                    "/do-not-disturb"
+#define GAUGE_IGNORES_DND_PROP              "/gauge-ignores-dnd"
 #define EXPIRE_TIMEOUT_ENABLED_PROP         "/expire-timeout-enabled"
 #define EXPIRE_TIMEOUT_PROP                 "/expire-timeout"
 #define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"

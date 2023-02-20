@@ -1014,6 +1014,10 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     g_signal_connect (G_OBJECT (do_not_disturb_switch), "state-set",
                       G_CALLBACK (xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
 
+    btn = GTK_WIDGET(gtk_builder_get_object(builder, "gauge_ignores_dnd"));
+    xfconf_g_property_bind(panel->channel, GAUGE_IGNORES_DND_PROP, G_TYPE_BOOLEAN,
+                           G_OBJECT(btn), "active");
+
     primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
     xfconf_g_property_bind(panel->channel, "/primary-monitor", G_TYPE_UINT,
                            G_OBJECT(primary_monitor), "active");
