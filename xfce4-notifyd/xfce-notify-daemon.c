@@ -747,10 +747,12 @@ xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
     GList *list;
     gint monitor = xfce_notify_window_get_last_monitor(window);
 
-    /* Remove the reserved rectangle from the list */
-    list = xndaemon->reserved_rectangles[monitor];
-    list = g_list_remove(list, xfce_notify_window_get_geometry(window));
-    xndaemon->reserved_rectangles[monitor] = list;
+    if (G_LIKELY(monitor >= 0)) {
+        /* Remove the reserved rectangle from the list */
+        list = xndaemon->reserved_rectangles[monitor];
+        list = g_list_remove(list, xfce_notify_window_get_geometry(window));
+        xndaemon->reserved_rectangles[monitor] = list;
+    }
 
     if (reason == XFCE_NOTIFY_CLOSE_REASON_DISMISSED && xndaemon->log != NULL) {
         const gchar *log_id = xfce_notify_window_get_log_id(window);
