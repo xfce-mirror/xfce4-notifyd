@@ -111,14 +111,6 @@ typedef struct
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
-
-enum
-{
-    URGENCY_LOW = 0,
-    URGENCY_NORMAL,
-    URGENCY_CRITICAL,
-};
-
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
 const struct {
@@ -1258,7 +1250,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     gchar *desktop_id = NULL;
     gchar *new_app_name;
     gint value_hint = 0;
-    gint urgency = URGENCY_NORMAL;
+    gint urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     gboolean value_hint_set = FALSE;
     gboolean x_canonical = FALSE;
     gboolean transient = FALSE;
@@ -1395,10 +1387,10 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     else
         new_app_name = g_strdup (app_name);
 
-    if (urgency == URGENCY_CRITICAL && g_hash_table_contains(xndaemon->denied_critical_notifications, new_app_name)) {
-        urgency = URGENCY_NORMAL;
+    if (urgency == XFCE_NOTIFY_URGENCY_CRITICAL && g_hash_table_contains(xndaemon->denied_critical_notifications, new_app_name)) {
+        urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     }
-    if (urgency == URGENCY_CRITICAL) {
+    if (urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
         /* don't expire urgent notifications */
         expire_timeout = 0;
     }
@@ -1423,7 +1415,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
        notifications. */
-    if (urgency != URGENCY_CRITICAL) {
+    if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
         if (xndaemon->do_not_disturb == TRUE ||
             application_is_muted == TRUE)
         {
@@ -1480,6 +1472,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         xfce_notify_window_set_body(window, body);
         xfce_notify_window_set_actions(window, actions, actions_are_icon_names, xndaemon->css_provider);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
+        xfce_notify_window_set_urgency(window, urgency);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 #ifdef ENABLE_SOUND
         xfce_notify_window_set_sound_props(window, sound_props);
@@ -1493,6 +1486,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                                                         xndaemon->css_provider));
         xfce_notify_window_set_id(window, OUT_id);
         xfce_notify_window_set_override_redirect(window, xndaemon->windows_use_override_redirect);
+        xfce_notify_window_set_urgency(window, urgency);
         xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
 #ifdef ENABLE_SOUND
         xfce_notify_window_set_sound_props(window, sound_props);
@@ -1707,6 +1701,23 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
 
 
 
+static gboolean
+xfce_notify_daemon_collect_nonurgent_notifications(gpointer id_p,
+                                                   gpointer window_p,
+                                                   gpointer user_data)
+{
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(window_p);
+
+    if (xfce_notify_window_get_urgency(window) < XFCE_NOTIFY_URGENCY_CRITICAL) {
+        GList **to_remove = user_data;
+        *to_remove = g_list_prepend(*to_remove, window);
+    }
+
+    return FALSE;
+}
+
+
+
 static void
 xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                     const gchar *property,
@@ -1787,6 +1798,17 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                     }
                 }
                 break;
+            }
+        }
+
+        if (g_strcmp0(property, DND_ENABLED_PROP) == 0) {
+            if (xndaemon->do_not_disturb) {
+                GList *to_remove = NULL;
+                g_tree_foreach(xndaemon->active_notifications, xfce_notify_daemon_collect_nonurgent_notifications, &to_remove);
+                for (GList *l = to_remove; l != NULL; l = l->next) {
+                    xfce_notify_window_closed(XFCE_NOTIFY_WINDOW(l->data), XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+                }
+                g_list_free(to_remove);
             }
         }
     }

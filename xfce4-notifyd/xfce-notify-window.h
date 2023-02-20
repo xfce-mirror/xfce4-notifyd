@@ -35,6 +35,12 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+    XFCE_NOTIFY_URGENCY_LOW = 0,
+    XFCE_NOTIFY_URGENCY_NORMAL,
+    XFCE_NOTIFY_URGENCY_CRITICAL,
+} XfceNotifyUrgency;
+
 typedef enum
 {
     XFCE_NOTIFY_CLOSE_REASON_EXPIRED = 1,
@@ -91,6 +97,10 @@ void xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
 
 void xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
                                            gint expire_timeout);
+
+void xfce_notify_window_set_urgency(XfceNotifyWindow *window,
+                                    XfceNotifyUrgency urgency);
+XfceNotifyUrgency xfce_notify_window_get_urgency(XfceNotifyWindow *window);
 
 void xfce_notify_window_set_actions(XfceNotifyWindow *window,
                                     const gchar **actions,

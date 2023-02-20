@@ -66,6 +66,7 @@ struct _XfceNotifyWindow
     gint last_monitor;
     gboolean override_redirect;
 
+    XfceNotifyUrgency urgency;
     guint expire_timeout;
 
     gboolean mouse_hover;
@@ -221,6 +222,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GdkMonitor *monitor;
     GdkRectangle geometry;
 
+    window->urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->do_fadeout = DEFAULT_DO_FADEOUT;
@@ -968,6 +970,23 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
 
         xfce_notify_window_start_expiration (window);
     }
+}
+
+void
+xfce_notify_window_set_urgency(XfceNotifyWindow *window,
+                               XfceNotifyUrgency urgency)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    if (window->urgency != urgency) {
+        window->urgency = urgency;
+    }
+}
+
+XfceNotifyUrgency
+xfce_notify_window_get_urgency(XfceNotifyWindow *window) {
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), XFCE_NOTIFY_URGENCY_NORMAL);
+    return window->urgency;
 }
 
 void
