@@ -1541,6 +1541,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         xfce_notify_window_set_sound_props(window, sound_props);
 #endif
 
+        g_assert(g_tree_lookup(xndaemon->active_notifications, GUINT_TO_POINTER(OUT_id)) == NULL);
         g_tree_insert(xndaemon->active_notifications,
                       GUINT_TO_POINTER(OUT_id), window);
 
