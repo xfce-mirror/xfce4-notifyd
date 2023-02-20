@@ -782,12 +782,12 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     GtkWidget *widget = GTK_WIDGET(window);
     GtkAllocation allocation;
     GdkRectangle geom, initial, widget_geom;
-    GList *list;
     gint monitor_num;
     gint max_width;
 
     gtk_widget_get_allocation(widget, &allocation);
     monitor_num = xfce_notify_daemon_get_monitor_index(gdk_screen_get_display(screen), monitor);
+    g_return_if_fail(monitor_num >= 0);
     geom = xndaemon->monitors_workarea[monitor_num];
 
     gtk_window_set_screen(GTK_WINDOW(widget), screen);
@@ -826,23 +826,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     widget_geom.height = initial.height;
     max_width = 0;
 
-    /* Get the list of reserved places */
-    list = xndaemon->reserved_rectangles[monitor_num];
-
-    if(!list) {
-        /* If the list is empty, there are no displayed notifications */
-        DBG("No notifications on this monitor");
-
-        xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
-        xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor_num);
-
-        list = g_list_prepend(list, xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
-        xndaemon->reserved_rectangles[monitor_num] = list;
-
-        DBG("Notification position: x=%i y=%i", widget_geom.x, widget_geom.y);
-        gtk_window_move(GTK_WINDOW(widget), widget_geom.x, widget_geom.y);
-        return;
-    } else {
+    if (xndaemon->reserved_rectangles[monitor_num] != NULL) {
         gboolean found = FALSE;
 
         /* Else, we try to find the appropriate position on the monitor */
@@ -853,7 +837,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
 
             DBG("Test if the candidate overlaps one of the existing notifications.");
 
-            for(l = g_list_first(list); l; l = l->next) {
+            for(l = xndaemon->reserved_rectangles[monitor_num]; l; l = l->next) {
                 GdkRectangle *rectangle = l->data;
 
                 DBG("Overlaps with (x=%i, y=%i) ?", rectangle->x, rectangle->y);
@@ -963,8 +947,8 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
     xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor_num);
 
-    list = g_list_prepend(list, xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
-    xndaemon->reserved_rectangles[monitor_num] = list;
+    xndaemon->reserved_rectangles[monitor_num] = g_list_prepend(xndaemon->reserved_rectangles[monitor_num],
+                                                                xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
 
     DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
     gtk_window_move(GTK_WINDOW(widget), widget_geom.x, widget_geom.y);
