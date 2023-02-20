@@ -345,7 +345,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 static void
 xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 {
-    if(window->expire_timeout) {
+    if (window->expire_timeout > 0 && window->urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
         gint64 ct;
         guint timeout;
         gboolean fade_transparent;
@@ -979,7 +979,26 @@ xfce_notify_window_set_urgency(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if (window->urgency != urgency) {
+        if (window->urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
+            // No longer critical, so start expiration
+            if (window->expire_id == 0 && window->fade_id == 0 && gtk_widget_get_realized(GTK_WIDGET(window))) {
+                xfce_notify_window_start_expiration(window);
+            }
+        }
+
         window->urgency = urgency;
+
+        if (window->urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
+            if (window->fade_id != 0) {
+                g_source_remove(window->fade_id);
+                window->fade_id = 0;
+            }
+            if (window->expire_id != 0) {
+                g_source_remove(window->expire_id);
+                window->expire_id = 0;
+            }
+            gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
+        }
     }
 }
 

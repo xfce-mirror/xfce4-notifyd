@@ -1390,10 +1390,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     if (urgency == XFCE_NOTIFY_URGENCY_CRITICAL && g_hash_table_contains(xndaemon->denied_critical_notifications, new_app_name)) {
         urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     }
-    if (urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
-        /* don't expire urgent notifications */
-        expire_timeout = 0;
-    }
 
     notify_update_known_applications (xndaemon->settings, new_app_name);
 
