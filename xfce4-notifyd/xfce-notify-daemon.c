@@ -313,11 +313,18 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
 
 
 static gint
-xfce_direct_compare(gconstpointer a,
-                    gconstpointer b,
-                    gpointer user_data)
+xfce_uint_compare(gconstpointer a,
+                  gconstpointer b,
+                  gpointer user_data)
 {
-    return (gint)((gchar *)a - (gchar *)b);
+    guint ia = GPOINTER_TO_UINT(a);
+    guint ib = GPOINTER_TO_UINT(b);
+
+    if (ib >= ia) {
+        return ib - ia;
+    } else {
+        return -(gint)(ia - ib);
+    }
 }
 
 
@@ -604,7 +611,7 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 {
     GError *error = NULL;
 
-    xndaemon->active_notifications = g_tree_new_full(xfce_direct_compare,
+    xndaemon->active_notifications = g_tree_new_full(xfce_uint_compare,
                                                      NULL, NULL,
                                                      (GDestroyNotify)gtk_widget_destroy);
 
