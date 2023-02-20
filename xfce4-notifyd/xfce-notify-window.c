@@ -66,6 +66,7 @@ struct _XfceNotifyWindow
     gint last_monitor;
     gboolean override_redirect;
 
+    XfceNotifyUrgency urgency;
     guint expire_timeout;
 
     gboolean mouse_hover;
@@ -221,6 +222,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     GdkMonitor *monitor;
     GdkRectangle geometry;
 
+    window->urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->do_fadeout = DEFAULT_DO_FADEOUT;
@@ -343,7 +345,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 static void
 xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 {
-    if(window->expire_timeout) {
+    if (window->expire_timeout > 0 && window->urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
         gint64 ct;
         guint timeout;
         gboolean fade_transparent;
@@ -968,6 +970,42 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
 
         xfce_notify_window_start_expiration (window);
     }
+}
+
+void
+xfce_notify_window_set_urgency(XfceNotifyWindow *window,
+                               XfceNotifyUrgency urgency)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+
+    if (window->urgency != urgency) {
+        if (window->urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
+            // No longer critical, so start expiration
+            if (window->expire_id == 0 && window->fade_id == 0 && gtk_widget_get_realized(GTK_WIDGET(window))) {
+                xfce_notify_window_start_expiration(window);
+            }
+        }
+
+        window->urgency = urgency;
+
+        if (window->urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
+            if (window->fade_id != 0) {
+                g_source_remove(window->fade_id);
+                window->fade_id = 0;
+            }
+            if (window->expire_id != 0) {
+                g_source_remove(window->expire_id);
+                window->expire_id = 0;
+            }
+            gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
+        }
+    }
+}
+
+XfceNotifyUrgency
+xfce_notify_window_get_urgency(XfceNotifyWindow *window) {
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), XFCE_NOTIFY_URGENCY_NORMAL);
+    return window->urgency;
 }
 
 void
