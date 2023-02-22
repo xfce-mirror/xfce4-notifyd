@@ -165,7 +165,7 @@ AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
 dnl check for debugging support
 XDT_FEATURE_DEBUG([xdt_debug_default])
 
-AC_CONFIG_FILES( po/Makefile.in
+AC_CONFIG_FILES(
 [
     Makefile
     icons/Makefile
@@ -176,6 +176,7 @@ AC_CONFIG_FILES( po/Makefile.in
     icons/symbolic/Makefile
     common/Makefile
     panel-plugin/Makefile
+    po/Makefile.in
     themes/Makefile
     tests/Makefile
     xfce4-notifyd/Makefile
