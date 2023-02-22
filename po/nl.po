@@ -175,7 +175,7 @@ msgstr "Meldingen-invoegsel voor de Xfce-werkbalk"
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1224
@@ -247,11 +247,11 @@ msgstr "Kon is_read index voor DB niet maken: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1079
 msgid "Default Action"
-msgstr ""
+msgstr "Standaardactie"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce-meldingsdienst"
 
 #: xfce4-notifyd-config/main.c:112
 msgid "Notification Preview"
@@ -490,7 +490,7 @@ msgstr "Geluiden _dempen"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Toon altijd percentage-waarde-meldingen"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
 msgid "General"
