@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-10 12:48+0100\n"
+"POT-Creation-Date: 2023-02-18 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>, 2008,2014\n"
 "Language-Team: Indonesian (http://www.transifex.com/xfce/xfce-apps/language/id/)\n"
@@ -18,40 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../common/xfce-notify-log.c:201
-#, c-format
-msgid "The notification log directory (%s) is not a directory"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:213
-#, c-format
-msgid "Failed to open notification log: %s"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:308
-#, c-format
-msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:337
-msgid "trailing characters at end of statement"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:457
-#, c-format
-msgid "Failed to create 'notifications' table: %s"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:458
-#, c-format
-msgid "Failed to create DB timestamp index: %s"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:459
-#, c-format
-msgid "Failed to create DB is_read index: %s"
-msgstr ""
 
 #: ../common/xfce-notify-log-util.c:380
 msgid "Do you really want to clear the notification log?"
@@ -66,7 +32,7 @@ msgid "Cancel"
 msgstr "Batal"
 
 #: ../common/xfce-notify-log-util.c:390
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:181
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:191
 msgid "Clear"
 msgstr "Bersihkan"
 
@@ -78,51 +44,50 @@ msgstr "termasuk tembolok ikon"
 msgid "Now"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin.c:298
+#: ../panel-plugin/notification-plugin.c:379
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
 msgstr "Notifikasi"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:53
+#: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "Tidak bisa membuka url berikut: %s"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:135
+#: ../panel-plugin/notification-plugin-dialogs.c:134
 msgid "This is the notification plugin"
 msgstr "Ini adalah plugin notifikasi"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:137
+#: ../panel-plugin/notification-plugin-dialogs.c:136
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Hak Cipta © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:157
+#: ../panel-plugin/notification-plugin-log.c:159
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Jangan ganggu</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:321
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:155
+#: ../panel-plugin/notification-plugin-log.c:362
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-log.c:323
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-log.c:325
+#: ../panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
 msgstr "Tidak ada notifikasi"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:388
 msgid "_Clear log"
 msgstr "_Bersihkan log"
 
-#: ../panel-plugin/notification-plugin-log.c:358
+#: ../panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-log.c:367
+#: ../panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
 msgstr "Pengaturan _notifikasi…"
 
@@ -161,7 +126,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr ""
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:9
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:43
 msgid "Appearance"
 msgstr "Tampilan"
 
@@ -197,16 +162,8 @@ msgstr ""
 msgid "Do nothing"
 msgstr "Tak lakukan apapun"
 
-#: ../panel-plugin/notification-plugin.desktop.in.h:1
-msgid "Notification Plugin"
-msgstr "Plugin Notifikasi"
-
-#: ../panel-plugin/notification-plugin.desktop.in.h:2
-msgid "Notification plugin for the Xfce panel"
-msgstr "Plugin notifikasi untuk panel Xfce"
-
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1176
+#: ../xfce4-notifyd-config/main.c:1220
 msgid "Xfce Notify Daemon"
 msgstr "Jurik Notifikasi Xfce"
 
@@ -219,135 +176,185 @@ msgstr "Opsi tak dikenal \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Tak dapat menjalankan jurik notifikasi"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:487
+#: ../xfce4-notifyd/xfce-notify-daemon.c:539
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Jurik notifikasi lain sedang berjalan, keluar\n"
 
-#: ../xfce4-notifyd-config/main.c:111
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:178
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:209
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:243
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:256
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:290
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:304
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:316
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:330
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:342
+msgid "Log is unavailable"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:183
+msgid "Log entry not found"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:236
+#, c-format
+msgid "The notification log directory (%s) is not a directory"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:248
+#, c-format
+msgid "Failed to open notification log: %s"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:335
+#, c-format
+msgid "Failed to prepare SQL statement: %%s (%s)"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:364
+msgid "trailing characters at end of statement"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:468
+#, c-format
+msgid "Failed to create 'notifications' table: %s"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:469
+#, c-format
+msgid "Failed to create DB timestamp index: %s"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:470
+#, c-format
+msgid "Failed to create DB is_read index: %s"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:112
 msgid "Notification Preview"
 msgstr "Pratinjau Notifikasi"
 
-#: ../xfce4-notifyd-config/main.c:112
+#: ../xfce4-notifyd-config/main.c:113
 msgid "This is what notifications will look like"
 msgstr "Ini adalah bagaimana notifikasi akan tampak"
 
-#: ../xfce4-notifyd-config/main.c:117
+#: ../xfce4-notifyd-config/main.c:118
 msgid "Button"
 msgstr "Tombol"
 
-#: ../xfce4-notifyd-config/main.c:124
+#: ../xfce4-notifyd-config/main.c:125
 msgid "Notification preview failed"
 msgstr "Pratinjau notifikasi gagal"
 
-#: ../xfce4-notifyd-config/main.c:578
+#: ../xfce4-notifyd-config/main.c:572
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:582
+#: ../xfce4-notifyd-config/main.c:576
 msgid "Delete"
 msgstr "Hapus"
 
-#: ../xfce4-notifyd-config/main.c:584
+#: ../xfce4-notifyd-config/main.c:578
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:681
+#: ../xfce4-notifyd-config/main.c:676
 msgid "Unspecified applications"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:888
+#: ../xfce4-notifyd-config/main.c:922
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Saat ini hanya notifikasi mendesak yang ditampilkan.</b>\nLog notifikasi %s."
 
-#: ../xfce4-notifyd-config/main.c:895
+#: ../xfce4-notifyd-config/main.c:929
 msgid "enabled"
 msgstr "diaktifkan"
 
-#: ../xfce4-notifyd-config/main.c:895
+#: ../xfce4-notifyd-config/main.c:929
 msgid "disabled"
 msgstr "dinonaktifkan"
 
-#: ../xfce4-notifyd-config/main.c:1077
+#: ../xfce4-notifyd-config/main.c:1122
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Saat ini tidak ada aplikasi yang dikenal.</b></big>\nSegera setelah suatu aplikasi mengirimkan notifikasi\nmaka notifikasi tersebut akan ditampilkan di daftar ini."
 
-#: ../xfce4-notifyd-config/main.c:1143
+#: ../xfce4-notifyd-config/main.c:1187
 msgid "Display version information"
 msgstr "Tampilkan informasi versi"
 
-#: ../xfce4-notifyd-config/main.c:1144
+#: ../xfce4-notifyd-config/main.c:1188
 msgid "Settings manager socket"
 msgstr "Soket manajer pengaturan"
 
-#: ../xfce4-notifyd-config/main.c:1144
+#: ../xfce4-notifyd-config/main.c:1188
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: ../xfce4-notifyd-config/main.c:1154
+#: ../xfce4-notifyd-config/main.c:1198
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Ketik '%s --help' untuk penggunaan."
 
-#: ../xfce4-notifyd-config/main.c:1169
+#: ../xfce4-notifyd-config/main.c:1213
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Dirilis di bawah Lisensi Publik Umum GNU, versi 2\n"
 
-#: ../xfce4-notifyd-config/main.c:1170
+#: ../xfce4-notifyd-config/main.c:1214
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Silakan laporkan kutu ke %s.\n"
 
-#: ../xfce4-notifyd-config/main.c:1178
+#: ../xfce4-notifyd-config/main.c:1222
 msgid "Settings daemon is unavailable"
 msgstr "Jurik pengaturan tak tersedia"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:157
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:167
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Log kosong</b></big>\nBelum ada notifikasi yang dicatat di log."
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:173
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:183
 msgid "Refresh"
 msgstr "Segarkan"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:184
 msgid "Refresh the notification log"
 msgstr "Segarkan log notifikasi"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:182
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:192
 msgid "Clear the notification log"
 msgstr "Bersihkan log notifikasi"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:191
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:201
 msgid "Mark All Read"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:491
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:610
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
 msgstr "Kemarin dan sebelumnya"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:820
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
 msgstr ""
 
@@ -473,64 +480,75 @@ msgid "10"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
-msgid "_Disappear after"
-msgstr "Meng_hilang setelah"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "_Opacity"
 msgstr "_Kegelapan"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Default _position"
 msgstr "_Posisi bawaan"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "_Theme"
 msgstr "_Tema"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Show text with percent _values"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Date/time _format"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Show _Preview"
 msgstr "Tampilkan _Pratinjau"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+msgid "_Disappear after"
+msgstr "Meng_hilang setelah"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
+msgid ""
+"When creating a notification, applications can request how long they'd like "
+"the notification remain on screen. This setting controls whether or not that"
+" request is honored."
+msgstr ""
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
+msgid "Honor app-requested \"Disappear after\" time"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:44
 msgid "<b>Per-application notification settings</b>"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:43
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:45
 msgid "Applications"
 msgstr "Aplikasi"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:44
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:46
 msgid "Log notifications"
 msgstr "Log notifikasi"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:45
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:47
 msgid "Log applications"
 msgstr "Log aplikasi"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:46
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:48
 msgid "The maximum number of entries to be retained in the log."
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:47
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:49
 msgid "Log size limit"
 msgstr "Batas ukuran log"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:48
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:50
 msgid "Log"
 msgstr "Log"
 
@@ -545,7 +563,3 @@ msgstr ""
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
 msgstr ""
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Customize how notifications appear on your screen"
-msgstr "Sesuaikan bagaimana notifikasi tampak di layar anda"
