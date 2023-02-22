@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-10 12:48+0100\n"
+"POT-Creation-Date: 2023-02-18 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2016-2018,2020-2023\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-apps/language/zh_CN/)\n"
@@ -23,40 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../common/xfce-notify-log.c:201
-#, c-format
-msgid "The notification log directory (%s) is not a directory"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:213
-#, c-format
-msgid "Failed to open notification log: %s"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:308
-#, c-format
-msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:337
-msgid "trailing characters at end of statement"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:457
-#, c-format
-msgid "Failed to create 'notifications' table: %s"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:458
-#, c-format
-msgid "Failed to create DB timestamp index: %s"
-msgstr ""
-
-#: ../common/xfce-notify-log.c:459
-#, c-format
-msgid "Failed to create DB is_read index: %s"
-msgstr ""
 
 #: ../common/xfce-notify-log-util.c:380
 msgid "Do you really want to clear the notification log?"
@@ -71,7 +37,7 @@ msgid "Cancel"
 msgstr "取消"
 
 #: ../common/xfce-notify-log-util.c:390
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:181
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:191
 msgid "Clear"
 msgstr "清空"
 
@@ -83,51 +49,50 @@ msgstr "包括图标缓存"
 msgid "Now"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin.c:298
+#: ../panel-plugin/notification-plugin.c:379
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
 msgid "Notifications"
 msgstr "通知"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:53
+#: ../panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "无法打开以下URL：%s"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:135
+#: ../panel-plugin/notification-plugin-dialogs.c:134
 msgid "This is the notification plugin"
 msgstr "这是一个通知插件"
 
-#: ../panel-plugin/notification-plugin-dialogs.c:137
+#: ../panel-plugin/notification-plugin-dialogs.c:136
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "版权所有 © 2017 Simon Steinbeiß\n"
 
-#: ../panel-plugin/notification-plugin-log.c:157
+#: ../panel-plugin/notification-plugin-log.c:159
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>请勿打扰(_D)</b>"
 
-#: ../panel-plugin/notification-plugin-log.c:321
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:155
+#: ../panel-plugin/notification-plugin-log.c:362
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-log.c:323
+#: ../panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-log.c:325
+#: ../panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
 msgstr "没有通知"
 
-#: ../panel-plugin/notification-plugin-log.c:347
+#: ../panel-plugin/notification-plugin-log.c:388
 msgid "_Clear log"
 msgstr "清除日志(_C)"
 
-#: ../panel-plugin/notification-plugin-log.c:358
+#: ../panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
 msgstr ""
 
-#: ../panel-plugin/notification-plugin-log.c:367
+#: ../panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
 msgstr "通知设置(_N)..."
 
@@ -166,7 +131,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr "没有未读通知时隐藏面板按钮"
 
 #: ../panel-plugin/notification-plugin-settings.glade.h:9
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:43
 msgid "Appearance"
 msgstr "外观"
 
@@ -202,16 +167,8 @@ msgstr ""
 msgid "Do nothing"
 msgstr "什么都不做"
 
-#: ../panel-plugin/notification-plugin.desktop.in.h:1
-msgid "Notification Plugin"
-msgstr "通知插件"
-
-#: ../panel-plugin/notification-plugin.desktop.in.h:2
-msgid "Notification plugin for the Xfce panel"
-msgstr "Xfce 面板专用的通知插件"
-
 #: ../xfce4-notifyd/main.c:58 ../xfce4-notifyd/main.c:77
-#: ../xfce4-notifyd-config/main.c:1176
+#: ../xfce4-notifyd-config/main.c:1220
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 提示守护进程"
 
@@ -224,135 +181,185 @@ msgstr "未知选项 “%s”\n"
 msgid "Unable to start notification daemon"
 msgstr "未能启动通知守护进程"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:487
+#: ../xfce4-notifyd/xfce-notify-daemon.c:539
 #, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "另一个通知守护程序已在运行，现将退出\n"
 
-#: ../xfce4-notifyd-config/main.c:111
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:178
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:209
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:243
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:256
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:290
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:304
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:316
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:330
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:342
+msgid "Log is unavailable"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:183
+msgid "Log entry not found"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:236
+#, c-format
+msgid "The notification log directory (%s) is not a directory"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:248
+#, c-format
+msgid "Failed to open notification log: %s"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:335
+#, c-format
+msgid "Failed to prepare SQL statement: %%s (%s)"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:364
+msgid "trailing characters at end of statement"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:468
+#, c-format
+msgid "Failed to create 'notifications' table: %s"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:469
+#, c-format
+msgid "Failed to create DB timestamp index: %s"
+msgstr ""
+
+#: ../xfce4-notifyd/xfce-notify-log.c:470
+#, c-format
+msgid "Failed to create DB is_read index: %s"
+msgstr ""
+
+#: ../xfce4-notifyd-config/main.c:112
 msgid "Notification Preview"
 msgstr "通知预览"
 
-#: ../xfce4-notifyd-config/main.c:112
+#: ../xfce4-notifyd-config/main.c:113
 msgid "This is what notifications will look like"
 msgstr "通知看起来会像这个样子"
 
-#: ../xfce4-notifyd-config/main.c:117
+#: ../xfce4-notifyd-config/main.c:118
 msgid "Button"
 msgstr "按钮"
 
-#: ../xfce4-notifyd-config/main.c:124
+#: ../xfce4-notifyd-config/main.c:125
 msgid "Notification preview failed"
 msgstr "无法预览通知"
 
-#: ../xfce4-notifyd-config/main.c:578
+#: ../xfce4-notifyd-config/main.c:572
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "您确认要删除应用程序 \"%s\" 的通知设置？"
 
-#: ../xfce4-notifyd-config/main.c:582
+#: ../xfce4-notifyd-config/main.c:576
 msgid "Delete"
 msgstr "删除"
 
-#: ../xfce4-notifyd-config/main.c:584
+#: ../xfce4-notifyd-config/main.c:578
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
 msgstr ""
 
-#: ../xfce4-notifyd-config/main.c:681
+#: ../xfce4-notifyd-config/main.c:676
 msgid "Unspecified applications"
 msgstr "未指定的应用程序"
 
-#: ../xfce4-notifyd-config/main.c:888
+#: ../xfce4-notifyd-config/main.c:922
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>目前仅显示紧急通知。</b>\n通知日志状态为%s。"
 
-#: ../xfce4-notifyd-config/main.c:895
+#: ../xfce4-notifyd-config/main.c:929
 msgid "enabled"
 msgstr "已启用"
 
-#: ../xfce4-notifyd-config/main.c:895
+#: ../xfce4-notifyd-config/main.c:929
 msgid "disabled"
 msgstr "已禁用"
 
-#: ../xfce4-notifyd-config/main.c:1077
+#: ../xfce4-notifyd-config/main.c:1122
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>目前还没有已知的应用程序。</b></big>\n一旦应用程序发送通知\n它将出现在此列表中。"
 
-#: ../xfce4-notifyd-config/main.c:1143
+#: ../xfce4-notifyd-config/main.c:1187
 msgid "Display version information"
 msgstr "显示版本信息"
 
-#: ../xfce4-notifyd-config/main.c:1144
+#: ../xfce4-notifyd-config/main.c:1188
 msgid "Settings manager socket"
 msgstr "设置管理器套接字"
 
-#: ../xfce4-notifyd-config/main.c:1144
+#: ../xfce4-notifyd-config/main.c:1188
 msgid "SOCKET_ID"
 msgstr "套接字 ID(_I)"
 
-#: ../xfce4-notifyd-config/main.c:1154
+#: ../xfce4-notifyd-config/main.c:1198
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "输入 ‘%s --help’ 获取用法。"
 
-#: ../xfce4-notifyd-config/main.c:1169
+#: ../xfce4-notifyd-config/main.c:1213
 #, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "以 GNU 通用公共许可协议第二版发布\n"
 
-#: ../xfce4-notifyd-config/main.c:1170
+#: ../xfce4-notifyd-config/main.c:1214
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "请向 %s 报告缺陷。\n"
 
-#: ../xfce4-notifyd-config/main.c:1178
+#: ../xfce4-notifyd-config/main.c:1222
 msgid "Settings daemon is unavailable"
 msgstr "设置守护进程无效"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:157
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:167
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>日志为空</b></big>\n 还没有通知被记录。"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:173
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:183
 msgid "Refresh"
 msgstr "刷新"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:184
 msgid "Refresh the notification log"
 msgstr "刷新通知日志"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:182
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:192
 msgid "Clear the notification log"
 msgstr "清空通知日志"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:191
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:201
 msgid "Mark All Read"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:491
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:610
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
 msgstr "昨天和之前"
 
-#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:820
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
 msgstr ""
 
@@ -478,64 +485,75 @@ msgid "10"
 msgstr ""
 
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
-msgid "_Disappear after"
-msgstr "此时间后消失(_D)"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "_Opacity"
 msgstr "不透明度(_O)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Default _position"
 msgstr "默认位置(_P)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "_Theme"
 msgstr "主题(_T)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "当通知为百分比值（如音频音量或屏幕亮度）时，显示通知摘要和正文"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid "Show text with percent _values"
 msgstr "显示带有百分比值的文本"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Date/time _format"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Show _Preview"
 msgstr "显示预览(_P)"
 
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
+msgid "_Disappear after"
+msgstr "此时间后消失(_D)"
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
+msgid ""
+"When creating a notification, applications can request how long they'd like "
+"the notification remain on screen. This setting controls whether or not that"
+" request is honored."
+msgstr ""
+
 #: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
+msgid "Honor app-requested \"Disappear after\" time"
+msgstr ""
+
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:44
 msgid "<b>Per-application notification settings</b>"
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:43
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:45
 msgid "Applications"
 msgstr "应用程序"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:44
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:46
 msgid "Log notifications"
 msgstr "记录通知"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:45
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:47
 msgid "Log applications"
 msgstr "记录应用程序"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:46
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:48
 msgid "The maximum number of entries to be retained in the log."
 msgstr ""
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:47
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:49
 msgid "Log size limit"
 msgstr "日志大小限制"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:48
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:50
 msgid "Log"
 msgstr "日志"
 
@@ -550,7 +568,3 @@ msgstr ""
 #: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
 msgstr "包含在日志中"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
-msgid "Customize how notifications appear on your screen"
-msgstr "自定义通知在您屏幕上的显示方式"
