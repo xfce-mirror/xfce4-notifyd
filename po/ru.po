@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
 # 
 # Translators:
-# Andrei Stepanov, 2022
+# Andrei Stepanov, 2022-2023
 # Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2011
 # AlexanderFilev, 2020
 # Igor <f2404@yandex.ru>, 2016-2018,2020
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-02-22 13:53+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Andrei Stepanov, 2022\n"
+"Last-Translator: Andrei Stepanov, 2022-2023\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr "включая кэш значков"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "Сейчас"
 
 #: panel-plugin/notification-plugin.c:379
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:127
@@ -74,11 +74,11 @@ msgstr "<b>Не _беспокоить</b>"
 #: panel-plugin/notification-plugin-log.c:362
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Не удаётся открыть журнал уведомлений"
 
 #: panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
-msgstr ""
+msgstr "Нет непрочитанных уведомлений"
 
 #: panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
@@ -90,7 +90,7 @@ msgstr "О_чистить журнал"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr ""
+msgstr "Отметит_ь все как прочитанные"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -112,7 +112,7 @@ msgstr "_Закрыть"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Notification icon size"
-msgstr ""
+msgstr "Размер значка уведомления"
 
 #: panel-plugin/notification-plugin-settings.glade:125
 msgid "Number of notifications to show"
@@ -128,7 +128,7 @@ msgstr "Скрыть диалоговое окно подтверждения «
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
-msgstr ""
+msgstr "Скрыть кнопку панель, когда нет непрочитанных уведомлений"
 
 #: panel-plugin/notification-plugin-settings.glade:224
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
@@ -137,15 +137,15 @@ msgstr "Внешний вид"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "Показать в меню"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "Все уведомления"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
-msgstr ""
+msgstr "Непрочитанные уведомления"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
@@ -287,7 +287,7 @@ msgstr "Удалить"
 #: xfce4-notifyd-config/main.c:578
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr ""
+msgstr "Забыть приложение"
 
 #: xfce4-notifyd-config/main.c:676
 msgid "Unspecified applications"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:515
 msgid "_Mute sounds"
-msgstr ""
+msgstr "Заглушит_ь звуки"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
 msgid "Always show percent-value notifications"
@@ -524,11 +524,11 @@ msgstr "_Тема"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "Показывать сводку и текст уведомления, если в уведомлении указано процентное значение, например громкость звука или яркость экрана"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:726
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Показывать текст со значение_м в процентах"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "Date/time _format"
@@ -555,7 +555,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:883
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Настройки уведомлений для каждого приложения</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:910
 msgid "Applications"
@@ -584,15 +584,15 @@ msgstr "Журнал"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr ""
+msgstr "Заглушить приложение"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Разрешить срочные уведомления"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr ""
+msgstr "Включая журнал"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
