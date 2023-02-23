@@ -37,10 +37,12 @@
 #define EXPIRE_TIMEOUT_ENABLED_PROP         "/expire-timeout-enabled"
 #define EXPIRE_TIMEOUT_PROP                 "/expire-timeout"
 #define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"
+#define NOTIFICATION_DISPLAY_FIELDS_PROP    "/notification-display-fields"
 
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000
 #define EXPIRE_TIMEOUT_DEFAULT              10
+#define DISPLAY_FIELDS_DEFAULT              "icon-summary-body"
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be

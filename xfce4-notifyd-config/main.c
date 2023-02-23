@@ -973,6 +973,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *known_applications_scrolled_window;
     GtkWidget *known_applications_listbox;
     GtkWidget *placeholder_label;
+    GtkWidget *display_fields_combo;
     GtkWidget *do_not_disturb_switch;
     GtkWidget *do_not_disturb_info;
     GtkWidget *log_switch;
@@ -1004,6 +1005,13 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
         GENERAL   *
      **************/
     // Behavior
+    display_fields_combo = GTK_WIDGET(gtk_builder_get_object(builder, "display_fields"));
+    xfconf_g_property_bind(panel->channel, NOTIFICATION_DISPLAY_FIELDS_PROP, G_TYPE_STRING,
+                           G_OBJECT(display_fields_combo), "active-id");
+    if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(display_fields_combo)) == NULL) {
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(display_fields_combo), DISPLAY_FIELDS_DEFAULT);
+    }
+
     do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
     xfconf_g_property_bind (panel->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
                             G_OBJECT (do_not_disturb_switch), "active");

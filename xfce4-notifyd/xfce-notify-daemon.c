@@ -58,6 +58,12 @@
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
 
+typedef enum {
+    XFCE_NOTIFY_DISPLAY_FULL,
+    XFCE_NOTIFY_DISPLAY_SUMMARY,
+    XFCE_NOTIFY_DISPLAY_APP_NAME,
+} XfceNotifyDisplayFields;
+
 struct _XfceNotifyDaemon
 {
     XfceNotifyFdoGBusSkeleton parent;
@@ -74,6 +80,7 @@ struct _XfceNotifyDaemon
     GtkCornerType notify_location;
     gboolean do_fadeout;
     gboolean do_slideout;
+    XfceNotifyDisplayFields display_fields;
     gboolean do_not_disturb;
     gboolean gauge_ignores_dnd;
     gboolean notification_log;
@@ -112,6 +119,10 @@ typedef struct
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
+typedef gint (*EnumConverter)(const gchar *str);
+
+static gint xfce_notify_display_fields_from_string(const gchar *str);
+
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
 const struct {
@@ -123,7 +134,9 @@ const struct {
         guint u;
         gdouble d;
         gboolean b;
+        const gchar *s;
     } default_value;
+    EnumConverter enum_conv;
 } settings[] = {
     {
         .name = EXPIRE_TIMEOUT_ENABLED_PROP,
@@ -186,6 +199,13 @@ const struct {
         .type = G_TYPE_UINT,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, primary_monitor),
         .default_value.u = 0,
+    },
+    {
+        .name = NOTIFICATION_DISPLAY_FIELDS_PROP,
+        .type = G_TYPE_STRING,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, display_fields),
+        .default_value.s = DISPLAY_FIELDS_DEFAULT,
+        .enum_conv = xfce_notify_display_fields_from_string,
     },
     {
         .name = "/do-not-disturb",
@@ -1301,6 +1321,8 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     GVariantIter iter;
     guint OUT_id = replaces_id != 0 ? replaces_id : xfce_notify_daemon_generate_id(xndaemon);
     gboolean application_is_muted = FALSE;
+    const gchar *summary_text;
+    const gchar *body_text;
 
 #ifdef ENABLE_SOUND
     if (!xndaemon->mute_sounds) {
@@ -1458,7 +1480,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                 && !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
             {
                 /* Either log in DND mode or always for muted apps */
-                if ((xndaemon->log_level == 0 && xndaemon->do_not_disturb == TRUE) ||
+                if ((xndaemon->log_level == 0 && (xndaemon->do_not_disturb || xndaemon->display_fields != XFCE_NOTIFY_DISPLAY_FULL)) ||
                     xndaemon->log_level == 1)
                       /* Log either all, all except muted or only muted applications */
                       if (xndaemon->log != NULL
@@ -1498,12 +1520,30 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         }
     }
 
+    switch (xndaemon->display_fields) {
+        case XFCE_NOTIFY_DISPLAY_FULL:
+            summary_text = summary;
+            body_text = body;
+            break;
+        case XFCE_NOTIFY_DISPLAY_SUMMARY:
+            summary_text = summary;
+            body_text = NULL;
+            break;
+        case XFCE_NOTIFY_DISPLAY_APP_NAME:
+            summary_text = new_app_name;
+            body_text = NULL;
+            break;
+        default:
+            g_assert_not_reached();
+            break;
+    }
+
     if(replaces_id
        && (window = g_tree_lookup(xndaemon->active_notifications,
                                   GUINT_TO_POINTER(replaces_id))))
     {
-        xfce_notify_window_set_summary(window, summary);
-        xfce_notify_window_set_body(window, body);
+        xfce_notify_window_set_summary(window, summary_text);
+        xfce_notify_window_set_body(window, body_text);
         xfce_notify_window_set_actions(window, actions, actions_are_icon_names, xndaemon->css_provider);
         xfce_notify_window_set_expire_timeout(window, expire_timeout);
         xfce_notify_window_set_urgency(window, urgency);
@@ -1512,7 +1552,8 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         xfce_notify_window_set_sound_props(window, sound_props);
 #endif
     } else {
-        window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary, body,
+        window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary_text,
+                                                                        body_text,
                                                                         app_icon,
                                                                         expire_timeout,
                                                                         actions,
@@ -1753,6 +1794,31 @@ xfce_notify_daemon_collect_nonurgent_notifications(gpointer id_p,
 }
 
 
+static gint
+xfce_notify_display_fields_from_string(const gchar *str) {
+    static const struct {
+        const gchar *nick;
+        XfceNotifyDisplayFields value;
+    } mapping[] = {
+        { "icon-summary-body", XFCE_NOTIFY_DISPLAY_FULL },
+        { "icon-summary", XFCE_NOTIFY_DISPLAY_SUMMARY },
+        { "icon-appname", XFCE_NOTIFY_DISPLAY_APP_NAME },
+    };
+
+    if (str == NULL) {
+        return XFCE_NOTIFY_DISPLAY_FULL;
+    } else {
+        for (gsize i = 0; i < G_N_ELEMENTS(mapping); ++i) {
+            if (strcmp(mapping[i].nick, str) == 0) {
+                return mapping[i].value;
+            }
+        }
+
+        g_warning("Invalid XfceNotifyDisplayFields value '%s'; using default", str);
+        return XFCE_NOTIFY_DISPLAY_FULL;
+    }
+}
+
 
 static void
 xfce_notify_daemon_settings_changed(XfconfChannel *channel,
@@ -1822,6 +1888,18 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                             ? g_value_get_boolean(value)
                             : settings[i].default_value.b;
                         break;
+
+                    case G_TYPE_STRING: {
+                        const gchar *str = G_VALUE_TYPE(value) == settings[i].type
+                            ? g_value_get_string(value)
+                            : settings[i].default_value.s;
+                        if (settings[i].enum_conv != NULL) {
+                            *(gint *)loc = settings[i].enum_conv(str);
+                        } else {
+                            *(gchar **)loc = g_strdup(str);
+                        }
+                        break;
+                    }
 
                     default:
                         g_critical("Unhandled property type %s", g_type_name(settings[i].type));
@@ -1911,6 +1989,18 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                                            settings[i].name,
                                                            settings[i].default_value.b);
                 break;
+
+            case G_TYPE_STRING: {
+                const gchar *value = xfconf_channel_get_string(xndaemon->settings,
+                                                               settings[i].name,
+                                                               settings[i].default_value.s);
+                if (settings[i].enum_conv != NULL) {
+                    *(gint *)loc = settings[i].enum_conv(value);
+                } else {
+                    *(gchar **)loc = g_strdup(value);
+                }
+                break;
+            }
 
             default:
                 g_critical("Unhandled property type %s", g_type_name(settings[i].type));
