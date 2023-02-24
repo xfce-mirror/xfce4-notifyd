@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-02-22 13:53+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Ioannis LM, 2022-2023\n"
+"Last-Translator: Πέτρος Σαμαράς <psamaras1@gmail.com>, 2017\n"
 "Language-Team: Greek (http://www.transifex.com/xfce/xfce-apps/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -497,7 +497,7 @@ msgstr "_Σιωπή ήχων"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
 msgid "Always show percent-value notifications"
-msgstr "Εμφάνιση τιμής με ποσοστά"
+msgstr "Εμφάνιση στις ειδοποιήσεις των τιμών σε ποσοστά"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
 msgid "General"
@@ -527,11 +527,11 @@ msgstr "_Θέμα"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr "Συνοπτική εμφάνιση της ειδοποίησης όταν οι τιμές είναι σε ποσοστά, όπως η ένταση του ήχου και η φωτεινότητα της οθόνης"
+msgstr "Συνοπτική εμφάνιση κειμένου στην ειδοποίηση όταν η τιμή είναι σε ποσοστά, όπως στην ένταση του ήχου και στη φωτεινότητα της οθόνης"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:726
 msgid "Show text with percent _values"
-msgstr "Εμφάνιση κειμένου με _τιμές σε ποσοστά"
+msgstr "Εμφάνιση κειμένου στις _τιμές σε ποσοστά"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "Date/time _format"
