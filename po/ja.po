@@ -492,7 +492,7 @@ msgstr "音をミュート (_M)"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "常にパーセント値による通知を表示"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
 msgid "General"
