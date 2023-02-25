@@ -177,7 +177,7 @@ msgstr "Suplemento de notificações para o painel do Xfce"
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1224
@@ -249,11 +249,11 @@ msgstr "Falha ao criar índice de base de dados de lido: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1079
 msgid "Default Action"
-msgstr ""
+msgstr "Ação predefinida"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Daemon de notificação Xfce"
 
 #: xfce4-notifyd-config/main.c:112
 msgid "Notification Preview"
@@ -492,7 +492,7 @@ msgstr "_Silenciar sons"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Mostrar sempre notificações de valor percentual"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
 msgid "General"
