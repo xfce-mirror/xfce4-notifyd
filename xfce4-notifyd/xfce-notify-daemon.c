@@ -1155,7 +1155,7 @@ notify_update_known_applications (XfconfChannel *channel, gchar *new_app_name)
 
     val = g_new0 (GValue, 1);
     g_value_init (val, G_TYPE_STRING);
-    g_value_take_string (val, new_app_name);
+    g_value_set_string (val, new_app_name);
 
     known_applications = xfconf_channel_get_arrayv (channel, KNOWN_APPLICATIONS_PROP);
     /* No known applications, initialize the channel and property */
@@ -1487,6 +1487,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                 g_variant_unref (image_data);
             if (desktop_id)
                 g_free (desktop_id);
+            g_free(new_app_name);
             g_date_time_unref(timestamp);
 #ifdef ENABLE_SOUND
             if (sound_props != NULL) {
@@ -1620,6 +1621,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
       g_variant_unref (icon_data);
     if (desktop_id)
         g_free (desktop_id);
+    g_free(new_app_name);
     g_date_time_unref(timestamp);
 
     return TRUE;
