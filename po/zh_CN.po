@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-02-22 13:53+0100\n"
+"POT-Creation-Date: 2023-02-26 12:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2016-2018,2020-2023\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-apps/language/zh_CN/)\n"
@@ -132,7 +132,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr "没有未读通知时隐藏面板按钮"
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:894
 msgid "Appearance"
 msgstr "外观"
 
@@ -183,7 +183,7 @@ msgid "org.xfce.notification"
 msgstr ""
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1224
+#: xfce4-notifyd-config/main.c:1232
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 提示守护进程"
 
@@ -196,7 +196,7 @@ msgstr "未知选项 “%s”\n"
 msgid "Unable to start notification daemon"
 msgstr "未能启动通知守护进程"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:536
+#: xfce4-notifyd/xfce-notify-daemon.c:556
 msgid "Another notification daemon is running, exiting\n"
 msgstr "另一个通知守护程序已在运行，现将退出\n"
 
@@ -309,40 +309,40 @@ msgstr "已启用"
 msgid "disabled"
 msgstr "已禁用"
 
-#: xfce4-notifyd-config/main.c:1126
+#: xfce4-notifyd-config/main.c:1134
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>目前还没有已知的应用程序。</b></big>\n一旦应用程序发送通知\n它将出现在此列表中。"
 
-#: xfce4-notifyd-config/main.c:1191
+#: xfce4-notifyd-config/main.c:1199
 msgid "Display version information"
 msgstr "显示版本信息"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "Settings manager socket"
 msgstr "设置管理器套接字"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "SOCKET_ID"
 msgstr "套接字 ID(_I)"
 
-#: xfce4-notifyd-config/main.c:1202
+#: xfce4-notifyd-config/main.c:1210
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "输入 ‘%s --help’ 获取用法。"
 
-#: xfce4-notifyd-config/main.c:1217
+#: xfce4-notifyd-config/main.c:1225
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "以 GNU 通用公共许可协议第二版发布\n"
 
-#: xfce4-notifyd-config/main.c:1218
+#: xfce4-notifyd-config/main.c:1226
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "请向 %s 报告缺陷。\n"
 
-#: xfce4-notifyd-config/main.c:1226
+#: xfce4-notifyd-config/main.c:1234
 msgid "Settings daemon is unavailable"
 msgstr "设置守护进程无效"
 
@@ -385,8 +385,8 @@ msgid "Loading more log entries..."
 msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
-msgid "only during \"Do not disturb\""
-msgstr "仅在“请勿打扰”状态下"
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -497,89 +497,105 @@ msgstr "静音(_M)"
 msgid "Always show percent-value notifications"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
+msgid "When displaying notifications, show"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
+msgid "icon, summary, and body"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
+msgid "icon and summary"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
+msgid "icon and application name"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
 msgstr "通用"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:609
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:638
 msgid "seconds"
 msgstr "秒"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:624
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
 msgid "10"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:649
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:678
 msgid "_Opacity"
 msgstr "不透明度(_O)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:663
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:692
 msgid "Default _position"
 msgstr "默认位置(_P)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:711
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "_Theme"
 msgstr "主题(_T)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "当通知为百分比值（如音频音量或屏幕亮度）时，显示通知摘要和正文"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:726
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:755
 msgid "Show text with percent _values"
 msgstr "显示带有百分比值的文本"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:769
 msgid "Date/time _format"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:792
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:821
 msgid "Show _Preview"
 msgstr "显示预览(_P)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:818
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:847
 msgid "_Disappear after"
 msgstr "此时间后消失(_D)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:836
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:838
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:867
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:883
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:912
 msgid "<b>Per-application notification settings</b>"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:910
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:939
 msgid "Applications"
 msgstr "应用程序"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:929
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:958
 msgid "Log notifications"
 msgstr "记录通知"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:972
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1001
 msgid "Log applications"
 msgstr "记录应用程序"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1020
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1036
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1065
 msgid "The maximum number of entries to be retained in the log."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1032
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1061
 msgid "Log size limit"
 msgstr "日志大小限制"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1053
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1082
 msgid "Log"
 msgstr "日志"
 
