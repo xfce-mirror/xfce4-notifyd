@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-02-22 13:53+0100\n"
+"POT-Creation-Date: 2023-02-26 12:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2013,2016-2018,2020,2022-2023\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/xfce-apps/language/ko/)\n"
@@ -127,7 +127,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr "읽지 않은 알림이 없을 때 패널 단추 숨김"
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:894
 msgid "Appearance"
 msgstr "겉 모양"
 
@@ -178,7 +178,7 @@ msgid "org.xfce.notification"
 msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1224
+#: xfce4-notifyd-config/main.c:1232
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 알림 데몬"
 
@@ -191,7 +191,7 @@ msgstr "알 수 없는 옵션 \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "알림 데몬을 시작할 수 없습니다"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:536
+#: xfce4-notifyd/xfce-notify-daemon.c:556
 msgid "Another notification daemon is running, exiting\n"
 msgstr "다른 알림 데몬이 실행중입니다, 빠져나갑니다\n"
 
@@ -304,40 +304,40 @@ msgstr "사용"
 msgid "disabled"
 msgstr "사용 안 함"
 
-#: xfce4-notifyd-config/main.c:1126
+#: xfce4-notifyd-config/main.c:1134
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>지금은 알려진 애플리케이션이 없습니다.</b></big>\n애플리케이션이 알림을 보내면\n이 목록에 나타납니다."
 
-#: xfce4-notifyd-config/main.c:1191
+#: xfce4-notifyd-config/main.c:1199
 msgid "Display version information"
 msgstr "버전 정보 표시"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "Settings manager socket"
 msgstr "설정 관리자 소켓"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1202
+#: xfce4-notifyd-config/main.c:1210
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "사용법을 보려면 '%s --help'를 입력합니다."
 
-#: xfce4-notifyd-config/main.c:1217
+#: xfce4-notifyd-config/main.c:1225
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU 일반 공중 사용허가서 버전 2에 따라 출시했습니다\n"
 
-#: xfce4-notifyd-config/main.c:1218
+#: xfce4-notifyd-config/main.c:1226
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "%s(으)로 버그를 알려주십시오.\n"
 
-#: xfce4-notifyd-config/main.c:1226
+#: xfce4-notifyd-config/main.c:1234
 msgid "Settings daemon is unavailable"
 msgstr "설정 데몬을 사용할 수 없습니다"
 
@@ -380,8 +380,8 @@ msgid "Loading more log entries..."
 msgstr "로그 항목 더 불러오는 중..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
-msgid "only during \"Do not disturb\""
-msgstr "\"방해하지 말아주세요\"일 때만"
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -492,89 +492,105 @@ msgstr "소리 끄기(_M)"
 msgid "Always show percent-value notifications"
 msgstr "항상 백분율 값 알림 표시"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
+msgid "When displaying notifications, show"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
+msgid "icon, summary, and body"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
+msgid "icon and summary"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
+msgid "icon and application name"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
 msgstr "일반"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:609
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:638
 msgid "seconds"
 msgstr "초"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:624
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
 msgid "10"
 msgstr "10"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:649
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:678
 msgid "_Opacity"
 msgstr "투명도(_O)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:663
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:692
 msgid "Default _position"
 msgstr "기본 위치(_P)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:711
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "_Theme"
 msgstr "테마(_T)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "오디오 음량 또는 화면 밝기 등의 백분율 값을 알릴 경우 알림 요약과 내용을 표시합니다"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:726
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:755
 msgid "Show text with percent _values"
 msgstr "텍스트와 백분율 값 함게 표시(_V)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:769
 msgid "Date/time _format"
 msgstr "날짜/시각 형식(_F)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:792
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:821
 msgid "Show _Preview"
 msgstr "미리보기 표시(_P)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:818
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:847
 msgid "_Disappear after"
 msgstr "다음시간 후 사라짐(_D)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:836
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr "알림 설정을 만들 때, 앱에서는 화면에 알림 표시를 남길 시간을 요청할 수 있습니다. 이 설정으로 요청을 반영할지 여부를 제어합니다."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:838
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:867
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr "앱에서 요청한 \"사라짐 경과\" 시간 반영"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:883
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:912
 msgid "<b>Per-application notification settings</b>"
 msgstr "<b>앱별 알림 설정</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:910
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:939
 msgid "Applications"
 msgstr "프로그램"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:929
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:958
 msgid "Log notifications"
 msgstr "로그 알림"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:972
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1001
 msgid "Log applications"
 msgstr "로그 애플리케이션"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1020
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1036
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1065
 msgid "The maximum number of entries to be retained in the log."
 msgstr "로그로 남겨둘 최대 기록 갯수입니다."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1032
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1061
 msgid "Log size limit"
 msgstr "로그 용량 제한"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1053
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1082
 msgid "Log"
 msgstr "로그"
 
