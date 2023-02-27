@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-02-22 13:53+0100\n"
+"POT-Creation-Date: 2023-02-26 12:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: heskjestad <cato@heskjestad.xyz>, 2022-2023\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-apps/language/nb/)\n"
@@ -131,7 +131,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr "Skjul panelknappen når alle varsler er lest"
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:894
 msgid "Appearance"
 msgstr "Utseende"
 
@@ -182,7 +182,7 @@ msgid "org.xfce.notification"
 msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1224
+#: xfce4-notifyd-config/main.c:1232
 msgid "Xfce Notify Daemon"
 msgstr "Xfce-varslingsnisse"
 
@@ -195,7 +195,7 @@ msgstr "Ukjent valg «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "Klarte ikke starte varslingsprosess"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:536
+#: xfce4-notifyd/xfce-notify-daemon.c:556
 msgid "Another notification daemon is running, exiting\n"
 msgstr "En annen varslingsnisse kjører, avslutter\n"
 
@@ -308,40 +308,40 @@ msgstr "slått på"
 msgid "disabled"
 msgstr "slått av"
 
-#: xfce4-notifyd-config/main.c:1126
+#: xfce4-notifyd-config/main.c:1134
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Ingen kjente programmer.</b></big>\nVarslinger vil vises i denne listen så snart\nprogrammer sender dem."
 
-#: xfce4-notifyd-config/main.c:1191
+#: xfce4-notifyd-config/main.c:1199
 msgid "Display version information"
 msgstr "Vis versjonsinformasjon"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "Settings manager socket"
 msgstr "Innstillingsbehandlersokkel"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1202
+#: xfce4-notifyd-config/main.c:1210
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Skriv inn '%s --help' for instruksjoner."
 
-#: xfce4-notifyd-config/main.c:1217
+#: xfce4-notifyd-config/main.c:1225
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Utgitt under GNU General Public License, versjon 2\n"
 
-#: xfce4-notifyd-config/main.c:1218
+#: xfce4-notifyd-config/main.c:1226
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Rapporter feil til %s.\n"
 
-#: xfce4-notifyd-config/main.c:1226
+#: xfce4-notifyd-config/main.c:1234
 msgid "Settings daemon is unavailable"
 msgstr "Varslingsprosess er ikke tilgjengelig"
 
@@ -384,8 +384,8 @@ msgid "Loading more log entries..."
 msgstr "Laster flere loggoppførsler …"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
-msgid "only during \"Do not disturb\""
-msgstr "bare under «Ikke forstyrr»"
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -496,89 +496,105 @@ msgstr "De_mp lyder"
 msgid "Always show percent-value notifications"
 msgstr "Vis alltid varslinger med prosentverdier"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
+msgid "When displaying notifications, show"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
+msgid "icon, summary, and body"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
+msgid "icon and summary"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
+msgid "icon and application name"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
 msgstr "Generelt"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:609
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:638
 msgid "seconds"
 msgstr "sekunder"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:624
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
 msgid "10"
 msgstr "10"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:649
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:678
 msgid "_Opacity"
 msgstr "_Dekkevne"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:663
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:692
 msgid "Default _position"
 msgstr "Forvalgt _plassering"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:711
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "_Theme"
 msgstr "_Drakt"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "Vis oppsummering av varsler med innhold når varselet er en prosentverdi, slik som lydvolum eller skjermens lysstyrke"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:726
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:755
 msgid "Show text with percent _values"
 msgstr "Vis tekst med prosent_verdier"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:769
 msgid "Date/time _format"
 msgstr "Dato/tid-_format"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:792
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:821
 msgid "Show _Preview"
 msgstr "_Forhåndsvis"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:818
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:847
 msgid "_Disappear after"
 msgstr "_Skjul etter"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:836
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr "Programmer kan angi hvor lenge en varsling skal vises på skjermen. Dette kan overstyres med denne innstillingen."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:838
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:867
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr "Respekter programmets ønskede visningstid"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:883
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:912
 msgid "<b>Per-application notification settings</b>"
 msgstr "<b>Varslingsinnstilling per program</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:910
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:939
 msgid "Applications"
 msgstr "Programmer"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:929
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:958
 msgid "Log notifications"
 msgstr "Loggfør varslinger"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:972
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1001
 msgid "Log applications"
 msgstr "Logg programmer"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1020
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1036
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1065
 msgid "The maximum number of entries to be retained in the log."
 msgstr "Største antall oppførsler som skal vises i loggen."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1032
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1061
 msgid "Log size limit"
 msgstr "Største loggstørrelse"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1053
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1082
 msgid "Log"
 msgstr "Logg"
 
