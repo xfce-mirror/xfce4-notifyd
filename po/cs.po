@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-02-22 13:53+0100\n"
+"POT-Creation-Date: 2023-02-26 12:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: k3dar, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-apps/language/cs/)\n"
@@ -130,7 +130,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr ""
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:894
 msgid "Appearance"
 msgstr "Vzhled"
 
@@ -181,7 +181,7 @@ msgid "org.xfce.notification"
 msgstr ""
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1224
+#: xfce4-notifyd-config/main.c:1232
 msgid "Xfce Notify Daemon"
 msgstr "Služba oznamování pro prostředí Xfce"
 
@@ -194,7 +194,7 @@ msgstr "Neznámá volba \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Nelze spustit službu pro oznamování"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:536
+#: xfce4-notifyd/xfce-notify-daemon.c:556
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Již je spuštěna jiná služba pro oznamování, ukončování\n"
 
@@ -307,40 +307,40 @@ msgstr "povoleno"
 msgid "disabled"
 msgstr "zakázáno"
 
-#: xfce4-notifyd-config/main.c:1126
+#: xfce4-notifyd-config/main.c:1134
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Aktuálně zde nejsou žádné známé aplikace.</b></big>\nJakmile aplikace pošle oznámení, objeví se v\ntomto seznamu."
 
-#: xfce4-notifyd-config/main.c:1191
+#: xfce4-notifyd-config/main.c:1199
 msgid "Display version information"
 msgstr "Zobrazit informace o verzi"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "Settings manager socket"
 msgstr "Soket správce nastavení"
 
-#: xfce4-notifyd-config/main.c:1192
+#: xfce4-notifyd-config/main.c:1200
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1202
+#: xfce4-notifyd-config/main.c:1210
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Informace o použití získáte příkazem '%s --help'"
 
-#: xfce4-notifyd-config/main.c:1217
+#: xfce4-notifyd-config/main.c:1225
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Vydáno pod podmínkami licence  GNU General Public License, verze 2\n"
 
-#: xfce4-notifyd-config/main.c:1218
+#: xfce4-notifyd-config/main.c:1226
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prosímte, abyste hlásili chyby na adresu %s.\n"
 
-#: xfce4-notifyd-config/main.c:1226
+#: xfce4-notifyd-config/main.c:1234
 msgid "Settings daemon is unavailable"
 msgstr "Služba pro nastavení není dostupná"
 
@@ -383,8 +383,8 @@ msgid "Loading more log entries..."
 msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
-msgid "only during \"Do not disturb\""
-msgstr "pouze v režimu 'Nerušit'"
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -495,89 +495,105 @@ msgstr ""
 msgid "Always show percent-value notifications"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:571
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
+msgid "When displaying notifications, show"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
+msgid "icon, summary, and body"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
+msgid "icon and summary"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
+msgid "icon and application name"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
 msgstr "Obecné"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:609
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:638
 msgid "seconds"
 msgstr "sekundách"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:624
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
 msgid "10"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:649
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:678
 msgid "_Opacity"
 msgstr "_Neprůhlednost"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:663
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:692
 msgid "Default _position"
 msgstr "Výchozí _pozice"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:711
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "_Theme"
 msgstr "_Motiv"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:726
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:755
 msgid "Show text with percent _values"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:769
 msgid "Date/time _format"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:792
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:821
 msgid "Show _Preview"
 msgstr "Zobrazit _náhled"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:818
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:847
 msgid "_Disappear after"
 msgstr "_Zmizet po"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:836
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:838
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:867
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:883
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:912
 msgid "<b>Per-application notification settings</b>"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:910
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:939
 msgid "Applications"
 msgstr "Aplikace"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:929
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:958
 msgid "Log notifications"
 msgstr "Protokolovat oznámení"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:972
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1001
 msgid "Log applications"
 msgstr "Protokolovat aplikace"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1020
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1036
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1065
 msgid "The maximum number of entries to be retained in the log."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1032
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1061
 msgid "Log size limit"
 msgstr "Limit velikosti protokolu"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1053
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1082
 msgid "Log"
 msgstr "Protokol"
 
