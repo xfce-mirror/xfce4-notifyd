@@ -383,7 +383,7 @@ msgstr "Зареждат се още записи в дневника..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "само по време на „Не ме безпокойте“ или когато обектите за уведомяване не се показват"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -496,19 +496,19 @@ msgstr "Винаги да се показват уведомления в про
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "При показване на известия, показване"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "икона, резюме и обект"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
 msgid "icon and summary"
-msgstr ""
+msgstr "икона и резюме"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "icon and application name"
-msgstr ""
+msgstr "икона и име на приложение"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
