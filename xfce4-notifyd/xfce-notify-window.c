@@ -31,6 +31,11 @@
 
 #include <libxfce4ui/libxfce4ui.h>
 
+#ifdef ENABLE_X11
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+#endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <gtk-layer-shell.h>
@@ -402,6 +407,46 @@ xfce_notify_window_realize(GtkWidget *widget)
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->realize(widget);
 
     gdk_window_set_override_redirect(gtk_widget_get_window(widget), window->override_redirect);
+
+#ifdef ENABLE_X11
+    // GDK includes WM_TAKE_FOCUS in WM_PROTOCOLS, even for non-focusable
+    // windows, and (notably) xfwm4 will still try to give focus to the window,
+    // which will cause any fullscreen windows to un-fullscreen.  The ICCCM
+    // says that windows that do not take input should not advertise support
+    // for WM_TAKE_FOCUS, so I believe GDK is in the wrong here.  Even if it
+    // does make sense for the WM to handle this differently, our windows
+    // should follow the spec!
+    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+        Display *dpy = gdk_x11_display_get_xdisplay(gdk_display_get_default());
+        Window win = gdk_x11_window_get_xid(gtk_widget_get_window(widget));
+        Atom *wm_protocols = NULL;
+        int n_protocols = 0;
+
+        gdk_x11_display_error_trap_push(gdk_display_get_default());
+
+        if (XGetWMProtocols(dpy, win, &wm_protocols, &n_protocols) != 0 && wm_protocols != NULL) {
+            Atom wm_take_focus = XInternAtom(dpy, "WM_TAKE_FOCUS", False);
+            gboolean found = FALSE;
+
+            for (int i = 0; i < n_protocols; ++i) {
+                if (wm_protocols[i] == wm_take_focus) {
+                    found = TRUE;
+                }
+                if (found && i + 1 < n_protocols) {
+                    wm_protocols[i] = wm_protocols[i + 1];
+                }
+            }
+
+            if (found) {
+                XSetWMProtocols(dpy, win, wm_protocols, n_protocols - 1);
+            }
+
+            XFree(wm_protocols);
+        }
+
+        gdk_x11_display_error_trap_pop_ignored(gdk_display_get_default());
+    }
+#endif
 
     xfce_notify_window_start_expiration(window);
 
