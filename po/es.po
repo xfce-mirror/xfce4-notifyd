@@ -162,7 +162,7 @@ msgstr "Después de mostrar el menú"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr "Marcar todas las entradas del registro como leídas"
+msgstr "Marcar como leídas todas las entradas del registro"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
@@ -214,7 +214,7 @@ msgstr "Hay otro servicio de notificaciones en ejecución. Saliendo.\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:330
 #: xfce4-notifyd/xfce-notify-daemon-log.c:342
 msgid "Log is unavailable"
-msgstr "El registro no está disponible"
+msgstr "No está disponible el registro"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:183
 msgid "Log entry not found"
@@ -339,7 +339,7 @@ msgstr "Escriba «%s --help» para su uso."
 
 #: xfce4-notifyd-config/main.c:1225
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Se ha publicado según los términos de la Licencia Pública General de GNU, versión 2\n"
+msgstr "Se ha publicado según los términos de la versión 2 de la Licencia Pública General de GNU\n"
 
 #: xfce4-notifyd-config/main.c:1226
 #, c-format
@@ -378,7 +378,7 @@ msgstr "Marcar como leídas todas las notificaciones no leídas"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
-msgstr "Marcar como leída la entrada del registro"
+msgstr "Marcar como leída la entrada del _registro"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
@@ -390,7 +390,7 @@ msgstr "Cargando más entradas del registro..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "Solo en modo «No molestar» o si no se muestran los cuerpos de las notificaciones"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -481,7 +481,7 @@ msgstr "<b>Animaciones</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Por defecto, las burbujas de notificación se mostrarán en la pantalla en la que se encuentre el puntero del ratón."
+msgstr "Por defecto, las notificaciones se mostrarán en la pantalla donde esté el puntero del ratón."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
 msgid "Show notifications on"
@@ -499,23 +499,23 @@ msgstr "_Silenciar los sonidos"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
 msgid "Always show percent-value notifications"
-msgstr "Mostrar siempre notificaciones de valores porcentuales"
+msgstr "Mostrar siempre las notificaciones de valores porcentuales"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Al mostrar las notificaciones, mostrar"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "Icono, resumen y cuerpo"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
 msgid "icon and summary"
-msgstr ""
+msgstr "Icono y resumen"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "icon and application name"
-msgstr ""
+msgstr "Icono y nombre de la aplicación"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
@@ -545,7 +545,7 @@ msgstr "_Tema"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr "Mostrar el resumen y el cuerpo de la notificación cuando se trata de un valor porcentual, como el volumen del sonido o el brillo de la pantalla."
+msgstr "Mostrar el resumen y el cuerpo de la notificación si se trata de un valor porcentual, como el volumen del sonido o el brillo de la pantalla."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:755
 msgid "Show text with percent _values"
