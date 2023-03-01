@@ -978,7 +978,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *do_not_disturb_info;
     GtkWidget *log_switch;
     GtkWidget *log_viewer_box;
-    GtkWidget *primary_monitor;
+    GtkWidget *show_notifications_on;
     GtkWidget *mute_sounds;
     GtkWidget *do_fadeout;
     GtkWidget *show_text_with_gauge;
@@ -1026,11 +1026,13 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, GAUGE_IGNORES_DND_PROP, G_TYPE_BOOLEAN,
                            G_OBJECT(btn), "active");
 
-    primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
-    xfconf_g_property_bind(panel->channel, "/primary-monitor", G_TYPE_UINT,
-                           G_OBJECT(primary_monitor), "active");
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(primary_monitor)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(primary_monitor), 0);
+    show_notifications_on = GTK_WIDGET(gtk_builder_get_object(builder, "show_notifications_on"));
+    xfce_notify_migrate_show_notifications_on_setting(panel->channel);
+    xfconf_g_property_bind(panel->channel, SHOW_NOTIFICATIONS_ON_PROP, G_TYPE_STRING,
+                           G_OBJECT(show_notifications_on), "active-id");
+    if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(show_notifications_on)) == NULL) {
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(show_notifications_on), SHOW_NOTIFICATIONS_ON_DEFAULT);
+    }
 
     mute_sounds = GTK_WIDGET(gtk_builder_get_object(builder, "mute_sounds"));
 #ifdef ENABLE_SOUND
