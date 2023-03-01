@@ -981,7 +981,6 @@ xfce_notify_window_expire_timeout(gpointer data)
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(data), FALSE);
 
-    g_source_remove(window->expire_id);
     window->expire_id = 0;
 
     fade_transparent =
@@ -1085,7 +1084,6 @@ xfce_notify_window_fade_timeout(gpointer data)
     }
 
     if (ret == G_SOURCE_REMOVE) {
-        g_source_remove(window->fade_id);
         window->fade_id = 0;
         g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
                       XFCE_NOTIFY_CLOSE_REASON_EXPIRED);
