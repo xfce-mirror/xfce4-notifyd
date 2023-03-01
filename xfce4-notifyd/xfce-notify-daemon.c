@@ -1002,13 +1002,10 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
         }
     }
 
+    DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
     xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
-
     xndaemon->reserved_rectangles[monitor_num] = g_list_prepend(xndaemon->reserved_rectangles[monitor_num],
                                                                 xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
-
-    DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
-    gtk_window_move(GTK_WINDOW(widget), widget_geom.x, widget_geom.y);
 }
 
 static void
