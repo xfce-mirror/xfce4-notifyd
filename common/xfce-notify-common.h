@@ -39,6 +39,8 @@
 #define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"
 #define NOTIFICATION_DISPLAY_FIELDS_PROP    "/notification-display-fields"
 #define SHOW_NOTIFICATIONS_ON_PROP          "/show-notifications-on"
+#define DO_FADEOUT_PROP                     "/do-fadeout"
+#define DO_SLIDEOUT_PROP                    "/do-slideout"
 
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000
