@@ -526,7 +526,7 @@ xfce_notify_window_constructed(GObject *object) {
 static void
 xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 {
-    if (window->expire_timeout > 0 && window->urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
+    if (window->expire_id == 0 && window->expire_timeout > 0 && window->urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
         gint64 ct;
         guint timeout;
         gboolean fade_transparent;
