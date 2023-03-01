@@ -564,6 +564,7 @@
                         <items>
                           <item id="active-monitor" translatable="yes">monitor with mouse pointer</item>
                           <item id="primary-monitor" translatable="yes">primary monitor</item>
+                          <item id="all-monitors" translatable="yes">all monitors</item>
                         </items>
                       </object>
                       <packing>
