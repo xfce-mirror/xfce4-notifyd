@@ -991,24 +991,27 @@ xfce_notify_window_expire_timeout(gpointer data)
         gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW(window)));
 
     if(fade_transparent && window->do_fadeout) {
-        /* remember the original position of the window before we slide it out */
-        if (window->do_slideout) {
+        if (window->fade_id == 0) {
+            /* remember the original position of the window before we slide it out */
+            if (window->do_slideout) {
 #ifdef ENABLE_WAYLAND
-            if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-                window->original_x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
-                window->original_y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
-            } else
+                if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                    window->original_x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
+                    window->original_y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+                } else
 #endif
-            {
-                gtk_window_get_position (GTK_WINDOW (window), &window->original_x, &window->original_y);
+                {
+                    gtk_window_get_position (GTK_WINDOW (window), &window->original_x, &window->original_y);
+                }
+                animation_timeout = FADE_CHANGE_TIMEOUT / 2;
+            } else {
+                animation_timeout = FADE_CHANGE_TIMEOUT;
             }
-            animation_timeout = FADE_CHANGE_TIMEOUT / 2;
+
+            window->fade_id = g_timeout_add(animation_timeout,
+                                            xfce_notify_window_fade_timeout,
+                                            window);
         }
-        else
-            animation_timeout = FADE_CHANGE_TIMEOUT;
-        window->fade_id = g_timeout_add(animation_timeout,
-                                        xfce_notify_window_fade_timeout,
-                                        window);
     } else {
         /* it might be 800ms early, but that's ok */
         g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
