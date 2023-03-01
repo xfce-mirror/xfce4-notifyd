@@ -1574,6 +1574,8 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) || application_is_muted))
     {
         xfce_notify_fdo_gbus_complete_notify (skeleton, invocation, OUT_id);
+        xfce_notify_fdo_gbus_emit_notification_closed(skeleton, OUT_id, XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+
         if (image_data)
             g_variant_unref (image_data);
         if (desktop_id)
