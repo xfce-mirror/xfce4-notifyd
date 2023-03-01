@@ -6,6 +6,8 @@ xfce4_notifyd_PROGRAMS = \
 xfce4_notifyd_SOURCES = \
 	$(top_srcdir)/common/xfce-notify-common.h \
 	main.c \
+	xfce-notification.c \
+	xfce-notification.h \
 	xfce-notify-fdo-gbus.c \
 	xfce-notify-fdo-gbus.h \
 	xfce-notify-gbus.c \
@@ -18,6 +20,8 @@ xfce4_notifyd_SOURCES = \
 	xfce-notify-daemon-log.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h \
+	xfce-notify-types.c \
+	xfce-notify-types.h \
 	xfce-notify-window.c \
 	xfce-notify-window.h
 
