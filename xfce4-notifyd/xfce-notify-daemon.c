@@ -629,41 +629,6 @@ xfce_notify_daemon_constructed(GObject *obj) {
 }
 
 static void
-log_row_added(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_row_added(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id);
-    }
-}
-
-static void
-log_row_changed(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_row_changed(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id != NULL ? entry_id : "");
-    }
-}
-
-static void
-log_row_deleted(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_row_deleted(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id);
-    }
-}
-
-static void
-log_truncated(XfceNotifyLog *log, guint n_kept_entries, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_truncated(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), n_kept_entries);
-    }
-}
-
-static void
-log_cleared(XfceNotifyLog *log, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_cleared(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog));
-    }
-}
-
-static void
 xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 {
     GError *error = NULL;
@@ -688,17 +653,6 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
         if (error != NULL) {
             g_error_free(error);
         }
-    } else {
-        g_signal_connect(xndaemon->log, "row-added",
-                         G_CALLBACK(log_row_added), xndaemon);
-        g_signal_connect(xndaemon->log, "row-changed",
-                         G_CALLBACK(log_row_changed), xndaemon);
-        g_signal_connect(xndaemon->log, "row-deleted",
-                         G_CALLBACK(log_row_deleted), xndaemon);
-        g_signal_connect(xndaemon->log, "truncated",
-                         G_CALLBACK(log_truncated), xndaemon);
-        g_signal_connect(xndaemon->log, "cleared",
-                         G_CALLBACK(log_cleared), xndaemon);
     }
 }
 

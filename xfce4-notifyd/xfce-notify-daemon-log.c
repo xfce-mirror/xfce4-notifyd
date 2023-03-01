@@ -140,6 +140,7 @@ xfce_notify_daemon_log_finalize(GObject *object) {
     g_object_unref(xndlog->bus);
 
     if (xndlog->log != NULL) {
+        g_signal_handlers_disconnect_by_data(xndlog->log, xndlog);
         g_object_unref(xndlog->log);
     }
 
@@ -348,6 +349,31 @@ notify_log_clear(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation)
     return G_DBUS_METHOD_INVOCATION_HANDLED;
 }
 
+static void
+log_row_added(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemonLog *xndlog) {
+    xfce_notify_log_gbus_emit_row_added(XFCE_NOTIFY_LOG_GBUS(xndlog), entry_id);
+}
+
+static void
+log_row_changed(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemonLog *xndlog) {
+    xfce_notify_log_gbus_emit_row_changed(XFCE_NOTIFY_LOG_GBUS(xndlog), entry_id != NULL ? entry_id : "");
+}
+
+static void
+log_row_deleted(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemonLog *xndlog) {
+    xfce_notify_log_gbus_emit_row_deleted(XFCE_NOTIFY_LOG_GBUS(xndlog), entry_id);
+}
+
+static void
+log_truncated(XfceNotifyLog *log, guint n_kept_entries, XfceNotifyDaemonLog *xndlog) {
+    xfce_notify_log_gbus_emit_truncated(XFCE_NOTIFY_LOG_GBUS(xndlog), n_kept_entries);
+}
+
+static void
+log_cleared(XfceNotifyLog *log, XfceNotifyDaemonLog *xndlog) {
+    xfce_notify_log_gbus_emit_cleared(XFCE_NOTIFY_LOG_GBUS(xndlog));
+}
+
 static gboolean
 xfce_notify_daemon_log_real_init(GInitable *initable, GCancellable *cancellable, GError **error) {
     XfceNotifyDaemonLog *xndlog = XFCE_NOTIFY_DAEMON_LOG(initable);
@@ -376,6 +402,17 @@ xfce_notify_daemon_log_real_init(GInitable *initable, GCancellable *cancellable,
                          G_CALLBACK(notify_log_truncate), NULL);
         g_signal_connect(xndlog, "handle-clear",
                          G_CALLBACK(notify_log_clear), NULL);
+
+        g_signal_connect(xndlog->log, "row-added",
+                         G_CALLBACK(log_row_added), xndlog);
+        g_signal_connect(xndlog->log, "row-changed",
+                         G_CALLBACK(log_row_changed), xndlog);
+        g_signal_connect(xndlog->log, "row-deleted",
+                         G_CALLBACK(log_row_deleted), xndlog);
+        g_signal_connect(xndlog->log, "truncated",
+                         G_CALLBACK(log_truncated), xndlog);
+        g_signal_connect(xndlog->log, "cleared",
+                         G_CALLBACK(log_cleared), xndlog);
 
         return TRUE;
     } else {
