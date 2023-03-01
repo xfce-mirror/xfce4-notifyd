@@ -146,6 +146,7 @@ enum
 };
 
 static void xfce_notify_window_constructed(GObject *object);
+static void xfce_notify_window_dispose(GObject *object);
 static void xfce_notify_window_finalize(GObject *object);
 static void xfce_notify_window_set_property(GObject *object,
                                             guint prop_id,
@@ -220,6 +221,7 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     GtkWidgetClass *widget_class = (GtkWidgetClass *)klass;
 
     gobject_class->constructed = xfce_notify_window_constructed;
+    gobject_class->dispose = xfce_notify_window_dispose;
     gobject_class->finalize = xfce_notify_window_finalize;
     gobject_class->set_property = xfce_notify_window_set_property;
     gobject_class->get_property = xfce_notify_window_get_property;
@@ -547,6 +549,23 @@ xfce_notify_window_start_expiration(XfceNotifyWindow *window)
                                           window);
     }
     gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
+}
+
+static void
+xfce_notify_window_dispose(GObject *object) {
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
+
+    if (window->fade_id != 0) {
+        g_source_remove(window->fade_id);
+        window->fade_id = 0;
+    }
+
+    if (window->expire_id != 0) {
+        g_source_remove(window->expire_id);
+        window->expire_id = 0;
+    }
+
+    G_OBJECT_CLASS(xfce_notify_window_parent_class)->dispose(object);
 }
 
 static void
