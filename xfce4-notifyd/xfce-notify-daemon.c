@@ -64,6 +64,11 @@ typedef enum {
     XFCE_NOTIFY_DISPLAY_APP_NAME,
 } XfceNotifyDisplayFields;
 
+typedef enum {
+    XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
+    XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
+} XfceNotifyShowOn;
+
 struct _XfceNotifyDaemon
 {
     XfceNotifyFdoGBusSkeleton parent;
@@ -85,7 +90,7 @@ struct _XfceNotifyDaemon
     gboolean gauge_ignores_dnd;
     gboolean notification_log;
     gboolean show_text_with_gauge;
-    gint primary_monitor;
+    XfceNotifyShowOn show_notifications_on;
     gboolean windows_use_override_redirect;
 
     XfceNotifyDaemonLog *xndlog;
@@ -119,13 +124,27 @@ typedef struct
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
-typedef gint (*EnumConverter)(const gchar *str);
+typedef struct {
+    const gchar *nick;
+    gint value;
+} EnumMapping;
 
-static gint xfce_notify_display_fields_from_string(const gchar *str);
+static const EnumMapping notification_display_fields_mapping[] = {
+    { "icon-summary-body", XFCE_NOTIFY_DISPLAY_FULL },
+    { "icon-summary", XFCE_NOTIFY_DISPLAY_SUMMARY },
+    { "icon-appname", XFCE_NOTIFY_DISPLAY_APP_NAME },
+    { NULL, -1 },
+};
+
+static const EnumMapping show_notifications_on_mapping[] = {
+    { "active-monitor", XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR },
+    { "primary-monitor", XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR },
+    { NULL, -1 },
+};
 
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
-const struct {
+static const struct {
     const gchar *name;
     GType type;
     gsize offset;
@@ -136,7 +155,8 @@ const struct {
         gboolean b;
         const gchar *s;
     } default_value;
-    EnumConverter enum_conv;
+    const EnumMapping *enum_mappings;
+    gint enum_default_value;
 } settings[] = {
     {
         .name = EXPIRE_TIMEOUT_ENABLED_PROP,
@@ -195,17 +215,20 @@ const struct {
     },
 #endif
     {
-        .name = "/primary-monitor",
-        .type = G_TYPE_UINT,
-        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, primary_monitor),
-        .default_value.u = 0,
+        .name = SHOW_NOTIFICATIONS_ON_PROP,
+        .type = G_TYPE_STRING,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_notifications_on),
+        .default_value.s = SHOW_NOTIFICATIONS_ON_DEFAULT,
+        .enum_mappings = show_notifications_on_mapping,
+        .enum_default_value = XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
     },
     {
         .name = NOTIFICATION_DISPLAY_FIELDS_PROP,
         .type = G_TYPE_STRING,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, display_fields),
         .default_value.s = DISPLAY_FIELDS_DEFAULT,
-        .enum_conv = xfce_notify_display_fields_from_string,
+        .enum_mappings = notification_display_fields_mapping,
+        .enum_default_value = XFCE_NOTIFY_DISPLAY_FULL,
     },
     {
         .name = "/do-not-disturb",
@@ -1004,7 +1027,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 
     gdk_device_get_position (pointer, &screen, &x, &y);
 
-    if (xndaemon->primary_monitor == 1) {
+    if (xndaemon->show_notifications_on == XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR) {
         monitor = gdk_display_get_primary_monitor(display);
     } else {
         monitor = gdk_display_get_monitor_at_point(display, x, y);
@@ -1795,27 +1818,22 @@ xfce_notify_daemon_collect_nonurgent_notifications(gpointer id_p,
 
 
 static gint
-xfce_notify_display_fields_from_string(const gchar *str) {
-    static const struct {
-        const gchar *nick;
-        XfceNotifyDisplayFields value;
-    } mapping[] = {
-        { "icon-summary-body", XFCE_NOTIFY_DISPLAY_FULL },
-        { "icon-summary", XFCE_NOTIFY_DISPLAY_SUMMARY },
-        { "icon-appname", XFCE_NOTIFY_DISPLAY_APP_NAME },
-    };
-
+xfce_notify_convert_enum(const EnumMapping mappings[],
+                         const gchar *property_name,
+                         const gchar *str,
+                         gint default_value)
+{
     if (str == NULL) {
-        return XFCE_NOTIFY_DISPLAY_FULL;
+        return default_value;
     } else {
-        for (gsize i = 0; i < G_N_ELEMENTS(mapping); ++i) {
-            if (strcmp(mapping[i].nick, str) == 0) {
-                return mapping[i].value;
+        for (gsize i = 0; mappings[i].nick != NULL; ++i) {
+            if (strcmp(mappings[i].nick, str) == 0) {
+                return mappings[i].value;
             }
         }
 
-        g_warning("Invalid XfceNotifyDisplayFields value '%s'; using default", str);
-        return XFCE_NOTIFY_DISPLAY_FULL;
+        g_warning("Invalid value '%s' for property '%s'; using default", str, property_name);
+        return default_value;
     }
 }
 
@@ -1893,8 +1911,11 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                         const gchar *str = G_VALUE_TYPE(value) == settings[i].type
                             ? g_value_get_string(value)
                             : settings[i].default_value.s;
-                        if (settings[i].enum_conv != NULL) {
-                            *(gint *)loc = settings[i].enum_conv(str);
+                        if (settings[i].enum_mappings != NULL) {
+                            *(gint *)loc = xfce_notify_convert_enum(settings[i].enum_mappings,
+                                                                    settings[i].name,
+                                                                    str,
+                                                                    settings[i].enum_default_value);
                         } else {
                             *(gchar **)loc = g_strdup(str);
                         }
@@ -1938,6 +1959,7 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
 
     xndaemon->settings = xfconf_channel_new("xfce4-notifyd");
     xfce_notify_migrate_log_max_size_setting(xndaemon->settings);
+    xfce_notify_migrate_show_notifications_on_setting(xndaemon->settings);
 
     theme = xfconf_channel_get_string(xndaemon->settings,
                                       "/theme", "Default");
@@ -1994,8 +2016,11 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                 const gchar *value = xfconf_channel_get_string(xndaemon->settings,
                                                                settings[i].name,
                                                                settings[i].default_value.s);
-                if (settings[i].enum_conv != NULL) {
-                    *(gint *)loc = settings[i].enum_conv(value);
+                if (settings[i].enum_mappings != NULL) {
+                    *(gint *)loc = xfce_notify_convert_enum(settings[i].enum_mappings,
+                                                            settings[i].name,
+                                                            value,
+                                                            settings[i].enum_default_value);
                 } else {
                     *(gchar **)loc = g_strdup(value);
                 }

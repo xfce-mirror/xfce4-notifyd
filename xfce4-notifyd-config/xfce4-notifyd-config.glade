@@ -68,20 +68,6 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="liststore3">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">display with mouse pointer</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">primary display</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="liststore4">
     <columns>
       <!-- column-name gchararray -->
@@ -474,24 +460,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="primary_monitor">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="model">liststore3</property>
-                        <property name="active-id">1</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer5"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkLabel" id="primary_label">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -586,6 +554,21 @@
                       <packing>
                         <property name="left-attach">1</property>
                         <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="show_notifications_on">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="active-id">active-monitor</property>
+                        <items>
+                          <item id="active-monitor" translatable="yes">monitor with mouse pointer</item>
+                          <item id="primary-monitor" translatable="yes">primary monitor</item>
+                        </items>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">4</property>
                       </packing>
                     </child>
                     <child>
