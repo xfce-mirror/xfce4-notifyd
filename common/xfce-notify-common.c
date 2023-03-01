@@ -76,3 +76,20 @@ xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
         }
     }
 }
+
+void
+xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
+    if (xfconf_channel_has_property(channel, "/primary-monitor")) {
+        guint value = xfconf_channel_get_uint(channel, "/primary-monitor", 0);
+        const gchar *new_value;
+
+        if (value == 1) {
+            new_value = "primary-monitor";
+        } else {
+            new_value = SHOW_NOTIFICATIONS_ON_DEFAULT;
+        }
+
+        xfconf_channel_set_string(channel, SHOW_NOTIFICATIONS_ON_PROP, new_value);
+        xfconf_channel_reset_property(channel, "/primary-monitor", FALSE);
+    }
+}
