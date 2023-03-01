@@ -75,6 +75,7 @@ struct _XfceNotifyWindow
 
     gdouble normal_opacity;
     gint original_x, original_y;
+    gint draw_offset_x, draw_offset_y;
 
     guint32 icon_only:1,
             has_summary_text:1,
@@ -174,6 +175,7 @@ static gboolean xfce_notify_window_configure_event(GtkWidget *widget,
                                                    GdkEventConfigure *evt);
 static gboolean xfce_notify_window_expire_timeout(gpointer data);
 static gboolean xfce_notify_window_fade_timeout(gpointer data);
+static void xfce_notify_window_reset_fade_and_slide(XfceNotifyWindow *window);
 
 static void xfce_notify_window_button_clicked(GtkWidget *widget,
                                               gpointer user_data);
@@ -395,8 +397,8 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->do_fadeout = DEFAULT_DO_FADEOUT;
     window->do_slideout = DEFAULT_DO_SLIDEOUT;
-    window->original_x = -1;
-    window->original_y = -1;
+    window->original_x = G_MININT;;
+    window->original_y = G_MININT;
     window->op_change_steps = FADE_TIME / FADE_CHANGE_TIMEOUT;
 
 #ifdef ENABLE_WAYLAND
@@ -891,6 +893,9 @@ xfce_notify_window_draw (GtkWidget *widget,
     cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
     cairo_fill (cr);
 
+    // Translate drawing for slideout
+    cairo_translate(cr, window->draw_offset_x, window->draw_offset_y);
+
     /* Then render the background and border based on the Gtk theme */
     gtk_style_context_set_state (context, state);
     gtk_render_background (context, cr, allocation.x, allocation.y, allocation.width, allocation.height);
@@ -931,15 +936,7 @@ xfce_notify_window_motion_notify(GtkWidget *widget,
             window->expire_id = 0;
         }
 
-        if (window->fade_id != 0) {
-            g_source_remove(window->fade_id);
-            window->fade_id = 0;
-
-            /* reset the sliding-out window to its original position */
-            if (window->do_slideout) {
-                xfce_notify_window_move(window, window->original_x, window->original_y);
-            }
-        }
+        xfce_notify_window_reset_fade_and_slide(window);
     }
 
     if (!window->mouse_hover) {
@@ -990,7 +987,7 @@ xfce_notify_window_expire_timeout(gpointer data)
     fade_transparent =
         gdk_screen_is_composited(gtk_window_get_screen(GTK_WINDOW(window)));
 
-    if(fade_transparent && window->do_fadeout) {
+    if((fade_transparent && window->do_fadeout) || window->do_slideout) {
         if (window->fade_id == 0) {
             /* remember the original position of the window before we slide it out */
             if (window->do_slideout) {
@@ -1025,52 +1022,96 @@ static gboolean
 xfce_notify_window_fade_timeout(gpointer data)
 {
     XfceNotifyWindow *window = data;
-    gdouble op;
-    gint x, y;
+    gboolean ret = G_SOURCE_CONTINUE;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(data), FALSE);
 
     /* slide out animation */
     if (window->do_slideout) {
+        gint x, y;
+        GdkRectangle monitor_geom;
+        gboolean add_pixels = window->notify_location == GTK_CORNER_TOP_RIGHT || window->notify_location == GTK_CORNER_BOTTOM_RIGHT;
+
+        gdk_monitor_get_geometry(window->monitor, &monitor_geom);
+
+        if (window->draw_offset_x == 0 && window->draw_offset_y == 0) {
+
 #ifdef ENABLE_WAYLAND
-        if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-            x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
-            y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
-        } else
+            if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
+                y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+            } else
 #endif
-        {
-            gtk_window_get_position (GTK_WINDOW (window), &x, &y);
+            {
+                gtk_window_get_position(GTK_WINDOW (window), &x, &y);
+            }
+
+            x = CLAMP(x + (add_pixels ? 10 : -10), monitor_geom.x, monitor_geom.x + monitor_geom.width - window->geometry.width);
+            DBG("sliding to (%d, %d)", x, y);
+            xfce_notify_window_move(window, x, y);
+
+            // Some WMs won't let us push the window entirely off-screen, so instead we just push it
+            // against the end of the monitor and then start drawing the window content offset.  As
+            // a nice bonus, this also avoids the issue where if there's another monitor in the path
+            // of the slideout, the notification window won't appear on that other monitor while
+            // sliding.
+            if (x == monitor_geom.x || x == monitor_geom.x + monitor_geom.width - window->geometry.width) {
+                window->draw_offset_x = window->draw_offset_x + (add_pixels ? 1 : -1);
+                gtk_widget_queue_draw(GTK_WIDGET(window));
+            }
+        } else {
+            window->draw_offset_x = window->draw_offset_x + (add_pixels ? 10 : -10);
+            gtk_widget_queue_draw(GTK_WIDGET(window));
+
+            if (window->draw_offset_x >= window->geometry.width) {
+                ret = G_SOURCE_REMOVE;
+            }
         }
-
-        if (window->notify_location == GTK_CORNER_TOP_RIGHT ||
-            window->notify_location == GTK_CORNER_BOTTOM_RIGHT)
-            x = x + 10;
-        else if (window->notify_location == GTK_CORNER_TOP_LEFT ||
-            window->notify_location == GTK_CORNER_BOTTOM_LEFT)
-            x = x - 10;
-        else
-            g_warning("Invalid notify location: %d", window->notify_location);
-
-        xfce_notify_window_move(window, x, y);
     }
 
-    /* fade-out animation */
-    op = gtk_widget_get_opacity(GTK_WIDGET(window));
-    op -= window->op_change_delta;
-    if(op < 0.0)
-        op = 0.0;
+    if (window->do_fadeout) {
+        /* fade-out animation */
+        gdouble op = gtk_widget_get_opacity(GTK_WIDGET(window));
+        op -= window->op_change_delta;
+        if (op < 0.0) {
+            op = 0.0;
+        }
 
-    gtk_widget_set_opacity(GTK_WIDGET(window), op);
+        gtk_widget_set_opacity(GTK_WIDGET(window), op);
 
-    if(op <= 0.0001) {
+        if (op <= 0.0001) {
+            ret = G_SOURCE_REMOVE;
+        }
+    }
+
+    if (ret == G_SOURCE_REMOVE) {
         g_source_remove(window->fade_id);
         window->fade_id = 0;
         g_signal_emit(G_OBJECT(window), signals[SIG_CLOSED], 0,
                       XFCE_NOTIFY_CLOSE_REASON_EXPIRED);
-        return FALSE;
     }
 
-    return TRUE;
+    return ret;
+}
+
+static void
+xfce_notify_window_reset_fade_and_slide(XfceNotifyWindow *window) {
+    if (window->fade_id != 0) {
+        g_source_remove(window->fade_id);
+        window->fade_id = 0;
+    }
+
+    gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
+
+    if (window->original_x != G_MININT && window->original_y != G_MININT) {
+        window->draw_offset_x = 0;
+        window->draw_offset_y = 0;
+        xfce_notify_window_move(window, window->original_x, window->original_y);
+        window->original_x = G_MININT;
+        window->original_y = G_MININT;
+    }
+
+    gtk_widget_queue_draw(GTK_WIDGET(window));
 }
 
 static void
@@ -1259,17 +1300,9 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
             g_source_remove(window->expire_id);
             window->expire_id = 0;
         }
-        if(window->fade_id) {
-            g_source_remove(window->fade_id);
-            window->fade_id = 0;
-        }
-        gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
-        /* reset the sliding-out window to its original position */
-        if (window->do_slideout && window->original_x >= 0) {
-            xfce_notify_window_move(window, window->original_x, window->original_y);
-        }
 
-        xfce_notify_window_start_expiration (window);
+        xfce_notify_window_reset_fade_and_slide(window);
+        xfce_notify_window_start_expiration(window);
     }
 }
 

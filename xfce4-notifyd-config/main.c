@@ -53,12 +53,6 @@ typedef struct
     GtkWidget  *infobar_label;
 } NotificationLogWidgets;
 
-typedef struct
-{
-    GtkWidget  *do_slideout;
-    GtkWidget  *do_slideout_label;
-} NotificationSlideoutWidgets;
-
 typedef struct {
     XfconfChannel *channel;
     XfceNotifyLogGBus *log;
@@ -66,7 +60,6 @@ typedef struct {
     GtkWidget *known_applications_listbox;
 
     NotificationLogWidgets log_widgets;
-    NotificationSlideoutWidgets slideout_widgets;
 } SettingsPanel;
 
 typedef struct
@@ -899,21 +892,6 @@ xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
 }
 
 static void
-xfce4_notifyd_do_fadeout_activated (GtkSwitch *do_fadeout,
-                                    gboolean state,
-                                    SettingsPanel *panel)
-{
-    NotificationSlideoutWidgets *slideout_widgets = &panel->slideout_widgets;
-
-    /* The sliding out animation is only available along with fade-out */
-    if (state == FALSE)
-        gtk_switch_set_active (GTK_SWITCH (slideout_widgets->do_slideout), FALSE);
-    gtk_widget_set_sensitive (slideout_widgets->do_slideout, state);
-    gtk_widget_set_sensitive (slideout_widgets->do_slideout_label, state);
-    gtk_switch_set_active (GTK_SWITCH (do_fadeout), state);
-}
-
-static void
 xfce4_notifyd_log_activated (GtkSwitch *log_switch,
                              gboolean state,
                              SettingsPanel *panel)
@@ -981,6 +959,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *show_notifications_on;
     GtkWidget *mute_sounds;
     GtkWidget *do_fadeout;
+    GtkWidget *do_slideout;
     GtkWidget *show_text_with_gauge;
     GtkWidget *datetime_format;
     GtkWidget *custom_datetime_format;
@@ -1088,16 +1067,9 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, "/do-fadeout", G_TYPE_BOOLEAN,
                            G_OBJECT(do_fadeout), "active");
 
-    panel->slideout_widgets.do_slideout_label = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout_label"));
-    panel->slideout_widgets.do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
+    do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
     xfconf_g_property_bind(panel->channel, "/do-slideout", G_TYPE_BOOLEAN,
-                           G_OBJECT(panel->slideout_widgets.do_slideout), "active");
-    g_signal_connect (G_OBJECT (do_fadeout), "state-set",
-                      G_CALLBACK (xfce4_notifyd_do_fadeout_activated), panel);
-    if (gtk_switch_get_active (GTK_SWITCH (do_fadeout)) == FALSE) {
-        gtk_widget_set_sensitive (panel->slideout_widgets.do_slideout_label, FALSE);
-        gtk_widget_set_sensitive (panel->slideout_widgets.do_slideout, FALSE);
-    }
+                           G_OBJECT(do_slideout), "active");
 
     show_text_with_gauge = GTK_WIDGET(gtk_builder_get_object(builder, "show_text_with_gauge"));
     xfconf_g_property_bind(panel->channel, "/show-text-with-gauge", G_TYPE_BOOLEAN,
