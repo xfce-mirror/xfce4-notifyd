@@ -383,7 +383,7 @@ msgstr "載入更多紀錄檔條目……"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "僅在「請勿打擾」期間，或是當通知本體未顯示時"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -496,19 +496,19 @@ msgstr "一律顯示百分比值通知"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "當顯示通知時，顯示"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "圖示、摘要與本體"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
 msgid "icon and summary"
-msgstr ""
+msgstr "圖示與摘要"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "icon and application name"
-msgstr ""
+msgstr "圖示與應用程式名稱"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
 msgid "General"
