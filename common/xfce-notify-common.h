@@ -38,11 +38,15 @@
 #define EXPIRE_TIMEOUT_PROP                 "/expire-timeout"
 #define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"
 #define NOTIFICATION_DISPLAY_FIELDS_PROP    "/notification-display-fields"
+#define SHOW_NOTIFICATIONS_ON_PROP          "/show-notifications-on"
+#define DO_FADEOUT_PROP                     "/do-fadeout"
+#define DO_SLIDEOUT_PROP                    "/do-slideout"
 
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000
 #define EXPIRE_TIMEOUT_DEFAULT              10
 #define DISPLAY_FIELDS_DEFAULT              "icon-summary-body"
+#define SHOW_NOTIFICATIONS_ON_DEFAULT       "active-monitor"
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be
@@ -61,6 +65,7 @@ gboolean xfce_notify_is_markup_valid(const gchar *markup);
 GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);
 
 void xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel);
+void xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel);
 
 G_END_DECLS
 

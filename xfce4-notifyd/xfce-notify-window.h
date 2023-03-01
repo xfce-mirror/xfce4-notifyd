@@ -23,117 +23,30 @@
 
 #include <gtk/gtk.h>
 
-#ifdef ENABLE_SOUND
-#include <canberra-gtk.h>
-#endif
+#include "xfce-notify-types.h"
 
 #define XFCE_TYPE_NOTIFY_WINDOW     (xfce_notify_window_get_type())
 #define XFCE_NOTIFY_WINDOW(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_WINDOW, XfceNotifyWindow))
 #define XFCE_IS_NOTIFY_WINDOW(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_WINDOW))
 
-#define XFCE_TYPE_NOTIFY_CLOSE_REASON (xfce_notify_close_reason_get_type())
-
 G_BEGIN_DECLS
-
-typedef enum {
-    XFCE_NOTIFY_URGENCY_LOW = 0,
-    XFCE_NOTIFY_URGENCY_NORMAL,
-    XFCE_NOTIFY_URGENCY_CRITICAL,
-} XfceNotifyUrgency;
-
-typedef enum
-{
-    XFCE_NOTIFY_CLOSE_REASON_EXPIRED = 1,
-    XFCE_NOTIFY_CLOSE_REASON_DISMISSED,
-    XFCE_NOTIFY_CLOSE_REASON_CLIENT,
-    XFCE_NOTIFY_CLOSE_REASON_UNKNOWN,
-} XfceNotifyCloseReason;
 
 typedef struct _XfceNotifyWindow  XfceNotifyWindow;
 
 GType xfce_notify_window_get_type(void) G_GNUC_CONST;
-GType xfce_notify_close_reason_get_type(void) G_GNUC_CONST;
 
-GtkWidget *xfce_notify_window_new(void);
+GtkWidget *xfce_notify_window_new(guint id,
+                                  GdkMonitor *monitor,
+                                  GtkCornerType location,
+                                  gdouble normal_opacity,
+                                  gboolean show_text_with_gauge);
 
-GtkWidget *xfce_notify_window_new_full(const gchar *summary,
-                                       const gchar *body,
-                                       const gchar *icon_name,
-                                       gint expire_timeout);
-
-GtkWidget *xfce_notify_window_new_with_actions(const gchar *summary,
-                                               const gchar *body,
-                                               const gchar *icon_name,
-                                               gint expire_timeout,
-                                               const gchar **actions,
-                                               gboolean actions_are_icon_names,
-                                               GtkCssProvider *css_provider);
-
-void xfce_notify_window_set_id(XfceNotifyWindow *window,
-                               guint id);
 guint xfce_notify_window_get_id(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_log_id(XfceNotifyWindow *window,
-                                   const gchar *id);
-const gchar *xfce_notify_window_get_log_id(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_summary(XfceNotifyWindow *window,
-                                    const gchar *summary);
-void xfce_notify_window_set_body(XfceNotifyWindow *window,
-                                 const gchar *body);
+GdkMonitor *xfce_notify_window_get_monitor(XfceNotifyWindow *window);
 
 void xfce_notify_window_set_geometry(XfceNotifyWindow *window,
                                      GdkRectangle rectangle);
 GdkRectangle *xfce_notify_window_get_geometry(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_last_monitor(XfceNotifyWindow *window,
-                                         gint monitor);
-gint xfce_notify_window_get_last_monitor(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
-                                      const gchar *icon_name);
-void xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
-                                        GdkPixbuf *pixbuf);
-
-void xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
-                                           gint expire_timeout);
-
-void xfce_notify_window_set_urgency(XfceNotifyWindow *window,
-                                    XfceNotifyUrgency urgency);
-XfceNotifyUrgency xfce_notify_window_get_urgency(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_actions(XfceNotifyWindow *window,
-                                    const gchar **actions,
-                                    gboolean actions_are_icon_names,
-                                    GtkCssProvider *css_provider);
-
-void xfce_notify_window_set_fade_transparent(XfceNotifyWindow *window,
-                                             gboolean fade_transparent);
-gboolean xfce_notify_window_get_fade_transparent(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_opacity(XfceNotifyWindow *window,
-                                    gdouble opacity);
-gdouble xfce_notify_window_get_opacity(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
-                                      gboolean icon_only);
-
-void xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
-                                        gint value,
-                                        GtkCssProvider *css_provider);
-void xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window);
-
-void xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
-                                       gboolean do_fadeout,
-                                       gboolean do_slideout);
-
-void xfce_notify_window_set_notify_location(XfceNotifyWindow *window,
-                                            GtkCornerType notify_location);
-
-#ifdef ENABLE_SOUND
-void xfce_notify_window_set_sound_props(XfceNotifyWindow *window,
-                                        ca_proplist *props);
-#endif
 
 void xfce_notify_window_set_override_redirect(XfceNotifyWindow *window,
                                               gboolean override_redirect);

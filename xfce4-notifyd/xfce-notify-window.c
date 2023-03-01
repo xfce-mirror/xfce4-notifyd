@@ -41,10 +41,6 @@
 #include <gtk-layer-shell.h>
 #endif
 
-#ifdef ENABLE_SOUND
-#include <canberra-gtk.h>
-#endif
-
 #include <common/xfce-notify-common.h>
 
 #include "xfce-notify-window.h"
@@ -65,10 +61,11 @@ struct _XfceNotifyWindow
     GtkWindow parent;
 
     guint id;
-    gchar *log_id;
+    GdkMonitor *monitor;
+
+    GtkCssProvider *css_provider;
 
     GdkRectangle geometry;
-    gint last_monitor;
     gboolean override_redirect;
 
     XfceNotifyUrgency urgency;
@@ -82,7 +79,9 @@ struct _XfceNotifyWindow
     guint32 icon_only:1,
             has_summary_text:1,
             has_body_text:1,
-            has_actions:1;
+            gauge_value_set:1,
+            show_text_with_gauge:1;
+    XfceNotificationActions *actions;
 
     GtkWidget *icon_box;
     GtkWidget *icon;
@@ -100,10 +99,6 @@ struct _XfceNotifyWindow
     gboolean do_fadeout;
     gboolean do_slideout;
     GtkCornerType notify_location;
-
-#ifdef ENABLE_SOUND
-    ca_proplist *sound_props;
-#endif
 };
 
 typedef struct
@@ -117,6 +112,31 @@ typedef struct
                            const gchar *action_id);
 } XfceNotifyWindowClass;
 
+enum {
+    PROP0,
+    PROP_ID,
+    PROP_MONITOR,
+    PROP_NORMAL_OPACITY,
+    PROP_SHOW_TEXT_WITH_GAUGE,
+    PROP_LOCATION,
+
+    PROP_SUMMARY,
+    PROP_BODY,
+    PROP_GAUGE_VALUE,
+    PROP_GAUGE_VALUE_SET,
+    PROP_ICON_ONLY,
+    PROP_ICON_NAME,
+    PROP_ICON_PIXBUF,
+    PROP_ACTIONS,
+    PROP_URGENCY,
+    PROP_EXPIRE_TIMEOUT,
+    PROP_DO_FADEOUT,
+    PROP_DO_SLIDEOUT,
+    PROP_CSS_PROVIDER,
+
+    N_PROPS,
+};
+
 enum
 {
     SIG_CLOSED = 0,
@@ -124,7 +144,18 @@ enum
     N_SIGS,
 };
 
+static void xfce_notify_window_constructed(GObject *object);
 static void xfce_notify_window_finalize(GObject *object);
+static void xfce_notify_window_set_property(GObject *object,
+                                            guint prop_id,
+                                            const GValue *value,
+                                            GParamSpec *pspec);
+static void xfce_notify_window_get_property(GObject *object,
+                                            guint prop_id,
+                                            GValue *value,
+                                            GParamSpec *pspec);
+static void xfce_notify_window_notify(GObject *object,
+                                      GParamSpec *pspec);
 
 static void xfce_notify_window_realize(GtkWidget *widget);
 static void xfce_notify_window_unrealize(GtkWidget *widget);
@@ -144,26 +175,37 @@ static gboolean xfce_notify_window_fade_timeout(gpointer data);
 static void xfce_notify_window_button_clicked(GtkWidget *widget,
                                               gpointer user_data);
 
+static void xfce_notify_window_set_summary(XfceNotifyWindow *window,
+                                           const gchar *summary);
+static void xfce_notify_window_set_body(XfceNotifyWindow *window,
+                                        const gchar *body);
+static void xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
+                                               guint value);
+static void xfce_notify_window_set_gauge_value_set(XfceNotifyWindow *window,
+                                                   gboolean gauge_value_set);
+static void xfce_notify_window_set_icon_name(XfceNotifyWindow *window,
+                                             const gchar *icon_name);
+static void xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
+                                               GdkPixbuf *pixbuf);
+static void xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
+                                                  gint expire_timeout);
+static void xfce_notify_window_set_urgency(XfceNotifyWindow *window,
+                                           XfceNotifyUrgency urgency);
+static void xfce_notify_window_set_actions(XfceNotifyWindow *window,
+                                           XfceNotificationActions *actions);
+static void xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
+                                             gboolean icon_only);
+static void xfce_notify_window_set_css_provider(XfceNotifyWindow *window,
+                                                GtkCssProvider *css_provider);
+static void xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
+                                              gboolean do_fadeout);
+static void xfce_notify_window_set_do_slideout(XfceNotifyWindow *window,
+                                               gboolean do_slideout);
+
+static void xfce_notify_window_move(XfceNotifyWindow *window, gint x, gint y);
+
+
 static guint signals[N_SIGS] = { 0, };
-
-GType
-xfce_notify_close_reason_get_type(void)
-{
-	static GType type = 0;
-
-    if (type == 0) {
-        static const GEnumValue values[] = {
-            { XFCE_NOTIFY_CLOSE_REASON_EXPIRED, "XFCE_NOTIFY_CLOSE_REASON_EXPIRED", "expired" },
-            { XFCE_NOTIFY_CLOSE_REASON_DISMISSED, "XFCE_NOTIFY_CLOSE_REASON_DISMISSED", "dismissed" },
-            { XFCE_NOTIFY_CLOSE_REASON_CLIENT, "XFCE_NOTIFY_CLOSE_REASON_CLIENT", "client" },
-            { XFCE_NOTIFY_CLOSE_REASON_UNKNOWN, "XFCE_NOTIFY_CLOSE_REASON_UNKNOWN", "unknown" },
-            { 0, NULL, NULL },
-        };
-        type = g_enum_register_static("XfceNotifyCloseReason", values);
-    }
-
-    return type;
-}
 
 G_DEFINE_TYPE(XfceNotifyWindow, xfce_notify_window, GTK_TYPE_WINDOW)
 
@@ -171,10 +213,15 @@ G_DEFINE_TYPE(XfceNotifyWindow, xfce_notify_window, GTK_TYPE_WINDOW)
 static void
 xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
 {
+    static GParamSpec *properties[N_PROPS] = { NULL, };
     GObjectClass *gobject_class = (GObjectClass *)klass;
     GtkWidgetClass *widget_class = (GtkWidgetClass *)klass;
 
+    gobject_class->constructed = xfce_notify_window_constructed;
     gobject_class->finalize = xfce_notify_window_finalize;
+    gobject_class->set_property = xfce_notify_window_set_property;
+    gobject_class->get_property = xfce_notify_window_get_property;
+    gobject_class->notify = xfce_notify_window_notify;
 
     widget_class->realize = xfce_notify_window_realize;
     widget_class->unrealize = xfce_notify_window_unrealize;
@@ -185,6 +232,117 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     widget_class->motion_notify_event =xfce_notify_window_motion_notify;
     widget_class->button_release_event = xfce_notify_window_button_release;
     widget_class->configure_event = xfce_notify_window_configure_event;
+
+    properties[PROP_ID] = g_param_spec_uint("id",
+                                            "id",
+                                            "Notification ID handle",
+                                            1, G_MAXUINT, 1,
+                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_MONITOR] = g_param_spec_object("monitor",
+                                                   "monitor",
+                                                   "Monitor the notification should be displayed on",
+                                                   GDK_TYPE_MONITOR,
+                                                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_NORMAL_OPACITY] = g_param_spec_double("normal-opacity",
+                                                          "normal-opacity",
+                                                          "Opacity of the window when it is first shown",
+                                                          0.0, 1.0, 1.0,
+                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_SHOW_TEXT_WITH_GAUGE] = g_param_spec_boolean("show-text-with-gauge",
+                                                                 "show-text-with-gauge",
+                                                                 "Whether or not to show the summary and body when a gauge is shown",
+                                                                 FALSE,
+                                                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_LOCATION] = g_param_spec_enum("location",
+                                                  "location",
+                                                  "Corner location for the initial position of notification windows",
+                                                  GTK_TYPE_CORNER_TYPE,
+                                                  GTK_CORNER_TOP_RIGHT,
+                                                  G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_SUMMARY] = g_param_spec_string("summary",
+                                                   "summary",
+                                                   "Displayed notification summary/title",
+                                                   NULL,
+                                                   G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_BODY] = g_param_spec_string("body",
+                                                "body",
+                                                "Displayed notification body text",
+                                                NULL,
+                                                G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_GAUGE_VALUE] = g_param_spec_uint("gauge-value",
+                                                     "gauge-value",
+                                                     "Percentage value that should be displayed as a gauge instead of text",
+                                                     0, 100, 0,
+                                                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_GAUGE_VALUE_SET] = g_param_spec_boolean("gauge-value-set",
+                                                            "gauge-value-set",
+                                                            "Whether or not the gauge-value property should be used",
+                                                            FALSE,
+                                                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_ICON_ONLY] = g_param_spec_boolean("icon-only",
+                                                      "icon-only",
+                                                      "Whether or not to only show the icon",
+                                                      FALSE,
+                                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_ICON_NAME] = g_param_spec_string("icon-name",
+                                                     "icon-name",
+                                                     "Themed icon name or icon filename to use to display in the notification",
+                                                     NULL,
+                                                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_ICON_PIXBUF] = g_param_spec_object("icon-pixbuf",
+                                                       "icon-pixbuf",
+                                                       "Pixel data for an icon to display in the notification",
+                                                       GDK_TYPE_PIXBUF,
+                                                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_URGENCY] = g_param_spec_enum("urgency",
+                                                 "urgency",
+                                                 "Notification urgency level",
+                                                 XFCE_TYPE_NOTIFY_URGENCY,
+                                                 XFCE_NOTIFY_URGENCY_NORMAL,
+                                                 G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_EXPIRE_TIMEOUT] = g_param_spec_uint("expire-timeout",
+                                                        "expire-timeout",
+                                                        "Timeout (in ms) after which the notification disappears",
+                                                        0, G_MAXINT, 10000,
+                                                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_ACTIONS] = g_param_spec_pointer("actions",
+                                                    "actions",
+                                                    "Actions to be displayed as buttons in the notification",
+                                                    G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_DO_FADEOUT] = g_param_spec_boolean("do-fadeout",
+                                                       "do-fadeout",
+                                                       "Whether or not to fade out the opacity of the notification on expiration",
+                                                       FALSE,
+                                                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_DO_SLIDEOUT] = g_param_spec_boolean("do-slideout",
+                                                        "do-slideout",
+                                                        "Whether or not to slide the notification off the screen on expiration",
+                                                        FALSE,
+                                                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_CSS_PROVIDER] = g_param_spec_object("css-provider",
+                                                        "css-provider",
+                                                        "CSS provider used to theme windows",
+                                                        GTK_TYPE_CSS_PROVIDER,
+                                                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+    g_object_class_install_properties(gobject_class, N_PROPS, properties);
 
     signals[SIG_CLOSED] = g_signal_new("closed",
                                        XFCE_TYPE_NOTIFY_WINDOW,
@@ -220,19 +378,15 @@ static void
 xfce_notify_window_init(XfceNotifyWindow *window)
 {
     GdkScreen *screen;
-    GtkWidget *topvbox, *tophbox, *vbox;
-    gint screen_width;
-    gdouble padding = DEFAULT_PADDING;
-    GtkCssProvider *provider;
-    GdkMonitor *monitor;
-    GdkRectangle geometry;
 
     window->urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     window->expire_timeout = DEFAULT_EXPIRE_TIMEOUT;
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->do_fadeout = DEFAULT_DO_FADEOUT;
     window->do_slideout = DEFAULT_DO_SLIDEOUT;
-    window->last_monitor = -1;
+    window->original_x = -1;
+    window->original_y = -1;
+    window->op_change_steps = FADE_TIME / FADE_CHANGE_TIMEOUT;
 
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
@@ -269,13 +423,23 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 
         gtk_widget_set_visual (GTK_WIDGET(window), visual);
     }
+}
+
+static void
+xfce_notify_window_constructed(GObject *object) {
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
+    GtkWidget *topvbox, *tophbox, *vbox;
+    gint screen_width;
+    gdouble padding = DEFAULT_PADDING;
+    GtkCssProvider *provider;
+    GdkRectangle geometry;
+
+    G_OBJECT_CLASS(xfce_notify_window_parent_class)->constructed(object);
 
     /* Use the monitor width to get a maximum width for the notification bubble.
        This assumes that a character is 10px wide and we want a third of the
        monitor as maximum width. */
-    monitor = gdk_display_get_monitor_at_window (gtk_widget_get_display (GTK_WIDGET (window)),
-                                                 gdk_screen_get_root_window (screen));
-    gdk_monitor_get_geometry (monitor, &geometry);
+    gdk_monitor_get_geometry(window->monitor, &geometry);
     screen_width = geometry.width / 30;
 
     gtk_widget_style_get(GTK_WIDGET(window),
@@ -381,15 +545,196 @@ xfce_notify_window_finalize(GObject *object)
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
 
-#ifdef ENABLE_SOUND
-    if (window->sound_props != NULL) {
-        ca_proplist_destroy(window->sound_props);
-    }
-#endif
+    g_object_unref(window->monitor);
 
-    g_free(window->log_id);
+    if (window->css_provider != NULL) {
+        g_object_unref(window->css_provider);
+    }
 
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->finalize(object);
+}
+
+static void
+xfce_notify_window_set_property(GObject *object,
+                                guint prop_id,
+                                const GValue *value,
+                                GParamSpec *pspec)
+{
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
+
+    switch (prop_id) {
+        case PROP_ID:
+            window->id = g_value_get_uint(value);
+            break;
+
+        case PROP_MONITOR:
+            window->monitor = g_value_dup_object(value);
+            break;
+
+        case PROP_NORMAL_OPACITY:
+            window->normal_opacity = g_value_get_double(value);
+            window->op_change_delta = window->normal_opacity / window->op_change_steps;
+            break;
+
+        case PROP_SHOW_TEXT_WITH_GAUGE:
+            window->show_text_with_gauge = g_value_get_boolean(value);
+            break;
+
+        case PROP_LOCATION:
+            window->notify_location = g_value_get_enum(value);
+            break;
+
+        case PROP_SUMMARY:
+            xfce_notify_window_set_summary(window, g_value_get_string(value));
+            break;
+
+        case PROP_BODY:
+            xfce_notify_window_set_body(window, g_value_get_string(value));
+            break;
+
+        case PROP_GAUGE_VALUE:
+            xfce_notify_window_set_gauge_value(window, g_value_get_uint(value));
+            break;
+
+        case PROP_GAUGE_VALUE_SET:
+            xfce_notify_window_set_gauge_value_set(window, g_value_get_boolean(value));
+            break;
+
+        case PROP_ICON_ONLY:
+            xfce_notify_window_set_icon_only(window, g_value_get_boolean(value));
+            break;
+
+        case PROP_ICON_NAME:
+            xfce_notify_window_set_icon_name(window, g_value_get_string(value));
+            break;
+
+        case PROP_ICON_PIXBUF:
+            xfce_notify_window_set_icon_pixbuf(window, g_value_get_object(value));
+            break;
+
+        case PROP_URGENCY:
+            xfce_notify_window_set_urgency(window, g_value_get_enum(value));
+            break;
+
+        case PROP_EXPIRE_TIMEOUT:
+            xfce_notify_window_set_expire_timeout(window, g_value_get_uint(value));
+            break;
+
+        case PROP_ACTIONS:
+            xfce_notify_window_set_actions(window, g_value_get_pointer(value));
+            break;
+
+        case PROP_DO_FADEOUT:
+            xfce_notify_window_set_do_fadeout(window, g_value_get_boolean(value));
+            break;
+
+        case PROP_DO_SLIDEOUT:
+            xfce_notify_window_set_do_slideout(window, g_value_get_boolean(value));
+            break;
+
+        case PROP_CSS_PROVIDER:
+            xfce_notify_window_set_css_provider(window, g_value_get_object(value));
+            break;
+
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+            break;
+    }
+}
+
+static void
+xfce_notify_window_get_property(GObject *object,
+                                guint prop_id,
+                                GValue *value,
+                                GParamSpec *pspec)
+{
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
+
+    switch (prop_id) {
+        case PROP_ID:
+            g_value_set_uint(value, window->id);
+            break;
+
+        case PROP_MONITOR:
+            g_value_set_object(value, window->monitor);
+            break;
+
+        case PROP_NORMAL_OPACITY:
+            g_value_set_double(value, window->normal_opacity);
+            break;
+
+        case PROP_SHOW_TEXT_WITH_GAUGE:
+            g_value_set_boolean(value, window->show_text_with_gauge);
+            break;
+
+        case PROP_LOCATION:
+            g_value_set_enum(value, window->notify_location);
+            break;
+
+        case PROP_SUMMARY:
+            g_value_set_string(value, gtk_label_get_text(GTK_LABEL(window->summary)));
+            break;
+
+        case PROP_BODY:
+            g_value_set_string(value, gtk_label_get_text(GTK_LABEL(window->body)));
+            break;
+
+        case PROP_GAUGE_VALUE:
+            g_value_set_uint(value, gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(window->gauge)) * 100);
+            break;
+
+        case PROP_GAUGE_VALUE_SET:
+            g_value_set_boolean(value, window->gauge_value_set);
+            break;
+
+        case PROP_ICON_ONLY:
+            g_value_set_boolean(value, window->icon_only);
+            break;
+
+        case PROP_ICON_NAME:
+            // FIXME: doesn't work when it's an absolute file name
+            if (gtk_image_get_storage_type(GTK_IMAGE(window->icon)) == GTK_IMAGE_ICON_NAME) {
+                const gchar *icon_name = NULL;
+                GtkIconSize size = GTK_ICON_SIZE_INVALID;
+                gtk_image_get_icon_name(GTK_IMAGE(window->icon), &icon_name, &size);
+                g_value_set_string(value, icon_name);
+            }
+            break;
+
+        case PROP_ICON_PIXBUF:
+            // FIXME: won't work if we set via surface
+            if (gtk_image_get_storage_type(GTK_IMAGE(window->icon)) == GTK_IMAGE_PIXBUF) {
+                g_value_set_object(value, gtk_image_get_pixbuf(GTK_IMAGE(window->icon)));
+            }
+            break;
+
+        case PROP_URGENCY:
+            g_value_set_enum(value, window->urgency);
+            break;
+
+        case PROP_EXPIRE_TIMEOUT:
+            g_value_set_uint(value, window->expire_timeout);
+            break;
+
+        case PROP_ACTIONS:
+            g_value_set_pointer(value, window->actions);
+            break;
+
+        case PROP_CSS_PROVIDER:
+            g_value_set_object(value, window->css_provider);
+            break;
+
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+            break;
+    }
+}
+
+static void
+xfce_notify_window_notify(GObject *object, GParamSpec *pspec) {
+    if (gtk_widget_get_realized(GTK_WIDGET(object))) {
+        gtk_widget_queue_draw(GTK_WIDGET(object));
+    }
 }
 
 static void
@@ -449,22 +794,6 @@ xfce_notify_window_realize(GtkWidget *widget)
 #endif
 
     xfce_notify_window_start_expiration(window);
-
-#ifdef ENABLE_SOUND
-    if (window->sound_props != NULL) {
-        ca_context *ctx;
-        const gchar *summary;
-
-        summary = gtk_label_get_text(GTK_LABEL(window->summary));
-        if (summary != NULL) {
-            ca_proplist_sets(window->sound_props, CA_PROP_EVENT_DESCRIPTION, summary);
-        }
-        ca_gtk_proplist_set_for_widget(window->sound_props, widget);
-
-        ctx = ca_gtk_context_get_for_screen(gtk_widget_get_screen(widget));
-        ca_context_play_full(ctx, window->id, window->sound_props, NULL, NULL);
-    }
-#endif
 }
 
 static void
@@ -565,15 +894,7 @@ xfce_notify_window_motion_notify(GtkWidget *widget,
 
             /* reset the sliding-out window to its original position */
             if (window->do_slideout) {
-#ifdef ENABLE_WAYLAND
-                if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-                    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->original_x);
-                    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->original_y);
-                } else
-#endif
-                {
-                    gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
-                }
+                xfce_notify_window_move(window, window->original_x, window->original_y);
             }
         }
     }
@@ -610,8 +931,6 @@ xfce_notify_window_configure_event(GtkWidget *widget,
 
     return ret;
 }
-
-
 
 static gboolean
 xfce_notify_window_expire_timeout(gpointer data)
@@ -685,16 +1004,7 @@ xfce_notify_window_fade_timeout(gpointer data)
         else
             g_warning("Invalid notify location: %d", window->notify_location);
 
-
-#ifdef ENABLE_WAYLAND
-        if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-            gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, x);
-            gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, y);
-        } else
-#endif
-        {
-            gtk_window_move (GTK_WINDOW (window), x, y);
-        }
+        xfce_notify_window_move(window, x, y);
     }
 
     /* fade-out animation */
@@ -735,85 +1045,17 @@ xfce_notify_window_button_clicked(GtkWidget *widget,
                   XFCE_NOTIFY_CLOSE_REASON_DISMISSED);
 }
 
-GtkWidget *
-xfce_notify_window_new(void)
-{
-    return xfce_notify_window_new_with_actions(NULL, NULL, NULL, -1, NULL, FALSE, NULL);
+static void
+xfce_notify_window_update_child_visibility(XfceNotifyWindow *window) {
+    if (window->gauge != NULL) {
+        gtk_widget_set_visible(gtk_widget_get_parent(window->gauge), window->gauge_value_set);
+    }
+    gtk_widget_set_visible(window->summary, window->has_summary_text && (!window->gauge_value_set || window->show_text_with_gauge) && !window->icon_only);
+    gtk_widget_set_visible(window->body, window->has_body_text && (!window->gauge_value_set || window->show_text_with_gauge) && !window->icon_only);
+    gtk_widget_set_visible(window->button_box, window->actions && window->actions->n_actions > 0 && !window->gauge_value_set);
 }
 
-GtkWidget *
-xfce_notify_window_new_full(const gchar *summary,
-                            const gchar *body,
-                            const gchar *icon_name,
-                            gint expire_timeout)
-{
-    return xfce_notify_window_new_with_actions(summary, body,
-                                               icon_name,
-                                               expire_timeout,
-                                               NULL,
-                                               FALSE,
-                                               NULL);
-}
-
-GtkWidget *
-xfce_notify_window_new_with_actions(const gchar *summary,
-                                    const gchar *body,
-                                    const gchar *icon_name,
-                                    gint expire_timeout,
-                                    const gchar **actions,
-                                    gboolean actions_are_icon_names,
-                                    GtkCssProvider *css_provider)
-{
-    XfceNotifyWindow *window;
-
-    window = g_object_new(XFCE_TYPE_NOTIFY_WINDOW,
-                          "type", GTK_WINDOW_TOPLEVEL, NULL);
-
-    window->original_x = -1;
-    window->original_y = -1;
-
-    xfce_notify_window_set_summary(window, summary);
-    xfce_notify_window_set_body(window, body);
-    xfce_notify_window_set_icon_name(window, icon_name);
-    xfce_notify_window_set_expire_timeout(window, expire_timeout);
-    xfce_notify_window_set_actions(window, actions, actions_are_icon_names, css_provider);
-
-    return GTK_WIDGET(window);
-}
-
-void
-xfce_notify_window_set_id(XfceNotifyWindow *window,
-                          guint id)
-{
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-    window->id = id;
-}
-
-guint
-xfce_notify_window_get_id(XfceNotifyWindow *window)
-{
-    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0);
-    return window->id;
-}
-
-void
-xfce_notify_window_set_log_id(XfceNotifyWindow *window,
-                              const gchar *id)
-{
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-
-    g_free(window->log_id);
-    window->log_id = g_strdup(id);
-}
-
-const gchar *
-xfce_notify_window_get_log_id(XfceNotifyWindow *window)
-{
-    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), NULL);
-    return window->log_id;
-}
-
-void
+static void
 xfce_notify_window_set_summary(XfceNotifyWindow *window,
                                const gchar *summary)
 {
@@ -828,11 +1070,12 @@ xfce_notify_window_set_summary(XfceNotifyWindow *window,
         window->has_summary_text = FALSE;
     }
 
-    if(gtk_widget_get_realized(GTK_WIDGET(window)))
-        gtk_widget_queue_draw(GTK_WIDGET(window));
+    xfce_notify_window_update_child_visibility(window);
+
+    g_object_notify(G_OBJECT(window), "summary");
 }
 
-void
+static void
 xfce_notify_window_set_body(XfceNotifyWindow *window,
                             const gchar *body)
 {
@@ -852,44 +1095,12 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
         window->has_body_text = FALSE;
     }
 
-    if(gtk_widget_get_realized(GTK_WIDGET(window)))
-        gtk_widget_queue_draw(GTK_WIDGET(window));
+    xfce_notify_window_update_child_visibility(window);
+
+    g_object_notify(G_OBJECT(window), "body");
 }
 
-void
-xfce_notify_window_set_geometry(XfceNotifyWindow *window,
-                                GdkRectangle rectangle)
-{
-    window->geometry = rectangle;
-
-#ifdef ENABLE_WAYLAND
-    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->geometry.x);
-        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->geometry.y);
-    }
-#endif
-}
-
-GdkRectangle *
-xfce_notify_window_get_geometry (XfceNotifyWindow *window)
-{
-   return &window->geometry;
-}
-
-void
-xfce_notify_window_set_last_monitor(XfceNotifyWindow *window,
-                                    gint monitor)
-{
-    window->last_monitor = monitor;
-}
-
-gint
-xfce_notify_window_get_last_monitor(XfceNotifyWindow *window)
-{
-   return window->last_monitor;
-}
-
-void
+static void
 xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
                                   const gchar *icon_name)
 {
@@ -920,16 +1131,18 @@ xfce_notify_window_set_icon_name (XfceNotifyWindow *window,
         gtk_widget_show (window->icon_box);
         g_object_unref (icon);
     } else {
-        gtk_image_clear (GTK_IMAGE (window->icon));
-        gtk_widget_hide (window->icon_box);
+        if (gtk_image_get_storage_type(GTK_IMAGE(window->icon)) == GTK_IMAGE_GICON) {
+            gtk_image_clear (GTK_IMAGE (window->icon));
+            gtk_widget_hide (window->icon_box);
+        }
     }
 
-    if (gtk_widget_get_realized(GTK_WIDGET(window))) {
-        gtk_widget_queue_draw(GTK_WIDGET(window));
-    }
+    xfce_notify_window_update_child_visibility(window);
+
+    g_object_notify(G_OBJECT(window), "icon-name");
 }
 
-void
+static void
 xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
                                    GdkPixbuf *pixbuf)
 {
@@ -971,16 +1184,18 @@ xfce_notify_window_set_icon_pixbuf(XfceNotifyWindow *window,
         gtk_widget_show(window->icon_box);
         cairo_surface_destroy(surface);
     } else {
-        gtk_image_clear(GTK_IMAGE(window->icon));
-        gtk_widget_hide(window->icon_box);
+        if (gtk_image_get_storage_type(GTK_IMAGE(window->icon)) == GTK_IMAGE_SURFACE) {
+            gtk_image_clear(GTK_IMAGE(window->icon));
+            gtk_widget_hide(window->icon_box);
+        }
     }
 
-    if(gtk_widget_get_realized(GTK_WIDGET(window))) {
-        gtk_widget_queue_draw(GTK_WIDGET(window));
-    }
+    xfce_notify_window_update_child_visibility(window);
+
+    g_object_notify(G_OBJECT(window), "icon-pixbuf");
 }
 
-void
+static void
 xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
                                       gint expire_timeout)
 {
@@ -1003,22 +1218,14 @@ xfce_notify_window_set_expire_timeout(XfceNotifyWindow *window,
         gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
         /* reset the sliding-out window to its original position */
         if (window->do_slideout && window->original_x >= 0) {
-#ifdef ENABLE_WAYLAND
-            if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-                gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->original_x);
-                gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->original_y);
-            } else
-#endif
-            {
-                gtk_window_move (GTK_WINDOW (window), window->original_x, window->original_y);
-            }
+            xfce_notify_window_move(window, window->original_x, window->original_y);
         }
 
         xfce_notify_window_start_expiration (window);
     }
 }
 
-void
+static void
 xfce_notify_window_set_urgency(XfceNotifyWindow *window,
                                XfceNotifyUrgency urgency)
 {
@@ -1048,143 +1255,108 @@ xfce_notify_window_set_urgency(XfceNotifyWindow *window,
     }
 }
 
-XfceNotifyUrgency
-xfce_notify_window_get_urgency(XfceNotifyWindow *window) {
-    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), XFCE_NOTIFY_URGENCY_NORMAL);
-    return window->urgency;
-}
-
-void
-xfce_notify_window_set_actions(XfceNotifyWindow *window,
-                               const gchar **actions,
-                               gboolean actions_are_icon_names,
-                               GtkCssProvider *css_provider)
-{
-    GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
-    gint i;
-    GList *children, *l;
+static void
+xfce_notify_window_set_actions(XfceNotifyWindow *window, XfceNotificationActions *actions) {
 
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
-    children = gtk_container_get_children(GTK_CONTAINER(window->button_box));
-    for(l = children; l; l = l->next)
-        gtk_widget_destroy(GTK_WIDGET(l->data));
-    g_list_free(children);
+    if (window->actions != actions) {
+        GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+        GList *children = gtk_container_get_children(GTK_CONTAINER(window->button_box));
+        guint n_actions = actions != NULL ? actions->n_actions : 0;
 
-    if(!actions) {
-        gtk_widget_hide(window->button_box);
-        window->has_actions = FALSE;
-    } else {
-        gtk_widget_show(window->button_box);
-        window->has_actions = TRUE;
-    }
-
-    for(i = 0; actions && actions[i]; i += 2) {
-        const gchar *cur_action_id = actions[i];
-        const gchar *cur_button_text = actions[i+1];
-        const gchar *icon_name = NULL;
-        GtkWidget *btn, *img = NULL, *lbl;
-        gdouble padding;
-
-        if(!cur_button_text || !cur_action_id || !*cur_action_id)
-            break;
-
-        if (actions_are_icon_names) {
-            icon_name = cur_action_id;
+        for(GList *l = children; l; l = l->next) {
+            gtk_widget_destroy(GTK_WIDGET(l->data));
         }
+        g_list_free(children);
 
-        if (cur_button_text == NULL || g_strcmp0 (cur_button_text, "") == 0) {
-            // Actions with no label are intended to be the 'default' action; the spec
-            // suggests that clicking the notification will activate the default action,
-            // but we just close them on click, so let's create a button for it.
-            if (icon_name == NULL) {
-                icon_name = "emblem-default-symbolic";
+        window->actions = actions;
+        gtk_widget_set_visible(window->button_box, actions != NULL);
+
+        for (guint i = 0; i < n_actions; ++i) {
+            const gchar *cur_action_id = window->actions->actions[i].id;
+            const gchar *cur_button_text = window->actions->actions[i].label;
+            const gchar *icon_name = NULL;
+            GtkWidget *btn, *img = NULL, *lbl;
+            gdouble padding;
+
+            if(!cur_button_text || !cur_action_id || !*cur_action_id)
+                break;
+
+            if (actions->ids_are_icon_names) {
+                icon_name = cur_action_id;
             }
-        }
-
-        gtk_widget_style_get(GTK_WIDGET(window),
-                             "padding", &padding,
-                             NULL);
-        btn = gtk_button_new();
-        g_object_set_data_full(G_OBJECT(btn), "--action-id",
-                               g_strdup(cur_action_id),
-                               (GDestroyNotify)g_free);
-        gtk_widget_show(btn);
-        gtk_widget_set_margin_top (btn, padding / 2);
-        gtk_container_add(GTK_CONTAINER(window->button_box), btn);
-        g_signal_connect(G_OBJECT(btn), "clicked",
-                         G_CALLBACK(xfce_notify_window_button_clicked),
-                         window);
-
-        if (icon_name != NULL && gtk_icon_theme_has_icon(icon_theme, icon_name)) {
-            GIcon *icon = g_themed_icon_new_with_default_fallbacks(icon_name);
-            const gchar *desc;
 
             if (cur_button_text == NULL || g_strcmp0 (cur_button_text, "") == 0) {
-                desc = _("Default Action");
-            } else {
-                desc = cur_button_text;
+                // Actions with no label are intended to be the 'default' action; the spec
+                // suggests that clicking the notification will activate the default action,
+                // but we just close them on click, so let's create a button for it.
+                if (icon_name == NULL) {
+                    icon_name = "emblem-default-symbolic";
+                }
             }
 
-            img = gtk_image_new_from_gicon(icon, GTK_ICON_SIZE_BUTTON);
-            gtk_widget_set_tooltip_text(img, cur_button_text);
-            atk_object_set_description(gtk_widget_get_accessible(img), desc);
-            gtk_widget_show(img);
-            gtk_container_add(GTK_CONTAINER(btn), img);
+            gtk_widget_style_get(GTK_WIDGET(window),
+                                 "padding", &padding,
+                                 NULL);
+            btn = gtk_button_new();
+            g_object_set_data_full(G_OBJECT(btn), "--action-id",
+                                   g_strdup(cur_action_id),
+                                   (GDestroyNotify)g_free);
+            gtk_widget_show(btn);
+            gtk_widget_set_margin_top (btn, padding / 2);
+            gtk_container_add(GTK_CONTAINER(window->button_box), btn);
+            g_signal_connect(G_OBJECT(btn), "clicked",
+                             G_CALLBACK(xfce_notify_window_button_clicked),
+                             window);
 
-            gtk_widget_set_tooltip_text(btn, desc);
+            if (icon_name != NULL && gtk_icon_theme_has_icon(icon_theme, icon_name)) {
+                GIcon *icon = g_themed_icon_new_with_default_fallbacks(icon_name);
+                const gchar *desc;
 
-            g_object_unref(icon);
+                if (cur_button_text == NULL || g_strcmp0 (cur_button_text, "") == 0) {
+                    desc = _("Default Action");
+                } else {
+                    desc = cur_button_text;
+                }
+
+                img = gtk_image_new_from_gicon(icon, GTK_ICON_SIZE_BUTTON);
+                gtk_widget_set_tooltip_text(img, cur_button_text);
+                atk_object_set_description(gtk_widget_get_accessible(img), desc);
+                gtk_widget_show(img);
+                gtk_container_add(GTK_CONTAINER(btn), img);
+
+                gtk_widget_set_tooltip_text(btn, desc);
+
+                g_object_unref(icon);
+            }
+
+            if (img == NULL) {
+                gchar *cur_button_text_escaped = g_markup_printf_escaped("<span size='small'>%s</span>",
+                                                                         cur_button_text);
+
+                lbl = gtk_label_new(NULL);
+                gtk_label_set_markup(GTK_LABEL(lbl), cur_button_text_escaped);
+                gtk_label_set_use_markup(GTK_LABEL(lbl), TRUE);
+                gtk_widget_show(lbl);
+                gtk_container_add(GTK_CONTAINER(btn), lbl);
+                if (window->css_provider != NULL) {
+                    gtk_style_context_add_provider(gtk_widget_get_style_context(btn),
+                                                   GTK_STYLE_PROVIDER(window->css_provider),
+                                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+                }
+
+                g_free(cur_button_text_escaped);
+            }
         }
 
-        if (img == NULL) {
-            gchar *cur_button_text_escaped = g_markup_printf_escaped("<span size='small'>%s</span>",
-                                                                     cur_button_text);
+        xfce_notify_window_update_child_visibility(window);
 
-            lbl = gtk_label_new(NULL);
-            gtk_label_set_markup(GTK_LABEL(lbl), cur_button_text_escaped);
-            gtk_label_set_use_markup(GTK_LABEL(lbl), TRUE);
-            gtk_widget_show(lbl);
-            gtk_container_add(GTK_CONTAINER(btn), lbl);
-            gtk_style_context_add_provider (gtk_widget_get_style_context (btn),
-                                            GTK_STYLE_PROVIDER (css_provider),
-                                            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-            g_free(cur_button_text_escaped);
-        }
+        g_object_notify(G_OBJECT(window), "actions");
     }
-
-    if(gtk_widget_get_realized(GTK_WIDGET(window)))
-        gtk_widget_queue_draw(GTK_WIDGET(window));
 }
 
-void
-xfce_notify_window_set_opacity(XfceNotifyWindow *window,
-                               gdouble opacity)
-{
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-
-    if(opacity > 1.0)
-        opacity = 1.0;
-    else if(opacity < 0.0)
-        opacity = 0.0;
-
-    window->normal_opacity = opacity;
-    window->op_change_steps = FADE_TIME / FADE_CHANGE_TIMEOUT;
-    window->op_change_delta = opacity / window->op_change_steps;
-
-    if(gtk_widget_get_realized(GTK_WIDGET(window)) && window->expire_id && !window->fade_id)
-        gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
-}
-
-gdouble
-xfce_notify_window_get_opacity(XfceNotifyWindow *window)
-{
-    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0.0);
-    return window->normal_opacity;
-}
-
-void
+static void
 xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
                                  gboolean icon_only)
 {
@@ -1220,24 +1392,18 @@ xfce_notify_window_set_icon_only(XfceNotifyWindow *window,
         gtk_widget_set_size_request(window->icon_box, -1, -1);
         gtk_widget_show(window->content_box);
     }
+
+    xfce_notify_window_update_child_visibility(window);
+
+    g_object_notify(G_OBJECT(window), "icon-only");
 }
 
-void
-xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
-                                   gint value,
-                                   GtkCssProvider *css_provider)
-{
+static void
+xfce_notify_window_set_gauge_value(XfceNotifyWindow *window, guint value) {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+    g_return_if_fail(value <= 100);
 
-    /* maybe want to do some kind of effect if the value is out of bounds */
-    if(value > 100)
-        value = 100;
-    else if(value < 0)
-        value = 0;
-
-    gtk_widget_hide(window->button_box);
-
-    if(!window->gauge) {
+    if (window->gauge == NULL) {
         GtkWidget *box;
         gint width;
 
@@ -1263,70 +1429,120 @@ xfce_notify_window_set_gauge_value(XfceNotifyWindow *window,
         gtk_widget_set_size_request(window->gauge, width, -1);
         gtk_widget_show(window->gauge);
         gtk_container_add(GTK_CONTAINER(box), window->gauge);
-        gtk_style_context_add_provider (gtk_widget_get_style_context (window->gauge),
-                                        GTK_STYLE_PROVIDER (css_provider),
-                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+        if (window->css_provider != NULL) {
+            gtk_style_context_add_provider(gtk_widget_get_style_context(window->gauge),
+                                           GTK_STYLE_PROVIDER(window->css_provider),
+                                           GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+        }
     }
 
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(window->gauge),
                                   value / 100.0);
+
+    xfce_notify_window_update_child_visibility(window);
+
+    g_object_notify(G_OBJECT(window), "gauge-value");
 }
 
-void
-xfce_notify_window_unset_gauge_value(XfceNotifyWindow *window)
-{
+static void
+xfce_notify_window_set_gauge_value_set(XfceNotifyWindow *window, gboolean gauge_value_set) {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
-    if(window->gauge) {
-        GtkWidget *align = gtk_widget_get_parent(window->gauge);
-
-        g_assert(align);
-
-        gtk_widget_destroy(align);
-        window->gauge = NULL;
-
-        if(window->has_summary_text)
-            gtk_widget_show(window->summary);
-        if(window->has_body_text)
-            gtk_widget_show(window->body);
-        if(window->has_actions)
-            gtk_widget_show(window->button_box);
+    if (window->gauge_value_set != gauge_value_set) {
+        window->gauge_value_set = gauge_value_set;
+        xfce_notify_window_update_child_visibility(window);
+        g_object_notify(G_OBJECT(window), "gauge-value-set");
     }
 }
 
-void
-xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window,
-                                  gboolean do_fadeout,
-                                  gboolean do_slideout)
-{
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-
-    window->do_fadeout = do_fadeout;
-    window->do_slideout = do_slideout;
-}
-
-void xfce_notify_window_set_notify_location(XfceNotifyWindow *window,
-                                            GtkCornerType notify_location)
-{
-    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-
-    window->notify_location = notify_location;
-}
-
-#ifdef ENABLE_SOUND
-void
-xfce_notify_window_set_sound_props(XfceNotifyWindow *window,
-                                   ca_proplist *props)
-{
-    if (window->sound_props != props) {
-        if (window->sound_props != NULL) {
-            ca_proplist_destroy(window->sound_props);
+static void
+xfce_notify_window_set_css_provider(XfceNotifyWindow *window, GtkCssProvider *css_provider) {
+    if (window->css_provider != css_provider) {
+        g_clear_object(&window->css_provider);
+        if (css_provider != NULL) {
+            window->css_provider = g_object_ref(css_provider);
+            // TODO: apply to widgets
         }
-
-        window->sound_props = props;
+        g_object_notify(G_OBJECT(window), "css-provider");
     }
 }
+
+static void
+xfce_notify_window_set_do_fadeout(XfceNotifyWindow *window, gboolean do_fadeout) {
+    if (window->do_fadeout != do_fadeout && window->fade_id == 0) {
+        window->do_fadeout = do_fadeout;
+        g_object_notify(G_OBJECT(window), "do-fadeout");
+    }
+}
+
+static void
+xfce_notify_window_set_do_slideout(XfceNotifyWindow *window, gboolean do_slideout) {
+    if (window->do_slideout != do_slideout && window->fade_id == 0) {
+        window->do_slideout = do_slideout;
+        g_object_notify(G_OBJECT(window), "do-slideout");
+    }
+}
+
+static void
+xfce_notify_window_move(XfceNotifyWindow *window, gint x, gint y) {
+
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+        gtk_window_move(GTK_WINDOW(window), x, y);
+    }
 #endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, x);
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, y);
+    }
+#endif
+}
+
+GtkWidget *
+xfce_notify_window_new(guint id,
+                       GdkMonitor *monitor,
+                       GtkCornerType location,
+                       gdouble normal_opacity,
+                       gboolean show_text_with_gauge)
+{
+    g_return_val_if_fail(GDK_IS_MONITOR(monitor), NULL);
+    return g_object_new(XFCE_TYPE_NOTIFY_WINDOW,
+                        "type", GTK_WINDOW_TOPLEVEL,
+                        "id", id,
+                        "monitor", monitor,
+                        "normal-opacity", normal_opacity,
+                        "show-text-with-gauge", show_text_with_gauge,
+                        "location", location,
+                        NULL);
+}
+
+guint
+xfce_notify_window_get_id(XfceNotifyWindow *window) {
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), 0);
+    return window->id;
+}
+
+GdkMonitor *
+xfce_notify_window_get_monitor(XfceNotifyWindow *window) {
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), NULL);
+    return window->monitor;
+}
+
+void
+xfce_notify_window_set_geometry(XfceNotifyWindow *window,
+                                GdkRectangle rectangle)
+{
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+    window->geometry = rectangle;
+    xfce_notify_window_move(window, window->geometry.x, window->geometry.y);
+}
+
+GdkRectangle *
+xfce_notify_window_get_geometry (XfceNotifyWindow *window)
+{
+   return &window->geometry;
+}
 
 void
 xfce_notify_window_set_override_redirect(XfceNotifyWindow *window,
