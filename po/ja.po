@@ -504,15 +504,15 @@ msgstr "アイコンとアプリケーション名"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "マウスポインターがあるモニター"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "プライマリーモニター"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "すべてのモニター"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
