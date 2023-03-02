@@ -240,7 +240,7 @@ msgstr "χαρακτήρες στο τέλος της εντολής"
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr "Απέτυχε η δημιουργία του πίνακα 'ειδοποιήσεων': %s"
+msgstr "Απέτυχε η δημιουργία του πίνακα 'ειδοποιήσεις': %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
@@ -388,7 +388,7 @@ msgstr "Φόρτωση περισσότερων καταχωρήσεων..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "μόνο όταν είναι ενεργό το \"Μην ενοχλείτε\", ή όταν δεν εμφανίζονται τα πλαίσια των ειδοποιήσεων"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -471,17 +471,17 @@ msgstr "<b>Εφέ κίνησης</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Οι ειδοποιήσεις θα εμφανίζονται στη περιοχή της οθόνης όπου βρίσκεται ο δείκτης ποντικιού."
+msgstr "Από προεπιλογή, οι ειδοποιήσεις θα εμφανίζονται στην οθόνη όπου βρίσκεται ο δείκτης του ποντικιού."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "Show notifications on"
-msgstr "Εμφάνιση ειδοποιήσεων στη"
+msgstr "Εμφάνιση ειδοποιήσεων σε"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:481
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr "Πρέπει να είναι ενεργοποιημένη η επιλογή \"Ενεργοποίηση ήχων γεγονότος\" στις ρυθμίσεις εμφάνισης, για να ακούσετε τους ήχους ειδοποίησης"
+msgstr "Για να ακούσετε ήχους ειδοποίησης, πρέπει να είναι ενεργοποιημένη η επιλογή \"Ενεργοποίηση ήχων συμβάντων\" στις προσωπικές σας ρυθμίσεις Εμφάνιση"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "_Mute sounds"
@@ -489,35 +489,35 @@ msgstr "_Σιωπή ήχων"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "Always show percent-value notifications"
-msgstr "Εμφάνιση στις ειδοποιήσεις των τιμών σε ποσοστά"
+msgstr "Εμφάνιση των τιμών σε ποσοστά"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Εμφάνιση στις ειδοποιήσεις"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "εικονιδίου, περιγραφής και πλαισίου"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "εικονιδίου και περιγραφής"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
-msgstr ""
+msgstr "εικονιδίου και ονόματος εφαρμογής"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "οθόνη όπου βρίσκεται ο δείκτης του ποντικιού"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "κύρια οθόνη"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "όλες τις οθόνες"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
@@ -547,7 +547,7 @@ msgstr "_Θέμα"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr "Συνοπτική εμφάνιση κειμένου στην ειδοποίηση όταν η τιμή είναι σε ποσοστά, όπως στην ένταση του ήχου και στη φωτεινότητα της οθόνης"
+msgstr "Εμφάνιση περιγραφής και πλαισίου ειδοποίησης όταν η τιμή είναι σε ποσοστά, όπως στην ένταση του ήχου και στη φωτεινότητα της οθόνης"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
 msgid "Show text with percent _values"
@@ -555,7 +555,7 @@ msgstr "Εμφάνιση κειμένου στις _τιμές σε ποσοστ
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid "Date/time _format"
-msgstr "Μορ_φοποίηση ημερομηνίας/ώρας"
+msgstr "Μορ_φή ημερομηνίας/ώρας"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
 msgid "Show _Preview"
@@ -570,7 +570,7 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr "Κατά τη δημιουργία μιας ειδοποίησης, οι εφαρμογές μπορούν να ζητήσουν πόσο χρόνο θα ήθελαν να παραμείνει η ειδοποίηση στην οθόνη. Αυτή η ρύθμιση ελέγχει αν το αίτημα αυτό ικανοποιείται ή όχι."
+msgstr "Κατά τη δημιουργία μιας ειδοποίησης, οι εφαρμογές μπορούν να ζητήσουν πόσο χρόνο θα ήθελαν να παραμείνει η ειδοποίηση στην οθόνη. Αυτή η ρύθμιση ελέγχει αν αυτό το αίτημα ικανοποιείται ή όχι."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Honor app-requested \"Disappear after\" time"
