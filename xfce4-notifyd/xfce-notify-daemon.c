@@ -1227,8 +1227,7 @@ xfce_notify_log_insert(XfceNotifyLog *log,
                        const gchar *app_id,
                        const gchar *summary,
                        const gchar *body,
-                       GVariant *image_data,
-                       const gchar *image_path,
+                       const gchar *icon_id,
                        const gchar *app_icon,
                        const gchar *desktop_id,
                        gint expire_timeout,
@@ -1238,10 +1237,7 @@ xfce_notify_log_insert(XfceNotifyLog *log,
     XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
     entry->timestamp = g_date_time_ref(timestamp);
     entry->app_id = g_strdup(app_id);
-    entry->icon_id = xfce_notify_log_cache_icon(image_data,
-                                                image_path,
-                                                app_icon,
-                                                desktop_id);
+    entry->icon_id = g_strdup(icon_id);
     entry->summary = g_strdup(summary);
     entry->body = g_strdup(body);
     entry->expire_timeout = expire_timeout;
@@ -1290,6 +1286,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     gchar *desktop_id = NULL;
     gchar *icon_name = NULL;
     GdkPixbuf *icon_pixbuf = NULL;
+    gchar *icon_id = NULL;
     gchar *new_app_name;
     gint value_hint = 0;
     gint urgency = XFCE_NOTIFY_URGENCY_NORMAL;
@@ -1488,6 +1485,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             log_level_ok = TRUE;
             break;
     }
+
     switch (xndaemon->log_level_apps) {
         case XFCE_LOG_LEVEL_APPS_ALL:
             log_level_apps_ok = TRUE;
@@ -1499,6 +1497,12 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             log_level_apps_ok = application_is_muted;
             break;
     }
+
+    if (replaces_id > 0) {
+        notification = g_tree_lookup(xndaemon->active_notifications,
+                                     GUINT_TO_POINTER(replaces_id));
+    }
+
     if (xndaemon->notification_log &&
         xndaemon->log != NULL &&
         log_level_ok &&
@@ -1506,20 +1510,32 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         !transient &&
         !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
     {
-        GDateTime *timestamp = g_date_time_new_now_local();
-        log_id = xfce_notify_log_insert(xndaemon->log,
-                                        xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
-                                        timestamp,
-                                        new_app_name,
-                                        summary,
-                                        body,
-                                        image_data,
-                                        image_path,
-                                        app_icon,
-                                        desktop_id,
-                                        expire_timeout,
-                                        actions);
-        g_date_time_unref(timestamp);
+        icon_id = xfce_notify_log_cache_icon(image_data,
+                                             image_path,
+                                             app_icon,
+                                             desktop_id);
+
+        // Ensure we don't log a duplicate entry if nothing material about
+        // an existing notification has changed.
+        if (notification == NULL ||
+            g_strcmp0(summary, xfce_notification_get_summary(notification)) != 0 ||
+            g_strcmp0(body, xfce_notification_get_body(notification)) != 0 ||
+            g_strcmp0(icon_id, xfce_notification_get_icon_id(notification)) != 0)
+        {
+            GDateTime *timestamp = g_date_time_new_now_local();
+            log_id = xfce_notify_log_insert(xndaemon->log,
+                                            xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
+                                            timestamp,
+                                            new_app_name,
+                                            summary,
+                                            body,
+                                            icon_id,
+                                            app_icon,
+                                            desktop_id,
+                                            expire_timeout,
+                                            actions);
+            g_date_time_unref(timestamp);
+        }
     }
 
     switch (xndaemon->display_fields) {
@@ -1538,11 +1554,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         default:
             g_assert_not_reached();
             break;
-    }
-
-    if (replaces_id > 0) {
-        notification = g_tree_lookup(xndaemon->active_notifications,
-                                     GUINT_TO_POINTER(replaces_id));
     }
 
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
@@ -1566,6 +1577,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                      icon_only,
                                      icon_name,
                                      icon_pixbuf,
+                                     icon_id,
                                      value_hint,
                                      value_hint_set,
                                      actions,
@@ -1590,6 +1602,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                  icon_only,
                                  icon_name,
                                  icon_pixbuf,
+                                 icon_id,
                                  value_hint,
                                  value_hint_set,
                                  actions,
@@ -1610,6 +1623,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                              icon_only,
                                              icon_name,
                                              icon_pixbuf,
+                                             icon_id,
                                              value_hint,
                                              value_hint_set,
                                              actions,
@@ -1685,6 +1699,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
       g_variant_unref (image_data);
     if (icon_data)
       g_variant_unref (icon_data);
+    g_free(icon_id);
     if (desktop_id)
         g_free (desktop_id);
     g_free(icon_name);

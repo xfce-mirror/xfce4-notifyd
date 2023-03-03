@@ -41,6 +41,7 @@ typedef struct _XfceNotification {
 
     gchar *icon_name;
     GdkPixbuf *icon_pixbuf;
+    gchar *icon_id;
 
     XfceNotifyUrgency urgency;
     guint expire_timeout;
@@ -73,6 +74,7 @@ enum {
     PROP_ICON_ONLY,
     PROP_ICON_NAME,
     PROP_ICON_PIXBUF,
+    PROP_ICON_ID,
     PROP_URGENCY,
     PROP_EXPIRE_TIMEOUT,
     PROP_ACTIONS,
@@ -119,6 +121,8 @@ static void xfce_notification_set_icon_name(XfceNotification *notification,
                                             const gchar *icon_name);
 static void xfce_notification_set_icon_pixbuf(XfceNotification *notification,
                                               GdkPixbuf *icon_pixbuf);
+static void xfce_notification_set_icon_id(XfceNotification *notification,
+                                          const gchar *icon_id);
 static void xfce_notification_set_urgency(XfceNotification *notification,
                                           XfceNotifyUrgency urgency);
 static void xfce_notification_set_expire_timeout(XfceNotification *notification,
@@ -205,6 +209,12 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
                                                        GDK_TYPE_PIXBUF,
                                                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
+    properties[PROP_ICON_ID] = g_param_spec_string("icon-id",
+                                                   "icon-id",
+                                                   "Hash of icon contents",
+                                                   NULL,
+                                                   G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
     properties[PROP_URGENCY] = g_param_spec_enum("urgency",
                                                  "urgency",
                                                  "Notification urgency level",
@@ -286,6 +296,7 @@ xfce_notification_finalize(GObject *object) {
     g_free(notification->summary);
     g_free(notification->body);
     g_free(notification->icon_name);
+    g_free(notification->icon_id);
     g_free(notification->log_id);
     xfce_notification_actions_free(notification->actions);
     if (notification->icon_pixbuf != NULL) {
@@ -348,6 +359,10 @@ xfce_notification_set_property(GObject *object,
 
         case PROP_ICON_PIXBUF:
             xfce_notification_set_icon_pixbuf(notification, g_value_get_object(value));
+            break;
+
+        case PROP_ICON_ID:
+            xfce_notification_set_icon_id(notification, g_value_get_string(value));
             break;
 
         case PROP_EXPIRE_TIMEOUT:
@@ -429,6 +444,10 @@ xfce_notification_get_property(GObject *object,
 
         case PROP_ICON_PIXBUF:
             g_value_set_object(value, notification->icon_pixbuf);
+            break;
+
+        case PROP_ICON_ID:
+            g_value_set_string(value, notification->icon_id);
             break;
 
         case PROP_EXPIRE_TIMEOUT:
@@ -527,6 +546,15 @@ xfce_notification_set_icon_pixbuf(XfceNotification *notification, GdkPixbuf *ico
             notification->icon_pixbuf = g_object_ref(icon_pixbuf);
         }
         g_object_notify(G_OBJECT(notification), "icon-pixbuf");
+    }
+}
+
+static void
+xfce_notification_set_icon_id(XfceNotification *notification, const gchar *icon_id) {
+    if (g_strcmp0(notification->icon_id, icon_id) != 0) {
+        g_free(notification->icon_id);
+        notification->icon_id = g_strdup(icon_id);
+        g_object_notify(G_OBJECT(notification), "icon-id");
     }
 }
 
@@ -641,6 +669,7 @@ xfce_notification_new(guint id,
                       gboolean icon_only,
                       const gchar *icon_name,
                       GdkPixbuf *icon_pixbuf,
+                      const gchar *icon_id,
                       guint gauge_value,
                       gboolean gauge_value_set,
                       XfceNotificationActions *actions,
@@ -664,6 +693,7 @@ xfce_notification_new(guint id,
                         "icon-only", icon_only,
                         "icon-name", icon_name,
                         "icon-pixbuf", icon_pixbuf,
+                        "icon-id", icon_id,
                         "gauge-value", gauge_value,
                         "gauge-value-set", gauge_value_set,
                         "actions", actions,
@@ -686,6 +716,7 @@ xfce_notification_update(XfceNotification *notification,
                          gboolean icon_only,
                          const gchar *icon_name,
                          GdkPixbuf *icon_pixbuf,
+                         const gchar *icon_id,
                          guint gauge_value,
                          gboolean gauge_value_set,
                          XfceNotificationActions *actions,
@@ -705,6 +736,7 @@ xfce_notification_update(XfceNotification *notification,
                  "icon-only", icon_only,
                  "icon-name", icon_name,
                  "icon-pixbuf", icon_pixbuf,
+                 "icon-id", icon_id,
                  "gauge-value", gauge_value,
                  "gauge-value-set", gauge_value_set,
                  "actions", actions,
@@ -807,6 +839,24 @@ const gchar *
 xfce_notification_get_log_id(XfceNotification *notification) {
     g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
     return notification->log_id;
+}
+
+const gchar *
+xfce_notification_get_summary(XfceNotification *notification) {
+    g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
+    return notification->summary;
+}
+
+const gchar *
+xfce_notification_get_body(XfceNotification *notification) {
+    g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
+    return notification->body;
+}
+
+const gchar *
+xfce_notification_get_icon_id(XfceNotification *notification) {
+    g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
+    return notification->icon_id;
 }
 
 XfceNotifyUrgency

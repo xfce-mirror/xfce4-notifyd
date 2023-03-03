@@ -41,6 +41,7 @@ XfceNotification *xfce_notification_new(guint id,
                                         gboolean icon_only,
                                         const gchar *icon_name,
                                         GdkPixbuf *icon_pixbuf,
+                                        const gchar *icon_id,
                                         guint gauge_value,
                                         gboolean gauge_value_set,
                                         XfceNotificationActions *actions,
@@ -59,6 +60,7 @@ void xfce_notification_update(XfceNotification *notification,
                               gboolean icon_only,
                               const gchar *icon_name,
                               GdkPixbuf *icon_pixbuf,
+                              const gchar *icon_id,
                               guint gauge_value,
                               gboolean gauge_value_set,
                               XfceNotificationActions *actions,
@@ -83,6 +85,9 @@ void xfce_notification_set_do_slideout(XfceNotification *notification,
 
 guint xfce_notification_get_id(XfceNotification *notification);
 const gchar *xfce_notification_get_log_id(XfceNotification *notification);
+const gchar *xfce_notification_get_summary(XfceNotification *notification);
+const gchar *xfce_notification_get_body(XfceNotification *notification);
+const gchar *xfce_notification_get_icon_id(XfceNotification *notification);
 XfceNotifyUrgency xfce_notification_get_urgency(XfceNotification *notification);
 GList *xfce_notification_get_windows(XfceNotification *notification);
 
