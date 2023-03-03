@@ -976,7 +976,7 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GdkRectangle old_geom, geom;
     gint cur_x, cur_y;
 
-    DBG("Size allocate called for %d", xndaemon->last_notification_id);
+    DBG("Size allocate called for %d", xfce_notify_window_get_id(window));
 
     gtk_widget_set_allocation(widget, allocation);
 
@@ -1279,7 +1279,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
               gint expire_timeout,
               XfceNotifyDaemon *xndaemon)
 {
-    XfceNotification *notification;
+    XfceNotification *notification = NULL;
     XfceNotificationActions *actions;
     const gchar **cur_action_id;
     guint n_actions = 0;
@@ -1523,35 +1523,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                         actions);
     }
 
-    /* Don't show notification bubbles in the "Do not disturb" mode or if the
-       application has been muted by the user. Exceptions are "urgent"
-       notifications, or if it's a gauge notification and the user wants to let
-       those through. */
-    if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL &&
-        ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) || application_is_muted))
-    {
-        xfce_notify_fdo_gbus_complete_notify (skeleton, invocation, OUT_id);
-        xfce_notify_fdo_gbus_emit_notification_closed(skeleton, OUT_id, XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
-
-        if (image_data)
-            g_variant_unref (image_data);
-        if (desktop_id)
-            g_free (desktop_id);
-        g_free(new_app_name);
-        g_date_time_unref(timestamp);
-        xfce_notification_actions_free(actions);
-        g_free(icon_name);
-        if (icon_pixbuf != NULL) {
-            g_object_unref(icon_pixbuf);
-        }
-#ifdef ENABLE_SOUND
-        if (sound_props != NULL) {
-            ca_proplist_destroy(sound_props);
-        }
-#endif
-        return TRUE;
-    }
-
     switch (xndaemon->display_fields) {
         case XFCE_NOTIFY_DISPLAY_FULL:
             summary_text = summary;
@@ -1570,10 +1541,65 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             break;
     }
 
-    if(replaces_id
-       && (notification = g_tree_lookup(xndaemon->active_notifications,
-                                        GUINT_TO_POINTER(replaces_id))))
+    if (replaces_id > 0) {
+        notification = g_tree_lookup(xndaemon->active_notifications,
+                                     GUINT_TO_POINTER(replaces_id));
+    }
+
+    /* Don't show notification bubbles in the "Do not disturb" mode or if the
+       application has been muted by the user. Exceptions are "urgent"
+       notifications, or if it's a gauge notification and the user wants to let
+       those through. */
+    if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL &&
+        ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) || application_is_muted))
     {
+        if (notification != NULL) {
+            // We're in DnD and there's an existing notification.  The only way
+            // that could happen is if the existing one is critical, but the
+            // current call is to update it so it's not critical anymore.  In
+            // this case, we'll do the update, but set a very short expiration
+            // so it more or less immediately disappears.  We'll also drop
+            // the sound props (if any), since in DnD mode we probably don't
+            // want sounds.
+            xfce_notification_update(notification,
+                                     summary_text,
+                                     body_text,
+                                     icon_only,
+                                     icon_name,
+                                     icon_pixbuf,
+                                     value_hint,
+                                     value_hint_set,
+                                     actions,
+                                     500,
+                                     urgency
+#ifdef ENABLE_SOUND
+                                     , NULL
+#endif
+                                     );
+        }
+
+        xfce_notify_fdo_gbus_complete_notify (skeleton, invocation, OUT_id);
+        xfce_notify_fdo_gbus_emit_notification_closed(skeleton, OUT_id, XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+
+        if (image_data)
+            g_variant_unref (image_data);
+        if (desktop_id)
+            g_free (desktop_id);
+        g_free(new_app_name);
+        g_date_time_unref(timestamp);
+        g_free(icon_name);
+        if (icon_pixbuf != NULL) {
+            g_object_unref(icon_pixbuf);
+        }
+#ifdef ENABLE_SOUND
+        if (sound_props != NULL) {
+            ca_proplist_destroy(sound_props);
+        }
+#endif
+        return TRUE;
+    }
+
+    if (replaces_id > 0 && notification != NULL) {
         xfce_notification_update(notification,
                                  summary_text,
                                  body_text,
