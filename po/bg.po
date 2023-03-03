@@ -504,15 +504,15 @@ msgstr "икона и име на приложение"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "монитор с показалеца на мишката"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "главен монитор"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "всички монитори"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
