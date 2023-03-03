@@ -1032,11 +1032,11 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                               gpointer data)
 {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(data);
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(value);
-    GdkScreen *screen;
+    XfceNotification *notification = XFCE_NOTIFICATION(value);
+    GList *windows = xfce_notification_get_windows(notification);
 
-    screen = gtk_window_get_screen(GTK_WINDOW(window));
-    if (screen != NULL) {
+    for (GList *l = windows; l != NULL; l = l->next) {
+        XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(l->data);
         GdkMonitor *monitor = xfce_notify_window_get_monitor(window);
         xfce_notify_daemon_place_notification_window(xndaemon, window, monitor);
     }
@@ -1134,12 +1134,15 @@ notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, g
 }
 
 static gboolean
-notify_update_theme_foreach (gpointer key, gpointer value, gpointer data)
-{
+notify_update_theme_foreach(gpointer key, gpointer value, gpointer data) {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(data);
-    GtkWidget *window = GTK_WIDGET(value);
+    XfceNotification *notification = XFCE_NOTIFICATION(value);
+    GList *windows = xfce_notification_get_windows(notification);
 
-    notify_update_theme_for_window (xndaemon, window, TRUE);
+    for (GList *l = windows; l != NULL; l = l->next) {
+        GtkWidget *window = GTK_WIDGET(l->data);
+        notify_update_theme_for_window(xndaemon, window, TRUE);
+    }
 
     return FALSE;
 }
