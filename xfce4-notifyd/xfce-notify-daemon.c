@@ -1283,7 +1283,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     XfceNotificationActions *actions;
     const gchar **cur_action_id;
     guint n_actions = 0;
-    GDateTime *timestamp;
     gchar *log_id = NULL;
     GVariant *image_data = NULL;
     GVariant *icon_data = NULL;
@@ -1453,8 +1452,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     }
 #endif
 
-    timestamp = g_date_time_new_now_local();
-
     if (image_data != NULL) {
         icon_pixbuf = notify_pixbuf_from_image_data(image_data);
     } else if (image_path != NULL) {
@@ -1509,6 +1506,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         !transient &&
         !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
     {
+        GDateTime *timestamp = g_date_time_new_now_local();
         log_id = xfce_notify_log_insert(xndaemon->log,
                                         xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
                                         timestamp,
@@ -1521,6 +1519,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                         desktop_id,
                                         expire_timeout,
                                         actions);
+        g_date_time_unref(timestamp);
     }
 
     switch (xndaemon->display_fields) {
@@ -1578,28 +1577,13 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                      );
         }
 
-        xfce_notify_fdo_gbus_complete_notify (skeleton, invocation, OUT_id);
-        xfce_notify_fdo_gbus_emit_notification_closed(skeleton, OUT_id, XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
-
-        if (image_data)
-            g_variant_unref (image_data);
-        if (desktop_id)
-            g_free (desktop_id);
-        g_free(new_app_name);
-        g_date_time_unref(timestamp);
-        g_free(icon_name);
-        if (icon_pixbuf != NULL) {
-            g_object_unref(icon_pixbuf);
-        }
 #ifdef ENABLE_SOUND
         if (sound_props != NULL) {
             ca_proplist_destroy(sound_props);
+            sound_props = NULL;
         }
 #endif
-        return TRUE;
-    }
-
-    if (replaces_id > 0 && notification != NULL) {
+    } else if (notification != NULL) {
         xfce_notification_update(notification,
                                  summary_text,
                                  body_text,
@@ -1692,6 +1676,10 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     }
 
     xfce_notify_fdo_gbus_complete_notify(skeleton, invocation, OUT_id);
+    if (notification == NULL) {
+        // We never displayed a notification, so synthesize a NotificationClosed signal.
+        xfce_notify_fdo_gbus_emit_notification_closed(skeleton, OUT_id, XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+   }
 
     if (image_data)
       g_variant_unref (image_data);
@@ -1704,7 +1692,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         g_object_unref(icon_pixbuf);
     }
     g_free(new_app_name);
-    g_date_time_unref(timestamp);
     g_free(log_id);
 
     return TRUE;
