@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-03-02 00:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Zafer Eren <zaferern@gmail.com>, 2023\n"
+"Last-Translator: Demiray Muhterem <mdemiray@msn.com>, 2018,2020,2022-2023\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-apps/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,7 @@ msgstr "simge ön belleğini içer"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "Şimdi"
 
 #: panel-plugin/notification-plugin.c:379
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
@@ -93,7 +93,7 @@ msgstr "Günlüğü _temizle"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr ""
+msgstr "_Tümünü okundu olarak işaretle"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -156,15 +156,15 @@ msgstr "Davranış"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Menüyü gösterdikten sonra"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Tüm günlük girişlerini okundu olarak işaretle"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Gösterilen günlük girişlerini okundu olarak işaretle"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -182,7 +182,7 @@ msgstr "Xfce paneli için bildirim eklentisi"
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1206
@@ -212,53 +212,53 @@ msgstr "Başka bir bildirim servisi zaten çalıştığından çıkılıyor\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "Günlük kullanılamıyor"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Günlük girişi bulunamadı"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Bildirim günlük dizini (%s) bir dizin değil"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Bildirim günlüğü açılamadı: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr " SQL deyimi hazırlanamadı: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "ifadenin sonundaki sondaki karakterler"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "'Bildirimler' tablosu oluşturulamadı: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "DB zaman damgası dizini oluşturulamadı: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "DB is_read dizini oluşturulamadı: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1393
 msgid "Default Action"
-msgstr ""
+msgstr "Varsayılan Eylem"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce Bildirim Arka Plan Programı"
 
 #: xfce4-notifyd-config/main.c:105
 msgid "Notification Preview"
@@ -372,11 +372,11 @@ msgstr "Tümünü okundu işaretle"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "Tüm okunmamış bildirimleri okundu olarak işaretle"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Günlük girişini _okundu olarak işaretle"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
@@ -384,11 +384,11 @@ msgstr "Dün ve daha önce"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Daha fazla günlük girişi yükleniyor..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "yalnızca \"Rahatsız etmeyin\" sırasında veya bildirim gövdeleri gösterilmediğinde"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -408,15 +408,15 @@ msgstr "yalnızca engellenmişler"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:78
 msgid "Locale default"
-msgstr ""
+msgstr "Yerel varsayılan"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
 msgid "Relative times"
-msgstr ""
+msgstr "Göreli zaman"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
 msgid "Custom"
@@ -489,19 +489,19 @@ msgstr "_Sesleri kapat"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Her zaman yüzde değer bildirimlerini göster"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Bildirimleri görüntülerken, göster"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "simge, özet ve gövde"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "simge ve özet"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
@@ -509,15 +509,15 @@ msgstr "simge ve uygulama ismi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "fare işaretçisi ile izlemek"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "birincil ekran"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "tüm ekranlar"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
@@ -529,7 +529,7 @@ msgstr "saniye"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
 msgid "_Opacity"
@@ -555,7 +555,7 @@ msgstr "Yüzde _değerleriyle metin göster"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid "Date/time _format"
-msgstr ""
+msgstr "Tarih/saat _biçimi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
 msgid "Show _Preview"
@@ -570,11 +570,11 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Bir bildirim oluştururken, uygulamalar bildirimin ekranda ne kadar süreyle kalmasını istediklerini sorabilir. Bu ayar, bu isteğin yerine getirilip getirilmediğini kontrol eder."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Honor uygulaması tarafından istenen \"Sonra kaybol\" süresi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "<b>Per-application notification settings</b>"
@@ -595,7 +595,7 @@ msgstr "Uygulama günlükleri"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Günlükte tutulacak maksimum giriş sayısı."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
 msgid "Log size limit"
