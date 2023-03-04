@@ -381,7 +381,7 @@ msgstr "Учитавам још уноса дневника..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "само приликом „Не узнемиравај“, или ако тела обавештавања нису приказана"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -486,31 +486,31 @@ msgstr "Увек приказуј обавештења у постотцима"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Приликом приказа обавештења, прикажи"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "сличица, сажетак и тело"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "сличица и сажетак"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
-msgstr ""
+msgstr "сличица и име програма"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "надгледај показвачем миша"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "главни приказ"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "сви прикази"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
