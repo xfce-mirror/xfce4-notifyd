@@ -385,7 +385,7 @@ msgstr "Laster flere loggoppførsler …"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "kun ved «Ikke forstyrr», eller når innholdet ikke vises"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -490,31 +490,31 @@ msgstr "Vis alltid varslinger med prosentverdier"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Når varslinger vises, vis"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "ikon, oppsummering og innhold"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "ikon og oppsummering"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
-msgstr ""
+msgstr "ikon og programnavn"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "skjerm med musepeker"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "hovedskjerm"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "alle skjermer"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
