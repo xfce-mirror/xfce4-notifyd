@@ -48,7 +48,7 @@ msgstr "כלול מטמון איקונים"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "עכשיו"
 
 #: panel-plugin/notification-plugin.c:379
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
@@ -76,11 +76,11 @@ msgstr "<b>_נא לא להפריע</b>"
 #: panel-plugin/notification-plugin-log.c:362
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "לא יכול לפתוח יומן הודעות"
 
 #: panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
-msgstr ""
+msgstr "אין הודעות שלא נקראו"
 
 #: panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
@@ -92,7 +92,7 @@ msgstr "_נקה יומן רישום"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr ""
+msgstr "_סמן הכל כנקרא"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -114,7 +114,7 @@ msgstr "_סגור"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Notification icon size"
-msgstr ""
+msgstr "גודל איקון הודעות"
 
 #: panel-plugin/notification-plugin-settings.glade:125
 msgid "Number of notifications to show"
@@ -139,15 +139,15 @@ msgstr "מראה"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "הצג בתפריט"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "כל ההודעות"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
-msgstr ""
+msgstr "הודעות שלא נקראו"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
@@ -155,15 +155,15 @@ msgstr "אופן פעולה"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "לאחר הצגת התפריט"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "סמן את כל רשומות היומן כנקראות"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "סמן רשומות יומן מוצגות כנקראות"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -181,7 +181,7 @@ msgstr "תוסף הודעות ללוח Xfce "
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1206
@@ -211,53 +211,53 @@ msgstr "תהליך רקע להודעה נוסף פועל, יוצא\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "יומן לא זמין"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "רשומת יומן לא נמצאה"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "ספריית יומן הודעות (%s) אינה ספריה"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "נכשל לפתוח יומן הודעות: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "נכשל להכין הצהרת SQL: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "תווים עוקבים בסוף הצהרה"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "נכשל ליצור טבלת 'הודעות':%s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "נכשל ליצור אינדקס חותמות זמן DB: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "נכשל ליצור אינדקס DB is_read:%s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1393
 msgid "Default Action"
-msgstr ""
+msgstr "פעולת ברירת מחדל"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "דמון הודעות Xfce "
 
 #: xfce4-notifyd-config/main.c:105
 msgid "Notification Preview"
@@ -280,7 +280,7 @@ msgstr "Notification preview failed"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "האם אתה בטוח שאתה רוצה למחוק הגדרות הודעה לישום \"%s\"?"
 
 #: xfce4-notifyd-config/main.c:569
 msgid "Delete"
@@ -289,7 +289,7 @@ msgstr "מחק"
 #: xfce4-notifyd-config/main.c:571
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr ""
+msgstr "שכח ישום"
 
 #: xfce4-notifyd-config/main.c:669
 msgid "Unspecified applications"
@@ -367,15 +367,15 @@ msgstr "נקה את יומן ההודעות"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:201
 msgid "Mark All Read"
-msgstr ""
+msgstr "סמן הכל כנקרא"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "סמן את כל ההודעות שלא נקראו כנקראות"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "סמן רשומת יומן כ_נקראת"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
@@ -383,11 +383,11 @@ msgstr "אתמול ולפני כן"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "טוען עוד רשומות יומן..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "רק במהלך \"לא להפריע\", או כאשר גופי הודעה לא מוצגים"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -407,15 +407,15 @@ msgstr "התראות חסומות בלבד"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:78
 msgid "Locale default"
-msgstr ""
+msgstr "ברירת מחדל מיקום"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
 msgid "Relative times"
-msgstr ""
+msgstr "זמנים יחסיים"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
 msgid "Custom"
@@ -480,43 +480,43 @@ msgstr "הצג הודעות על"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "הגדרת \"הפעל צלילי מאורעות\" בדו שיח הגדרות ניראות חייבת להיות מסומנת כדי לשמוע צלילי הודעה"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "_Mute sounds"
-msgstr ""
+msgstr "ה_שתק צלילים"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "תמיד הצג הודעות ערכי אחוז"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "כאשר הודעות מוצגות, הצג"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "איקון, סיכום, וגוף"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "איקון וסיכום"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
-msgstr ""
+msgstr "איקון ושם ישום"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "מסך עם סמן עכבר"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "מסך ראשי"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "כל המסכים"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
@@ -528,7 +528,7 @@ msgstr "שניות"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
 msgid "_Opacity"
@@ -554,7 +554,7 @@ msgstr "הצג טקסט עם _ערכי אחוזים"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid "Date/time _format"
-msgstr ""
+msgstr "_פורמט תאריך/שעה"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
 msgid "Show _Preview"
@@ -569,15 +569,15 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "כאשר נוצרת הודעה, ישומים יכולים לבקש כמה זמן הם רוצים שההודעה תוצג על המסך. הגדרה זו שולטת האם הבקשה הנ\"ל מכובדת או לא."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "כבד זמן \"היעלם לאחר\" המבוקש ע\"י ישום"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>הגדרות הודעה פר ישום</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:923
 msgid "Applications"
@@ -594,7 +594,7 @@ msgstr "רשום יישומים ביומן"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "מספר רשומות מירבי לשמירה ביומן."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
 msgid "Log size limit"
@@ -606,15 +606,15 @@ msgstr "יומן"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr ""
+msgstr "השתק ישום"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "אפשר הודעות דחופות"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr ""
+msgstr "כלול ביומן"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
