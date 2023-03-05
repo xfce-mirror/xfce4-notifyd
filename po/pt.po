@@ -436,11 +436,11 @@ msgstr "Em baixo à direita"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:211
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr "O serviço de notificação não está em execução. Não serão apresentadas notificações."
+msgstr "O serviço de notificações não está em execução. Não serão apresentadas notificações."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:290
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Atualmente apenas notificações urgentes são mostradas.</b>"
+msgstr "<b>Atualmente apenas notificações urgentes são exibidas.</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:376
 msgid "Fade out"
@@ -504,15 +504,15 @@ msgstr "ícone e nome da aplicação"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "monitor com ponteiro do rato"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "monitor principal"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "todos os monitores"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
