@@ -7,6 +7,7 @@ dnl Copyright (c) 2019 Simon Steinbeiss <simon@xfce.org>
 dnl
 
 m4_define([notifications_spec_version], [1.2])
+m4_define([libx11_minimum_version], [1.6.7])
 m4_define([glib_minimum_version], [2.68])
 m4_define([gtk_minimum_version], [3.22])
 m4_define([canberra_minimum_version], [0.30])
@@ -59,9 +60,6 @@ AC_SUBST([GETTEXT_PACKAGE])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.20])
 
-dnl check for x11
-XDT_CHECK_LIBX11_REQUIRE()
-
 dnl check for required packages
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_minimum_version])
 XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [glib_minimum_version])
@@ -74,81 +72,30 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
 XDT_CHECK_PACKAGE([SQLITE], [sqlite3], [sqlite_minimum_version])
 
-XDT_CHECK_OPTIONAL_PACKAGE([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version], [gdk-x11], [X11 backend for GDK])
-XDT_CHECK_OPTIONAL_PACKAGE([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version], [gdk-wayland], [Wayland backend for GDK])
-XDT_CHECK_OPTIONAL_PACKAGE([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0], [gtk-layer-shell], [gtk-layer-shell Wayland library])
+XDT_CHECK_OPTIONAL_FEATURE([X11],
+                           [x11],
+                           [
+                               XDT_FEATURE_DEPENDENCY([LIBX11], [x11], [libx11_minimum_version])
+                               XDT_FEATURE_DEPENDENCY([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version])
+                           ],
+                           [the X11 windowing system])
 
-if test x"$GDK_X11_FOUND" = x"yes"; then
-    enable_x11=yes
-    AC_DEFINE([ENABLE_X11], [1], [Set if X11 is enabled])
-else
-    enable_x11=no
-fi
+XDT_CHECK_OPTIONAL_FEATURE([WAYLAND],
+                           [wayland],
+                           [
+                               XDT_FEATURE_DEPENDENCY([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version])
+                               XDT_FEATURE_DEPENDENCY([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0])
+                           ],
+                           [the Wayland windowing system])
 
-if test x"$GDK_WAYLAND_FOUND" = x"yes" -a x"$GTK_LAYER_SHELL_FOUND" = x"yes"; then
-    enable_wayland=yes
-    AC_DEFINE([ENABLE_WAYLAND], [1], [Set if Wayland is enabled])
-else
-    enable_wayland=no
-fi
+XDT_CHECK_OPTIONAL_FEATURE([SOUND],
+                           [sound],
+                           [XDT_FEATURE_DEPENDENCY([CANBERRA_GTK], [libcanberra-gtk3], [canberra_minimum_version])],
+                           [notification sound])
 
-AC_ARG_ENABLE([sound],
-              [AS_HELP_STRING([--enable-sound],
-                              [Whether or not to enable sound support (default=auto)])],
-              [enable_sound=$enableval],
-              [enable_sound=auto])
-XDT_CHECK_OPTIONAL_PACKAGE([CANBERRA_GTK], [libcanberra-gtk3], [canberra_minimum_version], [canberra], [Canberra sound theme library])
-
-if test x"$enable_sound" != x"no"; then
-    if test x"$CANBERRA_GTK_FOUND" = x"yes"; then
-        enable_sound=yes
-        AC_DEFINE([ENABLE_SOUND], [1], [Set if sound is enabled])
-    elif test x"$enable_sound" = x"yes"; then
-        AC_MSG_ERROR([Sound support was requested, but dependencies were not met])
-        exit 1
-    fi
-else
-    enable_sound=no
-fi
-
-AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
-AC_MSG_CHECKING([for gdbus-codegen])
-if test x"$GDBUS_CODEGEN" = x""; then
-    GDBUS_CODEGEN=`$PKG_CONFIG --variable=gdbus_codegen gio-2.0`
-fi
-if test -x "$GDBUS_CODEGEN"; then
-    AC_MSG_RESULT([$GDBUS_CODEGEN])
-else
-    AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
-./configure GDBUS_CODEGEN=/path/to/gdbus-codegen
-to define a custom location for it.])
-fi
-
-AC_ARG_VAR([GLIB_COMPILE_RESOURCES], [GResource compiler/generator])
-AC_MSG_CHECKING([for glib-compile-resources])
-if test x"$GLIB_COMPILE_RESOURCES" = x""; then
-    GLIB_COMPILE_RESOURCES=`$PKG_CONFIG --variable=glib_compile_resources gio-2.0`
-fi
-if test -x "$GLIB_COMPILE_RESOURCES"; then
-    AC_MSG_RESULT([$GLIB_COMPILE_RESOURCES])
-else
-    AC_MSG_ERROR([could not find glib-compile-resources in \$PATH. You can run
-./configure GLIB_COMPILE_RESOURCES=/path/to/glib-compile-resources
-to define a custom location for it.])
-fi
-
-AC_ARG_VAR([GLIB_GENMARSHAL], [gclosure marshalling function generator])
-AC_MSG_CHECKING([for glib-genmarshal])
-if test x"$GLIB_GENMARSHAL" = x""; then
-    GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`
-fi
-if test -x "$GLIB_GENMARSHAL"; then
-    AC_MSG_RESULT([$GLIB_GENMARSHAL])
-else
-    AC_MSG_ERROR([could not find glib-genmarshal in \$PATH. You can run
-./configure GLIB_GENMARSHAL=/path/to/glib-genmarshal
-to define a custom location for it.])
-fi
+XDT_CHECK_PACKAGE_BINARY([GDBUS_CODEGEN], [gio-2.0], [gdbus_codegen], [gdbus-codegen])
+XDT_CHECK_PACKAGE_BINARY([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_resources], [glib-compile-resources])
+XDT_CHECK_PACKAGE_BINARY([GLIB_GENMARSHAL], [glib-2.0], [glib_genmarshal], [glib-genmarshal])
 
 dnl dbus start daemon
 AC_ARG_ENABLE([dbus-start-daemon],
@@ -192,9 +139,9 @@ echo "Build Configuration:"
 echo
 echo "* Installation prefix:       $libdir"
 echo "* Debug Support:             $enable_debug"
-echo "* X11 Support:               $enable_x11"
-echo "* Wayland Support:           $enable_wayland"
-echo "* Sound support:             $enable_sound"
+echo "* X11 Support:               $ENABLE_X11"
+echo "* Wayland Support:           $ENABLE_WAYLAND"
+echo "* Sound support:             $ENABLE_SOUND"
 if test "x$use_dbus_start_daemon" = "xyes"; then
 echo "* Startup method:            DBus"
 else
