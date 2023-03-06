@@ -49,7 +49,7 @@ msgstr "includi la cache delle icone"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "Adesso"
 
 #: panel-plugin/notification-plugin.c:379
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
@@ -77,11 +77,11 @@ msgstr "<b>_Non disturbare</b>"
 #: panel-plugin/notification-plugin-log.c:362
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Impossibile aprire il registro delle notifiche"
 
 #: panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
-msgstr ""
+msgstr "Nessuna notifica da leggere"
 
 #: panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
@@ -93,7 +93,7 @@ msgstr "_Pulisci registro"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr ""
+msgstr "_Segna tutti come letti"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -140,15 +140,15 @@ msgstr "Aspetto"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "Mostra nel menu"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "Tutte le notifiche"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
-msgstr ""
+msgstr "Notifiche da leggere"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
@@ -156,7 +156,7 @@ msgstr "Comportamento"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Dopo aver mostrato il menu"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
@@ -182,7 +182,7 @@ msgstr "Componente aggiuntivo delle notifiche per il pannello Xfce"
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1206
@@ -212,7 +212,7 @@ msgstr "Un altro demone di notifica è già in esecuzione; uscita in corso\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "Registro non disponibile"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
@@ -368,11 +368,11 @@ msgstr "Svuota il registro delle notifiche"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:201
 msgid "Mark All Read"
-msgstr ""
+msgstr "Segna tutti come da leggere"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "Segna tutte le notifiche da leggere come lette"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
@@ -416,7 +416,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
 msgid "Custom"
@@ -493,27 +493,27 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Durante la visualizzazione delle notifiche, mostra"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "icona, sommario, e corpo"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "icona e sommario"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
-msgstr ""
+msgstr "icona e nome dell'applicazione"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "schermo con puntatore del mouse"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "schermo primario"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
@@ -529,7 +529,7 @@ msgstr "secondi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
 msgid "_Opacity"
@@ -595,7 +595,7 @@ msgstr "Registra applicazioni"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Il numero massimo di elementi da mantenere nel registro."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
 msgid "Log size limit"
