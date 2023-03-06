@@ -47,7 +47,7 @@ msgstr "包括图标缓存"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "现在"
 
 #: panel-plugin/notification-plugin.c:379
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
@@ -75,11 +75,11 @@ msgstr "<b>请勿打扰(_D)</b>"
 #: panel-plugin/notification-plugin-log.c:362
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "无法打开通知日志"
 
 #: panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
-msgstr ""
+msgstr "没有未读通知"
 
 #: panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
@@ -91,7 +91,7 @@ msgstr "清除日志(_C)"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr ""
+msgstr "标记全部为已读(_M)"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -113,7 +113,7 @@ msgstr "关闭(_C)"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Notification icon size"
-msgstr ""
+msgstr "通知图标大小"
 
 #: panel-plugin/notification-plugin-settings.glade:125
 msgid "Number of notifications to show"
@@ -138,15 +138,15 @@ msgstr "外观"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "在菜单中显示"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "所有通知"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
-msgstr ""
+msgstr "未读通知"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
@@ -154,15 +154,15 @@ msgstr "行为"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "在显示菜单之后"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "将所有日志条目标记为已读"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "将显示的日志条目标记为已读"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -180,7 +180,7 @@ msgstr "Xfce 面板专用的通知插件"
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1206
@@ -210,40 +210,40 @@ msgstr "另一个通知守护程序已在运行，现将退出\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "日志不可用"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "未找到日志条目"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "通知日志目录 (%s)不是目录"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "无法打开通知日志: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "SQL语句准备失败:%%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "语句末尾的尾随字符"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "无法创建 “通知” 表：%s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "无法创建数据库时间戳索引：%s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
@@ -414,7 +414,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
 msgid "Custom"
