@@ -23,8 +23,6 @@
 
 #include <gtk/gtk.h>
 
-#include "xfce-notify-types.h"
-
 #define XFCE_TYPE_NOTIFY_WINDOW     (xfce_notify_window_get_type())
 #define XFCE_NOTIFY_WINDOW(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_WINDOW, XfceNotifyWindow))
 #define XFCE_IS_NOTIFY_WINDOW(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_WINDOW))

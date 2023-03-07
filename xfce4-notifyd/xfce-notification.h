@@ -27,6 +27,8 @@
 #include <canberra.h>
 #endif
 
+#include <common/xfce-notify-common.h>
+
 #include "xfce-notify-types.h"
 
 G_BEGIN_DECLS

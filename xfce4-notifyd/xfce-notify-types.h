@@ -25,19 +25,6 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
-    XFCE_NOTIFY_URGENCY_LOW = 0,
-    XFCE_NOTIFY_URGENCY_NORMAL,
-    XFCE_NOTIFY_URGENCY_CRITICAL,
-} XfceNotifyUrgency;
-
-typedef enum {
-    XFCE_NOTIFY_CLOSE_REASON_EXPIRED = 1,
-    XFCE_NOTIFY_CLOSE_REASON_DISMISSED,
-    XFCE_NOTIFY_CLOSE_REASON_CLIENT,
-    XFCE_NOTIFY_CLOSE_REASON_UNKNOWN,
-} XfceNotifyCloseReason;
-
 typedef struct {
     gchar *id;
     gchar *label;
@@ -48,12 +35,6 @@ typedef struct {
     XfceNotificationAction *actions;
     gsize n_actions;
 } XfceNotificationActions;
-
-#define XFCE_TYPE_NOTIFY_URGENCY (xfce_notify_urgency_get_type())
-#define XFCE_TYPE_NOTIFY_CLOSE_REASON (xfce_notify_close_reason_get_type())
-
-GType xfce_notify_urgency_get_type(void) G_GNUC_CONST;
-GType xfce_notify_close_reason_get_type(void) G_GNUC_CONST;
 
 void xfce_notification_actions_free(XfceNotificationActions *actions);
 

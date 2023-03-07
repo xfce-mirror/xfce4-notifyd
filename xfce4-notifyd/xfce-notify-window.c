@@ -42,7 +42,9 @@
 #endif
 
 #include <common/xfce-notify-common.h>
+#include <common/xfce-notify-enum-types.h>
 
+#include "xfce-notify-types.h"
 #include "xfce-notify-window.h"
 
 #define DEFAULT_EXPIRE_TIMEOUT 10000

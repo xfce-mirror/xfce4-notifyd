@@ -59,29 +59,6 @@
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
 
-typedef enum {
-    XFCE_NOTIFY_DISPLAY_FULL,
-    XFCE_NOTIFY_DISPLAY_SUMMARY,
-    XFCE_NOTIFY_DISPLAY_APP_NAME,
-} XfceNotifyDisplayFields;
-
-typedef enum {
-    XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
-    XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
-    XFCE_NOTIFY_SHOW_ON_ALL_MONITORS,
-} XfceNotifyShowOn;
-
-typedef enum {
-    XFCE_LOG_LEVEL_ONLY_DND_OR_FIELDS_HIDDEN = 0,
-    XFCE_LOG_LEVEL_ALWAYS = 1,
-} XfceLogLevel;
-
-typedef enum {
-    XFCE_LOG_LEVEL_APPS_ALL = 0,
-    XFCE_LOG_LEVEL_APPS_EXCEPT_BLOCKED = 2,
-    XFCE_LOG_LEVEL_APPS_ONLY_BLOCKED,
-} XfceLogLevelApps;
-
 struct _XfceNotifyDaemon
 {
     XfceNotifyFdoGBusSkeleton parent;

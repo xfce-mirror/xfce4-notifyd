@@ -60,6 +60,43 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+    XFCE_NOTIFY_DISPLAY_FULL,
+    XFCE_NOTIFY_DISPLAY_SUMMARY,
+    XFCE_NOTIFY_DISPLAY_APP_NAME,
+} XfceNotifyDisplayFields;
+
+typedef enum {
+    XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
+    XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
+    XFCE_NOTIFY_SHOW_ON_ALL_MONITORS,
+} XfceNotifyShowOn;
+
+typedef enum {
+    XFCE_LOG_LEVEL_ONLY_DND_OR_FIELDS_HIDDEN = 0,
+    XFCE_LOG_LEVEL_ALWAYS = 1,
+} XfceLogLevel;
+
+typedef enum {
+    XFCE_LOG_LEVEL_APPS_ALL = 0,
+    XFCE_LOG_LEVEL_APPS_EXCEPT_BLOCKED = 2,
+    XFCE_LOG_LEVEL_APPS_ONLY_BLOCKED,
+} XfceLogLevelApps;
+
+typedef enum {
+    XFCE_NOTIFY_URGENCY_LOW = 0,
+    XFCE_NOTIFY_URGENCY_NORMAL,
+    XFCE_NOTIFY_URGENCY_CRITICAL,
+} XfceNotifyUrgency;
+
+typedef enum {
+    XFCE_NOTIFY_CLOSE_REASON_EXPIRED = 1,
+    XFCE_NOTIFY_CLOSE_REASON_DISMISSED,
+    XFCE_NOTIFY_CLOSE_REASON_CLIENT,
+    XFCE_NOTIFY_CLOSE_REASON_UNKNOWN,
+} XfceNotifyCloseReason;
+
+
 gboolean xfce_notify_is_markup_valid(const gchar *markup);
 
 GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);

@@ -24,42 +24,6 @@
 
 #include "xfce-notify-types.h"
 
-GType
-xfce_notify_urgency_get_type(void) {
-    static GType type = 0;
-
-    if (type == 0) {
-        static const GEnumValue values[] = {
-            { XFCE_NOTIFY_URGENCY_LOW, "XFCE_NOTIFY_URGENCY_LOW", "low" },
-            { XFCE_NOTIFY_URGENCY_NORMAL, "XFCE_NOTIFY_URGENCY_NORMAL", "normal" },
-            { XFCE_NOTIFY_URGENCY_CRITICAL, "XFCE_NOTIFY_URGENCY_CRITICAL", "critical" },
-            { 0, NULL, NULL },
-        };
-        type = g_enum_register_static("XfceNotifyUrgency", values);
-    }
-
-    return type;
-}
-
-GType
-xfce_notify_close_reason_get_type(void)
-{
-	static GType type = 0;
-
-    if (type == 0) {
-        static const GEnumValue values[] = {
-            { XFCE_NOTIFY_CLOSE_REASON_EXPIRED, "XFCE_NOTIFY_CLOSE_REASON_EXPIRED", "expired" },
-            { XFCE_NOTIFY_CLOSE_REASON_DISMISSED, "XFCE_NOTIFY_CLOSE_REASON_DISMISSED", "dismissed" },
-            { XFCE_NOTIFY_CLOSE_REASON_CLIENT, "XFCE_NOTIFY_CLOSE_REASON_CLIENT", "client" },
-            { XFCE_NOTIFY_CLOSE_REASON_UNKNOWN, "XFCE_NOTIFY_CLOSE_REASON_UNKNOWN", "unknown" },
-            { 0, NULL, NULL },
-        };
-        type = g_enum_register_static("XfceNotifyCloseReason", values);
-    }
-
-    return type;
-}
-
 void
 xfce_notification_actions_free(XfceNotificationActions *actions) {
     if (actions != NULL) {

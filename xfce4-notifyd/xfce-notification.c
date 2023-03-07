@@ -26,6 +26,8 @@
 #include <canberra-gtk.h>
 #endif
 
+#include <common/xfce-notify-enum-types.h>
+
 #include "xfce-notification.h"
 #include "xfce-notify-window.h"
 
