@@ -83,8 +83,8 @@ typedef enum {
 
 typedef enum {
     XFCE_LOG_LEVEL_APPS_ALL = 0,
-    XFCE_LOG_LEVEL_APPS_EXCEPT_BLOCKED = 2,
-    XFCE_LOG_LEVEL_APPS_ONLY_BLOCKED,
+    XFCE_LOG_LEVEL_APPS_EXCEPT_BLOCKED = 1,
+    XFCE_LOG_LEVEL_APPS_ONLY_BLOCKED = 2,
 } XfceLogLevelApps;
 
 typedef enum {
