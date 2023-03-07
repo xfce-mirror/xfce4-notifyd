@@ -248,15 +248,15 @@ msgstr "无法创建数据库时间戳索引：%s"
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "无法创建数据库 is_read 索引：%s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1393
 msgid "Default Action"
-msgstr ""
+msgstr "默认动作"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce 通知守护进程"
 
 #: xfce4-notifyd-config/main.c:105
 msgid "Notification Preview"
