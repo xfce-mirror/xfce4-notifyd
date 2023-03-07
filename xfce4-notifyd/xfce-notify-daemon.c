@@ -44,6 +44,7 @@
 #endif
 
 #include <common/xfce-notify-common.h>
+#include <common/xfce-notify-enum-types.h>
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
 
@@ -114,28 +115,9 @@ typedef struct
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
-typedef struct {
-    const gchar *nick;
-    gint value;
-} EnumMapping;
-
-static const EnumMapping notification_display_fields_mapping[] = {
-    { "icon-summary-body", XFCE_NOTIFY_DISPLAY_FULL },
-    { "icon-summary", XFCE_NOTIFY_DISPLAY_SUMMARY },
-    { "icon-appname", XFCE_NOTIFY_DISPLAY_APP_NAME },
-    { NULL, -1 },
-};
-
-static const EnumMapping show_notifications_on_mapping[] = {
-    { "active-monitor", XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR },
-    { "primary-monitor", XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR },
-    { "all-monitors", XFCE_NOTIFY_SHOW_ON_ALL_MONITORS },
-    { NULL, -1 },
-};
-
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
-static const struct {
+static struct {
     const gchar *name;
     GType type;
     gsize offset;
@@ -146,8 +128,6 @@ static const struct {
         gboolean b;
         const gchar *s;
     } default_value;
-    const EnumMapping *enum_mappings;
-    gint enum_default_value;
 } settings[] = {
     {
         .name = EXPIRE_TIMEOUT_ENABLED_PROP,
@@ -207,19 +187,15 @@ static const struct {
 #endif
     {
         .name = SHOW_NOTIFICATIONS_ON_PROP,
-        .type = G_TYPE_STRING,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_notifications_on),
-        .default_value.s = SHOW_NOTIFICATIONS_ON_DEFAULT,
-        .enum_mappings = show_notifications_on_mapping,
-        .enum_default_value = XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
+        .default_value.i = SHOW_NOTIFICATIONS_ON_DEFAULT,
     },
     {
         .name = NOTIFICATION_DISPLAY_FIELDS_PROP,
-        .type = G_TYPE_STRING,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, display_fields),
-        .default_value.s = DISPLAY_FIELDS_DEFAULT,
-        .enum_mappings = notification_display_fields_mapping,
-        .enum_default_value = XFCE_NOTIFY_DISPLAY_FULL,
+        .default_value.i = DISPLAY_FIELDS_DEFAULT,
     },
     {
         .name = "/do-not-disturb",
@@ -270,6 +246,8 @@ static const struct {
         .default_value.b = FALSE,
     },
 };
+
+static void xfce_notify_daemon_settings_init(void);
 
 static void xfce_notify_daemon_screen_changed(GdkScreen *screen,
                                               gpointer user_data);
@@ -343,6 +321,8 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
 
     gobject_class->finalize = xfce_notify_daemon_finalize;
     gobject_class->constructed = xfce_notify_daemon_constructed;
+
+    xfce_notify_daemon_settings_init();
 }
 
 
@@ -1520,11 +1500,11 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             summary_text = summary;
             body_text = body;
             break;
-        case XFCE_NOTIFY_DISPLAY_SUMMARY:
+        case XFCE_NOTIFY_DISPLAY_ICON_SUMMARY:
             summary_text = summary;
             body_text = NULL;
             break;
-        case XFCE_NOTIFY_DISPLAY_APP_NAME:
+        case XFCE_NOTIFY_DISPLAY_ICON_APPNAME:
             summary_text = new_app_name;
             body_text = NULL;
             break;
@@ -1844,27 +1824,6 @@ xfce_notify_daemon_update_do_slideout(gpointer id_p,
 }
 
 
-static gint
-xfce_notify_convert_enum(const EnumMapping mappings[],
-                         const gchar *property_name,
-                         const gchar *str,
-                         gint default_value)
-{
-    if (str == NULL) {
-        return default_value;
-    } else {
-        for (gsize i = 0; mappings[i].nick != NULL; ++i) {
-            if (strcmp(mappings[i].nick, str) == 0) {
-                return mappings[i].value;
-            }
-        }
-
-        g_warning("Invalid value '%s' for property '%s'; using default", str, property_name);
-        return default_value;
-    }
-}
-
-
 static void
 xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                                     const gchar *property,
@@ -1934,23 +1893,21 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                             : settings[i].default_value.b;
                         break;
 
-                    case G_TYPE_STRING: {
-                        const gchar *str = G_VALUE_TYPE(value) == settings[i].type
-                            ? g_value_get_string(value)
-                            : settings[i].default_value.s;
-                        if (settings[i].enum_mappings != NULL) {
-                            *(gint *)loc = xfce_notify_convert_enum(settings[i].enum_mappings,
-                                                                    settings[i].name,
-                                                                    str,
-                                                                    settings[i].enum_default_value);
-                        } else {
-                            *(gchar **)loc = g_strdup(str);
-                        }
+                    case G_TYPE_STRING:
+                        *(gchar **)loc = g_strdup(
+                            G_VALUE_TYPE(value) == settings[i].type
+                                ? g_value_get_string(value)
+                                : settings[i].default_value.s
+                        );
                         break;
-                    }
 
                     default:
-                        g_critical("Unhandled property type %s", g_type_name(settings[i].type));
+                        if (g_type_is_a(settings[i].type, G_TYPE_ENUM)) {
+                            const gchar *nick = G_VALUE_HOLDS_STRING(value) ? g_value_get_string(value) : NULL;
+                            *(gint *)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
+                        } else {
+                            g_critical("Unhandled property type %s for property %s", g_type_name(settings[i].type), settings[i].name);
+                        }
                         break;
                 }
 
@@ -1978,6 +1935,24 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
             g_tree_foreach(xndaemon->active_notifications, xfce_notify_daemon_update_do_slideout, xndaemon);
         }
     }
+}
+
+
+static void
+xfce_notify_daemon_settings_init(void) {
+    gsize updated = 0;
+
+    for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
+        if (g_strcmp0(settings[i].name, NOTIFICATION_DISPLAY_FIELDS_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_NOTIFY_DISPLAY_FIELDS;
+            ++updated;
+        } else if (g_strcmp0(settings[i].name, SHOW_NOTIFICATIONS_ON_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_NOTIFY_SHOW_ON;
+            ++updated;
+        }
+    }
+
+    g_assert(updated == 2);
 }
 
 
@@ -2043,23 +2018,19 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                                            settings[i].default_value.b);
                 break;
 
-            case G_TYPE_STRING: {
-                const gchar *value = xfconf_channel_get_string(xndaemon->settings,
-                                                               settings[i].name,
-                                                               settings[i].default_value.s);
-                if (settings[i].enum_mappings != NULL) {
-                    *(gint *)loc = xfce_notify_convert_enum(settings[i].enum_mappings,
-                                                            settings[i].name,
-                                                            value,
-                                                            settings[i].enum_default_value);
-                } else {
-                    *(gchar **)loc = g_strdup(value);
-                }
+            case G_TYPE_STRING:
+                *(gchar **)loc = g_strdup(xfconf_channel_get_string(xndaemon->settings,
+                                                                    settings[i].name,
+                                                                    settings[i].default_value.s));
                 break;
-            }
 
             default:
-                g_critical("Unhandled property type %s", g_type_name(settings[i].type));
+                if (g_type_is_a(settings[i].type, G_TYPE_ENUM)) {
+                    const gchar *nick = xfconf_channel_get_string(xndaemon->settings, settings[i].name, NULL);
+                    *(gint *)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
+                } else {
+                    g_critical("Unhandled property type %s for property %s", g_type_name(settings[i].type), settings[i].name);
+                }
                 break;
         }
     }

@@ -45,8 +45,8 @@
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000
 #define EXPIRE_TIMEOUT_DEFAULT              10
-#define DISPLAY_FIELDS_DEFAULT              "icon-summary-body"
-#define SHOW_NOTIFICATIONS_ON_DEFAULT       "active-monitor"
+#define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
+#define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be
@@ -60,12 +60,16 @@
 
 G_BEGIN_DECLS
 
+// NB: do not change the suffixes on these enums, as the string ("nick")
+// versions of them are used as xfconf setting values.
 typedef enum {
     XFCE_NOTIFY_DISPLAY_FULL,
-    XFCE_NOTIFY_DISPLAY_SUMMARY,
-    XFCE_NOTIFY_DISPLAY_APP_NAME,
+    XFCE_NOTIFY_DISPLAY_ICON_SUMMARY,
+    XFCE_NOTIFY_DISPLAY_ICON_APPNAME,
 } XfceNotifyDisplayFields;
 
+// NB: do not change the suffixes on these enums, as the string ("nick")
+// versions of them are used as xfconf setting values.
 typedef enum {
     XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
     XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
@@ -100,6 +104,12 @@ typedef enum {
 gboolean xfce_notify_is_markup_valid(const gchar *markup);
 
 GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);
+
+gint xfce_notify_enum_value_from_nick(GType enum_type,
+                                      const gchar *nick,
+                                      gint default_value);
+gchar *xfce_notify_enum_nick_from_value(GType enum_type,
+                                        gint value);
 
 void xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel);
 void xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel);

@@ -544,9 +544,9 @@
                       <object class="GtkComboBoxText" id="display_fields">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="active-id">icon-summary-body</property>
+                        <property name="active-id">full</property>
                         <items>
-                          <item id="icon-summary-body" translatable="yes">icon, summary, and body</item>
+                          <item id="full" translatable="yes">icon, summary, and body</item>
                           <item id="icon-summary" translatable="yes">icon and summary</item>
                           <item id="icon-appname" translatable="yes">icon and application name</item>
                         </items>

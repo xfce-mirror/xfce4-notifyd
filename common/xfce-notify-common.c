@@ -22,6 +22,7 @@
 #endif
 
 #include "xfce-notify-common.h"
+#include "xfce-notify-enum-types.h"
 
 // We can't use pango_parse_markup(), as that does not support hyperlinks.
 gboolean
@@ -66,6 +67,39 @@ xfce_notify_create_placeholder_label(const gchar *markup) {
     return label;
 }
 
+gint
+xfce_notify_enum_value_from_nick(GType enum_type, const gchar *nick, gint default_value) {
+    gint value = default_value;
+
+    if (nick != NULL) {
+        GEnumClass *klass = g_type_class_ref(enum_type);
+        GEnumValue *enum_value = g_enum_get_value_by_nick(klass, nick);
+
+        if (enum_value != NULL) {
+            value = enum_value->value;
+        }
+
+        g_type_class_unref(klass);
+    }
+
+    return value;
+}
+
+gchar *
+xfce_notify_enum_nick_from_value(GType enum_type, gint value) {
+    gchar *nick = NULL;
+    GEnumClass *klass = g_type_class_ref(enum_type);
+    GEnumValue *enum_value = g_enum_get_value(klass, value);
+
+    if (enum_value != NULL) {
+        nick = g_strdup(enum_value->value_nick);
+    }
+
+    g_type_class_unref(klass);
+
+    return nick;
+}
+
 void
 xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
     if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
@@ -81,15 +115,14 @@ void
 xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
     if (xfconf_channel_has_property(channel, "/primary-monitor")) {
         guint value = xfconf_channel_get_uint(channel, "/primary-monitor", 0);
-        const gchar *new_value;
-
-        if (value == 1) {
-            new_value = "primary-monitor";
-        } else {
-            new_value = SHOW_NOTIFICATIONS_ON_DEFAULT;
+        gchar *new_value = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_SHOW_ON,
+                                                            value == 1
+                                                            ? XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR
+                                                            : SHOW_NOTIFICATIONS_ON_DEFAULT);
+        if (G_LIKELY(new_value != NULL)) {
+            xfconf_channel_set_string(channel, SHOW_NOTIFICATIONS_ON_PROP, new_value);
+            xfconf_channel_reset_property(channel, "/primary-monitor", FALSE);
+            g_free(new_value);
         }
-
-        xfconf_channel_set_string(channel, SHOW_NOTIFICATIONS_ON_PROP, new_value);
-        xfconf_channel_reset_property(channel, "/primary-monitor", FALSE);
     }
 }

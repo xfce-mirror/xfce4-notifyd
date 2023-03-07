@@ -39,6 +39,7 @@
 #include <libnotify/notify.h>
 
 #include <common/xfce-notify-common.h>
+#include <common/xfce-notify-enum-types.h>
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
 
@@ -988,7 +989,9 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, NOTIFICATION_DISPLAY_FIELDS_PROP, G_TYPE_STRING,
                            G_OBJECT(display_fields_combo), "active-id");
     if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(display_fields_combo)) == NULL) {
-        gtk_combo_box_set_active_id(GTK_COMBO_BOX(display_fields_combo), DISPLAY_FIELDS_DEFAULT);
+        gchar *nick = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_DISPLAY_FIELDS, DISPLAY_FIELDS_DEFAULT);
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(display_fields_combo), nick);
+        g_free(nick);
     }
 
     do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
@@ -1010,7 +1013,9 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, SHOW_NOTIFICATIONS_ON_PROP, G_TYPE_STRING,
                            G_OBJECT(show_notifications_on), "active-id");
     if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(show_notifications_on)) == NULL) {
-        gtk_combo_box_set_active_id(GTK_COMBO_BOX(show_notifications_on), SHOW_NOTIFICATIONS_ON_DEFAULT);
+        gchar *nick = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_SHOW_ON, SHOW_NOTIFICATIONS_ON_DEFAULT);
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(show_notifications_on), nick);
+        g_free(nick);
     }
 
     mute_sounds = GTK_WIDGET(gtk_builder_get_object(builder, "mute_sounds"));
