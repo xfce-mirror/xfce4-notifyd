@@ -216,22 +216,22 @@ msgstr "Registro non disponibile"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Elemento del registro non trovato"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "La cartella del registro di notifiche (%s) non è una cartella"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Impossibile aprire il registro delle notifiche: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "Impossibile preparare la frase SQL: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
@@ -240,7 +240,7 @@ msgstr ""
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Impossibile creare la tabella 'notifiche': %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
@@ -250,15 +250,15 @@ msgstr ""
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Impossibile creare indice DB is_read: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1393
 msgid "Default Action"
-msgstr ""
+msgstr "Azione predefinita"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Demone di notifica di Xfce"
 
 #: xfce4-notifyd-config/main.c:105
 msgid "Notification Preview"
@@ -384,7 +384,7 @@ msgstr "Ieri e prima"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Caricamento di ulteriori elementi del registro in corso..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
@@ -570,7 +570,7 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Quando viene creata una notifica, le applicazioni possono richiedere per quanto tempo desiderano che la notifica rimanga sullo schermo. Questa impostazione controlla se la richiesta viene onorata o meno."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Honor app-requested \"Disappear after\" time"
