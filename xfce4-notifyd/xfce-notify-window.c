@@ -101,7 +101,7 @@ struct _XfceNotifyWindow
     gdouble op_change_delta;
     gboolean do_fadeout;
     gboolean do_slideout;
-    GtkCornerType notify_location;
+    XfceNotifyPosition notify_location;
 };
 
 typedef struct
@@ -274,9 +274,9 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
 
     properties[PROP_LOCATION] = g_param_spec_enum("location",
                                                   "location",
-                                                  "Corner location for the initial position of notification windows",
-                                                  GTK_TYPE_CORNER_TYPE,
-                                                  GTK_CORNER_TOP_RIGHT,
+                                                  "Location for the initial position of notification windows",
+                                                  XFCE_TYPE_NOTIFY_POSITION,
+                                                  XFCE_NOTIFY_POS_TOP_RIGHT,
                                                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
     properties[PROP_SUMMARY] = g_param_spec_string("summary",
@@ -1031,7 +1031,7 @@ xfce_notify_window_fade_timeout(gpointer data)
     if (window->do_slideout) {
         gint x, y;
         GdkRectangle monitor_geom;
-        gboolean add_pixels = window->notify_location == GTK_CORNER_TOP_RIGHT || window->notify_location == GTK_CORNER_BOTTOM_RIGHT;
+        gboolean add_pixels = window->notify_location == XFCE_NOTIFY_POS_TOP_RIGHT || window->notify_location == XFCE_NOTIFY_POS_BOTTOM_RIGHT;
 
         gdk_monitor_get_geometry(window->monitor, &monitor_geom);
 
@@ -1580,7 +1580,7 @@ GtkWidget *
 xfce_notify_window_new(guint id,
                        GdkMonitor *monitor,
                        gboolean override_redirect,
-                       GtkCornerType location,
+                       XfceNotifyPosition location,
                        gdouble normal_opacity,
                        gboolean show_text_with_gauge)
 {

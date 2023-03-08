@@ -1039,10 +1039,8 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                      theme_combo);
 
     position_combo = GTK_WIDGET(gtk_builder_get_object(builder, "position_combo"));
-    xfconf_g_property_bind(panel->channel, "/notify-location", G_TYPE_UINT,
-                           G_OBJECT(position_combo), "active");
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
+    xfconf_g_property_bind(panel->channel, NOTIFY_LOCATION_PROP, G_TYPE_STRING,
+                           G_OBJECT(position_combo), "active-id");
 
     slider = GTK_WIDGET(gtk_builder_get_object(builder, "opacity_slider"));
     g_signal_connect(G_OBJECT(slider), "format-value",

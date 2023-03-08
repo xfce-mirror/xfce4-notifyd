@@ -73,7 +73,7 @@ struct _XfceNotifyDaemon
     guint bus_name_id;
     guint notifyd_bus_name_id;
     gdouble initial_opacity;
-    GtkCornerType notify_location;
+    XfceNotifyPosition notify_location;
     gboolean do_fadeout;
     gboolean do_slideout;
     XfceNotifyDisplayFields display_fields;
@@ -154,10 +154,10 @@ static struct {
         .default_value.d = 0.9,
     },
     {
-        .name = "/notify-location",
-        .type = G_TYPE_UINT,
+        .name = NOTIFY_LOCATION_PROP,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, notify_location),
-        .default_value.u = GTK_CORNER_TOP_RIGHT,
+        .default_value.i = XFCE_NOTIFY_POS_TOP_RIGHT,
     },
     {
         .name = DO_FADEOUT_PROP,
@@ -768,19 +768,19 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     initial.height = allocation.height;
 
     switch(xndaemon->notify_location) {
-        case GTK_CORNER_TOP_LEFT:
+        case XFCE_NOTIFY_POS_TOP_LEFT:
             initial.x = geom.x + SPACE;
             initial.y = geom.y + SPACE;
             break;
-        case GTK_CORNER_BOTTOM_LEFT:
+        case XFCE_NOTIFY_POS_BOTTOM_LEFT:
             initial.x = geom.x + SPACE;
             initial.y = geom.y + geom.height - allocation.height - SPACE;
             break;
-        case GTK_CORNER_TOP_RIGHT:
+        case XFCE_NOTIFY_POS_TOP_RIGHT:
             initial.x = geom.x + geom.width - allocation.width - SPACE;
             initial.y = geom.y + SPACE;
             break;
-        case GTK_CORNER_BOTTOM_RIGHT:
+        case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
             initial.x = geom.x + geom.width - allocation.width - SPACE;
             initial.y = geom.y + geom.height - allocation.height - SPACE;
             break;
@@ -832,7 +832,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                 found = TRUE;
             } else {
                 switch(xndaemon->notify_location) {
-                    case GTK_CORNER_TOP_LEFT:
+                    case XFCE_NOTIFY_POS_TOP_LEFT:
                         DBG("Try under the current candiadate position.");
                         widget_geom.y = notification_y + notification_height + SPACE;
 
@@ -850,7 +850,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                             }
                         }
                         break;
-                    case GTK_CORNER_BOTTOM_LEFT:
+                    case XFCE_NOTIFY_POS_BOTTOM_LEFT:
                         DBG("Try above the current candidate position");
                         widget_geom.y = notification_y - widget_geom.height - SPACE;
 
@@ -868,7 +868,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                             }
                         }
                         break;
-                    case GTK_CORNER_TOP_RIGHT:
+                    case XFCE_NOTIFY_POS_TOP_RIGHT:
                         DBG("Try under the current candidate position.");
                         widget_geom.y = notification_y + notification_height + SPACE;
 
@@ -886,7 +886,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                             }
                         }
                         break;
-                    case GTK_CORNER_BOTTOM_RIGHT:
+                    case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
                         DBG("Try above the current candidate position");
                         widget_geom.y = notification_y - widget_geom.height - SPACE;
 
@@ -1955,10 +1955,13 @@ xfce_notify_daemon_settings_init(void) {
         } else  if (g_strcmp0(settings[i].name, LOG_LEVEL_APPS_PROP) == 0) {
             settings[i].type = XFCE_TYPE_LOG_LEVEL_APPS;
             ++updated;
+        } else if (g_strcmp0(settings[i].name, NOTIFY_LOCATION_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_NOTIFY_POSITION;
+            ++updated;
         }
     }
 
-    g_assert(updated == 4);
+    g_assert(updated == 5);
 }
 
 

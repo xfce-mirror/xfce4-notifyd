@@ -76,7 +76,7 @@ void xfce_notification_update(XfceNotification *notification,
 void xfce_notification_realize(XfceNotification *notification,
                                GList *monitors,
                                gboolean override_redirect,
-                               GtkCornerType location,
+                               XfceNotifyPosition location,
                                gdouble normal_opacity,
                                gboolean show_text_with_gauge);
 
