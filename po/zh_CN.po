@@ -91,7 +91,7 @@ msgstr "清除日志(_C)"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr "标记全部为已读(_M)"
+msgstr "全部标记为已读(_M)"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -288,7 +288,7 @@ msgstr "删除"
 #: xfce4-notifyd-config/main.c:571
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr ""
+msgstr "忘记应用程序"
 
 #: xfce4-notifyd-config/main.c:669
 msgid "Unspecified applications"
@@ -366,15 +366,15 @@ msgstr "清空通知日志"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:201
 msgid "Mark All Read"
-msgstr ""
+msgstr "全部标记为已读"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "将所有未读通知标记为已读"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "将日志条目标记为已读(_R)"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
@@ -382,11 +382,11 @@ msgstr "昨天和之前"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "正在加载更多日志条目..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "仅在“请勿打扰”期间，或未显示通知主体时"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -406,7 +406,7 @@ msgstr "仅阻止项"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:78
 msgid "Locale default"
-msgstr ""
+msgstr "区域设置默认值"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
 msgid "Relative times"
