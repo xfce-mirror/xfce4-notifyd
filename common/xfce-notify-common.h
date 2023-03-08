@@ -42,6 +42,7 @@
 #define DO_FADEOUT_PROP                     "/do-fadeout"
 #define DO_SLIDEOUT_PROP                    "/do-slideout"
 
+#define DATETIME_FORMAT_DEFAULT             XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000
 #define EXPIRE_TIMEOUT_DEFAULT              10
@@ -75,6 +76,15 @@ typedef enum {
     XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
     XFCE_NOTIFY_SHOW_ON_ALL_MONITORS,
 } XfceNotifyShowOn;
+
+// NB: do not change the suffixes on these enums, as the string ("nick")
+// versions of them are used as xfconf setting values.
+typedef enum {
+    XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT,
+    XFCE_NOTIFY_DATETIME_RELATIVE_TIMES,
+    XFCE_NOTIFY_DATETIME_ISO8601,
+    XFCE_NOTIFY_DATETIME_CUSTOM,
+} XfceNotifyDatetimeFormat;
 
 typedef enum {
     XFCE_LOG_LEVEL_ONLY_DND_OR_FIELDS_HIDDEN = 0,
@@ -110,6 +120,10 @@ gint xfce_notify_enum_value_from_nick(GType enum_type,
                                       gint default_value);
 gchar *xfce_notify_enum_nick_from_value(GType enum_type,
                                         gint value);
+gint xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
+                                         const gchar *property_name,
+                                         gint default_value,
+                                         GType enum_type);
 
 void xfce_notify_migrate_settings(XfconfChannel *channel);
 

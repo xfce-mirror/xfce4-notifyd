@@ -68,26 +68,6 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="liststore4">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Locale default</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Relative times</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">ISO8601</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Custom</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="model1">
     <columns>
       <!-- column-name gchararray -->
@@ -766,16 +746,16 @@
                         <property name="can-focus">False</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkComboBox" id="datetime_format">
+                          <object class="GtkComboBoxText" id="datetime_format">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="model">liststore4</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="renderer6"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
+                            <property name="active-id">locale-default</property>
+                            <items>
+                              <item id="locale-default" translatable="yes">Locale default</item>
+                              <item id="relative-times" translatable="yes">Relative times</item>
+                              <item id="iso8601" translatable="yes">ISO8601</item>
+                              <item id="custom" translatable="yes">Custom</item>
+                            </items>
                           </object>
                           <packing>
                             <property name="expand">False</property>

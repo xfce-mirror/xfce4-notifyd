@@ -35,6 +35,7 @@
 #include <libxfce4panel/libxfce4panel.h>
 
 #include <common/xfce-notify-common.h>
+#include <common/xfce-notify-enum-types.h>
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-types.h>
 #include <common/xfce-notify-log-util.h>
@@ -117,7 +118,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   GtkCallback func = notification_plugin_menu_clear;
   gchar *notify_log_icon_folder;
   int log_icon_size;
-  XfceDateTimeFormat dt_format;
+  XfceNotifyDatetimeFormat dt_format;
   gchar *custom_dt_format;
   const gchar *show_in_menu;
   gboolean only_unread;
@@ -142,7 +143,10 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
                                           SETTING_LOG_ICON_SIZE, -1);
   if (log_icon_size == -1)
     log_icon_size = DEFAULT_LOG_ICON_SIZE;
-  dt_format = xfconf_channel_get_int(notification_plugin->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
+  dt_format = xfce_notify_xfconf_channel_get_enum(notification_plugin->channel,
+                                                  DATETIME_FORMAT_PROP,
+                                                  XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT,
+                                                  XFCE_TYPE_NOTIFY_DATETIME_FORMAT);
   custom_dt_format = xfconf_channel_get_string(notification_plugin->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT);
 
   show_in_menu = xfconf_channel_get_string(notification_plugin->channel, SETTING_SHOW_IN_MENU, VALUE_SHOW_ALL);
@@ -248,7 +252,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       summary_text = notify_log_format_summary(entry->summary);
       body_text = notify_log_format_body(entry->body);
       icon = notify_log_load_icon(notify_log_icon_folder, entry->icon_id, entry->app_id, log_icon_size, scale_factor);
-      tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
+      tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, NULL);
       tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
 
       summary = g_object_new(GTK_TYPE_LABEL,

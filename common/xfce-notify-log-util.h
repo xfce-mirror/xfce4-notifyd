@@ -22,19 +22,13 @@
 
 #include <gtk/gtk.h>
 
+#include "xfce-notify-common.h"
 #include "xfce-notify-log-gbus.h"
 #include "xfce-notify-log-types.h"
 
 #define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
 
 G_BEGIN_DECLS
-
-typedef enum {
-    XFCE_DATE_TIME_FORMAT_LOCALE,
-    XFCE_DATE_TIME_FORMAT_RELATIVE,
-    XFCE_DATE_TIME_FORMAT_ISO8601,
-    XFCE_DATE_TIME_FORMAT_CUSTOM,
-} XfceDateTimeFormat;
 
 GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
 
@@ -60,7 +54,7 @@ void notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
                                        gint scale_factor);
 
 gchar *notify_log_format_timestamp(GDateTime *timestamp,
-                                   XfceDateTimeFormat format,
+                                   XfceNotifyDatetimeFormat format,
                                    const gchar *custom_format);
 gchar *notify_log_format_summary(const gchar *summary);
 gchar *notify_log_format_body(const gchar *body);

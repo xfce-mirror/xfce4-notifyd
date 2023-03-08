@@ -464,7 +464,7 @@ notify_log_format_timestamp_relative(GDateTime *timestamp) {
 }
 
 gchar *
-notify_log_format_timestamp(GDateTime *timestamp, XfceDateTimeFormat format, const gchar *custom_format) {
+notify_log_format_timestamp(GDateTime *timestamp, XfceNotifyDatetimeFormat format, const gchar *custom_format) {
     gchar *formatted = NULL;
     GDateTime *local_timestamp = g_date_time_to_local(timestamp);
 
@@ -472,27 +472,27 @@ notify_log_format_timestamp(GDateTime *timestamp, XfceDateTimeFormat format, con
         local_timestamp = g_date_time_ref(timestamp);
     }
 
-    if (G_UNLIKELY(format < XFCE_DATE_TIME_FORMAT_LOCALE || format > XFCE_DATE_TIME_FORMAT_CUSTOM)) {
+    if (G_UNLIKELY(format < XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT || format > XFCE_NOTIFY_DATETIME_CUSTOM)) {
         g_warning("Invalid datetime format %d; using default", format);
-        format = XFCE_DATE_TIME_FORMAT_LOCALE;
+        format = XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT;
     }
 
-    if (G_UNLIKELY(format == XFCE_DATE_TIME_FORMAT_CUSTOM && (custom_format == NULL || custom_format[0] == '\0'))) {
+    if (G_UNLIKELY(format == XFCE_NOTIFY_DATETIME_CUSTOM && (custom_format == NULL || custom_format[0] == '\0'))) {
         g_warning("Custom format requested, but no custom format provided; using default");
-        format = XFCE_DATE_TIME_FORMAT_LOCALE;
+        format = XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT;
     }
 
     switch (format) {
-        case XFCE_DATE_TIME_FORMAT_LOCALE:
+        case XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT:
             formatted = g_date_time_format(local_timestamp, "%c");
             break;
-        case XFCE_DATE_TIME_FORMAT_ISO8601:
+        case XFCE_NOTIFY_DATETIME_ISO8601:
             formatted = g_date_time_format_iso8601(local_timestamp);
             break;
-        case XFCE_DATE_TIME_FORMAT_RELATIVE:
+        case XFCE_NOTIFY_DATETIME_RELATIVE_TIMES:
             formatted = notify_log_format_timestamp_relative(local_timestamp);
             break;
-        case XFCE_DATE_TIME_FORMAT_CUSTOM:
+        case XFCE_NOTIFY_DATETIME_CUSTOM:
             formatted = g_date_time_format(local_timestamp, custom_format);
             break;
         default:

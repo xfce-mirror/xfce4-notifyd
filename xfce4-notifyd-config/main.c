@@ -937,7 +937,7 @@ static void xfce_notify_bus_name_vanished_cb (GDBusConnection *connection,
 
 static void
 datetime_format_changed(GtkWidget *combo, GtkWidget *entry) {
-    gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
+    gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_NOTIFY_DATETIME_CUSTOM);
 }
 
 static GtkWidget *
@@ -1080,10 +1080,12 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                            G_OBJECT(show_text_with_gauge), "active");
 
     datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "datetime_format"));
-    xfconf_g_property_bind(panel->channel, DATETIME_FORMAT_PROP, G_TYPE_INT,
-                           G_OBJECT(datetime_format), "active");
-    if (gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == -1) {
-        gtk_combo_box_set_active(GTK_COMBO_BOX(datetime_format), XFCE_DATE_TIME_FORMAT_LOCALE);
+    xfconf_g_property_bind(panel->channel, DATETIME_FORMAT_PROP, G_TYPE_STRING,
+                           G_OBJECT(datetime_format), "active-id");
+    if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(datetime_format)) == NULL) {
+        gchar *nick = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_DATETIME_FORMAT, DATETIME_FORMAT_DEFAULT);
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(datetime_format), nick);
+        g_free(nick);
     }
 
     custom_datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "custom_datetime_format"));
@@ -1092,7 +1094,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     if (g_strcmp0(gtk_entry_get_text(GTK_ENTRY(custom_datetime_format)), "") == 0) {
         gtk_entry_set_text(GTK_ENTRY(custom_datetime_format), DATETIME_CUSTOM_FORMAT_DEFAULT);
     }
-    gtk_widget_set_sensitive(custom_datetime_format, gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
+    gtk_widget_set_sensitive(custom_datetime_format, gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == XFCE_NOTIFY_DATETIME_CUSTOM);
     g_signal_connect(datetime_format, "changed",
                      G_CALLBACK(datetime_format_changed), custom_datetime_format);
 

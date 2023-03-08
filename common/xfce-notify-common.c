@@ -100,6 +100,21 @@ xfce_notify_enum_nick_from_value(GType enum_type, gint value) {
     return nick;
 }
 
+gint
+xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
+                                    const gchar *property_name,
+                                    gint default_value,
+                                    GType enum_type)
+{
+    const gchar *nick = xfconf_channel_get_string(channel, property_name, NULL);
+    if (nick == NULL) {
+        return default_value;
+    } else {
+        return xfce_notify_enum_value_from_nick(enum_type, nick, default_value);
+    }
+}
+
+
 static void
 xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
     if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
@@ -127,8 +142,29 @@ xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
     }
 }
 
+static void
+xfce_notify_migrate_enum_setting(XfconfChannel *channel, const gchar *property_name, GType enum_type) {
+    if (xfconf_channel_has_property(channel, property_name)) {
+        GValue value = G_VALUE_INIT;
+
+        xfconf_channel_get_property(channel, property_name, &value);
+        if (G_VALUE_HOLDS_INT(&value)) {
+            gchar *nick = xfce_notify_enum_nick_from_value(enum_type, g_value_get_int(&value));
+
+            if (nick != NULL) {
+                xfconf_channel_reset_property(channel, property_name, FALSE);
+                xfconf_channel_set_string(channel, property_name, nick);
+                g_free(nick);
+            }
+        }
+
+        g_value_unset(&value);
+    }
+}
+
 void
 xfce_notify_migrate_settings(XfconfChannel *channel) {
     xfce_notify_migrate_log_max_size_setting(channel);
     xfce_notify_migrate_show_notifications_on_setting(channel);
+    xfce_notify_migrate_enum_setting(channel, DATETIME_FORMAT_PROP, XFCE_TYPE_NOTIFY_DATETIME_FORMAT);
 }
