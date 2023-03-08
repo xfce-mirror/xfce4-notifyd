@@ -32,6 +32,8 @@
 #define DATETIME_CUSTOM_FORMAT_PROP         "/date-time-custom-format"
 #define LOG_MAX_SIZE_ENABLED_PROP           "/log-max-size-enabled"
 #define LOG_MAX_SIZE_PROP                   "/log-max-size"
+#define LOG_LEVEL_PROP                      "/log-level"
+#define LOG_LEVEL_APPS_PROP                 "/log-level-apps"
 #define DND_ENABLED_PROP                    "/do-not-disturb"
 #define GAUGE_IGNORES_DND_PROP              "/gauge-ignores-dnd"
 #define EXPIRE_TIMEOUT_ENABLED_PROP         "/expire-timeout-enabled"
@@ -45,6 +47,8 @@
 #define DATETIME_FORMAT_DEFAULT             XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT
 #define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
 #define LOG_MAX_SIZE_DEFAULT                1000
+#define LOG_LEVEL_DEFAULT                   XFCE_LOG_LEVEL_NOT_FULLY_SHOWN
+#define LOG_LEVEL_APPS_DEFAULT              XFCE_LOG_LEVEL_APPS_ALL
 #define EXPIRE_TIMEOUT_DEFAULT              10
 #define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
 #define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
@@ -86,11 +90,15 @@ typedef enum {
     XFCE_NOTIFY_DATETIME_CUSTOM,
 } XfceNotifyDatetimeFormat;
 
+// NB: do not change the suffixes on these enums, as the string ("nick")
+// versions of them are used as xfconf setting values.
 typedef enum {
-    XFCE_LOG_LEVEL_ONLY_DND_OR_FIELDS_HIDDEN = 0,
+    XFCE_LOG_LEVEL_NOT_FULLY_SHOWN = 0,
     XFCE_LOG_LEVEL_ALWAYS = 1,
 } XfceLogLevel;
 
+// NB: do not change the suffixes on these enums, as the string ("nick")
+// versions of them are used as xfconf setting values.
 typedef enum {
     XFCE_LOG_LEVEL_APPS_ALL = 0,
     XFCE_LOG_LEVEL_APPS_EXCEPT_BLOCKED = 1,

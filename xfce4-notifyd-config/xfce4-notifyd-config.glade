@@ -37,37 +37,6 @@
   <object class="GtkSizeGroup" id="label_size_group">
     <property name="mode">vertical</property>
   </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">only during "Do not disturb", or when notification bodies are not shown</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">always</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="liststore2">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">all</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">all except blocked</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">only blocked</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="model1">
     <columns>
       <!-- column-name gchararray -->
@@ -940,18 +909,14 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="log_level">
+                      <object class="GtkComboBoxText" id="log_level">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">liststore1</property>
-                        <property name="active-id">1</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer2"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
+                        <property name="active-id">not-fully-shown</property>
+                        <items>
+                          <item id="not-fully-shown" translatable="yes">only during "Do not disturb", or when notification bodies are not shown</item>
+                          <item id="always" translatable="yes">always</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -988,18 +953,15 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="log_level_apps">
+                      <object class="GtkComboBoxText" id="log_level_apps">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">liststore2</property>
-                        <property name="active-id">0</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer4"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
+                        <property name="active-id">all</property>
+                        <items>
+                          <item id="all" translatable="yes">all</item>
+                          <item id="except-blocked" translatable="yes">all except blocked</item>
+                          <item id="only-blocked" translatable="yes">only blocked</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>

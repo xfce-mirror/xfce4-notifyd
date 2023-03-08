@@ -1124,19 +1124,22 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     /**********
         LOG   *
      **********/
-    panel->log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
-    panel->log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
-    panel->log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
     panel->log_widgets.infobar_label = GTK_WIDGET (gtk_builder_get_object (builder, "infobar_label"));
+
     log_switch = GTK_WIDGET (gtk_builder_get_object (builder, "log_switch"));
     xfconf_g_property_bind (panel->channel, "/notification-log", G_TYPE_BOOLEAN,
                             G_OBJECT (log_switch), "active");
     g_signal_connect (G_OBJECT (log_switch), "state-set",
                       G_CALLBACK (xfce4_notifyd_log_activated), panel);
-    xfconf_g_property_bind(panel->channel, "/log-level", G_TYPE_UINT,
-                           G_OBJECT(panel->log_widgets.log_level), "active");
-    xfconf_g_property_bind(panel->channel, "/log-level-apps", G_TYPE_UINT,
-                          G_OBJECT(panel->log_widgets.log_level_apps), "active");
+
+    panel->log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
+    xfconf_g_property_bind(panel->channel, LOG_LEVEL_PROP, G_TYPE_STRING,
+                           G_OBJECT(panel->log_widgets.log_level), "active-id");
+
+    panel->log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
+    panel->log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
+    xfconf_g_property_bind(panel->channel, LOG_LEVEL_APPS_PROP, G_TYPE_STRING,
+                          G_OBJECT(panel->log_widgets.log_level_apps), "active-id");
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "log_max_size_enabled"));
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_ENABLED_PROP, G_TYPE_BOOLEAN,
@@ -1147,11 +1150,6 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_PROP, G_TYPE_UINT,
                            G_OBJECT(sbtn), "value");
 
-    /* Initialize the settings' states correctly */
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(panel->log_widgets.log_level)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(panel->log_widgets.log_level), 0);
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(panel->log_widgets.log_level_apps)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(panel->log_widgets.log_level_apps), 0);
     xfce4_notifyd_log_activated (GTK_SWITCH (log_switch), gtk_switch_get_active (GTK_SWITCH(log_switch)), panel);
 
     log_viewer_box = GTK_WIDGET(gtk_builder_get_object(builder, "log_viewer_box"));

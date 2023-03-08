@@ -167,4 +167,6 @@ xfce_notify_migrate_settings(XfconfChannel *channel) {
     xfce_notify_migrate_log_max_size_setting(channel);
     xfce_notify_migrate_show_notifications_on_setting(channel);
     xfce_notify_migrate_enum_setting(channel, DATETIME_FORMAT_PROP, XFCE_TYPE_NOTIFY_DATETIME_FORMAT);
+    xfce_notify_migrate_enum_setting(channel, LOG_LEVEL_PROP, XFCE_TYPE_LOG_LEVEL);
+    xfce_notify_migrate_enum_setting(channel, LOG_LEVEL_APPS_PROP, XFCE_TYPE_LOG_LEVEL_APPS);
 }

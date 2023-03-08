@@ -216,16 +216,16 @@ static struct {
         .default_value.b = FALSE,
     },
     {
-        .name = "/log-level",
-        .type = G_TYPE_UINT,
+        .name = LOG_LEVEL_PROP,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_level),
-        .default_value.u = XFCE_LOG_LEVEL_ONLY_DND_OR_FIELDS_HIDDEN,
+        .default_value.i = LOG_LEVEL_DEFAULT,
     },
     {
-        .name = "/log-level-apps",
-        .type = G_TYPE_UINT,
+        .name = LOG_LEVEL_APPS_PROP,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_level_apps),
-        .default_value.u = XFCE_LOG_LEVEL_APPS_ALL,
+        .default_value.u = LOG_LEVEL_APPS_DEFAULT,
     },
     {
         .name = LOG_MAX_SIZE_ENABLED_PROP,
@@ -1435,7 +1435,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     }
 
     switch (xndaemon->log_level) {
-        case XFCE_LOG_LEVEL_ONLY_DND_OR_FIELDS_HIDDEN:
+        case XFCE_LOG_LEVEL_NOT_FULLY_SHOWN:
             log_level_ok = xndaemon->do_not_disturb || xndaemon->display_fields != XFCE_NOTIFY_DISPLAY_FULL;
             break;
         case XFCE_LOG_LEVEL_ALWAYS:
@@ -1949,10 +1949,16 @@ xfce_notify_daemon_settings_init(void) {
         } else if (g_strcmp0(settings[i].name, SHOW_NOTIFICATIONS_ON_PROP) == 0) {
             settings[i].type = XFCE_TYPE_NOTIFY_SHOW_ON;
             ++updated;
+        } else if (g_strcmp0(settings[i].name, LOG_LEVEL_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_LOG_LEVEL;
+            ++updated;
+        } else  if (g_strcmp0(settings[i].name, LOG_LEVEL_APPS_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_LOG_LEVEL_APPS;
+            ++updated;
         }
     }
 
-    g_assert(updated == 2);
+    g_assert(updated == 4);
 }
 
 
