@@ -100,7 +100,7 @@ xfce_notify_enum_nick_from_value(GType enum_type, gint value) {
     return nick;
 }
 
-void
+static void
 xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
     if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
         guint value = xfconf_channel_get_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
@@ -111,7 +111,7 @@ xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
     }
 }
 
-void
+static void
 xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
     if (xfconf_channel_has_property(channel, "/primary-monitor")) {
         guint value = xfconf_channel_get_uint(channel, "/primary-monitor", 0);
@@ -125,4 +125,10 @@ xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
             g_free(new_value);
         }
     }
+}
+
+void
+xfce_notify_migrate_settings(XfconfChannel *channel) {
+    xfce_notify_migrate_log_max_size_setting(channel);
+    xfce_notify_migrate_show_notifications_on_setting(channel);
 }

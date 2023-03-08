@@ -1964,8 +1964,7 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     gchar *theme;
 
     xndaemon->settings = xfconf_channel_new("xfce4-notifyd");
-    xfce_notify_migrate_log_max_size_setting(xndaemon->settings);
-    xfce_notify_migrate_show_notifications_on_setting(xndaemon->settings);
+    xfce_notify_migrate_settings(xndaemon->settings);
 
     theme = xfconf_channel_get_string(xndaemon->settings,
                                       "/theme", "Default");

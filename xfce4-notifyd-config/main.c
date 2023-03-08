@@ -1009,7 +1009,6 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                            G_OBJECT(btn), "active");
 
     show_notifications_on = GTK_WIDGET(gtk_builder_get_object(builder, "show_notifications_on"));
-    xfce_notify_migrate_show_notifications_on_setting(panel->channel);
     xfconf_g_property_bind(panel->channel, SHOW_NOTIFICATIONS_ON_PROP, G_TYPE_STRING,
                            G_OBJECT(show_notifications_on), "active-id");
     if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(show_notifications_on)) == NULL) {
@@ -1137,7 +1136,6 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, "/log-level-apps", G_TYPE_UINT,
                           G_OBJECT(panel->log_widgets.log_level_apps), "active");
 
-    xfce_notify_migrate_log_max_size_setting(panel->channel);
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "log_max_size_enabled"));
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_ENABLED_PROP, G_TYPE_BOOLEAN,
                            G_OBJECT(btn), "active");
@@ -1231,6 +1229,7 @@ main(int argc,
     }
 
     panel->channel = xfconf_channel_new("xfce4-notifyd");
+    xfce_notify_migrate_settings(panel->channel);
 
     panel->log = xfce_notify_log_gbus_proxy_new_for_bus_sync(G_BUS_TYPE_SESSION,
                                                              0,

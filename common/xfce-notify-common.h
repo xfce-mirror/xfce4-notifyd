@@ -111,8 +111,7 @@ gint xfce_notify_enum_value_from_nick(GType enum_type,
 gchar *xfce_notify_enum_nick_from_value(GType enum_type,
                                         gint value);
 
-void xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel);
-void xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel);
+void xfce_notify_migrate_settings(XfconfChannel *channel);
 
 G_END_DECLS
 
