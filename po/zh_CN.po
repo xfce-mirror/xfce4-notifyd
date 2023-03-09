@@ -288,7 +288,7 @@ msgstr "删除"
 #: xfce4-notifyd-config/main.c:571
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr "忘记应用程序"
+msgstr "清除应用程序设置"
 
 #: xfce4-notifyd-config/main.c:669
 msgid "Unspecified applications"
@@ -410,7 +410,7 @@ msgstr "区域设置默认值"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
 msgid "Relative times"
-msgstr ""
+msgstr "相对时间"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
 msgid "ISO8601"
@@ -487,35 +487,35 @@ msgstr "静音(_M)"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "始终显示百分比值通知"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "当显示通知时，显示"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "图标、摘要和正文"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
 msgid "icon and summary"
-msgstr ""
+msgstr "图标和摘要"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
 msgid "icon and application name"
-msgstr ""
+msgstr "图标和应用程序名称"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "鼠标指针所在显示器"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "主显示器"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "所有显示器"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
@@ -527,7 +527,7 @@ msgstr "秒"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
 msgid "_Opacity"
@@ -553,7 +553,7 @@ msgstr "显示带有百分比值的文本"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid "Date/time _format"
-msgstr ""
+msgstr "日期/时间格式(_F)"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
 msgid "Show _Preview"
@@ -568,15 +568,15 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "在创建通知时，应用程序可以请求通知在屏幕上保留多长时间。此设置控制是否响应该请求。"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "接受应用程序要求的“消失”时间"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>应用程序通知个性化设置</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:923
 msgid "Applications"
@@ -593,7 +593,7 @@ msgstr "记录应用程序"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "日志中保留的最大条目数。"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
 msgid "Log size limit"
@@ -605,11 +605,11 @@ msgstr "日志"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr ""
+msgstr "应用程序静默"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "允许紧急通知"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
