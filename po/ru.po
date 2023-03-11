@@ -506,15 +506,15 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "монитор с указателем мыши"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
 msgid "primary monitor"
-msgstr ""
+msgstr "основной монитор"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
 msgid "all monitors"
-msgstr ""
+msgstr "все мониторы"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
