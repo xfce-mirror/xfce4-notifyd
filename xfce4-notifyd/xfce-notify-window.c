@@ -351,7 +351,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 static void
 xfce_notify_window_start_expiration(XfceNotifyWindow *window)
 {
-    if (window->expire_timeout > 0 && window->urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
+    if (window->expire_timeout > 0) {
         gint64 ct;
         guint timeout;
         gboolean fade_transparent;

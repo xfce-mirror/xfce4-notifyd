@@ -1451,8 +1451,10 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     }
 
     notify_update_known_applications (xndaemon->settings, new_app_name);
-
-    if (expire_timeout == -1 || !xndaemon->expire_timeout_allow_override) {
+    // If -t unused and -u critical, keep the default notify-send behaviour where criticals are persistent. 
+    if (expire_timeout == -1 && urgency == XFCE_NOTIFY_URGENCY_CRITICAL) {
+        expire_timeout = 0; 
+    } else if (expire_timeout == -1 || !xndaemon->expire_timeout_allow_override) {
         expire_timeout = xndaemon->expire_timeout_enabled ? xndaemon->expire_timeout : 0;
     }
 
