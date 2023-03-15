@@ -737,6 +737,29 @@ xfce_notify_daemon_closed(XfceNotification *notification,
                                                   (guint)reason);
 }
 
+static gboolean
+xfce_notify_daemon_is_window_position_free(XfceNotifyDaemon *xndaemon,
+                                           gint monitor_num,
+                                           GdkRectangle *position,
+                                           GdkRectangle *overlap_rect)
+{
+    for (GList *l = xndaemon->reserved_rectangles[monitor_num]; l; l = l->next) {
+        GdkRectangle *rectangle = l->data;
+
+        DBG("Overlaps with (x=%i, y=%i) ?", rectangle->x, rectangle->y);
+
+        if (gdk_rectangle_intersect(rectangle, position, NULL)) {
+            DBG("Yes");
+            *overlap_rect = *rectangle;
+            return FALSE;
+        } else {
+            DBG("No");
+        }
+    }
+
+    return TRUE;
+}
+
 static void
 xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                                              XfceNotifyWindow *window,
@@ -747,7 +770,8 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     GtkAllocation allocation;
     GdkRectangle geom, initial, widget_geom;
     gint monitor_num;
-    gint max_width;
+    gint max_width = 0;
+    gboolean found = FALSE;
 
     if (gtk_widget_has_screen(widget)) {
         screen = gtk_widget_get_screen(widget);
@@ -793,121 +817,51 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     widget_geom.y = initial.y;
     widget_geom.width = initial.width;
     widget_geom.height = initial.height;
-    max_width = 0;
 
-    if (xndaemon->reserved_rectangles[monitor_num] != NULL) {
-        gboolean found = FALSE;
+    while (!found) {
+        GdkRectangle overlap_rect = { 0, };
 
-        /* Else, we try to find the appropriate position on the monitor */
-        while(!found) {
-            gboolean overlaps = FALSE;
-            GList *l = NULL;
-            gint notification_y, notification_height;
-
-            DBG("Test if the candidate overlaps one of the existing notifications.");
-
-            for(l = xndaemon->reserved_rectangles[monitor_num]; l; l = l->next) {
-                GdkRectangle *rectangle = l->data;
-
-                DBG("Overlaps with (x=%i, y=%i) ?", rectangle->x, rectangle->y);
-
-                overlaps =  overlaps || gdk_rectangle_intersect(rectangle, &widget_geom, NULL);
-
-                if(overlaps) {
-                    DBG("Yes");
-
-                    if(rectangle->width > max_width)
-                        max_width = rectangle->width;
-
-                    notification_y = rectangle->y;
-                    notification_height = rectangle->height;
-
-                    break;
-                } else
-                    DBG("No");
+        DBG("Test if the candidate overlaps one of the existing notifications.");
+        if (xfce_notify_daemon_is_window_position_free(xndaemon, monitor_num, &widget_geom, &overlap_rect)) {
+            DBG("We found a correct position.");
+            found = TRUE;
+        } else {
+            if (overlap_rect.width > max_width) {
+                max_width = overlap_rect.width;
             }
 
-            if(!overlaps) {
-                DBG("We found a correct position.");
-                found = TRUE;
-            } else {
-                switch(xndaemon->notify_location) {
+            DBG("Try above/below the current candidate position.");
+            switch (xndaemon->notify_location) {
+                case XFCE_NOTIFY_POS_TOP_LEFT:
+                case XFCE_NOTIFY_POS_TOP_RIGHT:
+                    widget_geom.y = overlap_rect.y + overlap_rect.height + SPACE;
+                    break;
+                case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+                case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                    widget_geom.y = overlap_rect.y - widget_geom.height - SPACE;
+                    break;
+            }
+
+            if (widget_geom.y < geom.y || widget_geom.y + widget_geom.height > geom.y + geom.height) {
+                DBG("We reached the top/bottom of the monitor");
+                switch (xndaemon->notify_location) {
                     case XFCE_NOTIFY_POS_TOP_LEFT:
-                        DBG("Try under the current candiadate position.");
-                        widget_geom.y = notification_y + notification_height + SPACE;
-
-                        if(widget_geom.y + widget_geom.height > geom.height + geom.y) {
-                            DBG("We reached the bottom of the monitor");
-                            widget_geom.y = geom.y + SPACE;
-                            widget_geom.x = widget_geom.x + max_width + SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x + widget_geom.width > geom.width + geom.x) {
-                                DBG("There was no free space.");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
-                        break;
                     case XFCE_NOTIFY_POS_BOTTOM_LEFT:
-                        DBG("Try above the current candidate position");
-                        widget_geom.y = notification_y - widget_geom.height - SPACE;
-
-                        if(widget_geom.y < geom.y) {
-                            DBG("We reached the top of the monitor");
-                            widget_geom.y = geom.y + geom.height - widget_geom.height - SPACE;
-                            widget_geom.x = widget_geom.x + max_width + SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x + widget_geom.width > geom.width + geom.x) {
-                                DBG("There was no free space.");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
+                        widget_geom.x = widget_geom.x + max_width + SPACE;
                         break;
                     case XFCE_NOTIFY_POS_TOP_RIGHT:
-                        DBG("Try under the current candidate position.");
-                        widget_geom.y = notification_y + notification_height + SPACE;
-
-                        if(widget_geom.y + widget_geom.height > geom.height + geom.y) {
-                            DBG("We reached the bottom of the monitor");
-                            widget_geom.y = geom.y + SPACE;
-                            widget_geom.x = widget_geom.x - max_width - SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x < geom.x) {
-                                DBG("There was no free space.");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
-                        break;
                     case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
-                        DBG("Try above the current candidate position");
-                        widget_geom.y = notification_y - widget_geom.height - SPACE;
-
-                        if(widget_geom.y < geom.y) {
-                            DBG("We reached the top of the screen");
-                            widget_geom.y = geom.y + geom.height - widget_geom.height - SPACE;
-                            widget_geom.x = widget_geom.x - max_width - SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x < geom.x) {
-                                DBG("There was no free space");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
+                        widget_geom.x = widget_geom.x - max_width - SPACE;
                         break;
+                }
+                widget_geom.y = initial.y;
+                max_width = 0;
 
-                    default:
-                        g_warning("Invalid notify location: %d", xndaemon->notify_location);
-                        return;
+                if (widget_geom.x < geom.x || widget_geom.x + widget_geom.width > geom.x + geom.width) {
+                    DBG("There was no free space.");
+                    widget_geom.x = initial.x;
+                    widget_geom.y = initial.y;
+                    found = TRUE;
                 }
             }
         }
