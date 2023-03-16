@@ -1031,7 +1031,12 @@ xfce_notify_window_fade_timeout(gpointer data)
     if (window->do_slideout) {
         gint x, y;
         GdkRectangle monitor_geom;
-        gboolean add_pixels = window->notify_location == XFCE_NOTIFY_POS_TOP_RIGHT || window->notify_location == XFCE_NOTIFY_POS_BOTTOM_RIGHT;
+        gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
+        gboolean add_pixels = window->notify_location == XFCE_NOTIFY_POS_TOP_RIGHT ||
+            window->notify_location == XFCE_NOTIFY_POS_BOTTOM_RIGHT ||
+            (is_ltr &&
+             (window->notify_location == XFCE_NOTIFY_POS_TOP_CENTER ||
+              window->notify_location == XFCE_NOTIFY_POS_BOTTOM_CENTER));
 
         gdk_monitor_get_geometry(window->monitor, &monitor_geom);
 
