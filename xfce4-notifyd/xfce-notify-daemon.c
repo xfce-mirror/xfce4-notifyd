@@ -772,6 +772,10 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     gint monitor_num;
     gint max_width = 0;
     gboolean found = FALSE;
+    gboolean is_center = xndaemon->notify_location == XFCE_NOTIFY_POS_TOP_CENTER ||
+        xndaemon->notify_location == XFCE_NOTIFY_POS_BOTTOM_CENTER;
+    gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
+    gboolean center_opposite = FALSE;
 
     if (gtk_widget_has_screen(widget)) {
         screen = gtk_widget_get_screen(widget);
@@ -808,6 +812,14 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
             initial.x = geom.x + geom.width - allocation.width - SPACE;
             initial.y = geom.y + geom.height - allocation.height - SPACE;
             break;
+        case XFCE_NOTIFY_POS_TOP_CENTER:
+            initial.x = geom.x + (geom.width / 2) - (allocation.width / 2);
+            initial.y = geom.y + SPACE;
+            break;
+        case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+            initial.x = geom.x + (geom.width / 2) - (allocation.width / 2);
+            initial.y = geom.y + geom.height - allocation.height - SPACE;
+            break;
         default:
             g_warning("Invalid notify location: %d", xndaemon->notify_location);
             return;
@@ -834,12 +846,25 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
             switch (xndaemon->notify_location) {
                 case XFCE_NOTIFY_POS_TOP_LEFT:
                 case XFCE_NOTIFY_POS_TOP_RIGHT:
+                case XFCE_NOTIFY_POS_TOP_CENTER:
                     widget_geom.y = overlap_rect.y + overlap_rect.height + SPACE;
                     break;
                 case XFCE_NOTIFY_POS_BOTTOM_LEFT:
                 case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                case XFCE_NOTIFY_POS_BOTTOM_CENTER:
                     widget_geom.y = overlap_rect.y - widget_geom.height - SPACE;
                     break;
+            }
+
+            if (is_center) {
+                // Since we initially center on the monitor, notifications of different widths
+                // will also be centered on the monitor.  But we really want neat columns that
+                // are left- or right-justified, so we have to adjust the x coord here too.
+                if ((is_ltr && !center_opposite) || (!is_ltr && center_opposite)) {
+                    widget_geom.x = overlap_rect.x;
+                } else {
+                    widget_geom.x = overlap_rect.x + overlap_rect.width - widget_geom.width;
+                }
             }
 
             if (widget_geom.y < geom.y || widget_geom.y + widget_geom.height > geom.y + geom.height) {
@@ -853,15 +878,31 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                     case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
                         widget_geom.x = widget_geom.x - max_width - SPACE;
                         break;
+                    case XFCE_NOTIFY_POS_TOP_CENTER:
+                    case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                        // Whether we try a column to the left or right depends on whether
+                        // or not we've exhausted all the space on the initial side of the
+                        // monitor.
+                        if ((is_ltr && !center_opposite) || (!is_ltr && center_opposite)) {
+                            widget_geom.x = widget_geom.x + max_width + SPACE;
+                        } else {
+                            widget_geom.x = widget_geom.x - max_width - SPACE;
+                        }
+                        break;
                 }
                 widget_geom.y = initial.y;
                 max_width = 0;
 
                 if (widget_geom.x < geom.x || widget_geom.x + widget_geom.width > geom.x + geom.width) {
-                    DBG("There was no free space.");
+                    if (is_center && !center_opposite) {
+                        DBG("Center positioning; use other side of center");
+                        center_opposite = TRUE;
+                    } else {
+                        DBG("There was no free space.");
+                        found = TRUE;
+                    }
                     widget_geom.x = initial.x;
                     widget_geom.y = initial.y;
-                    found = TRUE;
                 }
             }
         }
