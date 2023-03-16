@@ -90,6 +90,8 @@ typedef enum {
     XFCE_NOTIFY_POS_BOTTOM_LEFT,
     XFCE_NOTIFY_POS_TOP_RIGHT,
     XFCE_NOTIFY_POS_BOTTOM_RIGHT,
+    XFCE_NOTIFY_POS_TOP_CENTER,
+    XFCE_NOTIFY_POS_BOTTOM_CENTER,
 } XfceNotifyPosition;
 
 // NB: do not change the suffixes on these enums, as the string ("nick")

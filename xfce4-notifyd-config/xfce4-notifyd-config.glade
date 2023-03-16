@@ -34,9 +34,6 @@
     <property name="can-focus">False</property>
     <property name="icon-name">help-browser</property>
   </object>
-  <object class="GtkSizeGroup" id="label_size_group">
-    <property name="mode">vertical</property>
-  </object>
   <object class="XfceTitledDialog" id="notifyd_settings_dlg">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Notifications</property>
@@ -621,6 +618,8 @@
                           <item id="bottom-left" translatable="yes">Bottom left</item>
                           <item id="top-right" translatable="yes">Top right</item>
                           <item id="bottom-right" translatable="yes">Bottom right</item>
+                          <item id="top-center" translatable="yes">Top center</item>
+                          <item id="bottom-center" translatable="yes">Bottom center</item>
                         </items>
                       </object>
                       <packing>
@@ -1008,5 +1007,8 @@
     <action-widgets>
       <action-widget response="1">close_btn</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkSizeGroup" id="label_size_group">
+    <property name="mode">vertical</property>
   </object>
 </interface>
