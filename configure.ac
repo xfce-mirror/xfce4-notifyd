@@ -12,6 +12,7 @@ m4_define([glib_minimum_version], [2.68])
 m4_define([gtk_minimum_version], [3.22])
 m4_define([canberra_minimum_version], [0.30])
 m4_define([sqlite_minimum_version], [3.34])
+m4_define([dbus_minimum_version], [1.0])
 
 dnl version info
 XDT_VERSION_INIT([0.8.2], [git])
@@ -71,6 +72,7 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
 XDT_CHECK_PACKAGE([SQLITE], [sqlite3], [sqlite_minimum_version])
+XDT_CHECK_PACKAGE([DBUS], [dbus-1], [dbus_minimum_version])
 
 XDT_CHECK_OPTIONAL_FEATURE([X11],
                            [x11],
@@ -98,13 +100,43 @@ XDT_CHECK_PACKAGE_BINARY([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_reso
 XDT_CHECK_PACKAGE_BINARY([GLIB_GENMARSHAL], [glib-2.0], [glib_genmarshal], [glib-genmarshal])
 XDT_CHECK_PACKAGE_BINARY([GLIB_MKENUMS], [glib-2.0], [glib_mkenums], [glib-mkenums])
 
-dnl dbus start daemon
+dnl d-bus activation files
 AC_ARG_ENABLE([dbus-start-daemon],
-              [AS_HELP_STRING([--enable-dbus-start-daemon],
-                              [Start daemon via DBus instead of regular session autostart. (default=no)])],
-              [use_dbus_start_daemon=$enableval], [use_dbus_start_daemon=no])
+              [AS_HELP_STRING([--disable-dbus-start-daemon],
+                              [Do not install the D-Bus auto-activation files (default=enabled)])],
+              [use_dbus_start_daemon=$enableval], [use_dbus_start_daemon=yes])
 AM_CONDITIONAL([USE_DBUS_START_DAEMON],
                [test "x$use_dbus_start_daemon" = "xyes"])
+
+AC_ARG_WITH([dbus-service-dir],
+            [AS_HELP_STRING([--with-dbus-service-dir],
+                            [Specifies the directory where D-Bus service activation files should be installed (default=auto)])],
+            [dbus_service_dir=$withval], [dbus_service_dir=`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`])
+DBUS_SERVICE_DIR="$dbus_service_dir"
+AC_SUBST([DBUS_SERVICE_DIR])
+
+dnl systemd service files
+AC_ARG_ENABLE([systemd],
+              [AS_HELP_STRING([--disable-systemd],
+                              [Do not install a systemd unit file for the user session (default=enabled)])],
+              [use_systemd=$enableval], [use_systemd=yes])
+AM_CONDITIONAL([USE_SYSTEMD],
+               [test x"$use_systemd" = x"yes"])
+
+AC_ARG_WITH([systemd-user-service-dir],
+            [AS_HELP_STRING([--with-systemd-user-service-dir],
+                            [Specifies the directory where user bus services should be installed (default=/lib/systemd/user)])],
+            [systemd_user_service_dir=$withval], [systemd_user_service_dir=/lib/systemd/user])
+SYSTEMD_USER_SERVICE_DIR="$systemd_user_service_dir"
+AC_SUBST([SYSTEMD_USER_SERVICE_DIR])
+
+dnl XDG autostart files
+AC_ARG_ENABLE([xdg-autostart],
+              [AS_HELP_STRING([--enable-xdg-autostart],
+                              [Install an XDG autostart file to start xfce4-notifyd when the desktop session starts (default=disabled)])],
+              [use_xdg_autostart=$enableval], [use_xdg_autostart=no])
+AM_CONDITIONAL([USE_XDG_AUTOSTART],
+               [test x"$use_xdg_autostart" = x"yes"])
 
 dnl create #define for spec version
 AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
@@ -143,9 +175,8 @@ echo "* Debug Support:             $enable_debug"
 echo "* X11 Support:               $ENABLE_X11"
 echo "* Wayland Support:           $ENABLE_WAYLAND"
 echo "* Sound support:             $ENABLE_SOUND"
-if test "x$use_dbus_start_daemon" = "xyes"; then
-echo "* Startup method:            DBus"
-else
-echo "* Startup method:            Autostart"
-fi
+echo "* Startup methods:"
+echo "  - D-Bus activation:        $use_dbus_start_daemon ($DBUS_SERVICE_DIR)"
+echo "  - Systemd:                 $use_systemd ($SYSTEMD_USER_SERVICE_DIR)"
+echo "  - XDG autostart:           $use_xdg_autostart ($sysconfdir/xdg/autostart)"
 echo
