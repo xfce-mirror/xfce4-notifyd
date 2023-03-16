@@ -125,8 +125,8 @@ AM_CONDITIONAL([USE_SYSTEMD],
 
 AC_ARG_WITH([systemd-user-service-dir],
             [AS_HELP_STRING([--with-systemd-user-service-dir],
-                            [Specifies the directory where user bus services should be installed (default=/lib/systemd/user)])],
-            [systemd_user_service_dir=$withval], [systemd_user_service_dir=/lib/systemd/user])
+                            [Specifies the directory where user bus services should be installed (default=/usr/lib/systemd/user)])],
+            [systemd_user_service_dir=$withval], [systemd_user_service_dir=/usr/lib/systemd/user])
 SYSTEMD_USER_SERVICE_DIR="$systemd_user_service_dir"
 AC_SUBST([SYSTEMD_USER_SERVICE_DIR])
 
