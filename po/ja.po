@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-03-02 00:48+0100\n"
+"POT-Creation-Date: 2023-03-16 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2023\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-apps/language/ja/)\n"
@@ -34,7 +34,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: common/xfce-notify-log-util.c:390
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:191
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
 msgid "Clear"
 msgstr "クリア"
 
@@ -46,8 +46,8 @@ msgstr "アイコンキャッシュを含む"
 msgid "Now"
 msgstr "今"
 
-#: panel-plugin/notification-plugin.c:379
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
+#: panel-plugin/notification-plugin.c:380
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:39
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
 msgstr "通知"
@@ -65,32 +65,32 @@ msgstr "デスクトップ通知プラグインです"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: panel-plugin/notification-plugin-log.c:159
+#: panel-plugin/notification-plugin-log.c:163
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>邪魔をしない(_D)</b>"
 
-#: panel-plugin/notification-plugin-log.c:362
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
+#: panel-plugin/notification-plugin-log.c:366
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
 msgid "Unable to open notification log"
 msgstr "通知ログを開けません"
 
-#: panel-plugin/notification-plugin-log.c:364
+#: panel-plugin/notification-plugin-log.c:368
 msgid "No unread notifications"
 msgstr "未読の通知はありません"
 
-#: panel-plugin/notification-plugin-log.c:366
+#: panel-plugin/notification-plugin-log.c:370
 msgid "No notifications"
 msgstr "通知はありません"
 
-#: panel-plugin/notification-plugin-log.c:388
+#: panel-plugin/notification-plugin-log.c:392
 msgid "_Clear log"
 msgstr "ログをクリアする(_C)"
 
-#: panel-plugin/notification-plugin-log.c:399
+#: panel-plugin/notification-plugin-log.c:403
 msgid "_Mark all read"
 msgstr "すべて既読にする(_M)"
 
-#: panel-plugin/notification-plugin-log.c:408
+#: panel-plugin/notification-plugin-log.c:412
 msgid "_Notification settings…"
 msgstr "通知設定(_N)…"
 
@@ -99,12 +99,12 @@ msgid "Notification Plugin Settings"
 msgstr "通知プラグインの設定"
 
 #: panel-plugin/notification-plugin-settings.glade:46
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:133
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:59
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
 #: panel-plugin/notification-plugin-settings.glade:61
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:149
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:75
 msgid "_Close"
 msgstr "閉じる(_C)"
 
@@ -129,7 +129,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr "未読通知がない場合、パネルボタンを隠す"
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:878
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:806
 msgid "Appearance"
 msgstr "外観"
 
@@ -180,7 +180,7 @@ msgid "org.xfce.notification"
 msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1206
+#: xfce4-notifyd-config/main.c:1207
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 通知デーモン"
 
@@ -193,7 +193,7 @@ msgstr "不明なオプション \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "通知デーモンを開始できません"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:593
+#: xfce4-notifyd/xfce-notify-daemon.c:550
 msgid "Another notification daemon is running, exiting\n"
 msgstr "他の通知デーモンが起動しているため、終了します。\n"
 
@@ -247,7 +247,7 @@ msgstr "DB タイムスタンプ インデックスの作成に失敗しまし�
 msgid "Failed to create DB is_read index: %s"
 msgstr "DB is_read インデックスの作成に失敗しました: %s"
 
-#: xfce4-notifyd/xfce-notify-window.c:1393
+#: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
 msgstr "デフォルトアクション"
 
@@ -255,348 +255,356 @@ msgstr "デフォルトアクション"
 msgid "Xfce Notification Daemon"
 msgstr "Xfce 通知デーモン"
 
-#: xfce4-notifyd-config/main.c:105
+#: xfce4-notifyd-config/main.c:106
 msgid "Notification Preview"
 msgstr "通知プレビュー"
 
-#: xfce4-notifyd-config/main.c:106
+#: xfce4-notifyd-config/main.c:107
 msgid "This is what notifications will look like"
 msgstr "通知はこのように表示されます。"
 
-#: xfce4-notifyd-config/main.c:111
+#: xfce4-notifyd-config/main.c:112
 msgid "Button"
 msgstr "ボタン"
 
-#: xfce4-notifyd-config/main.c:118
+#: xfce4-notifyd-config/main.c:119
 msgid "Notification preview failed"
 msgstr "通知のプレビューに失敗しました"
 
-#: xfce4-notifyd-config/main.c:565
+#: xfce4-notifyd-config/main.c:566
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "アプリケーション \"%s\" の通知設定を削除してもよろしいですか？"
 
-#: xfce4-notifyd-config/main.c:569
+#: xfce4-notifyd-config/main.c:570
 msgid "Delete"
 msgstr "削除します"
 
-#: xfce4-notifyd-config/main.c:571
+#: xfce4-notifyd-config/main.c:572
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr "アプリケーションを忘れる"
 
-#: xfce4-notifyd-config/main.c:669
+#: xfce4-notifyd-config/main.c:670
 msgid "Unspecified applications"
 msgstr "特定不能のアプリケーション"
 
-#: xfce4-notifyd-config/main.c:900
+#: xfce4-notifyd-config/main.c:901
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>現在は緊急の通知のみ表示されます。</b>\n通知のロギングは %s になっています。"
 
-#: xfce4-notifyd-config/main.c:907
+#: xfce4-notifyd-config/main.c:908
 msgid "enabled"
 msgstr "有効"
 
-#: xfce4-notifyd-config/main.c:907
+#: xfce4-notifyd-config/main.c:908
 msgid "disabled"
 msgstr "無効"
 
-#: xfce4-notifyd-config/main.c:1108
+#: xfce4-notifyd-config/main.c:1112
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>既知のアプリケーションはまだありません。</b></big>\nアプリケーションが通知メッセージを送信すると\nこのリストに追加されます。"
 
-#: xfce4-notifyd-config/main.c:1173
+#: xfce4-notifyd-config/main.c:1174
 msgid "Display version information"
 msgstr "バージョン情報を表示する"
 
-#: xfce4-notifyd-config/main.c:1174
+#: xfce4-notifyd-config/main.c:1175
 msgid "Settings manager socket"
 msgstr "設定マネージャーソケット"
 
-#: xfce4-notifyd-config/main.c:1174
+#: xfce4-notifyd-config/main.c:1175
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1184
+#: xfce4-notifyd-config/main.c:1185
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' と入力すると使用法が表示されます。"
 
-#: xfce4-notifyd-config/main.c:1199
+#: xfce4-notifyd-config/main.c:1200
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, version 2 の条項下でリリースされています。\n"
 
-#: xfce4-notifyd-config/main.c:1200
+#: xfce4-notifyd-config/main.c:1201
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "バグは %s まで報告してください。\n"
 
-#: xfce4-notifyd-config/main.c:1208
+#: xfce4-notifyd-config/main.c:1209
 msgid "Settings daemon is unavailable"
 msgstr "設定デーモンは使用できません"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:167
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>空のログ</b></big>\n通知ログはまだありません。"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:183
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
 msgid "Refresh"
 msgstr "更新"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
 msgid "Refresh the notification log"
 msgstr "通知ログを更新"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
 msgid "Clear the notification log"
 msgstr "通知ログをクリア"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:201
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark All Read"
 msgstr "すべて既読にする"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
 msgid "Mark all unread notifications as read"
 msgstr "すべての未読通知を既読にする"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
 msgid "Mark log entry _read"
 msgstr "ログエントリを既読にする(_R)"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
 msgid "Yesterday and before"
 msgstr "昨日より前"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:999
 msgid "Loading more log entries..."
 msgstr "ログエントリを読み込んでいます..."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
-msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr "「邪魔をしない」になっているか、通知本文が表示されていない時のみ"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
-msgid "always"
-msgstr "常に"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:61
-msgid "all"
-msgstr "すべて"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:64
-msgid "all except blocked"
-msgstr "ブロックされたもの以外すべて"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:67
-msgid "only blocked"
-msgstr "ブロックされたものだけ"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:78
-msgid "Locale default"
-msgstr "ロケールのデフォルト"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
-msgid "Relative times"
-msgstr "相対的な時刻"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
-msgid "ISO8601"
-msgstr "ISO8601"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
-msgid "Custom"
-msgstr "カスタム"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:98
-msgid "Top left"
-msgstr "左上"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:101
-msgid "Bottom left"
-msgstr "左下"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:104
-msgid "Top right"
-msgstr "右上"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:107
-msgid "Bottom right"
-msgstr "右下"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:211
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:137
 msgid ""
 "The notification service is not running. No notifications will be shown."
 msgstr "通知サービスが実行されていません。通知は表示されません。"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:290
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:216
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>今は緊急の通知だけ表示する。</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:376
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:302
 msgid "Fade out"
 msgstr "フェードアウト"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:389
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:315
 msgid "_Slide out"
 msgstr "スライドアウト(_S)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:415
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:341
 msgid "Do not disturb"
 msgstr "邪魔をしない"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:439
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:365
 msgid "<b>Behavior</b>"
 msgstr "<b>振舞い</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:453
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:379
 msgid "<b>Animations</b>"
 msgstr "<b>アニメーション</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:466
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:392
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "通知バブルはデフォルトでマウスポインターのあるディスプレイ上に表示されます。"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:394
 msgid "Show notifications on"
 msgstr "通知の表示場所"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:481
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:407
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
 msgstr "通知音を聞くために、外観設定ダイアログの設定「イベントサウンドを有効にする」をチェックする必要があります"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:409
 msgid "_Mute sounds"
 msgstr "音をミュート (_M)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:436
 msgid "Always show percent-value notifications"
 msgstr "常にパーセント値による通知を表示"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
 msgstr "通知を表示するときは次を表示する"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:475
 msgid "icon, summary, and body"
 msgstr "アイコン、概要、本文"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:476
 msgid "icon and summary"
 msgstr "アイコンと概要"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:477
 msgid "icon and application name"
 msgstr "アイコンとアプリケーション名"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:491
 msgid "monitor with mouse pointer"
 msgstr "マウスポインターがあるモニター"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:492
 msgid "primary monitor"
 msgstr "プライマリーモニター"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:493
 msgid "all monitors"
 msgstr "すべてのモニター"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "General"
 msgstr "一般"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:548
 msgid "seconds"
 msgstr "秒"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:563
 msgid "10"
 msgstr "10"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:588
 msgid "_Opacity"
 msgstr "不透明度(_O)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:676
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:602
 msgid "Default _position"
 msgstr "デフォルトの位置(_P)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:617
+msgid "Top left"
+msgstr "左上"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:618
+msgid "Bottom left"
+msgstr "左下"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:619
+msgid "Top right"
+msgstr "右上"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:620
+msgid "Bottom right"
+msgstr "右下"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:621
+msgid "Top center"
+msgstr "上中央"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
+msgid "Bottom center"
+msgstr "下中央"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "_Theme"
 msgstr "テーマ(_T)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:665
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "通知内容が音量や画面の明るさなどのパーセント値の場合、通知概要と本文を表示する"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:667
 msgid "Show text with percent _values"
 msgstr "パーセンテージ値でテキストを表示 (_V)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:681
 msgid "Date/time _format"
 msgstr "日付/時刻の形式(_F)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
+msgid "Locale default"
+msgstr "ロケールのデフォルト"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:703
+msgid "Relative times"
+msgstr "相対的な時刻"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:704
+msgid "ISO8601"
+msgstr "ISO8601"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:705
+msgid "Custom"
+msgstr "カスタム"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:733
 msgid "Show _Preview"
 msgstr "プレビューを表示(_P)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:831
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:759
 msgid "_Disappear after"
 msgstr "消えるまでの時間(_D)"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:849
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:777
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr "通知を作成するときに、アプリケーションは通知の表示時間を要求できます。この設定は、その要求を受け入れるかどうかをコントロールします。"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:779
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr "アプリが要求した「表示時間」を尊重する"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
 msgstr "<b>アプリケーションごとの通知設定</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:923
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Applications"
 msgstr "アプリケーション"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:942
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:870
 msgid "Log notifications"
 msgstr "ログ通知"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:985
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr "「邪魔をしない」になっているか、通知本文が表示されていない時のみ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:897
+msgid "always"
+msgstr "常に"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
 msgid "Log applications"
 msgstr "ログアプリケーション"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:940
+msgid "all"
+msgstr "すべて"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:941
+msgid "all except blocked"
+msgstr "ブロックされたもの以外すべて"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:942
+msgid "only blocked"
+msgstr "ブロックされたものだけ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:954
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:970
 msgid "The maximum number of entries to be retained in the log."
 msgstr "ログに保持されるエントリの最大数。"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:966
 msgid "Log size limit"
 msgstr "ログサイズの制限"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1066
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:987
 msgid "Log"
 msgstr "ログ"
 
