@@ -112,10 +112,8 @@ AM_CONDITIONAL([USE_DBUS_START_DAEMON],
 AC_ARG_WITH([dbus-service-dir],
             [AS_HELP_STRING([--with-dbus-service-dir=DIR],
                             [Specifies the directory where D-Bus service activation files should be installed (default=${datadir}/dbus-1/services)])],
-            [dbus_service_dir=$withval], [dbus_service_dir=])
-if test x"$dbus_service_dir" = x""; then
-    dbus_service_dir="${datadir}/dbus-1/services"
-elif test x"$dbus_service_dir" = x"auto"; then
+            [dbus_service_dir=$withval], [dbus_service_dir="${datadir}/dbus-1/services"])
+if test x"$dbus_service_dir" = x"auto"; then
     dbus_service_dir="`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`"
 fi
 DBUS_SERVICE_DIR="$dbus_service_dir"
@@ -131,10 +129,8 @@ dnl where systemd keeps unit files.
 AC_ARG_WITH([systemd-user-service-dir],
             [AS_HELP_STRING([--with-systemd-user-service-dir=DIR],
                             [Specifies the directory where user bus services should be installed (default=${prefix}/lib/systemd/user)])],
-            [systemd_user_service_dir=$withval], [systemd_user_service_dir=])
-if test x"$systemd_user_service_dir" = x""; then
-    systemd_user_service_dir="${prefix}/lib/systemd/user"
-elif test x"$systemd_user_service_dir" = x"auto"; then
+            [systemd_user_service_dir=$withval], [systemd_user_service_dir="${prefix}/lib/systemd/user"])
+if test x"$systemd_user_service_dir" = x"auto"; then
     systemd_user_service_dir="`$PKG_CONFIG --variable=systemd_user_unit_dir systemd`"
 fi
 SYSTEMD_USER_SERVICE_DIR="$systemd_user_service_dir"
