@@ -1,10 +1,6 @@
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
-AM_DISTCHECK_CONFIGURE_FLAGS = \
-	--with-dbus-service-dir=$(prefix)/share/dbus-1/services \
-	--with-systemd-user-service-dir=$(prefix)/lib/systemd/user
-
 SUBDIRS = \
 	icons	\
 	common \

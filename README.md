@@ -63,6 +63,16 @@ In order for xfce4-notifyd to be started automatically, you must have a
 you install xfce4-notifyd to a standard prefix (like `/usr`), you
 shouldn't have to worry about this.
 
+If you install xfce4-notifyd to a non-standard prefix, the D-Bus and
+systemd service and unit files will be installed to the non-standard
+prefix as well, in places where the respective daemons may not be able
+to find them.  You can pass `--with-dbus-service-dir=` and
+`--with-systemd-user-service-dir=` to `configure` in order to set the
+appropriate directories.  If you want `configure` to automatically
+figure out the correct places to put those files (which may be outside
+your installation prefix), you can pass `auto` as the value to those two
+command-line options.
+
 
 ## Configuration
 
