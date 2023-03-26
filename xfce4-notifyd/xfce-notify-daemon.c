@@ -1637,6 +1637,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
             g_signal_connect(window, "size-allocate",
                              G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
+            notify_update_theme_for_window(xndaemon, window, FALSE);
 
             gtk_widget_get_preferred_size(window, NULL, &nat_size);
             DBG("preferred natural size: %dx%d", nat_size.width, nat_size.height);
@@ -1646,10 +1647,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window)));
         }
         xfce_notification_realize(notification);
-        for (GList *l = windows; l != NULL; l = l->next) {
-            GtkWidget *window = GTK_WIDGET(l->data);
-            notify_update_theme_for_window(xndaemon, window, FALSE);
-        }
         g_idle_add(notify_show_windows, notification);
 
         g_list_free(monitors);
