@@ -1567,6 +1567,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     } else {
         GdkDisplay *display = gdk_display_get_default();
         GList *monitors = NULL;
+        GList *windows;
 
         notification = xfce_notification_new(OUT_id,
                                              log_id,
@@ -1623,17 +1624,30 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             }
         }
 
-        xfce_notification_realize(notification,
-                                  monitors,
-                                  xndaemon->windows_use_override_redirect,
-                                  xndaemon->notify_location,
-                                  xndaemon->initial_opacity,
-                                  xndaemon->show_text_with_gauge);
-        for (GList *l = xfce_notification_get_windows(notification); l != NULL; l = l->next) {
+        windows = xfce_notification_create_windows(notification,
+                                                   monitors,
+                                                   xndaemon->windows_use_override_redirect,
+                                                   xndaemon->notify_location,
+                                                   xndaemon->initial_opacity,
+                                                   xndaemon->show_text_with_gauge);
+        for (GList *l = windows; l != NULL; l = l->next) {
             GtkWidget *window = GTK_WIDGET(l->data);
+            GtkRequisition nat_size;
+            GtkAllocation allocation =  { 0, };
 
             g_signal_connect(window, "size-allocate",
                              G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
+
+            gtk_widget_get_preferred_size(window, NULL, &nat_size);
+            DBG("preferred natural size: %dx%d", nat_size.width, nat_size.height);
+            allocation.width = nat_size.width;
+            allocation.height = nat_size.height;
+            gtk_widget_set_allocation(window, &allocation);
+            xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window)));
+        }
+        xfce_notification_realize(notification);
+        for (GList *l = windows; l != NULL; l = l->next) {
+            GtkWidget *window = GTK_WIDGET(l->data);
             notify_update_theme_for_window(xndaemon, window, FALSE);
         }
         g_idle_add(notify_show_windows, notification);

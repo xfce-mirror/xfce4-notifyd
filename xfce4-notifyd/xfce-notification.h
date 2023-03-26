@@ -73,12 +73,13 @@ void xfce_notification_update(XfceNotification *notification,
 #endif
                               );
 
-void xfce_notification_realize(XfceNotification *notification,
-                               GList *monitors,
-                               gboolean override_redirect,
-                               XfceNotifyPosition location,
-                               gdouble normal_opacity,
-                               gboolean show_text_with_gauge);
+GList *xfce_notification_create_windows(XfceNotification *notification,
+                                        GList *monitors,
+                                        gboolean override_redirect,
+                                        XfceNotifyPosition location,
+                                        gdouble normal_opacity,
+                                        gboolean show_text_with_gauge);
+void xfce_notification_realize(XfceNotification *notification);
 
 void xfce_notification_set_do_fadeout(XfceNotification *notification,
                                       gboolean do_fadeout);

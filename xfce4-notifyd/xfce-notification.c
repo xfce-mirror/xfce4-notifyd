@@ -751,13 +751,13 @@ xfce_notification_update(XfceNotification *notification,
     g_object_thaw_notify(G_OBJECT(notification));
 }
 
-void
-xfce_notification_realize(XfceNotification *notification,
-                          GList *monitors,
-                          gboolean override_redirect,
-                          XfceNotifyPosition location,
-                          gdouble normal_opacity,
-                          gboolean show_text_with_gauge)
+GList *
+xfce_notification_create_windows(XfceNotification *notification,
+                                 GList *monitors,
+                                 gboolean override_redirect,
+                                 XfceNotifyPosition location,
+                                 gdouble normal_opacity,
+                                 gboolean show_text_with_gauge)
 {
     static const gchar *bind_properties[] = {
         "summary",
@@ -775,9 +775,9 @@ xfce_notification_realize(XfceNotification *notification,
         "do-slideout",
     };
 
-    g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
-    g_return_if_fail(monitors != NULL && GDK_IS_MONITOR(monitors->data));
-    g_return_if_fail(notification->windows == NULL);
+    g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
+    g_return_val_if_fail(monitors != NULL && GDK_IS_MONITOR(monitors->data), NULL);
+    g_return_val_if_fail(notification->windows == NULL, NULL);
 
     for (GList *l = monitors; l != NULL; l = l->next) {
         GdkMonitor *monitor = GDK_MONITOR(l->data);
@@ -803,6 +803,15 @@ xfce_notification_realize(XfceNotification *notification,
     }
     notification->windows = g_list_reverse(notification->windows);
     g_assert(notification->windows != NULL);
+
+    return notification->windows;
+}
+
+
+void
+xfce_notification_realize(XfceNotification *notification) {
+    g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
+    g_return_if_fail(notification->windows != NULL);
 
     for (GList *l = notification->windows; l != NULL; l = l->next) {
         gtk_widget_realize(GTK_WIDGET(l->data));
