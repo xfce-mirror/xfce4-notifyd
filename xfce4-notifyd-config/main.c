@@ -514,7 +514,7 @@ xfce_notify_count_apps_in_log(GHashTable *app_id_counts, GPtrArray *known_applic
 
         app_ids = g_hash_table_get_keys(app_id_counts);
         for (GList *l = app_ids; l != NULL; l = l->next) {
-            gchar *app_id = l->data;
+            gchar *app_id = l->data != NULL ? l->data : "";
             if (g_hash_table_contains(counts, app_id)) {
                 g_hash_table_insert(counts, app_id, g_hash_table_lookup(app_id_counts, app_id));
             }
