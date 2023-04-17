@@ -19,8 +19,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-03-16 12:49+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: nortio <savi.napolitano@gmail.com>, 2023\n"
-"Language-Team: Italian (http://www.transifex.com/xfce/xfce-apps/language/it/)\n"
+"Last-Translator: Dmytro Tokayev, 2023\n"
+"Language-Team: Italian (http://app.transifex.com/xfce/xfce-apps/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -377,7 +377,7 @@ msgstr "Segna tutte le notifiche da leggere come lette"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Segna elemento del registro come _letto"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
 msgid "Yesterday and before"
@@ -438,7 +438,7 @@ msgstr "Disattiva suo_ni"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:436
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Mostrare sempre notifiche percentuale-valore"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
@@ -466,7 +466,7 @@ msgstr "schermo primario"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:493
 msgid "all monitors"
-msgstr ""
+msgstr "tutti schermi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "General"
@@ -506,11 +506,11 @@ msgstr "In basso a destra"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:621
 msgid "Top center"
-msgstr ""
+msgstr "In alto nel centro"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
 msgid "Bottom center"
-msgstr ""
+msgstr "In basso nel centro"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "_Theme"
@@ -528,15 +528,15 @@ msgstr "Mostra testo con _valori in percentuale"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:681
 msgid "Date/time _format"
-msgstr ""
+msgstr "_Formato data/ora"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Locale default"
-msgstr ""
+msgstr "Locale predefinito"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:703
 msgid "Relative times"
-msgstr ""
+msgstr "Tempi relativi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:704
 msgid "ISO8601"
@@ -563,7 +563,7 @@ msgstr "Quando viene creata una notifica, le applicazioni possono richiedere per
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:779
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Rispetta il tempo 'Scomparire dopo' richiesto dalle app"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
@@ -579,7 +579,7 @@ msgstr "Registra le notifiche"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "soltanto quando \"Non disturbare\" è attivo, oppure quando i corpi delle notifiche non sono mostrati"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:897
 msgid "always"
