@@ -71,7 +71,7 @@ msgstr "<b>_Не турбувати</b>"
 #: panel-plugin/notification-plugin-log.c:366
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Не вдалося відкрити журнал сповіщень"
 
 #: panel-plugin/notification-plugin-log.c:368
 msgid "No unread notifications"
@@ -215,7 +215,7 @@ msgstr "Запис журналу не знайдено"
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Каталог журналу сповіщень (%s) не є каталогом"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
@@ -248,7 +248,7 @@ msgstr ""
 
 #: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
-msgstr ""
+msgstr "Типова дія"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
@@ -378,7 +378,7 @@ msgstr "Вчора і перед"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:999
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Завантаження додаткових записів журналу..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:137
 msgid ""
@@ -560,7 +560,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Параметри сповіщень для кожної програми</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Applications"
