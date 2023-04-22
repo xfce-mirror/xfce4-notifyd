@@ -740,7 +740,7 @@ xfce_notify_log_get_app_id_counts(XfceNotifyLog *log) {
     while ((rc = sqlite3_step(log->stmt_count_app_ids)) == SQLITE_ROW) {
         const unsigned char *app_id = sqlite3_column_text(log->stmt_count_app_ids, 0);
         guint count = sqlite3_column_int(log->stmt_count_app_ids, 1);
-        g_hash_table_insert(app_id_counts, g_strdup((const gchar *)app_id), GUINT_TO_POINTER(count));
+        g_hash_table_insert(app_id_counts, g_strdup(app_id != NULL ? (const gchar *)app_id : ""), GUINT_TO_POINTER(count));
     }
 
     if (G_UNLIKELY(rc != SQLITE_DONE)) {

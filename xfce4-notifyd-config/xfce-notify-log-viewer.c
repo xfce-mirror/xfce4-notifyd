@@ -27,6 +27,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "common/xfce-notify-common.h"
+#include "common/xfce-notify-enum-types.h"
 #include "common/xfce-notify-log-gbus.h"
 #include "common/xfce-notify-log-util.h"
 #include "xfce-notify-log-viewer.h"
@@ -585,7 +586,7 @@ static void
 xfce_notify_log_viewer_insert_entry(XfceNotifyLogViewer *viewer,
                                     XfceNotifyLogEntry *entry,
                                     gint list_position,
-                                    XfceDateTimeFormat dt_format,
+                                    XfceNotifyDatetimeFormat dt_format,
                                     const gchar *custom_dt_format,
                                     gint icon_size)
 {
@@ -605,7 +606,7 @@ xfce_notify_log_viewer_insert_entry(XfceNotifyLogViewer *viewer,
     summary_text = notify_log_format_summary(entry->summary);
     body_text = notify_log_format_body(entry->body);
     icon = notify_icon_for_entry(entry, style_context, icon_size, scale_factor);
-    tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_DATE_TIME_FORMAT_LOCALE, NULL);
+    tooltip_timestamp_text = notify_log_format_timestamp(entry->timestamp, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, NULL);
     tooltip_text = notify_log_format_tooltip(app_name, tooltip_timestamp_text, body_text);
 
     summary = g_object_new(GTK_TYPE_LABEL,
@@ -681,7 +682,7 @@ xfce_notify_log_viewer_append_entries(XfceNotifyLogViewer *viewer, GList *entrie
     GDateTime *today;
     gint today_year, today_day;
     gint icon_width, icon_height, icon_size;
-    XfceDateTimeFormat dt_format;
+    XfceNotifyDatetimeFormat dt_format;
     gchar *custom_dt_format;
 
     gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
@@ -691,7 +692,10 @@ xfce_notify_log_viewer_append_entries(XfceNotifyLogViewer *viewer, GList *entrie
     today_year = g_date_time_get_year(today);
     today_day = g_date_time_get_day_of_year(today);
 
-    dt_format = xfconf_channel_get_int(viewer->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE);
+    dt_format = xfce_notify_xfconf_channel_get_enum(viewer->channel,
+                                                    DATETIME_FORMAT_PROP,
+                                                    XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT,
+                                                    XFCE_TYPE_NOTIFY_DATETIME_FORMAT);
     custom_dt_format = xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, NULL);
 
     for (GList *l = entries; l != NULL; l = l->next) {
@@ -850,7 +854,7 @@ added_row_fetched(GObject *source, GAsyncResult *res, XfceNotifyLogViewer *viewe
             xfce_notify_log_viewer_insert_entry(viewer,
                                                 entry,
                                                 0,
-                                                xfconf_channel_get_int(viewer->channel, DATETIME_FORMAT_PROP, XFCE_DATE_TIME_FORMAT_LOCALE),
+                                                xfce_notify_xfconf_channel_get_enum(viewer->channel, DATETIME_FORMAT_PROP, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, XFCE_TYPE_NOTIFY_DATETIME_FORMAT),
                                                 xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT),
                                                 MIN(icon_width, icon_height));
 

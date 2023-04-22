@@ -367,6 +367,7 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
   /* Initialize xfconf */
   xfconf_init (NULL);
   notification_plugin->channel = xfconf_channel_new ("xfce4-notifyd");
+  xfce_notify_migrate_settings(notification_plugin->channel);
 
   notification_plugin->hide_on_read = xfconf_channel_get_bool(notification_plugin->channel, SETTING_HIDE_ON_READ, FALSE);
   g_signal_connect(notification_plugin->channel, "property-changed::" SETTING_HIDE_ON_READ,

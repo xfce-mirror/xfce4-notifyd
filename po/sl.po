@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-02-26 12:48+0100\n"
+"POT-Creation-Date: 2023-03-02 00:48+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Arnold Marko <arnold.marko@gmail.com>, 2020,2023\n"
 "Language-Team: Slovenian (http://www.transifex.com/xfce/xfce-apps/language/sl/)\n"
@@ -43,10 +43,10 @@ msgstr "vključi medpomnilnik za ikone"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "Zdaj"
 
 #: panel-plugin/notification-plugin.c:379
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:127
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
 msgstr "Obvestila"
@@ -71,11 +71,11 @@ msgstr "<b>Ne _moti</b>"
 #: panel-plugin/notification-plugin-log.c:362
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Dnevnika obvestil ni mogoče odpreti"
 
 #: panel-plugin/notification-plugin-log.c:364
 msgid "No unread notifications"
-msgstr ""
+msgstr "Ni neprebranih obvestil"
 
 #: panel-plugin/notification-plugin-log.c:366
 msgid "No notifications"
@@ -87,7 +87,7 @@ msgstr "Po_čisti dnevnik"
 
 #: panel-plugin/notification-plugin-log.c:399
 msgid "_Mark all read"
-msgstr ""
+msgstr "_Označi vse kot prebrano"
 
 #: panel-plugin/notification-plugin-log.c:408
 msgid "_Notification settings…"
@@ -98,12 +98,12 @@ msgid "Notification Plugin Settings"
 msgstr "Nastavitve vtičnika za obvestila"
 
 #: panel-plugin/notification-plugin-settings.glade:46
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:147
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:133
 msgid "_Help"
 msgstr "_Pomoč"
 
 #: panel-plugin/notification-plugin-settings.glade:61
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:163
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:149
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -128,21 +128,21 @@ msgid "Hide panel button when no unread notifications"
 msgstr "Skrij gumb na panoju, kadar ni neprebranih obvestil"
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:894
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:878
 msgid "Appearance"
 msgstr "Videz"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "Prikaži v meniju"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "Vsa obvestila"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
-msgstr ""
+msgstr "Neprebrana obvestila"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
@@ -150,15 +150,15 @@ msgstr "Obnašanje"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Po prikazu menija"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Označi vse vnose dnevnika kot prebrane"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Označi prikazane vnose dnevnika kot prebrane"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -176,10 +176,10 @@ msgstr "Vtičnik za obvestila za Xfce pano"
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:6
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
 msgid "org.xfce.notification"
-msgstr ""
+msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1232
+#: xfce4-notifyd-config/main.c:1206
 msgid "Xfce Notify Daemon"
 msgstr "Xfce pritajeni program za obvestila"
 
@@ -192,153 +192,153 @@ msgstr "Neznana možnost \"%s\"\n"
 msgid "Unable to start notification daemon"
 msgstr "Pritajenega programa za obvestila ni mogoče zagnati"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:556
+#: xfce4-notifyd/xfce-notify-daemon.c:593
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Zagnan je še en pritajeni program za obvestila. Prekinjam.\n"
 
-#: xfce4-notifyd/xfce-notify-daemon-log.c:178
-#: xfce4-notifyd/xfce-notify-daemon-log.c:209
-#: xfce4-notifyd/xfce-notify-daemon-log.c:243
-#: xfce4-notifyd/xfce-notify-daemon-log.c:256
-#: xfce4-notifyd/xfce-notify-daemon-log.c:290
-#: xfce4-notifyd/xfce-notify-daemon-log.c:304
-#: xfce4-notifyd/xfce-notify-daemon-log.c:316
-#: xfce4-notifyd/xfce-notify-daemon-log.c:330
-#: xfce4-notifyd/xfce-notify-daemon-log.c:342
+#: xfce4-notifyd/xfce-notify-daemon-log.c:179
+#: xfce4-notifyd/xfce-notify-daemon-log.c:210
+#: xfce4-notifyd/xfce-notify-daemon-log.c:244
+#: xfce4-notifyd/xfce-notify-daemon-log.c:257
+#: xfce4-notifyd/xfce-notify-daemon-log.c:291
+#: xfce4-notifyd/xfce-notify-daemon-log.c:305
+#: xfce4-notifyd/xfce-notify-daemon-log.c:317
+#: xfce4-notifyd/xfce-notify-daemon-log.c:331
+#: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "Dnevnik ni na voljo"
 
-#: xfce4-notifyd/xfce-notify-daemon-log.c:183
+#: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Dnevniški vnos ni najden"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Mapa za beleženje obvestil (%s) ni mapa"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Dnevnika obvestil ni bilo mogoče odpreti: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "SQL izjave ni bilo mogoče pripraviti: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "zaključni znaki na koncu izjave"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Tabele 'obvestil' ni bilo mogoče ustvariti: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Indeksa časovnega žiga podatkovne baze ni bilo mogoče ustvariti: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Indeksa prebranih ni bilo mogoče ustvariti: %s"
 
-#: xfce4-notifyd/xfce-notify-window.c:1079
+#: xfce4-notifyd/xfce-notify-window.c:1393
 msgid "Default Action"
-msgstr ""
+msgstr "Privzeto dejanje"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce pritajeni program za obvestila"
 
-#: xfce4-notifyd-config/main.c:112
+#: xfce4-notifyd-config/main.c:105
 msgid "Notification Preview"
 msgstr "Predogled obvestila"
 
-#: xfce4-notifyd-config/main.c:113
+#: xfce4-notifyd-config/main.c:106
 msgid "This is what notifications will look like"
 msgstr "Tako bodo prikazana obvestila"
 
-#: xfce4-notifyd-config/main.c:118
+#: xfce4-notifyd-config/main.c:111
 msgid "Button"
 msgstr "Gumb"
 
-#: xfce4-notifyd-config/main.c:125
+#: xfce4-notifyd-config/main.c:118
 msgid "Notification preview failed"
 msgstr "Predogled obvestil ni uspel"
 
-#: xfce4-notifyd-config/main.c:572
+#: xfce4-notifyd-config/main.c:565
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "Ste prepričani, da želite izbirsati nastavitvve obveščanja  za aplikacijo \"%s\"?"
 
-#: xfce4-notifyd-config/main.c:576
+#: xfce4-notifyd-config/main.c:569
 msgid "Delete"
 msgstr "Izbriši"
 
-#: xfce4-notifyd-config/main.c:578
+#: xfce4-notifyd-config/main.c:571
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr "Pozabi aplikacijo"
 
-#: xfce4-notifyd-config/main.c:676
+#: xfce4-notifyd-config/main.c:669
 msgid "Unspecified applications"
 msgstr "Nedoločene aplikacije"
 
-#: xfce4-notifyd-config/main.c:922
+#: xfce4-notifyd-config/main.c:900
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Trenutno so prikazana le nujna obvestila.</b>\nBeleženje obvestil v dnevnik je %s"
 
-#: xfce4-notifyd-config/main.c:929
+#: xfce4-notifyd-config/main.c:907
 msgid "enabled"
 msgstr "vklopljeno"
 
-#: xfce4-notifyd-config/main.c:929
+#: xfce4-notifyd-config/main.c:907
 msgid "disabled"
 msgstr "izklopljeno"
 
-#: xfce4-notifyd-config/main.c:1134
+#: xfce4-notifyd-config/main.c:1108
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Trenutno ni znanih programov.</b></big>\nTakoj, ko bo program poslalo obvestilo,\nse bo to pojavilo v seznamu."
 
-#: xfce4-notifyd-config/main.c:1199
+#: xfce4-notifyd-config/main.c:1173
 msgid "Display version information"
 msgstr "Prikaži podatke o različici"
 
-#: xfce4-notifyd-config/main.c:1200
+#: xfce4-notifyd-config/main.c:1174
 msgid "Settings manager socket"
 msgstr "Vtičnik za upravljalnje nastavitev"
 
-#: xfce4-notifyd-config/main.c:1200
+#: xfce4-notifyd-config/main.c:1174
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1210
+#: xfce4-notifyd-config/main.c:1184
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Vpišite  '%s --help' za navodila."
 
-#: xfce4-notifyd-config/main.c:1225
+#: xfce4-notifyd-config/main.c:1199
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Izdano pod pogoji GNU licencce, različice 2\n"
 
-#: xfce4-notifyd-config/main.c:1226
+#: xfce4-notifyd-config/main.c:1200
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Prijvite hrošče na %s.\n"
 
-#: xfce4-notifyd-config/main.c:1234
+#: xfce4-notifyd-config/main.c:1208
 msgid "Settings daemon is unavailable"
 msgstr "Pritajeni program za nastavitve ni na voljo"
 
@@ -362,15 +362,15 @@ msgstr "Počisti dnevnik obvestil"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:201
 msgid "Mark All Read"
-msgstr ""
+msgstr "Označi vse kot prebrano"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "Vsa neprebrana obvestila označi kot prebrana"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "zabeležen vnos označi kot p_rebran"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
 msgid "Yesterday and before"
@@ -378,11 +378,11 @@ msgstr "Včeraj in pred tem"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Nalagam več dnevniških vnosov ..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "le med 'Ne moti\", ali kadar ni prikazana vsebina obvestil"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
 msgid "always"
@@ -401,197 +401,201 @@ msgid "only blocked"
 msgstr "zgolj blokirane"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:78
-msgid "display with mouse pointer"
-msgstr "prikaz s kazalcem miške"
+msgid "Locale default"
+msgstr "Privzete krajevne vrednosti"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
-msgid "primary display"
-msgstr "glavni zaslon"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:92
-msgid "Locale default"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:95
 msgid "Relative times"
-msgstr ""
+msgstr "Relativni časi"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:98
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:101
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
 msgid "Custom"
 msgstr "Po meri"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:112
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:98
 msgid "Top left"
 msgstr "Zgoraj levo"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:115
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:101
 msgid "Bottom left"
 msgstr "Spodaj levo"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:118
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:104
 msgid "Top right"
 msgstr "Zgoraj desno"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:121
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:107
 msgid "Bottom right"
 msgstr "Spodaj desno"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:225
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:211
 msgid ""
 "The notification service is not running. No notifications will be shown."
 msgstr "Storitev obveščanja in zagnana. Obvestila ne bodo prikazana."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:304
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:290
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>Trenutno se prikazujejo zgolj nujna opozorila.</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:390
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:376
 msgid "Fade out"
 msgstr "Mehko izginevanje"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:403
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:389
 msgid "_Slide out"
 msgstr "Premakni _ven"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:429
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:415
 msgid "Do not disturb"
 msgstr "Ne moti"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:453
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:439
 msgid "<b>Behavior</b>"
 msgstr "<b>Obnašanje</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:467
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:453
 msgid "<b>Animations</b>"
 msgstr "<b>Animacije</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:466
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Privzeto je, da je oblaki z obvestili pojavijo na zaslonu, na keterem se nahaja kazalec miške."
+msgstr "Privzeto je, da se oblaki z obvestili pojavijo na tistem zaslonu, na katerem se nahaja kazalec miške."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "Show notifications on"
-msgstr "Prikaži obestila na"
+msgstr "Prikaži obvestila na"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:513
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:481
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
 msgstr "Za predvajanje zvoka ob obvestilih mora biti v nastavitvah videza izbrana možnost 'Vklopi zvoke dogodkov\""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:515
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "_Mute sounds"
 msgstr "_Utišaj zvoke"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:542
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Vedno prikaži obvestila s procentualnimi vrednostmi"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
+msgid "When displaying notifications, show"
+msgstr "Ob prikazu obvestil pokaži"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
+msgid "icon, summary, and body"
+msgstr "ikono, povzetek in vsebino"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
+msgid "icon and summary"
+msgstr "ikono in povzetek"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
+msgid "icon and application name"
+msgstr "ikono in ime aplikacije"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
+msgid "monitor with mouse pointer"
+msgstr "zaslon s kazalcem miške"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
+msgid "primary monitor"
+msgstr "glavni zaslon"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
-msgid "When displaying notifications, show"
-msgstr ""
+msgid "all monitors"
+msgstr "vsi zasloni"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:581
-msgid "icon, summary, and body"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:582
-msgid "icon and summary"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
-msgid "icon and application name"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:600
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
 msgid "General"
 msgstr "Splošno"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:638
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
 msgid "seconds"
 msgstr "sekund"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "10"
-msgstr ""
+msgstr "10"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:678
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
 msgid "_Opacity"
 msgstr "Prekrivn_ost"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:692
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:676
 msgid "Default _position"
 msgstr "Privzeti _položaj"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
 msgid "_Theme"
 msgstr "_Tema"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "Prikaži skupek obvestil in telo, kadar je obvestilo procentualna vrednost, kot npr. glasnost zvoka ali svetlost zaslona."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:755
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
 msgid "Show text with percent _values"
 msgstr "Prikaži besedilo s procentualnimi _vrednostmi"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:769
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
 msgid "Date/time _format"
-msgstr ""
+msgstr "_Zapis datuma/časa"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:821
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
 msgid "Show _Preview"
 msgstr "Prikaži _predogled"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:847
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:831
 msgid "_Disappear after"
-msgstr "Izgine _čez "
+msgstr "_Izgini v roku"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:865
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:849
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Ko aplikacije ustvarijo sporočilo, lahko zahtevajo čas prikaza obvestila na zaslonu. Ta nastavitev določa ali se ta zahteva upošteva."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:867
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Upoštevaj časovno zahtevo aplikacije \"Izgini v roku\""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:912
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Nastavitve obveščanja posamične aplikacije</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:939
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:923
 msgid "Applications"
 msgstr "Aplikacije"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:958
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:942
 msgid "Log notifications"
 msgstr "Zabeleži obvestila"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1001
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:985
 msgid "Log applications"
 msgstr "Zabeleži aplikacije"
 
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1065
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Največje število vnosov, ki naj se ohranijo v dnevniku."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1061
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
 msgid "Log size limit"
 msgstr "Omejitev velikosti dnevnika"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1082
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1066
 msgid "Log"
 msgstr "Dnevnik"
 
@@ -601,7 +605,7 @@ msgstr "Utišaj aplikacijo"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Dovoli nujna obvestila"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"

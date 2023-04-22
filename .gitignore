@@ -53,6 +53,8 @@ po/remove-potcdate.sin
 po/xfce4-notifyd.pot
 po/*.gmo
 
+common/xfce-notify-enum-types.c
+common/xfce-notify-enum-types.h
 common/xfce-notify-log-gbus.c
 common/xfce-notify-log-gbus.h
 

@@ -22,6 +22,7 @@
 #endif
 
 #include "xfce-notify-common.h"
+#include "xfce-notify-enum-types.h"
 
 // We can't use pango_parse_markup(), as that does not support hyperlinks.
 gboolean
@@ -66,7 +67,55 @@ xfce_notify_create_placeholder_label(const gchar *markup) {
     return label;
 }
 
-void
+gint
+xfce_notify_enum_value_from_nick(GType enum_type, const gchar *nick, gint default_value) {
+    gint value = default_value;
+
+    if (nick != NULL) {
+        GEnumClass *klass = g_type_class_ref(enum_type);
+        GEnumValue *enum_value = g_enum_get_value_by_nick(klass, nick);
+
+        if (enum_value != NULL) {
+            value = enum_value->value;
+        }
+
+        g_type_class_unref(klass);
+    }
+
+    return value;
+}
+
+gchar *
+xfce_notify_enum_nick_from_value(GType enum_type, gint value) {
+    gchar *nick = NULL;
+    GEnumClass *klass = g_type_class_ref(enum_type);
+    GEnumValue *enum_value = g_enum_get_value(klass, value);
+
+    if (enum_value != NULL) {
+        nick = g_strdup(enum_value->value_nick);
+    }
+
+    g_type_class_unref(klass);
+
+    return nick;
+}
+
+gint
+xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
+                                    const gchar *property_name,
+                                    gint default_value,
+                                    GType enum_type)
+{
+    const gchar *nick = xfconf_channel_get_string(channel, property_name, NULL);
+    if (nick == NULL) {
+        return default_value;
+    } else {
+        return xfce_notify_enum_value_from_nick(enum_type, nick, default_value);
+    }
+}
+
+
+static void
 xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
     if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
         guint value = xfconf_channel_get_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
@@ -75,4 +124,50 @@ xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
             xfconf_channel_set_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
         }
     }
+}
+
+static void
+xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
+    if (xfconf_channel_has_property(channel, "/primary-monitor")) {
+        guint value = xfconf_channel_get_uint(channel, "/primary-monitor", 0);
+        gchar *new_value = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_SHOW_ON,
+                                                            value == 1
+                                                            ? XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR
+                                                            : SHOW_NOTIFICATIONS_ON_DEFAULT);
+        if (G_LIKELY(new_value != NULL)) {
+            xfconf_channel_set_string(channel, SHOW_NOTIFICATIONS_ON_PROP, new_value);
+            xfconf_channel_reset_property(channel, "/primary-monitor", FALSE);
+            g_free(new_value);
+        }
+    }
+}
+
+static void
+xfce_notify_migrate_enum_setting(XfconfChannel *channel, const gchar *property_name, GType enum_type) {
+    if (xfconf_channel_has_property(channel, property_name)) {
+        GValue value = G_VALUE_INIT;
+
+        xfconf_channel_get_property(channel, property_name, &value);
+        if (G_VALUE_HOLDS_INT(&value)) {
+            gchar *nick = xfce_notify_enum_nick_from_value(enum_type, g_value_get_int(&value));
+
+            if (nick != NULL) {
+                xfconf_channel_reset_property(channel, property_name, FALSE);
+                xfconf_channel_set_string(channel, property_name, nick);
+                g_free(nick);
+            }
+        }
+
+        g_value_unset(&value);
+    }
+}
+
+void
+xfce_notify_migrate_settings(XfconfChannel *channel) {
+    xfce_notify_migrate_log_max_size_setting(channel);
+    xfce_notify_migrate_show_notifications_on_setting(channel);
+    xfce_notify_migrate_enum_setting(channel, DATETIME_FORMAT_PROP, XFCE_TYPE_NOTIFY_DATETIME_FORMAT);
+    xfce_notify_migrate_enum_setting(channel, LOG_LEVEL_PROP, XFCE_TYPE_LOG_LEVEL);
+    xfce_notify_migrate_enum_setting(channel, LOG_LEVEL_APPS_PROP, XFCE_TYPE_LOG_LEVEL_APPS);
+    xfce_notify_migrate_enum_setting(channel, NOTIFY_LOCATION_PROP, XFCE_TYPE_NOTIFY_POSITION);
 }

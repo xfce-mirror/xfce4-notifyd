@@ -7,13 +7,16 @@ dnl Copyright (c) 2019 Simon Steinbeiss <simon@xfce.org>
 dnl
 
 m4_define([notifications_spec_version], [1.2])
+m4_define([libx11_minimum_version], [1.6.7])
 m4_define([glib_minimum_version], [2.68])
 m4_define([gtk_minimum_version], [3.22])
 m4_define([canberra_minimum_version], [0.30])
 m4_define([sqlite_minimum_version], [3.34])
+m4_define([dbus_minimum_version], [1.0])
+m4_define([systemd_minimum_version], [245])
 
 dnl version info
-XDT_VERSION_INIT([0.8.2])
+XDT_VERSION_INIT([0.8.2], [git])
 
 dnl init autoconf
 AC_INIT([xfce4-notifyd], [xdt_version],
@@ -59,9 +62,6 @@ AC_SUBST([GETTEXT_PACKAGE])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.20])
 
-dnl check for x11
-XDT_CHECK_LIBX11_REQUIRE()
-
 dnl check for required packages
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_minimum_version])
 XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [glib_minimum_version])
@@ -73,90 +73,76 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.12.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.10.0])
 XDT_CHECK_PACKAGE([SQLITE], [sqlite3], [sqlite_minimum_version])
+XDT_CHECK_PACKAGE([DBUS], [dbus-1], [dbus_minimum_version])
 
-XDT_CHECK_OPTIONAL_PACKAGE([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version], [gdk-x11], [X11 backend for GDK])
-XDT_CHECK_OPTIONAL_PACKAGE([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version], [gdk-wayland], [Wayland backend for GDK])
-XDT_CHECK_OPTIONAL_PACKAGE([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0], [gtk-layer-shell], [gtk-layer-shell Wayland library])
+XDT_CHECK_OPTIONAL_FEATURE([X11],
+                           [x11],
+                           [
+                               XDT_FEATURE_DEPENDENCY([LIBX11], [x11], [libx11_minimum_version])
+                               XDT_FEATURE_DEPENDENCY([GDK_X11], [gdk-x11-3.0], [gtk_minimum_version])
+                           ],
+                           [the X11 windowing system])
 
-if test x"$GDK_X11_FOUND" = x"yes"; then
-    enable_x11=yes
-    AC_DEFINE([ENABLE_X11], [1], [Set if X11 is enabled])
-else
-    enable_x11=no
-fi
+XDT_CHECK_OPTIONAL_FEATURE([WAYLAND],
+                           [wayland],
+                           [
+                               XDT_FEATURE_DEPENDENCY([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_minimum_version])
+                               XDT_FEATURE_DEPENDENCY([GTK_LAYER_SHELL], [gtk-layer-shell-0], [0.7.0])
+                           ],
+                           [the Wayland windowing system])
 
-if test x"$GDK_WAYLAND_FOUND" = x"yes" -a x"$GTK_LAYER_SHELL_FOUND" = x"yes"; then
-    enable_wayland=yes
-    AC_DEFINE([ENABLE_WAYLAND], [1], [Set if Wayland is enabled])
-else
-    enable_wayland=no
-fi
+XDT_CHECK_OPTIONAL_FEATURE([SOUND],
+                           [sound],
+                           [XDT_FEATURE_DEPENDENCY([CANBERRA_GTK], [libcanberra-gtk3], [canberra_minimum_version])],
+                           [notification sound])
 
-AC_ARG_ENABLE([sound],
-              [AS_HELP_STRING([--enable-sound],
-                              [Whether or not to enable sound support (default=auto)])],
-              [enable_sound=$enableval],
-              [enable_sound=auto])
-XDT_CHECK_OPTIONAL_PACKAGE([CANBERRA_GTK], [libcanberra-gtk3], [canberra_minimum_version], [canberra], [Canberra sound theme library])
+XDT_CHECK_PACKAGE_BINARY([GDBUS_CODEGEN], [gio-2.0], [gdbus_codegen], [gdbus-codegen])
+XDT_CHECK_PACKAGE_BINARY([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_resources], [glib-compile-resources])
+XDT_CHECK_PACKAGE_BINARY([GLIB_GENMARSHAL], [glib-2.0], [glib_genmarshal], [glib-genmarshal])
+XDT_CHECK_PACKAGE_BINARY([GLIB_MKENUMS], [glib-2.0], [glib_mkenums], [glib-mkenums])
 
-if test x"$enable_sound" != x"no"; then
-    if test x"$CANBERRA_GTK_FOUND" = x"yes"; then
-        enable_sound=yes
-        AC_DEFINE([ENABLE_SOUND], [1], [Set if sound is enabled])
-    elif test x"$enable_sound" = x"yes"; then
-        AC_MSG_ERROR([Sound support was requested, but dependencies were not met])
-        exit 1
-    fi
-else
-    enable_sound=no
-fi
-
-AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
-AC_MSG_CHECKING([for gdbus-codegen])
-if test x"$GDBUS_CODEGEN" = x""; then
-    GDBUS_CODEGEN=`$PKG_CONFIG --variable=gdbus_codegen gio-2.0`
-fi
-if test -x "$GDBUS_CODEGEN"; then
-    AC_MSG_RESULT([$GDBUS_CODEGEN])
-else
-    AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
-./configure GDBUS_CODEGEN=/path/to/gdbus-codegen
-to define a custom location for it.])
-fi
-
-AC_ARG_VAR([GLIB_COMPILE_RESOURCES], [GResource compiler/generator])
-AC_MSG_CHECKING([for glib-compile-resources])
-if test x"$GLIB_COMPILE_RESOURCES" = x""; then
-    GLIB_COMPILE_RESOURCES=`$PKG_CONFIG --variable=glib_compile_resources gio-2.0`
-fi
-if test -x "$GLIB_COMPILE_RESOURCES"; then
-    AC_MSG_RESULT([$GLIB_COMPILE_RESOURCES])
-else
-    AC_MSG_ERROR([could not find glib-compile-resources in \$PATH. You can run
-./configure GLIB_COMPILE_RESOURCES=/path/to/glib-compile-resources
-to define a custom location for it.])
-fi
-
-AC_ARG_VAR([GLIB_GENMARSHAL], [gclosure marshalling function generator])
-AC_MSG_CHECKING([for glib-genmarshal])
-if test x"$GLIB_GENMARSHAL" = x""; then
-    GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`
-fi
-if test -x "$GLIB_GENMARSHAL"; then
-    AC_MSG_RESULT([$GLIB_GENMARSHAL])
-else
-    AC_MSG_ERROR([could not find glib-genmarshal in \$PATH. You can run
-./configure GLIB_GENMARSHAL=/path/to/glib-genmarshal
-to define a custom location for it.])
-fi
-
-dnl dbus start daemon
+dnl d-bus activation files
 AC_ARG_ENABLE([dbus-start-daemon],
-              [AS_HELP_STRING([--enable-dbus-start-daemon],
-                              [Start daemon via DBus instead of regular session autostart. (default=no)])],
-              [use_dbus_start_daemon=$enableval], [use_dbus_start_daemon=no])
+              [AS_HELP_STRING([--disable-dbus-start-daemon],
+                              [Do not install the D-Bus auto-activation files (default=enabled)])],
+              [use_dbus_start_daemon=$enableval], [use_dbus_start_daemon=yes])
 AM_CONDITIONAL([USE_DBUS_START_DAEMON],
                [test "x$use_dbus_start_daemon" = "xyes"])
+
+AC_ARG_WITH([dbus-service-dir],
+            [AS_HELP_STRING([--with-dbus-service-dir=DIR],
+                            [Specifies the directory where D-Bus service activation files should be installed (default=${datadir}/dbus-1/services)])],
+            [dbus_service_dir=$withval], [dbus_service_dir="${datadir}/dbus-1/services"])
+if test x"$dbus_service_dir" = x"auto"; then
+    dbus_service_dir="`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`"
+fi
+DBUS_SERVICE_DIR="$dbus_service_dir"
+AC_SUBST([DBUS_SERVICE_DIR])
+
+dnl systemd service files
+XDT_CHECK_OPTIONAL_PACKAGE([SYSTEMD], [systemd], [systemd_minimum_version], [systemd], [systemd])
+AM_CONDITIONAL([USE_SYSTEMD], [test x"$SYSTEMD_FOUND" = x"yes"])
+
+dnl note that the default does not use ${libdir}, as that is often something
+dnl like ${prefix}/lib/x86_64-linux-gnu, which is generally not correct for
+dnl where systemd keeps unit files.
+AC_ARG_WITH([systemd-user-service-dir],
+            [AS_HELP_STRING([--with-systemd-user-service-dir=DIR],
+                            [Specifies the directory where user bus services should be installed (default=${prefix}/lib/systemd/user)])],
+            [systemd_user_service_dir=$withval], [systemd_user_service_dir="${prefix}/lib/systemd/user"])
+if test x"$systemd_user_service_dir" = x"auto"; then
+    systemd_user_service_dir="`$PKG_CONFIG --variable=systemd_user_unit_dir systemd`"
+fi
+SYSTEMD_USER_SERVICE_DIR="$systemd_user_service_dir"
+AC_SUBST([SYSTEMD_USER_SERVICE_DIR])
+
+dnl XDG autostart files
+AC_ARG_ENABLE([xdg-autostart],
+              [AS_HELP_STRING([--enable-xdg-autostart],
+                              [Install an XDG autostart file to start xfce4-notifyd when the desktop session starts (default=disabled)])],
+              [use_xdg_autostart=$enableval], [use_xdg_autostart=no])
+AM_CONDITIONAL([USE_XDG_AUTOSTART],
+               [test x"$use_xdg_autostart" = x"yes"])
 
 dnl create #define for spec version
 AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
@@ -192,12 +178,11 @@ echo "Build Configuration:"
 echo
 echo "* Installation prefix:       $libdir"
 echo "* Debug Support:             $enable_debug"
-echo "* X11 Support:               $enable_x11"
-echo "* Wayland Support:           $enable_wayland"
-echo "* Sound support:             $enable_sound"
-if test "x$use_dbus_start_daemon" = "xyes"; then
-echo "* Startup method:            DBus"
-else
-echo "* Startup method:            Autostart"
-fi
+echo "* X11 Support:               $ENABLE_X11"
+echo "* Wayland Support:           $ENABLE_WAYLAND"
+echo "* Sound support:             $ENABLE_SOUND"
+echo "* Startup methods:"
+echo "  - D-Bus activation:        $use_dbus_start_daemon ($DBUS_SERVICE_DIR)"
+echo "  - Systemd:                 $SYSTEMD_FOUND ($SYSTEMD_USER_SERVICE_DIR)"
+echo "  - XDG autostart:           $use_xdg_autostart ($sysconfdir/xdg/autostart)"
 echo

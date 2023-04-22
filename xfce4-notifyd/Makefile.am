@@ -6,6 +6,8 @@ xfce4_notifyd_PROGRAMS = \
 xfce4_notifyd_SOURCES = \
 	$(top_srcdir)/common/xfce-notify-common.h \
 	main.c \
+	xfce-notification.c \
+	xfce-notification.h \
 	xfce-notify-fdo-gbus.c \
 	xfce-notify-fdo-gbus.h \
 	xfce-notify-gbus.c \
@@ -18,6 +20,8 @@ xfce4_notifyd_SOURCES = \
 	xfce-notify-daemon-log.h \
 	xfce-notify-marshal.c \
 	xfce-notify-marshal.h \
+	xfce-notify-types.c \
+	xfce-notify-types.h \
 	xfce-notify-window.c \
 	xfce-notify-window.h
 
@@ -65,18 +69,18 @@ dist_noinst_DATA = \
 	xfce-notify-marshal.list
 
 if USE_DBUS_START_DAEMON
-servicedir = $(datadir)/dbus-1/services
+servicedir = $(DBUS_SERVICE_DIR)
 service_DATA = $(service_in_files:.service.in=.service)
+endif
 
-systemd_userdir = $(prefix)/lib/systemd/user
+if USE_SYSTEMD
+systemd_userdir = $(SYSTEMD_USER_SERVICE_DIR)
 systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
+endif
 
-distclean_service = $(service_DATA) $(systemd_user_DATA)
-else
+if USE_XDG_AUTOSTART
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
-
-distclean_autostart = $(autostart_DATA)
 endif
 
 built_xfce4_notifyd = \
@@ -91,11 +95,10 @@ BUILT_SOURCES = \
 	$(built_xfce4_notifyd)
 
 CLEANFILES = \
-	$(built_xfce4_notifyd)
-
-DISTCLEANFILES = \
-	$(distclean_autostart) \
-	$(distclean_autostart)
+	$(built_xfce4_notifyd) \
+	$(service_DATA) \
+	$(systemd_user_DATA) \
+	$(autostart_DATA)
 
 %.service: $(srcdir)/%.service.in Makefile
 	$(AM_V_GEN) sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@

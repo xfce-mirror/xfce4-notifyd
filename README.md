@@ -63,6 +63,16 @@ In order for xfce4-notifyd to be started automatically, you must have a
 you install xfce4-notifyd to a standard prefix (like `/usr`), you
 shouldn't have to worry about this.
 
+If you install xfce4-notifyd to a non-standard prefix, the D-Bus and
+systemd service and unit files will be installed to the non-standard
+prefix as well, in places where the respective daemons may not be able
+to find them.  You can pass `--with-dbus-service-dir=` and
+`--with-systemd-user-service-dir=` to `configure` in order to set the
+appropriate directories.  If you want `configure` to automatically
+figure out the correct places to put those files (which may be outside
+your installation prefix), you can pass `auto` as the value to those two
+command-line options.
+
 
 ## Configuration
 
@@ -77,13 +87,13 @@ There is currently only one hidden setting (all others are configurable
 via the settings dialog), which can be set using `xfconf-query` (on
 channel `xfce4-notifyd`):
 
-* '/compat/use-override-redirect-windows` (boolean): this defaults to
+* `/compat/use-override-redirect-windows` (boolean): this defaults to
   `false`.  If your window manager displays notification windows in a
   strange way (gives it borders or a titlebar, doesn't allow it above
   fullscreen windows, etc.), you can try setting this to `true`.  Be
-  aware, though, that notifications may end up being display above your
-  screen saver / screen locker, which you might consider an unacceptable
-  security risk.
+  aware, though, that notifications may end up being displayed above
+  your screen saver / screen locker, which you might consider an
+  unacceptable security risk.
 
 
 ## Theming

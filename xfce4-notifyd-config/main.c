@@ -39,6 +39,7 @@
 #include <libnotify/notify.h>
 
 #include <common/xfce-notify-common.h>
+#include <common/xfce-notify-enum-types.h>
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
 
@@ -53,12 +54,6 @@ typedef struct
     GtkWidget  *infobar_label;
 } NotificationLogWidgets;
 
-typedef struct
-{
-    GtkWidget  *do_slideout;
-    GtkWidget  *do_slideout_label;
-} NotificationSlideoutWidgets;
-
 typedef struct {
     XfconfChannel *channel;
     XfceNotifyLogGBus *log;
@@ -66,7 +61,6 @@ typedef struct {
     GtkWidget *known_applications_listbox;
 
     NotificationLogWidgets log_widgets;
-    NotificationSlideoutWidgets slideout_widgets;
 } SettingsPanel;
 
 typedef struct
@@ -520,7 +514,7 @@ xfce_notify_count_apps_in_log(GHashTable *app_id_counts, GPtrArray *known_applic
 
         app_ids = g_hash_table_get_keys(app_id_counts);
         for (GList *l = app_ids; l != NULL; l = l->next) {
-            gchar *app_id = l->data;
+            gchar *app_id = l->data != NULL ? l->data : "";
             if (g_hash_table_contains(counts, app_id)) {
                 g_hash_table_insert(counts, app_id, g_hash_table_lookup(app_id_counts, app_id));
             }
@@ -899,21 +893,6 @@ xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
 }
 
 static void
-xfce4_notifyd_do_fadeout_activated (GtkSwitch *do_fadeout,
-                                    gboolean state,
-                                    SettingsPanel *panel)
-{
-    NotificationSlideoutWidgets *slideout_widgets = &panel->slideout_widgets;
-
-    /* The sliding out animation is only available along with fade-out */
-    if (state == FALSE)
-        gtk_switch_set_active (GTK_SWITCH (slideout_widgets->do_slideout), FALSE);
-    gtk_widget_set_sensitive (slideout_widgets->do_slideout, state);
-    gtk_widget_set_sensitive (slideout_widgets->do_slideout_label, state);
-    gtk_switch_set_active (GTK_SWITCH (do_fadeout), state);
-}
-
-static void
 xfce4_notifyd_log_activated (GtkSwitch *log_switch,
                              gboolean state,
                              SettingsPanel *panel)
@@ -958,7 +937,7 @@ static void xfce_notify_bus_name_vanished_cb (GDBusConnection *connection,
 
 static void
 datetime_format_changed(GtkWidget *combo, GtkWidget *entry) {
-    gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
+    gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_NOTIFY_DATETIME_CUSTOM);
 }
 
 static GtkWidget *
@@ -978,9 +957,10 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *do_not_disturb_info;
     GtkWidget *log_switch;
     GtkWidget *log_viewer_box;
-    GtkWidget *primary_monitor;
+    GtkWidget *show_notifications_on;
     GtkWidget *mute_sounds;
     GtkWidget *do_fadeout;
+    GtkWidget *do_slideout;
     GtkWidget *show_text_with_gauge;
     GtkWidget *datetime_format;
     GtkWidget *custom_datetime_format;
@@ -1009,7 +989,9 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, NOTIFICATION_DISPLAY_FIELDS_PROP, G_TYPE_STRING,
                            G_OBJECT(display_fields_combo), "active-id");
     if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(display_fields_combo)) == NULL) {
-        gtk_combo_box_set_active_id(GTK_COMBO_BOX(display_fields_combo), DISPLAY_FIELDS_DEFAULT);
+        gchar *nick = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_DISPLAY_FIELDS, DISPLAY_FIELDS_DEFAULT);
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(display_fields_combo), nick);
+        g_free(nick);
     }
 
     do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
@@ -1026,11 +1008,14 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, GAUGE_IGNORES_DND_PROP, G_TYPE_BOOLEAN,
                            G_OBJECT(btn), "active");
 
-    primary_monitor = GTK_WIDGET(gtk_builder_get_object(builder, "primary_monitor"));
-    xfconf_g_property_bind(panel->channel, "/primary-monitor", G_TYPE_UINT,
-                           G_OBJECT(primary_monitor), "active");
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(primary_monitor)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(primary_monitor), 0);
+    show_notifications_on = GTK_WIDGET(gtk_builder_get_object(builder, "show_notifications_on"));
+    xfconf_g_property_bind(panel->channel, SHOW_NOTIFICATIONS_ON_PROP, G_TYPE_STRING,
+                           G_OBJECT(show_notifications_on), "active-id");
+    if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(show_notifications_on)) == NULL) {
+        gchar *nick = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_SHOW_ON, SHOW_NOTIFICATIONS_ON_DEFAULT);
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(show_notifications_on), nick);
+        g_free(nick);
+    }
 
     mute_sounds = GTK_WIDGET(gtk_builder_get_object(builder, "mute_sounds"));
 #ifdef ENABLE_SOUND
@@ -1054,10 +1039,8 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                      theme_combo);
 
     position_combo = GTK_WIDGET(gtk_builder_get_object(builder, "position_combo"));
-    xfconf_g_property_bind(panel->channel, "/notify-location", G_TYPE_UINT,
-                           G_OBJECT(position_combo), "active");
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(position_combo)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(position_combo), GTK_CORNER_TOP_RIGHT);
+    xfconf_g_property_bind(panel->channel, NOTIFY_LOCATION_PROP, G_TYPE_STRING,
+                           G_OBJECT(position_combo), "active-id");
 
     slider = GTK_WIDGET(gtk_builder_get_object(builder, "opacity_slider"));
     g_signal_connect(G_OBJECT(slider), "format-value",
@@ -1086,26 +1069,21 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, "/do-fadeout", G_TYPE_BOOLEAN,
                            G_OBJECT(do_fadeout), "active");
 
-    panel->slideout_widgets.do_slideout_label = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout_label"));
-    panel->slideout_widgets.do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
+    do_slideout = GTK_WIDGET(gtk_builder_get_object(builder, "do_slideout"));
     xfconf_g_property_bind(panel->channel, "/do-slideout", G_TYPE_BOOLEAN,
-                           G_OBJECT(panel->slideout_widgets.do_slideout), "active");
-    g_signal_connect (G_OBJECT (do_fadeout), "state-set",
-                      G_CALLBACK (xfce4_notifyd_do_fadeout_activated), panel);
-    if (gtk_switch_get_active (GTK_SWITCH (do_fadeout)) == FALSE) {
-        gtk_widget_set_sensitive (panel->slideout_widgets.do_slideout_label, FALSE);
-        gtk_widget_set_sensitive (panel->slideout_widgets.do_slideout, FALSE);
-    }
+                           G_OBJECT(do_slideout), "active");
 
     show_text_with_gauge = GTK_WIDGET(gtk_builder_get_object(builder, "show_text_with_gauge"));
     xfconf_g_property_bind(panel->channel, "/show-text-with-gauge", G_TYPE_BOOLEAN,
                            G_OBJECT(show_text_with_gauge), "active");
 
     datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "datetime_format"));
-    xfconf_g_property_bind(panel->channel, DATETIME_FORMAT_PROP, G_TYPE_INT,
-                           G_OBJECT(datetime_format), "active");
-    if (gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == -1) {
-        gtk_combo_box_set_active(GTK_COMBO_BOX(datetime_format), XFCE_DATE_TIME_FORMAT_LOCALE);
+    xfconf_g_property_bind(panel->channel, DATETIME_FORMAT_PROP, G_TYPE_STRING,
+                           G_OBJECT(datetime_format), "active-id");
+    if (gtk_combo_box_get_active_id(GTK_COMBO_BOX(datetime_format)) == NULL) {
+        gchar *nick = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_DATETIME_FORMAT, DATETIME_FORMAT_DEFAULT);
+        gtk_combo_box_set_active_id(GTK_COMBO_BOX(datetime_format), nick);
+        g_free(nick);
     }
 
     custom_datetime_format = GTK_WIDGET(gtk_builder_get_object(builder, "custom_datetime_format"));
@@ -1114,7 +1092,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     if (g_strcmp0(gtk_entry_get_text(GTK_ENTRY(custom_datetime_format)), "") == 0) {
         gtk_entry_set_text(GTK_ENTRY(custom_datetime_format), DATETIME_CUSTOM_FORMAT_DEFAULT);
     }
-    gtk_widget_set_sensitive(custom_datetime_format, gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == XFCE_DATE_TIME_FORMAT_CUSTOM);
+    gtk_widget_set_sensitive(custom_datetime_format, gtk_combo_box_get_active(GTK_COMBO_BOX(datetime_format)) == XFCE_NOTIFY_DATETIME_CUSTOM);
     g_signal_connect(datetime_format, "changed",
                      G_CALLBACK(datetime_format_changed), custom_datetime_format);
 
@@ -1144,21 +1122,23 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     /**********
         LOG   *
      **********/
-    panel->log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
-    panel->log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
-    panel->log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
     panel->log_widgets.infobar_label = GTK_WIDGET (gtk_builder_get_object (builder, "infobar_label"));
+
     log_switch = GTK_WIDGET (gtk_builder_get_object (builder, "log_switch"));
     xfconf_g_property_bind (panel->channel, "/notification-log", G_TYPE_BOOLEAN,
                             G_OBJECT (log_switch), "active");
     g_signal_connect (G_OBJECT (log_switch), "state-set",
                       G_CALLBACK (xfce4_notifyd_log_activated), panel);
-    xfconf_g_property_bind(panel->channel, "/log-level", G_TYPE_UINT,
-                           G_OBJECT(panel->log_widgets.log_level), "active");
-    xfconf_g_property_bind(panel->channel, "/log-level-apps", G_TYPE_UINT,
-                          G_OBJECT(panel->log_widgets.log_level_apps), "active");
 
-    xfce_notify_migrate_log_max_size_setting(panel->channel);
+    panel->log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
+    xfconf_g_property_bind(panel->channel, LOG_LEVEL_PROP, G_TYPE_STRING,
+                           G_OBJECT(panel->log_widgets.log_level), "active-id");
+
+    panel->log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
+    panel->log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
+    xfconf_g_property_bind(panel->channel, LOG_LEVEL_APPS_PROP, G_TYPE_STRING,
+                          G_OBJECT(panel->log_widgets.log_level_apps), "active-id");
+
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "log_max_size_enabled"));
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_ENABLED_PROP, G_TYPE_BOOLEAN,
                            G_OBJECT(btn), "active");
@@ -1168,11 +1148,6 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_PROP, G_TYPE_UINT,
                            G_OBJECT(sbtn), "value");
 
-    /* Initialize the settings' states correctly */
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(panel->log_widgets.log_level)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(panel->log_widgets.log_level), 0);
-    if(gtk_combo_box_get_active(GTK_COMBO_BOX(panel->log_widgets.log_level_apps)) == -1)
-        gtk_combo_box_set_active(GTK_COMBO_BOX(panel->log_widgets.log_level_apps), 0);
     xfce4_notifyd_log_activated (GTK_SWITCH (log_switch), gtk_switch_get_active (GTK_SWITCH(log_switch)), panel);
 
     log_viewer_box = GTK_WIDGET(gtk_builder_get_object(builder, "log_viewer_box"));
@@ -1252,6 +1227,7 @@ main(int argc,
     }
 
     panel->channel = xfconf_channel_new("xfce4-notifyd");
+    xfce_notify_migrate_settings(panel->channel);
 
     panel->log = xfce_notify_log_gbus_proxy_new_for_bus_sync(G_BUS_TYPE_SESSION,
                                                              0,

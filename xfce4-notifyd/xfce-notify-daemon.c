@@ -44,9 +44,11 @@
 #endif
 
 #include <common/xfce-notify-common.h>
+#include <common/xfce-notify-enum-types.h>
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
 
+#include "xfce-notification.h"
 #include "xfce-notify-daemon.h"
 #include "xfce-notify-daemon-log.h"
 #include "xfce-notify-fdo-gbus.h"
@@ -57,12 +59,6 @@
 
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
-
-typedef enum {
-    XFCE_NOTIFY_DISPLAY_FULL,
-    XFCE_NOTIFY_DISPLAY_SUMMARY,
-    XFCE_NOTIFY_DISPLAY_APP_NAME,
-} XfceNotifyDisplayFields;
 
 struct _XfceNotifyDaemon
 {
@@ -77,7 +73,7 @@ struct _XfceNotifyDaemon
     guint bus_name_id;
     guint notifyd_bus_name_id;
     gdouble initial_opacity;
-    GtkCornerType notify_location;
+    XfceNotifyPosition notify_location;
     gboolean do_fadeout;
     gboolean do_slideout;
     XfceNotifyDisplayFields display_fields;
@@ -85,13 +81,13 @@ struct _XfceNotifyDaemon
     gboolean gauge_ignores_dnd;
     gboolean notification_log;
     gboolean show_text_with_gauge;
-    gint primary_monitor;
+    XfceNotifyShowOn show_notifications_on;
     gboolean windows_use_override_redirect;
 
     XfceNotifyDaemonLog *xndlog;
     XfceNotifyLog *log;
-    gint log_level;
-    gint log_level_apps;
+    XfceLogLevel log_level;
+    XfceLogLevelApps log_level_apps;
     gboolean log_max_size_enabled;
     gint log_max_size;
 
@@ -119,13 +115,9 @@ typedef struct
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
-typedef gint (*EnumConverter)(const gchar *str);
-
-static gint xfce_notify_display_fields_from_string(const gchar *str);
-
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
-const struct {
+static struct {
     const gchar *name;
     GType type;
     gsize offset;
@@ -136,7 +128,6 @@ const struct {
         gboolean b;
         const gchar *s;
     } default_value;
-    EnumConverter enum_conv;
 } settings[] = {
     {
         .name = EXPIRE_TIMEOUT_ENABLED_PROP,
@@ -163,19 +154,19 @@ const struct {
         .default_value.d = 0.9,
     },
     {
-        .name = "/notify-location",
-        .type = G_TYPE_UINT,
+        .name = NOTIFY_LOCATION_PROP,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, notify_location),
-        .default_value.u = GTK_CORNER_TOP_RIGHT,
+        .default_value.i = XFCE_NOTIFY_POS_TOP_RIGHT,
     },
     {
-        .name = "/do-fadeout",
+        .name = DO_FADEOUT_PROP,
         .type = G_TYPE_BOOLEAN,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_fadeout),
         .default_value.b = TRUE,
     },
     {
-        .name = "/do-slideout",
+        .name = DO_SLIDEOUT_PROP,
         .type = G_TYPE_BOOLEAN,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_slideout),
         .default_value.b = FALSE,
@@ -195,17 +186,16 @@ const struct {
     },
 #endif
     {
-        .name = "/primary-monitor",
-        .type = G_TYPE_UINT,
-        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, primary_monitor),
-        .default_value.u = 0,
+        .name = SHOW_NOTIFICATIONS_ON_PROP,
+        .type = 0,  // To be filled in later
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_notifications_on),
+        .default_value.i = SHOW_NOTIFICATIONS_ON_DEFAULT,
     },
     {
         .name = NOTIFICATION_DISPLAY_FIELDS_PROP,
-        .type = G_TYPE_STRING,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, display_fields),
-        .default_value.s = DISPLAY_FIELDS_DEFAULT,
-        .enum_conv = xfce_notify_display_fields_from_string,
+        .default_value.i = DISPLAY_FIELDS_DEFAULT,
     },
     {
         .name = "/do-not-disturb",
@@ -226,16 +216,16 @@ const struct {
         .default_value.b = FALSE,
     },
     {
-        .name = "/log-level",
-        .type = G_TYPE_UINT,
+        .name = LOG_LEVEL_PROP,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_level),
-        .default_value.u = 0,
+        .default_value.i = LOG_LEVEL_DEFAULT,
     },
     {
-        .name = "/log-level-apps",
-        .type = G_TYPE_UINT,
+        .name = LOG_LEVEL_APPS_PROP,
+        .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, log_level_apps),
-        .default_value.u = 0,
+        .default_value.u = LOG_LEVEL_APPS_DEFAULT,
     },
     {
         .name = LOG_MAX_SIZE_ENABLED_PROP,
@@ -256,6 +246,8 @@ const struct {
         .default_value.b = FALSE,
     },
 };
+
+static void xfce_notify_daemon_settings_init(void);
 
 static void xfce_notify_daemon_screen_changed(GdkScreen *screen,
                                               gpointer user_data);
@@ -329,6 +321,8 @@ xfce_notify_daemon_class_init(XfceNotifyDaemonClass *klass)
 
     gobject_class->finalize = xfce_notify_daemon_finalize;
     gobject_class->constructed = xfce_notify_daemon_constructed;
+
+    xfce_notify_daemon_settings_init();
 }
 
 
@@ -592,48 +586,13 @@ xfce_notify_daemon_constructed(GObject *obj) {
 }
 
 static void
-log_row_added(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_row_added(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id);
-    }
-}
-
-static void
-log_row_changed(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_row_changed(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id != NULL ? entry_id : "");
-    }
-}
-
-static void
-log_row_deleted(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_row_deleted(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), entry_id);
-    }
-}
-
-static void
-log_truncated(XfceNotifyLog *log, guint n_kept_entries, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_truncated(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog), n_kept_entries);
-    }
-}
-
-static void
-log_cleared(XfceNotifyLog *log, XfceNotifyDaemon *xndaemon) {
-    if (xndaemon->xndlog != NULL) {
-        xfce_notify_log_gbus_emit_cleared(XFCE_NOTIFY_LOG_GBUS(xndaemon->xndlog));
-    }
-}
-
-static void
 xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
 {
     GError *error = NULL;
 
     xndaemon->active_notifications = g_tree_new_full(xfce_uint_compare,
                                                      NULL, NULL,
-                                                     (GDestroyNotify)gtk_widget_destroy);
+                                                     (GDestroyNotify)g_object_unref);
 
     xndaemon->last_notification_id = 1;
     xndaemon->reserved_rectangles = NULL;
@@ -651,17 +610,6 @@ xfce_notify_daemon_init(XfceNotifyDaemon *xndaemon)
         if (error != NULL) {
             g_error_free(error);
         }
-    } else {
-        g_signal_connect(xndaemon->log, "row-added",
-                         G_CALLBACK(log_row_added), xndaemon);
-        g_signal_connect(xndaemon->log, "row-changed",
-                         G_CALLBACK(log_row_changed), xndaemon);
-        g_signal_connect(xndaemon->log, "row-deleted",
-                         G_CALLBACK(log_row_deleted), xndaemon);
-        g_signal_connect(xndaemon->log, "truncated",
-                         G_CALLBACK(log_truncated), xndaemon);
-        g_signal_connect(xndaemon->log, "cleared",
-                         G_CALLBACK(log_cleared), xndaemon);
     }
 }
 
@@ -741,76 +689,105 @@ xfce_notify_daemon_generate_id(XfceNotifyDaemon *xndaemon)
 }
 
 static void
-xfce_notify_daemon_window_action_invoked(XfceNotifyWindow *window,
-                                         const gchar *action,
-                                         gpointer user_data)
+xfce_notify_daemon_action_invoked(XfceNotification *notification,
+                                  const gchar *action,
+                                  XfceNotifyDaemon *xndaemon)
 {
-    XfceNotifyDaemon *xndaemon = user_data;
-    guint id = xfce_notify_window_get_id(window);
+    guint id = xfce_notification_get_id(notification);
 
-    if (G_LIKELY(id > 0)) {
-        xfce_notify_fdo_gbus_emit_action_invoked(XFCE_NOTIFY_FDO_GBUS(xndaemon),
-                                                 id,
-                                                 action);
-    } else {
-        g_warning("Notify window somehow didn't have an ID");
-    }
+    g_return_if_fail(id > 0);
+
+    xfce_notify_fdo_gbus_emit_action_invoked(XFCE_NOTIFY_FDO_GBUS(xndaemon),
+                                             id,
+                                             action);
 }
 
 static void
-xfce_notify_daemon_window_closed(XfceNotifyWindow *window,
-                                 XfceNotifyCloseReason reason,
-                                 gpointer user_data)
+xfce_notify_daemon_closed(XfceNotification *notification,
+                          XfceNotifyCloseReason reason,
+                          XfceNotifyDaemon *xndaemon)
 {
-    XfceNotifyDaemon *xndaemon = user_data;
-    guint id = xfce_notify_window_get_id(window);
-    GList *list;
-    gint monitor = xfce_notify_window_get_last_monitor(window);
+    guint id = xfce_notification_get_id(notification);
 
-    if (G_LIKELY(monitor >= 0)) {
-        /* Remove the reserved rectangle from the list */
-        list = xndaemon->reserved_rectangles[monitor];
-        list = g_list_remove(list, xfce_notify_window_get_geometry(window));
-        xndaemon->reserved_rectangles[monitor] = list;
+    for (GList *l = xfce_notification_get_windows(notification); l != NULL; l = l->next) {
+        XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(l->data);
+        GdkMonitor *monitor = xfce_notify_window_get_monitor(window);
+        gint monitor_num = xfce_notify_daemon_get_monitor_index(gdk_display_get_default(), monitor);
+
+        if (G_LIKELY(monitor_num >= 0)) {
+            /* Remove the reserved rectangle from the list */
+            GList *list = xndaemon->reserved_rectangles[monitor_num];
+            list = g_list_remove(list, xfce_notify_window_get_geometry(window));
+            xndaemon->reserved_rectangles[monitor_num] = list;
+        }
     }
 
     if (reason == XFCE_NOTIFY_CLOSE_REASON_DISMISSED && xndaemon->log != NULL) {
-        const gchar *log_id = xfce_notify_window_get_log_id(window);
+        const gchar *log_id = xfce_notification_get_log_id(notification);
 
         if (log_id != NULL) {
             xfce_notify_log_mark_read(xndaemon->log, log_id);
         }
     }
 
-    if (G_LIKELY(id > 0)) {
-        g_tree_remove(xndaemon->active_notifications, GUINT_TO_POINTER(id));
+    g_return_if_fail(id > 0);
+    g_tree_remove(xndaemon->active_notifications, GUINT_TO_POINTER(id));
+    xfce_notify_fdo_gbus_emit_notification_closed(XFCE_NOTIFY_FDO_GBUS(xndaemon),
+                                                  id,
+                                                  (guint)reason);
+}
 
-        xfce_notify_fdo_gbus_emit_notification_closed(XFCE_NOTIFY_FDO_GBUS(xndaemon),
-                                                      id,
-                                                      (guint)reason);
-    } else {
-        g_warning("Notify window somehow didn't have an ID");
+static gboolean
+xfce_notify_daemon_is_window_position_free(XfceNotifyDaemon *xndaemon,
+                                           gint monitor_num,
+                                           GdkRectangle *position,
+                                           GdkRectangle *overlap_rect)
+{
+    for (GList *l = xndaemon->reserved_rectangles[monitor_num]; l; l = l->next) {
+        GdkRectangle *rectangle = l->data;
+
+        DBG("Overlaps with (x=%i, y=%i) ?", rectangle->x, rectangle->y);
+
+        if (gdk_rectangle_intersect(rectangle, position, NULL)) {
+            DBG("Yes");
+            *overlap_rect = *rectangle;
+            return FALSE;
+        } else {
+            DBG("No");
+        }
     }
+
+    return TRUE;
 }
 
 static void
 xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
                                              XfceNotifyWindow *window,
-                                             GdkScreen *screen,
                                              GdkMonitor *monitor)
 {
     GtkWidget *widget = GTK_WIDGET(window);
+    GdkScreen *screen;
     GtkAllocation allocation;
     GdkRectangle geom, initial, widget_geom;
     gint monitor_num;
-    gint max_width;
+    gint max_width = 0;
+    gboolean found = FALSE;
+    gboolean is_center = xndaemon->notify_location == XFCE_NOTIFY_POS_TOP_CENTER ||
+        xndaemon->notify_location == XFCE_NOTIFY_POS_BOTTOM_CENTER;
+    gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
+    gboolean center_opposite = FALSE;
+
+    if (gtk_widget_has_screen(widget)) {
+        screen = gtk_widget_get_screen(widget);
+    } else {
+        screen = gdk_screen_get_default();
+        gtk_window_set_screen(GTK_WINDOW(widget), screen);
+    }
 
     gtk_widget_get_allocation(widget, &allocation);
     monitor_num = xfce_notify_daemon_get_monitor_index(gdk_screen_get_display(screen), monitor);
     g_return_if_fail(monitor_num >= 0);
     geom = xndaemon->monitors_workarea[monitor_num];
-
-    gtk_window_set_screen(GTK_WINDOW(widget), screen);
 
     DBG("placing window, allocation=%dx%d+%d+%d", allocation.width, allocation.height, allocation.x, allocation.y);
 
@@ -819,20 +796,28 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     initial.height = allocation.height;
 
     switch(xndaemon->notify_location) {
-        case GTK_CORNER_TOP_LEFT:
+        case XFCE_NOTIFY_POS_TOP_LEFT:
             initial.x = geom.x + SPACE;
             initial.y = geom.y + SPACE;
             break;
-        case GTK_CORNER_BOTTOM_LEFT:
+        case XFCE_NOTIFY_POS_BOTTOM_LEFT:
             initial.x = geom.x + SPACE;
             initial.y = geom.y + geom.height - allocation.height - SPACE;
             break;
-        case GTK_CORNER_TOP_RIGHT:
+        case XFCE_NOTIFY_POS_TOP_RIGHT:
             initial.x = geom.x + geom.width - allocation.width - SPACE;
             initial.y = geom.y + SPACE;
             break;
-        case GTK_CORNER_BOTTOM_RIGHT:
+        case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
             initial.x = geom.x + geom.width - allocation.width - SPACE;
+            initial.y = geom.y + geom.height - allocation.height - SPACE;
+            break;
+        case XFCE_NOTIFY_POS_TOP_CENTER:
+            initial.x = geom.x + (geom.width / 2) - (allocation.width / 2);
+            initial.y = geom.y + SPACE;
+            break;
+        case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+            initial.x = geom.x + (geom.width / 2) - (allocation.width / 2);
             initial.y = geom.y + geom.height - allocation.height - SPACE;
             break;
         default:
@@ -844,134 +829,89 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     widget_geom.y = initial.y;
     widget_geom.width = initial.width;
     widget_geom.height = initial.height;
-    max_width = 0;
 
-    if (xndaemon->reserved_rectangles[monitor_num] != NULL) {
-        gboolean found = FALSE;
+    while (!found) {
+        GdkRectangle overlap_rect = { 0, };
 
-        /* Else, we try to find the appropriate position on the monitor */
-        while(!found) {
-            gboolean overlaps = FALSE;
-            GList *l = NULL;
-            gint notification_y, notification_height;
-
-            DBG("Test if the candidate overlaps one of the existing notifications.");
-
-            for(l = xndaemon->reserved_rectangles[monitor_num]; l; l = l->next) {
-                GdkRectangle *rectangle = l->data;
-
-                DBG("Overlaps with (x=%i, y=%i) ?", rectangle->x, rectangle->y);
-
-                overlaps =  overlaps || gdk_rectangle_intersect(rectangle, &widget_geom, NULL);
-
-                if(overlaps) {
-                    DBG("Yes");
-
-                    if(rectangle->width > max_width)
-                        max_width = rectangle->width;
-
-                    notification_y = rectangle->y;
-                    notification_height = rectangle->height;
-
-                    break;
-                } else
-                    DBG("No");
+        DBG("Test if the candidate overlaps one of the existing notifications.");
+        if (xfce_notify_daemon_is_window_position_free(xndaemon, monitor_num, &widget_geom, &overlap_rect)) {
+            DBG("We found a correct position.");
+            found = TRUE;
+        } else {
+            if (overlap_rect.width > max_width) {
+                max_width = overlap_rect.width;
             }
 
-            if(!overlaps) {
-                DBG("We found a correct position.");
-                found = TRUE;
-            } else {
-                switch(xndaemon->notify_location) {
-                    case GTK_CORNER_TOP_LEFT:
-                        DBG("Try under the current candiadate position.");
-                        widget_geom.y = notification_y + notification_height + SPACE;
+            DBG("Try above/below the current candidate position.");
+            switch (xndaemon->notify_location) {
+                case XFCE_NOTIFY_POS_TOP_LEFT:
+                case XFCE_NOTIFY_POS_TOP_RIGHT:
+                case XFCE_NOTIFY_POS_TOP_CENTER:
+                    widget_geom.y = overlap_rect.y + overlap_rect.height + SPACE;
+                    break;
+                case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+                case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                    widget_geom.y = overlap_rect.y - widget_geom.height - SPACE;
+                    break;
+            }
 
-                        if(widget_geom.y + widget_geom.height > geom.height + geom.y) {
-                            DBG("We reached the bottom of the monitor");
-                            widget_geom.y = geom.y + SPACE;
+            if (is_center) {
+                // Since we initially center on the monitor, notifications of different widths
+                // will also be centered on the monitor.  But we really want neat columns that
+                // are left- or right-justified, so we have to adjust the x coord here too.
+                if ((is_ltr && !center_opposite) || (!is_ltr && center_opposite)) {
+                    widget_geom.x = overlap_rect.x;
+                } else {
+                    widget_geom.x = overlap_rect.x + overlap_rect.width - widget_geom.width;
+                }
+            }
+
+            if (widget_geom.y < geom.y || widget_geom.y + widget_geom.height > geom.y + geom.height) {
+                DBG("We reached the top/bottom of the monitor");
+                switch (xndaemon->notify_location) {
+                    case XFCE_NOTIFY_POS_TOP_LEFT:
+                    case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+                        widget_geom.x = widget_geom.x + max_width + SPACE;
+                        break;
+                    case XFCE_NOTIFY_POS_TOP_RIGHT:
+                    case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                        widget_geom.x = widget_geom.x - max_width - SPACE;
+                        break;
+                    case XFCE_NOTIFY_POS_TOP_CENTER:
+                    case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                        // Whether we try a column to the left or right depends on whether
+                        // or not we've exhausted all the space on the initial side of the
+                        // monitor.
+                        if ((is_ltr && !center_opposite) || (!is_ltr && center_opposite)) {
                             widget_geom.x = widget_geom.x + max_width + SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x + widget_geom.width > geom.width + geom.x) {
-                                DBG("There was no free space.");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
-                        break;
-                    case GTK_CORNER_BOTTOM_LEFT:
-                        DBG("Try above the current candidate position");
-                        widget_geom.y = notification_y - widget_geom.height - SPACE;
-
-                        if(widget_geom.y < geom.y) {
-                            DBG("We reached the top of the monitor");
-                            widget_geom.y = geom.y + geom.height - widget_geom.height - SPACE;
-                            widget_geom.x = widget_geom.x + max_width + SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x + widget_geom.width > geom.width + geom.x) {
-                                DBG("There was no free space.");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
-                        break;
-                    case GTK_CORNER_TOP_RIGHT:
-                        DBG("Try under the current candidate position.");
-                        widget_geom.y = notification_y + notification_height + SPACE;
-
-                        if(widget_geom.y + widget_geom.height > geom.height + geom.y) {
-                            DBG("We reached the bottom of the monitor");
-                            widget_geom.y = geom.y + SPACE;
+                        } else {
                             widget_geom.x = widget_geom.x - max_width - SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x < geom.x) {
-                                DBG("There was no free space.");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
                         }
                         break;
-                    case GTK_CORNER_BOTTOM_RIGHT:
-                        DBG("Try above the current candidate position");
-                        widget_geom.y = notification_y - widget_geom.height - SPACE;
+                }
+                widget_geom.y = initial.y;
+                max_width = 0;
 
-                        if(widget_geom.y < geom.y) {
-                            DBG("We reached the top of the screen");
-                            widget_geom.y = geom.y + geom.height - widget_geom.height - SPACE;
-                            widget_geom.x = widget_geom.x - max_width - SPACE;
-                            max_width = 0;
-
-                            if(widget_geom.x < geom.x) {
-                                DBG("There was no free space");
-                                widget_geom.x = initial.x;
-                                widget_geom.y = initial.y;
-                                found = TRUE;
-                            }
-                        }
-                        break;
-
-                    default:
-                        g_warning("Invalid notify location: %d", xndaemon->notify_location);
-                        return;
+                if (widget_geom.x < geom.x || widget_geom.x + widget_geom.width > geom.x + geom.width) {
+                    if (is_center && !center_opposite) {
+                        DBG("Center positioning; use other side of center");
+                        center_opposite = TRUE;
+                    } else {
+                        DBG("There was no free space.");
+                        found = TRUE;
+                    }
+                    widget_geom.x = initial.x;
+                    widget_geom.y = initial.y;
                 }
             }
         }
     }
 
+    DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
     xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
-    xfce_notify_window_set_last_monitor(XFCE_NOTIFY_WINDOW(widget), monitor_num);
-
     xndaemon->reserved_rectangles[monitor_num] = g_list_prepend(xndaemon->reserved_rectangles[monitor_num],
                                                                 xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
-
-    DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
-    gtk_window_move(GTK_WINDOW(widget), widget_geom.x, widget_geom.y);
 }
 
 static void
@@ -981,34 +921,33 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
 {
     XfceNotifyDaemon *xndaemon = user_data;
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-    GdkScreen *screen = NULL;
-    GdkDevice *pointer;
     GdkScreen *widget_screen;
     GdkDisplay *display;
-    GdkSeat *seat;
     GdkMonitor *monitor;
-    gint x, y, monitor_num, old_monitor;
+    gint monitor_num;
     GdkRectangle old_geom, geom;
+    gint cur_x, cur_y;
 
-    DBG("Size allocate called for %d", xndaemon->last_notification_id);
+    DBG("Size allocate called for %d", xfce_notify_window_get_id(window));
 
     gtk_widget_set_allocation(widget, allocation);
 
     old_geom = *xfce_notify_window_get_geometry(window);
-    old_monitor = xfce_notify_window_get_last_monitor(window);
+
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+        gtk_window_get_position(GTK_WINDOW(widget), &cur_x, &cur_y);
+    } else
+#endif
+    {
+        cur_x = old_geom.x;
+        cur_y = old_geom.y;
+    }
 
     widget_screen = gtk_widget_get_screen (widget);
     display = gdk_screen_get_display(widget_screen);
-    seat = gdk_display_get_default_seat(display);
-    pointer = gdk_seat_get_pointer (seat);
 
-    gdk_device_get_position (pointer, &screen, &x, &y);
-
-    if (xndaemon->primary_monitor == 1) {
-        monitor = gdk_display_get_primary_monitor(display);
-    } else {
-        monitor = gdk_display_get_monitor_at_point(display, x, y);
-    }
+    monitor = xfce_notify_window_get_monitor(window);
     monitor_num = xfce_notify_daemon_get_monitor_index(display, monitor);
 
     DBG("We are on the monitor %i", monitor_num);
@@ -1022,18 +961,21 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
         /* Notification has already been placed previously. */
         GdkRectangle geom_union;
         gdk_rectangle_union(&old_geom, &geom, &geom_union);
-        if(monitor_num == old_monitor && allocation->width == old_geom.width && allocation->height == old_geom.height
-           && gdk_rectangle_equal(&geom, &geom_union) && screen == gtk_window_get_screen(GTK_WINDOW(widget)))
+        if (allocation->width == old_geom.width
+            && allocation->height == old_geom.height
+            && gdk_rectangle_equal(&geom, &geom_union)
+            && old_geom.x == cur_x
+            && old_geom.y == cur_y)
         {
             /* No updates are necessary */
             return;
         } else {
-            xndaemon->reserved_rectangles[old_monitor] = g_list_remove(xndaemon->reserved_rectangles[old_monitor],
+            xndaemon->reserved_rectangles[monitor_num] = g_list_remove(xndaemon->reserved_rectangles[monitor_num],
                                                                        xfce_notify_window_get_geometry(window));
         }
     }
 
-    xfce_notify_daemon_place_notification_window(xndaemon, window, screen, monitor);
+    xfce_notify_daemon_place_notification_window(xndaemon, window, monitor);
 }
 
 static gboolean
@@ -1042,28 +984,13 @@ xfce_notify_daemon_update_reserved_rectangles(gpointer key,
                                               gpointer data)
 {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(data);
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(value);
-    GdkScreen *screen;
+    XfceNotification *notification = XFCE_NOTIFICATION(value);
+    GList *windows = xfce_notification_get_windows(notification);
 
-    screen = gtk_window_get_screen(GTK_WINDOW(window));
-    if (screen != NULL) {
-        GdkMonitor *monitor = NULL;
-        gint last_monitor = xfce_notify_window_get_last_monitor(window);
-
-        if (last_monitor != -1) {
-            monitor = gdk_display_get_monitor(gdk_screen_get_display(screen), last_monitor);
-        }
-
-        if (monitor == NULL) {
-            GdkWindow *gdkwindow = gtk_widget_get_window(GTK_WIDGET(window));
-            if (gdkwindow != NULL) {
-                monitor = gdk_display_get_monitor_at_window(gdk_screen_get_display(screen), gdkwindow);
-            }
-        }
-
-        if (monitor != NULL) {
-            xfce_notify_daemon_place_notification_window(xndaemon, window, screen, monitor);
-        }
+    for (GList *l = windows; l != NULL; l = l->next) {
+        XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(l->data);
+        GdkMonitor *monitor = xfce_notify_window_get_monitor(window);
+        xfce_notify_daemon_place_notification_window(xndaemon, window, monitor);
     }
 
     return FALSE;
@@ -1096,9 +1023,12 @@ static gboolean notify_get_capabilities(XfceNotifyFdoGBus *skeleton,
 
 
 static gboolean
-notify_show_window (gpointer window)
-{
-    gtk_widget_show(GTK_WIDGET(window));
+notify_show_windows(gpointer data) {
+    XfceNotification *notification = data;
+
+    for (GList *l = xfce_notification_get_windows(notification); l != NULL; l = l->next) {
+        gtk_widget_show(GTK_WIDGET(l->data));
+    }
     return FALSE;
 }
 
@@ -1156,12 +1086,15 @@ notify_update_theme_for_window (XfceNotifyDaemon *xndaemon, GtkWidget *window, g
 }
 
 static gboolean
-notify_update_theme_foreach (gpointer key, gpointer value, gpointer data)
-{
+notify_update_theme_foreach(gpointer key, gpointer value, gpointer data) {
     XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(data);
-    GtkWidget *window = GTK_WIDGET(value);
+    XfceNotification *notification = XFCE_NOTIFICATION(value);
+    GList *windows = xfce_notification_get_windows(notification);
 
-    notify_update_theme_for_window (xndaemon, window, TRUE);
+    for (GList *l = windows; l != NULL; l = l->next) {
+        GtkWidget *window = GTK_WIDGET(l->data);
+        notify_update_theme_for_window(xndaemon, window, TRUE);
+    }
 
     return FALSE;
 }
@@ -1246,30 +1179,26 @@ xfce_notify_log_insert(XfceNotifyLog *log,
                        const gchar *app_id,
                        const gchar *summary,
                        const gchar *body,
-                       GVariant *image_data,
-                       const gchar *image_path,
+                       const gchar *icon_id,
                        const gchar *app_icon,
                        const gchar *desktop_id,
                        gint expire_timeout,
-                       const gchar **actions)
+                       XfceNotificationActions *actions)
 {
     gchar *id = NULL;
     XfceNotifyLogEntry *entry = xfce_notify_log_entry_new_empty();
     entry->timestamp = g_date_time_ref(timestamp);
     entry->app_id = g_strdup(app_id);
-    entry->icon_id = xfce_notify_log_cache_icon(image_data,
-                                                image_path,
-                                                app_icon,
-                                                desktop_id);
+    entry->icon_id = g_strdup(icon_id);
     entry->summary = g_strdup(summary);
     entry->body = g_strdup(body);
     entry->expire_timeout = expire_timeout;
     entry->is_read = FALSE;
 
-    for (gint i = 0; actions != NULL && actions[i] != NULL; i += 2) {
+    for (guint i = 0; i < actions->n_actions; ++i) {
         XfceNotifyLogEntryAction *action = g_new0(XfceNotifyLogEntryAction, 1);
-        action->id = g_strdup(actions[i]);
-        action->label = g_strdup(actions[i+1]);
+        action->id = g_strdup(actions->actions[i].id);
+        action->label = g_strdup(actions->actions[i].label);
         entry->actions = g_list_prepend(entry->actions, action);
     }
     entry->actions = g_list_reverse(entry->actions);
@@ -1293,25 +1222,32 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
               const gchar *app_icon,
               const gchar *summary,
               const gchar *body,
-              const gchar **actions,
+              const gchar **actions_data,
               GVariant *hints,
               gint expire_timeout,
               XfceNotifyDaemon *xndaemon)
 {
-    XfceNotifyWindow *window;
-    GDateTime *timestamp;
-    GdkPixbuf *pix = NULL;
+    XfceNotification *notification = NULL;
+    XfceNotificationActions *actions;
+    const gchar **cur_action_id;
+    guint n_actions = 0;
+    gchar *log_id = NULL;
     GVariant *image_data = NULL;
     GVariant *icon_data = NULL;
     const gchar *image_path = NULL;
     gchar *desktop_id = NULL;
+    gchar *icon_name = NULL;
+    GdkPixbuf *icon_pixbuf = NULL;
+    gchar *icon_id = NULL;
     gchar *new_app_name;
     gint value_hint = 0;
     gint urgency = XFCE_NOTIFY_URGENCY_NORMAL;
     gboolean value_hint_set = FALSE;
-    gboolean x_canonical = FALSE;
+    gboolean icon_only = FALSE;
     gboolean transient = FALSE;
     gboolean actions_are_icon_names = FALSE;
+    gboolean log_level_ok = FALSE;
+    gboolean log_level_apps_ok = FALSE;
 #ifdef ENABLE_SOUND
     gboolean has_sound = FALSE;
     ca_proplist *sound_props = NULL;
@@ -1402,7 +1338,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             g_variant_unref(value);
         } else if (g_strcmp0 (key, "x-canonical-private-icon-only") == 0)
         {
-            x_canonical = TRUE;
+            icon_only = TRUE;
             g_variant_unref(value);
         }
 #ifdef ENABLE_SOUND
@@ -1467,58 +1403,92 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
     }
 #endif
 
-    timestamp = g_date_time_new_now_local();
+    if (image_data != NULL) {
+        icon_pixbuf = notify_pixbuf_from_image_data(image_data);
+    } else if (image_path != NULL) {
+        icon_name = g_strdup(image_path);
+    } else if (app_icon != NULL && g_strcmp0(app_icon, "") != 0) {
+        icon_name = g_strdup(app_icon);
+    } else if (icon_data != NULL) {
+        icon_pixbuf = notify_pixbuf_from_image_data(icon_data);
+    } else if (desktop_id != NULL) {
+        icon_name = notify_get_from_desktop_file(desktop_id, G_KEY_FILE_DESKTOP_KEY_ICON);
+    }
 
-    /* Don't show notification bubbles in the "Do not disturb" mode or if the
-       application has been muted by the user. Exceptions are "urgent"
-       notifications. */
-    if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL) {
-        if ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) ||
-            application_is_muted == TRUE)
+    cur_action_id = actions_data;
+    while (*cur_action_id != NULL) {
+        if (cur_action_id[1] != NULL) {
+            cur_action_id += 2;
+            ++n_actions;
+        }
+    }
+    actions = g_new0(XfceNotificationActions, 1);
+    actions->ids_are_icon_names = actions_are_icon_names;
+    actions->actions = g_new0(XfceNotificationAction, n_actions);
+    actions->n_actions = n_actions;
+    for (guint i = 0; i < actions->n_actions; ++i) {
+        actions->actions[i].id = g_strdup(actions_data[i * 2]);
+        actions->actions[i].label = g_strdup(actions_data[i * 2 + 1]);
+    }
+
+    switch (xndaemon->log_level) {
+        case XFCE_LOG_LEVEL_NOT_FULLY_SHOWN:
+            log_level_ok = xndaemon->do_not_disturb || xndaemon->display_fields != XFCE_NOTIFY_DISPLAY_FULL;
+            break;
+        case XFCE_LOG_LEVEL_ALWAYS:
+            log_level_ok = TRUE;
+            break;
+    }
+
+    switch (xndaemon->log_level_apps) {
+        case XFCE_LOG_LEVEL_APPS_ALL:
+            log_level_apps_ok = TRUE;
+            break;
+        case XFCE_LOG_LEVEL_APPS_EXCEPT_BLOCKED:
+            log_level_apps_ok = !application_is_muted;
+            break;
+        case XFCE_LOG_LEVEL_APPS_ONLY_BLOCKED:
+            log_level_apps_ok = application_is_muted;
+            break;
+    }
+
+    if (replaces_id > 0) {
+        notification = g_tree_lookup(xndaemon->active_notifications,
+                                     GUINT_TO_POINTER(replaces_id));
+    }
+
+    if (xndaemon->notification_log &&
+        xndaemon->log != NULL &&
+        log_level_ok &&
+        log_level_apps_ok &&
+        !transient &&
+        !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
+    {
+        icon_id = xfce_notify_log_cache_icon(image_data,
+                                             image_path,
+                                             app_icon,
+                                             desktop_id);
+
+        // Ensure we don't log a duplicate entry if nothing material about
+        // an existing notification has changed.
+        if (notification == NULL ||
+            g_strcmp0(summary, xfce_notification_get_summary(notification)) != 0 ||
+            g_strcmp0(body, xfce_notification_get_body(notification)) != 0 ||
+            g_strcmp0(icon_id, xfce_notification_get_icon_id(notification)) != 0)
         {
-            /* Notifications marked as transient will never be logged */
-            if (xndaemon->notification_log == TRUE
-                && transient == FALSE
-                && !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
-            {
-                /* Either log in DND mode or always for muted apps */
-                if ((xndaemon->log_level == 0 && (xndaemon->do_not_disturb || xndaemon->display_fields != XFCE_NOTIFY_DISPLAY_FULL)) ||
-                    xndaemon->log_level == 1)
-                      /* Log either all, all except muted or only muted applications */
-                      if (xndaemon->log != NULL
-                          && (xndaemon->log_level_apps == 0
-                              || (xndaemon->log_level_apps == 1 && application_is_muted == FALSE)
-                              || (xndaemon->log_level_apps == 2 && application_is_muted == TRUE)))
-                      {
-                          gchar *ignore_id = xfce_notify_log_insert(xndaemon->log,
-                                                                    xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
-                                                                    timestamp,
-                                                                    new_app_name,
-                                                                    summary,
-                                                                    body,
-                                                                    image_data,
-                                                                    image_path,
-                                                                    app_icon,
-                                                                    desktop_id,
-                                                                    expire_timeout,
-                                                                    actions);
-                          g_free(ignore_id);
-                      }
-            }
-
-            xfce_notify_fdo_gbus_complete_notify (skeleton, invocation, OUT_id);
-            if (image_data)
-                g_variant_unref (image_data);
-            if (desktop_id)
-                g_free (desktop_id);
-            g_free(new_app_name);
+            GDateTime *timestamp = g_date_time_new_now_local();
+            log_id = xfce_notify_log_insert(xndaemon->log,
+                                            xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
+                                            timestamp,
+                                            new_app_name,
+                                            summary,
+                                            body,
+                                            icon_id,
+                                            app_icon,
+                                            desktop_id,
+                                            expire_timeout,
+                                            actions);
             g_date_time_unref(timestamp);
-#ifdef ENABLE_SOUND
-            if (sound_props != NULL) {
-                ca_proplist_destroy(sound_props);
-            }
-#endif
-            return TRUE;
         }
     }
 
@@ -1527,11 +1497,11 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             summary_text = summary;
             body_text = body;
             break;
-        case XFCE_NOTIFY_DISPLAY_SUMMARY:
+        case XFCE_NOTIFY_DISPLAY_ICON_SUMMARY:
             summary_text = summary;
             body_text = NULL;
             break;
-        case XFCE_NOTIFY_DISPLAY_APP_NAME:
+        case XFCE_NOTIFY_DISPLAY_ICON_APPNAME:
             summary_text = new_app_name;
             body_text = NULL;
             break;
@@ -1540,132 +1510,169 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             break;
     }
 
-    if(replaces_id
-       && (window = g_tree_lookup(xndaemon->active_notifications,
-                                  GUINT_TO_POINTER(replaces_id))))
+    /* Don't show notification bubbles in the "Do not disturb" mode or if the
+       application has been muted by the user. Exceptions are "urgent"
+       notifications, or if it's a gauge notification and the user wants to let
+       those through. */
+    if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL &&
+        ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) || application_is_muted))
     {
-        xfce_notify_window_set_summary(window, summary_text);
-        xfce_notify_window_set_body(window, body_text);
-        xfce_notify_window_set_actions(window, actions, actions_are_icon_names, xndaemon->css_provider);
-        xfce_notify_window_set_expire_timeout(window, expire_timeout);
-        xfce_notify_window_set_urgency(window, urgency);
-        xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
+        if (notification != NULL) {
+            // We're in DnD and there's an existing notification.  The only way
+            // that could happen is if the existing one is critical, but the
+            // current call is to update it so it's not critical anymore.  In
+            // this case, we'll do the update, but set a very short expiration
+            // so it more or less immediately disappears.  We'll also drop
+            // the sound props (if any), since in DnD mode we probably don't
+            // want sounds.
+            xfce_notification_update(notification,
+                                     summary_text,
+                                     body_text,
+                                     icon_only,
+                                     icon_name,
+                                     icon_pixbuf,
+                                     icon_id,
+                                     value_hint,
+                                     value_hint_set,
+                                     actions,
+                                     500,
+                                     urgency
 #ifdef ENABLE_SOUND
-        xfce_notify_window_set_sound_props(window, sound_props);
+                                     , NULL
 #endif
+                                     );
+        }
+
+#ifdef ENABLE_SOUND
+        if (sound_props != NULL) {
+            ca_proplist_destroy(sound_props);
+            sound_props = NULL;
+        }
+#endif
+    } else if (notification != NULL) {
+        xfce_notification_update(notification,
+                                 summary_text,
+                                 body_text,
+                                 icon_only,
+                                 icon_name,
+                                 icon_pixbuf,
+                                 icon_id,
+                                 value_hint,
+                                 value_hint_set,
+                                 actions,
+                                 expire_timeout,
+                                 urgency
+#ifdef ENABLE_SOUND
+                                 , sound_props
+#endif
+                                 );
     } else {
-        window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new_with_actions(summary_text,
-                                                                        body_text,
-                                                                        app_icon,
-                                                                        expire_timeout,
-                                                                        actions,
-                                                                        actions_are_icon_names,
-                                                                        xndaemon->css_provider));
-        xfce_notify_window_set_id(window, OUT_id);
-        xfce_notify_window_set_override_redirect(window, xndaemon->windows_use_override_redirect);
-        xfce_notify_window_set_urgency(window, urgency);
-        xfce_notify_window_set_opacity(window, xndaemon->initial_opacity);
+        GdkDisplay *display = gdk_display_get_default();
+        GList *monitors = NULL;
+        GList *windows;
+
+        notification = xfce_notification_new(OUT_id,
+                                             log_id,
+                                             summary_text,
+                                             body_text,
+                                             icon_only,
+                                             icon_name,
+                                             icon_pixbuf,
+                                             icon_id,
+                                             value_hint,
+                                             value_hint_set,
+                                             actions,
+                                             expire_timeout,
+                                             urgency,
+                                             xndaemon->do_fadeout,
+                                             xndaemon->do_slideout,
 #ifdef ENABLE_SOUND
-        xfce_notify_window_set_sound_props(window, sound_props);
+                                             sound_props,
 #endif
+                                             xndaemon->css_provider);
 
         g_assert(g_tree_lookup(xndaemon->active_notifications, GUINT_TO_POINTER(OUT_id)) == NULL);
         g_tree_insert(xndaemon->active_notifications,
-                      GUINT_TO_POINTER(OUT_id), window);
+                      GUINT_TO_POINTER(OUT_id), notification);
 
-        g_signal_connect(G_OBJECT(window), "action-invoked",
-                         G_CALLBACK(xfce_notify_daemon_window_action_invoked),
-                         xndaemon);
-        g_signal_connect(G_OBJECT(window), "closed",
-                         G_CALLBACK(xfce_notify_daemon_window_closed),
-                         xndaemon);
-        g_signal_connect(G_OBJECT(window), "size-allocate",
-                         G_CALLBACK(xfce_notify_daemon_window_size_allocate),
-                         xndaemon);
+        g_signal_connect(notification, "action-invoked",
+                         G_CALLBACK(xfce_notify_daemon_action_invoked), xndaemon);
+        g_signal_connect(notification, "closed",
+                         G_CALLBACK(xfce_notify_daemon_closed), xndaemon);
 
-        gtk_widget_realize(GTK_WIDGET(window));
+        switch (xndaemon->show_notifications_on) {
+            case XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR: {
+                GdkSeat *seat = gdk_display_get_default_seat(display);
+                GdkDevice *pointer = gdk_seat_get_pointer(seat);
+                gint x, y;
 
-        notify_update_theme_for_window (xndaemon, GTK_WIDGET(window), FALSE);
+                gdk_device_get_position(pointer, NULL, &x, &y);
+                monitors = g_list_append(monitors, gdk_display_get_monitor_at_point(display, x, y));
+                break;
+            }
 
-        g_idle_add(notify_show_window, window);
-    }
+            case XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR:
+                monitors = g_list_append(monitors, gdk_display_get_primary_monitor(display));
+                break;
 
-    if (image_data) {
-        pix = notify_pixbuf_from_image_data(image_data);
-        if (pix) {
-            xfce_notify_window_set_icon_pixbuf(window, pix);
-            g_object_unref(G_OBJECT(pix));
+            case XFCE_NOTIFY_SHOW_ON_ALL_MONITORS: {
+                gint n_monitors = gdk_display_get_n_monitors(display);
+
+                for (gint i = 0; i < n_monitors; ++i) {
+                    monitors = g_list_prepend(monitors, gdk_display_get_monitor(display, i));
+                }
+                monitors = g_list_reverse(monitors);
+                break;
+            }
         }
-    }
-    else if (image_path) {
-        xfce_notify_window_set_icon_name (window, image_path);
-    }
-    else if (app_icon && (g_strcmp0 (app_icon, "") != 0)) {
-        xfce_notify_window_set_icon_name (window, app_icon);
-    }
-    else if (icon_data) {
-        pix = notify_pixbuf_from_image_data(icon_data);
-        if (pix) {
-            xfce_notify_window_set_icon_pixbuf(window, pix);
-            g_object_unref(G_OBJECT(pix));
+
+        windows = xfce_notification_create_windows(notification,
+                                                   monitors,
+                                                   xndaemon->windows_use_override_redirect,
+                                                   xndaemon->notify_location,
+                                                   xndaemon->initial_opacity,
+                                                   xndaemon->show_text_with_gauge);
+        for (GList *l = windows; l != NULL; l = l->next) {
+            GtkWidget *window = GTK_WIDGET(l->data);
+            GtkRequisition nat_size;
+            GtkAllocation allocation =  { 0, };
+
+            g_signal_connect(window, "size-allocate",
+                             G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
+            notify_update_theme_for_window(xndaemon, window, FALSE);
+
+            gtk_widget_get_preferred_size(window, NULL, &nat_size);
+            DBG("preferred natural size: %dx%d", nat_size.width, nat_size.height);
+            allocation.width = nat_size.width;
+            allocation.height = nat_size.height;
+            gtk_widget_set_allocation(window, &allocation);
+            xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window)));
         }
+        xfce_notification_realize(notification);
+        g_idle_add(notify_show_windows, notification);
+
+        g_list_free(monitors);
     }
-    else if (desktop_id) {
-        app_icon = notify_get_from_desktop_file (desktop_id, G_KEY_FILE_DESKTOP_KEY_ICON);
-
-        xfce_notify_window_set_icon_name (window, app_icon);
-    }
-
-    if (xndaemon->notification_log == TRUE &&
-        xndaemon->log != NULL &&
-        xndaemon->log_level == 1 &&
-        xndaemon->log_level_apps <= 1 &&
-        transient == FALSE &&
-        !g_hash_table_contains(xndaemon->excluded_from_log, new_app_name))
-    {
-        gchar *log_id = xfce_notify_log_insert(xndaemon->log,
-                                               xndaemon->log_max_size_enabled ? xndaemon->log_max_size : -1,
-                                               timestamp,
-                                               new_app_name,
-                                               summary,
-                                               body,
-                                               image_data,
-                                               image_path,
-                                               app_icon,
-                                               desktop_id,
-                                               expire_timeout,
-                                               actions);
-        xfce_notify_window_set_log_id(window, log_id);
-        g_free(log_id);
-    }
-
-    xfce_notify_window_set_icon_only(window, x_canonical);
-
-    xfce_notify_window_set_do_fadeout(window, xndaemon->do_fadeout, xndaemon->do_slideout);
-    xfce_notify_window_set_notify_location(window, xndaemon->notify_location);
-
-    if (value_hint_set) {
-        xfce_notify_window_set_gauge_value(window, value_hint, xndaemon->css_provider);
-        if (!xndaemon->show_text_with_gauge) {
-            xfce_notify_window_set_summary(window, NULL);
-            xfce_notify_window_set_body(window, NULL);
-        }
-    } else {
-        xfce_notify_window_unset_gauge_value(window);
-    }
-
-    gtk_widget_realize(GTK_WIDGET(window));
 
     xfce_notify_fdo_gbus_complete_notify(skeleton, invocation, OUT_id);
+    if (notification == NULL) {
+        // We never displayed a notification, so synthesize a NotificationClosed signal.
+        xfce_notify_fdo_gbus_emit_notification_closed(skeleton, OUT_id, XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+   }
 
     if (image_data)
       g_variant_unref (image_data);
     if (icon_data)
       g_variant_unref (icon_data);
+    g_free(icon_id);
     if (desktop_id)
         g_free (desktop_id);
+    g_free(icon_name);
+    if (icon_pixbuf != NULL) {
+        g_object_unref(icon_pixbuf);
+    }
     g_free(new_app_name);
-    g_date_time_unref(timestamp);
+    g_free(log_id);
 
     return TRUE;
 }
@@ -1677,11 +1684,12 @@ notify_close_notification(XfceNotifyFdoGBus *skeleton,
                           guint id,
                           XfceNotifyDaemon *xndaemon)
 {
-    XfceNotifyWindow *window = g_tree_lookup(xndaemon->active_notifications,
-                                             GUINT_TO_POINTER(id));
+    XfceNotification *notification = g_tree_lookup(xndaemon->active_notifications,
+                                                   GUINT_TO_POINTER(id));
 
-    if(window)
-        xfce_notify_window_closed(window, XFCE_NOTIFY_CLOSE_REASON_CLIENT);
+    if (G_LIKELY(notification != NULL)) {
+        xfce_notification_closed(notification, XFCE_NOTIFY_CLOSE_REASON_CLIENT);
+    }
 
     xfce_notify_fdo_gbus_complete_close_notification(skeleton, invocation);
 
@@ -1782,43 +1790,45 @@ xfce_notify_daemon_set_theme(XfceNotifyDaemon *xndaemon,
 
 static gboolean
 xfce_notify_daemon_collect_nonurgent_notifications(gpointer id_p,
-                                                   gpointer window_p,
+                                                   gpointer notification_p,
                                                    gpointer user_data)
 {
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(window_p);
+    XfceNotification *notification = XFCE_NOTIFICATION(notification_p);
 
-    if (xfce_notify_window_get_urgency(window) < XFCE_NOTIFY_URGENCY_CRITICAL) {
-        GList **to_remove = user_data;
-        *to_remove = g_list_prepend(*to_remove, window);
+    if (xfce_notification_get_urgency(notification) < XFCE_NOTIFY_URGENCY_CRITICAL) {
+        GList **list = user_data;
+        *list = g_list_prepend(*list, notification);
     }
 
     return FALSE;
 }
 
 
-static gint
-xfce_notify_display_fields_from_string(const gchar *str) {
-    static const struct {
-        const gchar *nick;
-        XfceNotifyDisplayFields value;
-    } mapping[] = {
-        { "icon-summary-body", XFCE_NOTIFY_DISPLAY_FULL },
-        { "icon-summary", XFCE_NOTIFY_DISPLAY_SUMMARY },
-        { "icon-appname", XFCE_NOTIFY_DISPLAY_APP_NAME },
-    };
+static gboolean
+xfce_notify_daemon_update_do_fadeout(gpointer id_p,
+                                     gpointer notification_p,
+                                     gpointer user_data)
+{
+    XfceNotification *notification = XFCE_NOTIFICATION(notification_p);
+    XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(user_data);
 
-    if (str == NULL) {
-        return XFCE_NOTIFY_DISPLAY_FULL;
-    } else {
-        for (gsize i = 0; i < G_N_ELEMENTS(mapping); ++i) {
-            if (strcmp(mapping[i].nick, str) == 0) {
-                return mapping[i].value;
-            }
-        }
+    xfce_notification_set_do_fadeout(notification, xndaemon->do_fadeout);
 
-        g_warning("Invalid XfceNotifyDisplayFields value '%s'; using default", str);
-        return XFCE_NOTIFY_DISPLAY_FULL;
-    }
+    return FALSE;
+}
+
+
+static gboolean
+xfce_notify_daemon_update_do_slideout(gpointer id_p,
+                                      gpointer notification_p,
+                                      gpointer user_data)
+{
+    XfceNotification *notification = XFCE_NOTIFICATION(notification_p);
+    XfceNotifyDaemon *xndaemon = XFCE_NOTIFY_DAEMON(user_data);
+
+    xfce_notification_set_do_slideout(notification, xndaemon->do_slideout);
+
+    return FALSE;
 }
 
 
@@ -1891,20 +1901,21 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                             : settings[i].default_value.b;
                         break;
 
-                    case G_TYPE_STRING: {
-                        const gchar *str = G_VALUE_TYPE(value) == settings[i].type
-                            ? g_value_get_string(value)
-                            : settings[i].default_value.s;
-                        if (settings[i].enum_conv != NULL) {
-                            *(gint *)loc = settings[i].enum_conv(str);
-                        } else {
-                            *(gchar **)loc = g_strdup(str);
-                        }
+                    case G_TYPE_STRING:
+                        *(gchar **)loc = g_strdup(
+                            G_VALUE_TYPE(value) == settings[i].type
+                                ? g_value_get_string(value)
+                                : settings[i].default_value.s
+                        );
                         break;
-                    }
 
                     default:
-                        g_critical("Unhandled property type %s", g_type_name(settings[i].type));
+                        if (g_type_is_a(settings[i].type, G_TYPE_ENUM)) {
+                            const gchar *nick = G_VALUE_HOLDS_STRING(value) ? g_value_get_string(value) : NULL;
+                            *(gint *)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
+                        } else {
+                            g_critical("Unhandled property type %s for property %s", g_type_name(settings[i].type), settings[i].name);
+                        }
                         break;
                 }
 
@@ -1922,12 +1933,43 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                 GList *to_remove = NULL;
                 g_tree_foreach(xndaemon->active_notifications, xfce_notify_daemon_collect_nonurgent_notifications, &to_remove);
                 for (GList *l = to_remove; l != NULL; l = l->next) {
-                    xfce_notify_window_closed(XFCE_NOTIFY_WINDOW(l->data), XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
+                    xfce_notification_closed(XFCE_NOTIFICATION(l->data), XFCE_NOTIFY_CLOSE_REASON_UNKNOWN);
                 }
                 g_list_free(to_remove);
             }
+        } else if (g_strcmp0(property, DO_FADEOUT_PROP) == 0) {
+            g_tree_foreach(xndaemon->active_notifications, xfce_notify_daemon_update_do_fadeout, xndaemon);
+        } else if (g_strcmp0(property, DO_SLIDEOUT_PROP) == 0) {
+            g_tree_foreach(xndaemon->active_notifications, xfce_notify_daemon_update_do_slideout, xndaemon);
         }
     }
+}
+
+
+static void
+xfce_notify_daemon_settings_init(void) {
+    gsize updated = 0;
+
+    for (gsize i = 0; i < G_N_ELEMENTS(settings); ++i) {
+        if (g_strcmp0(settings[i].name, NOTIFICATION_DISPLAY_FIELDS_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_NOTIFY_DISPLAY_FIELDS;
+            ++updated;
+        } else if (g_strcmp0(settings[i].name, SHOW_NOTIFICATIONS_ON_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_NOTIFY_SHOW_ON;
+            ++updated;
+        } else if (g_strcmp0(settings[i].name, LOG_LEVEL_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_LOG_LEVEL;
+            ++updated;
+        } else  if (g_strcmp0(settings[i].name, LOG_LEVEL_APPS_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_LOG_LEVEL_APPS;
+            ++updated;
+        } else if (g_strcmp0(settings[i].name, NOTIFY_LOCATION_PROP) == 0) {
+            settings[i].type = XFCE_TYPE_NOTIFY_POSITION;
+            ++updated;
+        }
+    }
+
+    g_assert(updated == 5);
 }
 
 
@@ -1939,7 +1981,7 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
     gchar *theme;
 
     xndaemon->settings = xfconf_channel_new("xfce4-notifyd");
-    xfce_notify_migrate_log_max_size_setting(xndaemon->settings);
+    xfce_notify_migrate_settings(xndaemon->settings);
 
     theme = xfconf_channel_get_string(xndaemon->settings,
                                       "/theme", "Default");
@@ -1992,20 +2034,19 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
                                                            settings[i].default_value.b);
                 break;
 
-            case G_TYPE_STRING: {
-                const gchar *value = xfconf_channel_get_string(xndaemon->settings,
-                                                               settings[i].name,
-                                                               settings[i].default_value.s);
-                if (settings[i].enum_conv != NULL) {
-                    *(gint *)loc = settings[i].enum_conv(value);
-                } else {
-                    *(gchar **)loc = g_strdup(value);
-                }
+            case G_TYPE_STRING:
+                *(gchar **)loc = g_strdup(xfconf_channel_get_string(xndaemon->settings,
+                                                                    settings[i].name,
+                                                                    settings[i].default_value.s));
                 break;
-            }
 
             default:
-                g_critical("Unhandled property type %s", g_type_name(settings[i].type));
+                if (g_type_is_a(settings[i].type, G_TYPE_ENUM)) {
+                    const gchar *nick = xfconf_channel_get_string(xndaemon->settings, settings[i].name, NULL);
+                    *(gint *)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
+                } else {
+                    g_critical("Unhandled property type %s for property %s", g_type_name(settings[i].type), settings[i].name);
+                }
                 break;
         }
     }

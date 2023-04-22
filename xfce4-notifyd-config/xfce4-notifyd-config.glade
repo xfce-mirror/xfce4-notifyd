@@ -34,94 +34,6 @@
     <property name="can-focus">False</property>
     <property name="icon-name">help-browser</property>
   </object>
-  <object class="GtkSizeGroup" id="label_size_group">
-    <property name="mode">vertical</property>
-  </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">only during "Do not disturb", or when notification bodies are not shown</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">always</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="liststore2">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">all</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">all except blocked</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">only blocked</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="liststore3">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">display with mouse pointer</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">primary display</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="liststore4">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Locale default</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Relative times</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">ISO8601</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Custom</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Top left</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Bottom left</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Top right</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Bottom right</col>
-      </row>
-    </data>
-  </object>
   <object class="XfceTitledDialog" id="notifyd_settings_dlg">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Notifications</property>
@@ -474,24 +386,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="primary_monitor">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="model">liststore3</property>
-                        <property name="active-id">1</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer5"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left-attach">1</property>
-                        <property name="top-attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkLabel" id="primary_label">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -576,9 +470,9 @@
                       <object class="GtkComboBoxText" id="display_fields">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="active-id">icon-summary-body</property>
+                        <property name="active-id">full</property>
                         <items>
-                          <item id="icon-summary-body" translatable="yes">icon, summary, and body</item>
+                          <item id="full" translatable="yes">icon, summary, and body</item>
                           <item id="icon-summary" translatable="yes">icon and summary</item>
                           <item id="icon-appname" translatable="yes">icon and application name</item>
                         </items>
@@ -586,6 +480,22 @@
                       <packing>
                         <property name="left-attach">1</property>
                         <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="show_notifications_on">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="active-id">active-monitor</property>
+                        <items>
+                          <item id="active-monitor" translatable="yes">monitor with mouse pointer</item>
+                          <item id="primary-monitor" translatable="yes">primary monitor</item>
+                          <item id="all-monitors" translatable="yes">all monitors</item>
+                        </items>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">4</property>
                       </packing>
                     </child>
                     <child>
@@ -699,16 +609,18 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="position_combo">
+                      <object class="GtkComboBoxText" id="position_combo">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="model">model1</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer3"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
+                        <property name="active-id">top-right</property>
+                        <items>
+                          <item id="top-left" translatable="yes">Top left</item>
+                          <item id="bottom-left" translatable="yes">Bottom left</item>
+                          <item id="top-right" translatable="yes">Top right</item>
+                          <item id="bottom-right" translatable="yes">Bottom right</item>
+                          <item id="top-center" translatable="yes">Top center</item>
+                          <item id="bottom-center" translatable="yes">Bottom center</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -782,16 +694,16 @@
                         <property name="can-focus">False</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkComboBox" id="datetime_format">
+                          <object class="GtkComboBoxText" id="datetime_format">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="model">liststore4</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="renderer6"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
+                            <property name="active-id">locale-default</property>
+                            <items>
+                              <item id="locale-default" translatable="yes">Locale default</item>
+                              <item id="relative-times" translatable="yes">Relative times</item>
+                              <item id="iso8601" translatable="yes">ISO8601</item>
+                              <item id="custom" translatable="yes">Custom</item>
+                            </items>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -976,18 +888,14 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="log_level">
+                      <object class="GtkComboBoxText" id="log_level">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">liststore1</property>
-                        <property name="active-id">1</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer2"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
+                        <property name="active-id">not-fully-shown</property>
+                        <items>
+                          <item id="not-fully-shown" translatable="yes">only during "Do not disturb", or when notification bodies are not shown</item>
+                          <item id="always" translatable="yes">always</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -1024,18 +932,15 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="log_level_apps">
+                      <object class="GtkComboBoxText" id="log_level_apps">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">liststore2</property>
-                        <property name="active-id">0</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="renderer4"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
+                        <property name="active-id">all</property>
+                        <items>
+                          <item id="all" translatable="yes">all</item>
+                          <item id="except-blocked" translatable="yes">all except blocked</item>
+                          <item id="only-blocked" translatable="yes">only blocked</item>
+                        </items>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -1102,5 +1007,8 @@
     <action-widgets>
       <action-widget response="1">close_btn</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkSizeGroup" id="label_size_group">
+    <property name="mode">vertical</property>
   </object>
 </interface>
