@@ -154,7 +154,7 @@ msgstr ""
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Позначити всі записи журналу прочитаними"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
@@ -220,7 +220,7 @@ msgstr "Каталог журналу сповіщень (%s) не є катал
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Не вдалося відкрити журнал сповіщень: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
@@ -244,7 +244,7 @@ msgstr ""
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Не вдалося створити індекс БД is_read: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
@@ -370,7 +370,7 @@ msgstr "Позначити всі непрочитані сповіщення я
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Позначити запис журналу _прочитаним"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
 msgid "Yesterday and before"
@@ -435,7 +435,7 @@ msgstr "Завжди показувати сповіщення із відсот
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Коли відображаються сповіщення, показувати"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:475
 msgid "icon, summary, and body"
@@ -525,11 +525,11 @@ msgstr "_Формат дати і часу"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Locale default"
-msgstr ""
+msgstr "Локаль за замовчуванням"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:703
 msgid "Relative times"
-msgstr ""
+msgstr "Відносний час"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:704
 msgid "ISO8601"
@@ -552,11 +552,11 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Створюючи сповіщення, програми можуть запросити, як довго сповіщення залишатиметься на екрані. Цей параметр визначає, чи виконується цей запит."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:779
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Дотримуватись запитаного додатком часу «Зникати після»"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
