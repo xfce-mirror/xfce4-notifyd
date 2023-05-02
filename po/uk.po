@@ -423,7 +423,7 @@ msgstr "Показати повідомлення на"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "Параметр «Увімкнути звуки подій» у налаштуваннях зовнішнього вигляду має бути включен, щоб було чутно звуки сповіщень"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:409
 msgid "_Mute sounds"
