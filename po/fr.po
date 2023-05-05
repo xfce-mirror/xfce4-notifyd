@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-03-16 12:49+0100\n"
+"POT-Creation-Date: 2023-05-05 10:53+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Wallon Wallon, 2022-2023\n"
 "Language-Team: French (http://app.transifex.com/xfce/xfce-apps/language/fr/)\n"
@@ -178,12 +178,6 @@ msgstr "Greffon de notification"
 #: panel-plugin/notification-plugin.desktop.in:6
 msgid "Notification plugin for the Xfce panel"
 msgstr "Greffon de notification pour le tableau de bord Xfce"
-
-#: panel-plugin/notification-plugin.desktop.in:7
-#: xfce4-notifyd/xfce4-notifyd.desktop.in:6
-#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
-msgid "org.xfce.notification"
-msgstr "org.xfce.notification"
 
 #: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
 #: xfce4-notifyd-config/main.c:1207
