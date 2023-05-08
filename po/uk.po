@@ -150,7 +150,7 @@ msgstr "Поведінка"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Після показу меню"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
@@ -507,11 +507,11 @@ msgstr "_Тема"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "Показувати зведення та текст сповіщення, якщо сповіщення є відсотковим значенням, наприклад гучність звуку чи яскравість екрана"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:667
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Показувати текст із _відсотковими значеннями"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:681
 msgid "Date/time _format"
