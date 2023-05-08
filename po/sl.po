@@ -493,11 +493,11 @@ msgstr "Spodaj desno"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:621
 msgid "Top center"
-msgstr ""
+msgstr "Sredina zgoraj"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
 msgid "Bottom center"
-msgstr ""
+msgstr "Sredina spodaj"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "_Theme"
