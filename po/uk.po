@@ -219,21 +219,21 @@ msgstr "Не вдалося відкрити журнал сповіщень: %s
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "Не вдалося підготувати інструкцію SQL: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "завершальні символи в кінці інструкції"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Не вдалося створити таблицю «сповіщень»: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Не вдалося створити індекс позначки часу БД: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
