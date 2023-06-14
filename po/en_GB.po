@@ -468,7 +468,7 @@ msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:588
 msgid "_Opacity"
-msgstr ""
+msgstr "_Opacity"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:602
 msgid "Default _position"
@@ -553,7 +553,7 @@ msgstr "Honour app-requested \"Disappear after\" time"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Per-application notification settings</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Applications"
@@ -561,11 +561,11 @@ msgstr "Applications"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:870
 msgid "Log notifications"
-msgstr ""
+msgstr "Log notifications"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "only during \"Do not disturb\", or when notification bodies are not shown"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:897
 msgid "always"
@@ -573,44 +573,44 @@ msgstr "always"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
 msgid "Log applications"
-msgstr ""
+msgstr "Log applications"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:940
 msgid "all"
-msgstr ""
+msgstr "all"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:941
 msgid "all except blocked"
-msgstr ""
+msgstr "all except blocked"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:942
 msgid "only blocked"
-msgstr ""
+msgstr "only blocked"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:954
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:970
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "The maximum number of entries to be retained in the log."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:966
 msgid "Log size limit"
-msgstr ""
+msgstr "Log size limit"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:987
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr ""
+msgstr "Mute application"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Allow urgent notifications"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr ""
+msgstr "Include in log"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
