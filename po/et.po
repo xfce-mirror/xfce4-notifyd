@@ -41,7 +41,7 @@ msgstr "sealhulgas puhverdatud ikoonid"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
-msgstr ""
+msgstr "Nüüd"
 
 #: panel-plugin/notification-plugin.c:380
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:39
@@ -60,7 +60,7 @@ msgstr "See on teadete pistikprogramm"
 
 #: panel-plugin/notification-plugin-dialogs.c:136
 msgid "Copyright © 2017 Simon Steinbeiß\n"
-msgstr "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "Autoriõigused © 2017 Simon Steinbeiß\n"
 
 #: panel-plugin/notification-plugin-log.c:163
 msgid "<b>_Do not disturb</b>"
@@ -148,15 +148,15 @@ msgstr "Käitumine"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Peale selle menüü kuvamist"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Märgi kõik logikirjed loetuks"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Märgi näidatud logikirjed loetuks"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -217,34 +217,34 @@ msgstr "Teadete logi avamine ei õnnestu: %s"
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "SQL lausendi loomine ei õnnestunud: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "tähemärgid lausendi lõpus"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Teadete tabeli loomine ei õnnestunud: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Andmebaasi ajatempli indeksi loomine ei õnnestunud: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Indeksi loomine andmebaasi is_read väljale ei õnnestunud: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
-msgstr ""
+msgstr "Vaikimisi toiming"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce teadete taustaprogramm"
 
 #: xfce4-notifyd-config/main.c:106
 msgid "Notification Preview"
@@ -427,31 +427,31 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Teadete kuvamisel näita:"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:475
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "ikooni, sisukokkuvõtet ja sisu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:476
 msgid "icon and summary"
-msgstr ""
+msgstr "ikooni ja sisukokkuvõtet"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:477
 msgid "icon and application name"
-msgstr ""
+msgstr "ikooni ja rakenduse nime"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:491
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "ekraan, kus on hiire kursor"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:492
 msgid "primary monitor"
-msgstr ""
+msgstr "esmane ekraan"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:493
 msgid "all monitors"
-msgstr ""
+msgstr "kõik ekraanid"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "General"
