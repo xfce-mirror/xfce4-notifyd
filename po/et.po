@@ -415,7 +415,7 @@ msgstr "Näita teateid"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "„Luba teadete helid“ seadistus peab välimuse seadistuste vaates olema helide esitamiseks sisse lülitatud"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:409
 msgid "_Mute sounds"
@@ -423,7 +423,7 @@ msgstr "_Summuta helid"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:436
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Näita alati protsentuaalse väärtusega teavitusi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
@@ -505,11 +505,11 @@ msgstr "Kujunduse _teema"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "Näita teate sisukokkuvõtet ja sisu, kui teate tegelikuks sisuks on protsentuaalne väärtus; see või näiteks juhtuda helivaljuse ja ekraaniereduse teadete puhul"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:667
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Näita teksti protsentuaalsete _väärtustega"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:681
 msgid "Date/time _format"
@@ -544,11 +544,11 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Teate genereerimisel võivad rakendused määrata aja kui kaua seda teadet kuvatakse. Selle seadistusega saad juhtida, kase seda soovitud aega arvestatakse või mitte."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:779
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Luba järgida rakenduse poolt määratud „Peida teade peale“ aega"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
