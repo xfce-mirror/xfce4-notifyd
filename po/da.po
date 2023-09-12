@@ -75,7 +75,7 @@ msgstr ""
 
 #: panel-plugin/notification-plugin-log.c:368
 msgid "No unread notifications"
-msgstr ""
+msgstr "Ingen ulæste underretninger"
 
 #: panel-plugin/notification-plugin-log.c:370
 msgid "No notifications"
@@ -87,7 +87,7 @@ msgstr "_Ryd log"
 
 #: panel-plugin/notification-plugin-log.c:403
 msgid "_Mark all read"
-msgstr ""
+msgstr "Mærk alle som læste"
 
 #: panel-plugin/notification-plugin-log.c:412
 msgid "_Notification settings…"
@@ -109,7 +109,7 @@ msgstr "_Luk"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Notification icon size"
-msgstr ""
+msgstr "Ikonstørrelse for underretninger"
 
 #: panel-plugin/notification-plugin-settings.glade:125
 msgid "Number of notifications to show"
@@ -150,7 +150,7 @@ msgstr "Opførsel"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Efter menuen vises"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
@@ -242,7 +242,7 @@ msgstr ""
 
 #: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
-msgstr ""
+msgstr "Standardhandling"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
@@ -356,11 +356,11 @@ msgstr "Ryd underretningsloggen"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark All Read"
-msgstr ""
+msgstr "Mærk som læst"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "Mærk alle ulæste underretninger som læst"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
 msgid "Mark log entry _read"
