@@ -228,17 +228,17 @@ msgstr "efterstillede tegn i slutningen af udsagnet"
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Kunne ikke oprette 'notifications'-tabel: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Kunne ikke oprette DB tidsstempelindeks: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:470
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Kunne ikke oprette DB is_read-indeks: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
@@ -246,7 +246,7 @@ msgstr "Standardhandling"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce Underretningsdæmon"
 
 #: xfce4-notifyd-config/main.c:106
 msgid "Notification Preview"
@@ -417,11 +417,11 @@ msgstr "Vis underretninger på"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "Indstillingen \"Aktivér hændelseslyde\" i dialogen Udseendeindstillinger skal være tilvalgt for at kunne høre underretningslyde"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:409
 msgid "_Mute sounds"
-msgstr ""
+msgstr "Sæt lyde på _mute"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:436
 msgid "Always show percent-value notifications"
@@ -519,7 +519,7 @@ msgstr "_Format for dato/klokkeslæt"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Locale default"
-msgstr ""
+msgstr "Standard for lokalitet"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:703
 msgid "Relative times"
@@ -546,11 +546,11 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Når der oprettes en underretning, så kan programmer anmode om hvor længe de vil have underretningen til at blive på skærmen. Indstillingen styrer om anmodningen skal efterleves eller ej."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:779
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Efterlev programanmodet \"Forsvind efter\"-tid"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
@@ -603,11 +603,11 @@ msgstr "Log"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr ""
+msgstr "Sæt program på mute"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Tillad underretninger som haster"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
