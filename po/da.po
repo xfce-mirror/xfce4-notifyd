@@ -39,7 +39,7 @@ msgstr "Ryd"
 
 #: common/xfce-notify-log-util.c:406 common/xfce-notify-log-util.c:414
 msgid "include icon cache"
-msgstr "inkluder ikonmellemlager"
+msgstr "medtag ikonmellemlager"
 
 #: common/xfce-notify-log-util.c:448
 msgid "Now"
@@ -71,7 +71,7 @@ msgstr "<b>_Forstyr ikke</b>"
 #: panel-plugin/notification-plugin-log.c:366
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Kan ikke åbne underretningslog"
 
 #: panel-plugin/notification-plugin-log.c:368
 msgid "No unread notifications"
@@ -125,7 +125,7 @@ msgstr "Skjul 'Ryd log'-bekræftelsesdialog"
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
-msgstr ""
+msgstr "Skjul panelknap når der ikke er nogen ulæste underretninger"
 
 #: panel-plugin/notification-plugin-settings.glade:224
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:806
@@ -154,11 +154,11 @@ msgstr "Efter menuen vises"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Mærk alle logposter som læst"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Mærk viste logposter som læst"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -200,30 +200,30 @@ msgstr "Anden underretningsdæmon kører, afslutter\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "Loggen er utilgængelig"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Logposten blev ikke fundet"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Underretningslogmappen (%s) er ikke en mappe"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Kunne ikke åbne underretningslog: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "Kunne ikke forberede SQL-udsagn: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "efterstillede tegn i slutningen af udsagnet"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
@@ -269,7 +269,7 @@ msgstr "Forhåndsvisning af underretning mislykkedes"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "Er du sikker på, at du vil slette underretningsindstillinger for programmet \"%s\"?"
 
 #: xfce4-notifyd-config/main.c:570
 msgid "Delete"
@@ -278,11 +278,11 @@ msgstr "Slet"
 #: xfce4-notifyd-config/main.c:572
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr ""
+msgstr "Glem program"
 
 #: xfce4-notifyd-config/main.c:670
 msgid "Unspecified applications"
-msgstr ""
+msgstr "Uspecificerede programmer"
 
 #: xfce4-notifyd-config/main.c:901
 #, c-format
@@ -364,7 +364,7 @@ msgstr "Mærk alle ulæste underretninger som læst"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Mærk logpost som _læst"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
 msgid "Yesterday and before"
@@ -372,7 +372,7 @@ msgstr "I går og tidligere"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:999
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Indlæser flere logposter ..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:137
 msgid ""
@@ -425,35 +425,35 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:436
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Vis altid underretninger med værdier i procent"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Når der vises underretninger, så vis"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:475
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "ikon, opsummering og krop"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:476
 msgid "icon and summary"
-msgstr ""
+msgstr "ikon og opsummering"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:477
 msgid "icon and application name"
-msgstr ""
+msgstr "ikon og programnavn"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:491
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "skærm med musemarkør"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:492
 msgid "primary monitor"
-msgstr ""
+msgstr "primær skærm"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:493
 msgid "all monitors"
-msgstr ""
+msgstr "alle skærme"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
 msgid "General"
@@ -493,11 +493,11 @@ msgstr "Nederst til højre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:621
 msgid "Top center"
-msgstr ""
+msgstr "Øverst i midten"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
 msgid "Bottom center"
-msgstr ""
+msgstr "Nederst i midten"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "_Theme"
@@ -507,15 +507,15 @@ msgstr "_Tema"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "Vis underretningens opsummering og krop når underretningen er en værdi i procent, såsom en lydstyrke eller skærmens lysstyrke"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:667
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Vis tekst med værdier i _procent"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:681
 msgid "Date/time _format"
-msgstr ""
+msgstr "_Format for dato/klokkeslæt"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Locale default"
@@ -523,7 +523,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:703
 msgid "Relative times"
-msgstr ""
+msgstr "Relative tidspunkter"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:704
 msgid "ISO8601"
@@ -554,7 +554,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:824
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Underretningsindstillinger pr. program</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
 msgid "Applications"
@@ -566,7 +566,7 @@ msgstr "Log underretninger"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "kun under \"Forstyr ikke\" eller når underretningskroppe ikke vises"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:897
 msgid "always"
@@ -591,7 +591,7 @@ msgstr "kun blokerede"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:954
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:970
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Det højeste antal poster som skal bevares i loggen."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:966
 msgid "Log size limit"
@@ -611,7 +611,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr ""
+msgstr "Medtag i log"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
