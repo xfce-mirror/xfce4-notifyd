@@ -1,3 +1,56 @@
+0.9.0 (2023-09-18)
+=====
+- Add missing sanity check
+- I18n: Update po/LINGUAS list
+- I18n: Update po/LINGUAS list
+- I18n: Update po/LINGUAS list
+- wayland: put windows on overlay layer, not top
+- Set window theme before placing window
+- Set initial window position before realizing windows
+- Avoid storing NULL app IDs in the app ID count hashtable
+- Simplify dbus/systemd service dir logic in configure.ac
+- Fix typos in README
+- Instal D-Bus and systemd files under $prefix by default
+- Fix distcheck when run as non-root
+- Use pkg-config to find default systemd user unit directory
+- Change default systemd user path from /lib/... to /usr/lib/...
+- Change options for installing startup files
+- Add positioning options top-center and bottom-center
+- Simplify notification placement code
+- Stop using GtkCornerType; migrate setting to enum nick
+- Move log level settings from int to enum nick string
+- Move datetime format setting from int to enum nick string
+- Have a single entry point for setting migrations
+- Fix incorrect enum value for apps log level
+- Use registered enum types for config->enum mapping
+- Move enums to common, use glib-mkenums
+- Use new XDT feature macros
+- Don't log duplicate entries when updating an existing notification
+- Clean up logic in notify_notify()
+- Correctly update critical notifications while in DnD mode
+- Fix incorrect casts in GTree foreach functions
+- Remove expire/fade timeout source removal hacks
+- Missed a spot to reset fade/slide
+- Allow slideout when no fadeout
+- Only start fade timeout if no existing handle
+- Only start expiration timeout if no existing handle
+- Ensure timeout sources are removed in _window_dispose()
+- Move log dbus signal emissions to XfceNotifyDaemonLog
+- Remove expire and fade sources before emitting closed signal
+- Emit NotificationClosed when not showing notification
+- Consolidate the window movement code
+- Add option to show notifications on all monitors
+- Migrate the primary-monitor setting to a string-based enum
+- Translation Updates:
+  Albanian, Armenian (Armenia), Basque, Belarusian, Bulgarian, Catalan,
+  Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish, Dutch,
+  Eastern Armenian, English (Australia), English (United Kingdom),
+  Estonian, Finnish, French, Galician, Georgian, German, Greek, Hebrew,
+  Hungarian, Icelandic, Indonesian, Interlingue, Italian, Japanese,
+  Kazakh, Korean, Lithuanian, Malay, Norwegian Bokmål, Polish,
+  Portuguese, Portuguese (Brazil), Russian, Serbian, Slovak, Slovenian,
+  Spanish, Swedish, Thai, Turkish, Ukrainian
+
 0.8.2 (2023-02-27)
 =====
 - Remove WM_TAKE_FOCUS from WM_PROTOCOLS for notification windows
