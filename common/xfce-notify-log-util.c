@@ -93,11 +93,14 @@ notify_pixbuf_from_image_data (GVariant *image_data)
                                g_variant_get_size(pixel_data));
     g_variant_unref(pixel_data);
 
-    pix = gdk_pixbuf_new_from_data(data,
-                                   GDK_COLORSPACE_RGB, has_alpha,
-                                   bits_per_sample, width, height,
-                                   rowstride,
-                                   notify_free, NULL);
+    if (data != NULL) {
+        pix = gdk_pixbuf_new_from_data(data,
+                                       GDK_COLORSPACE_RGB, has_alpha,
+                                       bits_per_sample, width, height,
+                                       rowstride,
+                                       notify_free, NULL);
+    }
+
     return pix;
 }
 
