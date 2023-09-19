@@ -76,6 +76,9 @@ endif
 if USE_SYSTEMD
 systemd_userdir = $(SYSTEMD_USER_SERVICE_DIR)
 systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
+systemd_service = SystemdService=xfce4-notifyd.service
+else
+systemd_service =
 endif
 
 if USE_XDG_AUTOSTART
@@ -101,7 +104,11 @@ CLEANFILES = \
 	$(autostart_DATA)
 
 %.service: $(srcdir)/%.service.in Makefile
-	$(AM_V_GEN) sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" < $< > $@
+	$(AM_V_GEN) sed \
+		-e "s,\@notifydir\@,$(xfce4_notifyddir),g" \
+		-e "s,\@systemd_service\@,$(systemd_service),g" \
+		< $< > $@ || \
+		rm -f $@
 
 %.desktop: $(srcdir)/%.desktop.in Makefile
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o - | sed -e "s,\@notifydir\@,$(xfce4_notifyddir),g" > $@
