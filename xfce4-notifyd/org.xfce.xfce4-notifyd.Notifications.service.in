@@ -1,4 +1,4 @@
 [D-BUS Service]
 Name=org.freedesktop.Notifications
 Exec=@notifydir@/xfce4-notifyd
-SystemdService=xfce4-notifyd.service
+@systemd_service@
