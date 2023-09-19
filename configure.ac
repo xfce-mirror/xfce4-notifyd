@@ -121,7 +121,10 @@ AC_SUBST([DBUS_SERVICE_DIR])
 
 dnl systemd service files
 XDT_CHECK_OPTIONAL_PACKAGE([SYSTEMD], [systemd], [systemd_minimum_version], [systemd], [systemd])
-AM_CONDITIONAL([USE_SYSTEMD], [test x"$SYSTEMD_FOUND" = x"yes"])
+if test x"$enable_systemd" != x"no"; then
+    enable_systemd=yes
+fi
+AM_CONDITIONAL([USE_SYSTEMD], [test x"$enable_systemd" != x"no"])
 
 dnl note that the default does not use ${libdir}, as that is often something
 dnl like ${prefix}/lib/x86_64-linux-gnu, which is generally not correct for
@@ -130,11 +133,16 @@ AC_ARG_WITH([systemd-user-service-dir],
             [AS_HELP_STRING([--with-systemd-user-service-dir=DIR],
                             [Specifies the directory where user bus services should be installed (default=${prefix}/lib/systemd/user)])],
             [systemd_user_service_dir=$withval], [systemd_user_service_dir="${prefix}/lib/systemd/user"])
-if test x"$systemd_user_service_dir" = x"auto"; then
-    systemd_user_service_dir="`$PKG_CONFIG --variable=systemd_user_unit_dir systemd`"
+if test x"$enable_systemd" != x"no"; then
+    if test x"$systemd_user_service_dir" = x"auto"; then
+        if test x"$SYSTEMD_FOUND" != x"yes"; then
+            AC_MSG_ERROR([systemd was not found, but --systemd-user-service-dir=auto was passed])
+        fi
+        systemd_user_service_dir="`$PKG_CONFIG --variable=systemd_user_unit_dir systemd`"
+    fi
+    SYSTEMD_USER_SERVICE_DIR="$systemd_user_service_dir"
+    AC_SUBST([SYSTEMD_USER_SERVICE_DIR])
 fi
-SYSTEMD_USER_SERVICE_DIR="$systemd_user_service_dir"
-AC_SUBST([SYSTEMD_USER_SERVICE_DIR])
 
 dnl XDG autostart files
 AC_ARG_ENABLE([xdg-autostart],
@@ -183,6 +191,6 @@ echo "* Wayland Support:           $ENABLE_WAYLAND"
 echo "* Sound support:             $ENABLE_SOUND"
 echo "* Startup methods:"
 echo "  - D-Bus activation:        $use_dbus_start_daemon ($DBUS_SERVICE_DIR)"
-echo "  - Systemd:                 $SYSTEMD_FOUND ($SYSTEMD_USER_SERVICE_DIR)"
+echo "  - Systemd:                 $enable_systemd ($SYSTEMD_USER_SERVICE_DIR)"
 echo "  - XDG autostart:           $use_xdg_autostart ($sysconfdir/xdg/autostart)"
 echo
