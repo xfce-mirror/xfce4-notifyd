@@ -146,9 +146,9 @@ fi
 
 dnl XDG autostart files
 AC_ARG_ENABLE([xdg-autostart],
-              [AS_HELP_STRING([--enable-xdg-autostart],
-                              [Install an XDG autostart file to start xfce4-notifyd when the desktop session starts (default=disabled)])],
-              [use_xdg_autostart=$enableval], [use_xdg_autostart=no])
+              [AS_HELP_STRING([--disable-xdg-autostart],
+                              [Do not install an XDG autostart file to start xfce4-notifyd when the desktop session starts (default=enabled)])],
+              [use_xdg_autostart=$enableval], [use_xdg_autostart=yes])
 AM_CONDITIONAL([USE_XDG_AUTOSTART],
                [test x"$use_xdg_autostart" = x"yes"])
 
