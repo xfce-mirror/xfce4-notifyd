@@ -113,7 +113,7 @@ AC_ARG_WITH([dbus-service-dir],
             [AS_HELP_STRING([--with-dbus-service-dir=DIR],
                             [Specifies the directory where D-Bus service activation files should be installed (default=${datadir}/dbus-1/services)])],
             [dbus_service_dir=$withval], [dbus_service_dir="${datadir}/dbus-1/services"])
-if test x"$dbus_service_dir" = x"auto"; then
+if test x"$use_dbus_start_daemon" = x"yes" -a x"$dbus_service_dir" = x"auto"; then
     dbus_service_dir="`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`"
 fi
 DBUS_SERVICE_DIR="$dbus_service_dir"
@@ -124,7 +124,7 @@ XDT_CHECK_OPTIONAL_PACKAGE([SYSTEMD], [systemd], [systemd_minimum_version], [sys
 if test x"$enable_systemd" != x"no"; then
     enable_systemd=yes
 fi
-AM_CONDITIONAL([USE_SYSTEMD], [test x"$enable_systemd" != x"no"])
+AM_CONDITIONAL([USE_SYSTEMD], [test x"$enable_systemd" = x"yes"])
 
 dnl note that the default does not use ${libdir}, as that is often something
 dnl like ${prefix}/lib/x86_64-linux-gnu, which is generally not correct for
@@ -146,9 +146,9 @@ fi
 
 dnl XDG autostart files
 AC_ARG_ENABLE([xdg-autostart],
-              [AS_HELP_STRING([--enable-xdg-autostart],
-                              [Install an XDG autostart file to start xfce4-notifyd when the desktop session starts (default=disabled)])],
-              [use_xdg_autostart=$enableval], [use_xdg_autostart=no])
+              [AS_HELP_STRING([--disable-xdg-autostart],
+                              [Do not install an XDG autostart file to start xfce4-notifyd when the desktop session starts (default=enabled)])],
+              [use_xdg_autostart=$enableval], [use_xdg_autostart=yes])
 AM_CONDITIONAL([USE_XDG_AUTOSTART],
                [test x"$use_xdg_autostart" = x"yes"])
 
