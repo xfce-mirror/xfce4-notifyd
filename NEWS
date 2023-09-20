@@ -1,3 +1,12 @@
+0.9.1 (2023-09-19)
+=====
+- Make the XDG autostart file attempt a systemd start first
+- Only include the SystemdService= line if systemd support is enabled
+- Clean up some conditionals in configure.ac
+- Go back to installing the XDG autostart file by default
+- Allow installing systemd service file even if systemd is not installed
+
+
 0.9.0 (2023-09-18)
 =====
 - Add missing sanity check
