@@ -148,7 +148,7 @@ xfce_notify_migrate_enum_setting(XfconfChannel *channel, const gchar *property_n
         GValue value = G_VALUE_INIT;
 
         xfconf_channel_get_property(channel, property_name, &value);
-        if (G_VALUE_HOLDS_INT(&value)) {
+        if (G_VALUE_HOLDS_UINT(&value)) {
             gchar *nick = xfce_notify_enum_nick_from_value(enum_type, g_value_get_int(&value));
 
             if (nick != NULL) {
