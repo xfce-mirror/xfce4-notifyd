@@ -1,3 +1,9 @@
+0.9.2 (2023-09-24)
+=====
+- (Hopefully) actually fix settings migration code
+- (Hopefully) fix enum setting migration code
+
+
 0.9.1 (2023-09-19)
 =====
 - Make the XDG autostart file attempt a systemd start first
