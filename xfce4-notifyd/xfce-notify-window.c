@@ -1176,11 +1176,9 @@ xfce_notify_window_set_body(XfceNotifyWindow *window,
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
 
     if(body && *body) {
-        if (xfce_notify_is_markup_valid(body)) {
-            gtk_label_set_markup (GTK_LABEL (window->body), body);
-        } else {
-            gtk_label_set_text(GTK_LABEL(window->body), body);
-        }
+        gchar *sanitized_body = xfce_notify_sanitize_markup(body);
+        gtk_label_set_markup (GTK_LABEL (window->body), sanitized_body);
+        g_free(sanitized_body);
         gtk_widget_show(window->body);
         window->has_body_text = TRUE;
     } else {

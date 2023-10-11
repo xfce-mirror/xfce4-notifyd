@@ -132,7 +132,7 @@ typedef enum {
 } XfceNotifyCloseReason;
 
 
-gboolean xfce_notify_is_markup_valid(const gchar *markup);
+gchar *xfce_notify_sanitize_markup(const gchar *markup);
 
 GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);
 

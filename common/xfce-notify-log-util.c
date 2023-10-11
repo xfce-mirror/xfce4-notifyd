@@ -517,10 +517,8 @@ gchar *
 notify_log_format_body(const gchar *body) {
     if (body == NULL || body[0] == '\0') {
         return NULL;
-    } else if (xfce_notify_is_markup_valid(body)) {
-        return g_strdup(body);
     } else {
-        return g_markup_escape_text(body, -1);
+        return xfce_notify_sanitize_markup(body);
     }
 }
 
