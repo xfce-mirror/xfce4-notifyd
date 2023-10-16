@@ -94,7 +94,9 @@ markup_text(GMarkupParseContext *context,
             GError **error)
 {
     MarkupState *state = user_data;
-    g_string_append_len(state->sanitized, text, text_len);
+    gchar *escaped = g_markup_escape_text(text, text_len);
+    g_string_append(state->sanitized, escaped);
+    g_free(escaped);
 }
 
 // We can't use pango_parse_markup(), as that does not support hyperlinks.
