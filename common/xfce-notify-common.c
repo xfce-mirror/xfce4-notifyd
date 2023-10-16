@@ -102,8 +102,6 @@ markup_text(GMarkupParseContext *context,
 // We can't use pango_parse_markup(), as that does not support hyperlinks.
 gchar *
 xfce_notify_sanitize_markup(const gchar *markup) {
-    gchar *sanitized = NULL;
-
     if (G_LIKELY(markup != NULL)) {
         const GMarkupParser parser = { markup_start_elem, markup_end_elem, markup_text, NULL, };
         GMarkupParseContext *ctx;
@@ -129,15 +127,14 @@ xfce_notify_sanitize_markup(const gchar *markup) {
         g_markup_parse_context_free(ctx);
 
         if (valid) {
-            sanitized = state.sanitized->str;
-            g_string_free(state.sanitized, FALSE);
+            return g_string_free(state.sanitized, FALSE);
         } else {
             g_string_free(state.sanitized, TRUE);
-            sanitized = g_markup_escape_text(p, -1);
+            return g_markup_escape_text(p, -1);
         }
+    } else {
+        return NULL;
     }
-
-    return sanitized;
 }
 
 GtkWidget *
