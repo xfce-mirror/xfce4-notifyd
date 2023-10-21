@@ -102,8 +102,9 @@ typedef struct _XfceNotifyLog {
     sqlite3_stmt *stmt_mark_all_read;
     sqlite3_stmt *stmt_delete;
     sqlite3_stmt *stmt_delete_before;
-    sqlite3_stmt *stmt_truncate;
     sqlite3_stmt *stmt_delete_all;
+
+    gboolean sqlite_delete_supports_limit_offset;
 
     GFileMonitor *monitor;
 
@@ -216,6 +217,7 @@ xfce_notify_log_initable_init(GInitableIface *iface) {
 
 static void
 xfce_notify_log_init(XfceNotifyLog *log) {
+    log->sqlite_delete_supports_limit_offset = TRUE;
     log->write_queue = g_queue_new();
 }
 
@@ -308,7 +310,6 @@ xfce_notify_log_finalize(GObject *object) {
     xn_sqlite3_finalize(log->stmt_mark_all_read);
     xn_sqlite3_finalize(log->stmt_delete);
     xn_sqlite3_finalize(log->stmt_delete_before);
-    xn_sqlite3_finalize(log->stmt_truncate);
     xn_sqlite3_finalize(log->stmt_delete_all);
 
     if (log->db != NULL) {
@@ -429,12 +430,6 @@ prepare_statements(XfceNotifyLog *log, GError **error) {
     PREPARE_CHECKED(log->stmt_delete_before, "DELETE FROM " TABLE " WHERE " COL_TIMESTAMP " < :" COL_TIMESTAMP);
 
     PREPARE_CHECKED(log->stmt_delete_all, "DELETE FROM " TABLE);
-
-    log->stmt_truncate = prepare_statement(log->db, "DELETE FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT -1 OFFSET ?", error);
-    if (log->stmt_truncate == NULL) {
-        g_message("Your sqlite library does not support OFFSET/LIMIT with DELETE; falling back to less-efficient deletion method");
-        g_clear_error(error);
-    }
 
     return TRUE;
 #undef COLUMN_NAMES
@@ -978,36 +973,42 @@ xfce_notify_log_real_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
 
     if (n_entries_to_keep == 0) {
         rc = xfce_notify_log_real_clear(log);
-    } else if (log->stmt_truncate != NULL) {
-        rc = sqlite3_bind_int(log->stmt_truncate, 0, n_entries_to_keep);
-        if (rc == SQLITE_OK) {
-            rc = sqlite3_step(log->stmt_truncate);
+    } else {
+        if (log->sqlite_delete_supports_limit_offset) {
+            gchar *sql = g_strdup_printf("DELETE FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT -1 OFFSET %u", n_entries_to_keep);
+            struct sqlite3_stmt *stmt = prepare_statement(log->db, sql, NULL);
+            if (stmt != NULL) {
+                rc = sqlite3_step(stmt);
+                sqlite3_finalize(stmt);
+            } else {
+                g_message("Your sqlite library does not support OFFSET/LIMIT with DELETE; falling back to less-efficient deletion method");
+                log->sqlite_delete_supports_limit_offset = FALSE;
+            }
         }
 
-        sqlite3_reset(log->stmt_truncate);
-        sqlite3_clear_bindings(log->stmt_truncate);
-    } else {
-        GList *entries = xfce_notify_log_read(log, NULL, n_entries_to_keep + 1);
-        guint n_entries;
-        GList *last = xfce_notify_g_list_last_length(entries, &n_entries);
+        if (!log->sqlite_delete_supports_limit_offset) {
+            GList *entries = xfce_notify_log_read(log, NULL, n_entries_to_keep + 1);
+            guint n_entries;
+            GList *last = xfce_notify_g_list_last_length(entries, &n_entries);
 
-        if (n_entries > n_entries_to_keep) {
-            // n_entries guaranteed to be >= 2 here, thus entries != NULL and last != NULL and last->prev != NULL
-            XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
-            rc = sqlite3_bind_int64(log->stmt_delete_before,
-                                    BIND_INDEX(log->stmt_delete_before, COL_TIMESTAMP),
-                                    g_date_time_to_unix(last_entry_to_keep->timestamp) * 1000000 + g_date_time_get_microsecond(last_entry_to_keep->timestamp));
-            if (rc == SQLITE_OK) {
-                rc = sqlite3_step(log->stmt_delete_before);
+            if (n_entries > n_entries_to_keep) {
+                // n_entries guaranteed to be >= 2 here, thus entries != NULL and last != NULL and last->prev != NULL
+                XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
+                rc = sqlite3_bind_int64(log->stmt_delete_before,
+                                        BIND_INDEX(log->stmt_delete_before, COL_TIMESTAMP),
+                                        g_date_time_to_unix(last_entry_to_keep->timestamp) * 1000000 + g_date_time_get_microsecond(last_entry_to_keep->timestamp));
+                if (rc == SQLITE_OK) {
+                    rc = sqlite3_step(log->stmt_delete_before);
+                }
+
+                sqlite3_reset(log->stmt_delete_before);
+                sqlite3_clear_bindings(log->stmt_delete_before);
+            } else {
+                rc = SQLITE_OK;
             }
 
-            sqlite3_reset(log->stmt_delete_before);
-            sqlite3_clear_bindings(log->stmt_delete_before);
-        } else {
-            rc = SQLITE_OK;
+            g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
         }
-
-        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
     }
 
     return rc;
