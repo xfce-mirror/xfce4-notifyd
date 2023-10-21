@@ -395,6 +395,7 @@ xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log, GtkWindow *parent) {
                                           NULL);
     content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
     grid = gtk_grid_new ();
+    gtk_grid_set_row_spacing(GTK_GRID(grid), 6);
     gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
     gtk_widget_set_margin_start (grid, 12);
     gtk_widget_set_margin_end (grid, 12);
