@@ -428,6 +428,9 @@ xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log) {
     gtk_container_add (GTK_CONTAINER (content_area), grid);
     gtk_widget_show_all (dialog);
 
+    GtkWidget *cancel = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
+    gtk_widget_grab_focus(cancel);
+
     rdata = g_new0(ClearLogResponseData, 1);
     rdata->log = log;
     rdata->include_log = checkbutton;
