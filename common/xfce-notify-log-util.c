@@ -376,7 +376,7 @@ notify_closure_free(gpointer data,
 }
 
 GtkWidget *
-xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log) {
+xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log, GtkWindow *parent) {
     GtkWidget *dialog, *grid, *icon, *label, *content_area, *checkbutton;
     GtkDialogFlags flags = GTK_DIALOG_MODAL;
     gchar *icon_cache_size;
@@ -386,7 +386,7 @@ xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log) {
     ClearLogResponseData *rdata;
 
     dialog = gtk_dialog_new_with_buttons (_("Clear notification log"),
-                                          NULL,
+                                          parent,
                                           flags,
                                           _("Cancel"),
                                           GTK_RESPONSE_CANCEL,

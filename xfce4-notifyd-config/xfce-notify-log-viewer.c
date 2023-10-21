@@ -828,7 +828,9 @@ xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer) {
 
 static void
 xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
-    GtkWidget *dialog = xfce_notify_clear_log_dialog(viewer->log);
+    GtkWidget *toplevel = gtk_widget_get_toplevel(GTK_WIDGET(viewer));
+    GtkWidget *dialog = xfce_notify_clear_log_dialog(viewer->log,
+                                                     GTK_IS_WINDOW(toplevel) ? GTK_WINDOW(toplevel) : NULL);
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }

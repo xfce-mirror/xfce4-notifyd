@@ -41,7 +41,8 @@ gchar *xfce_notify_log_cache_icon(GVariant *v_image_data,
 gchar *notify_get_from_desktop_file (const gchar *desktop_file,
                                      const gchar *key);
 
-GtkWidget *xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log);
+GtkWidget *xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log,
+                                        GtkWindow *parent);
 
 cairo_surface_t *notify_log_load_icon(const gchar *notify_log_icon_folder,
                                       const gchar *icon_id,
