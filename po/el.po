@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-05-05 10:53+0200\n"
+"POT-Creation-Date: 2023-05-30 00:51+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Ioannis LM, 2022-2023\n"
 "Language-Team: Greek (http://app.transifex.com/xfce/xfce-apps/language/el/)\n"
@@ -517,7 +517,7 @@ msgstr "Εμφάνιση περιγραφής και πλαισίου ειδοπ
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:667
 msgid "Show text with percent _values"
-msgstr "Εμφάνιση κειμένου στις _τιμές σε ποσοστά"
+msgstr "Εμφάνιση κειμένου στις τιμές σε πο_σοστά"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:681
 msgid "Date/time _format"
