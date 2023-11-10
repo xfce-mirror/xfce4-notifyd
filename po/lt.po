@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-05-05 10:53+0200\n"
+"POT-Creation-Date: 2023-05-30 00:51+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Moo, 2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/xfce/xfce-apps/language/lt/)\n"
@@ -501,7 +501,7 @@ msgstr "Apačioje centre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "_Theme"
-msgstr "_Tema"
+msgstr "_Apipavidalinimas"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:665
 msgid ""
