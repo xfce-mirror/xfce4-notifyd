@@ -1106,8 +1106,6 @@ xfce_notify_window_reset_fade_and_slide(XfceNotifyWindow *window) {
         window->fade_id = 0;
     }
 
-    gtk_widget_set_opacity(GTK_WIDGET(window), window->normal_opacity);
-
     if (window->original_x != G_MININT && window->original_y != G_MININT) {
         window->draw_offset_x = 0;
         window->draw_offset_y = 0;
