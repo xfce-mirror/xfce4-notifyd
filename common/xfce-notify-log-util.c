@@ -597,6 +597,31 @@ notify_log_load_icon(const gchar *notify_log_icon_folder,
     return surface;
 }
 
+static void
+draw_unread_emblem_fallback(cairo_surface_t *surface,
+                            GtkStyleContext *style_context,
+                            gint icon_size,
+                            gdouble alpha)
+{
+  GdkRGBA color;
+  cairo_t *cr;
+
+  if (!gtk_style_context_lookup_color(style_context, "error_color", &color)) {
+      color.red = 1.0;
+      color.green = 0.0;
+      color.blue = 0.0;
+  }
+  color.alpha = alpha;
+
+  cr = cairo_create(surface);
+
+  cairo_arc(cr, 3.0 * icon_size / 4.0, icon_size / 4.0, icon_size / 4.0, 0.0, 2 * M_PI);
+  gdk_cairo_set_source_rgba(cr, &color);
+  cairo_fill(cr);
+
+  cairo_destroy(cr);
+}
+
 void
 notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
                                   GtkStyleContext *style_context,
@@ -627,11 +652,13 @@ notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
         } else {
             g_warning("Failed to load unread notification emblem: %s", error->message);
             g_error_free(error);
+            draw_unread_emblem_fallback(surface, style_context, size, alpha);
         }
 
         g_object_unref(emblem_info);
     } else {
         g_warning("Failed to look up unread notification emblem");
+        draw_unread_emblem_fallback(surface, style_context, size, alpha);
     }
 
     g_object_unref(emblem);
