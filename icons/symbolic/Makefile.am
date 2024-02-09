@@ -1,3 +1,6 @@
+# These should really go in symbolic/status, but unfortunately the hicolor
+# index.theme doesn't include that directory, so we have to put them in
+# scalable/status instead.
 iconsdir = $(datadir)/icons/hicolor/scalable/status
 icons_DATA =								\
 	notification-disabled-symbolic.svg		\
