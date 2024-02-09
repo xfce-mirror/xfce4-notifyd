@@ -288,7 +288,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
       }
       if (icon != NULL) {
         if (!entry->is_read) {
-            notify_log_icon_add_unread_emblem(icon, style_context, log_icon_size, scale_factor);
+            notify_log_icon_add_unread_emblem(icon, style_context, log_icon_size, scale_factor, 1.0);
         }
         app_icon = gtk_image_new_from_surface(icon);
       }

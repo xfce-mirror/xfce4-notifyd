@@ -52,7 +52,8 @@ cairo_surface_t *notify_log_load_icon(const gchar *notify_log_icon_folder,
 void notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
                                        GtkStyleContext *style_context,
                                        gint size,
-                                       gint scale_factor);
+                                       gint scale_factor,
+                                       gdouble alpha);
 
 gchar *notify_log_format_timestamp(GDateTime *timestamp,
                                    XfceNotifyDatetimeFormat format,

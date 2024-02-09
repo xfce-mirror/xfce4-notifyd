@@ -320,7 +320,7 @@ notify_icon_for_entry(XfceNotifyLogEntry *entry, GtkStyleContext *style_context,
     }
 
     if (!entry->is_read) {
-        notify_log_icon_add_unread_emblem(icon, style_context, size, scale_factor);
+        notify_log_icon_add_unread_emblem(icon, style_context, size, scale_factor, 1.0);
     }
 
     return icon;
@@ -346,7 +346,7 @@ update_log_entry_icon(GtkListBoxRow *row) {
 
             icon = notify_icon_for_entry(entry, gtk_widget_get_style_context(image), size, scale_factor);
             if (!entry->is_read) {
-                notify_log_icon_add_unread_emblem(icon, style_context, size, scale_factor);
+                notify_log_icon_add_unread_emblem(icon, style_context, size, scale_factor, 1.0);
             }
             gtk_image_set_from_surface(GTK_IMAGE(image), icon);
             cairo_surface_destroy(icon);

@@ -30,6 +30,7 @@
 #include <libxfce4panel/libxfce4panel.h>
 
 #include "common/xfce-notify-common.h"
+#include "common/xfce-notify-log-util.h"
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 #include "notification-plugin-dialogs.h"
@@ -190,46 +191,33 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
                                                        GTK_ICON_LOOKUP_FORCE_SIZE);
 
   if (G_LIKELY(icon_info != NULL)) {
-    GdkPixbuf *pix = gtk_icon_info_load_symbolic_for_context(icon_info, style_context, NULL, NULL);
+    GError *error = NULL;
+    GdkPixbuf *pix = gtk_icon_info_load_symbolic_for_context(icon_info, style_context, NULL, &error);
 
     if (G_LIKELY(pix != NULL)) {
       cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(pix, scale_factor, NULL);
 
       if (notification_plugin->new_notifications) {
-        GIcon *emblem = g_themed_icon_new("org.xfce.notification.unread-emblem-symbolic");
-        GtkIconInfo *emblem_info = gtk_icon_theme_lookup_by_gicon_for_scale(icon_theme,
-                                                                            emblem,
-                                                                            notification_plugin->icon_size,
-                                                                            scale_factor,
-                                                                            GTK_ICON_LOOKUP_FORCE_SIZE);
-
-        if (G_LIKELY(emblem_info != NULL)) {
-          GdkPixbuf *emblem_pix = gtk_icon_info_load_symbolic_for_context(emblem_info, style_context, NULL, NULL);
-
-          if (G_LIKELY(emblem_pix != NULL)) {
-            cairo_t *cr = cairo_create(surface);
-
-            cairo_scale(cr, 1.0 / scale_factor, 1.0 / scale_factor);
-            gdk_cairo_set_source_pixbuf(cr, emblem_pix, 0, 0);
-            cairo_paint_with_alpha(cr, dnd_enabled ? 0.7 : 1.0);
-
-            cairo_destroy(cr);
-            g_object_unref(emblem_pix);
-          }
-
-          g_object_unref(emblem_info);
-        }
-
-        g_object_unref(emblem);
+        gdouble alpha = dnd_enabled ? 0.7 : 1.0;
+        notify_log_icon_add_unread_emblem(surface,
+                                          style_context,
+                                          notification_plugin->icon_size,
+                                          scale_factor,
+                                          alpha);
       }
 
       gtk_image_set_from_surface(GTK_IMAGE(notification_plugin->image), surface);
 
       cairo_surface_destroy(surface);
       g_object_unref(pix);
+    } else {
+      g_warning("Failed to load notification icon: %s", error->message);
+      g_clear_error(&error);
     }
 
     g_object_unref(icon_info);
+  } else {
+    g_warning("Failed to look up notification icon");
   }
 
   g_object_unref(base_icon);
