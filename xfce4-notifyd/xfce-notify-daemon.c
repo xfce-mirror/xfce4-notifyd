@@ -1609,9 +1609,14 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                 break;
             }
 
-            case XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR:
-                monitors = g_list_append(monitors, gdk_display_get_primary_monitor(display));
+            case XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR: {
+                GdkMonitor *monitor = gdk_display_get_primary_monitor(display);
+                if (monitor == NULL) {
+                    monitor = gdk_display_get_monitor(display, 0);
+                }
+                monitors = g_list_append(monitors, monitor);
                 break;
+            }
 
             case XFCE_NOTIFY_SHOW_ON_ALL_MONITORS: {
                 gint n_monitors = gdk_display_get_n_monitors(display);
