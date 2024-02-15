@@ -513,7 +513,7 @@ msgstr "_Θέμα"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr "Εμφάνιση της περιγραφής και του πλαισίου ειδοποίησης όταν η τιμή είναι σε ποσοστά, όπως στην ένταση του ήχου και στη φωτεινότητα της οθόνης"
+msgstr "Εμφάνιση κειμένου στην ειδοποίηση εάν η τιμή είναι σε ποσοστά, όπως στην ένταση του ήχου και στη φωτεινότητα της οθόνης"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:667
 msgid "Show text with percent _values"
