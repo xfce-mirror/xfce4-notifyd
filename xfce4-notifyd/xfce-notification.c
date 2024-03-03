@@ -751,13 +751,13 @@ xfce_notification_update(XfceNotification *notification,
     g_object_thaw_notify(G_OBJECT(notification));
 }
 
-GList *
-xfce_notification_create_windows(XfceNotification *notification,
-                                 GList *monitors,
-                                 gboolean override_redirect,
-                                 XfceNotifyPosition location,
-                                 gdouble normal_opacity,
-                                 gboolean show_text_with_gauge)
+static XfceNotifyWindow *
+create_notify_window(XfceNotification *notification,
+                     GdkMonitor *monitor,
+                     gboolean override_redirect,
+                     XfceNotifyPosition location,
+                     gdouble normal_opacity,
+                     gboolean show_text_with_gauge)
 {
     static const gchar *bind_properties[] = {
         "summary",
@@ -775,35 +775,63 @@ xfce_notification_create_windows(XfceNotification *notification,
         "do-slideout",
     };
 
+    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new(notification->id,
+                                                                         monitor,
+                                                                         override_redirect,
+                                                                         location,
+                                                                         normal_opacity,
+                                                                         show_text_with_gauge));
+
+    for (gsize i = 0; i < G_N_ELEMENTS(bind_properties); ++i) {
+        g_object_bind_property(notification, bind_properties[i],
+                               window, bind_properties[i],
+                               G_BINDING_SYNC_CREATE);
+    }
+
+    g_signal_connect(window, "action-invoked",
+                     G_CALLBACK(xfce_notification_window_action_invoked), notification);
+    g_signal_connect(window, "closed",
+                     G_CALLBACK(xfce_notification_window_closed), notification);
+
+    return window;
+}
+
+GList *
+xfce_notification_create_windows(XfceNotification *notification,
+                                 GList *monitors,
+                                 gboolean override_redirect,
+                                 XfceNotifyPosition location,
+                                 gdouble normal_opacity,
+                                 gboolean show_text_with_gauge)
+{
     g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
-    g_return_val_if_fail(monitors != NULL && GDK_IS_MONITOR(monitors->data), NULL);
     g_return_val_if_fail(notification->windows == NULL, NULL);
 
-    for (GList *l = monitors; l != NULL; l = l->next) {
-        GdkMonitor *monitor = GDK_MONITOR(l->data);
-        XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(xfce_notify_window_new(notification->id,
-                                                                             monitor,
-                                                                             override_redirect,
-                                                                             location,
-                                                                             normal_opacity,
-                                                                             show_text_with_gauge));
-
-        for (gsize i = 0; i < G_N_ELEMENTS(bind_properties); ++i) {
-            g_object_bind_property(notification, bind_properties[i],
-                                   window, bind_properties[i],
-                                   G_BINDING_SYNC_CREATE);
-        }
-
-        g_signal_connect(window, "action-invoked",
-                         G_CALLBACK(xfce_notification_window_action_invoked), notification);
-        g_signal_connect(window, "closed",
-                         G_CALLBACK(xfce_notification_window_closed), notification);
-
+    if (monitors == NULL) {
+        // On wayland, NULL monitors means "active monitor".  We'll need to
+        // figure out the window's location after the compositor maps it.
+        XfceNotifyWindow *window = create_notify_window(notification,
+                                                        NULL,
+                                                        override_redirect,
+                                                        location,
+                                                        normal_opacity,
+                                                        show_text_with_gauge);
         notification->windows = g_list_prepend(notification->windows, window);
+    } else {
+        for (GList *l = monitors; l != NULL; l = l->next) {
+            GdkMonitor *monitor = GDK_MONITOR(l->data);
+            XfceNotifyWindow *window = create_notify_window(notification,
+                                                            monitor,
+                                                            override_redirect,
+                                                            location,
+                                                            normal_opacity,
+                                                            show_text_with_gauge);
+            notification->windows = g_list_prepend(notification->windows, window);
+        }
+        notification->windows = g_list_reverse(notification->windows);
     }
-    notification->windows = g_list_reverse(notification->windows);
-    g_assert(notification->windows != NULL);
 
+    g_assert(notification->windows != NULL);
     return notification->windows;
 }
 
