@@ -35,6 +35,10 @@
 #include <gdk/gdkx.h>
 #endif
 
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
+
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
@@ -1215,6 +1219,25 @@ xfce_notify_log_insert(XfceNotifyLog *log,
 }
 
 static gboolean
+xfce_notify_daemon_window_mapped(GtkWidget *widget, GdkEventAny *event, XfceNotifyDaemon *xndaemon) {
+    GdkWindow *window = gtk_widget_get_window(widget);
+    GdkMonitor *monitor = gdk_display_get_monitor_at_window(gtk_widget_get_display(widget), window);
+
+    g_signal_handlers_disconnect_by_func(widget, xfce_notify_daemon_window_mapped, xndaemon);
+
+    if (monitor != NULL) {
+        XfceNotifyWindow *xnwindow = XFCE_NOTIFY_WINDOW(widget);
+        DBG("found monitor %p for window %p after it was mapped", monitor, xnwindow);
+        xfce_notify_window_update_monitor(xnwindow, monitor);
+        xfce_notify_daemon_place_notification_window(xndaemon, xnwindow, monitor);
+    } else {
+        g_message("Notification window was mapped but does not have a monitor set");
+    }
+
+    return FALSE;
+}
+
+static gboolean
 notify_notify(XfceNotifyFdoGBus *skeleton,
               GDBusMethodInvocation   *invocation,
               const gchar *app_name,
@@ -1599,15 +1622,25 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                          G_CALLBACK(xfce_notify_daemon_closed), xndaemon);
 
         switch (xndaemon->show_notifications_on) {
-            case XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR: {
-                GdkSeat *seat = gdk_display_get_default_seat(display);
-                GdkDevice *pointer = gdk_seat_get_pointer(seat);
-                gint x, y;
+            case XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR:
+#ifdef ENABLE_WAYLAND
+                if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+                    // On wayland we cannot determine the location of the
+                    // pointer, so we'll hope that the compositor will map the
+                    // window on the active monitor if we don't specify a
+                    // monitor
+                } else
+#endif
+                {
+                    GdkSeat *seat = gdk_display_get_default_seat(display);
+                    GdkDevice *pointer = gdk_seat_get_pointer(seat);
+                    gint x, y;
 
-                gdk_device_get_position(pointer, NULL, &x, &y);
-                monitors = g_list_append(monitors, gdk_display_get_monitor_at_point(display, x, y));
+                    gdk_device_get_position(pointer, NULL, &x, &y);
+                    monitors = g_list_append(monitors, gdk_display_get_monitor_at_point(display, x, y));
+                }
+
                 break;
-            }
 
             case XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR: {
                 GdkMonitor *monitor = gdk_display_get_primary_monitor(display);
@@ -1639,6 +1672,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             GtkWidget *window = GTK_WIDGET(l->data);
             GtkRequisition nat_size;
             GtkAllocation allocation =  { 0, };
+            GdkMonitor *monitor;
 
             g_signal_connect(window, "size-allocate",
                              G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
@@ -1649,7 +1683,15 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             allocation.width = nat_size.width;
             allocation.height = nat_size.height;
             gtk_widget_set_allocation(window, &allocation);
-            xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window)));
+
+            monitor = xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window));
+            if (monitor != NULL) {
+                xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), monitor);
+            } else {
+                gtk_widget_add_events(GTK_WIDGET(window), GDK_STRUCTURE_MASK);
+                g_signal_connect(window, "map-event",
+                                 G_CALLBACK(xfce_notify_daemon_window_mapped), xndaemon);
+            }
         }
         xfce_notification_realize(notification);
         g_idle_add(notify_show_windows, notification);
