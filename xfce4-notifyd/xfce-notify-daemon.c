@@ -35,6 +35,10 @@
 #include <gdk/gdkx.h>
 #endif
 
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
+
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
@@ -114,6 +118,11 @@ typedef struct
 {
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
+
+typedef struct {
+    XfceNotifyDaemon *xndaemon;
+    XfceNotifyWindow *window;
+} MonitorCheckData;
 
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
@@ -789,6 +798,14 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     g_return_if_fail(monitor_num >= 0);
     geom = xndaemon->monitors_workarea[monitor_num];
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gtk_widget_get_display(widget))) {
+        // For layer-shell windows, the position is set relative to the output,
+        // not the full compositor coordinate space.
+        geom.x = geom.y = 0;
+    }
+#endif
+
     DBG("placing window, allocation=%dx%d+%d+%d", allocation.width, allocation.height, allocation.x, allocation.y);
 
     /* Set initial geometry */
@@ -1215,6 +1232,50 @@ xfce_notify_log_insert(XfceNotifyLog *log,
 }
 
 static gboolean
+recheck_window_monitor(gpointer data) {
+    MonitorCheckData *mcdata = data;
+    GtkWidget *widget = GTK_WIDGET(mcdata->window);
+    GdkDisplay *display = gtk_widget_get_display(widget);
+    GdkWindow *window = gtk_widget_get_window(widget);
+    GdkMonitor *monitor = gdk_display_get_monitor_at_window(display, window);
+
+    if (monitor == NULL) {
+        DBG("couldn't find monitor for window at all; using 0th");
+        monitor = gdk_display_get_monitor(display, 0);
+    }
+
+    DBG("found monitor index=%d for window %p", xfce_notify_daemon_get_monitor_index(display, monitor), mcdata->window);
+    xfce_notify_window_update_monitor(mcdata->window, monitor);
+
+
+    g_signal_connect(mcdata->window, "size-allocate",
+                     G_CALLBACK(xfce_notify_daemon_window_size_allocate), mcdata->xndaemon);
+    xfce_notify_daemon_place_notification_window(mcdata->xndaemon, mcdata->window, monitor);
+
+    g_object_unref(mcdata->window);
+    g_object_unref(mcdata->xndaemon);
+    g_free(mcdata);
+
+    return FALSE;
+}
+
+static gboolean
+xfce_notify_daemon_window_mapped(GtkWidget *widget, GdkEventAny *event, XfceNotifyDaemon *xndaemon) {
+    MonitorCheckData *mcdata = g_new0(MonitorCheckData, 1);
+    mcdata->xndaemon = g_object_ref(xndaemon);
+    mcdata->window = g_object_ref(XFCE_NOTIFY_WINDOW(widget));
+
+    // The monitor at this point will likely still not be correct, but if we
+    // wait *just* a little bit longer (for the wl_surface.enter() on Wayland),
+    // it should hopefully then be correct.
+    g_timeout_add(100, recheck_window_monitor, mcdata);
+
+    g_signal_handlers_disconnect_by_func(widget, xfce_notify_daemon_window_mapped, xndaemon);
+
+    return FALSE;
+}
+
+static gboolean
 notify_notify(XfceNotifyFdoGBus *skeleton,
               GDBusMethodInvocation   *invocation,
               const gchar *app_name,
@@ -1600,12 +1661,23 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
         switch (xndaemon->show_notifications_on) {
             case XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR: {
-                GdkSeat *seat = gdk_display_get_default_seat(display);
-                GdkDevice *pointer = gdk_seat_get_pointer(seat);
-                gint x, y;
+#ifdef ENABLE_WAYLAND
+                if (GDK_IS_WAYLAND_DISPLAY(display) && gdk_display_get_n_monitors(display) != 1) {
+                    // On wayland we cannot determine the location of the
+                    // pointer, so we'll hope that the compositor will map the
+                    // window on the active monitor if we don't specify a
+                    // monitor
+                } else
+#endif
+                {
+                    GdkSeat *seat = gdk_display_get_default_seat(display);
+                    GdkDevice *pointer = gdk_seat_get_pointer(seat);
+                    gint x, y;
 
-                gdk_device_get_position(pointer, NULL, &x, &y);
-                monitors = g_list_append(monitors, gdk_display_get_monitor_at_point(display, x, y));
+                    gdk_device_get_position(pointer, NULL, &x, &y);
+                    monitors = g_list_append(monitors, gdk_display_get_monitor_at_point(display, x, y));
+                }
+
                 break;
             }
 
@@ -1639,9 +1711,8 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             GtkWidget *window = GTK_WIDGET(l->data);
             GtkRequisition nat_size;
             GtkAllocation allocation =  { 0, };
+            GdkMonitor *monitor;
 
-            g_signal_connect(window, "size-allocate",
-                             G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
             notify_update_theme_for_window(xndaemon, window, FALSE);
 
             gtk_widget_get_preferred_size(window, NULL, &nat_size);
@@ -1649,7 +1720,17 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             allocation.width = nat_size.width;
             allocation.height = nat_size.height;
             gtk_widget_set_allocation(window, &allocation);
-            xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window)));
+
+            monitor = xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window));
+            if (monitor != NULL) {
+                g_signal_connect(window, "size-allocate",
+                                 G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
+                xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), monitor);
+            } else {
+                gtk_widget_add_events(GTK_WIDGET(window), GDK_STRUCTURE_MASK);
+                g_signal_connect_after(window, "map-event",
+                                       G_CALLBACK(xfce_notify_daemon_window_mapped), xndaemon);
+            }
         }
         xfce_notification_realize(notification);
         g_idle_add(notify_show_windows, notification);
