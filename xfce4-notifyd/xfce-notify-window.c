@@ -211,6 +211,8 @@ static void xfce_notify_window_set_do_slideout(XfceNotifyWindow *window,
 
 static void xfce_notify_window_move(XfceNotifyWindow *window, gint x, gint y);
 
+static void xfce_notify_window_ensure_widgets(XfceNotifyWindow *window);
+
 
 static guint signals[N_SIGS] = { 0, };
 
@@ -406,6 +408,9 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
         gtk_layer_init_for_window(GTK_WINDOW(window));
+        if (window->monitor != NULL) {
+            gtk_layer_set_monitor(GTK_WINDOW(window), window->monitor);
+        }
         gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_OVERLAY);
         gtk_layer_set_namespace(GTK_WINDOW(window), "notification");
         gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
@@ -443,80 +448,11 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 static void
 xfce_notify_window_constructed(GObject *object) {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
-    GtkWidget *topvbox, *tophbox, *vbox;
-    gint screen_width;
-    gdouble padding = DEFAULT_PADDING;
     GtkCssProvider *provider;
-    GdkRectangle geometry;
 
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->constructed(object);
 
-    /* Use the monitor width to get a maximum width for the notification bubble.
-       This assumes that a character is 10px wide and we want a third of the
-       monitor as maximum width. */
-    gdk_monitor_get_geometry(window->monitor, &geometry);
-    screen_width = geometry.width / 30;
-
-    gtk_widget_style_get(GTK_WIDGET(window),
-                         "padding", &padding,
-                         NULL);
-
-    topvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_set_homogeneous (GTK_BOX (topvbox), FALSE);
-    gtk_container_set_border_width (GTK_CONTAINER(topvbox), padding);
-    gtk_widget_show (topvbox);
-    gtk_container_add (GTK_CONTAINER(window), topvbox);
-    tophbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_set_homogeneous (GTK_BOX (tophbox), FALSE);
-    gtk_widget_show (tophbox);
-    gtk_container_add (GTK_CONTAINER(topvbox), tophbox);
-
-    window->icon_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_container_set_border_width(GTK_CONTAINER(window->icon_box), 0);
-    gtk_widget_set_margin_end (GTK_WIDGET (window->icon_box), padding);
-
-    gtk_box_pack_start(GTK_BOX(tophbox), window->icon_box, FALSE, TRUE, 0);
-
-    window->icon = gtk_image_new();
-    gtk_widget_show(window->icon);
-    gtk_container_add(GTK_CONTAINER(window->icon_box), window->icon);
-
-    window->content_box = vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_set_homogeneous(GTK_BOX (vbox), FALSE);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
-    gtk_widget_show(vbox);
-    gtk_box_pack_start(GTK_BOX(tophbox), vbox, TRUE, TRUE, 0);
-
-    window->summary = gtk_label_new(NULL);
-    gtk_widget_set_name (window->summary, "summary");
-    gtk_label_set_max_width_chars (GTK_LABEL(window->summary), screen_width);
-    gtk_label_set_ellipsize (GTK_LABEL (window->summary), PANGO_ELLIPSIZE_END);
-    gtk_label_set_line_wrap (GTK_LABEL(window->summary), TRUE);
-    gtk_label_set_line_wrap_mode (GTK_LABEL (window->summary), PANGO_WRAP_WORD_CHAR);
-    gtk_label_set_lines (GTK_LABEL (window->summary), 1);
-    gtk_widget_set_halign (window->summary, GTK_ALIGN_FILL);
-    gtk_label_set_xalign (GTK_LABEL(window->summary), 0);
-    gtk_widget_set_valign (window->summary, GTK_ALIGN_BASELINE);
-    gtk_box_pack_start(GTK_BOX(vbox), window->summary, TRUE, TRUE, 0);
-
-    window->body = gtk_label_new(NULL);
-    gtk_widget_set_name (window->body, "body");
-    gtk_label_set_max_width_chars (GTK_LABEL(window->body), screen_width);
-    gtk_label_set_ellipsize (GTK_LABEL (window->body), PANGO_ELLIPSIZE_END);
-    gtk_label_set_line_wrap (GTK_LABEL(window->body), TRUE);
-    gtk_label_set_line_wrap_mode (GTK_LABEL (window->body), PANGO_WRAP_WORD_CHAR);
-    gtk_label_set_lines (GTK_LABEL (window->body), 6);
-    gtk_widget_set_halign (window->body, GTK_ALIGN_FILL);
-    gtk_label_set_xalign (GTK_LABEL(window->body), 0);
-    gtk_widget_set_valign (window->body, GTK_ALIGN_BASELINE);
-    gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
-
-    window->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(window->button_box),
-                              GTK_BUTTONBOX_END);
-    gtk_box_set_spacing (GTK_BOX(window->button_box), padding / 2);
-    gtk_box_set_homogeneous (GTK_BOX(window->button_box), FALSE);
-    gtk_box_pack_end (GTK_BOX(topvbox), window->button_box, FALSE, FALSE, 0);
+    xfce_notify_window_ensure_widgets(window);
 
     gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (window)), "xfce4-notifyd");
     provider = gtk_css_provider_new ();
@@ -577,7 +513,9 @@ xfce_notify_window_finalize(GObject *object)
 {
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(object);
 
-    g_object_unref(window->monitor);
+    if (window->monitor != NULL) {
+        g_object_unref(window->monitor);
+    }
 
     if (window->css_provider != NULL) {
         g_object_unref(window->css_provider);
@@ -783,7 +721,7 @@ xfce_notify_window_realize(GtkWidget *widget)
     XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
 
 #ifdef ENABLE_WAYLAND
-    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+    if (window->monitor != NULL && GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
         gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, window->geometry.x);
         gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, window->geometry.y);
     }
@@ -840,7 +778,13 @@ xfce_notify_window_show(GtkWidget *widget) {
 
     GTK_WIDGET_CLASS(xfce_notify_window_parent_class)->show(widget);
 
-    xfce_notify_window_start_expiration(window);
+    if (window->monitor != NULL) {
+        xfce_notify_window_start_expiration(window);
+    } else {
+        // If we don't know the monitor yet, we need to 'hide' the window until
+        // we figure out what monitor it's on.
+        gtk_widget_set_opacity(widget, 0.0);
+    }
 }
 
 static void
@@ -1577,6 +1521,88 @@ xfce_notify_window_move(XfceNotifyWindow *window, gint x, gint y) {
 #endif
 }
 
+static void
+xfce_notify_window_ensure_widgets(XfceNotifyWindow *window) {
+    if (window->icon == NULL) {
+        GtkWidget *topvbox, *tophbox, *vbox;
+        gdouble padding = DEFAULT_PADDING;
+
+        gtk_widget_style_get(GTK_WIDGET(window),
+                             "padding", &padding,
+                             NULL);
+
+        topvbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+        gtk_box_set_homogeneous (GTK_BOX (topvbox), FALSE);
+        gtk_container_set_border_width (GTK_CONTAINER(topvbox), padding);
+        gtk_widget_show (topvbox);
+        gtk_container_add (GTK_CONTAINER(window), topvbox);
+        tophbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+        gtk_box_set_homogeneous (GTK_BOX (tophbox), FALSE);
+        gtk_widget_show (tophbox);
+        gtk_container_add (GTK_CONTAINER(topvbox), tophbox);
+
+        window->icon_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+        gtk_container_set_border_width(GTK_CONTAINER(window->icon_box), 0);
+        gtk_widget_set_margin_end (GTK_WIDGET (window->icon_box), padding);
+
+        gtk_box_pack_start(GTK_BOX(tophbox), window->icon_box, FALSE, TRUE, 0);
+
+        window->icon = gtk_image_new();
+        gtk_widget_show(window->icon);
+        gtk_container_add(GTK_CONTAINER(window->icon_box), window->icon);
+
+        window->content_box = vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+        gtk_box_set_homogeneous(GTK_BOX (vbox), FALSE);
+        gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+        gtk_widget_show(vbox);
+        gtk_box_pack_start(GTK_BOX(tophbox), vbox, TRUE, TRUE, 0);
+
+        window->summary = gtk_label_new(NULL);
+        gtk_widget_set_name (window->summary, "summary");
+        gtk_label_set_ellipsize (GTK_LABEL (window->summary), PANGO_ELLIPSIZE_END);
+        gtk_label_set_line_wrap (GTK_LABEL(window->summary), TRUE);
+        gtk_label_set_line_wrap_mode (GTK_LABEL (window->summary), PANGO_WRAP_WORD_CHAR);
+        gtk_label_set_lines (GTK_LABEL (window->summary), 1);
+        gtk_widget_set_halign (window->summary, GTK_ALIGN_FILL);
+        gtk_label_set_xalign (GTK_LABEL(window->summary), 0);
+        gtk_widget_set_valign (window->summary, GTK_ALIGN_BASELINE);
+        gtk_box_pack_start(GTK_BOX(vbox), window->summary, TRUE, TRUE, 0);
+
+        window->body = gtk_label_new(NULL);
+        gtk_widget_set_name (window->body, "body");
+        gtk_label_set_ellipsize (GTK_LABEL (window->body), PANGO_ELLIPSIZE_END);
+        gtk_label_set_line_wrap (GTK_LABEL(window->body), TRUE);
+        gtk_label_set_line_wrap_mode (GTK_LABEL (window->body), PANGO_WRAP_WORD_CHAR);
+        gtk_label_set_lines (GTK_LABEL (window->body), 6);
+        gtk_widget_set_halign (window->body, GTK_ALIGN_FILL);
+        gtk_label_set_xalign (GTK_LABEL(window->body), 0);
+        gtk_widget_set_valign (window->body, GTK_ALIGN_BASELINE);
+        gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
+
+        window->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+        gtk_button_box_set_layout(GTK_BUTTON_BOX(window->button_box),
+                                  GTK_BUTTONBOX_END);
+        gtk_box_set_spacing (GTK_BOX(window->button_box), padding / 2);
+        gtk_box_set_homogeneous (GTK_BOX(window->button_box), FALSE);
+        gtk_box_pack_end (GTK_BOX(topvbox), window->button_box, FALSE, FALSE, 0);
+    }
+
+    if (window->monitor != NULL) {
+        GdkRectangle geometry;
+        gint screen_width;
+
+        /* Use the monitor width to get a maximum width for the notification bubble.
+           This assumes that a character is 10px wide and we want a third of the
+           monitor as maximum width. */
+        gdk_monitor_get_geometry(window->monitor, &geometry);
+        screen_width = geometry.width / 30;
+
+        gtk_label_set_max_width_chars(GTK_LABEL(window->summary), screen_width);
+        gtk_label_set_max_width_chars(GTK_LABEL(window->body), screen_width);
+    }
+}
+
+
 GtkWidget *
 xfce_notify_window_new(guint id,
                        GdkMonitor *monitor,
@@ -1585,7 +1611,6 @@ xfce_notify_window_new(guint id,
                        gdouble normal_opacity,
                        gboolean show_text_with_gauge)
 {
-    g_return_val_if_fail(GDK_IS_MONITOR(monitor), NULL);
     return g_object_new(XFCE_TYPE_NOTIFY_WINDOW,
                         "type", GTK_WINDOW_TOPLEVEL,
                         "id", id,
@@ -1607,6 +1632,19 @@ GdkMonitor *
 xfce_notify_window_get_monitor(XfceNotifyWindow *window) {
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), NULL);
     return window->monitor;
+}
+
+void
+xfce_notify_window_update_monitor(XfceNotifyWindow *window, GdkMonitor *monitor) {
+    g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
+    g_return_if_fail(GDK_IS_MONITOR(monitor));
+    g_return_if_fail(window->monitor == NULL);
+
+    window->monitor = g_object_ref(monitor);
+    xfce_notify_window_ensure_widgets(window);
+    g_object_notify(G_OBJECT(window), "monitor");
+
+    xfce_notify_window_start_expiration(window);
 }
 
 void
