@@ -408,6 +408,9 @@ xfce_notify_window_init(XfceNotifyWindow *window)
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
         gtk_layer_init_for_window(GTK_WINDOW(window));
+        if (window->monitor != NULL) {
+            gtk_layer_set_monitor(GTK_WINDOW(window), window->monitor);
+        }
         gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_OVERLAY);
         gtk_layer_set_namespace(GTK_WINDOW(window), "notification");
         gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
