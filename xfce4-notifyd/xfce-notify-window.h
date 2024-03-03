@@ -43,7 +43,10 @@ GtkWidget *xfce_notify_window_new(guint id,
                                   gboolean show_text_with_gauge);
 
 guint xfce_notify_window_get_id(XfceNotifyWindow *window);
+
 GdkMonitor *xfce_notify_window_get_monitor(XfceNotifyWindow *window);
+void xfce_notify_window_update_monitor(XfceNotifyWindow *window,
+                                       GdkMonitor *monitor);
 
 void xfce_notify_window_set_geometry(XfceNotifyWindow *window,
                                      GdkRectangle rectangle);
