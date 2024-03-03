@@ -798,6 +798,14 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     g_return_if_fail(monitor_num >= 0);
     geom = xndaemon->monitors_workarea[monitor_num];
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gtk_widget_get_display(widget))) {
+        // For layer-shell windows, the position is set relative to the output,
+        // not the full compositor coordinate space.
+        geom.x = geom.y = 0;
+    }
+#endif
+
     DBG("placing window, allocation=%dx%d+%d+%d", allocation.width, allocation.height, allocation.x, allocation.y);
 
     /* Set initial geometry */
