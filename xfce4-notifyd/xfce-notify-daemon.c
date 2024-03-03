@@ -119,6 +119,11 @@ typedef struct
     XfceNotifyFdoGBusSkeletonClass parent_class;
 } XfceNotifyDaemonClass;
 
+typedef struct {
+    XfceNotifyDaemon *xndaemon;
+    XfceNotifyWindow *window;
+} MonitorCheckData;
+
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
 static struct {
@@ -1219,20 +1224,45 @@ xfce_notify_log_insert(XfceNotifyLog *log,
 }
 
 static gboolean
-xfce_notify_daemon_window_mapped(GtkWidget *widget, GdkEventAny *event, XfceNotifyDaemon *xndaemon) {
+recheck_window_monitor(gpointer data) {
+    MonitorCheckData *mcdata = data;
+    GtkWidget *widget = GTK_WIDGET(mcdata->window);
+    GdkDisplay *display = gtk_widget_get_display(widget);
     GdkWindow *window = gtk_widget_get_window(widget);
-    GdkMonitor *monitor = gdk_display_get_monitor_at_window(gtk_widget_get_display(widget), window);
+    GdkMonitor *monitor = gdk_display_get_monitor_at_window(display, window);
+
+    if (monitor == NULL) {
+        DBG("couldn't find monitor for window at all; using 0th");
+        monitor = gdk_display_get_monitor(display, 0);
+    }
+
+    DBG("found monitor index=%d for window %p", xfce_notify_daemon_get_monitor_index(display, monitor), mcdata->window);
+    xfce_notify_window_update_monitor(mcdata->window, monitor);
+
+
+    g_signal_connect(mcdata->window, "size-allocate",
+                     G_CALLBACK(xfce_notify_daemon_window_size_allocate), mcdata->xndaemon);
+    xfce_notify_daemon_place_notification_window(mcdata->xndaemon, mcdata->window, monitor);
+
+    g_object_unref(mcdata->window);
+    g_object_unref(mcdata->xndaemon);
+    g_free(mcdata);
+
+    return FALSE;
+}
+
+static gboolean
+xfce_notify_daemon_window_mapped(GtkWidget *widget, GdkEventAny *event, XfceNotifyDaemon *xndaemon) {
+    MonitorCheckData *mcdata = g_new0(MonitorCheckData, 1);
+    mcdata->xndaemon = g_object_ref(xndaemon);
+    mcdata->window = g_object_ref(XFCE_NOTIFY_WINDOW(widget));
+
+    // The monitor at this point will likely still not be correct, but if we
+    // wait *just* a little bit longer (for the wl_surface.enter() on Wayland),
+    // it should hopefully then be correct.
+    g_timeout_add(10, recheck_window_monitor, mcdata);
 
     g_signal_handlers_disconnect_by_func(widget, xfce_notify_daemon_window_mapped, xndaemon);
-
-    if (monitor != NULL) {
-        XfceNotifyWindow *xnwindow = XFCE_NOTIFY_WINDOW(widget);
-        DBG("found monitor %p for window %p after it was mapped", monitor, xnwindow);
-        xfce_notify_window_update_monitor(xnwindow, monitor);
-        xfce_notify_daemon_place_notification_window(xndaemon, xnwindow, monitor);
-    } else {
-        g_message("Notification window was mapped but does not have a monitor set");
-    }
 
     return FALSE;
 }
@@ -1675,8 +1705,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             GtkAllocation allocation =  { 0, };
             GdkMonitor *monitor;
 
-            g_signal_connect(window, "size-allocate",
-                             G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
             notify_update_theme_for_window(xndaemon, window, FALSE);
 
             gtk_widget_get_preferred_size(window, NULL, &nat_size);
@@ -1687,11 +1715,13 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
             monitor = xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window));
             if (monitor != NULL) {
+                g_signal_connect(window, "size-allocate",
+                                 G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
                 xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), monitor);
             } else {
                 gtk_widget_add_events(GTK_WIDGET(window), GDK_STRUCTURE_MASK);
-                g_signal_connect(window, "map-event",
-                                 G_CALLBACK(xfce_notify_daemon_window_mapped), xndaemon);
+                g_signal_connect_after(window, "map-event",
+                                       G_CALLBACK(xfce_notify_daemon_window_mapped), xndaemon);
             }
         }
         xfce_notification_realize(notification);
