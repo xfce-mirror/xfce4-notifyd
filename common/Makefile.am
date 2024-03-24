@@ -19,6 +19,7 @@ libxfce_notifyd_common_la_SOURCES = \
 libxfce_notifyd_common_la_CFLAGS = \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(GTK3_CFLAGS) \
+	$(GIO_UNIX_CFLAGS) \
 	$(SQLITE_CFLAGS) \
 	$(XFCONF_CFLAGS) \
 	$(PLATFORM_CFLAGS)
@@ -26,6 +27,7 @@ libxfce_notifyd_common_la_CFLAGS = \
 libxfce_notifyd_common_la_LIBADD = \
 	$(LIBXFCE4UI_LIBS) \
 	$(GTK3_LIBS) \
+	$(GIO_UNIX_LIBS) \
 	$(XFCONF_LIBS) \
 	$(SQLITE_LIBS)
 
