@@ -5,7 +5,8 @@
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
 # k3dar, 2022
-# Martin Šiška, 2023
+# b537cbea55af75c3f49fe8b21c4cf8ea_f0ce149, 2023
+# Martin Šiška <martin-siska@email.cz>, 2024
 # Michal Várady <miko.vaji@gmail.com>, 2016-2020
 # Pavel Borecki <pavel.borecki@gmail.com>, 2018
 # Petr Šimáček <petr.simacek@gmail.com>, 2017
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-05-30 00:51+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Martin Šiška, 2023\n"
+"Last-Translator: Martin Šiška <martin-siska@email.cz>, 2024\n"
 "Language-Team: Czech (http://app.transifex.com/xfce/xfce-apps/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,11 +75,11 @@ msgstr "<b>_Nerušit</b>"
 #: panel-plugin/notification-plugin-log.c:366
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Nepodařilo se otevřít záznam upozornění"
 
 #: panel-plugin/notification-plugin-log.c:368
 msgid "No unread notifications"
-msgstr ""
+msgstr "Žádná nepřečtená oznámení"
 
 #: panel-plugin/notification-plugin-log.c:370
 msgid "No notifications"
@@ -90,7 +91,7 @@ msgstr "_Vymazat protokol"
 
 #: panel-plugin/notification-plugin-log.c:403
 msgid "_Mark all read"
-msgstr ""
+msgstr "_Označit vše jako přečtené"
 
 #: panel-plugin/notification-plugin-log.c:412
 msgid "_Notification settings…"
@@ -112,7 +113,7 @@ msgstr "_Zavřít"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Notification icon size"
-msgstr ""
+msgstr "Velikost ikony oznámení"
 
 #: panel-plugin/notification-plugin-settings.glade:125
 msgid "Number of notifications to show"
@@ -128,7 +129,7 @@ msgstr "Skrýt potvrzovací dialogové okno \"Vymazat protokol\""
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
-msgstr ""
+msgstr "Skrýt tlačítko na liště, pokud nejsou žádná nepřečtená oznámení"
 
 #: panel-plugin/notification-plugin-settings.glade:224
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:806
@@ -137,15 +138,15 @@ msgstr "Vzhled"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "Zobrazit v nabídce"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "Všechna oznámení"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
-msgstr ""
+msgstr "Nepřečtená oznámení"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
@@ -153,15 +154,15 @@ msgstr "Chování"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
-msgstr ""
+msgstr "Po zobrazení nabídky"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Označit všechny záznamy jako přečtené"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Označit všechny zobrazené záznamy jako přečtené"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -207,31 +208,31 @@ msgstr "Záznam není dostupný"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Položka záznamu nebyla nalezena"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Adresář záznamů oznámení (%s) není adresář"
 
 #: xfce4-notifyd/xfce-notify-log.c:248
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Nepodařilo se otevřít záznam oznámení: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "Nepodařilo se připravit SQL příkaz: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "koncové znaky na konci příkazu"
 
 #: xfce4-notifyd/xfce-notify-log.c:468
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Nepodařilo se vytvořit tabulku 'oznámení': %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:469
 #, c-format
@@ -432,19 +433,19 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:461
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Při zobrazování oznámení ukázat"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:475
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "ikonu, shrnutí a tělo zprávy"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:476
 msgid "icon and summary"
-msgstr ""
+msgstr "ikonu a shrnutí"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:477
 msgid "icon and application name"
-msgstr ""
+msgstr "ikonu a název aplikace"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:491
 msgid "monitor with mouse pointer"
@@ -606,7 +607,7 @@ msgstr "Protokol"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr ""
+msgstr "Ztlumit aplikaci"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
@@ -614,7 +615,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr ""
+msgstr "Zahrnout v záznamu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
