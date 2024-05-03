@@ -1699,6 +1699,30 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                 monitors = g_list_reverse(monitors);
                 break;
             }
+
+            case XFCE_NOTIFY_SHOW_ON_FIRST_MONITOR: {
+                GdkMonitor *monitor = gdk_display_get_monitor(display,0);
+                monitors = g_list_prepend(monitors, monitor);
+                break;
+            }
+
+            case XFCE_NOTIFY_SHOW_ON_SECOND_MONITOR: {
+                GdkMonitor *monitor = gdk_display_get_monitor(display,1);
+                if (monitor == NULL) {
+                    monitor = gdk_display_get_monitor(display, 0);
+                }
+                monitors = g_list_append(monitors, monitor);
+                break;
+            }
+
+            case XFCE_NOTIFY_SHOW_ON_THIRD_MONITOR: {
+                GdkMonitor *monitor = gdk_display_get_monitor(display,2);
+                if (monitor == NULL) {
+                    monitor = gdk_display_get_monitor(display, 0);
+                }
+                monitors = g_list_append(monitors, monitor);
+                break;
+            }
         }
 
         windows = xfce_notification_create_windows(notification,

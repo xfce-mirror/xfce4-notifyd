@@ -81,6 +81,9 @@ typedef enum {
     XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
     XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
     XFCE_NOTIFY_SHOW_ON_ALL_MONITORS,
+    XFCE_NOTIFY_SHOW_ON_FIRST_MONITOR,
+    XFCE_NOTIFY_SHOW_ON_SECOND_MONITOR,
+    XFCE_NOTIFY_SHOW_ON_THIRD_MONITOR,
 } XfceNotifyShowOn;
 
 // NB: do not change the suffixes on these enums, as the string ("nick")

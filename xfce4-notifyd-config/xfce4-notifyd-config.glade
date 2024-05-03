@@ -491,6 +491,9 @@
                           <item id="active-monitor" translatable="yes">monitor with mouse pointer</item>
                           <item id="primary-monitor" translatable="yes">primary monitor</item>
                           <item id="all-monitors" translatable="yes">all monitors</item>
+                          <item id="first-monitor" translatable="yes">first monitor</item>
+                          <item id="second-monitor" translatable="yes">second monitor</item>
+                          <item id="third-monitor" translatable="yes">third monitor</item>
                         </items>
                       </object>
                       <packing>
