@@ -20,6 +20,9 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "gdk/gdk.h"
+#include "glib-object.h"
+#include "glib.h"
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -87,6 +90,7 @@ struct _XfceNotifyDaemon
     gboolean show_text_with_gauge;
     XfceNotifyShowOn show_notifications_on;
     gboolean windows_use_override_redirect;
+    gchar* show_notifications_on_monitor;
 
     XfceNotifyDaemonLog *xndlog;
     XfceNotifyLog *log;
@@ -199,6 +203,12 @@ static struct {
         .type = 0,  // To be filled in later
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_notifications_on),
         .default_value.i = SHOW_NOTIFICATIONS_ON_DEFAULT,
+    },
+    {
+        .name = SHOW_NOTIFICATIONS_ON_MONITOR_PROP,
+        .type = G_TYPE_STRING,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, show_notifications_on_monitor),
+        .default_value.s = SHOW_NOTIFICATIONS_ON_MONITOR_DEFAULT,
     },
     {
         .name = NOTIFICATION_DISPLAY_FIELDS_PROP,
@@ -1697,6 +1707,33 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                     monitors = g_list_prepend(monitors, gdk_display_get_monitor(display, i));
                 }
                 monitors = g_list_reverse(monitors);
+                break;
+            }
+
+            case XFCE_NOTIFY_SHOW_ON_CHOOSE_MONITOR: {
+                gboolean found = FALSE;
+                gchar* wanted = xndaemon->show_notifications_on_monitor;
+                if (wanted != NULL) {
+                    DBG("looking for monitor: %s", wanted);
+                    gint n_monitors = gdk_display_get_n_monitors(display);
+                    for (gint i = 0; i < n_monitors; ++i) {
+                        GdkMonitor* m = gdk_display_get_monitor(display, i);
+                        const gchar* port = gdk_monitor_get_model(m);
+                        DBG("seen monitor %d: %s", i, port);
+                        if (strcmp(wanted, port) == 0) {
+                            DBG("wanted monitor %s found", wanted);
+                            found = TRUE;
+                            monitors = g_list_prepend(monitors, m);
+                            break;
+                        }
+                    }
+                }
+                if (!found) {
+                    DBG("monitor %s not found, using fallback", wanted);
+                    GdkMonitor *monitor = gdk_display_get_monitor(display,0);
+                    monitors = g_list_prepend(monitors, monitor);
+                }
+
                 break;
             }
         }

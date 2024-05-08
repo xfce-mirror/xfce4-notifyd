@@ -41,6 +41,7 @@
 #define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"
 #define NOTIFICATION_DISPLAY_FIELDS_PROP    "/notification-display-fields"
 #define SHOW_NOTIFICATIONS_ON_PROP          "/show-notifications-on"
+#define SHOW_NOTIFICATIONS_ON_MONITOR_PROP  "/show-notifications-on-monitor"
 #define NOTIFY_LOCATION_PROP                "/notify-location"
 #define DO_FADEOUT_PROP                     "/do-fadeout"
 #define DO_SLIDEOUT_PROP                    "/do-slideout"
@@ -54,6 +55,8 @@
 #define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
 #define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
 #define NOTIFY_LOCATION_DEFAULT             XFCE_NOTIFY_POS_TOP_LEFT
+#define SHOW_NOTIFICATIONS_ON_MONITOR_DEFAULT "DisplayPort-0"
+
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be
@@ -81,6 +84,7 @@ typedef enum {
     XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR,
     XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR,
     XFCE_NOTIFY_SHOW_ON_ALL_MONITORS,
+    XFCE_NOTIFY_SHOW_ON_CHOOSE_MONITOR,
 } XfceNotifyShowOn;
 
 // NB: do not change the suffixes on these enums, as the string ("nick")
