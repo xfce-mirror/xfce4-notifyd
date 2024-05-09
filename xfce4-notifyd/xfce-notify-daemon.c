@@ -20,9 +20,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include "gdk/gdk.h"
-#include "glib-object.h"
-#include "glib.h"
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -32,6 +29,9 @@
 #endif
 
 #include <gio/gio.h>
+#include <gdk/gdk.h>
+#include <glib-object.h>
+#include <glib.h>
 
 #ifdef ENABLE_X11
 #include <X11/Xlib.h>
@@ -90,7 +90,7 @@ struct _XfceNotifyDaemon
     gboolean show_text_with_gauge;
     XfceNotifyShowOn show_notifications_on;
     gboolean windows_use_override_redirect;
-    gchar* show_notifications_on_monitor;
+    gchar *show_notifications_on_monitor;
 
     XfceNotifyDaemonLog *xndlog;
     XfceNotifyLog *log;
@@ -1712,18 +1712,18 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
             case XFCE_NOTIFY_SHOW_ON_CHOOSE_MONITOR: {
                 gboolean found = FALSE;
-                gchar* wanted = xndaemon->show_notifications_on_monitor;
+                gchar *wanted = xndaemon->show_notifications_on_monitor;
                 if (wanted != NULL) {
                     DBG("looking for monitor: %s", wanted);
                     gint n_monitors = gdk_display_get_n_monitors(display);
                     for (gint i = 0; i < n_monitors; ++i) {
-                        GdkMonitor* m = gdk_display_get_monitor(display, i);
-                        const gchar* port = gdk_monitor_get_model(m);
+                        GdkMonitor *monitor = gdk_display_get_monitor(display, i);
+                        const gchar *port = gdk_monitor_get_model(monitor);
                         DBG("seen monitor %d: %s", i, port);
                         if (strcmp(wanted, port) == 0) {
                             DBG("wanted monitor %s found", wanted);
                             found = TRUE;
-                            monitors = g_list_prepend(monitors, m);
+                            monitors = g_list_prepend(monitors, monitor);
                             break;
                         }
                     }
