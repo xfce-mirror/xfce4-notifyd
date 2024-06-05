@@ -1962,31 +1962,31 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                 guint8 *loc = ((guint8 *)xndaemon) + settings[i].offset;
                 switch (settings[i].type) {
                     case G_TYPE_INT:
-                        *(gint *)loc = G_VALUE_TYPE(value) == settings[i].type
+                        *(gint *)(gpointer)loc = G_VALUE_TYPE(value) == settings[i].type
                             ? g_value_get_int(value)
                             : settings[i].default_value.i;
                         break;
 
                     case G_TYPE_UINT:
-                        *(guint *)loc = G_VALUE_TYPE(value) == settings[i].type
+                        *(guint *)(gpointer)loc = G_VALUE_TYPE(value) == settings[i].type
                             ? g_value_get_uint(value)
                             : settings[i].default_value.u;
                         break;
 
                     case G_TYPE_DOUBLE:
-                        *(gdouble *)loc = G_VALUE_TYPE(value) == settings[i].type
+                        *(gdouble *)(gpointer)loc = G_VALUE_TYPE(value) == settings[i].type
                             ? g_value_get_double(value)
                             : settings[i].default_value.d;
                         break;
 
                     case G_TYPE_BOOLEAN:
-                        *(gboolean *)loc = G_VALUE_TYPE(value) == settings[i].type
+                        *(gboolean *)(gpointer)loc = G_VALUE_TYPE(value) == settings[i].type
                             ? g_value_get_boolean(value)
                             : settings[i].default_value.b;
                         break;
 
                     case G_TYPE_STRING:
-                        *(gchar **)loc = g_strdup(
+                        *(gchar **)(gpointer)loc = g_strdup(
                             G_VALUE_TYPE(value) == settings[i].type
                                 ? g_value_get_string(value)
                                 : settings[i].default_value.s
@@ -1996,7 +1996,7 @@ xfce_notify_daemon_settings_changed(XfconfChannel *channel,
                     default:
                         if (g_type_is_a(settings[i].type, G_TYPE_ENUM)) {
                             const gchar *nick = G_VALUE_HOLDS_STRING(value) ? g_value_get_string(value) : NULL;
-                            *(gint *)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
+                            *(gint *)(gpointer)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
                         } else {
                             g_critical("Unhandled property type %s for property %s", g_type_name(settings[i].type), settings[i].name);
                         }
@@ -2095,31 +2095,31 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
         guint8 *loc = ((guint8 *)xndaemon) + settings[i].offset;
         switch (settings[i].type) {
             case G_TYPE_INT:
-                *(gint *)loc = xfconf_channel_get_int(xndaemon->settings,
+                *(gint *)(gpointer)loc = xfconf_channel_get_int(xndaemon->settings,
                                                       settings[i].name,
                                                       settings[i].default_value.i);
                 break;
 
             case G_TYPE_UINT:
-                *(guint *)loc = xfconf_channel_get_uint(xndaemon->settings,
+                *(guint *)(gpointer)loc = xfconf_channel_get_uint(xndaemon->settings,
                                                         settings[i].name,
                                                         settings[i].default_value.u);
                 break;
 
             case G_TYPE_DOUBLE:
-                *(gdouble *)loc = xfconf_channel_get_double(xndaemon->settings,
+                *(gdouble *)(gpointer)loc = xfconf_channel_get_double(xndaemon->settings,
                                                             settings[i].name,
                                                             settings[i].default_value.d);
                 break;
 
             case G_TYPE_BOOLEAN:
-                *(gboolean *)loc = xfconf_channel_get_bool(xndaemon->settings,
+                *(gboolean *)(gpointer)loc = xfconf_channel_get_bool(xndaemon->settings,
                                                            settings[i].name,
                                                            settings[i].default_value.b);
                 break;
 
             case G_TYPE_STRING:
-                *(gchar **)loc = g_strdup(xfconf_channel_get_string(xndaemon->settings,
+                *(gchar **)(gpointer)loc = g_strdup(xfconf_channel_get_string(xndaemon->settings,
                                                                     settings[i].name,
                                                                     settings[i].default_value.s));
                 break;
@@ -2127,7 +2127,7 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
             default:
                 if (g_type_is_a(settings[i].type, G_TYPE_ENUM)) {
                     const gchar *nick = xfconf_channel_get_string(xndaemon->settings, settings[i].name, NULL);
-                    *(gint *)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
+                    *(gint *)(gpointer)loc = xfce_notify_enum_value_from_nick(settings[i].type, nick, settings[i].default_value.i);
                 } else {
                     g_critical("Unhandled property type %s for property %s", g_type_name(settings[i].type), settings[i].name);
                 }
