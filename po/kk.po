@@ -69,11 +69,11 @@ msgstr "<b>Мазам_ды алмау</b>"
 #: panel-plugin/notification-plugin-log.c:366
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Хабарламалар журналын ашу мүмкін емес"
 
 #: panel-plugin/notification-plugin-log.c:368
 msgid "No unread notifications"
-msgstr ""
+msgstr "Оқылмаған хабарламалар жоқ"
 
 #: panel-plugin/notification-plugin-log.c:370
 msgid "No notifications"
@@ -132,11 +132,11 @@ msgstr "Сыртқы түрі"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr ""
+msgstr "Мәзірде көрсету"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
-msgstr ""
+msgstr "Барлық хабарламалар"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "Unread notifications"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
-msgstr ""
+msgstr "Ешнәрсе жасамау"
 
 #: panel-plugin/notification-plugin.desktop.in:5
 msgid "Notification Plugin"
@@ -198,11 +198,11 @@ msgstr "Басқа хабарламалар қызметі іске қосулы
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "Журнал қолжетімді емес"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Журнал жазбасы табылмады"
 
 #: xfce4-notifyd/xfce-notify-log.c:236
 #, c-format
@@ -240,11 +240,11 @@ msgstr ""
 
 #: xfce4-notifyd/xfce-notify-window.c:1400
 msgid "Default Action"
-msgstr ""
+msgstr "Үнсіз келісім бойынша әрекет"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr ""
+msgstr "Xfce хабарламалар қызметі"
 
 #: xfce4-notifyd-config/main.c:106
 msgid "Notification Preview"
@@ -354,7 +354,7 @@ msgstr "Хабарламалар журналын тазарту"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Mark All Read"
-msgstr ""
+msgstr "Барлығын оқылған етіп белгілеу"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
 msgid "Mark all unread notifications as read"
