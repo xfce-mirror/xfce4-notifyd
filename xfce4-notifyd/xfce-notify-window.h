@@ -49,8 +49,10 @@ void xfce_notify_window_update_monitor(XfceNotifyWindow *window,
                                        GdkMonitor *monitor);
 
 void xfce_notify_window_set_geometry(XfceNotifyWindow *window,
-                                     GdkRectangle rectangle);
+                                     GdkRectangle *rectangle,
+                                     GdkRectangle *monitor_workarea);
 GdkRectangle *xfce_notify_window_get_geometry(XfceNotifyWindow *window);
+GdkRectangle *xfce_notify_window_get_translated_geometry(XfceNotifyWindow *window);
 
 G_END_DECLS
 
