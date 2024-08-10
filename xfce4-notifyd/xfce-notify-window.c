@@ -68,6 +68,7 @@ struct _XfceNotifyWindow
     GtkCssProvider *css_provider;
 
     GdkRectangle geometry;
+    GdkRectangle translated_geometry;
     gboolean override_redirect;
 
     XfceNotifyUrgency urgency;
@@ -405,19 +406,6 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->original_y = G_MININT;
     window->op_change_steps = FADE_TIME / FADE_CHANGE_TIMEOUT;
 
-#ifdef ENABLE_WAYLAND
-    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-        gtk_layer_init_for_window(GTK_WINDOW(window));
-        if (window->monitor != NULL) {
-            gtk_layer_set_monitor(GTK_WINDOW(window), window->monitor);
-        }
-        gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_OVERLAY);
-        gtk_layer_set_namespace(GTK_WINDOW(window), "notification");
-        gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
-        gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
-    }
-#endif
-
     gtk_widget_set_name (GTK_WIDGET(window), "XfceNotifyWindow");
     gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
     gtk_window_stick(GTK_WINDOW(window));
@@ -451,6 +439,57 @@ xfce_notify_window_constructed(GObject *object) {
     GtkCssProvider *provider;
 
     G_OBJECT_CLASS(xfce_notify_window_parent_class)->constructed(object);
+
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        gtk_layer_init_for_window(GTK_WINDOW(window));
+        if (window->monitor != NULL) {
+            gtk_layer_set_monitor(GTK_WINDOW(window), window->monitor);
+        }
+        gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_OVERLAY);
+        gtk_layer_set_namespace(GTK_WINDOW(window), "notification");
+
+        gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
+
+        switch (window->notify_location) {
+            case XFCE_NOTIFY_POS_TOP_LEFT:
+            case XFCE_NOTIFY_POS_TOP_RIGHT:
+            case XFCE_NOTIFY_POS_TOP_CENTER:
+                gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
+                break;
+            case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+            case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+            case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
+                break;
+            default:
+                g_assert_not_reached();
+                break;
+        }
+
+        switch (window->notify_location) {
+            case XFCE_NOTIFY_POS_TOP_LEFT:
+            case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+                gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
+                break;
+            case XFCE_NOTIFY_POS_TOP_RIGHT:
+            case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
+                break;
+            case XFCE_NOTIFY_POS_TOP_CENTER:
+            case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                if (is_ltr) {
+                    gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
+                } else {
+                    gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
+                }
+                break;
+            default:
+                g_assert_not_reached();
+                break;
+        }
+    }
+#endif
 
     xfce_notify_window_ensure_widgets(window);
 
@@ -918,6 +957,30 @@ xfce_notify_window_configure_event(GtkWidget *widget,
     return ret;
 }
 
+#ifdef ENABLE_WAYLAND
+static gint
+wayland_get_x_margin(XfceNotifyWindow *window) {
+    if (gtk_layer_get_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT)) {
+        return gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
+    } else if (gtk_layer_get_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT)) {
+        return gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT);
+    } else {
+        g_assert_not_reached();
+    }
+}
+
+static gint
+wayland_get_y_margin(XfceNotifyWindow *window) {
+    if (gtk_layer_get_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP)) {
+        return gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+    } else if (gtk_layer_get_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM)) {
+        return gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM);
+    } else {
+        g_assert_not_reached();
+    }
+}
+#endif
+
 static gboolean
 xfce_notify_window_expire_timeout(gpointer data)
 {
@@ -938,8 +1001,8 @@ xfce_notify_window_expire_timeout(gpointer data)
             if (window->do_slideout) {
 #ifdef ENABLE_WAYLAND
                 if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-                    window->original_x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
-                    window->original_y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+                    window->original_x = wayland_get_x_margin(window);
+                    window->original_y = wayland_get_y_margin(window);
                 } else
 #endif
                 {
@@ -982,14 +1045,22 @@ xfce_notify_window_fade_timeout(gpointer data)
              (window->notify_location == XFCE_NOTIFY_POS_TOP_CENTER ||
               window->notify_location == XFCE_NOTIFY_POS_BOTTOM_CENTER));
 
+#ifdef ENABLE_WAYLAND
+        if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+            // On Wayland we are always considering a margin, or a distance
+            // from the edge of the screen, so we always subtract pixels.
+            add_pixels = FALSE;
+        }
+#endif
+
         gdk_monitor_get_geometry(window->monitor, &monitor_geom);
 
         if (window->draw_offset_x == 0 && window->draw_offset_y == 0) {
 
 #ifdef ENABLE_WAYLAND
             if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-                x = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT);
-                y = gtk_layer_get_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP);
+                x = wayland_get_x_margin(window);
+                y = wayland_get_y_margin(window);
             } else
 #endif
             {
@@ -1507,16 +1578,20 @@ xfce_notify_window_set_do_slideout(XfceNotifyWindow *window, gboolean do_slideou
 
 static void
 xfce_notify_window_move(XfceNotifyWindow *window, gint x, gint y) {
+    DBG("entering, (%d, %d)", x, y);
 
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
         gtk_window_move(GTK_WINDOW(window), x, y);
     }
 #endif
+
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
         gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, x);
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, x);
         gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, y);
+        gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM, y);
     }
 #endif
 }
@@ -1648,13 +1723,146 @@ xfce_notify_window_update_monitor(XfceNotifyWindow *window, GdkMonitor *monitor)
 }
 
 void
-xfce_notify_window_set_geometry(XfceNotifyWindow *window, GdkRectangle rectangle) {
+xfce_notify_window_set_geometry(XfceNotifyWindow *window, GdkRectangle *rectangle, GdkRectangle *monitor_workarea) {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-    window->geometry = rectangle;
-    xfce_notify_window_move(window, window->geometry.x, window->geometry.y);
+
+    window->translated_geometry.width = rectangle->width;
+    window->translated_geometry.height = rectangle->height;
+
+    switch (window->notify_location) {
+        case XFCE_NOTIFY_POS_TOP_LEFT:
+            window->translated_geometry.x = monitor_workarea->x + rectangle->x;
+            window->translated_geometry.y = monitor_workarea->y + rectangle->y;
+            break;
+
+        case XFCE_NOTIFY_POS_TOP_RIGHT:
+            window->translated_geometry.x = monitor_workarea->x + monitor_workarea->width - rectangle->x - rectangle->width;
+            window->translated_geometry.y = monitor_workarea->y + rectangle->y;
+            break;
+
+        case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+            window->translated_geometry.x = monitor_workarea->x + rectangle->x;
+            window->translated_geometry.y = monitor_workarea->y + monitor_workarea->height - rectangle->y - rectangle->height;
+            break;
+
+        case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+            window->translated_geometry.x = monitor_workarea->x + monitor_workarea->width - rectangle->x - rectangle->width;
+            window->translated_geometry.y = monitor_workarea->y + monitor_workarea->height - rectangle->y - rectangle->height;
+            break;
+
+        case XFCE_NOTIFY_POS_TOP_CENTER:
+        case XFCE_NOTIFY_POS_BOTTOM_CENTER: {
+            if (window->notify_location == XFCE_NOTIFY_POS_TOP_CENTER) {
+                window->translated_geometry.y = monitor_workarea->y + rectangle->y;
+            } else {
+                window->translated_geometry.y = monitor_workarea->y + monitor_workarea->height - rectangle->y - rectangle->height;
+            }
+
+            gint half_width = monitor_workarea->width / 2;
+            gboolean is_second_half = rectangle->x >= half_width;
+            gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
+            if (!is_second_half) {
+                // Place to the right (or left, if RTL) of the center.
+                if (is_ltr) {
+                    window->translated_geometry.x = monitor_workarea->x + half_width + rectangle->x;
+                } else {
+                    window->translated_geometry.x = monitor_workarea->x + monitor_workarea->width - rectangle->x - rectangle->width - half_width;
+                }
+            } else {
+                // The right (or left, if RTL) half of the screen is full, so
+                // place on the left (or right, if RTL) side.
+                if (is_ltr) {
+                    window->translated_geometry.x = monitor_workarea->x + monitor_workarea->width - rectangle->x - rectangle->width;
+                } else {
+                    window->translated_geometry.x = monitor_workarea->x + rectangle->x;
+                }
+            }
+
+            break;
+        }
+
+        default:
+            g_assert_not_reached();
+    }
+
+    DBG("Translated geom: %dx%d+%d+%d",
+        window->translated_geometry.width, window->translated_geometry.height,
+        window->translated_geometry.x, window->translated_geometry.y);
+
+    gint pos_x, pos_y;
+
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+        pos_x = window->translated_geometry.x;
+        pos_y = window->translated_geometry.y;
+    } else
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+        gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
+
+        switch (window->notify_location) {
+            case XFCE_NOTIFY_POS_TOP_LEFT:
+                pos_x = window->translated_geometry.x;
+                pos_y = window->translated_geometry.y;
+                break;
+
+            case XFCE_NOTIFY_POS_TOP_RIGHT:
+                pos_x = monitor_workarea->width - window->translated_geometry.x;
+                pos_y = window->translated_geometry.y;
+                break;
+
+            case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+                pos_x = window->translated_geometry.x;
+                pos_y = monitor_workarea->height - window->translated_geometry.y;
+                break;
+
+            case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                pos_x = monitor_workarea->width - window->translated_geometry.x;
+                pos_y = monitor_workarea->height - window->translated_geometry.y;
+                break;
+
+            case XFCE_NOTIFY_POS_TOP_CENTER:
+                if (is_ltr) {
+                    pos_x = window->translated_geometry.x;
+                } else {
+                    pos_x = monitor_workarea->width - window->translated_geometry.x;
+                }
+                pos_y = window->translated_geometry.y;
+                break;
+
+            case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                if (is_ltr) {
+                    pos_x = window->translated_geometry.x;
+                } else {
+                    pos_x = monitor_workarea->width - window->translated_geometry.x;
+                }
+                pos_y = monitor_workarea->height - window->translated_geometry.y;
+                break;
+
+            default:
+                g_assert_not_reached();
+        }
+
+        pos_x -= monitor_workarea->x;
+        pos_y -= monitor_workarea->y;
+    } else
+#endif
+    {
+        g_assert_not_reached();
+    }
+
+    window->geometry = *rectangle;
+    xfce_notify_window_move(window, pos_x, pos_y);
 }
 
 GdkRectangle *
 xfce_notify_window_get_geometry(XfceNotifyWindow *window) {
    return &window->geometry;
+}
+
+GdkRectangle *
+xfce_notify_window_get_translated_geometry(XfceNotifyWindow *window) {
+    g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), FALSE);
+    return &window->translated_geometry;
 }
