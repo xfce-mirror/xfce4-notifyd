@@ -746,7 +746,7 @@ xfce_notify_daemon_closed(XfceNotification *notification,
                                                   (guint)reason);
 }
 
-static gboolean
+static inline gboolean
 xfce_notify_daemon_is_window_position_free(XfceNotifyDaemon *xndaemon,
                                            gint monitor_num,
                                            GdkRectangle *position,
@@ -754,15 +754,10 @@ xfce_notify_daemon_is_window_position_free(XfceNotifyDaemon *xndaemon,
 {
     for (GList *l = xndaemon->reserved_rectangles[monitor_num]; l; l = l->next) {
         GdkRectangle *rectangle = l->data;
-
-        DBG("Overlaps with (x=%i, y=%i) ?", rectangle->x, rectangle->y);
-
         if (gdk_rectangle_intersect(rectangle, position, NULL)) {
-            DBG("Yes");
+            DBG("Overlaps with (x=%i, y=%i)", rectangle->x, rectangle->y);
             *overlap_rect = *rectangle;
             return FALSE;
-        } else {
-            DBG("No");
         }
     }
 
@@ -777,14 +772,9 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     GtkWidget *widget = GTK_WIDGET(window);
     GdkScreen *screen;
     GtkAllocation allocation;
-    GdkRectangle geom, initial, widget_geom;
-    gint monitor_num;
     gint max_width = 0;
+    gint monitor_num;
     gboolean found = FALSE;
-    gboolean is_center = xndaemon->notify_location == XFCE_NOTIFY_POS_TOP_CENTER ||
-        xndaemon->notify_location == XFCE_NOTIFY_POS_BOTTOM_CENTER;
-    gboolean is_ltr = gtk_widget_get_direction(GTK_WIDGET(window)) != GTK_TEXT_DIR_RTL;
-    gboolean center_opposite = FALSE;
 
     if (gtk_widget_has_screen(widget)) {
         screen = gtk_widget_get_screen(widget);
@@ -796,139 +786,78 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     gtk_widget_get_allocation(widget, &allocation);
     monitor_num = xfce_notify_daemon_get_monitor_index(gdk_screen_get_display(screen), monitor);
     g_return_if_fail(monitor_num >= 0);
-    geom = xndaemon->monitors_workarea[monitor_num];
-
-#ifdef ENABLE_WAYLAND
-    if (GDK_IS_WAYLAND_DISPLAY(gtk_widget_get_display(widget))) {
-        // For layer-shell windows, the position is set relative to the output,
-        // not the full compositor coordinate space.
-        geom.x = geom.y = 0;
-    }
-#endif
+    gint workarea_width = xndaemon->monitors_workarea[monitor_num].width;
+    gint workarea_height = xndaemon->monitors_workarea[monitor_num].height;
+    DBG("workarea: %dx%d", workarea_width, workarea_height);
 
     DBG("placing window, allocation=%dx%d+%d+%d", allocation.width, allocation.height, allocation.x, allocation.y);
 
-    /* Set initial geometry */
-    initial.width = allocation.width;
-    initial.height = allocation.height;
+    // Set initial position.  We ignore the start position
+    // (top/bottom-left/right/center) and just pretend it's all top-left.
+    // Later on we'll adjust the coordinates based on the actual start
+    // position.  The benefit here is that we don't need two different
+    // positioning algorithms for X11 and Wayland.  The downside is that if the
+    // start position is changed while notifications are displayed on the
+    // screen, future notifications could get placed on top of old ones.
+    gint xinitial = SPACE;
+    gint yinitial = SPACE;
 
-    switch(xndaemon->notify_location) {
-        case XFCE_NOTIFY_POS_TOP_LEFT:
-            initial.x = geom.x + SPACE;
-            initial.y = geom.y + SPACE;
-            break;
-        case XFCE_NOTIFY_POS_BOTTOM_LEFT:
-            initial.x = geom.x + SPACE;
-            initial.y = geom.y + geom.height - allocation.height - SPACE;
-            break;
-        case XFCE_NOTIFY_POS_TOP_RIGHT:
-            initial.x = geom.x + geom.width - allocation.width - SPACE;
-            initial.y = geom.y + SPACE;
-            break;
-        case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
-            initial.x = geom.x + geom.width - allocation.width - SPACE;
-            initial.y = geom.y + geom.height - allocation.height - SPACE;
-            break;
-        case XFCE_NOTIFY_POS_TOP_CENTER:
-            initial.x = geom.x + (geom.width / 2) - (allocation.width / 2);
-            initial.y = geom.y + SPACE;
-            break;
-        case XFCE_NOTIFY_POS_BOTTOM_CENTER:
-            initial.x = geom.x + (geom.width / 2) - (allocation.width / 2);
-            initial.y = geom.y + geom.height - allocation.height - SPACE;
-            break;
-        default:
-            g_warning("Invalid notify location: %d", xndaemon->notify_location);
-            return;
-    }
+    GdkRectangle widget_geom = {
+        .x = xinitial,
+        .y = yinitial,
+        .width = allocation.width,
+        .height = allocation.height,
+    };
 
-    widget_geom.x = initial.x;
-    widget_geom.y = initial.y;
-    widget_geom.width = initial.width;
-    widget_geom.height = initial.height;
+    gboolean is_center = xndaemon->notify_location == XFCE_NOTIFY_POS_TOP_CENTER
+        || xndaemon->notify_location == XFCE_NOTIFY_POS_BOTTOM_CENTER;
+    gboolean past_center = FALSE;
 
     while (!found) {
         GdkRectangle overlap_rect = { 0, };
+
+        if (is_center && !past_center && widget_geom.x + widget_geom.width > workarea_width / 2) {
+            // This is a little hack to essentially divide our placement space
+            // into two independent regions when we're doing initial-center
+            // positioning.  Otherwise the window will not know how to
+            // translate positions on the "second half" to the right location.
+            widget_geom.x = workarea_width / 2 + SPACE;
+            past_center = TRUE;
+        }
 
         DBG("Test if the candidate overlaps one of the existing notifications.");
         if (xfce_notify_daemon_is_window_position_free(xndaemon, monitor_num, &widget_geom, &overlap_rect)) {
             DBG("We found a correct position.");
             found = TRUE;
         } else {
-            if (overlap_rect.width > max_width) {
+            if (overlap_rect.x == widget_geom.x && overlap_rect.width > max_width) {
                 max_width = overlap_rect.width;
+                DBG("Update max_width=%d", max_width);
             }
 
             DBG("Try above/below the current candidate position.");
-            switch (xndaemon->notify_location) {
-                case XFCE_NOTIFY_POS_TOP_LEFT:
-                case XFCE_NOTIFY_POS_TOP_RIGHT:
-                case XFCE_NOTIFY_POS_TOP_CENTER:
-                    widget_geom.y = overlap_rect.y + overlap_rect.height + SPACE;
-                    break;
-                case XFCE_NOTIFY_POS_BOTTOM_LEFT:
-                case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
-                case XFCE_NOTIFY_POS_BOTTOM_CENTER:
-                    widget_geom.y = overlap_rect.y - widget_geom.height - SPACE;
-                    break;
-            }
+            widget_geom.y = overlap_rect.y + overlap_rect.height + SPACE;
 
-            if (is_center) {
-                // Since we initially center on the monitor, notifications of different widths
-                // will also be centered on the monitor.  But we really want neat columns that
-                // are left- or right-justified, so we have to adjust the x coord here too.
-                if ((is_ltr && !center_opposite) || (!is_ltr && center_opposite)) {
-                    widget_geom.x = overlap_rect.x;
-                } else {
-                    widget_geom.x = overlap_rect.x + overlap_rect.width - widget_geom.width;
-                }
-            }
-
-            if (widget_geom.y < geom.y || widget_geom.y + widget_geom.height > geom.y + geom.height) {
-                DBG("We reached the top/bottom of the monitor");
-                switch (xndaemon->notify_location) {
-                    case XFCE_NOTIFY_POS_TOP_LEFT:
-                    case XFCE_NOTIFY_POS_BOTTOM_LEFT:
-                        widget_geom.x = widget_geom.x + max_width + SPACE;
-                        break;
-                    case XFCE_NOTIFY_POS_TOP_RIGHT:
-                    case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
-                        widget_geom.x = widget_geom.x - max_width - SPACE;
-                        break;
-                    case XFCE_NOTIFY_POS_TOP_CENTER:
-                    case XFCE_NOTIFY_POS_BOTTOM_CENTER:
-                        // Whether we try a column to the left or right depends on whether
-                        // or not we've exhausted all the space on the initial side of the
-                        // monitor.
-                        if ((is_ltr && !center_opposite) || (!is_ltr && center_opposite)) {
-                            widget_geom.x = widget_geom.x + max_width + SPACE;
-                        } else {
-                            widget_geom.x = widget_geom.x - max_width - SPACE;
-                        }
-                        break;
-                }
-                widget_geom.y = initial.y;
+            if (widget_geom.y + widget_geom.height > workarea_height) {
+                DBG("We reached the top/bottom of the monitor (y=%d, height=%d, workheight=%d) (add %d)", widget_geom.y, widget_geom.height, workarea_height, max_width);
+                widget_geom.x = widget_geom.x + max_width + SPACE;
+                widget_geom.y = yinitial;
                 max_width = 0;
 
-                if (widget_geom.x < geom.x || widget_geom.x + widget_geom.width > geom.x + geom.width) {
-                    if (is_center && !center_opposite) {
-                        DBG("Center positioning; use other side of center");
-                        center_opposite = TRUE;
-                    } else {
-                        DBG("There was no free space.");
-                        found = TRUE;
-                    }
-                    widget_geom.x = initial.x;
-                    widget_geom.y = initial.y;
+                if (widget_geom.x + widget_geom.width > workarea_width) {
+                    DBG("There was no free space.");
+                    found = TRUE;  // TODO: place on another monitor?
+                    widget_geom.x = xinitial;
+                    widget_geom.y = yinitial;
                 }
             }
         }
     }
 
-    DBG("Move the notification to: x=%i, y=%i", widget_geom.x, widget_geom.y);
-    xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), widget_geom);
-    xndaemon->reserved_rectangles[monitor_num] = g_list_prepend(xndaemon->reserved_rectangles[monitor_num],
-                                                                xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
+    DBG("Initial notification geom: %dx%d+%d+%d", widget_geom.width, widget_geom.height, widget_geom.x, widget_geom.y);
+    xfce_notify_window_set_geometry(XFCE_NOTIFY_WINDOW(widget), &widget_geom, &xndaemon->monitors_workarea[monitor_num]);
+    xndaemon->reserved_rectangles[monitor_num] = g_list_append(xndaemon->reserved_rectangles[monitor_num],
+                                                               xfce_notify_window_get_geometry(XFCE_NOTIFY_WINDOW(widget)));
 }
 
 static void
@@ -942,14 +871,14 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     GdkDisplay *display;
     GdkMonitor *monitor;
     gint monitor_num;
-    GdkRectangle old_geom, geom;
+    GdkRectangle old_geom, workarea;
     gint cur_x, cur_y;
 
     DBG("Size allocate called for %d", xfce_notify_window_get_id(window));
 
     gtk_widget_set_allocation(widget, allocation);
 
-    old_geom = *xfce_notify_window_get_geometry(window);
+    old_geom = *xfce_notify_window_get_translated_geometry(window);
 
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
@@ -967,26 +896,27 @@ xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
     monitor = xfce_notify_window_get_monitor(window);
     monitor_num = xfce_notify_daemon_get_monitor_index(display, monitor);
 
-    DBG("We are on the monitor %i", monitor_num);
+    workarea = xndaemon->monitors_workarea[monitor_num];
 
-    geom = xndaemon->monitors_workarea[monitor_num];
-
-    DBG("Workarea: (%i,%i), width: %i, height:%i",
-        geom.x, geom.y, geom.width, geom.height);
-
-    if(old_geom.width != 0 && old_geom.height != 0) {
-        /* Notification has already been placed previously. */
-        GdkRectangle geom_union;
-        gdk_rectangle_union(&old_geom, &geom, &geom_union);
+    if (old_geom.width > 0 && old_geom.height > 0) {
+        GdkRectangle workarea_union;
+        gdk_rectangle_union(&old_geom, &workarea, &workarea_union);
         if (allocation->width == old_geom.width
             && allocation->height == old_geom.height
-            && gdk_rectangle_equal(&geom, &geom_union)
+            && gdk_rectangle_equal(&workarea, &workarea_union)
             && old_geom.x == cur_x
             && old_geom.y == cur_y)
         {
             /* No updates are necessary */
             return;
         } else {
+            DBG("monitor %d, workarea=%dx%d+%d+%d, cur=(%d,%d), old_geom=%dx%d+%d+%d, allocation=%dx%d+%d+%d workarea_union=%dx%d+%d+%d",
+                monitor_num,
+                workarea.width, workarea.height, workarea.x, workarea.y,
+                cur_x, cur_y,
+                old_geom.width, old_geom.height, old_geom.x, old_geom.y,
+                allocation->width, allocation->height, allocation->x, allocation->y,
+                workarea_union.width, workarea_union.height, workarea_union.x, workarea_union.y);
             xndaemon->reserved_rectangles[monitor_num] = g_list_remove(xndaemon->reserved_rectangles[monitor_num],
                                                                        xfce_notify_window_get_geometry(window));
         }
