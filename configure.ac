@@ -6,7 +6,6 @@ dnl Copyright (c) 2008 Brian Tarricone <brian@tarricone.org>
 dnl Copyright (c) 2019 Simon Steinbeiss <simon@xfce.org>
 dnl
 
-m4_define([notifications_spec_version], [1.2])
 m4_define([libx11_minimum_version], [1.6.7])
 m4_define([glib_minimum_version], [2.68])
 m4_define([gtk_minimum_version], [3.22])
@@ -151,10 +150,6 @@ AC_ARG_ENABLE([xdg-autostart],
               [use_xdg_autostart=$enableval], [use_xdg_autostart=yes])
 AM_CONDITIONAL([USE_XDG_AUTOSTART],
                [test x"$use_xdg_autostart" = x"yes"])
-
-dnl create #define for spec version
-AC_DEFINE_UNQUOTED([NOTIFICATIONS_SPEC_VERSION], ["notifications_spec_version"],
-                   [Set to the version of the freedesktop.org notifications spec we support])
 
 dnl check for debugging support
 XDT_FEATURE_DEBUG([xdt_debug_default])

@@ -44,7 +44,6 @@ compile_flags.txt: $(shell find . -name Makefile)
 		-DLOCALEDIR=\"$(localedir)\" \
 		-DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
 		-DG_LOG_DOMAIN=\"xfce4-notification-plugin\" \
-		-DNOTIFICATIONS_SPEC_VERSION=\"1.2\" \
 		-I$(top_srcdir) \
 		$(GTK_CFLAGS) \
 		$(LIBXFCE4UTIL_CFLAGS) \

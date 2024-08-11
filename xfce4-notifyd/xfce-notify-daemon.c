@@ -61,6 +61,7 @@
 #include "xfce-notify-window.h"
 #include "xfce-notify-marshal.h"
 
+#define NOTIFICATIONS_SPEC_VERSION "1.2"
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
 
