@@ -786,6 +786,10 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     gtk_widget_get_allocation(widget, &allocation);
     monitor_num = xfce_notify_daemon_get_monitor_index(gdk_screen_get_display(screen), monitor);
     g_return_if_fail(monitor_num >= 0);
+
+    xndaemon->reserved_rectangles[monitor_num] = g_list_remove(xndaemon->reserved_rectangles[monitor_num],
+                                                               xfce_notify_window_get_geometry(window));
+
     gint workarea_width = xndaemon->monitors_workarea[monitor_num].width;
     gint workarea_height = xndaemon->monitors_workarea[monitor_num].height;
     DBG("workarea: %dx%d", workarea_width, workarea_height);
@@ -861,67 +865,10 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
 }
 
 static void
-xfce_notify_daemon_window_size_allocate(GtkWidget *widget,
-                                        GtkAllocation *allocation,
-                                        gpointer user_data)
-{
-    XfceNotifyDaemon *xndaemon = user_data;
-    XfceNotifyWindow *window = XFCE_NOTIFY_WINDOW(widget);
-    GdkScreen *widget_screen;
-    GdkDisplay *display;
-    GdkMonitor *monitor;
-    gint monitor_num;
-    GdkRectangle old_geom, workarea;
-    gint cur_x, cur_y;
+xfce_notify_daemon_window_need_position(XfceNotifyWindow *window, XfceNotifyDaemon *xndaemon) {
+    DBG("need-position for %d", xfce_notify_window_get_id(window));
 
-    DBG("Size allocate called for %d", xfce_notify_window_get_id(window));
-
-    gtk_widget_set_allocation(widget, allocation);
-
-    old_geom = *xfce_notify_window_get_translated_geometry(window);
-
-#ifdef ENABLE_X11
-    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
-        gtk_window_get_position(GTK_WINDOW(widget), &cur_x, &cur_y);
-    } else
-#endif
-    {
-        cur_x = old_geom.x;
-        cur_y = old_geom.y;
-    }
-
-    widget_screen = gtk_widget_get_screen (widget);
-    display = gdk_screen_get_display(widget_screen);
-
-    monitor = xfce_notify_window_get_monitor(window);
-    monitor_num = xfce_notify_daemon_get_monitor_index(display, monitor);
-
-    workarea = xndaemon->monitors_workarea[monitor_num];
-
-    if (old_geom.width > 0 && old_geom.height > 0) {
-        GdkRectangle workarea_union;
-        gdk_rectangle_union(&old_geom, &workarea, &workarea_union);
-        if (allocation->width == old_geom.width
-            && allocation->height == old_geom.height
-            && gdk_rectangle_equal(&workarea, &workarea_union)
-            && old_geom.x == cur_x
-            && old_geom.y == cur_y)
-        {
-            /* No updates are necessary */
-            return;
-        } else {
-            DBG("monitor %d, workarea=%dx%d+%d+%d, cur=(%d,%d), old_geom=%dx%d+%d+%d, allocation=%dx%d+%d+%d workarea_union=%dx%d+%d+%d",
-                monitor_num,
-                workarea.width, workarea.height, workarea.x, workarea.y,
-                cur_x, cur_y,
-                old_geom.width, old_geom.height, old_geom.x, old_geom.y,
-                allocation->width, allocation->height, allocation->x, allocation->y,
-                workarea_union.width, workarea_union.height, workarea_union.x, workarea_union.y);
-            xndaemon->reserved_rectangles[monitor_num] = g_list_remove(xndaemon->reserved_rectangles[monitor_num],
-                                                                       xfce_notify_window_get_geometry(window));
-        }
-    }
-
+    GdkMonitor *monitor = xfce_notify_window_get_monitor(window);
     xfce_notify_daemon_place_notification_window(xndaemon, window, monitor);
 }
 
@@ -1177,9 +1124,8 @@ recheck_window_monitor(gpointer data) {
     DBG("found monitor index=%d for window %p", xfce_notify_daemon_get_monitor_index(display, monitor), mcdata->window);
     xfce_notify_window_update_monitor(mcdata->window, monitor);
 
-
-    g_signal_connect(mcdata->window, "size-allocate",
-                     G_CALLBACK(xfce_notify_daemon_window_size_allocate), mcdata->xndaemon);
+    g_signal_connect(mcdata->window, "need-position",
+                     G_CALLBACK(xfce_notify_daemon_window_need_position), mcdata->xndaemon);
     xfce_notify_daemon_place_notification_window(mcdata->xndaemon, mcdata->window, monitor);
 
     g_object_unref(mcdata->window);
@@ -1653,8 +1599,8 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
             monitor = xfce_notify_window_get_monitor(XFCE_NOTIFY_WINDOW(window));
             if (monitor != NULL) {
-                g_signal_connect(window, "size-allocate",
-                                 G_CALLBACK(xfce_notify_daemon_window_size_allocate), xndaemon);
+                g_signal_connect(window, "need-position",
+                                 G_CALLBACK(xfce_notify_daemon_window_need_position), xndaemon);
                 xfce_notify_daemon_place_notification_window(xndaemon, XFCE_NOTIFY_WINDOW(window), monitor);
             } else {
                 gtk_widget_add_events(GTK_WIDGET(window), GDK_STRUCTURE_MASK);
