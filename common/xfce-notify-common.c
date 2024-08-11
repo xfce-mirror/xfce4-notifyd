@@ -103,7 +103,13 @@ markup_text(GMarkupParseContext *context,
 gchar *
 xfce_notify_sanitize_markup(const gchar *markup) {
     if (G_LIKELY(markup != NULL)) {
-        const GMarkupParser parser = { markup_start_elem, markup_end_elem, markup_text, NULL, };
+        const GMarkupParser parser = {
+            .start_element = markup_start_elem,
+            .end_element = markup_end_elem,
+            .text = markup_text,
+            .passthrough = NULL,
+            .error = NULL,
+        };
         GMarkupParseContext *ctx;
         MarkupState state = { NULL, FALSE };
         gchar *p;
