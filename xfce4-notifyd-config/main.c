@@ -29,6 +29,13 @@
 #include <string.h>
 #endif
 
+#ifdef HAVE_XFCE_REVISION_H
+#include "xfce-revision.h"
+#define VERSION_STRING VERSION "-" REVISION
+#else
+#define VERSION_STRING VERSION
+#endif
+
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <gtk/gtk.h>
@@ -1192,7 +1199,7 @@ main(int argc,
     }
 
     if(G_UNLIKELY(opt_version)) {
-        g_print("%s %s\n", G_LOG_DOMAIN, VERSION);
+        g_print("%s %s\n", G_LOG_DOMAIN, VERSION_STRING);
         g_print("Copyright (c) 2008-2011,2023 Brian Tarricone <brian@tarricone.org>\n");
         g_print("Copyright (c) 2010 Jérôme Guelfucci <jeromeg@xfce.org>\n");
         g_print("Copyright (c) 2016 Ali Abdallah <ali@xfce.org>\n");

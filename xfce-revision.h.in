@@ -1,0 +1,12 @@
+/*
+ * The file xfce-revision.h is auto-generated and should not be modified
+ * directly.  Modify the xfce-revision.h.in file and re-run the build
+ * instead.
+ */
+
+#ifndef INC_XFCE_REVISION_H
+#define INC_XFCE_REVISION_H
+
+#define REVISION "@REVISION@"
+
+#endif /* INC_XFCE_REVISION_H */

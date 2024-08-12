@@ -1,0 +1,69 @@
+option(
+  'helper-path-prefix',
+  type: 'string',
+  value: '',
+  description: 'Path prefix under which helper executables will be installed (default: $libdir)',
+)
+
+option(
+  'x11',
+  type: 'feature',
+  value: 'auto',
+  description: 'Support for the X11 windowing system',
+)
+
+option(
+  'wayland',
+  type: 'feature',
+  value: 'auto',
+  description: 'Support for the Wayland windowing system',
+)
+
+option(
+  'sound',
+  type: 'feature',
+  value: 'auto',
+  description: 'Support for notification sounds',
+)
+
+option(
+  'dbus-start-daemon',
+  type: 'boolean',
+  value: true,
+  description: 'Whether or not to install the D-Bus service activation files',
+)
+
+option(
+  'dbus-service-dir',
+  type: 'string',
+  value: '',
+  description: 'Specifies the directory where D-Bus service activation files should be installed (default=${datadir}/dbus-1/services)',
+)
+
+option(
+  'systemd',
+  type: 'feature',
+  value: 'auto',
+  description: 'Whether or not to install systemd user service files',
+)
+
+option(
+  'systemd-user-service-dir',
+  type: 'string',
+  value: '',
+  description: 'Specifies the directory where systemd user services should be installed (default=${prefix}/lib/systemd/user)',
+)
+
+option(
+  'xdg-autostart',
+  type: 'boolean',
+  value: true,
+  description: 'Whether or not to install the XDG autostart file',
+)
+
+option(
+  'tests',
+  type: 'boolean',
+  value: false,
+  description: 'Whether or not to build test programs',
+)
