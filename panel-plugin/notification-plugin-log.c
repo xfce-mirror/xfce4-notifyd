@@ -78,15 +78,6 @@ notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
 
 
 static void
-notification_plugin_menu_clear (GtkWidget *widget, gpointer user_data)
-{
-  GtkWidget *container = user_data;
-  gtk_container_remove (GTK_CONTAINER (container), widget);
-}
-
-
-
-static void
 notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
 {
   NotificationPlugin* notification_plugin = user_data;
@@ -108,14 +99,12 @@ notification_plugin_mark_all_read(GtkWidget *widget, NotificationPlugin *notific
 }
 
 
-void
-notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
-{
-  GtkMenu *menu = GTK_MENU (notification_plugin->menu);
+GtkWidget *
+notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
+  GtkWidget *menu;
   GtkWidget *mi, *image, *label, *box;
   GDateTime *today;
   gint today_year, today_day;
-  GtkCallback func = notification_plugin_menu_clear;
   gchar *notify_log_icon_folder;
   int log_icon_size;
   XfceNotifyDatetimeFormat dt_format;
@@ -134,8 +123,7 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
   today_year = g_date_time_get_year(today);
   today_day = g_date_time_get_day_of_year(today);
 
-  /* Clean up the list and re-fill it */
-  gtk_container_foreach (GTK_CONTAINER (menu), func, menu);
+  menu = gtk_menu_new();
 
   notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                         XFCE_NOTIFY_ICON_PATH, TRUE);
@@ -414,4 +402,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_show (mi);
   g_signal_connect (mi, "activate", G_CALLBACK (notification_plugin_settings_activate_cb),
                     notification_plugin);
+
+  return menu;
 }
