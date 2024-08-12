@@ -135,9 +135,21 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
   gboolean dnd_enabled; 
 
   dnd_enabled = xfconf_channel_get_bool(notification_plugin->channel, DND_ENABLED_PROP, FALSE);
-  if (dnd_enabled) {
+  if (dnd_enabled && notification_plugin->new_notifications) {
+    base_icon = g_themed_icon_new_with_default_fallbacks("notification-disabled-new-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-new-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notification-new-disabled-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-new-disabled-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notification-disabled-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-symbolic");
+  } else if (dnd_enabled) {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-disabled-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-symbolic");
+  } else if (notification_plugin->new_notifications) {
+    base_icon = g_themed_icon_new_with_default_fallbacks("notification-new-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-new-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notification-symbolic");
+    g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-symbolic");
   } else {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-symbolic");
@@ -158,12 +170,18 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
       cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf(pix, scale_factor, NULL);
 
       if (notification_plugin->new_notifications) {
-        gdouble alpha = dnd_enabled ? 0.7 : 1.0;
-        notify_log_icon_add_unread_emblem(surface,
-                                          style_context,
-                                          notification_plugin->icon_size,
-                                          scale_factor,
-                                          alpha);
+        const gchar *filename = gtk_icon_info_get_filename(icon_info);
+        const gchar *name = g_strrstr(filename, G_DIR_SEPARATOR_S);
+        if (strstr(name != NULL ? name : filename, "-new") == NULL) {
+          // This icon theme does not have the "unread notifications" variant
+          // of the notifications icon, so add the emblem.
+          gdouble alpha = dnd_enabled ? 0.7 : 1.0;
+          notify_log_icon_add_unread_emblem(surface,
+                                            style_context,
+                                            notification_plugin->icon_size,
+                                            scale_factor,
+                                            alpha);
+        }
       }
 
       gtk_image_set_from_surface(GTK_IMAGE(notification_plugin->image), surface);
