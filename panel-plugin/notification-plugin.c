@@ -44,43 +44,32 @@ notification_plugin_construct (XfcePanelPlugin *panel_plugin);
 XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
 
 GtkWidget *notification_plugin_menu_new   (NotificationPlugin *notification_plugin);
-void       notification_plugin_popup_menu (NotificationPlugin *notification_plugin);
 
 static gboolean notification_plugin_size_changed (XfcePanelPlugin *plugin,
                                                   gint size,
                                                   NotificationPlugin *notification_plugin);
+static void cb_menu_deactivate(GtkMenuShell *menu,
+                               NotificationPlugin *notification_plugin);
 
 static void notification_plugin_init_log_proxy(NotificationPlugin *notification_plugin);
 
-GtkWidget *
-notification_plugin_menu_new (NotificationPlugin *notification_plugin)
-{
-  GtkWidget *menu;
-
-  menu = gtk_menu_new ();
-  /* connect signal on show to update the items */
-  g_signal_connect_swapped (menu, "show", G_CALLBACK (notification_plugin_menu_populate),
-                            notification_plugin);
-
-  /* Show all the items */
-  gtk_widget_show_all (GTK_WIDGET (menu));
-  return menu;
-}
-
-
-
-void
+static void
 notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
 {
+  GtkWidget *menu = notification_plugin_menu_new(notification_plugin);
+  gtk_menu_attach_to_widget(GTK_MENU(menu), notification_plugin->button, NULL);
+  gtk_widget_set_name(menu, "xfce4-notification-plugin-menu");
+  g_signal_connect(menu, "deactivate",
+                   G_CALLBACK(cb_menu_deactivate), notification_plugin);
+
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), TRUE);
-  gtk_menu_popup_at_widget (GTK_MENU (notification_plugin->menu),
-                            notification_plugin->button,
-                            xfce_panel_plugin_get_orientation (notification_plugin->plugin) == GTK_ORIENTATION_VERTICAL
-                            ? GDK_GRAVITY_NORTH_EAST : GDK_GRAVITY_SOUTH_WEST,
-                            GDK_GRAVITY_NORTH_WEST,
-                            NULL);
-  xfce_panel_plugin_register_menu (notification_plugin->plugin,
-                                   GTK_MENU (notification_plugin->menu));
+  gtk_menu_popup_at_widget(GTK_MENU(menu),
+                           notification_plugin->button,
+                           xfce_panel_plugin_get_orientation(notification_plugin->plugin) == GTK_ORIENTATION_VERTICAL
+                           ? GDK_GRAVITY_NORTH_EAST : GDK_GRAVITY_SOUTH_WEST,
+                           GDK_GRAVITY_NORTH_WEST,
+                           NULL);
+  xfce_panel_plugin_register_menu(notification_plugin->plugin, GTK_MENU(menu));
 }
 
 
@@ -116,34 +105,7 @@ cb_menu_deactivate (GtkMenuShell *menu,
   gtk_widget_set_visible(notification_plugin->button,
                          !notification_plugin->hide_on_read
                          || notification_plugin->new_notifications);
-}
-
-
-
-static gboolean
-cb_menu_size_allocate_next (gpointer user_data)
-{
-  NotificationPlugin *notification_plugin = user_data;
-
-  gtk_menu_reposition (GTK_MENU (notification_plugin->menu));
-  notification_plugin->menu_size_allocate_next_handler = 0;
-
-  return G_SOURCE_REMOVE;
-}
-
-
-
-static void
-cb_menu_size_allocate (GtkWidget          *menu,
-                       GdkRectangle       *allocation,
-                       NotificationPlugin *notification_plugin)
-{
-  if (notification_plugin->menu_size_allocate_next_handler != 0)
-    g_source_remove (notification_plugin->menu_size_allocate_next_handler);
-
-  /* defer gtk_menu_reposition call since it may not work in size event handler */
-  notification_plugin->menu_size_allocate_next_handler =
-    g_idle_add (cb_menu_size_allocate_next, notification_plugin);
+  gtk_widget_destroy(GTK_WIDGET(menu));
 }
 
 
@@ -376,17 +338,8 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
                                    xfce_panel_plugin_get_size(notification_plugin->plugin),
                                    notification_plugin);
 
-  /* Create the menu */
-  notification_plugin->menu = notification_plugin_menu_new (notification_plugin);
-  gtk_menu_attach_to_widget (GTK_MENU (notification_plugin->menu), notification_plugin->button, NULL);
-  gtk_widget_set_name (GTK_WIDGET (notification_plugin->menu), "xfce4-notification-plugin-menu");
-
   g_signal_connect (notification_plugin->button, "button-press-event",
                     G_CALLBACK (cb_button_pressed), notification_plugin);
-  g_signal_connect (notification_plugin->menu, "deactivate",
-                    G_CALLBACK (cb_menu_deactivate), notification_plugin);
-  g_signal_connect (notification_plugin->menu, "size-allocate",
-                    G_CALLBACK (cb_menu_size_allocate), notification_plugin);
   g_signal_connect_swapped(gtk_icon_theme_get_default(), "changed",
                            G_CALLBACK(notification_plugin_update_icon), notification_plugin);
 
