@@ -62,7 +62,6 @@ typedef struct
     /* panel widgets */
     GtkWidget       *button;
     GtkWidget       *image;
-    GtkWidget       *menu;
 
     /* menu widgets */
     GtkWidget       *do_not_disturb_switch;
