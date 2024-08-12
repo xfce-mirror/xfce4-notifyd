@@ -26,6 +26,9 @@ libxfce_notify_common = static_library(
   c_args: [
     '-DG_LOG_DOMAIN="@0@"'.format(meson.project_name()),
   ],
+  include_directories: [
+    include_directories('..'),
+  ],
   dependencies: [
     gio_unix,
     xfconf,

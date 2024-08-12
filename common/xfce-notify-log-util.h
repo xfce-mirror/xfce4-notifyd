@@ -22,8 +22,9 @@
 
 #include <gtk/gtk.h>
 
+#include "common/xfce-notify-log-gbus.h"
+
 #include "xfce-notify-common.h"
-#include "xfce-notify-log-gbus.h"
 #include "xfce-notify-log-types.h"
 
 #define XFCE_NOTIFY_ICON_PATH "xfce4/notifyd/icons/"
