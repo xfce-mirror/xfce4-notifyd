@@ -36,6 +36,8 @@
 #define LOG_LEVEL_APPS_PROP                 "/log-level-apps"
 #define DND_ENABLED_PROP                    "/do-not-disturb"
 #define GAUGE_IGNORES_DND_PROP              "/gauge-ignores-dnd"
+#define MIN_WIDTH_ENABLED_PROP              "/min-width-enabled"
+#define MIN_WIDTH_PROP                      "/min-width"
 #define EXPIRE_TIMEOUT_ENABLED_PROP         "/expire-timeout-enabled"
 #define EXPIRE_TIMEOUT_PROP                 "/expire-timeout"
 #define EXPIRE_TIMEOUT_ALLOW_OVERRIDE_PROP  "/expire-timeout-allow-override"
@@ -50,6 +52,7 @@
 #define LOG_MAX_SIZE_DEFAULT                1000
 #define LOG_LEVEL_DEFAULT                   XFCE_LOG_LEVEL_NOT_FULLY_SHOWN
 #define LOG_LEVEL_APPS_DEFAULT              XFCE_LOG_LEVEL_APPS_ALL
+#define MIN_WIDTH_DEFAULT                   150
 #define EXPIRE_TIMEOUT_DEFAULT              10
 #define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
 #define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR

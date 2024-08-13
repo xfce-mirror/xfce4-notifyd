@@ -72,6 +72,8 @@ struct _XfceNotifyDaemon
     XfceNotifyGBus *xfce_iface_skeleton;
     XfceNotifyOldGBus *xfce_old_iface_skeleton;
 
+    gboolean min_width_enabled;
+    guint min_width;
     gboolean expire_timeout_enabled;
     gint expire_timeout;
     gboolean expire_timeout_allow_override;
@@ -139,6 +141,18 @@ static struct {
         const gchar *s;
     } default_value;
 } settings[] = {
+    {
+        .name = MIN_WIDTH_ENABLED_PROP,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, min_width_enabled),
+        .default_value.b = FALSE,
+    },
+    {
+        .name = MIN_WIDTH_PROP,
+        .type = G_TYPE_UINT,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, min_width),
+        .default_value.u = MIN_WIDTH_DEFAULT,
+    },
     {
         .name = EXPIRE_TIMEOUT_ENABLED_PROP,
         .type = G_TYPE_BOOLEAN,
@@ -1592,6 +1606,9 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
             notify_update_theme_for_window(xndaemon, window, FALSE);
 
+            if (xndaemon->min_width_enabled) {
+                gtk_widget_set_size_request(window, xndaemon->min_width, -1);
+            }
             gtk_widget_get_preferred_size(window, NULL, &nat_size);
             DBG("preferred natural size: %dx%d", nat_size.width, nat_size.height);
             allocation.width = nat_size.width;

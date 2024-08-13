@@ -1049,6 +1049,15 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     xfconf_g_property_bind(panel->channel, NOTIFY_LOCATION_PROP, G_TYPE_STRING,
                            G_OBJECT(position_combo), "active-id");
 
+    GtkWidget *min_width_enabled = GTK_WIDGET(gtk_builder_get_object(builder, "min_width_enabled"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(min_width_enabled), FALSE);
+    xfconf_g_property_bind(panel->channel, MIN_WIDTH_ENABLED_PROP, G_TYPE_BOOLEAN, min_width_enabled, "active");
+
+    GtkWidget *min_width = GTK_WIDGET(gtk_builder_get_object(builder, "min_width"));
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(min_width), MIN_WIDTH_DEFAULT);
+    xfconf_g_property_bind(panel->channel, MIN_WIDTH_PROP, G_TYPE_UINT, min_width, "value");
+    g_object_bind_property(min_width_enabled, "active", min_width, "sensitive", G_BINDING_SYNC_CREATE);
+
     slider = GTK_WIDGET(gtk_builder_get_object(builder, "opacity_slider"));
     g_signal_connect(G_OBJECT(slider), "format-value",
                      G_CALLBACK(xfce4_notifyd_slider_format_value), NULL);
