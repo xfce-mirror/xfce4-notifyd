@@ -1,3 +1,22 @@
+0.9.5 (2024-08-13)
+=====
+- Add an option to set the minimum width of notification windows
+- Fix include issue with meson build
+- Only emblem the panel plugin icon when theme lacks the 'new' variant
+- Destroy and recreate the panel menu every time it's popped up
+- Add meson build files
+- Fix uninitialized field warning
+- Move NOTIFICATIONS_SPEC_VERSION out of the build system
+- Remove redundant positioning code from Wayland path
+- Use different layer-shell anchors on Wayland
+- build: clang: Silence -Wcast-align
+- common: Explicitly depend on gio-unix-2.0
+- Fix positioning on Wayland in multi-monitor setups
+- Set output on layer-shell surface on Wayland
+- Fix active-monitor notification positioning on Wayland
+- Translation Updates:
+  Asturian, Czech, Greek, Kazakh, Swedish
+
 0.9.4 (2024-02-09)
 =====
 - Clarify why the symbolic icons don't go in symbolic/status
