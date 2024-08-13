@@ -1,7 +1,7 @@
 project(
   'xfce4-notifyd',
   'c',
-  version: '0.9.5',
+  version: '0.9.5-dev',
   license: 'GPL-2',
   meson_version: '>= 0.58.0',
   default_options: [
