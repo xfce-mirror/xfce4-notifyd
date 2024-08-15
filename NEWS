@@ -1,3 +1,10 @@
+0.9.6 (2024-08-14)
+=====
+- Use shared_module() for panel plugin meson build
+- Fix menu being destroyed before item activation handlers running
+- Translation Updates:
+  Albanian, Dutch, German, Lithuanian, Polish, Portuguese
+
 0.9.5 (2024-08-13)
 =====
 - Add an option to set the minimum width of notification windows

@@ -15,7 +15,7 @@ m4_define([dbus_minimum_version], [1.0])
 m4_define([systemd_minimum_version], [245])
 
 dnl version info
-XDT_VERSION_INIT([0.9.5], [git])
+XDT_VERSION_INIT([0.9.6])
 
 dnl init autoconf
 AC_INIT([xfce4-notifyd], [xdt_version],
