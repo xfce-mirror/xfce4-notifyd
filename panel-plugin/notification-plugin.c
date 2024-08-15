@@ -46,8 +46,8 @@ XFCE_PANEL_PLUGIN_REGISTER (notification_plugin_construct);
 static gboolean notification_plugin_size_changed (XfcePanelPlugin *plugin,
                                                   gint size,
                                                   NotificationPlugin *notification_plugin);
-static void cb_menu_deactivate(GtkMenuShell *menu,
-                               NotificationPlugin *notification_plugin);
+static void cb_menu_selection_done(GtkMenuShell *menu,
+                                   NotificationPlugin *notification_plugin);
 
 static void notification_plugin_init_log_proxy(NotificationPlugin *notification_plugin);
 
@@ -57,8 +57,8 @@ notification_plugin_popup_menu (NotificationPlugin *notification_plugin)
   GtkWidget *menu = notification_plugin_menu_new(notification_plugin);
   gtk_menu_attach_to_widget(GTK_MENU(menu), notification_plugin->button, NULL);
   gtk_widget_set_name(menu, "xfce4-notification-plugin-menu");
-  g_signal_connect(menu, "deactivate",
-                   G_CALLBACK(cb_menu_deactivate), notification_plugin);
+  g_signal_connect(menu, "selection-done",
+                   G_CALLBACK(cb_menu_selection_done), notification_plugin);
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), TRUE);
   gtk_menu_popup_at_widget(GTK_MENU(menu),
@@ -96,9 +96,7 @@ cb_button_pressed (GtkButton *button,
 
 
 static void
-cb_menu_deactivate (GtkMenuShell *menu,
-                    NotificationPlugin *notification_plugin)
-{
+cb_menu_selection_done(GtkMenuShell *menu, NotificationPlugin *notification_plugin) {
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (notification_plugin->button), FALSE);
   gtk_widget_set_visible(notification_plugin->button,
                          !notification_plugin->hide_on_read
