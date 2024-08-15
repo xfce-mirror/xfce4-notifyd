@@ -10,14 +10,13 @@ panel_plugin_generated_sources += gnome.compile_resources(
   install: false,
 )
 
-shared_library(
+shared_module(
   'notification-plugin',
   [
     'notification-plugin.c',
     'notification-plugin-dialogs.c',
     'notification-plugin-log.c',
   ] + panel_plugin_generated_sources,
-  soversion: '',
   gnu_symbol_visibility: 'hidden',
   include_directories: [
     include_directories('..'),
