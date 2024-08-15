@@ -41,7 +41,7 @@
 #define P_(singular, plural, n)  ngettext(singular, plural, n)
 #endif
 
-typedef struct _XfceNotifyLogViewer {
+struct _XfceNotifyLogViewer {
     GtkBox parent;
 
     XfconfChannel *channel;
@@ -59,7 +59,7 @@ typedef struct _XfceNotifyLogViewer {
     gboolean yesterday_header_added;
     gchar *last_entry_id;
     guint load_items_id;
-} XfceNotifyLogViewer;
+};
 
 enum {
     PROP0,

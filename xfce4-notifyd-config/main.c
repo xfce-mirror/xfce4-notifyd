@@ -1189,7 +1189,7 @@ main(int argc,
     GOptionEntry option_entries[] = {
         { "version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version, N_("Display version information"), NULL },
         { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET_ID") },
-        { NULL, },
+        { NULL, '\0', 0, 0, NULL, NULL, NULL },
     };
     GError *error = NULL;
 

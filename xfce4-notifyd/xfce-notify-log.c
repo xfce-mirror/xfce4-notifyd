@@ -83,7 +83,7 @@ typedef struct {
     } param;
 } XfceNotifyLogQueueItem;
 
-typedef struct _XfceNotifyLog {
+struct _XfceNotifyLog {
     GObject parent;
 
     /*< private >*/
@@ -110,7 +110,7 @@ typedef struct _XfceNotifyLog {
 
     guint write_queue_id;
     GQueue *write_queue;
-} XfceNotifyLog;
+};
 
 enum {
     SIG_ROW_ADDED,

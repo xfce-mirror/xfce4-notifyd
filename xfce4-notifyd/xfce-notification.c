@@ -31,7 +31,7 @@
 #include "xfce-notification.h"
 #include "xfce-notify-window.h"
 
-typedef struct _XfceNotification {
+struct _XfceNotification {
     GObject parent;
 
     guint id;
@@ -62,7 +62,7 @@ typedef struct _XfceNotification {
 #endif
 
     GList *windows;
-} XfceNotification;
+};
 
 enum {
     PROP0,
