@@ -1491,6 +1491,8 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
                                      , NULL
 #endif
                                      );
+        } else {
+            xfce_notification_actions_free(actions);
         }
 
 #ifdef ENABLE_SOUND
