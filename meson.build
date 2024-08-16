@@ -4,7 +4,7 @@ project(
   version : '0.9.6-dev',
   license : 'GPL-2',
   meson_version : '>= 0.58.0',
-  default_options : ['c_std=gnu99', 'buildtype=debugoptimized', 'warning_level=2']
+  default_options : ['c_std=gnu99', 'buildtype=debugoptimized', 'warning_level=2', 'b_ndebug=if-release']
 )
 
 project_namespace = 'apps'
@@ -103,15 +103,12 @@ if buildtype == 'debug' or buildtype == 'debugoptimized'
       '-DDEBUG_TRACE=1',
     ]
   endif
-elif buildtype == 'release' or buildtype == 'minsize' or buildtype == 'plain'
-  extra_cflags += '-DNDEBUG'
-
-  if buildtype == 'minsize'
-    extra_cflags += [
-      '-DG_DISABLE_CAST_CHECKS',
-      '-DG_DISABLE_ASSERT',
-    ]
-  endif
+elif buildtype == 'minsize'
+  extra_cflags += [
+    '-DNDEBUG',
+    '-DG_DISABLE_CAST_CHECKS',
+    '-DG_DISABLE_ASSERT',
+  ]
 endif
 
 if dependency_versions.has_key('glib')
