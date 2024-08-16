@@ -1179,7 +1179,6 @@ int
 main(int argc,
      char **argv)
 {
-    SettingsPanel *panel = g_new0(SettingsPanel, 1);
     GtkWidget *settings_dialog = NULL;
     GtkWidget *notifyd_running;
     GtkBuilder *builder;
@@ -1242,6 +1241,7 @@ main(int argc,
         return EXIT_FAILURE;
     }
 
+    SettingsPanel *panel = g_new0(SettingsPanel, 1);
     panel->channel = xfconf_channel_new("xfce4-notifyd");
     xfce_notify_migrate_settings(panel->channel);
 
