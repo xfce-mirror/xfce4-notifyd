@@ -991,8 +991,7 @@ xfce_notify_log_real_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
             guint n_entries;
             GList *last = xfce_notify_g_list_last_length(entries, &n_entries);
 
-            if (n_entries > n_entries_to_keep) {
-                // n_entries guaranteed to be >= 2 here, thus entries != NULL and last != NULL and last->prev != NULL
+            if (n_entries > n_entries_to_keep && last != NULL && last->prev != NULL) {
                 XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
                 rc = sqlite3_bind_int64(log->stmt_delete_before,
                                         BIND_INDEX(log->stmt_delete_before, COL_TIMESTAMP),
