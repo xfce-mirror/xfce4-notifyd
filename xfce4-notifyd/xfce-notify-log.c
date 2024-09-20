@@ -973,41 +973,38 @@ xfce_notify_log_real_truncate(XfceNotifyLog *log, guint n_entries_to_keep) {
 
     if (n_entries_to_keep == 0) {
         rc = xfce_notify_log_real_clear(log);
+    } else if (log->sqlite_delete_supports_limit_offset) {
+        gchar *sql = g_strdup_printf("DELETE FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT -1 OFFSET %u", n_entries_to_keep);
+        struct sqlite3_stmt *stmt = prepare_statement(log->db, sql, NULL);
+        if (stmt != NULL) {
+            rc = sqlite3_step(stmt);
+            sqlite3_finalize(stmt);
+        } else {
+            g_message("Your sqlite library does not support OFFSET/LIMIT with DELETE; falling back to less-efficient deletion method");
+            log->sqlite_delete_supports_limit_offset = FALSE;
+            rc = xfce_notify_log_real_truncate(log, n_entries_to_keep);
+        }
     } else {
-        if (log->sqlite_delete_supports_limit_offset) {
-            gchar *sql = g_strdup_printf("DELETE FROM " TABLE " ORDER BY " COL_TIMESTAMP " DESC LIMIT -1 OFFSET %u", n_entries_to_keep);
-            struct sqlite3_stmt *stmt = prepare_statement(log->db, sql, NULL);
-            if (stmt != NULL) {
-                rc = sqlite3_step(stmt);
-                sqlite3_finalize(stmt);
-            } else {
-                g_message("Your sqlite library does not support OFFSET/LIMIT with DELETE; falling back to less-efficient deletion method");
-                log->sqlite_delete_supports_limit_offset = FALSE;
-            }
-        }
+        GList *entries = xfce_notify_log_read(log, NULL, n_entries_to_keep + 1);
+        guint n_entries;
+        GList *last = xfce_notify_g_list_last_length(entries, &n_entries);
 
-        if (!log->sqlite_delete_supports_limit_offset) {
-            GList *entries = xfce_notify_log_read(log, NULL, n_entries_to_keep + 1);
-            guint n_entries;
-            GList *last = xfce_notify_g_list_last_length(entries, &n_entries);
-
-            if (n_entries > n_entries_to_keep && last != NULL && last->prev != NULL) {
-                XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
-                rc = sqlite3_bind_int64(log->stmt_delete_before,
-                                        BIND_INDEX(log->stmt_delete_before, COL_TIMESTAMP),
-                                        g_date_time_to_unix(last_entry_to_keep->timestamp) * 1000000 + g_date_time_get_microsecond(last_entry_to_keep->timestamp));
-                if (rc == SQLITE_OK) {
-                    rc = sqlite3_step(log->stmt_delete_before);
-                }
-
-                sqlite3_reset(log->stmt_delete_before);
-                sqlite3_clear_bindings(log->stmt_delete_before);
-            } else {
-                rc = SQLITE_OK;
+        if (n_entries > n_entries_to_keep && last != NULL && last->prev != NULL) {
+            XfceNotifyLogEntry *last_entry_to_keep = last->prev->data;
+            rc = sqlite3_bind_int64(log->stmt_delete_before,
+                                    BIND_INDEX(log->stmt_delete_before, COL_TIMESTAMP),
+                                    g_date_time_to_unix(last_entry_to_keep->timestamp) * 1000000 + g_date_time_get_microsecond(last_entry_to_keep->timestamp));
+            if (rc == SQLITE_OK) {
+                rc = sqlite3_step(log->stmt_delete_before);
             }
 
-            g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+            sqlite3_reset(log->stmt_delete_before);
+            sqlite3_clear_bindings(log->stmt_delete_before);
+        } else {
+            rc = SQLITE_OK;
         }
+
+        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
     }
 
     return rc;
