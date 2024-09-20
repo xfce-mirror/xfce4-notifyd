@@ -25,6 +25,8 @@
 #include <string.h>
 #endif
 
+#include <signal.h>
+
 #include <glib/gstdio.h>
 
 #include <gtk/gtk.h>
@@ -39,6 +41,13 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "xfce-notify-daemon.h"
+
+static void
+terminate_app(gint signum, gpointer user_data) {
+    for (guint i = 0; i < gtk_main_level(); ++i) {
+        gtk_main_quit();
+    }
+}
 
 int
 main(int argc,
@@ -82,6 +91,13 @@ main(int argc,
                             NULL);
         g_error_free(error);
         return 1;
+    }
+
+    if (!xfce_posix_signal_handler_init(&error)) {
+        g_message("Cannot init signal handlers: %s", error->message);
+        g_error_free(error);
+    } else {
+        xfce_posix_signal_handler_set_handler(SIGQUIT, terminate_app, NULL, NULL);
     }
 
     gtk_main();
