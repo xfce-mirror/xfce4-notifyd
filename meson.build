@@ -122,19 +122,20 @@ if dependency_versions.has_key('glib')
   ]
 endif
 
-version_parts = meson.project_version().split('git')[0].split('.')
+version_parts = meson.project_version().split('-dev')[0].split('.')
+version_short = '@0@.@1@'.format(version_parts[0], version_parts[1])
 
 extra_cflags += [
   '-DPACKAGE="@0@"'.format(meson.project_name()),
   '-DPACKAGE_NAME="@0@"'.format(meson.project_name()),
   '-DPACKAGE_VERSION="@0@"'.format(meson.project_version()),
   '-DVERSION="@0@"'.format(meson.project_version()),
+  '-DVERSION_SHORT="@0@"'.format(version_short),
   '-DPACKAGE_STRING="@0@ @1@"'.format(meson.project_name(), meson.project_version()),
   '-DPACKAGE_DATADIR="@0@"'.format(pkgdatadir),
   '-DPACKAGE_LOCALE_DIR="@0@"'.format(get_option('prefix') / get_option('localedir')),
   '-DPACKAGE_BUGREPORT="https://gitlab.xfce.org/@0@/@1@/-/issues"'.format(project_namespace, meson.project_name()),
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
-  '-DSHORT_VERSION="@0@.@1@"'.format(version_parts[0], version_parts[1]),
   '-DPREFIX="@0@"'.format(get_option('prefix')),
   '-DBINDIR="@0@"'.format(get_option('prefix') / get_option('bindir')),
   '-DDATADIR="@0@"'.format(get_option('prefix') / get_option('datadir')),
