@@ -126,7 +126,7 @@ msgstr "Pokaż powiadomienia tylko z dzisiaj"
 
 #: panel-plugin/notification-plugin-settings.glade:177
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "Ukryj okno dialogowe potwierdzenia 'Wyczyść dziennik'"
+msgstr "Ukryj okno dialogowe potwierdzenia „Wyczyść dziennik”"
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
@@ -233,7 +233,7 @@ msgstr "końcowe znaki na końcu instrukcji"
 #: xfce4-notifyd/xfce-notify-log.c:463
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr "Nie udało się utworzyć tabeli 'powiadomienia': %s"
+msgstr "Nie udało się utworzyć tabeli „powiadomienia”: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:464
 #, c-format
@@ -274,7 +274,7 @@ msgstr "Nie udało się wyświetlić podglądu powiadomienia"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr "Czy na pewno chcesz usunąć ustawienia powiadomień dla aplikacji „%s”?"
+msgstr "Czy na pewno chcesz usunąć ustawienia powiadomień dla programu „%s”?"
 
 #: xfce4-notifyd-config/main.c:577
 msgid "Delete"
@@ -283,11 +283,11 @@ msgstr "Usuń"
 #: xfce4-notifyd-config/main.c:579
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr "Zapomnij aplikację"
+msgstr "Zapomnij program"
 
 #: xfce4-notifyd-config/main.c:677
 msgid "Unspecified applications"
-msgstr "Nieokreślone aplikacje"
+msgstr "Nieokreślone programy"
 
 #: xfce4-notifyd-config/main.c:908
 #, c-format
@@ -309,7 +309,7 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr "<big><b>Obecnie nie ma znanych aplikacji.</b></big>\nJak tylko aplikacja wyśle powiadomienie,\npojawi się na tej liście."
+msgstr "<big><b>Obecnie nie ma znanych programów.</b></big>\nJak tylko program wyśle powiadomienie,\npojawi się na tej liście."
 
 #: xfce4-notifyd-config/main.c:1190
 msgid "Display version information"
@@ -446,7 +446,7 @@ msgstr "ikonę i podsumowanie"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
 msgid "icon and application name"
-msgstr "ikonę i nazwę aplikacji"
+msgstr "ikonę i nazwę programu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
@@ -466,7 +466,7 @@ msgstr "Ogólne"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:555
 msgid "seconds"
-msgstr "sekund"
+msgstr "sek."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:570
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:833
@@ -521,7 +521,7 @@ msgstr "Pokazuj tekst z _wartościami procentowymi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:688
 msgid "Date/time _format"
-msgstr "_Format daty/czasu"
+msgstr "_Format daty i godziny"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:709
 msgid "Locale default"
@@ -552,11 +552,11 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr "Podczas tworzenia powiadomienia aplikacje mogą określić, jak długo powiadomienie ma pozostać na ekranie. To ustawienie określa, czy to żądanie jest honorowane."
+msgstr "Podczas tworzenia powiadomienia programy mogą określić, jak długo powiadomienie ma pozostać na ekranie. To ustawienie określa, czy to żądanie jest honorowane."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:786
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr "Honoruj żądany przez aplikację czas „Znikania po”."
+msgstr "Honoruj żądany przez program czas „Znikania po”."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:809
 msgid "_Minimum notification width"
@@ -564,15 +564,15 @@ msgstr "_Minimalna szerokość powiadomień"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:881
 msgid "<b>Per-application notification settings</b>"
-msgstr "<b>Ustawienia powiadomień dla poszczególnych aplikacji</b>"
+msgstr "<b>Ustawienia powiadomień dla poszczególnych programów</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:908
 msgid "Applications"
-msgstr "Aplikacje"
+msgstr "Programy"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:927
 msgid "Log notifications"
-msgstr "Zachowuj powiadomienia"
+msgstr "Rejestruj powiadomienia"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:953
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
@@ -584,7 +584,7 @@ msgstr "zawsze"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:966
 msgid "Log applications"
-msgstr "Zachowuj aplikacje"
+msgstr "Rejestruj programy"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:997
 msgid "all"
@@ -605,7 +605,7 @@ msgstr "Maksymalna liczba wpisów, które mają być przechowywane w dzienniku."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Log size limit"
-msgstr "Limit rozmiaru dziennika"
+msgstr "Ograniczenie rozmiaru dziennika"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1044
 msgid "Log"
@@ -613,7 +613,7 @@ msgstr "Dziennik"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr "Wycisz aplikację"
+msgstr "Wycisz program"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
