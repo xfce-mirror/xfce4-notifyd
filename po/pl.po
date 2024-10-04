@@ -412,7 +412,7 @@ msgstr "<b>Animacje</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Domyślnie, okna powiadomień są wyświetlane na tym ekranie, na którym znajduje się wskaźnik myszy."
+msgstr "Domyślnie dymki powiadomień będą wyświetlane na ekranie, na którym znajduje się wskaźnik myszy."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
 msgid "Show notifications on"
