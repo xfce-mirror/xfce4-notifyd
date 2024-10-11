@@ -384,11 +384,11 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
 msgid "Fade out"
-msgstr ""
+msgstr "Passir"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
 msgid "_Slide out"
-msgstr ""
+msgstr "_Desaparéisser"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
 msgid "Do not disturb"
@@ -406,7 +406,7 @@ msgstr "<b>Animacions</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr ""
+msgstr "Per defaut las botiòlas de notificacion seràn afichadas sus l'ecran ont lo puntador de la mirga es situat."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
 msgid "Show notifications on"
