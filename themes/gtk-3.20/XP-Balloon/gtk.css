@@ -68,7 +68,7 @@
     border-bottom: 23px solid white;
     border-left: 6px solid white; }
 
-#XfceNotifyWindow.bottom-left, #XfceNotifyWindow.bottom-middle {
+#XfceNotifyWindow.bottom-left, #XfceNotifyWindow.bottom-center {
     border-image: url("msgbox-bottom-left.png") 6 6 23 32;
     border-top: 6px solid white;
     border-right: 6px solid white;
@@ -82,28 +82,28 @@
     border-bottom: 6px solid white;
     border-left: 6px solid white; }
 
-#XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle  {
+#XfceNotifyWindow.top-left, #XfceNotifyWindow.top-center  {
     border-image: url("msgbox-top-left.png") 23 6 6 32;
     border-top: 23px solid white;
     border-right: 6px solid white;
     border-bottom: 6px solid white;
     border-left: 32px solid white; }
 
-#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle image {
+#XfceNotifyWindow.top-right image, #XfceNotifyWindow.top-left image, #XfceNotifyWindow.top-center image {
     margin: 0 0 -7px 0;
     padding: 16px 0 7px 0; }
-#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle label#summary {
+#XfceNotifyWindow.top-right label#summary, #XfceNotifyWindow.top-left label#summary, #XfceNotifyWindow.top-center label#summary {
     padding-bottom: 0;
     padding-top: 16px;
     padding-left: 7px;
     margin: -7px; }
-#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle label#body {
+#XfceNotifyWindow.top-right label#body, #XfceNotifyWindow.top-left label#body, #XfceNotifyWindow.top-center label#body {
     margin-top: 7px;
     margin-bottom: 0; }
-#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle button {
+#XfceNotifyWindow.top-right button, #XfceNotifyWindow.top-left button, #XfceNotifyWindow.top-center button {
     padding: 4px;
     margin: 10px 0 -6px 0; }
-#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle progressbar {
+#XfceNotifyWindow.top-right progressbar, #XfceNotifyWindow.top-left progressbar, #XfceNotifyWindow.top-center progressbar {
     min-height: 6px;
     border-radius: 1px;
     margin: 15px 0 0 0;
