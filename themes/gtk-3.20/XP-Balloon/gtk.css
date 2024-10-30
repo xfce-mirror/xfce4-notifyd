@@ -1,0 +1,110 @@
+#XfceNotifyWindow {
+    background-color: #ffffe1;
+    background-clip: content-box;
+    color: black; }
+  #XfceNotifyWindow image {
+      margin: -7px 0 0 0;
+      padding: 7px 0 16px 0;
+      color: #aa9c87; }
+  #XfceNotifyWindow label#summary {
+      font-weight: Bold;
+      padding-bottom: 7px;
+      padding-left: 7px;
+      margin: -7px; }
+  #XfceNotifyWindow label#body {
+      margin-bottom: 20px; }
+  #XfceNotifyWindow button {
+      font-weight: Bold;
+      border: 1px solid #c7bea6;
+      box-shadow: none;
+      background-image: none;
+      background-color: #fffff5;
+      color: #aa9c87;
+      padding: 4px;
+      margin: -10px 0 10px 0;
+      min-height: 0;
+      transition: none; }
+    #XfceNotifyWindow button:hover {
+        border: 1px solid #aa9c87;
+        box-shadow: inset 0 0 0 1px #fffff5;
+        background-color: #aa9c87;
+        color: #fffff5; }
+    #XfceNotifyWindow button:active {
+        background-color: #887a65; }
+      #XfceNotifyWindow button image {
+          margin: 0;
+          padding: 0; }
+      #XfceNotifyWindow button:hover image {
+          color: #fffff5; }
+      #XfceNotifyWindow button label {
+          padding: 0;
+          margin: 0; }
+  #XfceNotifyWindow progressbar {
+      min-height: 6px;
+      border-radius: 1px;
+      margin: 0 0 15px 0;
+      padding: 0; }
+    #XfceNotifyWindow progressbar trough {
+        background-color: #fffff5;
+        background-image: none;
+        border-radius: 3px;
+        border: 1px solid #aa9c87;
+        box-shadow: none;
+        padding: 8px 4px 8px 4px;
+        margin: 0;
+        min-height: 0; }
+    #XfceNotifyWindow progressbar progress {
+        background-image: none;
+        background-color: #aa9c87;
+        border-radius: 0;
+        min-height: 16px;
+        border: none;
+        margin: 0; }
+
+#XfceNotifyWindow.bottom-right, #XfceNotifyWindow {
+    border-image: url("msgbox-bottom-right.png") 6 32 23 6;
+    border-top: 6px solid white;
+    border-right: 32px solid white;
+    border-bottom: 23px solid white;
+    border-left: 6px solid white; }
+
+#XfceNotifyWindow.bottom-left, #XfceNotifyWindow.bottom-middle {
+    border-image: url("msgbox-bottom-left.png") 6 6 23 32;
+    border-top: 6px solid white;
+    border-right: 6px solid white;
+    border-bottom: 23px solid white;
+    border-left: 32px solid white; }
+
+#XfceNotifyWindow.top-right {
+    border-image: url("msgbox-top-right.png") 23 32 6 6;
+    border-top: 23px solid white;
+    border-right: 32px solid white;
+    border-bottom: 6px solid white;
+    border-left: 6px solid white; }
+
+#XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle  {
+    border-image: url("msgbox-top-left.png") 23 6 6 32;
+    border-top: 23px solid white;
+    border-right: 6px solid white;
+    border-bottom: 6px solid white;
+    border-left: 32px solid white; }
+
+#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle image {
+    margin: 0 0 -7px 0;
+    padding: 16px 0 7px 0; }
+#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle label#summary {
+    padding-bottom: 0;
+    padding-top: 16px;
+    padding-left: 7px;
+    margin: -7px; }
+#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle label#body {
+    margin-top: 7px;
+    margin-bottom: 0; }
+#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle button {
+    padding: 4px;
+    margin: 10px 0 -6px 0; }
+#XfceNotifyWindow.top-right, #XfceNotifyWindow.top-left, #XfceNotifyWindow.top-middle progressbar {
+    min-height: 6px;
+    border-radius: 1px;
+    margin: 15px 0 0 0;
+    padding: 0; }
