@@ -501,7 +501,35 @@ xfce_notify_window_constructed(GObject *object) {
 
     xfce_notify_window_ensure_widgets(window);
 
-    gtk_style_context_add_class (gtk_widget_get_style_context (GTK_WIDGET (window)), "xfce4-notifyd");
+    GtkStyleContext *style_context = gtk_widget_get_style_context(GTK_WIDGET(window));
+    gtk_style_context_add_class(style_context, "xfce4-notifyd");
+
+    const gchar *position_class;
+    switch (window->notify_location) {
+            case XFCE_NOTIFY_POS_TOP_LEFT:
+                position_class = "top-left";
+                break;
+            case XFCE_NOTIFY_POS_BOTTOM_LEFT:
+                position_class = "bottom-left";
+                break;
+            case XFCE_NOTIFY_POS_TOP_RIGHT:
+                position_class = "top-right";
+                break;
+            case XFCE_NOTIFY_POS_BOTTOM_RIGHT:
+                position_class = "bottom-right";
+                break;
+            case XFCE_NOTIFY_POS_TOP_CENTER:
+                position_class = "top-center";
+                break;
+            case XFCE_NOTIFY_POS_BOTTOM_CENTER:
+                position_class = "bottom-center";
+                break;
+            default:
+                g_assert_not_reached();
+                break;
+    }
+    gtk_style_context_add_class(style_context, position_class);
+
     provider = gtk_css_provider_new ();
     gtk_css_provider_load_from_data (provider, BASE_CSS, -1, NULL);
     gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (window)),
