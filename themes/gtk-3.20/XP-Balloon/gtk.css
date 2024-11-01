@@ -31,14 +31,10 @@
         color: #fffff5; }
     #XfceNotifyWindow button:active {
         background-color: #887a65; }
-      #XfceNotifyWindow button image {
-          margin: 0;
-          padding: 0; }
+      #XfceNotifyWindow button image, #XfceNotifyWindow button label {
+          margin: 0; padding: 0; }
       #XfceNotifyWindow button:hover image {
           color: #fffff5; }
-      #XfceNotifyWindow button label {
-          padding: 0;
-          margin: 0; }
   #XfceNotifyWindow progressbar {
       min-height: 6px;
       border-radius: 1px;
@@ -103,6 +99,8 @@
 #XfceNotifyWindow.top-right button, #XfceNotifyWindow.top-left button, #XfceNotifyWindow.top-center button {
     padding: 4px;
     margin: 10px 0 -6px 0; }
+  #XfceNotifyWindow.top-right button image, #XfceNotifyWindow.top-right button label, #XfceNotifyWindow.top-left button image, #XfceNotifyWindow.top-left button label, #XfceNotifyWindow.top-center button image, #XfceNotifyWindow.top-center button label {
+      padding: 0; margin: 0; }
 #XfceNotifyWindow.top-right progressbar, #XfceNotifyWindow.top-left progressbar, #XfceNotifyWindow.top-center progressbar {
     min-height: 6px;
     border-radius: 1px;
