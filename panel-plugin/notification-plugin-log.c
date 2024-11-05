@@ -109,9 +109,9 @@ notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
   int log_icon_size;
   XfceNotifyDatetimeFormat dt_format;
   gchar *custom_dt_format;
-  const gchar *show_in_menu;
+  gchar *show_in_menu;
   gboolean only_unread;
-  const gchar *after_menu_shown;
+  gchar *after_menu_shown;
   gboolean mark_shown_read;
   gboolean mark_all_read;
   gboolean has_error = FALSE;
@@ -139,10 +139,12 @@ notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
 
   show_in_menu = xfconf_channel_get_string(notification_plugin->channel, SETTING_SHOW_IN_MENU, VALUE_SHOW_ALL);
   only_unread = g_strcmp0(show_in_menu, VALUE_SHOW_UNREAD) == 0;
+  g_free(show_in_menu);
 
   after_menu_shown = xfconf_channel_get_string(notification_plugin->channel, SETTING_AFTER_MENU_SHOWN, VALUE_MARK_ALL_READ);
   mark_shown_read = g_strcmp0(after_menu_shown, VALUE_MARK_SHOWN_READ) == 0;
   mark_all_read = g_strcmp0(after_menu_shown, VALUE_MARK_ALL_READ) == 0;
+  g_free(after_menu_shown);
 
   /* switch for the do not disturb mode of xfce4-notifyd */
   mi = gtk_menu_item_new ();
@@ -344,6 +346,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   g_date_time_unref (today);
   g_free(custom_dt_format);
+  g_free(notify_log_icon_folder);
 
   /* Show a placeholder label when there are no notifications */
   if (has_error || no_notifications) {
