@@ -31,6 +31,10 @@
 
 #include <gtk/gtk.h>
 
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <gtk-layer-shell.h>
@@ -46,6 +50,27 @@ static void
 terminate_app(gint signum, gpointer user_data) {
     for (guint i = 0; i < gtk_main_level(); ++i) {
         gtk_main_quit();
+    }
+}
+
+static const gchar *
+check_windowing_system_support(GdkDisplay *display) {
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY(display)) {
+        return NULL;
+    } else
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY(display)) {
+        if (!gtk_layer_is_supported()) {
+            return _("Your Wayland compositor does not support required protocol wlr-layer-shell.");
+        } else {
+            return NULL;
+        }
+    } else
+#endif
+    {
+        return _("xfce4-notifyd was built without support for your windowing system.");
     }
 }
 
@@ -72,14 +97,18 @@ main(int argc,
         }
     }
 
-#ifdef ENABLE_WAYLAND
-    if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
-        if (!gtk_layer_is_supported()) {
-            g_error("Your Wayland compositor does not support the layer-shell protocol, which is required");
-            return 1;
-        }
+    const gchar *windowing_error = check_windowing_system_support(gdk_display_get_default());
+    if (windowing_error != NULL) {
+        xfce_message_dialog(NULL,
+                            _("Xfce Notify Daemon"),
+                            "dialog-error",
+                            _("Unable to start notification daemon"),
+                            windowing_error,
+                            "application-exit",
+                            GTK_RESPONSE_ACCEPT,
+                            NULL);
+        return 1;
     }
-#endif
 
     xndaemon = xfce_notify_daemon_new_unique(&error);
     if(!xndaemon) {
