@@ -571,7 +571,7 @@ msgstr "Honor uygulaması tarafından istenen \"Sonra kaybol\" süresi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:809
 msgid "_Minimum notification width"
-msgstr "En az bildirim genişliği"
+msgstr "_En az bildirim genişliği"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:881
 msgid "<b>Per-application notification settings</b>"
