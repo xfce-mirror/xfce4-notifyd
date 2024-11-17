@@ -6,7 +6,7 @@
 #  <abel.martin.ruiz@gmail.com>, 2008
 # Casper, 2019-2020
 # Casper, 2024
-# Ignacio Poggi <ignaciop.3@gmail.com>, 2020,2023
+# Ignacio Poggi <ignaciop.3@gmail.com>, 2020,2023-2024
 # Jaime Marquínez Ferrándiz, 2019
 # 629cf3e396111bb8c5fb6664e2dbc91d, 2016
 # Miguel Hernández <mhdez@protonmail.com>, 2017
@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-08-14 00:50+0200\n"
+"POT-Creation-Date: 2024-11-06 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Casper, 2024\n"
+"Last-Translator: Ignacio Poggi <ignaciop.3@gmail.com>, 2020,2023-2024\n"
 "Language-Team: Spanish (http://app.transifex.com/xfce/xfce-apps/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +54,7 @@ msgstr "incluir la caché de iconos"
 msgid "Now"
 msgstr "Ahora"
 
-#: panel-plugin/notification-plugin.c:346
+#: panel-plugin/notification-plugin.c:344
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
@@ -73,32 +73,32 @@ msgstr "Complemento para las notificaciones"
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
-#: panel-plugin/notification-plugin-log.c:151
+#: panel-plugin/notification-plugin-log.c:153
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>_No molestar</b>"
 
-#: panel-plugin/notification-plugin-log.c:354
+#: panel-plugin/notification-plugin-log.c:357
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
 msgid "Unable to open notification log"
 msgstr "No se puede abrir el registro de notificaciones"
 
-#: panel-plugin/notification-plugin-log.c:356
+#: panel-plugin/notification-plugin-log.c:359
 msgid "No unread notifications"
 msgstr "Notificaciones no leídas"
 
-#: panel-plugin/notification-plugin-log.c:358
+#: panel-plugin/notification-plugin-log.c:361
 msgid "No notifications"
 msgstr "Sin notificaciones"
 
-#: panel-plugin/notification-plugin-log.c:380
+#: panel-plugin/notification-plugin-log.c:383
 msgid "_Clear log"
 msgstr "_Borrar el registro"
 
-#: panel-plugin/notification-plugin-log.c:391
+#: panel-plugin/notification-plugin-log.c:394
 msgid "_Mark all read"
 msgstr "_Marcar todo como leído"
 
-#: panel-plugin/notification-plugin-log.c:400
+#: panel-plugin/notification-plugin-log.c:403
 msgid "_Notification settings…"
 msgstr "_Configuración de las notificaciones…"
 
@@ -181,17 +181,26 @@ msgstr "Notificaciones"
 msgid "Notification plugin for the Xfce panel"
 msgstr "Notificaciones para el panel de Xfce"
 
-#: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1223
+#: xfce4-notifyd/main.c:66
+msgid ""
+"Your Wayland compositor does not support required protocol wlr-layer-shell."
+msgstr "Su compositor Wayland no es compatible con el protocolo requerido wlr-layer-shell."
+
+#: xfce4-notifyd/main.c:73
+msgid "xfce4-notifyd was built without support for your windowing system."
+msgstr "xfce4-notifyd fue creado sin compatibilidad para su sistema de ventanas."
+
+#: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
+#: xfce4-notifyd-config/main.c:1222
 msgid "Xfce Notify Daemon"
 msgstr "Servicio de notificaciones de Xfce"
 
-#: xfce4-notifyd/main.c:61
+#: xfce4-notifyd/main.c:95
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Opción desconocida: «%s»\n"
 
-#: xfce4-notifyd/main.c:79
+#: xfce4-notifyd/main.c:105 xfce4-notifyd/main.c:117
 msgid "Unable to start notification daemon"
 msgstr "No se puede iniciar el servicio de notificaciones"
 
@@ -249,7 +258,7 @@ msgstr "No se ha podido crear el índice de fecha y hora de la base de datos: %s
 msgid "Failed to create DB is_read index: %s"
 msgstr "No se ha podido crear el índice de lectura de la base de datos: %s "
 
-#: xfce4-notifyd/xfce-notify-window.c:1429
+#: xfce4-notifyd/xfce-notify-window.c:1457
 msgid "Default Action"
 msgstr "Acción predeterminada"
 
@@ -315,33 +324,33 @@ msgid ""
 "it will appear in this list."
 msgstr "<big><b>Actualmente no hay aplicaciones conocidas.</b></big>\nEn cuanto una aplicación envíe una notificación\naparecerá en esta lista."
 
-#: xfce4-notifyd-config/main.c:1190
+#: xfce4-notifyd-config/main.c:1189
 msgid "Display version information"
 msgstr "Mostrar información de la versión"
 
-#: xfce4-notifyd-config/main.c:1191
+#: xfce4-notifyd-config/main.c:1190
 msgid "Settings manager socket"
 msgstr "Socket del gestor de configuración"
 
-#: xfce4-notifyd-config/main.c:1191
+#: xfce4-notifyd-config/main.c:1190
 msgid "SOCKET_ID"
 msgstr "ID_DEL_SOCKET"
 
-#: xfce4-notifyd-config/main.c:1201
+#: xfce4-notifyd-config/main.c:1200
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Escriba «%s --help» para su uso."
 
-#: xfce4-notifyd-config/main.c:1216
+#: xfce4-notifyd-config/main.c:1215
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Se ha publicado según los términos de la versión 2 de la Licencia Pública General de GNU\n"
 
-#: xfce4-notifyd-config/main.c:1217
+#: xfce4-notifyd-config/main.c:1216
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Informe de errores a %s.\n"
 
-#: xfce4-notifyd-config/main.c:1225
+#: xfce4-notifyd-config/main.c:1224
 msgid "Settings daemon is unavailable"
 msgstr "El servicio de configuración no está disponible"
 
