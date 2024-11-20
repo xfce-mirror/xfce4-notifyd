@@ -44,7 +44,7 @@ msgstr "Wyczyść"
 
 #: common/xfce-notify-log-util.c:410 common/xfce-notify-log-util.c:418
 msgid "include icon cache"
-msgstr "zawieraj pamięć podręczną ikon"
+msgstr "uwzględnij pamięć podręczną ikon"
 
 #: common/xfce-notify-log-util.c:455
 msgid "Now"
@@ -59,7 +59,7 @@ msgstr "Powiadomienia"
 #: panel-plugin/notification-plugin-dialogs.c:52
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "Nie można otworzyć następującego adresu url: %s"
+msgstr "Nie można otworzyć następującego adresu URL: %s"
 
 #: panel-plugin/notification-plugin-dialogs.c:134
 msgid "This is the notification plugin"
@@ -122,7 +122,7 @@ msgstr "Liczba powiadomień do wyświetlenia"
 
 #: panel-plugin/notification-plugin-settings.glade:153
 msgid "Only show notifications from today"
-msgstr "Pokaż powiadomienia tylko z dzisiaj"
+msgstr "Pokaż powiadomienia tylko z dzisiaj"
 
 #: panel-plugin/notification-plugin-settings.glade:177
 msgid "Hide 'Clear log' confirmation dialog"
@@ -139,7 +139,7 @@ msgstr "Wygląd"
 
 #: panel-plugin/notification-plugin-settings.glade:241
 msgid "Show in menu"
-msgstr "Pokaż w menu"
+msgstr "Pokaż w menu"
 
 #: panel-plugin/notification-plugin-settings.glade:255
 msgid "All notifications"
@@ -218,7 +218,7 @@ msgstr "Dziennik jest niedostępny"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr "Nie znaleziono wpisu w dzienniku"
+msgstr "Nie znaleziono wpisu w dzienniku"
 
 #: xfce4-notifyd/xfce-notify-log.c:238
 #, c-format
@@ -330,7 +330,7 @@ msgstr "Określa gniazdo menedżera ustawień"
 
 #: xfce4-notifyd-config/main.c:1190
 msgid "SOCKET_ID"
-msgstr "ID_GNIAZDA"
+msgstr "ID GNIAZDA"
 
 #: xfce4-notifyd-config/main.c:1200
 #, c-format
@@ -431,7 +431,7 @@ msgstr "Włączone wyświetlanie powiadomień"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr "Aby słyszeć dźwięki powiadomień, należy zaznaczyć ustawienie dźwięków zdarzeń w oknie dialogowym ustawień wyglądu"
+msgstr "Aby słyszeć dźwięki powiadomień, należy zaznaczyć ustawienie dźwięków zdarzeń w oknie dialogowym ustawień wyglądu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
@@ -439,7 +439,7 @@ msgstr "_Wycisz dźwięki"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
-msgstr "Zawsze pokazuj powiadomienia w formie wartości procentowych"
+msgstr "Zawsze pokazuj powiadomienia w formie wartości procentowych"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
