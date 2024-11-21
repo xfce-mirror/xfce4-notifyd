@@ -447,15 +447,15 @@ msgstr "Podczas wyświetlania powiadomień pokaż"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
-msgstr "ikonę, podsumowanie i treść"
+msgstr "ikonę, podsumowanie i treść"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "icon and summary"
-msgstr "ikonę i podsumowanie"
+msgstr "ikonę i podsumowanie"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
 msgid "icon and application name"
-msgstr "ikonę i nazwę programu"
+msgstr "ikonę i nazwę programu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
@@ -522,7 +522,7 @@ msgstr "_Styl"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr "Pokazuj podsumowanie i treść powiadomienia, gdy powiadomienie jest wartością procentową, taką jak głośność dźwięku lub jasność ekranu"
+msgstr "Pokazuj podsumowanie i treść powiadomienia, gdy powiadomienie jest wartością procentową, taką jak głośność dźwięku lub jasność ekranu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:674
 msgid "Show text with percent _values"
@@ -530,11 +530,11 @@ msgstr "Pokazuj tekst z _wartościami procentowymi"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:688
 msgid "Date/time _format"
-msgstr "_Format daty i godziny"
+msgstr "_Format daty i godziny"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:709
 msgid "Locale default"
-msgstr "Domyślne ustawień regionalnych"
+msgstr "Domyślne ustawienia regionalne"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:710
 msgid "Relative times"
@@ -565,7 +565,7 @@ msgstr "Podczas tworzenia powiadomienia programy mogą określić, jak długo po
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:786
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr "Honoruj żądany przez program czas „Znikania po”."
+msgstr "Honoruj żądany przez program czas „Znikanie po”"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:809
 msgid "_Minimum notification width"
