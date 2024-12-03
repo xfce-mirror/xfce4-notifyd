@@ -339,7 +339,7 @@ msgstr "Proszę wprowadzić „%s --help”, aby wypisać komunikat pomocy."
 
 #: xfce4-notifyd-config/main.c:1215
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Wydano na warunkach GNU General Public License, wersja 2\n"
+msgstr "Wydany na warunkach Powszechnej Licencji Publicznej GNU (GPL) w wersji 2\n"
 
 #: xfce4-notifyd-config/main.c:1216
 #, c-format
@@ -382,7 +382,7 @@ msgstr "_Oznacz wpis dziennika jako przeczytany"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
 msgid "Yesterday and before"
-msgstr "Wczoraj i wcześniej"
+msgstr "Wczoraj i wcześniej"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
 msgid "Loading more log entries..."
@@ -585,7 +585,7 @@ msgstr "Rejestruj powiadomienia"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:953
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr "tylko w trybie „Nie przeszkadzać” lub gdy nie są wyświetlane treści powiadomień"
+msgstr "tylko w trybie „Nie przeszkadzać” lub gdy nie są wyświetlane treści powiadomień"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:954
 msgid "always"
