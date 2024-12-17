@@ -179,7 +179,7 @@ msgstr "Din Wayland-kompositør understøtter ikke krævede protokol wlr-layer-s
 
 #: xfce4-notifyd/main.c:73
 msgid "xfce4-notifyd was built without support for your windowing system."
-msgstr ""
+msgstr "xfce4-notifyd blev bygget uden understøttelse af dit vinduessystem."
 
 #: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
 #: xfce4-notifyd-config/main.c:1222
@@ -564,7 +564,7 @@ msgstr "Efterlev programanmodet \"Forsvind efter\"-tid"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:809
 msgid "_Minimum notification width"
-msgstr ""
+msgstr "_Mindste bredde for underretning"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:881
 msgid "<b>Per-application notification settings</b>"
