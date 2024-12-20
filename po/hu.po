@@ -123,7 +123,7 @@ msgstr "Csak a mai értesítések megjelenítése"
 
 #: panel-plugin/notification-plugin-settings.glade:177
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr ""
+msgstr "'Napló tisztítása' párbeszédablak elrejtése"
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
@@ -249,7 +249,7 @@ msgstr "Hiba a DB időbélyeg index létrehozásakor: %s"
 #: xfce4-notifyd/xfce-notify-log.c:465
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Hiba a DB is_read index létrehozásakor: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1457
 msgid "Default Action"
@@ -436,7 +436,7 @@ msgstr "_Hang némítása"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Mindig mutassa a százalékos-érték értesítéseket"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
@@ -523,7 +523,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:674
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Szöveg mutatása százalékos _értékkel"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:688
 msgid "Date/time _format"
@@ -566,11 +566,11 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:809
 msgid "_Minimum notification width"
-msgstr ""
+msgstr "_Értesítés minimum szélessége"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:881
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Applikációnkénti értesítési beállítások</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:908
 msgid "Applications"
