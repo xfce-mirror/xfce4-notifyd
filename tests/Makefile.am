@@ -34,3 +34,6 @@ test_text_LDADD = $(tests_ldadd)
 test_icons_SOURCES = test-icons.c
 test_icons_CFLAGS = $(icon_tests_cflags)
 test_icons_LDADD = $(icon_tests_ldadd)
+
+EXTRA_DIST = \
+	meson.build

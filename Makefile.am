@@ -30,6 +30,12 @@ DISTCLEANFILES = \
 	$(distclean_service) \
 	$(distclean_autostart)
 
+EXTRA_DIST = \
+	meson.build \
+	meson_options.txt \
+	po/meson.build \
+	xfce-revision.h.in
+
 if MAINTAINER_MODE
 
 all-local: compile_flags.txt

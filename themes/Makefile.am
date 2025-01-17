@@ -29,3 +29,6 @@ dist_noinst_DATA = \
 	$(dist_smoketheme_DATA) \
 	$(dist_xpballoonthemedir_DATA) \
 	$(dist_zomgponiestheme_DATA)
+
+EXTRA_DIST = \
+	meson.build

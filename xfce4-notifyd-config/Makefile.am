@@ -62,6 +62,9 @@ CLEANFILES = \
 	$(built_xfce4_notifyd_config) \
 	$(desktop_DATA)
 
+EXTRA_DIST = \
+	meson.build
+
 %.desktop: $(srcdir)/%.desktop.in
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
