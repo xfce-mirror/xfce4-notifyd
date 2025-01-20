@@ -105,6 +105,9 @@ CLEANFILES = \
 	$(systemd_user_DATA) \
 	$(autostart_DATA)
 
+EXTRA_DIST = \
+	meson.build
+
 %.service: $(srcdir)/%.service.in Makefile
 	$(AM_V_GEN) sed \
 		-e "s,\@notifydir\@,$(xfce4_notifyddir),g" \

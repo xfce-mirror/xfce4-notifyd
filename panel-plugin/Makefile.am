@@ -67,6 +67,9 @@ CLEANFILES = \
 	$(built_sources) \
 	$(desktop_DATA)
 
+EXTRA_DIST = \
+	meson.build
+
 %.desktop: $(srcdir)/%.desktop.in
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
