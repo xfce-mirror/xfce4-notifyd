@@ -410,6 +410,10 @@ xfce4_notifyd_mute_switch_activated(GtkSwitch *sw,
 {
     handle_app_switch_widget_toggled(signal_data, MUTED_APPLICATIONS_PROP, state);
     gtk_widget_set_sensitive(signal_data->app_label, !state);
+    // There appears to be a strange issue where the switches don't redraw
+    // properly on their own (e.g., if the theme specifies a different
+    // background color for on and off), so force a redraw.
+    gtk_widget_queue_draw(GTK_WIDGET(sw));
 }
 
 static void
@@ -418,6 +422,10 @@ xfce4_notifyd_allow_criticals_switch_activated(GtkSwitch *sw,
                                                KnownApplicationSignalData *signal_data)
 {
     handle_app_switch_widget_toggled(signal_data, DENIED_CRITICAL_NOTIFICATIONS_PROP, !state);
+    // There appears to be a strange issue where the switches don't redraw
+    // properly on their own (e.g., if the theme specifies a different
+    // background color for on and off), so force a redraw.
+    gtk_widget_queue_draw(GTK_WIDGET(sw));
 }
 
 static void
@@ -426,6 +434,10 @@ xfce4_notifyd_include_in_log_switch_activated(GtkSwitch *sw,
                                               KnownApplicationSignalData *signal_data)
 {
     handle_app_switch_widget_toggled(signal_data, EXCLUDED_FROM_LOG_APPLICATIONS_PROP, !state);
+    // There appears to be a strange issue where the switches don't redraw
+    // properly on their own (e.g., if the theme specifies a different
+    // background color for on and off), so force a redraw.
+    gtk_widget_queue_draw(GTK_WIDGET(sw));
 }
 
 static void
@@ -474,6 +486,10 @@ handle_app_switch_property_changed(XfconfChannel *channel,
                                     callback_to_block,
                                     signal_data);
     gtk_switch_set_active(GTK_SWITCH(switch_to_set), reverse_sense ? !found : found);
+    // There appears to be a strange issue where the switches don't redraw
+    // properly on their own (e.g., if the theme specifies a different
+    // background color for on and off), so force a redraw.
+    gtk_widget_queue_draw(switch_to_set);
     g_signal_handlers_unblock_by_func(signal_data->mute_switch,
                                       callback_to_block,
                                       signal_data);
