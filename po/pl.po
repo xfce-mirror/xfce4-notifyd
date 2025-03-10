@@ -5,19 +5,19 @@
 # Translators:
 # marcin mikołajczak <me@mkljczk.pl>, 2017
 # marcin mikołajczak <me@mkljczk.pl>, 2016
-# Marek Adamski, 2022-2024
+# Marek Adamski, 2022-2025
 # Marek Adamski, 2017-2018,2020-2021
 # Piotr Sokół <psokol.l10n@gmail.com>, 2010
 # Piotr Sokół <psokol.l10n@gmail.com>, 2017
-# Piotr Strębski <strebski@gmail.com>, 2013
+# Piotr Strebski <strebski@gmail.com>, 2013
 # Tomasz Chudyk <chudyk@gmail.com>, 2010
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-11-06 12:50+0100\n"
+"POT-Creation-Date: 2025-03-10 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Marek Adamski, 2022-2024\n"
+"Last-Translator: Marek Adamski, 2022-2025\n"
 "Language-Team: Polish (http://app.transifex.com/xfce/xfce-apps/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,7 +187,7 @@ msgid "xfce4-notifyd was built without support for your windowing system."
 msgstr "xfce4-notifyd został skompilowany bez obsługi systemu okienkowania."
 
 #: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
-#: xfce4-notifyd-config/main.c:1222
+#: xfce4-notifyd-config/main.c:1266
 msgid "Xfce Notify Daemon"
 msgstr "Demon powiadomień Xfce"
 
@@ -220,36 +220,36 @@ msgstr "Dziennik jest niedostępny"
 msgid "Log entry not found"
 msgstr "Nie znaleziono wpisu w dzienniku"
 
-#: xfce4-notifyd/xfce-notify-log.c:238
+#: xfce4-notifyd/xfce-notify-log.c:239
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
 msgstr "Katalog dziennika powiadomień (%s) nie jest katalogiem"
 
-#: xfce4-notifyd/xfce-notify-log.c:250
+#: xfce4-notifyd/xfce-notify-log.c:251
 #, c-format
 msgid "Failed to open notification log: %s"
 msgstr "Nie udało się otworzyć dziennika powiadomień: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:336
+#: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
 msgstr "Nie udało się przygotować instrukcji SQL: %%s (%s)"
 
-#: xfce4-notifyd/xfce-notify-log.c:365
+#: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
 msgstr "końcowe znaki na końcu instrukcji"
 
-#: xfce4-notifyd/xfce-notify-log.c:463
+#: xfce4-notifyd/xfce-notify-log.c:462
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
 msgstr "Nie udało się utworzyć tabeli „powiadomienia”: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:464
+#: xfce4-notifyd/xfce-notify-log.c:463
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
 msgstr "Nie udało się utworzyć indeksu znacznika czasu bazy danych: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:465
+#: xfce4-notifyd/xfce-notify-log.c:464
 #, c-format
 msgid "Failed to create DB is_read index: %s"
 msgstr "Nie udało się utworzyć indeksu bazy danych is_read: %s"
@@ -278,75 +278,75 @@ msgstr "Przycisk"
 msgid "Notification preview failed"
 msgstr "Nie udało się wyświetlić podglądu powiadomienia"
 
-#: xfce4-notifyd-config/main.c:573
+#: xfce4-notifyd-config/main.c:589
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "Czy na pewno chcesz usunąć ustawienia powiadomień dla programu „%s”?"
 
-#: xfce4-notifyd-config/main.c:577
+#: xfce4-notifyd-config/main.c:593
 msgid "Delete"
 msgstr "Usuń"
 
-#: xfce4-notifyd-config/main.c:579
+#: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr "Zapomnij program"
 
-#: xfce4-notifyd-config/main.c:677
+#: xfce4-notifyd-config/main.c:693
 msgid "Unspecified applications"
 msgstr "Nieokreślone programy"
 
-#: xfce4-notifyd-config/main.c:908
+#: xfce4-notifyd-config/main.c:924
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Obecnie wyświetlane są tylko pilne powiadomienia.</b>\nRejestrowanie powiadomień jest %s."
 
-#: xfce4-notifyd-config/main.c:915
+#: xfce4-notifyd-config/main.c:931
 msgid "enabled"
 msgstr "włączone"
 
-#: xfce4-notifyd-config/main.c:915
+#: xfce4-notifyd-config/main.c:931
 msgid "disabled"
 msgstr "wyłączone"
 
-#: xfce4-notifyd-config/main.c:1128
+#: xfce4-notifyd-config/main.c:1162
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Obecnie nie ma znanych programów.</b></big>\nJak tylko program wyśle powiadomienie,\npojawi się na tej liście."
 
-#: xfce4-notifyd-config/main.c:1189
+#: xfce4-notifyd-config/main.c:1233
 msgid "Display version information"
 msgstr "Wyświetla informacje o wersji"
 
-#: xfce4-notifyd-config/main.c:1190
+#: xfce4-notifyd-config/main.c:1234
 msgid "Settings manager socket"
 msgstr "Określa gniazdo menedżera ustawień"
 
-#: xfce4-notifyd-config/main.c:1190
+#: xfce4-notifyd-config/main.c:1234
 msgid "SOCKET_ID"
 msgstr "ID GNIAZDA"
 
-#: xfce4-notifyd-config/main.c:1200
+#: xfce4-notifyd-config/main.c:1244
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Proszę wprowadzić „%s --help”, aby wypisać komunikat pomocy."
 
-#: xfce4-notifyd-config/main.c:1215
+#: xfce4-notifyd-config/main.c:1259
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Wydany na warunkach Powszechnej Licencji Publicznej GNU (GPL) w wersji 2\n"
 
-#: xfce4-notifyd-config/main.c:1216
+#: xfce4-notifyd-config/main.c:1260
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Proszę zgłaszać błędy na adres %s.\n"
 
-#: xfce4-notifyd-config/main.c:1224
+#: xfce4-notifyd-config/main.c:1268
 msgid "Settings daemon is unavailable"
 msgstr "Demon menedżera ustawień jest niedostępny"
 
@@ -354,7 +354,7 @@ msgstr "Demon menedżera ustawień jest niedostępny"
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
-msgstr "<big><b>Pusty dziennik</b></big>\nŻadne powiadomienia nie zostały jeszcze zapisane w dzienniku."
+msgstr "<big><b>Pusty dziennik</b></big>\nŻadne powiadomienia nie zostały jeszcze zapisane w dzienniku."
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
 msgid "Refresh"
@@ -610,13 +610,13 @@ msgstr "tylko zablokowane"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1011
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
 msgid "The maximum number of entries to be retained in the log."
-msgstr "Maksymalna liczba wpisów, które mają być przechowywane w dzienniku."
+msgstr "Maksymalna liczba wpisów, które mają być przechowywane w dzienniku."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
-msgid "Log size limit"
-msgstr "Ograniczenie rozmiaru dziennika"
+msgid "Maximum number of log entries to keep"
+msgstr "Maksymalna liczba wpisów dziennika do przechowywania"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1044
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
 msgstr "Dziennik"
 
@@ -630,7 +630,7 @@ msgstr "Zezwól na pilne powiadomienia"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr "Uwzględnij w dzienniku"
+msgstr "Uwzględnij w dzienniku"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
