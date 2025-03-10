@@ -963,6 +963,24 @@ datetime_format_changed(GtkWidget *combo, GtkWidget *entry) {
     gtk_widget_set_sensitive(entry, gtk_combo_box_get_active(GTK_COMBO_BOX(combo)) == XFCE_NOTIFY_DATETIME_CUSTOM);
 }
 
+static void
+log_file_info_ready(GObject *source, GAsyncResult *res, gpointer data) {
+    GFile *log_file = G_FILE(source);
+    GtkLabel *size_label = GTK_LABEL(data);
+
+    GFileInfo *info = g_file_query_info_finish(log_file, res, NULL);
+    if (info != NULL) {
+        gchar *formatted_size = g_format_size_full(g_file_info_get_size(info), G_FORMAT_SIZE_IEC_UNITS);
+        gchar *size_text = g_strdup_printf("(%s)", formatted_size);
+        gtk_label_set_text(size_label, size_text);
+        g_free(formatted_size);
+        g_free(size_text);
+    }
+
+    g_object_unref(log_file);
+    g_object_unref(size_label);
+}
+
 static GtkWidget *
 xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     GtkWidget *dlg;
@@ -1179,6 +1197,16 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     g_object_bind_property(btn, "active", sbtn, "sensitive", G_BINDING_SYNC_CREATE);
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_PROP, G_TYPE_UINT,
                            G_OBJECT(sbtn), "value");
+
+    GtkWidget *size_label = GTK_WIDGET(gtk_builder_get_object(builder, "label_log_data_size"));
+    GFile *log_file = notify_log_get_file();
+    g_file_query_info_async(log_file,
+                            G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                            G_FILE_QUERY_INFO_NONE,
+                            G_PRIORITY_LOW,
+                            NULL,
+                            log_file_info_ready,
+                            g_object_ref(size_label));
 
     xfce4_notifyd_log_activated (GTK_SWITCH (log_switch), gtk_switch_get_active (GTK_SWITCH(log_switch)), panel);
 

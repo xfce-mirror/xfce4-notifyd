@@ -1020,7 +1020,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="log_max_size_enabled">
-                        <property name="label" translatable="yes">Log size limit</property>
+                        <property name="label" translatable="yes">Maximum number of log entries to keep</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
@@ -1030,10 +1030,18 @@
                       <packing>
                         <property name="left-attach">0</property>
                         <property name="top-attach">2</property>
+                        <property name="width">2</property>
                       </packing>
                     </child>
                     <child>
-                      <placeholder/>
+                      <object class="GtkLabel" id="label_log_data_size">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">2</property>
+                      </packing>
                     </child>
                     <child>
                       <placeholder/>
