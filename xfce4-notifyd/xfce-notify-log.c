@@ -27,6 +27,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 
+#include "common/xfce-notify-log-util.h"
 #include "xfce-notify-log.h"
 
 #define TABLE "notifications"
@@ -131,7 +132,6 @@ static void xfce_notify_log_finalize(GObject *object);
 
 static void xfce_notify_log_queue_item_free(XfceNotifyLogQueueItem *item);
 
-static GFile *notify_log_dir(void);
 static GError *transform_error(sqlite3 *db,
                                int errcode,
                                const gchar *message_fmt);
@@ -225,8 +225,9 @@ static gboolean
 xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellable, GError **error) {
     XfceNotifyLog *log = XFCE_NOTIFY_LOG(initable);
     gboolean success = TRUE;
-    GFile *log_dir = notify_log_dir();
 
+    GFile *log_file = notify_log_get_file();
+    GFile *log_dir = g_file_get_parent(log_file);
     if (!g_file_query_exists(log_dir, NULL)) {
         if (G_UNLIKELY(!g_file_make_directory_with_parents(log_dir, NULL, error))) {
             success = FALSE;
@@ -240,9 +241,9 @@ xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellabl
         }
         success = FALSE;
     }
+    g_object_unref(log_dir);
 
     if (G_LIKELY(success)) {
-        GFile *log_file = g_file_get_child(log_dir, "log.sqlite");
         int rc = sqlite3_open(g_file_peek_path(log_file), &log->db);
 
         if (G_UNLIKELY(rc != SQLITE_OK)) {
@@ -260,8 +261,6 @@ xfce_notify_log_initable_real_init(GInitable *initable, GCancellable *cancellabl
 
         g_object_unref(log_file);
     }
-
-    g_object_unref(log_dir);
 
     return success;
 }
@@ -463,17 +462,6 @@ ensure_tables(XfceNotifyLog *log, GError **error) {
     return stmt_run_oneshot(log, SCHEMA, _("Failed to create 'notifications' table: %s"), error)
         && stmt_run_oneshot(log, INDEX_TIMESTAMP, _("Failed to create DB timestamp index: %s"), error)
         && stmt_run_oneshot(log, INDEX_IS_READ, _("Failed to create DB is_read index: %s"), error);
-}
-
-static GFile *
-notify_log_dir(void) {
-    gchar *path = g_strconcat(g_get_user_cache_dir(), G_DIR_SEPARATOR_S,
-                              "xfce4", G_DIR_SEPARATOR_S,
-                              "notifyd",
-                              NULL);
-    GFile *file = g_file_new_for_path(path);
-    g_free(path);
-    return file;
 }
 
 XfceNotifyLog *
@@ -1194,16 +1182,25 @@ parse_keyfile_actions(GKeyFile *keyfile, const gchar *group) {
 static gboolean
 migrate_old_keyfile(XfceNotifyLog *log) {
     gboolean migrated = FALSE;
-    GFile *log_dir = notify_log_dir();
-    GFile *log_file = g_file_get_child(log_dir, "log");
-    GFile *log_file_migrating = g_file_get_child(log_dir, "log.migrating");
-    GError *error = NULL;
 
-    if (g_file_query_exists(log_file, NULL)) {
-        if (g_file_move(log_file, log_file_migrating, G_FILE_COPY_NO_FALLBACK_FOR_MOVE, NULL, NULL, NULL, &error)) {
+    gchar *old_log_name = g_build_path(G_DIR_SEPARATOR_S,
+                                       g_get_user_cache_dir(),
+                                       "xfce4",
+                                       "notifyd",
+                                       "log",
+                                       NULL);
+    GFile *old_log_file = g_file_new_for_path(old_log_name);
+    g_free(old_log_name);
+    GFile *old_log_dir = g_file_get_parent(old_log_file);
+
+    GError *error = NULL;
+    if (g_file_query_exists(old_log_file, NULL)) {
+        GFile *old_log_file_migrating = g_file_get_child(old_log_dir, "log.migrating");
+
+        if (g_file_move(old_log_file, old_log_file_migrating, G_FILE_COPY_NO_FALLBACK_FOR_MOVE, NULL, NULL, NULL, &error)) {
             GKeyFile *keyfile = g_key_file_new();
 
-            if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(log_file_migrating), G_KEY_FILE_NONE, &error))) {
+            if (G_LIKELY(g_key_file_load_from_file(keyfile, g_file_peek_path(old_log_file_migrating), G_KEY_FILE_NONE, &error))) {
                 guint n_entries_migrated = 0;
                 guint drain_attempts = 50;
                 GTimeZone *default_tz = g_time_zone_new_local();
@@ -1255,7 +1252,7 @@ migrate_old_keyfile(XfceNotifyLog *log) {
                     }
                 } else {
                     // Old log file existed and was readable, but was empty
-                    g_file_delete(log_file_migrating, NULL, NULL);
+                    g_file_delete(old_log_file_migrating, NULL, NULL);
                 }
 
                 g_time_zone_unref(default_tz);
@@ -1266,17 +1263,18 @@ migrate_old_keyfile(XfceNotifyLog *log) {
             }
 
             if (G_LIKELY(migrated)) {
-                GFile *dest = g_file_get_child(log_dir, "log.old.safe-to-delete");
-                if (!g_file_move(log_file_migrating, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error)) {
+                GFile *dest = g_file_get_child(old_log_dir, "log.old.safe-to-delete");
+                if (!g_file_move(old_log_file_migrating, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error)) {
                     g_warning("Failed to move old log out of the way; you may get duplicate log entries next time (%s)", error != NULL ? error->message : "unknown error");
                     g_clear_error(&error);
                 }
                 g_object_unref(dest);
             } else {
-                g_file_move(log_file_migrating, log_file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
+                g_file_move(old_log_file_migrating, old_log_file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, NULL);
             }
 
             g_key_file_unref(keyfile);
+            g_object_unref(old_log_file_migrating);
         } else {
             if (error != NULL) {
                 if (error->domain != G_IO_ERROR || error->code != G_IO_ERROR_NOT_FOUND) {
@@ -1289,9 +1287,8 @@ migrate_old_keyfile(XfceNotifyLog *log) {
         }
     }
 
-    g_object_unref(log_dir);
-    g_object_unref(log_file);
-    g_object_unref(log_file_migrating);
+    g_object_unref(old_log_dir);
+    g_object_unref(old_log_file);
 
     return migrated;
 }

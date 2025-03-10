@@ -677,6 +677,18 @@ notify_log_format_tooltip(const gchar *app_name, const gchar *timestamp, const g
     }
 }
 
+GFile *
+notify_log_get_file(void) {
+    gchar *path = g_build_filename(g_get_user_cache_dir(),
+                                   "xfce4",
+                                   "notifyd",
+                                   "log.sqlite",
+                                   NULL);
+    GFile *file = g_file_new_for_path(path);
+    g_free(path);
+    return file;
+}
+
 GList *
 notify_log_variant_to_entries(GVariant *variant) {
     GList *entries = NULL;

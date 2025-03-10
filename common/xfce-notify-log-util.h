@@ -65,6 +65,8 @@ gchar *notify_log_format_tooltip(const gchar *app_name,
                                  const gchar *timestamp,
                                  const gchar *body_text);
 
+GFile *notify_log_get_file(void);
+
 GList *notify_log_variant_to_entries(GVariant *variant);
 XfceNotifyLogEntry *notify_log_variant_to_entry(GVariant *variant);
 
