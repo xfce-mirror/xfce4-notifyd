@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-11-06 12:50+0100\n"
+"POT-Creation-Date: 2025-03-10 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2024\n"
 "Language-Team: Japanese (http://app.transifex.com/xfce/xfce-apps/language/ja/)\n"
@@ -183,7 +183,7 @@ msgid "xfce4-notifyd was built without support for your windowing system."
 msgstr "xfce4-notifyd はお使いのウィンドウシステムのサポートなしにビルドされました。"
 
 #: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
-#: xfce4-notifyd-config/main.c:1222
+#: xfce4-notifyd-config/main.c:1266
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 通知デーモン"
 
@@ -216,36 +216,36 @@ msgstr "ログを利用できません"
 msgid "Log entry not found"
 msgstr "ログエントリーが見つかりません"
 
-#: xfce4-notifyd/xfce-notify-log.c:238
+#: xfce4-notifyd/xfce-notify-log.c:239
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
 msgstr "その通知ログディレクトリ（%s）はディレクトリではありません"
 
-#: xfce4-notifyd/xfce-notify-log.c:250
+#: xfce4-notifyd/xfce-notify-log.c:251
 #, c-format
 msgid "Failed to open notification log: %s"
 msgstr "通知ログを開けませんでした: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:336
+#: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
 msgstr "SQL ステートメントの準備に失敗しました: %%s (%s)"
 
-#: xfce4-notifyd/xfce-notify-log.c:365
+#: xfce4-notifyd/xfce-notify-log.c:364
 msgid "trailing characters at end of statement"
 msgstr "文末の終了文字"
 
-#: xfce4-notifyd/xfce-notify-log.c:463
+#: xfce4-notifyd/xfce-notify-log.c:462
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
 msgstr "「通知」テーブルの作成に失敗しました: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:464
+#: xfce4-notifyd/xfce-notify-log.c:463
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
 msgstr "DB タイムスタンプ インデックスの作成に失敗しました: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:465
+#: xfce4-notifyd/xfce-notify-log.c:464
 #, c-format
 msgid "Failed to create DB is_read index: %s"
 msgstr "DB is_read インデックスの作成に失敗しました: %s"
@@ -274,75 +274,75 @@ msgstr "ボタン"
 msgid "Notification preview failed"
 msgstr "通知のプレビューに失敗しました"
 
-#: xfce4-notifyd-config/main.c:573
+#: xfce4-notifyd-config/main.c:589
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "アプリケーション \"%s\" の通知設定を削除してもよろしいですか？"
 
-#: xfce4-notifyd-config/main.c:577
+#: xfce4-notifyd-config/main.c:593
 msgid "Delete"
 msgstr "削除します"
 
-#: xfce4-notifyd-config/main.c:579
+#: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr "アプリケーションを忘れる"
 
-#: xfce4-notifyd-config/main.c:677
+#: xfce4-notifyd-config/main.c:693
 msgid "Unspecified applications"
 msgstr "特定不能のアプリケーション"
 
-#: xfce4-notifyd-config/main.c:908
+#: xfce4-notifyd-config/main.c:924
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>現在は緊急の通知のみ表示されます。</b>\n通知のロギングは %s になっています。"
 
-#: xfce4-notifyd-config/main.c:915
+#: xfce4-notifyd-config/main.c:931
 msgid "enabled"
 msgstr "有効"
 
-#: xfce4-notifyd-config/main.c:915
+#: xfce4-notifyd-config/main.c:931
 msgid "disabled"
 msgstr "無効"
 
-#: xfce4-notifyd-config/main.c:1128
+#: xfce4-notifyd-config/main.c:1162
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>既知のアプリケーションはまだありません。</b></big>\nアプリケーションが通知メッセージを送信すると\nこのリストに追加されます。"
 
-#: xfce4-notifyd-config/main.c:1189
+#: xfce4-notifyd-config/main.c:1233
 msgid "Display version information"
 msgstr "バージョン情報を表示する"
 
-#: xfce4-notifyd-config/main.c:1190
+#: xfce4-notifyd-config/main.c:1234
 msgid "Settings manager socket"
 msgstr "設定マネージャーソケット"
 
-#: xfce4-notifyd-config/main.c:1190
+#: xfce4-notifyd-config/main.c:1234
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1200
+#: xfce4-notifyd-config/main.c:1244
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "'%s --help' と入力すると使用法が表示されます。"
 
-#: xfce4-notifyd-config/main.c:1215
+#: xfce4-notifyd-config/main.c:1259
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "GNU General Public License, version 2 の条項下でリリースされています。\n"
 
-#: xfce4-notifyd-config/main.c:1216
+#: xfce4-notifyd-config/main.c:1260
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "バグは %s まで報告してください。\n"
 
-#: xfce4-notifyd-config/main.c:1224
+#: xfce4-notifyd-config/main.c:1268
 msgid "Settings daemon is unavailable"
 msgstr "設定デーモンは使用できません"
 
@@ -609,10 +609,10 @@ msgid "The maximum number of entries to be retained in the log."
 msgstr "ログに保持されるエントリの最大数。"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
-msgid "Log size limit"
-msgstr "ログサイズの制限"
+msgid "Maximum number of log entries to keep"
+msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1044
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
 msgstr "ログ"
 
