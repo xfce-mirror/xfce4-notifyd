@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
 # 
 # Translators:
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020,2022-2024
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020,2022-2025
 # José Vieira <jvieira33@sapo.pt>, 2017-2018,2020
 # Nuno Miguel <nunomgue@gmail.com>, 2013,2016-2017,2019
 # Sérgio Marques <smarquespt@gmail.com>, 2013
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-03-10 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2020,2022-2024\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2020,2022-2025\n"
 "Language-Team: Portuguese (http://app.transifex.com/xfce/xfce-apps/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -610,7 +610,7 @@ msgstr "O número máximo de entradas a reter no registo."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Número máximo de entradas de registo a manter"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
