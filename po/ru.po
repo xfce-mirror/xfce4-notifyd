@@ -10,13 +10,14 @@
 # Igor Vornovskii, 2022-2023
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2013
 # vladiruzz, 2025
+# vofka, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-03-10 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: vladiruzz, 2025\n"
+"Last-Translator: vofka, 2025\n"
 "Language-Team: Russian (http://app.transifex.com/xfce/xfce-apps/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -227,7 +228,7 @@ msgstr "Каталог журнала уведомлений (%s) не явля�
 #: xfce4-notifyd/xfce-notify-log.c:251
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr "Не удалось открыть журнала уведомлений: %s"
+msgstr "Не удалось открыть журнал уведомлений: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
@@ -613,7 +614,7 @@ msgstr "Максимум записей для хранения в журнал�
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Максимальное количество записей в журнале"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
