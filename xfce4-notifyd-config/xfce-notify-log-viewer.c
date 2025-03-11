@@ -53,8 +53,8 @@ struct _XfceNotifyLogViewer {
     GtkWidget *loading_row;
 
     GtkWidget *toolbar;
-    GtkToolItem *clear_log_button;
-    GtkToolItem *mark_read_button;
+    GtkWidget *clear_log_button;
+    GtkWidget *mark_read_button;
 
     gboolean yesterday_header_added;
     gchar *last_entry_id;
@@ -84,6 +84,13 @@ static void xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer);
 
 static void xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_mark_all_read(XfceNotifyLogViewer *viewer);
+
+static GtkWidget *create_toolbar_button(const gchar *label,
+                                        const gchar *tooltip,
+                                        const gchar *icon_name,
+                                        gint icon_size,
+                                        GCallback click_callback,
+                                        gpointer click_callback_user_data);
 
 static void xfce_notify_log_viewer_listbox_display_header_func(GtkListBoxRow *row,
                                                                GtkListBoxRow *before,
@@ -143,8 +150,6 @@ static void
 xfce_notify_log_viewer_constructed(GObject *obj) {
     XfceNotifyLogViewer *viewer = XFCE_NOTIFY_LOG_VIEWER(obj);
     GtkWidget *placeholder_label;
-    GtkWidget *icon;
-    GtkToolItem *button;
     gint icon_width, icon_height, icon_size;
 
     G_OBJECT_CLASS(xfce_notify_log_viewer_parent_class)->constructed(obj);
@@ -174,38 +179,40 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     g_signal_connect(viewer->listbox, "button-press-event",
                      G_CALLBACK(xfce_notify_log_viewer_listbox_button_press), viewer);
 
-    viewer->toolbar = gtk_toolbar_new();
+    GtkWidget *toolbar_frame = gtk_frame_new(NULL);
+    gtk_box_pack_end(GTK_BOX(viewer), toolbar_frame, FALSE, FALSE, 0);
+
+    viewer->toolbar = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_style_context_add_class(gtk_widget_get_style_context(viewer->toolbar), GTK_STYLE_CLASS_INLINE_TOOLBAR);
-    gtk_box_pack_end(GTK_BOX(viewer), viewer->toolbar, FALSE, FALSE, 0);
+    gtk_container_add(GTK_CONTAINER(toolbar_frame), viewer->toolbar);
     gtk_widget_show(viewer->toolbar);
 
-    icon = gtk_image_new_from_icon_name("view-refresh-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
-    button = gtk_tool_button_new(icon, _("Refresh"));
-    gtk_widget_set_tooltip_text(GTK_WIDGET(button), _("Refresh the notification log"));
-    gtk_toolbar_insert(GTK_TOOLBAR(viewer->toolbar), button, -1);
-    g_signal_connect_swapped(G_OBJECT(button), "clicked",
-                             G_CALLBACK(xfce_notify_log_viewer_refresh), viewer);
+    GtkWidget *refresh = create_toolbar_button(_("Refresh"),
+                                               _("Refresh the notification log"),
+                                               "view-refresh-symbolic",
+                                               icon_size,
+                                               G_CALLBACK(xfce_notify_log_viewer_refresh),
+                                               viewer);
+    gtk_box_pack_start(GTK_BOX(viewer->toolbar), refresh, FALSE, FALSE, 0);
 
-    icon = gtk_image_new_from_icon_name("edit-clear-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_image_set_pixel_size(GTK_IMAGE (icon), icon_size);
-    button = gtk_tool_button_new(icon, _("Clear"));
-    gtk_widget_set_tooltip_text(GTK_WIDGET(button), _("Clear the notification log"));
-    gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
-    gtk_toolbar_insert(GTK_TOOLBAR(viewer->toolbar), GTK_TOOL_ITEM(button), -1);
-    g_signal_connect_swapped(G_OBJECT(button), "clicked",
-                             G_CALLBACK(xfce_notify_log_viewer_clear), viewer);
-    viewer->clear_log_button = button;
 
-    icon = gtk_image_new_from_icon_name("checkbox-checked-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
-    button = gtk_tool_button_new(icon, _("Mark All Read"));
-    gtk_widget_set_tooltip_text(GTK_WIDGET(button), _("Mark all unread notifications as read"));
-    gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
-    gtk_toolbar_insert(GTK_TOOLBAR(viewer->toolbar), GTK_TOOL_ITEM(button), -1);
-    g_signal_connect_swapped(button, "clicked",
-                             G_CALLBACK(xfce_notify_log_viewer_mark_all_read), viewer);
-    viewer->mark_read_button = button;
+    viewer->clear_log_button = create_toolbar_button(_("Clear"),
+                                                     _("Clear the notification log"),
+                                                     "edit-clear-symbolic",
+                                                     icon_size,
+                                                     G_CALLBACK(xfce_notify_log_viewer_clear),
+                                                     viewer);
+    gtk_widget_set_sensitive(viewer->clear_log_button, FALSE);
+    gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->clear_log_button, FALSE, FALSE, 0);
+
+    viewer->mark_read_button = create_toolbar_button(_("Mark All Read"),
+                                                     _("Mark all unread notifications as read"),
+                                                     "checkbox-checked-symbolic",
+                                                     icon_size,
+                                                     G_CALLBACK(xfce_notify_log_viewer_mark_all_read),
+                                                     viewer);
+    gtk_widget_set_sensitive(viewer->mark_read_button, FALSE);
+    gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->mark_read_button, FALSE, FALSE, 0);
 
     g_signal_connect_swapped(viewer->channel, "property-changed::" DATETIME_FORMAT_PROP,
                              G_CALLBACK(xfce_notify_log_viewer_populate), viewer);
@@ -833,6 +840,25 @@ xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
                                                      GTK_IS_WINDOW(toplevel) ? GTK_WINDOW(toplevel) : NULL);
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
+}
+
+static GtkWidget *
+create_toolbar_button(const gchar *label,
+                      const gchar *tooltip,
+                      const gchar *icon_name,
+                      gint icon_size,
+                      GCallback click_callback,
+                      gpointer click_callback_user_data)
+{
+    GtkWidget *icon = gtk_image_new_from_icon_name(icon_name, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
+    GtkWidget *button = gtk_button_new();
+    gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
+    gtk_container_add(GTK_CONTAINER(button), icon);
+    gtk_widget_set_tooltip_text(GTK_WIDGET(button), tooltip);
+    g_signal_connect_swapped(G_OBJECT(button), "clicked", click_callback, click_callback_user_data);
+
+    return button;
 }
 
 static void
