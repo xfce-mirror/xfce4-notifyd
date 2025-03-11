@@ -611,7 +611,7 @@ msgstr "Nombre màxim d'entrades a mantenir al registre."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Nombre màxim d'entrades de registre per conservar"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
