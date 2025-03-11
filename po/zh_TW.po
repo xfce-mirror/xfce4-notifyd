@@ -6,14 +6,14 @@
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2009
 # 黃柏諺 <s8321414@gmail.com>, 2016-2018
 # Walter Cheuk <wwycheuk@gmail.com>, 2013-2014
-# 黃柏諺 <s8321414@gmail.com>, 2020,2022-2024
+# 黃柏諺 <s8321414@gmail.com>, 2020,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-03-10 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2024\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2025\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/xfce/xfce-apps/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -610,7 +610,7 @@ msgstr "要保留在紀錄檔中的最大條目數量。"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "要保留的最大紀錄檔條目數"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
