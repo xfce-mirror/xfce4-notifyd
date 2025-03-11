@@ -55,6 +55,7 @@ struct _XfceNotifyLogViewer {
     GtkWidget *toolbar;
     GtkWidget *clear_log_button;
     GtkWidget *mark_read_button;
+    GtkWidget *delete_entry_button;
 
     gboolean yesterday_header_added;
     gchar *last_entry_id;
@@ -84,6 +85,7 @@ static void xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer);
 
 static void xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_mark_all_read(XfceNotifyLogViewer *viewer);
+static void xfce_notify_log_viewer_delete_entries(XfceNotifyLogViewer *viewer);
 
 static GtkWidget *create_toolbar_button(const gchar *label,
                                         const gchar *tooltip,
@@ -98,6 +100,8 @@ static void xfce_notify_log_viewer_listbox_display_header_func(GtkListBoxRow *ro
 static gboolean xfce_notify_log_viewer_listbox_button_press(GtkWidget *listbox,
                                                             GdkEventButton *evt,
                                                             XfceNotifyLogViewer *viewer);
+static void xfce_notify_log_viewer_selection_changed(GtkWidget *listbox,
+                                                     XfceNotifyLogViewer *viewer);
 
 static void xfce_notify_log_viewer_scroll_edge_reached(XfceNotifyLogViewer *viewer,
                                                        GtkPositionType pos);
@@ -178,6 +182,8 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     gtk_widget_show(viewer->listbox);
     g_signal_connect(viewer->listbox, "button-press-event",
                      G_CALLBACK(xfce_notify_log_viewer_listbox_button_press), viewer);
+    g_signal_connect(viewer->listbox, "selected-rows-changed",
+                     G_CALLBACK(xfce_notify_log_viewer_selection_changed), viewer);
 
     GtkWidget *toolbar_frame = gtk_frame_new(NULL);
     gtk_box_pack_end(GTK_BOX(viewer), toolbar_frame, FALSE, FALSE, 0);
@@ -213,6 +219,15 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
                                                      viewer);
     gtk_widget_set_sensitive(viewer->mark_read_button, FALSE);
     gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->mark_read_button, FALSE, FALSE, 0);
+
+    viewer->delete_entry_button = create_toolbar_button(_("Delete Entry"),
+                                                        _("Deletes the selected log entries"),
+                                                        "user-trash-symbolic",
+                                                        icon_size,
+                                                        G_CALLBACK(xfce_notify_log_viewer_delete_entries),
+                                                        viewer);
+    gtk_widget_set_sensitive(viewer->delete_entry_button, FALSE);
+    gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->delete_entry_button, FALSE, FALSE, 0);
 
     g_signal_connect_swapped(viewer->channel, "property-changed::" DATETIME_FORMAT_PROP,
                              G_CALLBACK(xfce_notify_log_viewer_populate), viewer);
@@ -385,7 +400,7 @@ log_entry_mark_read_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
 }
 
 static void
-log_entry_delete_clicked(GtkWidget *mi, XfceNotifyLogViewer *viewer) {
+log_entry_delete_clicked(XfceNotifyLogViewer *viewer) {
     GStrvBuilder *builder = g_strv_builder_new();
     GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
     gchar **ids;
@@ -540,8 +555,8 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
                 gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), gtk_image_new_from_icon_name("edit-delete-symbolic", GTK_ICON_SIZE_MENU));
 G_GNUC_END_IGNORE_DEPRECATIONS
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-                g_signal_connect(mi, "activate",
-                                 G_CALLBACK(log_entry_delete_clicked), viewer);
+                g_signal_connect_swapped(mi, "activate",
+                                         G_CALLBACK(log_entry_delete_clicked), viewer);
                 g_free(label);
 
                 gtk_widget_show_all(menu);
@@ -587,6 +602,13 @@ xfce_notify_log_viewer_listbox_button_press(GtkWidget *listbox, GdkEventButton *
     }
 
     return FALSE;
+}
+
+static void
+xfce_notify_log_viewer_selection_changed(GtkWidget *listbox, XfceNotifyLogViewer *viewer) {
+    GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(listbox));
+    gtk_widget_set_sensitive(viewer->delete_entry_button, selected != NULL);
+    g_list_free(selected);
 }
 
 static void
@@ -842,6 +864,60 @@ xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
     gtk_widget_destroy(dialog);
 }
 
+static void
+xfce_notify_log_viewer_delete_entries(XfceNotifyLogViewer *viewer) {
+    GtkWidget *toplevel = gtk_widget_get_toplevel(GTK_WIDGET(viewer));
+    GtkWidget *dialog = gtk_dialog_new_with_buttons(_("Delete Selected Log Entries"),
+                                                     GTK_IS_WINDOW(toplevel) ? GTK_WINDOW(toplevel) : NULL,
+                                                     GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
+                                                     _("Cancel"),
+                                                     GTK_RESPONSE_CANCEL,
+                                                     _("Delete"),
+                                                     GTK_RESPONSE_ACCEPT,
+                                                     NULL);
+    gtk_window_set_icon_name(GTK_WINDOW(dialog), "user-trash");
+
+    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
+    gtk_widget_set_margin_top(box, 12);
+    gtk_widget_set_margin_bottom(box, 12);
+    gtk_widget_set_margin_start(box, 12);
+    gtk_widget_set_margin_end(box, 12);
+    gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), box);
+
+    GtkWidget *icon = gtk_image_new_from_icon_name("user-trash", GTK_ICON_SIZE_DIALOG);
+    gtk_widget_set_valign(icon, GTK_ALIGN_START);
+    gtk_box_pack_start(GTK_BOX(box), icon, FALSE, FALSE, 0);
+
+    GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
+    gint n_to_delete = g_list_length(selected);
+    g_list_free(selected);
+
+    gchar *label_text = g_strdup_printf(P_("Do you really want to delete the selected log entry?",
+                                           "Do you really want to delete these %d selected log entries?",
+                                           n_to_delete),
+                                        n_to_delete);
+    gchar *label_markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", label_text);
+    g_free(label_text);
+
+    GtkWidget *label = gtk_label_new(NULL);
+    gtk_label_set_yalign(GTK_LABEL(label), 0.0);
+    gtk_label_set_markup(GTK_LABEL(label), label_markup);
+    g_free(label_markup);
+    gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
+
+    gtk_widget_show_all(box);
+
+    GtkWidget *cancel = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
+    gtk_widget_grab_focus(cancel);
+
+    gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+
+    if (response == GTK_RESPONSE_ACCEPT) {
+        log_entry_delete_clicked(viewer);
+    }
+}
+
 static GtkWidget *
 create_toolbar_button(const gchar *label,
                       const gchar *tooltip,
@@ -1003,6 +1079,7 @@ xfce_notify_log_viewer_log_cleared(XfceNotifyLogViewer *viewer) {
 
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->delete_entry_button), FALSE);
 
     g_list_free(rows);
 }
