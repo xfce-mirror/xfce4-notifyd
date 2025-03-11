@@ -86,6 +86,7 @@ static void xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_mark_all_read(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_delete_entries(XfceNotifyLogViewer *viewer);
+static void xfce_notify_log_viewer_show_log_file(void);
 
 static GtkWidget *create_toolbar_button(const gchar *label,
                                         const gchar *tooltip,
@@ -228,6 +229,14 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
                                                         viewer);
     gtk_widget_set_sensitive(viewer->delete_entry_button, FALSE);
     gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->delete_entry_button, FALSE, FALSE, 0);
+
+    GtkWidget *show_log_folder_button = create_toolbar_button(_("Show Log Location"),
+                                                              _("Shows the location of the log file in the file manager"),
+                                                              "folder-symbolic",
+                                                              icon_size,
+                                                              G_CALLBACK(xfce_notify_log_viewer_show_log_file),
+                                                              viewer);
+    gtk_box_pack_end(GTK_BOX(viewer->toolbar), show_log_folder_button, FALSE, FALSE, 0);
 
     g_signal_connect_swapped(viewer->channel, "property-changed::" DATETIME_FORMAT_PROP,
                              G_CALLBACK(xfce_notify_log_viewer_populate), viewer);
@@ -916,6 +925,44 @@ xfce_notify_log_viewer_delete_entries(XfceNotifyLogViewer *viewer) {
     if (response == GTK_RESPONSE_ACCEPT) {
         log_entry_delete_clicked(viewer);
     }
+}
+
+static void
+xfce_notify_log_viewer_show_log_file(void) {
+    GFile *log_file = notify_log_get_file();
+    GFile *log_dir = g_file_get_parent(log_file);
+
+    GStrvBuilder *open_cmdline = NULL;
+    gchar *opener = NULL;
+
+    if ((opener = g_find_program_in_path("exo-open")) != NULL) {
+        open_cmdline = g_strv_builder_new();
+        g_strv_builder_add(open_cmdline, opener);
+        g_strv_builder_add(open_cmdline, "--launch");
+        g_strv_builder_add(open_cmdline, "FileManager");
+        g_strv_builder_add(open_cmdline, "--working-directory");
+        g_strv_builder_add(open_cmdline, g_file_peek_path(log_dir));
+    } else if ((opener = g_find_program_in_path("xdg-open")) != NULL) {
+        open_cmdline = g_strv_builder_new();
+        g_strv_builder_add(open_cmdline, opener);
+        g_strv_builder_add(open_cmdline, g_file_peek_path(log_dir));
+    } else if ((opener = g_find_program_in_path("thunar")) != NULL) {
+        open_cmdline = g_strv_builder_new();
+        g_strv_builder_add(open_cmdline, opener);
+        g_strv_builder_add(open_cmdline, g_file_peek_path(log_file));
+    }
+
+    if (open_cmdline != NULL) {
+        gchar **argv = g_strv_builder_end(open_cmdline);
+        g_spawn_async(NULL, argv, NULL, G_SPAWN_DEFAULT, NULL, NULL, NULL, NULL);
+
+        g_strfreev(argv);
+        g_strv_builder_unref(open_cmdline);
+    }
+
+    g_object_unref(log_file);
+    g_object_unref(log_dir);
+    g_free(opener);
 }
 
 static GtkWidget *
