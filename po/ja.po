@@ -5,7 +5,7 @@
 # Translators:
 # Ken DEGUCHI <kdeguchi@sz.tokoha-u.ac.jp>, 2017
 # Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016-2018,2022-2024
-# UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2024
+# UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2025
 # Ken DEGUCHI <kdeguchi@sz.tokoha-u.ac.jp>, 2017
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-03-10 12:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2024\n"
+"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2025\n"
 "Language-Team: Japanese (http://app.transifex.com/xfce/xfce-apps/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -610,7 +610,7 @@ msgstr "ログに保持されるエントリの最大数。"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "保存するログエントリーの最大数"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
