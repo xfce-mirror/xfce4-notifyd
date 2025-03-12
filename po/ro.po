@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024-2025\n"
+"Last-Translator: Mișu Moldovan <dumol@xfce.org>, 2011\n"
 "Language-Team: Romanian (http://app.transifex.com/xfce/xfce-apps/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +28,12 @@ msgid "Clear notification log"
 msgstr "Golește jurnalul de notificări"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "Anulați"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "Golește"
 
@@ -68,7 +69,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>Nu _deranja</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
 msgstr "Nu se poate deschide jurnalul de notificări"
 
@@ -280,6 +281,7 @@ msgid ""
 msgstr "Sunteți sigur că doriți să ștergeți opțiunile de notificare pentru aplicația „%s”?"
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
 msgstr "Șterge"
 
@@ -344,41 +346,61 @@ msgstr "Raportați problemele la %s.\n"
 msgid "Settings daemon is unavailable"
 msgstr "Demonul opțiunilor Xfce nu este disponibil"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Jurnal gol</b></big>\nNu a fost înregistrată nicio notificare încă."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "Actualizare"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
 msgstr "Actualizați jurnalul de notificări"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
 msgstr "Golește jurnalul de notificări"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "Marchează toate ca citite"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "Marchează toate notificările necitite ca fiind citite"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "Șterge intrarea"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr "Șterge intrările de jurnal selectate"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr "Afișează locația jurnalului"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr "Afișează locația fișierului jurnal în gestionarul de fișiere"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr "Marchează intrarea din jurnal ca _citită"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "Ieri și anterior"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr "Șterge intrările de jurnal selectate"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr "Se încarcă mai multe intrări din jurnal..."
 
