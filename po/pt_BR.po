@@ -5,22 +5,27 @@
 # Translators:
 # Andre Miranda <andre@andreldm.com>, 2017,2019,2022
 # Andre Miranda <andre@andreldm.com>, 2016-2017
+# Andre Miranda <andre@andreldm.com>, 2017,2019,2022
 # C. E., 2020
+# C. E., 2020
+# filiperosset <rosset.filipe@gmail.com>, 2018
 # Jessica Patricio <jessicacacau@gmail.com>, 2023
 # Lucas Wilm <lucaswilm@gmail.com>, 2020
 # Marcelo Tobias <marcelo.tobbias@gmail.com>, 2013
-# Michael Martins, 2017,2019,2023-2024
+# Michael Martins, 2017,2019,2023-2025
 # Og Maciel <ogmaciel@gnome.org>, 2009
 # filiperosset <rosset.filipe@gmail.com>, 2018
 # secipolla <secipolla@gmail.com>, 2011
+# secipolla <secipolla@gmail.com>, 2011
+# The Cat, 2023
 # The Cat, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Michael Martins, 2017,2019,2023-2024\n"
+"Last-Translator: Michael Martins, 2017,2019,2023-2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/xfce/xfce-apps/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,18 +35,19 @@ msgstr ""
 
 #: common/xfce-notify-log-util.c:383
 msgid "Do you really want to clear the notification log?"
-msgstr "Você realmente deseja limpar o registro de notificações?"
+msgstr "Deseja realmente limpar o registro de notificações?"
 
 #: common/xfce-notify-log-util.c:388
 msgid "Clear notification log"
 msgstr "Limpar o registro de notificações"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "Limpar"
 
@@ -77,7 +83,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Não incomode</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
 msgstr "Não foi possível abrir o registro de notificações"
 
@@ -99,16 +105,16 @@ msgstr "_Marcar tudo como lido"
 
 #: panel-plugin/notification-plugin-log.c:403
 msgid "_Notification settings…"
-msgstr "_Configurações de notificações…"
+msgstr "_Configurações de notificação…"
 
 #: panel-plugin/notification-plugin-settings.glade:30
 msgid "Notification Plugin Settings"
-msgstr "Configurações do Plug-in de Notificações"
+msgstr "Configurações do plug-in de notificação"
 
 #: panel-plugin/notification-plugin-settings.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
 msgid "_Help"
-msgstr "Ajuda"
+msgstr "_Ajuda"
 
 #: panel-plugin/notification-plugin-settings.glade:61
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:82
@@ -129,7 +135,7 @@ msgstr "Mostrar apenas notificações de hoje"
 
 #: panel-plugin/notification-plugin-settings.glade:177
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "Ocultar a caixa de diálogo de confirmação de 'Limpar registro'"
+msgstr "Ocultar a caixa de diálogo de confirmação 'Limpar registro'"
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
@@ -174,11 +180,11 @@ msgstr "Fazer nada"
 
 #: panel-plugin/notification-plugin.desktop.in:5
 msgid "Notification Plugin"
-msgstr "Plug-in de Notificações"
+msgstr "Plug-in de notificação"
 
 #: panel-plugin/notification-plugin.desktop.in:6
 msgid "Notification plugin for the Xfce panel"
-msgstr "Plug-in de Notificações para o painel do Xfce"
+msgstr "Plug-in de notificação para o painel do Xfce"
 
 #: xfce4-notifyd/main.c:66
 msgid ""
@@ -192,7 +198,7 @@ msgstr "O xfce4-notifyd foi compilado sem suporte para o seu sistema de janelas.
 #: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
 #: xfce4-notifyd-config/main.c:1266
 msgid "Xfce Notify Daemon"
-msgstr "Serviço de notificações do Xfce"
+msgstr "Serviço de notificação do Xfce"
 
 #: xfce4-notifyd/main.c:95
 #, c-format
@@ -201,11 +207,11 @@ msgstr "Opção desconhecida \"%s\"\n"
 
 #: xfce4-notifyd/main.c:105 xfce4-notifyd/main.c:117
 msgid "Unable to start notification daemon"
-msgstr "Não foi possível iniciar o serviço de notificações"
+msgstr "Não foi possível iniciar o serviço de notificação"
 
 #: xfce4-notifyd/xfce-notify-daemon.c:574
 msgid "Another notification daemon is running, exiting\n"
-msgstr "Um outro serviço de notificações está em execução, saindo\n"
+msgstr "Outro serviço de notificação está em execução, saindo\n"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:179
 #: xfce4-notifyd/xfce-notify-daemon-log.c:210
@@ -226,12 +232,12 @@ msgstr "Entrada de registro não encontrada"
 #: xfce4-notifyd/xfce-notify-log.c:239
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr "O diretório de registro de notificações (%s) não é um diretório"
+msgstr "O diretório de registro de notificação (%s) não é um diretório"
 
 #: xfce4-notifyd/xfce-notify-log.c:251
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr "Falha ao abrir o registro de notificações: %s"
+msgstr "Falha ao abrir o registro de notificação: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
@@ -250,12 +256,12 @@ msgstr "Falha ao criar a tabela de 'notificações': %s"
 #: xfce4-notifyd/xfce-notify-log.c:463
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr "Falha ao criar índice de base de dados de carimbo data/hora: %s"
+msgstr "Falha ao criar índice de banco de dados de carimbo data/hora: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:464
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr "Falha ao criar índice de base de dados de lido: %s"
+msgstr "Falha ao criar índice de banco de dados de lidos: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1457
 msgid "Default Action"
@@ -286,11 +292,12 @@ msgstr "A visualização da notificação falhou"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr "Deseja apagar as configurações de notificação para o aplicativo \"%s\"?"
+msgstr "Deseja excluir as configurações de notificação para o aplicativo \"%s\"?"
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Excluir"
 
 #: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
@@ -314,7 +321,7 @@ msgstr "habilitado"
 
 #: xfce4-notifyd-config/main.c:931
 msgid "disabled"
-msgstr "desativado"
+msgstr "desabilitado"
 
 #: xfce4-notifyd-config/main.c:1162
 msgid ""
@@ -347,54 +354,74 @@ msgstr "Liberado sob os termos da Licença Pública GNU (GPL), versão 2\n"
 #: xfce4-notifyd-config/main.c:1260
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Por favor, relate erros para %s.\n"
+msgstr "Relate erros para %s.\n"
 
 #: xfce4-notifyd-config/main.c:1268
 msgid "Settings daemon is unavailable"
 msgstr "Serviço de configurações indisponível"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Registro vazio</b></big>\nNenhuma notificação foi registrada ainda."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
 msgstr "Atualiza o registro de notificações"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
 msgstr "Limpa o registro de notificações"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "Marcar tudo como lido"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "Marcar todas as notificações não lidas como lidas"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "Excluir entrada"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr "Exclui as entradas de registro selecionadas"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr "Mostrar localização do registro"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr "Mostra a localização do arquivo de registro no gerenciador de arquivos"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr "Marcar entrada de registro como _lida"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "Ontem e antes"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr "Excluir entradas de registro selecionadas"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr "Carregando mais entradas de registro..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr "O serviço de notificações não está em execução. As notificações não serão exibidas."
+msgstr "O serviço de notificação não está em execução. As notificações não serão exibidas."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
 msgid "<b>Currently only urgent notifications are shown.</b>"
@@ -434,7 +461,7 @@ msgstr "Mostrar notificações em"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr "A configuração \"Ativar sons de eventos\" na janela Definições de aparência deve ser ativada para ouvir sons de notificação"
+msgstr "A configuração \"Habilitar sons de eventos\" na janela Definições de aparência deve ser marcada para ouvir sons de notificação"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
@@ -442,7 +469,7 @@ msgstr "_Silenciar sons"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
-msgstr "Mostrar sempre notificações em valor percentual"
+msgstr "Sempre mostrar notificações de valor percentual"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
@@ -495,7 +522,7 @@ msgstr "_Posição padrão"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:624
 msgid "Top left"
-msgstr "Acima, do lado esquerdo"
+msgstr "Canto superior esquerdo"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:625
 msgid "Bottom left"
@@ -537,7 +564,7 @@ msgstr "_Formato data/hora"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:709
 msgid "Locale default"
-msgstr "Predefinição regional"
+msgstr "Localidade padrão"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:710
 msgid "Relative times"
@@ -553,11 +580,11 @@ msgstr "Personalizado"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "Show _Preview"
-msgstr "Exibir _Visualização"
+msgstr "Exibir _visualização"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:766
 msgid "_Disappear after"
-msgstr "_Desaparecer depois de"
+msgstr "_Desaparecer após"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:784
 msgid ""
@@ -588,11 +615,11 @@ msgstr "Registrar notificações"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:953
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr "apenas durante o \"Não incomodar\", ou quando os textos de notificações não são exibidos"
+msgstr "apenas durante o \"Não incomodar\", ou quando os textos de notificação não são exibidos"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:954
 msgid "always"
-msgstr "Sempre"
+msgstr "sempre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:966
 msgid "Log applications"
@@ -600,15 +627,15 @@ msgstr "Registrar aplicativos"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:997
 msgid "all"
-msgstr "Todos"
+msgstr "todos"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:998
 msgid "all except blocked"
-msgstr "Exceto bloqueados"
+msgstr "todos exceto bloqueados"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:999
 msgid "only blocked"
-msgstr "Apenas bloqueados"
+msgstr "apenas bloqueados"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1011
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
@@ -617,7 +644,7 @@ msgstr "O número máximo de entradas a serem mantidas no registro."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Número máximo de entradas de registro a serem mantidas"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
@@ -637,4 +664,4 @@ msgstr "Incluir no registro"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
-msgstr "Personalize como as notificações devem aparecer na sua tela"
+msgstr "Personalize como as notificações aparecem em sua tela"
