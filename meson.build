@@ -22,7 +22,7 @@ dependency_versions = {
   'gtk-layer-shell': '>= 0.7.0',
   'libnotify': '>= 0.7.0',
   'libx11': '>= 1.6.7',
-  'sqlite': '>= 3.34',
+  'sqlite': '>= 3.37.0',
   'systemd': '>= 245',
   'xfce4': '>= 4.18.0',
 }

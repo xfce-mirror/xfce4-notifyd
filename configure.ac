@@ -10,7 +10,7 @@ m4_define([libx11_minimum_version], [1.6.7])
 m4_define([glib_minimum_version], [2.68])
 m4_define([gtk_minimum_version], [3.22])
 m4_define([canberra_minimum_version], [0.30])
-m4_define([sqlite_minimum_version], [3.34])
+m4_define([sqlite_minimum_version], [3.37.0])
 m4_define([dbus_minimum_version], [1.0])
 m4_define([systemd_minimum_version], [245])
 
