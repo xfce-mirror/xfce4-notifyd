@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>, 2013,2017-2018,2024\n"
 "Language-Team: Serbian (http://app.transifex.com/xfce/xfce-apps/language/sr/)\n"
@@ -28,11 +28,12 @@ msgid "Clear notification log"
 msgstr "Избриши дневник обавештења"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "Откажи"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "Очисти"
 
@@ -68,7 +69,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Не узнемиравај</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
 msgstr "Нисам успео да отворим дневник обавештења"
 
@@ -280,6 +281,7 @@ msgid ""
 msgstr "Да ли сте сигурни да желите избрисати поставке обавештења програма „%s“?"
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
 msgstr "Обриши"
 
@@ -344,41 +346,61 @@ msgstr "Грешке пријавите на %s.\n"
 msgid "Settings daemon is unavailable"
 msgstr "Домар поставки није доступан"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Празан дневник</b></big>\nНема уписаних обавештења."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "Освежи"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
 msgstr "Освежи дневник обавештења"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
 msgstr "Очисти дневник обавештења"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "Означи све прочитаним"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "Означи сва непрочитана обавештења прочитаним"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "Избриши ставку"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr "Брише означене ставке дневника"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr "Приказуј положај дневника"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr "Приказује положај датотеке дневника у управнику датотека"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr "Означи унос дневника _прочитаним"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "Јуче и раније"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr "Избриши означене ставке дневника"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr "Учитавам још уноса дневника..."
 
@@ -608,7 +630,7 @@ msgstr "Највећи број ставки које ће се држати у 
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Највиши број ставки дневника за задржавање"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
