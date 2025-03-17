@@ -935,11 +935,9 @@ xfce_notify_log_viewer_show_log_file(void) {
     GStrvBuilder *open_cmdline = NULL;
     gchar *opener = NULL;
 
-#if LIBXFCE4UI_CHECK_VERSION(4, 21, 0)
-    if ((opener = g_find_program_in_path("xfce-open")) != NULL) {
-#else
-    if ((opener = g_find_program_in_path("exo-open")) != NULL) {
-#endif
+    if ((opener = g_find_program_in_path("xfce-open")) != NULL
+         || (opener = g_find_program_in_path("exo-open")) != NULL)
+    {
         open_cmdline = g_strv_builder_new();
         g_strv_builder_add(open_cmdline, opener);
         g_strv_builder_add(open_cmdline, "--launch");
