@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020,2022-2025\n"
 "Language-Team: Japanese (http://app.transifex.com/xfce/xfce-apps/language/ja/)\n"
@@ -30,11 +30,12 @@ msgid "Clear notification log"
 msgstr "通知ログをクリア"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "キャンセル"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "クリア"
 
@@ -70,7 +71,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>邪魔をしない(_D)</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
 msgstr "通知ログを開けません"
 
@@ -282,6 +283,7 @@ msgid ""
 msgstr "アプリケーション \"%s\" の通知設定を削除してもよろしいですか？"
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
 msgstr "削除します"
 
@@ -346,41 +348,61 @@ msgstr "バグは %s まで報告してください。\n"
 msgid "Settings daemon is unavailable"
 msgstr "設定デーモンは使用できません"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>空のログ</b></big>\n通知ログはまだありません。"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "更新"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
 msgstr "通知ログを更新"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
 msgstr "通知ログをクリア"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "すべて既読にする"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "すべての未読通知を既読にする"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "エントリーを削除"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr "選択したログエントリーを削除する"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr "ログの場所を表示"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr "ファイルマネージャーでログファイルの場所を表示する"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr "ログエントリを既読にする(_R)"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "昨日より前"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr "選択したログエントリーを削除"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr "ログエントリを読み込んでいます..."
 
