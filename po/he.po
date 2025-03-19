@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Elishai Eliyahu <elishai@mailfence.com>, 2016-2018,2020
-# Elishai Eliyahu <elishai@mailfence.com>, 2022-2024
+# Elishai Eliyahu <elishai@mailfence.com>, 2022-2025
 # gk <genghiskhan@gmx.ca>, 2014,2016-2017
 # gk <genghiskhan@gmx.ca>, 2012
 # 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2021-2022
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Elishai Eliyahu <elishai@mailfence.com>, 2022-2024\n"
+"Last-Translator: Elishai Eliyahu <elishai@mailfence.com>, 2022-2025\n"
 "Language-Team: Hebrew (http://app.transifex.com/xfce/xfce-apps/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,11 +34,12 @@ msgid "Clear notification log"
 msgstr "נקה את יומן רישום ההודעות"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "בטל"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "נקה"
 
@@ -74,7 +75,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_נא לא להפריע</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
 msgstr "לא יכול לפתוח יומן הודעות"
 
@@ -286,6 +287,7 @@ msgid ""
 msgstr "האם אתה בטוח שאתה רוצה למחוק הגדרות הודעה לישום \"%s\"?"
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
 msgstr "מחק"
 
@@ -350,41 +352,61 @@ msgstr "נא לדווח על באגים ל־%s.\n"
 msgid "Settings daemon is unavailable"
 msgstr "Settings daemon is unavailable"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>יומן ריק</b></big>\nלא נרשמו ביומן עדיין הודעות."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "רענן"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
 msgstr "רענן את יומן ההודעות"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
 msgstr "נקה את יומן ההודעות"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "סמן הכל כנקרא"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "סמן את כל ההודעות שלא נקראו כנקראות"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "מחק רשומה"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr "מוחק את רשומות היומן הנבחרות"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr "הצג מיקום יומן"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr "מציג את המיקום של קובץ היומן במנהל הקבצים"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr "סמן רשומת יומן כ_נקראת"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "אתמול ולפני כן"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr "מחק רשומות יומן נבחרות"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr "טוען עוד רשומות יומן..."
 
@@ -614,7 +636,7 @@ msgstr "מספר רשומות מירבי לשמירה ביומן."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "מספר מירבי של רשומות יומן לשמירה"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
