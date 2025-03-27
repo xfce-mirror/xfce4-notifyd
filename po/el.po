@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Ioannis LM, 2022-2025\n"
 "Language-Team: Greek (http://app.transifex.com/xfce/xfce-apps/language/el/)\n"
@@ -35,11 +35,12 @@ msgid "Clear notification log"
 msgstr "Αφαίρεση καταγραφών"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "Άκυρο"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "Αφαίρεση"
 
@@ -75,7 +76,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Μην ενοχλείτε</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
 msgstr "Αδύνατη η πρόσβαση στο αρχείο καταγραφών"
 
@@ -219,7 +220,7 @@ msgstr "Η καταγραφή δεν είναι διαθέσιμη"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr "Δεν βρέθηκαν καταχωρήσεις"
+msgstr "Δεν βρέθηκαν καταγραφές"
 
 #: xfce4-notifyd/xfce-notify-log.c:239
 #, c-format
@@ -287,6 +288,7 @@ msgid ""
 msgstr "Θέλετε σίγουρα να διαγράψετε τις ρυθμίσεις ειδοποίησης για την εφαρμογή \"%s\";"
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -351,41 +353,61 @@ msgstr "Παρακαλώ αναφέρετε τα σφάλματα στο %s.\n"
 msgid "Settings daemon is unavailable"
 msgstr "Η υπηρεσία ρυθμίσεων δεν είναι διαθέσιμη"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Κενό αρχείο καταγραφών</b></big>\nΔεν υπάρχουν προς το παρόν καταγραφές."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
 msgstr "Ανανέωση"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
 msgstr "Αφαίρεση όλων"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "Σημείωση όλων ως αναγνωσμένες"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "Σημείωση όλων των μη αναγνωσμένων ειδοποιήσεων ως αναγνωσμένες"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "Διαγραφή καταγραφής"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr "Διαγραφή επιλεγμένων καταγραφών"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr "Εμφάνιση της θέσης του αρχείου καταγραφής"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr "Εμφάνιση της θέσης του αρχείου καταγραφής στο διαχειριστή αρχείων"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr "Σημείωση ως ανα_γνωσμένη"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "Χθες και παλαιότερα"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr "Διαγραφή των επιλεγμένων καταγραφών"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr "Φόρτωση περισσότερων καταχωρήσεων..."
 
@@ -436,7 +458,7 @@ msgstr "Για να ακούσετε ήχους ειδοποίησης, πρέπ
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
-msgstr "_Σιωπή ήχων"
+msgstr "_Σιγή ήχων"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
@@ -615,7 +637,7 @@ msgstr "Ο μέγιστος αριθμός καταχωρίσεων που θα 
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Μέγιστος αριθμός καταχωρίσεων"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
