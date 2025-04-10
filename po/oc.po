@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2013
+# Cédric Valmary <cvalmary@yahoo.fr>, 2013
 # Quentin PAGÈS, 2020,2022-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-10 12:50+0100\n"
+"POT-Creation-Date: 2025-03-12 00:50+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Quentin PAGÈS, 2020,2022-2024\n"
+"Last-Translator: Cédric Valmary <cvalmary@yahoo.fr>, 2013\n"
 "Language-Team: Occitan (post 1500) (http://app.transifex.com/xfce/xfce-apps/language/oc/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +29,12 @@ msgid "Clear notification log"
 msgstr "Escafar l’istoric de notificacions"
 
 #: common/xfce-notify-log-util.c:391
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
 msgid "Cancel"
 msgstr "Anullar"
 
 #: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
 msgid "Clear"
 msgstr "Escafar"
 
@@ -68,9 +70,9 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Destorbar pas</b>"
 
 #: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:166
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid "Unable to open notification log"
-msgstr ""
+msgstr "Dubertura impossibla del jornal de notificacion"
 
 #: panel-plugin/notification-plugin-log.c:359
 msgid "No unread notifications"
@@ -120,11 +122,11 @@ msgstr "Afichar sonque las notificacions d’uèi"
 
 #: panel-plugin/notification-plugin-settings.glade:177
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr ""
+msgstr "Amagar la bóstia de dialòg « Escafar log »"
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
-msgstr ""
+msgstr "Amagar lo boton del panèl quand i a pas cap de notificacion non legida"
 
 #: panel-plugin/notification-plugin-settings.glade:224
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:863
@@ -153,11 +155,11 @@ msgstr "Aprèp afichatge al menú"
 
 #: panel-plugin/notification-plugin-settings.glade:299
 msgid "Mark all log entries read"
-msgstr ""
+msgstr "Marca totas las entradas del log coma legidas"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr ""
+msgstr "Marcar las entradas de log afichadas coma legidas"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -169,16 +171,16 @@ msgstr "Extension notificacion"
 
 #: panel-plugin/notification-plugin.desktop.in:6
 msgid "Notification plugin for the Xfce panel"
-msgstr ""
+msgstr "Plugin de notificacion pel panèl Xfce"
 
 #: xfce4-notifyd/main.c:66
 msgid ""
 "Your Wayland compositor does not support required protocol wlr-layer-shell."
-msgstr ""
+msgstr "Vòstre compositor Wayland pren pas en cargar lo protocòl requerid wlr-layer-shell."
 
 #: xfce4-notifyd/main.c:73
 msgid "xfce4-notifyd was built without support for your windowing system."
-msgstr ""
+msgstr "xfce4-notifyd foguèt compilat sens compatibilitat amb vòstre sistèma de fenèstras."
 
 #: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
 #: xfce4-notifyd-config/main.c:1266
@@ -196,7 +198,7 @@ msgstr "Fracàs a l'aviada del demòni de notificacion"
 
 #: xfce4-notifyd/xfce-notify-daemon.c:574
 msgid "Another notification daemon is running, exiting\n"
-msgstr ""
+msgstr "Un autre demòni de notificacion es ja en cors d'execucion\n"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:179
 #: xfce4-notifyd/xfce-notify-daemon-log.c:210
@@ -208,21 +210,21 @@ msgstr ""
 #: xfce4-notifyd/xfce-notify-daemon-log.c:331
 #: xfce4-notifyd/xfce-notify-daemon-log.c:343
 msgid "Log is unavailable"
-msgstr ""
+msgstr "Lo jornal es indisponible"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:184
 msgid "Log entry not found"
-msgstr ""
+msgstr "Entrada de jornal non trobat"
 
 #: xfce4-notifyd/xfce-notify-log.c:239
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Lo repertòri de jornal de notificacion (%s) es pas un repertòri"
 
 #: xfce4-notifyd/xfce-notify-log.c:251
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Fracàs de la dobertura del log de notificacion : %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:335
 #, c-format
@@ -280,6 +282,7 @@ msgid ""
 msgstr ""
 
 #: xfce4-notifyd-config/main.c:593
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
 msgid "Delete"
 msgstr "Escafar"
 
@@ -301,11 +304,11 @@ msgstr ""
 
 #: xfce4-notifyd-config/main.c:931
 msgid "enabled"
-msgstr "activat"
+msgstr "activada"
 
 #: xfce4-notifyd-config/main.c:931
 msgid "disabled"
-msgstr ""
+msgstr "desactivada"
 
 #: xfce4-notifyd-config/main.c:1162
 msgid ""
@@ -344,41 +347,61 @@ msgstr "Se vos plai, senhalatz los bugs a <%s>.\n\n"
 msgid "Settings daemon is unavailable"
 msgstr "Los paramètres demòni son pas disponibles"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:168
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:185
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
 msgid "Refresh the notification log"
-msgstr ""
+msgstr "Refrescar lo log de notificacion"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
 msgid "Clear the notification log"
-msgstr ""
+msgstr "Escafar lo log de notificacion"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
 msgid "Mark All Read"
 msgstr "Las marcar totas coma legidas"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
 msgid "Mark all unread notifications as read"
 msgstr "Marcar totas las notificacions pas legidas coma legidas"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:516
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+msgid "Delete Entry"
+msgstr "Suprimir l’entrada"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+msgid "Deletes the selected log entries"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+msgid "Show Log Location"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+msgid "Shows the location of the log file in the file manager"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
 msgid "Mark log entry _read"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:715
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
 msgid "Yesterday and before"
 msgstr "Ièr e abans"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1001
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+msgid "Delete Selected Log Entries"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
 msgid "Loading more log entries..."
 msgstr ""
 
@@ -502,11 +525,11 @@ msgstr "Inferior drech"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:628
 msgid "Top center"
-msgstr ""
+msgstr "Amont al centre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:629
 msgid "Bottom center"
-msgstr ""
+msgstr "Aval al centre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:659
 msgid "_Theme"
@@ -567,7 +590,7 @@ msgstr "_Largor de notificacion minimala"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:881
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Paramètres de notificacion per aplicacion</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:908
 msgid "Applications"
@@ -604,11 +627,11 @@ msgstr "solament las blocadas"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1011
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Lo nombre maximum d'entradas de conservar dins lo jornal."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Lo nombre maximal d’entradas de log a gardar"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
 msgid "Log"
