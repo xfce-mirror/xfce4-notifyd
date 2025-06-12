@@ -756,7 +756,7 @@ xfce_notify_log_viewer_append_entries(XfceNotifyLogViewer *viewer, GList *entrie
             gtk_widget_set_margin_bottom (header, 3);
             gtk_container_add(GTK_CONTAINER(header_row), header);
 
-            viewer->yesterday_header_added = TRUE;;
+            viewer->yesterday_header_added = TRUE;
         }
 
         xfce_notify_log_viewer_insert_entry(viewer, entry, -1, dt_format, custom_dt_format, icon_size);
