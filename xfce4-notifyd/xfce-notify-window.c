@@ -415,7 +415,7 @@ xfce_notify_window_init(XfceNotifyWindow *window)
     window->normal_opacity = DEFAULT_NORMAL_OPACITY;
     window->do_fadeout = DEFAULT_DO_FADEOUT;
     window->do_slideout = DEFAULT_DO_SLIDEOUT;
-    window->original_x = G_MININT;;
+    window->original_x = G_MININT;
     window->original_y = G_MININT;
     window->op_change_steps = FADE_TIME / FADE_CHANGE_TIMEOUT;
 
