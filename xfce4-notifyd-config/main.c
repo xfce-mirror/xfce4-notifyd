@@ -975,6 +975,7 @@ log_file_info_ready(GObject *source, GAsyncResult *res, gpointer data) {
         gtk_label_set_text(size_label, size_text);
         g_free(formatted_size);
         g_free(size_text);
+        g_object_unref(info);
     }
 
     g_object_unref(log_file);
