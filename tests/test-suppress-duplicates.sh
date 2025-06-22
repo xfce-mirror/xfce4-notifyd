@@ -3,7 +3,7 @@
 # Script to (manually) test duplicate notification suppression.
 # Duplicate notification suppression is handy in case you run a chat client (like MS-Teams) in more than one
 # instance on your machine. In such a case, each instance will send the same desktop notification, turning your machine
-# in a "Whac-A-Mole" annoyance.
+# into a "Whac-A-Mole" annoyance.
 # Turning on the duplicate suppression will ignore any new notifications which have the same summary and body as
 # any visible notifications.
 
