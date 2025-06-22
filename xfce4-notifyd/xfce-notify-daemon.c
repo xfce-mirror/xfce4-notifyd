@@ -85,6 +85,7 @@ struct _XfceNotifyDaemon
     gboolean do_slideout;
     XfceNotifyDisplayFields display_fields;
     gboolean do_not_disturb;
+    gboolean suppress_duplicates;
     gboolean gauge_ignores_dnd;
     gboolean notification_log;
     gboolean show_text_with_gauge;
@@ -126,6 +127,12 @@ typedef struct {
     XfceNotifyDaemon *xndaemon;
     XfceNotifyWindow *window;
 } MonitorCheckData;
+
+typedef struct {
+    const gchar* summary;
+    const gchar* body;
+    gboolean found_notification;
+} NotificationSearchData;
 
 // This deliberately leaves out '/theme', as that one is handled in
 // a special way.
@@ -225,6 +232,12 @@ static struct {
         .name = "/do-not-disturb",
         .type = G_TYPE_BOOLEAN,
         .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, do_not_disturb),
+        .default_value.b = FALSE,
+    },
+    {
+        .name = SUPPRESS_DUPLICATES,
+        .type = G_TYPE_BOOLEAN,
+        .offset = G_STRUCT_OFFSET(XfceNotifyDaemon, suppress_duplicates),
         .default_value.b = FALSE,
     },
     {
@@ -333,6 +346,15 @@ static gboolean xfce_notify_quit(XfceNotifyGBus *skeleton,
 static gboolean xfce_notify_old_quit(XfceNotifyOldGBus *skeleton,
                                      GDBusMethodInvocation *invocation,
                                      XfceNotifyDaemon *xndaemon);
+
+
+static gboolean find_duplicate_notification_foreach(gpointer key,
+                                                    gpointer value,
+                                                    gpointer data);
+
+static gboolean is_duplicate_notification(GTree *active_notifications,
+                                          const gchar* summary,
+                                          const gchar* body);
 
 
 G_DEFINE_TYPE(XfceNotifyDaemon, xfce_notify_daemon, XFCE_TYPE_NOTIFY_FDO_GBUS_SKELETON)
@@ -1460,12 +1482,17 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
             break;
     }
 
+    /* Should we suppress a new duplicate notification? You can enable that in the configuration panel "General" tab. */
+    gboolean suppress_duplicate = (notification == NULL) &&
+                                  xndaemon->suppress_duplicates &&
+                                  is_duplicate_notification(xndaemon->active_notifications, summary, body);
+
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
        notifications, or if it's a gauge notification and the user wants to let
        those through. */
     if (urgency != XFCE_NOTIFY_URGENCY_CRITICAL &&
-        ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) || application_is_muted))
+        ((xndaemon->do_not_disturb && (!value_hint_set || !xndaemon->gauge_ignores_dnd)) || application_is_muted || suppress_duplicate))
     {
         if (notification != NULL) {
             // We're in DnD and there's an existing notification.  The only way
@@ -2046,9 +2073,6 @@ xfce_notify_daemon_load_config (XfceNotifyDaemon *xndaemon,
 }
 
 
-
-
-
 XfceNotifyDaemon *
 xfce_notify_daemon_new_unique(GError **error)
 {
@@ -2061,4 +2085,44 @@ xfce_notify_daemon_new_unique(GError **error)
     }
 
     return xndaemon;
+}
+
+
+static gboolean
+find_duplicate_notification_foreach(gpointer key,
+                                    gpointer value,
+                                    gpointer data)
+{
+    XfceNotification *notification = XFCE_NOTIFICATION(value);
+    NotificationSearchData* notification_search_data = (NotificationSearchData*)data;
+
+    const gchar *notif_summary = xfce_notification_get_summary(notification);
+    const gchar *notif_body = xfce_notification_get_body(notification);
+
+    DBG("Compare notification '%s | %s' against '%s | %s'.",
+            notification_search_data->summary, notification_search_data->body,
+            notif_summary ? notif_summary : "(null)",
+            notif_body ? notif_body : "(null)");
+
+    if (g_strcmp0(notif_summary, notification_search_data->summary) == 0 &&
+        g_strcmp0(notif_body, notification_search_data->body) == 0) {
+        notification_search_data->found_notification = TRUE;
+        DBG("Found duplicate notification.");
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+static gboolean
+is_duplicate_notification(GTree *active_notifications,
+                          const gchar* summary,
+                          const gchar* body)
+{
+    DBG("Check for duplicate notification: '%s | %s'", summary, body);
+
+    NotificationSearchData notification_search_data = { .summary = summary, .body = body, .found_notification = FALSE };
+    g_tree_foreach(active_notifications, find_duplicate_notification_foreach, &notification_search_data);
+
+    return notification_search_data.found_notification;
 }
