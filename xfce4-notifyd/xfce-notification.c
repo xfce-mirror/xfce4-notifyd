@@ -37,6 +37,7 @@ struct _XfceNotification {
     guint id;
     gchar *log_id;
 
+    gchar *app_name;
     gchar *summary;
     gchar *body;
     guint gauge_value;
@@ -69,6 +70,7 @@ enum {
     PROP_ID,
     PROP_LOG_ID,
 
+    PROP_APP_NAME,
     PROP_SUMMARY,
     PROP_BODY,
     PROP_GAUGE_VALUE,
@@ -109,6 +111,8 @@ static void xfce_notification_get_property(GObject *object,
                                            GValue *value,
                                            GParamSpec *pspec);
 
+static void xfce_notification_set_app_name(XfceNotification *notification,
+                                           const gchar *app_name);
 static void xfce_notification_set_summary(XfceNotification *notification,
                                           const gchar *summary);
 static void xfce_notification_set_body(XfceNotification *notification,
@@ -168,6 +172,12 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
                                                   "Internal ID of the notification's log entry, if any",
                                                   NULL,
                                                   G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+    properties[PROP_APP_NAME] = g_param_spec_string("app-name",
+                                                    "app-name",
+                                                    "Displayed notification application name",
+                                                    NULL,
+                                                    G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
     properties[PROP_SUMMARY] = g_param_spec_string("summary",
                                                    "summary",
@@ -295,6 +305,7 @@ static void
 xfce_notification_finalize(GObject *object) {
     XfceNotification *notification = XFCE_NOTIFICATION(object);
 
+    g_free(notification->app_name);
     g_free(notification->summary);
     g_free(notification->body);
     g_free(notification->icon_name);
@@ -333,6 +344,10 @@ xfce_notification_set_property(GObject *object,
 
         case PROP_LOG_ID:
             xfce_notification_set_log_id(notification, g_value_get_string(value));
+            break;
+
+        case PROP_APP_NAME:
+            xfce_notification_set_app_name(notification, g_value_get_string(value));
             break;
 
         case PROP_SUMMARY:
@@ -424,6 +439,10 @@ xfce_notification_get_property(GObject *object,
             g_value_set_string(value, notification->summary);
             break;
 
+        case PROP_APP_NAME:
+            g_value_set_string(value, notification->app_name);
+            break;
+
         case PROP_BODY:
             g_value_set_string(value, notification->body);
             break;
@@ -485,6 +504,15 @@ xfce_notification_get_property(GObject *object,
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
             break;
+    }
+}
+
+static void
+xfce_notification_set_app_name(XfceNotification *notification, const gchar *app_name) {
+    if (g_strcmp0(notification->app_name, app_name) != 0) {
+        g_free(notification->app_name);
+        notification->app_name = g_strdup(app_name);
+        g_object_notify(G_OBJECT(notification), "app_name");
     }
 }
 
@@ -666,6 +694,7 @@ xfce_notification_window_closed(XfceNotifyWindow *window,
 XfceNotification *
 xfce_notification_new(guint id,
                       const gchar *log_id,
+                      const gchar *app_name,
                       const gchar *summary,
                       const gchar *body,
                       gboolean icon_only,
@@ -690,6 +719,7 @@ xfce_notification_new(guint id,
     return g_object_new(XFCE_TYPE_NOTIFICATION,
                         "id", id,
                         "log-id", log_id,
+                        "app_name", app_name,
                         "summary", summary,
                         "body", body,
                         "icon-only", icon_only,
@@ -878,6 +908,12 @@ const gchar *
 xfce_notification_get_log_id(XfceNotification *notification) {
     g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
     return notification->log_id;
+}
+
+const gchar *
+xfce_notification_get_app_name(XfceNotification *notification) {
+    g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
+    return notification->app_name;
 }
 
 const gchar *

@@ -36,6 +36,7 @@
 #define LOG_LEVEL_APPS_PROP                 "/log-level-apps"
 #define DND_ENABLED_PROP                    "/do-not-disturb"
 #define GAUGE_IGNORES_DND_PROP              "/gauge-ignores-dnd"
+#define SUPPRESS_DUPLICATES                 "/suppress-duplicates"
 #define MIN_WIDTH_ENABLED_PROP              "/min-width-enabled"
 #define MIN_WIDTH_PROP                      "/min-width"
 #define EXPIRE_TIMEOUT_ENABLED_PROP         "/expire-timeout-enabled"

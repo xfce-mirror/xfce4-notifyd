@@ -38,6 +38,7 @@ G_DECLARE_FINAL_TYPE(XfceNotification, xfce_notification, XFCE, NOTIFICATION, GO
 
 XfceNotification *xfce_notification_new(guint id,
                                         const gchar *log_id,
+                                        const gchar *app_name,
                                         const gchar *summary,
                                         const gchar *body,
                                         gboolean icon_only,
@@ -88,6 +89,7 @@ void xfce_notification_set_do_slideout(XfceNotification *notification,
 
 guint xfce_notification_get_id(XfceNotification *notification);
 const gchar *xfce_notification_get_log_id(XfceNotification *notification);
+const gchar *xfce_notification_get_app_name(XfceNotification *notification);
 const gchar *xfce_notification_get_summary(XfceNotification *notification);
 const gchar *xfce_notification_get_body(XfceNotification *notification);
 const gchar *xfce_notification_get_icon_id(XfceNotification *notification);
