@@ -278,7 +278,7 @@
                 <property name="can-focus">False</property>
                 <property name="transition-type">slide-left-right</property>
                 <child>
-                  <!-- n-columns=2 n-rows=9 -->
+                  <!-- n-columns=2 n-rows=10 -->
                   <object class="GtkGrid" id="general">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -298,7 +298,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
-                        <property name="top-attach">7</property>
+                        <property name="top-attach">8</property>
                       </packing>
                     </child>
                     <child>
@@ -311,7 +311,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">7</property>
+                        <property name="top-attach">8</property>
                       </packing>
                     </child>
                     <child>
@@ -325,7 +325,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">8</property>
+                        <property name="top-attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -337,7 +337,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
-                        <property name="top-attach">8</property>
+                        <property name="top-attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -389,7 +389,7 @@
                       </object>
                       <packing>
                         <property name="left-attach">0</property>
-                        <property name="top-attach">6</property>
+                        <property name="top-attach">7</property>
                       </packing>
                     </child>
                     <child>
@@ -503,6 +503,34 @@
                       <packing>
                         <property name="left-attach">1</property>
                         <property name="top-attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="suppress_duplicates_label">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Prevent redundant notifications. If a message with the same summary and body is already visible on screen, new identical alerts will be suppressed. Useful for multi-instance applications like chat clients.</property>
+                        <property name="margin-start">12</property>
+                        <property name="label" translatable="yes">_Suppress duplicate notifications</property>
+                        <property name="use-underline">True</property>
+                        <property name="mnemonic-widget">suppress_duplicates</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="suppress_duplicates">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">6</property>
                       </packing>
                     </child>
                     <child>
