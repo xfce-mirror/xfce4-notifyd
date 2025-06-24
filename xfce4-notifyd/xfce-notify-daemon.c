@@ -129,6 +129,7 @@ typedef struct {
 } MonitorCheckData;
 
 typedef struct {
+    const gchar* app_name;
     const gchar* summary;
     const gchar* body;
     gboolean found_notification;
@@ -353,6 +354,7 @@ static gboolean find_duplicate_notification_foreach(gpointer key,
                                                     gpointer data);
 
 static gboolean is_duplicate_notification(GTree *active_notifications,
+                                          const gchar *app_name,
                                           const gchar *summary,
                                           const gchar *body);
 
@@ -1484,7 +1486,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
     gboolean suppress_duplicate = (notification == NULL) &&
                                   xndaemon->suppress_duplicates &&
-                                  is_duplicate_notification(xndaemon->active_notifications, summary, body);
+                                  is_duplicate_notification(xndaemon->active_notifications, new_app_name, summary_text, body_text);
 
     /* Don't show notification bubbles in the "Do not disturb" mode or if the
        application has been muted by the user. Exceptions are "urgent"
@@ -1551,6 +1553,7 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 
         notification = xfce_notification_new(OUT_id,
                                              log_id,
+                                             new_app_name,
                                              summary_text,
                                              body_text,
                                              icon_only,
@@ -2095,10 +2098,12 @@ find_duplicate_notification_foreach(gpointer key,
     XfceNotification *notification = XFCE_NOTIFICATION(value);
     NotificationSearchData* notification_search_data = (NotificationSearchData*)data;
 
+    const gchar *notif_app_name = xfce_notification_get_app_name(notification);
     const gchar *notif_summary = xfce_notification_get_summary(notification);
     const gchar *notif_body = xfce_notification_get_body(notification);
 
-    if (g_strcmp0(notif_summary, notification_search_data->summary) == 0 &&
+    if (g_strcmp0(notif_app_name, notification_search_data->app_name) == 0 &&
+        g_strcmp0(notif_summary, notification_search_data->summary) == 0 &&
         g_strcmp0(notif_body, notification_search_data->body) == 0) {
         notification_search_data->found_notification = TRUE;
         return TRUE;
@@ -2109,13 +2114,14 @@ find_duplicate_notification_foreach(gpointer key,
 
 static gboolean
 is_duplicate_notification(GTree *active_notifications,
+                          const gchar *app_name,
                           const gchar *summary,
                           const gchar *body)
 {
-    NotificationSearchData notification_search_data = { .summary = summary, .body = body, .found_notification = FALSE };
+    NotificationSearchData notification_search_data = { .app_name = app_name, .summary = summary, .body = body, .found_notification = FALSE };
     g_tree_foreach(active_notifications, find_duplicate_notification_foreach, &notification_search_data);
 
-    DBG("Duplicate notification? %s", notification_search_data.found_notification ? "YES" : "NO");
+    DBG("Duplicate notification (app: %s)? %s", app_name, notification_search_data.found_notification ? "YES" : "NO");
 
     return notification_search_data.found_notification;
 }

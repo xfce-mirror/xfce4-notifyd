@@ -83,6 +83,25 @@ notify-send -t 3000 -i info "$SUMMARY" "$BODY"
 notify-send -t 3000 -i info "$SUMMARY" "$BODY"
 notify-send -t 3000 -i info "$SUMMARY" "$BODY"
 
+sleep 4
+
+# Big display to make clear how many notifications to expect, as reading tiny fonts while looking at popups is hard ;-)
+echo
+echo "####### #    # #####  ###### ######"
+echo "   #    #    # #    # #      #      "
+echo "   #    ###### #    # #####  #####  "
+echo "   #    #    # #####  #      #      "
+echo "   #    #    # #   #  #      #      "
+echo "   #    #    # #    # ###### ###### "
+echo
+
+BODY="Test with suppression 'on', will show 3 messages out of 3 duplicates, because of different underlying app-name's"
+echo "$BODY"
+notify-send -t 3000 -i info -a app-1 "$SUMMARY" "$BODY"
+notify-send -t 3000 -i info -a app-2 "$SUMMARY" "$BODY"
+notify-send -t 3000 -i info -a app-3 "$SUMMARY" "$BODY"
+
+
 # restore original flag value
 if [ "$SUPPRESSION_BACKUP" == "" ]
 then
