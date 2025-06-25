@@ -495,7 +495,7 @@ msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
-msgstr "Předchází nadbytečným oznámením. Pokud je zpráva se stejným souhrnem a tělem viditelná na obrazovce, nová identická upozornění budou potlačena. Užitečné pro víceinstanční aplikace, jako například klienty chatů."
+msgstr "Předchází nadbytečným oznámením. Pokud je již zpráva se stejným souhrnem a obsahem na obrazovce viditelná, nová identická upozornění budou potlačena. Užitečné pro víceinstanční aplikace, jako například chatovací klienty."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
