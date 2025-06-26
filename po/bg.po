@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-03-12 00:50+0100\n"
+"POT-Creation-Date: 2025-06-25 00:49+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2016-2018,2020,2022-2025\n"
 "Language-Team: Bulgarian (http://app.transifex.com/xfce/xfce-apps/language/bg/)\n"
@@ -53,16 +53,16 @@ msgstr "Сега"
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: panel-plugin/notification-plugin-dialogs.c:52
+#: panel-plugin/notification-plugin-dialogs.c:53
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "Не може да бъде отворен следният адрес: %s"
 
-#: panel-plugin/notification-plugin-dialogs.c:134
+#: panel-plugin/notification-plugin-dialogs.c:135
 msgid "This is the notification plugin"
 msgstr "Това е добавката за уведомления"
 
-#: panel-plugin/notification-plugin-dialogs.c:136
+#: panel-plugin/notification-plugin-dialogs.c:137
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Авторски права © 2017 Simon Steinbeiß\n"
 
@@ -130,7 +130,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr "Скриване на бутона в панела, когато няма непрочетени известия"
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:863
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "Външен вид"
 
@@ -184,7 +184,7 @@ msgid "xfce4-notifyd was built without support for your windowing system."
 msgstr "xfce4-notifyd е създаден без поддръжка за вашата прозоречна система."
 
 #: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
-#: xfce4-notifyd-config/main.c:1266
+#: xfce4-notifyd-config/main.c:1271
 msgid "Xfce Notify Daemon"
 msgstr "Демон за уведомления в Xfce"
 
@@ -197,7 +197,7 @@ msgstr "Непозната опция „%s“\n"
 msgid "Unable to start notification daemon"
 msgstr "Неуспех при стартиране на услугата за уведомяване"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:574
+#: xfce4-notifyd/xfce-notify-daemon.c:598
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Още една услуга за уведомления е стартирана, излизане\n"
 
@@ -311,40 +311,40 @@ msgstr "включено"
 msgid "disabled"
 msgstr "изключено"
 
-#: xfce4-notifyd-config/main.c:1162
+#: xfce4-notifyd-config/main.c:1167
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>В момента няма познати приложения.</b></big>\nВеднага, след, като някое приложение изпрати уведомление,\nто ще се появи в този списък."
 
-#: xfce4-notifyd-config/main.c:1233
+#: xfce4-notifyd-config/main.c:1238
 msgid "Display version information"
 msgstr "Показване на информация за версията"
 
-#: xfce4-notifyd-config/main.c:1234
+#: xfce4-notifyd-config/main.c:1239
 msgid "Settings manager socket"
 msgstr "Гнездо за мениджъра на настройките"
 
-#: xfce4-notifyd-config/main.c:1234
+#: xfce4-notifyd-config/main.c:1239
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/main.c:1244
+#: xfce4-notifyd-config/main.c:1249
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Въведете „%s --help“ за показване на потребителското ръководство."
 
-#: xfce4-notifyd-config/main.c:1259
+#: xfce4-notifyd-config/main.c:1264
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Разпространява се под условията на GNU General Public License версия 2\n"
 
-#: xfce4-notifyd-config/main.c:1260
+#: xfce4-notifyd-config/main.c:1265
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Моля, докладвайте грешки на %s.\n"
 
-#: xfce4-notifyd-config/main.c:1268
+#: xfce4-notifyd-config/main.c:1273
 msgid "Settings daemon is unavailable"
 msgstr "Демонът за настройките е недостъпен"
 
@@ -402,7 +402,7 @@ msgstr "Вчера или преди това"
 msgid "Delete Selected Log Entries"
 msgstr "Изтриване на избраният запис от лога"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1151
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1153
 msgid "Loading more log entries..."
 msgstr "Зареждат се още записи в дневника..."
 
@@ -487,154 +487,165 @@ msgstr "главен монитор"
 msgid "all monitors"
 msgstr "всички монитори"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:517
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
+msgid ""
+"Prevent redundant notifications. If a message with the same summary and body"
+" is already visible on screen, new identical alerts will be suppressed. "
+"Useful for multi-instance applications like chat clients."
+msgstr "Предотвратяване на излишни известия. Ако, съобщение със същото резюме и съдържание, вече се вижда на екрана, новите идентични известия ще бъдат потиснати. Полезно за приложения с множество екземпляри, като например чат клиенти."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
+msgid "_Suppress duplicate notifications"
+msgstr "_Потискане на дублиращи се известия"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
 msgstr "Общи"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:555
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "seconds"
 msgstr "секунди"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:570
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:833
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
 msgid "10"
 msgstr "10"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:595
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
 msgid "_Opacity"
 msgstr "_Непрозрачност"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:609
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "Default _position"
 msgstr "Позиция по подразбиране"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:624
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "Top left"
 msgstr "Горе вляво"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:625
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
 msgid "Bottom left"
 msgstr "Долу вляво"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:626
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
 msgid "Top right"
 msgstr "Горе вдясно"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:627
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
 msgid "Bottom right"
 msgstr "Долу вдясно"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:628
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
 msgid "Top center"
 msgstr "Центриране отгоре"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:629
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
 msgid "Bottom center"
 msgstr "Центриране отдолу"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:659
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
 msgid "_Theme"
 msgstr "_Тема"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:672
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "Показване на резюмето и основния текст на известието, когато известието е процентна стойност, като сила на звука или яркост на екрана"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:674
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Show text with percent _values"
 msgstr "Показване на текст с процентни стойности"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:688
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
 msgid "Date/time _format"
 msgstr "Формат на час/дата"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:709
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
 msgid "Locale default"
 msgstr "Локализация по подразбиране"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:710
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
 msgid "Relative times"
 msgstr "Относителни времена"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:711
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
 msgid "ISO8601"
 msgstr "ISO8601"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:712
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "Custom"
 msgstr "Потребителски"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
 msgid "Show _Preview"
 msgstr "Покажи предварителен преглед"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:766
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
 msgid "_Disappear after"
 msgstr "_Изчезване след"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:784
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr "Когато създават известие, приложенията могат да поискат колко време искат известието да остане на екрана. Тази настройка контролира дали тази заявка се зачита или не."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:786
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr "Зачитане на времето„Изчезване след“, заявено от приложението"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:809
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
 msgid "_Minimum notification width"
 msgstr "_Минимална ширина на уведомлението"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:881
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
 msgid "<b>Per-application notification settings</b>"
 msgstr "<b>Настройки на уведомяването за всяко приложение</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:908
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
 msgid "Applications"
 msgstr "Приложения"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:927
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
 msgid "Log notifications"
 msgstr "Лог с уведомления"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:953
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
 msgstr "само по време на „Не ме безпокойте“ или когато обектите за уведомяване не се показват"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:954
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
 msgid "always"
 msgstr "винаги"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:966
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
 msgid "Log applications"
 msgstr "Лог на приложенията"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:997
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
 msgid "all"
 msgstr "всички"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:998
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1026
 msgid "all except blocked"
 msgstr "всички с изключение на блокираните"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:999
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
 msgid "only blocked"
 msgstr "само блокираните"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1011
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
 msgid "The maximum number of entries to be retained in the log."
 msgstr "Максималният брой записи, които трябва да се запазят в дневника."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1023
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
 msgid "Maximum number of log entries to keep"
 msgstr "Максимален брой на запазени записи в лога"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1052
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
 msgstr "Лог"
 
