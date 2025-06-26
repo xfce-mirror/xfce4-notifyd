@@ -880,6 +880,7 @@ known_application_log_counts_fetched(GObject *source, GAsyncResult *res, Setting
                                                        application->app_name,
                                                        application->count);
             g_free(application->app_name);
+            g_free(application);
         }
         g_ptr_array_free(known_applications_sorted, TRUE);
     }
