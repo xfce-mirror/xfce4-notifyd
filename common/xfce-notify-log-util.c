@@ -749,6 +749,7 @@ notify_log_variant_to_entry(GVariant *variant) {
     g_date_time_unref(dt_utc);
     g_date_time_unref(dt_utc_no_us);
     g_time_zone_unref(tz);
+    g_free(tz_identifier);
 
     if (actions != NULL) {
         gchar *id = NULL;
