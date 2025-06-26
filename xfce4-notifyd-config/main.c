@@ -811,6 +811,7 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
     }
 
     g_free(desktop_icon_name);
+    g_object_unref(builder);
 }
 
 static void
