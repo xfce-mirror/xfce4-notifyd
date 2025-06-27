@@ -20,6 +20,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "glib.h"
+#include "glibconfig.h"
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -935,9 +937,7 @@ static gboolean notify_get_capabilities(XfceNotifyFdoGBus *skeleton,
                                         GDBusMethodInvocation *invocation,
                                         XfceNotifyDaemon *xndaemon)
 {
-    const gchar *const capabilities[] = {
-        "action-icons",
-        "actions",
+    const gchar *const base_capabilities[] = {
         "body",
         "body-hyperlinks",
         "body-markup",
@@ -946,10 +946,21 @@ static gboolean notify_get_capabilities(XfceNotifyFdoGBus *skeleton,
         "sound",
 #endif
         "x-canonical-private-icon-only",
-        NULL,
     };
 
-    xfce_notify_fdo_gbus_complete_get_capabilities(skeleton, invocation, capabilities);
+    GStrvBuilder *caps_builder = g_strv_builder_new();
+    for (gsize i = 0; i < G_N_ELEMENTS(base_capabilities); ++i) {
+        g_strv_builder_add(caps_builder, base_capabilities[i]);
+    }
+
+    if (!xndaemon->do_not_disturb) {
+        g_strv_builder_add(caps_builder, "actions");
+        g_strv_builder_add(caps_builder, "action-icons");
+    }
+
+    gchar **capabilities = g_strv_builder_end(caps_builder);
+    xfce_notify_fdo_gbus_complete_get_capabilities(skeleton, invocation, (const gchar *const *)capabilities);
+    g_strfreev(capabilities);
 
     return TRUE;
 }
