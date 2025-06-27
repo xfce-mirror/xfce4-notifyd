@@ -115,6 +115,7 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   g_object_set_data(G_OBJECT(plugin), "dialog", dialog);
 
   gtk_widget_show_all(dialog);
+  g_object_unref(builder);
 }
 
 
