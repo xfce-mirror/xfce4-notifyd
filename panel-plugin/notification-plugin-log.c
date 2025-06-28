@@ -73,6 +73,8 @@ notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
       g_error_free (error);
     }
   }
+
+  g_object_unref(app_info);
 }
 
 
