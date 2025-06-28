@@ -682,7 +682,9 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
 
     /* Number of notifications in the log (if enabled) */
     if (count > 0) {
-        gtk_label_set_text (GTK_LABEL(log_count_label), g_strdup_printf("%d", count));
+        gchar *count_text = g_strdup_printf("%d", count);
+        gtk_label_set_text (GTK_LABEL(log_count_label), count_text);
+        g_free(count_text);
     }
 
     /* All applications that don't supply their name at all */
