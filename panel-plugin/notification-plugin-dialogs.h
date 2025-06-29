@@ -20,6 +20,8 @@
 #ifndef __NOTIFICATION_PLUGIN_DIALOGS_H__
 #define __NOTIFICATION_PLUGIN_DIALOGS_H__
 
+#include "notification-plugin.h"
+
 G_BEGIN_DECLS
 
 void
