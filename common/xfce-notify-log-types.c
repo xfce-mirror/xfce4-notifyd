@@ -48,9 +48,9 @@ void
 xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry) {
     g_return_if_fail(entry != NULL);
 
-    if (g_atomic_ref_count_dec(&entry->ref_count)) {
+    if(g_atomic_ref_count_dec(&entry->ref_count)) {
         g_free(entry->id);
-        if (G_LIKELY(entry->timestamp != NULL)) {
+        if(G_LIKELY(entry->timestamp != NULL)) {
             g_date_time_unref(entry->timestamp);
         }
         g_free(entry->app_id);
@@ -58,7 +58,7 @@ xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry) {
         g_free(entry->icon_id);
         g_free(entry->summary);
         g_free(entry->body);
-        g_list_free_full(entry->actions, (GDestroyNotify)xfce_notify_log_entry_action_free);
+        g_list_free_full(entry->actions, (GDestroyNotify) xfce_notify_log_entry_action_free);
         g_free(entry);
     }
 }

@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <xfconf/xfconf.h>
 
+// clang-format off
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
@@ -58,6 +59,7 @@
 #define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
 #define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
 #define NOTIFY_LOCATION_DEFAULT             XFCE_NOTIFY_POS_TOP_LEFT
+// clang-format on
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be
@@ -67,7 +69,7 @@
 // or screen locker, which many people might consider a security issue.  For
 // that reason, this option will remain hidden (not presented in the GUI),
 // and will be disabled by default.
-#define COMPAT_OVERRIDE_REDIRECT_PROP       "/compat/use-override-redirect-windows"
+#define COMPAT_OVERRIDE_REDIRECT_PROP "/compat/use-override-redirect-windows"
 
 G_BEGIN_DECLS
 
@@ -136,22 +138,28 @@ typedef enum {
 } XfceNotifyCloseReason;
 
 
-gchar *xfce_notify_sanitize_markup(const gchar *markup);
+gchar *
+xfce_notify_sanitize_markup(const gchar *markup);
 
-GtkWidget *xfce_notify_create_placeholder_label(const gchar *markup);
+GtkWidget *
+xfce_notify_create_placeholder_label(const gchar *markup);
 
-gint xfce_notify_enum_value_from_nick(GType enum_type,
-                                      const gchar *nick,
-                                      gint default_value);
-gchar *xfce_notify_enum_nick_from_value(GType enum_type,
-                                        gint value);
-gint xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
-                                         const gchar *property_name,
-                                         gint default_value,
-                                         GType enum_type);
+gint
+xfce_notify_enum_value_from_nick(GType enum_type,
+                                 const gchar *nick,
+                                 gint default_value);
+gchar *
+xfce_notify_enum_nick_from_value(GType enum_type,
+                                 gint value);
+gint
+xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
+                                    const gchar *property_name,
+                                    gint default_value,
+                                    GType enum_type);
 
-void xfce_notify_migrate_settings(XfconfChannel *channel);
+void
+xfce_notify_migrate_settings(XfconfChannel *channel);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_COMMON_H__ */
+#endif /* __XFCE_NOTIFY_COMMON_H__ */

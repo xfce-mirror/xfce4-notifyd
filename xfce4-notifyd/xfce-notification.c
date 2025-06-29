@@ -51,10 +51,10 @@ struct _XfceNotification {
 
     XfceNotificationActions *actions;
 
-    guint32 gauge_value_set:1,
-            icon_only:1,
-            do_fadeout:1,
-            do_slideout:1;
+    guint32 gauge_value_set : 1,
+      icon_only : 1,
+      do_fadeout : 1,
+      do_slideout : 1;
 
     GtkCssProvider *css_provider;
 
@@ -92,68 +92,92 @@ enum {
     N_PROPS,
 };
 
-enum
-{
+enum {
     SIG_CLOSED = 0,
     SIG_ACTION_INVOKED,
 
     N_SIGS,
 };
 
-static void xfce_notification_constructed(GObject *object);
-static void xfce_notification_finalize(GObject *object);
-static void xfce_notification_set_property(GObject *object,
-                                           guint prop_id,
-                                           const GValue *value,
-                                           GParamSpec *pspec);
-static void xfce_notification_get_property(GObject *object,
-                                           guint prop_id,
-                                           GValue *value,
-                                           GParamSpec *pspec);
+static void
+xfce_notification_constructed(GObject *object);
+static void
+xfce_notification_finalize(GObject *object);
+static void
+xfce_notification_set_property(GObject *object,
+                               guint prop_id,
+                               const GValue *value,
+                               GParamSpec *pspec);
+static void
+xfce_notification_get_property(GObject *object,
+                               guint prop_id,
+                               GValue *value,
+                               GParamSpec *pspec);
 
-static void xfce_notification_set_app_name(XfceNotification *notification,
-                                           const gchar *app_name);
-static void xfce_notification_set_summary(XfceNotification *notification,
-                                          const gchar *summary);
-static void xfce_notification_set_body(XfceNotification *notification,
-                                       const gchar *body);
-static void xfce_notification_set_gauge_value(XfceNotification *notification,
-                                              guint gauge_value);
-static void xfce_notification_set_gauge_value_set(XfceNotification *notification,
-                                                  gboolean gauge_value_set);
-static void xfce_notification_set_icon_only(XfceNotification *notification,
-                                            gboolean icon_only);
-static void xfce_notification_set_icon_name(XfceNotification *notification,
-                                            const gchar *icon_name);
-static void xfce_notification_set_icon_pixbuf(XfceNotification *notification,
-                                              GdkPixbuf *icon_pixbuf);
-static void xfce_notification_set_icon_id(XfceNotification *notification,
-                                          const gchar *icon_id);
-static void xfce_notification_set_urgency(XfceNotification *notification,
-                                          XfceNotifyUrgency urgency);
-static void xfce_notification_set_expire_timeout(XfceNotification *notification,
-                                                 guint expire_timeout);
-static void xfce_notification_set_actions(XfceNotification *notification,
-                                          XfceNotificationActions *actions);
-static void xfce_notification_set_log_id(XfceNotification *notification,
-                                         const gchar *log_id);
-static void xfce_notification_set_css_provider(XfceNotification *notification,
-                                               GtkCssProvider *css_provider);
+static void
+xfce_notification_set_app_name(XfceNotification *notification,
+                               const gchar *app_name);
+static void
+xfce_notification_set_summary(XfceNotification *notification,
+                              const gchar *summary);
+static void
+xfce_notification_set_body(XfceNotification *notification,
+                           const gchar *body);
+static void
+xfce_notification_set_gauge_value(XfceNotification *notification,
+                                  guint gauge_value);
+static void
+xfce_notification_set_gauge_value_set(XfceNotification *notification,
+                                      gboolean gauge_value_set);
+static void
+xfce_notification_set_icon_only(XfceNotification *notification,
+                                gboolean icon_only);
+static void
+xfce_notification_set_icon_name(XfceNotification *notification,
+                                const gchar *icon_name);
+static void
+xfce_notification_set_icon_pixbuf(XfceNotification *notification,
+                                  GdkPixbuf *icon_pixbuf);
+static void
+xfce_notification_set_icon_id(XfceNotification *notification,
+                              const gchar *icon_id);
+static void
+xfce_notification_set_urgency(XfceNotification *notification,
+                              XfceNotifyUrgency urgency);
+static void
+xfce_notification_set_expire_timeout(XfceNotification *notification,
+                                     guint expire_timeout);
+static void
+xfce_notification_set_actions(XfceNotification *notification,
+                              XfceNotificationActions *actions);
+static void
+xfce_notification_set_log_id(XfceNotification *notification,
+                             const gchar *log_id);
+static void
+xfce_notification_set_css_provider(XfceNotification *notification,
+                                   GtkCssProvider *css_provider);
 #ifdef ENABLE_SOUND
-static void xfce_notification_set_sound_props(XfceNotification *notification,
-                                              ca_proplist *sound_props);
+static void
+xfce_notification_set_sound_props(XfceNotification *notification,
+                                  ca_proplist *sound_props);
 #endif
 
 
-G_DEFINE_TYPE(XfceNotification, xfce_notification, G_TYPE_OBJECT)
+G_DEFINE_TYPE(XfceNotification,
+              xfce_notification,
+              G_TYPE_OBJECT)
 
 
-guint signals[N_SIGS] = { 0, };
+guint signals[N_SIGS] = {
+    0,
+};
 
 
 static void
 xfce_notification_class_init(XfceNotificationClass *klass) {
-    static GParamSpec *properties[N_PROPS] = { NULL, };
+    static GParamSpec *properties[N_PROPS] = {
+        NULL,
+    };
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
     gobject_class->constructed = xfce_notification_constructed;
@@ -164,7 +188,9 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
     properties[PROP_ID] = g_param_spec_uint("id",
                                             "id",
                                             "Notification ID handle",
-                                            1, G_MAXUINT, 1,
+                                            1,
+                                            G_MAXUINT,
+                                            1,
                                             G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
     properties[PROP_LOG_ID] = g_param_spec_string("log-id",
@@ -194,7 +220,9 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
     properties[PROP_GAUGE_VALUE] = g_param_spec_uint("gauge-value",
                                                      "gauge-value",
                                                      "Percentage value that should be displayed as a gauge instead of text",
-                                                     0, 100, 0,
+                                                     0,
+                                                     100,
+                                                     0,
                                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
     properties[PROP_GAUGE_VALUE_SET] = g_param_spec_boolean("gauge-value-set",
@@ -237,7 +265,9 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
     properties[PROP_EXPIRE_TIMEOUT] = g_param_spec_uint("expire-timeout",
                                                         "expire-timeout",
                                                         "Timeout (in ms) after which the notification disappears",
-                                                        0, G_MAXINT, 10000,
+                                                        0,
+                                                        G_MAXINT,
+                                                        10000,
                                                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
     properties[PROP_ACTIONS] = g_param_spec_pointer("actions",
@@ -276,21 +306,23 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
                                        XFCE_TYPE_NOTIFICATION,
                                        G_SIGNAL_RUN_LAST,
                                        0,
-                                       NULL, NULL,
+                                       NULL,
+                                       NULL,
                                        g_cclosure_marshal_VOID__ENUM,
-                                       G_TYPE_NONE, 1,
+                                       G_TYPE_NONE,
+                                       1,
                                        XFCE_TYPE_NOTIFY_CLOSE_REASON);
 
     signals[SIG_ACTION_INVOKED] = g_signal_new("action-invoked",
                                                XFCE_TYPE_NOTIFICATION,
                                                G_SIGNAL_RUN_LAST,
                                                0,
-                                               NULL, NULL,
+                                               NULL,
+                                               NULL,
                                                g_cclosure_marshal_VOID__STRING,
                                                G_TYPE_NONE,
-                                               1, G_TYPE_STRING);
-
-
+                                               1,
+                                               G_TYPE_STRING);
 }
 
 static void
@@ -312,10 +344,10 @@ xfce_notification_finalize(GObject *object) {
     g_free(notification->icon_id);
     g_free(notification->log_id);
     xfce_notification_actions_free(notification->actions);
-    if (notification->icon_pixbuf != NULL) {
+    if(notification->icon_pixbuf != NULL) {
         g_object_unref(notification->icon_pixbuf);
     }
-    if (notification->css_provider != NULL) {
+    if(notification->css_provider != NULL) {
         g_object_unref(notification->css_provider);
     }
 
@@ -324,7 +356,7 @@ xfce_notification_finalize(GObject *object) {
 #endif
 
     // FIXME: probably not what we want?
-    g_list_free_full(notification->windows, (GDestroyNotify)gtk_widget_destroy);
+    g_list_free_full(notification->windows, (GDestroyNotify) gtk_widget_destroy);
 
     G_OBJECT_CLASS(xfce_notification_parent_class)->finalize(object);
 }
@@ -333,11 +365,10 @@ static void
 xfce_notification_set_property(GObject *object,
                                guint prop_id,
                                const GValue *value,
-                               GParamSpec *pspec)
-{
+                               GParamSpec *pspec) {
     XfceNotification *notification = XFCE_NOTIFICATION(object);
 
-    switch (prop_id) {
+    switch(prop_id) {
         case PROP_ID:
             notification->id = g_value_get_uint(value);
             break;
@@ -422,11 +453,10 @@ static void
 xfce_notification_get_property(GObject *object,
                                guint prop_id,
                                GValue *value,
-                               GParamSpec *pspec)
-{
+                               GParamSpec *pspec) {
     XfceNotification *notification = XFCE_NOTIFICATION(object);
 
-    switch (prop_id) {
+    switch(prop_id) {
         case PROP_ID:
             g_value_set_uint(value, notification->id);
             break;
@@ -508,8 +538,9 @@ xfce_notification_get_property(GObject *object,
 }
 
 static void
-xfce_notification_set_app_name(XfceNotification *notification, const gchar *app_name) {
-    if (g_strcmp0(notification->app_name, app_name) != 0) {
+xfce_notification_set_app_name(XfceNotification *notification,
+                               const gchar *app_name) {
+    if(g_strcmp0(notification->app_name, app_name) != 0) {
         g_free(notification->app_name);
         notification->app_name = g_strdup(app_name);
         g_object_notify(G_OBJECT(notification), "app_name");
@@ -517,8 +548,9 @@ xfce_notification_set_app_name(XfceNotification *notification, const gchar *app_
 }
 
 static void
-xfce_notification_set_summary(XfceNotification *notification, const gchar *summary) {
-    if (g_strcmp0(notification->summary, summary) != 0) {
+xfce_notification_set_summary(XfceNotification *notification,
+                              const gchar *summary) {
+    if(g_strcmp0(notification->summary, summary) != 0) {
         g_free(notification->summary);
         notification->summary = g_strdup(summary);
         g_object_notify(G_OBJECT(notification), "summary");
@@ -526,8 +558,9 @@ xfce_notification_set_summary(XfceNotification *notification, const gchar *summa
 }
 
 static void
-xfce_notification_set_body(XfceNotification *notification, const gchar *body) {
-    if (g_strcmp0(notification->body, body) != 0) {
+xfce_notification_set_body(XfceNotification *notification,
+                           const gchar *body) {
+    if(g_strcmp0(notification->body, body) != 0) {
         g_free(notification->body);
         notification->body = g_strdup(body);
         g_object_notify(G_OBJECT(notification), "body");
@@ -535,33 +568,37 @@ xfce_notification_set_body(XfceNotification *notification, const gchar *body) {
 }
 
 static void
-xfce_notification_set_gauge_value(XfceNotification *notification, guint gauge_value) {
+xfce_notification_set_gauge_value(XfceNotification *notification,
+                                  guint gauge_value) {
     g_return_if_fail(gauge_value <= 100);
-    if (notification->gauge_value != gauge_value) {
+    if(notification->gauge_value != gauge_value) {
         notification->gauge_value = gauge_value;
         g_object_notify(G_OBJECT(notification), "gauge-value");
     }
 }
 
 static void
-xfce_notification_set_gauge_value_set(XfceNotification *notification, gboolean gauge_value_set) {
-    if (notification->gauge_value_set != gauge_value_set) {
+xfce_notification_set_gauge_value_set(XfceNotification *notification,
+                                      gboolean gauge_value_set) {
+    if(notification->gauge_value_set != gauge_value_set) {
         notification->gauge_value_set = gauge_value_set;
         g_object_notify(G_OBJECT(notification), "gauge-value-set");
     }
 }
 
 static void
-xfce_notification_set_icon_only(XfceNotification *notification, gboolean icon_only) {
-    if (notification->icon_only != icon_only) {
+xfce_notification_set_icon_only(XfceNotification *notification,
+                                gboolean icon_only) {
+    if(notification->icon_only != icon_only) {
         notification->icon_only = icon_only;
         g_object_notify(G_OBJECT(notification), "icon-only");
     }
 }
 
 static void
-xfce_notification_set_icon_name(XfceNotification *notification, const gchar *icon_name) {
-    if (g_strcmp0(notification->icon_name, icon_name) != 0) {
+xfce_notification_set_icon_name(XfceNotification *notification,
+                                const gchar *icon_name) {
+    if(g_strcmp0(notification->icon_name, icon_name) != 0) {
         g_free(notification->icon_name);
         notification->icon_name = g_strdup(icon_name);
         g_object_notify(G_OBJECT(notification), "icon-name");
@@ -569,10 +606,11 @@ xfce_notification_set_icon_name(XfceNotification *notification, const gchar *ico
 }
 
 static void
-xfce_notification_set_icon_pixbuf(XfceNotification *notification, GdkPixbuf *icon_pixbuf) {
-    if (notification->icon_pixbuf != icon_pixbuf) {
+xfce_notification_set_icon_pixbuf(XfceNotification *notification,
+                                  GdkPixbuf *icon_pixbuf) {
+    if(notification->icon_pixbuf != icon_pixbuf) {
         g_clear_object(&notification->icon_pixbuf);
-        if (icon_pixbuf != NULL) {
+        if(icon_pixbuf != NULL) {
             notification->icon_pixbuf = g_object_ref(icon_pixbuf);
         }
         g_object_notify(G_OBJECT(notification), "icon-pixbuf");
@@ -580,8 +618,9 @@ xfce_notification_set_icon_pixbuf(XfceNotification *notification, GdkPixbuf *ico
 }
 
 static void
-xfce_notification_set_icon_id(XfceNotification *notification, const gchar *icon_id) {
-    if (g_strcmp0(notification->icon_id, icon_id) != 0) {
+xfce_notification_set_icon_id(XfceNotification *notification,
+                              const gchar *icon_id) {
+    if(g_strcmp0(notification->icon_id, icon_id) != 0) {
         g_free(notification->icon_id);
         notification->icon_id = g_strdup(icon_id);
         g_object_notify(G_OBJECT(notification), "icon-id");
@@ -589,25 +628,28 @@ xfce_notification_set_icon_id(XfceNotification *notification, const gchar *icon_
 }
 
 static void
-xfce_notification_set_urgency(XfceNotification *notification, XfceNotifyUrgency urgency) {
-    if (notification->urgency != urgency) {
+xfce_notification_set_urgency(XfceNotification *notification,
+                              XfceNotifyUrgency urgency) {
+    if(notification->urgency != urgency) {
         notification->urgency = urgency;
         g_object_notify(G_OBJECT(notification), "urgency");
     }
 }
 
 static void
-xfce_notification_set_expire_timeout(XfceNotification *notification, guint expire_timeout) {
-    if (notification->expire_timeout != expire_timeout) {
+xfce_notification_set_expire_timeout(XfceNotification *notification,
+                                     guint expire_timeout) {
+    if(notification->expire_timeout != expire_timeout) {
         notification->expire_timeout = expire_timeout;
         g_object_notify(G_OBJECT(notification), "expire-timeout");
     }
 }
 
 static void
-xfce_notification_set_actions(XfceNotification *notification, XfceNotificationActions *actions) {
+xfce_notification_set_actions(XfceNotification *notification,
+                              XfceNotificationActions *actions) {
     // TODO: deep compare
-    if (notification->actions != actions) {
+    if(notification->actions != actions) {
         xfce_notification_actions_free(notification->actions);
         notification->actions = actions;
         g_object_notify(G_OBJECT(notification), "actions");
@@ -615,9 +657,10 @@ xfce_notification_set_actions(XfceNotification *notification, XfceNotificationAc
 }
 
 static void
-xfce_notification_set_log_id(XfceNotification *notification, const gchar *log_id) {
+xfce_notification_set_log_id(XfceNotification *notification,
+                             const gchar *log_id) {
     g_return_if_fail(log_id == NULL || log_id[0] != '\0');
-    if (g_strcmp0(notification->log_id, log_id) != 0) {
+    if(g_strcmp0(notification->log_id, log_id) != 0) {
         g_free(notification->log_id);
         notification->log_id = g_strdup(log_id);
         g_object_notify(G_OBJECT(notification), "log-id");
@@ -625,9 +668,10 @@ xfce_notification_set_log_id(XfceNotification *notification, const gchar *log_id
 }
 
 static void
-xfce_notification_set_css_provider(XfceNotification *notification, GtkCssProvider *css_provider) {
+xfce_notification_set_css_provider(XfceNotification *notification,
+                                   GtkCssProvider *css_provider) {
     g_return_if_fail(GTK_IS_CSS_PROVIDER(css_provider));
-    if (notification->css_provider != css_provider) {
+    if(notification->css_provider != css_provider) {
         g_clear_object(&notification->css_provider);
         notification->css_provider = g_object_ref(css_provider);
         g_object_notify(G_OBJECT(notification), "css-provider");
@@ -637,11 +681,11 @@ xfce_notification_set_css_provider(XfceNotification *notification, GtkCssProvide
 #ifdef ENABLE_SOUND
 static void
 xfce_notification_play_sound(XfceNotification *notification) {
-    if (notification->sound_props != NULL && notification->windows != NULL) {
+    if(notification->sound_props != NULL && notification->windows != NULL) {
         GtkWidget *window = GTK_WIDGET(notification->windows->data);
         ca_context *ctx;
 
-        if (notification->summary != NULL) {
+        if(notification->summary != NULL) {
             ca_proplist_sets(notification->sound_props, CA_PROP_EVENT_DESCRIPTION, notification->summary);
         }
         ca_gtk_proplist_set_for_widget(notification->sound_props, window);
@@ -655,9 +699,10 @@ xfce_notification_play_sound(XfceNotification *notification) {
 }
 
 static void
-xfce_notification_set_sound_props(XfceNotification *notification, ca_proplist *sound_props) {
-    if (notification->sound_props != sound_props) {
-        if (notification->sound_props != NULL) {
+xfce_notification_set_sound_props(XfceNotification *notification,
+                                  ca_proplist *sound_props) {
+    if(notification->sound_props != sound_props) {
+        if(notification->sound_props != NULL) {
             ca_proplist_destroy(notification->sound_props);
             notification->sound_props = NULL;
         }
@@ -671,21 +716,19 @@ xfce_notification_set_sound_props(XfceNotification *notification, ca_proplist *s
 static void
 xfce_notification_window_action_invoked(XfceNotifyWindow *window,
                                         const gchar *action_id,
-                                        XfceNotification *notification)
-{
+                                        XfceNotification *notification) {
     g_signal_emit(notification, signals[SIG_ACTION_INVOKED], 0, action_id);
 }
 
 static void
 xfce_notification_window_closed(XfceNotifyWindow *window,
                                 XfceNotifyCloseReason reason,
-                                XfceNotification *notification)
-{
-    g_object_ref(notification);  // ensure we don't get destroyed during signal emission
+                                XfceNotification *notification) {
+    g_object_ref(notification); // ensure we don't get destroyed during signal emission
 
     g_signal_emit(notification, signals[SIG_CLOSED], 0, reason);
 
-    g_list_free_full(notification->windows, (GDestroyNotify)gtk_widget_destroy);
+    g_list_free_full(notification->windows, (GDestroyNotify) gtk_widget_destroy);
     notification->windows = NULL;
 
     g_object_unref(notification);
@@ -711,34 +754,50 @@ xfce_notification_new(guint id,
 #ifdef ENABLE_SOUND
                       ca_proplist *sound_props,
 #endif
-                      GtkCssProvider *css_provider)
-{
+                      GtkCssProvider *css_provider) {
     g_return_val_if_fail(id > 0, NULL);
     g_return_val_if_fail(GTK_IS_CSS_PROVIDER(css_provider), NULL);
 
     return g_object_new(XFCE_TYPE_NOTIFICATION,
-                        "id", id,
-                        "log-id", log_id,
-                        "app_name", app_name,
-                        "summary", summary,
-                        "body", body,
-                        "icon-only", icon_only,
-                        "icon-name", icon_name,
-                        "icon-pixbuf", icon_pixbuf,
-                        "icon-id", icon_id,
-                        "gauge-value", gauge_value,
-                        "gauge-value-set", gauge_value_set,
-                        "actions", actions,
-                        "expire-timeout", expire_timeout,
-                        "urgency", urgency,
-                        "do-fadeout", do_fadeout,
-                        "do-slideout", do_slideout,
+                        "id",
+                        id,
+                        "log-id",
+                        log_id,
+                        "app_name",
+                        app_name,
+                        "summary",
+                        summary,
+                        "body",
+                        body,
+                        "icon-only",
+                        icon_only,
+                        "icon-name",
+                        icon_name,
+                        "icon-pixbuf",
+                        icon_pixbuf,
+                        "icon-id",
+                        icon_id,
+                        "gauge-value",
+                        gauge_value,
+                        "gauge-value-set",
+                        gauge_value_set,
+                        "actions",
+                        actions,
+                        "expire-timeout",
+                        expire_timeout,
+                        "urgency",
+                        urgency,
+                        "do-fadeout",
+                        do_fadeout,
+                        "do-slideout",
+                        do_slideout,
 #ifdef ENABLE_SOUND
-                        "sound-props", sound_props,
+                        "sound-props",
+                        sound_props,
 #endif
-                        "css-provider", css_provider,
+                        "css-provider",
+                        css_provider,
                         NULL);
-
 }
 
 void
@@ -755,27 +814,39 @@ xfce_notification_update(XfceNotification *notification,
                          guint expire_timeout,
                          XfceNotifyUrgency urgency
 #ifdef ENABLE_SOUND
-                         , ca_proplist *sound_props
+                         ,
+                         ca_proplist *sound_props
 #endif
-                         )
-{
+) {
     g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
 
     g_object_freeze_notify(G_OBJECT(notification));
     g_object_set(notification,
-                 "summary", summary,
-                 "body", body,
-                 "icon-only", icon_only,
-                 "icon-name", icon_name,
-                 "icon-pixbuf", icon_pixbuf,
-                 "icon-id", icon_id,
-                 "gauge-value", gauge_value,
-                 "gauge-value-set", gauge_value_set,
-                 "actions", actions,
-                 "expire-timeout", expire_timeout,
-                 "urgency", urgency,
+                 "summary",
+                 summary,
+                 "body",
+                 body,
+                 "icon-only",
+                 icon_only,
+                 "icon-name",
+                 icon_name,
+                 "icon-pixbuf",
+                 icon_pixbuf,
+                 "icon-id",
+                 icon_id,
+                 "gauge-value",
+                 gauge_value,
+                 "gauge-value-set",
+                 gauge_value_set,
+                 "actions",
+                 actions,
+                 "expire-timeout",
+                 expire_timeout,
+                 "urgency",
+                 urgency,
 #ifdef ENABLE_SOUND
-                 "sound-props", sound_props,
+                 "sound-props",
+                 sound_props,
 #endif
                  NULL);
     g_object_thaw_notify(G_OBJECT(notification));
@@ -787,8 +858,7 @@ create_notify_window(XfceNotification *notification,
                      gboolean override_redirect,
                      XfceNotifyPosition location,
                      gdouble normal_opacity,
-                     gboolean show_text_with_gauge)
-{
+                     gboolean show_text_with_gauge) {
     static const gchar *bind_properties[] = {
         "summary",
         "body",
@@ -812,16 +882,12 @@ create_notify_window(XfceNotification *notification,
                                                                          normal_opacity,
                                                                          show_text_with_gauge));
 
-    for (gsize i = 0; i < G_N_ELEMENTS(bind_properties); ++i) {
-        g_object_bind_property(notification, bind_properties[i],
-                               window, bind_properties[i],
-                               G_BINDING_SYNC_CREATE);
+    for(gsize i = 0; i < G_N_ELEMENTS(bind_properties); ++i) {
+        g_object_bind_property(notification, bind_properties[i], window, bind_properties[i], G_BINDING_SYNC_CREATE);
     }
 
-    g_signal_connect(window, "action-invoked",
-                     G_CALLBACK(xfce_notification_window_action_invoked), notification);
-    g_signal_connect(window, "closed",
-                     G_CALLBACK(xfce_notification_window_closed), notification);
+    g_signal_connect(window, "action-invoked", G_CALLBACK(xfce_notification_window_action_invoked), notification);
+    g_signal_connect(window, "closed", G_CALLBACK(xfce_notification_window_closed), notification);
 
     return window;
 }
@@ -832,12 +898,11 @@ xfce_notification_create_windows(XfceNotification *notification,
                                  gboolean override_redirect,
                                  XfceNotifyPosition location,
                                  gdouble normal_opacity,
-                                 gboolean show_text_with_gauge)
-{
+                                 gboolean show_text_with_gauge) {
     g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
     g_return_val_if_fail(notification->windows == NULL, NULL);
 
-    if (monitors == NULL) {
+    if(monitors == NULL) {
         // On wayland, NULL monitors means "active monitor".  We'll need to
         // figure out the window's location after the compositor maps it.
         XfceNotifyWindow *window = create_notify_window(notification,
@@ -848,7 +913,7 @@ xfce_notification_create_windows(XfceNotification *notification,
                                                         show_text_with_gauge);
         notification->windows = g_list_prepend(notification->windows, window);
     } else {
-        for (GList *l = monitors; l != NULL; l = l->next) {
+        for(GList *l = monitors; l != NULL; l = l->next) {
             GdkMonitor *monitor = GDK_MONITOR(l->data);
             XfceNotifyWindow *window = create_notify_window(notification,
                                                             monitor,
@@ -871,7 +936,7 @@ xfce_notification_realize(XfceNotification *notification) {
     g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
     g_return_if_fail(notification->windows != NULL);
 
-    for (GList *l = notification->windows; l != NULL; l = l->next) {
+    for(GList *l = notification->windows; l != NULL; l = l->next) {
         gtk_widget_realize(GTK_WIDGET(l->data));
     }
 
@@ -881,18 +946,20 @@ xfce_notification_realize(XfceNotification *notification) {
 }
 
 void
-xfce_notification_set_do_fadeout(XfceNotification *notification, gboolean do_fadeout) {
+xfce_notification_set_do_fadeout(XfceNotification *notification,
+                                 gboolean do_fadeout) {
     g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
-    if (notification->do_fadeout != do_fadeout) {
+    if(notification->do_fadeout != do_fadeout) {
         notification->do_fadeout = do_fadeout;
         g_object_notify(G_OBJECT(notification), "do-fadeout");
     }
 }
 
 void
-xfce_notification_set_do_slideout(XfceNotification *notification, gboolean do_slideout) {
+xfce_notification_set_do_slideout(XfceNotification *notification,
+                                  gboolean do_slideout) {
     g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
-    if (notification->do_slideout != do_slideout) {
+    if(notification->do_slideout != do_slideout) {
         notification->do_slideout = do_slideout;
         g_object_notify(G_OBJECT(notification), "do-slideout");
     }
@@ -947,7 +1014,8 @@ xfce_notification_get_windows(XfceNotification *notification) {
 }
 
 void
-xfce_notification_closed(XfceNotification *notification, XfceNotifyCloseReason reason) {
+xfce_notification_closed(XfceNotification *notification,
+                         XfceNotifyCloseReason reason) {
     g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
     g_signal_emit(notification, signals[SIG_CLOSED], 0, reason);
 }

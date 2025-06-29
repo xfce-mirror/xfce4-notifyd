@@ -20,13 +20,13 @@
 #ifndef __NOTIFICATION_PLUGIN_H__
 #define __NOTIFICATION_PLUGIN_H__
 
-#include <xfconf/xfconf.h>
-#include <libxfce4panel/libxfce4panel.h>
-
 #include <common/xfce-notify-log-gbus.h>
+#include <libxfce4panel/libxfce4panel.h>
+#include <xfconf/xfconf.h>
 
 G_BEGIN_DECLS
 
+// clang-format off
 #define ICON_NAME                 "org.xfce.notification"
 #define XFCE_NOTIFY_ICON_PATH     "xfce4/notifyd/icons/"
 #define SETTING_LOG_DISPLAY_LIMIT "/plugin/log-display-limit"
@@ -45,37 +45,39 @@ G_BEGIN_DECLS
 #define VALUE_MARK_ALL_READ       "mark-all-read"
 #define VALUE_MARK_SHOWN_READ     "mark-shown-read"
 #define VALUE_DO_NOTHING          "do-nothing"
+// clang-format on
 
 /* plugin structure */
 typedef struct
 {
     XfcePanelPlugin *plugin;
-    XfconfChannel   *channel;
+    XfconfChannel *channel;
 
     /* log */
     gint log_proxy_connect_id;
     XfceNotifyLogGBus *log;
 
     /* state */
-    gboolean         new_notifications;
+    gboolean new_notifications;
 
     /* panel widgets */
-    GtkWidget       *button;
-    GtkWidget       *image;
+    GtkWidget *button;
+    GtkWidget *image;
 
     /* menu widgets */
-    GtkWidget       *do_not_disturb_switch;
+    GtkWidget *do_not_disturb_switch;
 
     /* handlers */
-    guint            menu_size_allocate_next_handler;
+    guint menu_size_allocate_next_handler;
 
-    gboolean         hide_on_read;
-    gint             icon_size;
-}
-NotificationPlugin;
+    gboolean hide_on_read;
+    gint icon_size;
+} NotificationPlugin;
 
-GtkWidget *notification_plugin_menu_new(NotificationPlugin *notification_plugin);
-void notification_plugin_update_icon (NotificationPlugin *notification_plugin);
+GtkWidget *
+notification_plugin_menu_new(NotificationPlugin *notification_plugin);
+void
+notification_plugin_update_icon(NotificationPlugin *notification_plugin);
 
 G_END_DECLS
 

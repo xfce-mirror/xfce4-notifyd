@@ -1,0 +1,41 @@
+---
+Language: Cpp
+BasedOnStyle: GNU
+
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: DontAlign
+AlignTrailingComments: false
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackArguments: false
+BinPackParameters: AlwaysOnePerLine
+BreakAfterReturnType: All
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: MultiLine
+  AfterStruct: false
+ColumnLimit: 0
+ContinuationIndentWidth: 2
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '<.*>'
+    Priority: -2
+    CaseSensitive: true
+  - Regex: '".*/.*"'
+    Priority: -1
+    CaseSensitive: true
+  - Regex: '"[^/]*"'
+    Priority: 0
+    SortPriority: 1
+    CaseSensitive: true
+IndentCaseBlocks: true
+IndentCaseLabels: true
+IndentGotoLabels: false
+IndentWidth: 4
+InsertNewlineAtEOF: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 3
+SpaceAfterCStyleCast: true
+SpaceBeforeParens: Never
+...
