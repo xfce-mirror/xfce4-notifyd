@@ -45,10 +45,13 @@ typedef struct _XfceNotifyLogEntry {
     gatomicrefcount ref_count;
 } XfceNotifyLogEntry;
 
-XfceNotifyLogEntry *xfce_notify_log_entry_new_empty(void);
-XfceNotifyLogEntry *xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry);
-void xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry);
+XfceNotifyLogEntry *
+xfce_notify_log_entry_new_empty(void);
+XfceNotifyLogEntry *
+xfce_notify_log_entry_ref(XfceNotifyLogEntry *entry);
+void
+xfce_notify_log_entry_unref(XfceNotifyLogEntry *entry);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_LOG_TYPES_H__ */
+#endif /* __XFCE_NOTIFY_LOG_TYPES_H__ */

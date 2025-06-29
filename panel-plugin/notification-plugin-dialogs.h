@@ -25,11 +25,11 @@
 G_BEGIN_DECLS
 
 void
-notification_plugin_configure    (XfcePanelPlugin *plugin,
-                     NotificationPlugin    *notification_plugin);
+notification_plugin_configure(XfcePanelPlugin *plugin,
+                              NotificationPlugin *notification_plugin);
 
 void
-notification_plugin_about        (XfcePanelPlugin *plugin);
+notification_plugin_about(XfcePanelPlugin *plugin);
 
 G_END_DECLS
 

@@ -38,26 +38,32 @@ enum {
     PROP_LOG,
 };
 
-static void xfce_notify_daemon_log_initable_init(GInitableIface *iface);
+static void
+xfce_notify_daemon_log_initable_init(GInitableIface *iface);
 
-static void xfce_notify_daemon_log_set_property(GObject *object,
-                                                guint prop_id,
-                                                const GValue *value,
-                                                GParamSpec *pspec);
-static void xfce_notify_daemon_log_get_property(GObject *object,
-                                                guint prop_id,
-                                                GValue *value,
-                                                GParamSpec *pspec);
-static void xfce_notify_daemon_log_finalize(GObject *object);
+static void
+xfce_notify_daemon_log_set_property(GObject *object,
+                                    guint prop_id,
+                                    const GValue *value,
+                                    GParamSpec *pspec);
+static void
+xfce_notify_daemon_log_get_property(GObject *object,
+                                    guint prop_id,
+                                    GValue *value,
+                                    GParamSpec *pspec);
+static void
+xfce_notify_daemon_log_finalize(GObject *object);
 
-static gboolean xfce_notify_daemon_log_real_init(GInitable *initable,
-                                                 GCancellable *cancellable,
-                                                 GError **error);
+static gboolean
+xfce_notify_daemon_log_real_init(GInitable *initable,
+                                 GCancellable *cancellable,
+                                 GError **error);
 
 G_DEFINE_TYPE_WITH_CODE(XfceNotifyDaemonLog,
                         xfce_notify_daemon_log,
                         XFCE_TYPE_NOTIFY_LOG_GBUS_SKELETON,
-                        G_IMPLEMENT_INTERFACE(G_TYPE_INITABLE, xfce_notify_daemon_log_initable_init))
+                        G_IMPLEMENT_INTERFACE(G_TYPE_INITABLE,
+                                              xfce_notify_daemon_log_initable_init))
 
 static void
 xfce_notify_daemon_log_class_init(XfceNotifyDaemonLogClass *klass) {
@@ -93,10 +99,13 @@ static void
 xfce_notify_daemon_log_init(XfceNotifyDaemonLog *xndlog) {}
 
 static void
-xfce_notify_daemon_log_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec) {
+xfce_notify_daemon_log_set_property(GObject *object,
+                                    guint prop_id,
+                                    const GValue *value,
+                                    GParamSpec *pspec) {
     XfceNotifyDaemonLog *xndlog = XFCE_NOTIFY_DAEMON_LOG(object);
 
-    switch (prop_id) {
+    switch(prop_id) {
         case PROP_BUS_CONNECTION:
             xndlog->bus = g_value_dup_object(value);
             break;
@@ -112,10 +121,13 @@ xfce_notify_daemon_log_set_property(GObject *object, guint prop_id, const GValue
 }
 
 static void
-xfce_notify_daemon_log_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
+xfce_notify_daemon_log_get_property(GObject *object,
+                                    guint prop_id,
+                                    GValue *value,
+                                    GParamSpec *pspec) {
     XfceNotifyDaemonLog *xndlog = XFCE_NOTIFY_DAEMON_LOG(object);
 
-    switch (prop_id) {
+    switch(prop_id) {
         case PROP_BUS_CONNECTION:
             g_value_set_object(value, xndlog->bus);
             break;
@@ -134,12 +146,12 @@ static void
 xfce_notify_daemon_log_finalize(GObject *object) {
     XfceNotifyDaemonLog *xndlog = XFCE_NOTIFY_DAEMON_LOG(object);
 
-    if (g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndlog), xndlog->bus)) {
+    if(g_dbus_interface_skeleton_has_connection(G_DBUS_INTERFACE_SKELETON(xndlog), xndlog->bus)) {
         g_dbus_interface_skeleton_unexport(G_DBUS_INTERFACE_SKELETON(xndlog));
     }
     g_object_unref(xndlog->bus);
 
-    if (xndlog->log != NULL) {
+    if(xndlog->log != NULL) {
         g_signal_handlers_disconnect_by_data(xndlog->log, xndlog);
         g_object_unref(xndlog->log);
     }
@@ -148,7 +160,8 @@ xfce_notify_daemon_log_finalize(GObject *object) {
 }
 
 static void
-variant_build_log_entry(GVariantBuilder *builder, XfceNotifyLogEntry *entry) {
+variant_build_log_entry(GVariantBuilder *builder,
+                        XfceNotifyLogEntry *entry) {
 #define SAFES(str) ((str) != NULL ? (str) : "")
     g_variant_builder_add(builder, "s", SAFES(entry->id));
     g_variant_builder_add(builder, "x", g_date_time_to_unix(entry->timestamp) * 1000000 + g_date_time_get_microsecond(entry->timestamp));
@@ -159,7 +172,7 @@ variant_build_log_entry(GVariantBuilder *builder, XfceNotifyLogEntry *entry) {
     g_variant_builder_add(builder, "s", SAFES(entry->summary));
     g_variant_builder_add(builder, "s", SAFES(entry->body));
     g_variant_builder_open(builder, G_VARIANT_TYPE("a(ss)"));
-    for (GList *l = entry->actions; l != NULL; l = l->next) {
+    for(GList *l = entry->actions; l != NULL; l = l->next) {
         XfceNotifyLogEntryAction *action = l->data;
         g_variant_builder_open(builder, G_VARIANT_TYPE("(ss)"));
         g_variant_builder_add(builder, "s", SAFES(action->id));
@@ -174,13 +187,15 @@ variant_build_log_entry(GVariantBuilder *builder, XfceNotifyLogEntry *entry) {
 
 
 static gboolean
-notify_log_get(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation, const gchar *arg_id) {
-    if (xndlog->log == NULL) {
+notify_log_get(XfceNotifyDaemonLog *xndlog,
+               GDBusMethodInvocation *invocation,
+               const gchar *arg_id) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         XfceNotifyLogEntry *entry = xfce_notify_log_get(xndlog->log, arg_id);
 
-        if (entry == NULL) {
+        if(entry == NULL) {
             g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_NOT_FOUND, _("Log entry not found"));
         } else {
             GVariantBuilder builder;
@@ -204,9 +219,8 @@ notify_log_list(XfceNotifyDaemonLog *xndlog,
                 GDBusMethodInvocation *invocation,
                 const gchar *arg_start_after_id,
                 guint arg_count,
-                gboolean arg_only_unread)
-{
-    if (xndlog->log == NULL) {
+                gboolean arg_only_unread) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         GList *entries;
@@ -214,14 +228,14 @@ notify_log_list(XfceNotifyDaemonLog *xndlog,
         GVariant *ret;
         const gchar *start_after_id = arg_start_after_id != NULL && arg_start_after_id[0] != '\0' ? arg_start_after_id : NULL;
 
-        if (arg_only_unread) {
+        if(arg_only_unread) {
             entries = xfce_notify_log_read_unread(xndlog->log, start_after_id, arg_count);
         } else {
             entries = xfce_notify_log_read(xndlog->log, start_after_id, arg_count);
         }
 
         g_variant_builder_init(&builder, G_VARIANT_TYPE("a(sxssssssa(ss)ib)"));
-        for (GList *l = entries; l != NULL; l = l->next) {
+        for(GList *l = entries; l != NULL; l = l->next) {
             XfceNotifyLogEntry *entry = l->data;
             g_variant_builder_open(&builder, G_VARIANT_TYPE("(sxssssssa(ss)ib)"));
             variant_build_log_entry(&builder, entry);
@@ -232,15 +246,16 @@ notify_log_list(XfceNotifyDaemonLog *xndlog,
         xfce_notify_log_gbus_complete_list(XFCE_NOTIFY_LOG_GBUS(xndlog), invocation, ret);
 
         g_variant_builder_clear(&builder);
-        g_list_free_full(entries, (GDestroyNotify)xfce_notify_log_entry_unref);
+        g_list_free_full(entries, (GDestroyNotify) xfce_notify_log_entry_unref);
     }
 
     return G_DBUS_METHOD_INVOCATION_HANDLED;
 }
 
 static gboolean
-notify_log_has_unread(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation) {
-    if (xndlog->log == NULL) {
+notify_log_has_unread(XfceNotifyDaemonLog *xndlog,
+                      GDBusMethodInvocation *invocation) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         xfce_notify_log_gbus_complete_has_unread(XFCE_NOTIFY_LOG_GBUS(xndlog),
@@ -252,8 +267,9 @@ notify_log_has_unread(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invoca
 }
 
 static gboolean
-notify_log_get_app_id_counts(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation) {
-    if (xndlog->log == NULL) {
+notify_log_get_app_id_counts(XfceNotifyDaemonLog *xndlog,
+                             GDBusMethodInvocation *invocation) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         GHashTable *counts = xfce_notify_log_get_app_id_counts(xndlog->log);
@@ -265,7 +281,7 @@ notify_log_get_app_id_counts(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation 
         g_variant_builder_init(&builder, G_VARIANT_TYPE("a{su}"));
 
         g_hash_table_iter_init(&iter, counts);
-        while (g_hash_table_iter_next(&iter, &key, &value)) {
+        while(g_hash_table_iter_next(&iter, &key, &value)) {
             const gchar *app_id = key;
             guint count = GPOINTER_TO_UINT(value);
 
@@ -286,11 +302,13 @@ notify_log_get_app_id_counts(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation 
 }
 
 static gboolean
-notify_log_mark_read(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation, const gchar *const *arg_ids) {
-    if (xndlog->log == NULL) {
+notify_log_mark_read(XfceNotifyDaemonLog *xndlog,
+                     GDBusMethodInvocation *invocation,
+                     const gchar *const *arg_ids) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
-        for (guint i = 0; arg_ids[i] != NULL; ++i) {
+        for(guint i = 0; arg_ids[i] != NULL; ++i) {
             xfce_notify_log_mark_read(xndlog->log, arg_ids[i]);
         }
         xfce_notify_log_gbus_complete_mark_read(XFCE_NOTIFY_LOG_GBUS(xndlog), invocation);
@@ -300,8 +318,9 @@ notify_log_mark_read(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocat
 }
 
 static gboolean
-notify_log_mark_all_read(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation) {
-    if (xndlog->log == NULL) {
+notify_log_mark_all_read(XfceNotifyDaemonLog *xndlog,
+                         GDBusMethodInvocation *invocation) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         xfce_notify_log_mark_all_read(xndlog->log);
@@ -312,11 +331,13 @@ notify_log_mark_all_read(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *inv
 }
 
 static gboolean
-notify_log_delete(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation, const gchar *const *arg_ids) {
-    if (xndlog->log == NULL) {
+notify_log_delete(XfceNotifyDaemonLog *xndlog,
+                  GDBusMethodInvocation *invocation,
+                  const gchar *const *arg_ids) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
-        for (guint i = 0; arg_ids[i] != NULL; ++i) {
+        for(guint i = 0; arg_ids[i] != NULL; ++i) {
             xfce_notify_log_delete(xndlog->log, arg_ids[i]);
         }
         xfce_notify_log_gbus_complete_delete(XFCE_NOTIFY_LOG_GBUS(xndlog), invocation);
@@ -326,8 +347,10 @@ notify_log_delete(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation
 }
 
 static gboolean
-notify_log_truncate(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation, guint arg_entries_to_keep) {
-    if (xndlog->log == NULL) {
+notify_log_truncate(XfceNotifyDaemonLog *xndlog,
+                    GDBusMethodInvocation *invocation,
+                    guint arg_entries_to_keep) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         xfce_notify_log_truncate(xndlog->log, arg_entries_to_keep);
@@ -338,8 +361,9 @@ notify_log_truncate(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocati
 }
 
 static gboolean
-notify_log_clear(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation) {
-    if (xndlog->log == NULL) {
+notify_log_clear(XfceNotifyDaemonLog *xndlog,
+                 GDBusMethodInvocation *invocation) {
+    if(xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {
         xfce_notify_log_clear(xndlog->log);
@@ -350,32 +374,43 @@ notify_log_clear(XfceNotifyDaemonLog *xndlog, GDBusMethodInvocation *invocation)
 }
 
 static void
-log_row_added(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemonLog *xndlog) {
+log_row_added(XfceNotifyLog *log,
+              const gchar *entry_id,
+              XfceNotifyDaemonLog *xndlog) {
     xfce_notify_log_gbus_emit_row_added(XFCE_NOTIFY_LOG_GBUS(xndlog), entry_id);
 }
 
 static void
-log_row_changed(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemonLog *xndlog) {
+log_row_changed(XfceNotifyLog *log,
+                const gchar *entry_id,
+                XfceNotifyDaemonLog *xndlog) {
     xfce_notify_log_gbus_emit_row_changed(XFCE_NOTIFY_LOG_GBUS(xndlog), entry_id != NULL ? entry_id : "");
 }
 
 static void
-log_row_deleted(XfceNotifyLog *log, const gchar *entry_id, XfceNotifyDaemonLog *xndlog) {
+log_row_deleted(XfceNotifyLog *log,
+                const gchar *entry_id,
+                XfceNotifyDaemonLog *xndlog) {
     xfce_notify_log_gbus_emit_row_deleted(XFCE_NOTIFY_LOG_GBUS(xndlog), entry_id);
 }
 
 static void
-log_truncated(XfceNotifyLog *log, guint n_kept_entries, XfceNotifyDaemonLog *xndlog) {
+log_truncated(XfceNotifyLog *log,
+              guint n_kept_entries,
+              XfceNotifyDaemonLog *xndlog) {
     xfce_notify_log_gbus_emit_truncated(XFCE_NOTIFY_LOG_GBUS(xndlog), n_kept_entries);
 }
 
 static void
-log_cleared(XfceNotifyLog *log, XfceNotifyDaemonLog *xndlog) {
+log_cleared(XfceNotifyLog *log,
+            XfceNotifyDaemonLog *xndlog) {
     xfce_notify_log_gbus_emit_cleared(XFCE_NOTIFY_LOG_GBUS(xndlog));
 }
 
 static gboolean
-xfce_notify_daemon_log_real_init(GInitable *initable, GCancellable *cancellable, GError **error) {
+xfce_notify_daemon_log_real_init(GInitable *initable,
+                                 GCancellable *cancellable,
+                                 GError **error) {
     XfceNotifyDaemonLog *xndlog = XFCE_NOTIFY_DAEMON_LOG(initable);
     gboolean exported;
 
@@ -383,36 +418,22 @@ xfce_notify_daemon_log_real_init(GInitable *initable, GCancellable *cancellable,
                                                 xndlog->bus,
                                                 "/org/xfce/Notifyd",
                                                 error);
-    if (exported) {
-        g_signal_connect(xndlog, "handle-get",
-                         G_CALLBACK(notify_log_get), NULL);
-        g_signal_connect(xndlog, "handle-list",
-                         G_CALLBACK(notify_log_list), NULL);
-        g_signal_connect(xndlog, "handle-has-unread",
-                         G_CALLBACK(notify_log_has_unread), NULL);
-        g_signal_connect(xndlog, "handle-get-app-id-counts",
-                         G_CALLBACK(notify_log_get_app_id_counts), NULL);
-        g_signal_connect(xndlog, "handle-mark-read",
-                         G_CALLBACK(notify_log_mark_read), NULL);
-        g_signal_connect(xndlog, "handle-mark-all-read",
-                         G_CALLBACK(notify_log_mark_all_read), NULL);
-        g_signal_connect(xndlog, "handle-delete",
-                         G_CALLBACK(notify_log_delete), NULL);
-        g_signal_connect(xndlog, "handle-truncate",
-                         G_CALLBACK(notify_log_truncate), NULL);
-        g_signal_connect(xndlog, "handle-clear",
-                         G_CALLBACK(notify_log_clear), NULL);
+    if(exported) {
+        g_signal_connect(xndlog, "handle-get", G_CALLBACK(notify_log_get), NULL);
+        g_signal_connect(xndlog, "handle-list", G_CALLBACK(notify_log_list), NULL);
+        g_signal_connect(xndlog, "handle-has-unread", G_CALLBACK(notify_log_has_unread), NULL);
+        g_signal_connect(xndlog, "handle-get-app-id-counts", G_CALLBACK(notify_log_get_app_id_counts), NULL);
+        g_signal_connect(xndlog, "handle-mark-read", G_CALLBACK(notify_log_mark_read), NULL);
+        g_signal_connect(xndlog, "handle-mark-all-read", G_CALLBACK(notify_log_mark_all_read), NULL);
+        g_signal_connect(xndlog, "handle-delete", G_CALLBACK(notify_log_delete), NULL);
+        g_signal_connect(xndlog, "handle-truncate", G_CALLBACK(notify_log_truncate), NULL);
+        g_signal_connect(xndlog, "handle-clear", G_CALLBACK(notify_log_clear), NULL);
 
-        g_signal_connect(xndlog->log, "row-added",
-                         G_CALLBACK(log_row_added), xndlog);
-        g_signal_connect(xndlog->log, "row-changed",
-                         G_CALLBACK(log_row_changed), xndlog);
-        g_signal_connect(xndlog->log, "row-deleted",
-                         G_CALLBACK(log_row_deleted), xndlog);
-        g_signal_connect(xndlog->log, "truncated",
-                         G_CALLBACK(log_truncated), xndlog);
-        g_signal_connect(xndlog->log, "cleared",
-                         G_CALLBACK(log_cleared), xndlog);
+        g_signal_connect(xndlog->log, "row-added", G_CALLBACK(log_row_added), xndlog);
+        g_signal_connect(xndlog->log, "row-changed", G_CALLBACK(log_row_changed), xndlog);
+        g_signal_connect(xndlog->log, "row-deleted", G_CALLBACK(log_row_deleted), xndlog);
+        g_signal_connect(xndlog->log, "truncated", G_CALLBACK(log_truncated), xndlog);
+        g_signal_connect(xndlog->log, "cleared", G_CALLBACK(log_cleared), xndlog);
 
         return TRUE;
     } else {
@@ -421,13 +442,12 @@ xfce_notify_daemon_log_real_init(GInitable *initable, GCancellable *cancellable,
 }
 
 XfceNotifyDaemonLog *
-xfce_notify_daemon_log_new(GDBusConnection *bus, XfceNotifyLog *log, GError **error) {
+xfce_notify_daemon_log_new(GDBusConnection *bus,
+                           XfceNotifyLog *log,
+                           GError **error) {
     g_return_val_if_fail(G_IS_DBUS_CONNECTION(bus), NULL);
     g_return_val_if_fail(log == NULL || XFCE_IS_NOTIFY_LOG(log), NULL);
     g_return_val_if_fail(error == NULL || *error == NULL, NULL);
 
-    return g_initable_new(XFCE_TYPE_NOTIFY_DAEMON_LOG, NULL, error,
-                          "bus-connection", bus,
-                          "log", log,
-                          NULL);
+    return g_initable_new(XFCE_TYPE_NOTIFY_DAEMON_LOG, NULL, error, "bus-connection", bus, "log", log, NULL);
 }

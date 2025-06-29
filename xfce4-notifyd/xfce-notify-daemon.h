@@ -22,18 +22,20 @@
 
 #include <glib-object.h>
 
-#define XFCE_TYPE_NOTIFY_DAEMON     (xfce_notify_daemon_get_type())
-#define XFCE_NOTIFY_DAEMON(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_DAEMON, XfceNotifyDaemon))
-#define XFCE_IS_NOTIFY_DAEMON(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_DAEMON))
+#define XFCE_TYPE_NOTIFY_DAEMON (xfce_notify_daemon_get_type())
+#define XFCE_NOTIFY_DAEMON(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_DAEMON, XfceNotifyDaemon))
+#define XFCE_IS_NOTIFY_DAEMON(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_DAEMON))
 
 G_BEGIN_DECLS
 
-typedef struct _XfceNotifyDaemon  XfceNotifyDaemon;
+typedef struct _XfceNotifyDaemon XfceNotifyDaemon;
 
-GType xfce_notify_daemon_get_type(void) G_GNUC_CONST;
+GType
+xfce_notify_daemon_get_type(void) G_GNUC_CONST;
 
-XfceNotifyDaemon *xfce_notify_daemon_new_unique(GError **error);
+XfceNotifyDaemon *
+xfce_notify_daemon_new_unique(GError **error);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_DAEMON_H__ */
+#endif /* __XFCE_NOTIFY_DAEMON_H__ */

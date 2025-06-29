@@ -20,10 +20,9 @@
 #ifndef __NOTIFICATION_PLUGIN_H__
 #define __NOTIFICATION_PLUGIN_H__
 
-#include <xfconf/xfconf.h>
-#include <libxfce4panel/libxfce4panel.h>
-
 #include <common/xfce-notify-log-gbus.h>
+#include <libxfce4panel/libxfce4panel.h>
+#include <xfconf/xfconf.h>
 
 G_BEGIN_DECLS
 
@@ -52,32 +51,33 @@ G_BEGIN_DECLS
 typedef struct
 {
     XfcePanelPlugin *plugin;
-    XfconfChannel   *channel;
+    XfconfChannel *channel;
 
     /* log */
     gint log_proxy_connect_id;
     XfceNotifyLogGBus *log;
 
     /* state */
-    gboolean         new_notifications;
+    gboolean new_notifications;
 
     /* panel widgets */
-    GtkWidget       *button;
-    GtkWidget       *image;
+    GtkWidget *button;
+    GtkWidget *image;
 
     /* menu widgets */
-    GtkWidget       *do_not_disturb_switch;
+    GtkWidget *do_not_disturb_switch;
 
     /* handlers */
-    guint            menu_size_allocate_next_handler;
+    guint menu_size_allocate_next_handler;
 
-    gboolean         hide_on_read;
-    gint             icon_size;
-}
-NotificationPlugin;
+    gboolean hide_on_read;
+    gint icon_size;
+} NotificationPlugin;
 
-GtkWidget *notification_plugin_menu_new(NotificationPlugin *notification_plugin);
-void notification_plugin_update_icon (NotificationPlugin *notification_plugin);
+GtkWidget *
+notification_plugin_menu_new(NotificationPlugin *notification_plugin);
+void
+notification_plugin_update_icon(NotificationPlugin *notification_plugin);
 
 G_END_DECLS
 

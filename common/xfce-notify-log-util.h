@@ -31,44 +31,58 @@
 
 G_BEGIN_DECLS
 
-GdkPixbuf *notify_pixbuf_from_image_data (GVariant *image_data);
+GdkPixbuf *
+notify_pixbuf_from_image_data(GVariant *image_data);
 
-const gchar *xfce_notify_log_get_icon_folder(void);
-gchar *xfce_notify_log_cache_icon(GVariant *v_image_data,
-                                  const gchar *image_path,
-                                  const gchar *app_icon,
-                                  const gchar *desktop_id);
+const gchar *
+xfce_notify_log_get_icon_folder(void);
+gchar *
+xfce_notify_log_cache_icon(GVariant *v_image_data,
+                           const gchar *image_path,
+                           const gchar *app_icon,
+                           const gchar *desktop_id);
 
-gchar *notify_get_from_desktop_file (const gchar *desktop_file,
-                                     const gchar *key);
+gchar *
+notify_get_from_desktop_file(const gchar *desktop_file,
+                             const gchar *key);
 
-GtkWidget *xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log,
-                                        GtkWindow *parent);
+GtkWidget *
+xfce_notify_clear_log_dialog(XfceNotifyLogGBus *log,
+                             GtkWindow *parent);
 
-cairo_surface_t *notify_log_load_icon(const gchar *notify_log_icon_folder,
-                                      const gchar *icon_id,
-                                      const gchar *app_id,
-                                      gint size,
-                                      gint scale);
-void notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
-                                       GtkStyleContext *style_context,
-                                       gint size,
-                                       gint scale_factor,
-                                       gdouble alpha);
+cairo_surface_t *
+notify_log_load_icon(const gchar *notify_log_icon_folder,
+                     const gchar *icon_id,
+                     const gchar *app_id,
+                     gint size,
+                     gint scale);
+void
+notify_log_icon_add_unread_emblem(cairo_surface_t *surface,
+                                  GtkStyleContext *style_context,
+                                  gint size,
+                                  gint scale_factor,
+                                  gdouble alpha);
 
-gchar *notify_log_format_timestamp(GDateTime *timestamp,
-                                   XfceNotifyDatetimeFormat format,
-                                   const gchar *custom_format);
-gchar *notify_log_format_summary(const gchar *summary);
-gchar *notify_log_format_body(const gchar *body);
-gchar *notify_log_format_tooltip(const gchar *app_name,
-                                 const gchar *timestamp,
-                                 const gchar *body_text);
+gchar *
+notify_log_format_timestamp(GDateTime *timestamp,
+                            XfceNotifyDatetimeFormat format,
+                            const gchar *custom_format);
+gchar *
+notify_log_format_summary(const gchar *summary);
+gchar *
+notify_log_format_body(const gchar *body);
+gchar *
+notify_log_format_tooltip(const gchar *app_name,
+                          const gchar *timestamp,
+                          const gchar *body_text);
 
-GFile *notify_log_get_file(void);
+GFile *
+notify_log_get_file(void);
 
-GList *notify_log_variant_to_entries(GVariant *variant);
-XfceNotifyLogEntry *notify_log_variant_to_entry(GVariant *variant);
+GList *
+notify_log_variant_to_entries(GVariant *variant);
+XfceNotifyLogEntry *
+notify_log_variant_to_entry(GVariant *variant);
 
 G_END_DECLS
 

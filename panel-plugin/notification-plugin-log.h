@@ -21,8 +21,10 @@
 #define __NOTIFICATION_PLUGIN_LOG_H_
 
 #include <gtk/gtk.h>
+
 #include "notification-plugin.h"
 
-void notification_plugin_menu_populate (NotificationPlugin *notification_plugin);
+void
+notification_plugin_menu_populate(NotificationPlugin *notification_plugin);
 
 #endif /* __NOTIFICATION_PLUGIN_LOG_H_ */

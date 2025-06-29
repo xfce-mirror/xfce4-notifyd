@@ -26,8 +26,8 @@
 
 void
 xfce_notification_actions_free(XfceNotificationActions *actions) {
-    if (actions != NULL) {
-        for (guint i = 0; i < actions->n_actions; ++i) {
+    if(actions != NULL) {
+        for(guint i = 0; i < actions->n_actions; ++i) {
             g_free(actions->actions[i].id);
             g_free(actions->actions[i].label);
         }

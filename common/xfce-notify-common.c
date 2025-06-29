@@ -35,32 +35,29 @@ markup_start_elem(GMarkupParseContext *context,
                   const gchar **attribute_names,
                   const gchar **attribute_values,
                   gpointer user_data,
-                  GError **error)
-{
+                  GError **error) {
     MarkupState *state = user_data;
 
-    if (strcmp(element_name, "b") == 0 ||
-        strcmp(element_name, "i") == 0 ||
-        strcmp(element_name, "u") == 0)
+    if(strcmp(element_name, "b") == 0 || strcmp(element_name, "i") == 0 || strcmp(element_name, "u") == 0)
     {
         g_string_append_c(state->sanitized, '<');
         g_string_append(state->sanitized, element_name);
         g_string_append_c(state->sanitized, '>');
-    } else if (strcmp(element_name, "a") == 0) {
+    } else if(strcmp(element_name, "a") == 0) {
         // XXX: this method of tracking that the <a> tag has a href= attr
         // doesn't work if the client nests another <a> inside this one.
         state->a_has_href = FALSE;
-        for (gint i = 0; attribute_names[i] != NULL; ++i) {
-            if (strcmp(attribute_names[i], "href") == 0) {
+        for(gint i = 0; attribute_names[i] != NULL; ++i) {
+            if(strcmp(attribute_names[i], "href") == 0) {
                 g_string_append_printf(state->sanitized, "<a href=\"%s\">", attribute_values[i]);
                 state->a_has_href = TRUE;
                 break;
             }
         }
-    } else if (strcmp(element_name, "img") == 0) {
+    } else if(strcmp(element_name, "img") == 0) {
         // We don't support <img>, but if there's an alt= attr, use it.
-        for (gint i = 0; attribute_names[i] != NULL; ++i) {
-            if (strcmp(attribute_names[i], "alt") == 0) {
+        for(gint i = 0; attribute_names[i] != NULL; ++i) {
+            if(strcmp(attribute_names[i], "alt") == 0) {
                 g_string_append_printf(state->sanitized, " [%s] ", attribute_values[i]);
             }
         }
@@ -71,14 +68,10 @@ static void
 markup_end_elem(GMarkupParseContext *context,
                 const gchar *element_name,
                 gpointer user_data,
-                GError **error)
-{
+                GError **error) {
     MarkupState *state = user_data;
 
-    if (strcmp(element_name, "b") == 0 ||
-        strcmp(element_name, "i") == 0 ||
-        strcmp(element_name, "u") == 0 ||
-        (strcmp(element_name, "a") == 0 && state->a_has_href))
+    if(strcmp(element_name, "b") == 0 || strcmp(element_name, "i") == 0 || strcmp(element_name, "u") == 0 || (strcmp(element_name, "a") == 0 && state->a_has_href))
     {
         g_string_append(state->sanitized, "</");
         g_string_append(state->sanitized, element_name);
@@ -91,8 +84,7 @@ markup_text(GMarkupParseContext *context,
             const gchar *text,
             gsize text_len,
             gpointer user_data,
-            GError **error)
-{
+            GError **error) {
     MarkupState *state = user_data;
     gchar *escaped = g_markup_escape_text(text, text_len);
     g_string_append(state->sanitized, escaped);
@@ -102,7 +94,7 @@ markup_text(GMarkupParseContext *context,
 // We can't use pango_parse_markup(), as that does not support hyperlinks.
 gchar *
 xfce_notify_sanitize_markup(const gchar *markup) {
-    if (G_LIKELY(markup != NULL)) {
+    if(G_LIKELY(markup != NULL)) {
         const GMarkupParser parser = {
             .start_element = markup_start_elem,
             .end_element = markup_end_elem,
@@ -116,8 +108,8 @@ xfce_notify_sanitize_markup(const gchar *markup) {
         gboolean needs_root;
         gboolean valid;
 
-        p = (gchar *)markup;
-        while (*p != '\0' && (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')) {
+        p = (gchar *) markup;
+        while(*p != '\0' && (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')) {
             ++p;
         }
         needs_root = strncmp(p, "<markup>", 8) != 0;
@@ -126,13 +118,13 @@ xfce_notify_sanitize_markup(const gchar *markup) {
         ctx = g_markup_parse_context_new(&parser, 0, &state, NULL);
 
         valid = (!needs_root || g_markup_parse_context_parse(ctx, "<markup>", -1, NULL))
-            && g_markup_parse_context_parse(ctx, markup, -1, NULL)
-            && (!needs_root || g_markup_parse_context_parse(ctx, "</markup>", -1, NULL))
-            && g_markup_parse_context_end_parse(ctx, NULL);
+                && g_markup_parse_context_parse(ctx, markup, -1, NULL)
+                && (!needs_root || g_markup_parse_context_parse(ctx, "</markup>", -1, NULL))
+                && g_markup_parse_context_end_parse(ctx, NULL);
 
         g_markup_parse_context_free(ctx);
 
-        if (valid) {
+        if(valid) {
             return g_string_free(state.sanitized, FALSE);
         } else {
             g_string_free(state.sanitized, TRUE);
@@ -157,14 +149,16 @@ xfce_notify_create_placeholder_label(const gchar *markup) {
 }
 
 gint
-xfce_notify_enum_value_from_nick(GType enum_type, const gchar *nick, gint default_value) {
+xfce_notify_enum_value_from_nick(GType enum_type,
+                                 const gchar *nick,
+                                 gint default_value) {
     gint value = default_value;
 
-    if (nick != NULL) {
+    if(nick != NULL) {
         GEnumClass *klass = g_type_class_ref(enum_type);
         GEnumValue *enum_value = g_enum_get_value_by_nick(klass, nick);
 
-        if (enum_value != NULL) {
+        if(enum_value != NULL) {
             value = enum_value->value;
         }
 
@@ -175,12 +169,13 @@ xfce_notify_enum_value_from_nick(GType enum_type, const gchar *nick, gint defaul
 }
 
 gchar *
-xfce_notify_enum_nick_from_value(GType enum_type, gint value) {
+xfce_notify_enum_nick_from_value(GType enum_type,
+                                 gint value) {
     gchar *nick = NULL;
     GEnumClass *klass = g_type_class_ref(enum_type);
     GEnumValue *enum_value = g_enum_get_value(klass, value);
 
-    if (enum_value != NULL) {
+    if(enum_value != NULL) {
         nick = g_strdup(enum_value->value_nick);
     }
 
@@ -193,10 +188,9 @@ gint
 xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
                                     const gchar *property_name,
                                     gint default_value,
-                                    GType enum_type)
-{
+                                    GType enum_type) {
     const gchar *nick = xfconf_channel_get_string(channel, property_name, NULL);
-    if (nick == NULL) {
+    if(nick == NULL) {
         return default_value;
     } else {
         return xfce_notify_enum_value_from_nick(enum_type, nick, default_value);
@@ -206,10 +200,10 @@ xfce_notify_xfconf_channel_get_enum(XfconfChannel *channel,
 
 static void
 xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
-    if (!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
+    if(!xfconf_channel_has_property(channel, LOG_MAX_SIZE_ENABLED_PROP)) {
         guint value = xfconf_channel_get_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
         xfconf_channel_set_bool(channel, LOG_MAX_SIZE_ENABLED_PROP, value > 0);
-        if (value == 0) {
+        if(value == 0) {
             xfconf_channel_set_uint(channel, LOG_MAX_SIZE_PROP, LOG_MAX_SIZE_DEFAULT);
         }
     }
@@ -217,13 +211,13 @@ xfce_notify_migrate_log_max_size_setting(XfconfChannel *channel) {
 
 static void
 xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
-    if (xfconf_channel_has_property(channel, "/primary-monitor")) {
+    if(xfconf_channel_has_property(channel, "/primary-monitor")) {
         guint value = xfconf_channel_get_uint(channel, "/primary-monitor", 0);
         gchar *new_value = xfce_notify_enum_nick_from_value(XFCE_TYPE_NOTIFY_SHOW_ON,
                                                             value == 1
-                                                            ? XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR
-                                                            : SHOW_NOTIFICATIONS_ON_DEFAULT);
-        if (G_LIKELY(new_value != NULL)) {
+                                                              ? XFCE_NOTIFY_SHOW_ON_PRIMARY_MONITOR
+                                                              : SHOW_NOTIFICATIONS_ON_DEFAULT);
+        if(G_LIKELY(new_value != NULL)) {
             xfconf_channel_set_string(channel, SHOW_NOTIFICATIONS_ON_PROP, new_value);
             xfconf_channel_reset_property(channel, "/primary-monitor", FALSE);
             g_free(new_value);
@@ -232,15 +226,17 @@ xfce_notify_migrate_show_notifications_on_setting(XfconfChannel *channel) {
 }
 
 static void
-xfce_notify_migrate_enum_setting(XfconfChannel *channel, const gchar *property_name, GType enum_type) {
-    if (xfconf_channel_has_property(channel, property_name)) {
+xfce_notify_migrate_enum_setting(XfconfChannel *channel,
+                                 const gchar *property_name,
+                                 GType enum_type) {
+    if(xfconf_channel_has_property(channel, property_name)) {
         GValue value = G_VALUE_INIT;
 
         xfconf_channel_get_property(channel, property_name, &value);
-        if (G_VALUE_HOLDS_UINT(&value)) {
+        if(G_VALUE_HOLDS_UINT(&value)) {
             gchar *nick = xfce_notify_enum_nick_from_value(enum_type, g_value_get_uint(&value));
 
-            if (nick != NULL) {
+            if(nick != NULL) {
                 xfconf_channel_reset_property(channel, property_name, FALSE);
                 xfconf_channel_set_string(channel, property_name, nick);
                 g_free(nick);

@@ -20,21 +20,25 @@
 #ifndef __XFCE_NOTIFY_DAEMON_LOG_H__
 #define __XFCE_NOTIFY_DAEMON_LOG_H__
 
-#include <glib-object.h>
-
 #include <common/xfce-notify-log-gbus.h>
+#include <glib-object.h>
 
 #include "xfce-notify-log.h"
 
-G_DECLARE_FINAL_TYPE(XfceNotifyDaemonLog, xfce_notify_daemon_log, XFCE, NOTIFY_DAEMON_LOG, XfceNotifyLogGBusSkeleton)
+G_DECLARE_FINAL_TYPE(XfceNotifyDaemonLog,
+                     xfce_notify_daemon_log,
+                     XFCE,
+                     NOTIFY_DAEMON_LOG,
+                     XfceNotifyLogGBusSkeleton)
 #define XFCE_TYPE_NOTIFY_DAEMON_LOG (xfce_notify_daemon_log_get_type())
 
-XfceNotifyDaemonLog *xfce_notify_daemon_log_new(GDBusConnection *bus,
-                                                XfceNotifyLog *log,
-                                                GError **error);
+XfceNotifyDaemonLog *
+xfce_notify_daemon_log_new(GDBusConnection *bus,
+                           XfceNotifyLog *log,
+                           GError **error);
 
 G_BEGIN_DECLS
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_DAEMON_LOG_H__ */
+#endif /* __XFCE_NOTIFY_DAEMON_LOG_H__ */
