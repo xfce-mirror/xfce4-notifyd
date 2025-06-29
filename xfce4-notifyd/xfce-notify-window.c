@@ -47,6 +47,7 @@
 #include "xfce-notify-types.h"
 #include "xfce-notify-window.h"
 
+// clang-format off
 #define DEFAULT_EXPIRE_TIMEOUT 10000
 #define DEFAULT_NORMAL_OPACITY 0.85
 #define DEFAULT_DO_FADEOUT     TRUE
@@ -57,6 +58,7 @@
 #define DEFAULT_PADDING        14.0
 #define BASE_CSS               ".xfce4-notifyd { font-size: initial; }"
 #define NO_COMPOSITING_CSS     ".xfce4-notifyd { border-radius: 0px; }"
+// clang-format on
 
 struct _XfceNotifyWindow
 {

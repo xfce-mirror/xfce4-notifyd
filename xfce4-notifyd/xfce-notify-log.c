@@ -44,6 +44,7 @@
 #define COL_EXPIRE_TIMEOUT "expire_timeout"
 #define COL_IS_READ "is_read"
 
+// clang-format off
 #define SCHEMA \
     "CREATE TABLE IF NOT EXISTS " TABLE " (" \
         COL_ID " TEXT PRIMARY KEY NOT NULL," \
@@ -58,6 +59,7 @@
         COL_EXPIRE_TIMEOUT " INTEGER," \
         COL_IS_READ " INTEGER NOT NULL DEFAULT FALSE" \
     ") STRICT"
+// clang-format on
 
 #define INDEX_TIMESTAMP \
     "CREATE INDEX IF NOT EXISTS idx_" TABLE "_" COL_TIMESTAMP " ON " TABLE "(" COL_TIMESTAMP " DESC)"

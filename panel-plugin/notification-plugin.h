@@ -27,6 +27,7 @@
 
 G_BEGIN_DECLS
 
+// clang-format off
 #define ICON_NAME                 "org.xfce.notification"
 #define XFCE_NOTIFY_ICON_PATH     "xfce4/notifyd/icons/"
 #define SETTING_LOG_DISPLAY_LIMIT "/plugin/log-display-limit"
@@ -45,6 +46,7 @@ G_BEGIN_DECLS
 #define VALUE_MARK_ALL_READ       "mark-all-read"
 #define VALUE_MARK_SHOWN_READ     "mark-shown-read"
 #define VALUE_DO_NOTHING          "do-nothing"
+// clang-format on
 
 /* plugin structure */
 typedef struct

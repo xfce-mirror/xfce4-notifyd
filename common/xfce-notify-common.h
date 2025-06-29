@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <xfconf/xfconf.h>
 
+// clang-format off
 #define KNOWN_APPLICATIONS_PROP             "/applications/known_applications"
 #define MUTED_APPLICATIONS_PROP             "/applications/muted_applications"
 #define DENIED_CRITICAL_NOTIFICATIONS_PROP  "/applications/denied-critical-notifications"
@@ -58,6 +59,7 @@
 #define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
 #define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
 #define NOTIFY_LOCATION_DEFAULT             XFCE_NOTIFY_POS_TOP_LEFT
+// clang-format on
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be
