@@ -30,10 +30,6 @@ IncludeCategories:
   - Regex: '".*/.*"'
     Priority: -1
     CaseSensitive: true
-  - Regex: '"libxfce4windowing(ui)?-visibility\.h"'
-    Priority: 0
-    SortPriority: 2
-    CaseSensitive: true
   - Regex: '"[^/]*"'
     Priority: 0
     SortPriority: 1
