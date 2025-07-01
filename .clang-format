@@ -1,0 +1,50 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+AlignEscapedNewlines: DontAlign
+AlignTrailingComments: Never
+AllowAllParametersOfDeclarationOnNextLine: false
+AlwaysBreakAfterDefinitionReturnType: All
+BraceWrapping:
+  # It doesn't force line break unfortunately, because of an incompatibility with
+  # ColumnLimit == 0 (and ColumnLimit != 0 is too restrictive in my opinion), but
+  # at least it preserves it.
+  # See https://github.com/llvm/llvm-project/issues/44857#issuecomment-2088310102
+  AfterControlStatement: MultiLine
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
+ColumnLimit: 0
+Cpp11BracedListStyle: false
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '"config\.h"'
+    Priority: -3
+    CaseSensitive: true
+  - Regex: '<.*>'
+    Priority: -2
+    CaseSensitive: true
+  - Regex: '".*/.*"'
+    Priority: -1
+    CaseSensitive: true
+  - Regex: '"libxfce4windowing(ui)?-visibility\.h"'
+    Priority: 0
+    SortPriority: 2
+    CaseSensitive: true
+  - Regex: '"[^/]*"'
+    Priority: 0
+    SortPriority: 1
+    CaseSensitive: true
+IndentCaseLabels: true
+IndentWidth: 4
+InsertBraces: true
+InsertNewlineAtEOF: true
+MaxEmptyLinesToKeep: 2
+SpacesBeforeTrailingComments: 2
+WhitespaceSensitiveMacros:
+  # Avoid breaking formatting in the code parameter
+  - G_DEFINE_TYPE_WITH_CODE
+...
