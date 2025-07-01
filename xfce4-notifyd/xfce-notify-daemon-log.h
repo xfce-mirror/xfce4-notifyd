@@ -20,9 +20,8 @@
 #ifndef __XFCE_NOTIFY_DAEMON_LOG_H__
 #define __XFCE_NOTIFY_DAEMON_LOG_H__
 
-#include <glib-object.h>
-
 #include <common/xfce-notify-log-gbus.h>
+#include <glib-object.h>
 
 #include "xfce-notify-log.h"
 
@@ -37,4 +36,4 @@ G_BEGIN_DECLS
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_DAEMON_LOG_H__ */
+#endif /* __XFCE_NOTIFY_DAEMON_LOG_H__ */

@@ -21,11 +21,9 @@
 #ifndef __XFCE_NOTIFY_LOG_VIEWER_H__
 #define __XFCE_NOTIFY_LOG_VIEWER_H__
 
-#include <gtk/gtk.h>
-
-#include <xfconf/xfconf.h>
-
 #include <common/xfce-notify-log-gbus.h>
+#include <gtk/gtk.h>
+#include <xfconf/xfconf.h>
 
 G_BEGIN_DECLS
 
@@ -37,4 +35,4 @@ GtkWidget *xfce_notify_log_viewer_new(XfconfChannel *channel,
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_LOG_VIEWER_H__ */
+#endif /* __XFCE_NOTIFY_LOG_VIEWER_H__ */

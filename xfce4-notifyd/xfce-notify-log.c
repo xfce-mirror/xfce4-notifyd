@@ -21,42 +21,30 @@
 #include <config.h>
 #endif
 
+#include <gio/gio.h>
+#include <libxfce4util/libxfce4util.h>
 #include <sqlite3.h>
 
-#include <gio/gio.h>
-
-#include <libxfce4util/libxfce4util.h>
-
 #include "common/xfce-notify-log-util.h"
+
 #include "xfce-notify-log.h"
 
 #define TABLE "notifications"
 
-#define COL_ID "id"
-#define COL_TIMESTAMP "timestamp"
-#define COL_TZ_IDENTIFIER "tz_identifier"
-#define COL_APP_ID "app_id"
-#define COL_APP_NAME "app_name"
-#define COL_ICON_ID "icon_id"
-#define COL_SUMMARY "summary"
-#define COL_BODY "body"
-#define COL_ACTIONS "actions"
+#define COL_ID             "id"
+#define COL_TIMESTAMP      "timestamp"
+#define COL_TZ_IDENTIFIER  "tz_identifier"
+#define COL_APP_ID         "app_id"
+#define COL_APP_NAME       "app_name"
+#define COL_ICON_ID        "icon_id"
+#define COL_SUMMARY        "summary"
+#define COL_BODY           "body"
+#define COL_ACTIONS        "actions"
 #define COL_EXPIRE_TIMEOUT "expire_timeout"
-#define COL_IS_READ "is_read"
+#define COL_IS_READ        "is_read"
 
 #define SCHEMA \
-    "CREATE TABLE IF NOT EXISTS " TABLE " (" \
-        COL_ID " TEXT PRIMARY KEY NOT NULL," \
-        COL_TIMESTAMP " INTEGER NOT NULL," \
-        COL_TZ_IDENTIFIER " TEXT NOT NULL," \
-        COL_APP_ID " TEXT," \
-        COL_APP_NAME " TEXT," \
-        COL_ICON_ID " TEXT," \
-        COL_SUMMARY" TEXT," \
-        COL_BODY " TEXT," \
-        COL_ACTIONS " BLOB," \
-        COL_EXPIRE_TIMEOUT " INTEGER," \
-        COL_IS_READ " INTEGER NOT NULL DEFAULT FALSE" \
+    "CREATE TABLE IF NOT EXISTS " TABLE " (" COL_ID " TEXT PRIMARY KEY NOT NULL," COL_TIMESTAMP " INTEGER NOT NULL," COL_TZ_IDENTIFIER " TEXT NOT NULL," COL_APP_ID " TEXT," COL_APP_NAME " TEXT," COL_ICON_ID " TEXT," COL_SUMMARY " TEXT," COL_BODY " TEXT," COL_ACTIONS " BLOB," COL_EXPIRE_TIMEOUT " INTEGER," COL_IS_READ " INTEGER NOT NULL DEFAULT FALSE" \
     ") STRICT"
 
 #define INDEX_TIMESTAMP \
@@ -64,7 +52,7 @@
 #define INDEX_IS_READ \
     "CREATE INDEX IF NOT EXISTS idx_" TABLE "_" COL_IS_READ " ON " TABLE "(" COL_IS_READ ")"
 
-#define BIND_LIMIT  "limit"
+#define BIND_LIMIT "limit"
 
 #define BIND_INDEX(stmt, param_name) sqlite3_bind_parameter_index(stmt, ":" param_name)
 
@@ -151,7 +139,9 @@ G_DEFINE_TYPE_WITH_CODE(XfceNotifyLog, xfce_notify_log, G_TYPE_OBJECT,
                         G_IMPLEMENT_INTERFACE(G_TYPE_INITABLE, xfce_notify_log_initable_init))
 
 
-static guint log_signals[N_SIGNALS] = { 0, };
+static guint log_signals[N_SIGNALS] = {
+    0,
+};
 
 static void
 xfce_notify_log_class_init(XfceNotifyLogClass *klass) {
@@ -324,7 +314,6 @@ transform_error(sqlite3 *db, int errcode, const gchar *message_fmt) {
                        G_IO_ERROR_FAILED,
                        message_fmt,
                        db != NULL ? sqlite3_errmsg(db) : sqlite3_errstr(errcode));
-
 }
 
 static sqlite3_stmt *
@@ -371,23 +360,15 @@ prepare_statement(sqlite3 *db, const gchar *sql, GError **error) {
 
 static gboolean
 prepare_statements(XfceNotifyLog *log, GError **error) {
-#define COLUMN_NAMES COL_ID ", " \
-                     COL_TIMESTAMP ", " \
-                     COL_TZ_IDENTIFIER ", " \
-                     COL_APP_ID ", " \
-                     COL_APP_NAME ", " \
-                     COL_ICON_ID ", " \
-                     COL_SUMMARY ", " \
-                     COL_BODY ", " \
-                     COL_ACTIONS ", " \
-                     COL_EXPIRE_TIMEOUT ", " \
-                     COL_IS_READ
-#define PREPARE_CHECKED(dest, sql) G_STMT_START{ \
-    dest = prepare_statement(log->db, sql, error); \
-    if (G_UNLIKELY(dest == NULL)) { \
-        return FALSE; \
+#define COLUMN_NAMES COL_ID ", " COL_TIMESTAMP ", " COL_TZ_IDENTIFIER ", " COL_APP_ID ", " COL_APP_NAME ", " COL_ICON_ID ", " COL_SUMMARY ", " COL_BODY ", " COL_ACTIONS ", " COL_EXPIRE_TIMEOUT ", " COL_IS_READ
+#define PREPARE_CHECKED(dest, sql) \
+    G_STMT_START { \
+        dest = prepare_statement(log->db, sql, error); \
+        if (G_UNLIKELY(dest == NULL)) { \
+            return FALSE; \
+        } \
     } \
-}G_STMT_END
+    G_STMT_END
 
     PREPARE_CHECKED(log->stmt_get, "SELECT " COLUMN_NAMES " FROM " TABLE " WHERE " COL_ID " = :" COL_ID);
 
@@ -460,8 +441,8 @@ stmt_run_oneshot(XfceNotifyLog *log, const gchar *sql, const gchar *error_messag
 static gboolean
 ensure_tables(XfceNotifyLog *log, GError **error) {
     return stmt_run_oneshot(log, SCHEMA, _("Failed to create 'notifications' table: %s"), error)
-        && stmt_run_oneshot(log, INDEX_TIMESTAMP, _("Failed to create DB timestamp index: %s"), error)
-        && stmt_run_oneshot(log, INDEX_IS_READ, _("Failed to create DB is_read index: %s"), error);
+           && stmt_run_oneshot(log, INDEX_TIMESTAMP, _("Failed to create DB timestamp index: %s"), error)
+           && stmt_run_oneshot(log, INDEX_IS_READ, _("Failed to create DB is_read index: %s"), error);
 }
 
 XfceNotifyLog *
@@ -520,7 +501,7 @@ stmt_get_log_entry(sqlite3_stmt *stmt, GTimeZone *default_tz) {
     GHashTable *column_names = g_hash_table_new(g_str_hash, g_str_equal);
 
     // this is dumb
-    for (guint i = 0; ; ++i) {
+    for (guint i = 0;; ++i) {
         const char *name = sqlite3_column_name(stmt, i);
         if (name != NULL) {
             g_hash_table_insert(column_names, (gpointer)name, GUINT_TO_POINTER(i));
@@ -601,7 +582,7 @@ static GList *
 xfce_notify_log_read_internal(XfceNotifyLog *log, const gchar *start_after_id, gboolean only_unread, guint count) {
     GList *entries = NULL;
     sqlite3_stmt *stmt;
-    int rc  = SQLITE_OK;
+    int rc = SQLITE_OK;
 
     g_return_val_if_fail(XFCE_IS_NOTIFY_LOG(log), NULL);
     g_return_val_if_fail(count > 0, NULL);
@@ -1132,7 +1113,6 @@ process_write_queue(gpointer data) {
             g_value_unset(&signal_params[1]);
             xfce_notify_log_queue_item_free(item);
         }
-
     }
 
     if (ret == G_SOURCE_REMOVE) {
@@ -1155,7 +1135,7 @@ static GList *
 parse_keyfile_actions(GKeyFile *keyfile, const gchar *group) {
     GList *actions = NULL;
 
-    for (gint i = 0; ; ++i) {
+    for (gint i = 0;; ++i) {
         gchar *action_id_key = g_strdup_printf("action-id-%d", i);
         gchar *action_label_key = g_strdup_printf("action-label-%d", i);
         gchar *action_id = g_key_file_get_string(keyfile, group, action_id_key, NULL);
