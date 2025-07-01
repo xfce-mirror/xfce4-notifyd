@@ -2,6 +2,7 @@
 Language: Cpp
 BasedOnStyle: LLVM
 
+AlignConsecutiveMacros: true
 AlignEscapedNewlines: DontAlign
 AlignTrailingComments: Never
 AllowAllParametersOfDeclarationOnNextLine: false
