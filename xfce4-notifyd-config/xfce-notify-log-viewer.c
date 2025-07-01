@@ -23,22 +23,22 @@
 #endif
 
 #include <glib/gi18n-lib.h>
-
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "common/xfce-notify-common.h"
 #include "common/xfce-notify-enum-types.h"
 #include "common/xfce-notify-log-gbus.h"
 #include "common/xfce-notify-log-util.h"
+
 #include "xfce-notify-log-viewer.h"
 
-#define LOG_DISPLAY_LIMIT             100
+#define LOG_DISPLAY_LIMIT 100
 
-#define LOG_ENTRY_KEY  "xfce4-notify-log-entry"
-#define LOG_IMAGE_KEY  "xfce4-notify-log-image"
+#define LOG_ENTRY_KEY "xfce4-notify-log-entry"
+#define LOG_IMAGE_KEY "xfce4-notify-log-image"
 
 #ifndef P_
-#define P_(singular, plural, n)  ngettext(singular, plural, n)
+#define P_(singular, plural, n) ngettext(singular, plural, n)
 #endif
 
 struct _XfceNotifyLogViewer {
@@ -171,7 +171,7 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
 
     viewer->listbox = gtk_list_box_new();
     gtk_list_box_set_selection_mode(GTK_LIST_BOX(viewer->listbox), GTK_SELECTION_MULTIPLE);
-    gtk_list_box_set_header_func (GTK_LIST_BOX(viewer->listbox), xfce_notify_log_viewer_listbox_display_header_func, NULL, NULL);
+    gtk_list_box_set_header_func(GTK_LIST_BOX(viewer->listbox), xfce_notify_log_viewer_listbox_display_header_func, NULL, NULL);
     if (viewer->log == NULL) {
         placeholder_label = xfce_notify_create_placeholder_label(_("Unable to open notification log"));
     } else {
@@ -330,8 +330,7 @@ xfce_notify_log_viewer_finalize(GObject *obj) {
 static void
 xfce_notify_log_viewer_listbox_display_header_func(GtkListBoxRow *row,
                                                    GtkListBoxRow *before,
-                                                   gpointer user_data)
-{
+                                                   gpointer user_data) {
     if (G_LIKELY(before != NULL)) {
         GtkWidget *header = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
         gtk_widget_show(header);
@@ -446,8 +445,7 @@ set_last_clicked_row(XfceNotifyLogViewer *viewer, GtkWidget *row) {
 static gboolean
 xfce_notify_log_viewer_listbox_row_button_press(GtkWidget *eventbox,
                                                 GdkEventButton *evt,
-                                                XfceNotifyLogViewer *viewer)
-{
+                                                XfceNotifyLogViewer *viewer) {
     GtkWidget *row = gtk_widget_get_parent(eventbox);
 
     g_return_val_if_fail(GTK_IS_LIST_BOX_ROW(row), FALSE);
@@ -548,10 +546,10 @@ xfce_notify_log_viewer_listbox_row_button_press(GtkWidget *eventbox,
                 } else {
                     label = g_strdup_printf(P_("Mark log entry _read", "Mark %d log entries _read", n_unread), n_unread);
                 }
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+                G_GNUC_BEGIN_IGNORE_DEPRECATIONS
                 mi = gtk_image_menu_item_new_with_mnemonic(label);
                 gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), gtk_image_new_from_icon_name("checkbox-checked-symbolic", GTK_ICON_SIZE_MENU));
-G_GNUC_END_IGNORE_DEPRECATIONS
+                G_GNUC_END_IGNORE_DEPRECATIONS
                 gtk_widget_set_sensitive(mi, n_unread > 0);
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
                 g_signal_connect(mi, "activate",
@@ -559,10 +557,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
                 g_free(label);
 
                 label = g_strdup_printf(P_("_Delete log entry", "_Delete %d log entries", n_selected), n_selected);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+                G_GNUC_BEGIN_IGNORE_DEPRECATIONS
                 mi = gtk_image_menu_item_new_with_mnemonic(label);
                 gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), gtk_image_new_from_icon_name("edit-delete-symbolic", GTK_ICON_SIZE_MENU));
-G_GNUC_END_IGNORE_DEPRECATIONS
+                G_GNUC_END_IGNORE_DEPRECATIONS
                 gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
                 g_signal_connect_swapped(mi, "activate",
                                          G_CALLBACK(log_entry_delete_clicked), viewer);
@@ -626,8 +624,7 @@ xfce_notify_log_viewer_insert_entry(XfceNotifyLogViewer *viewer,
                                     gint list_position,
                                     XfceNotifyDatetimeFormat dt_format,
                                     const gchar *custom_dt_format,
-                                    gint icon_size)
-{
+                                    gint icon_size) {
     GtkStyleContext *style_context = gtk_widget_get_style_context(GTK_WIDGET(viewer));
     gint scale_factor = gtk_widget_get_scale_factor(GTK_WIDGET(viewer));
     GtkWidget *row, *eventbox, *hbox;
@@ -750,10 +747,10 @@ xfce_notify_log_viewer_append_entries(XfceNotifyLogViewer *viewer, GList *entrie
             gtk_list_box_row_set_selectable(GTK_LIST_BOX_ROW(header_row), FALSE);
             gtk_list_box_insert(GTK_LIST_BOX(viewer->listbox), header_row, -1);
 
-            header = gtk_label_new (_("Yesterday and before"));
-            gtk_widget_set_sensitive (header, FALSE);
-            gtk_widget_set_margin_top (header, 3);
-            gtk_widget_set_margin_bottom (header, 3);
+            header = gtk_label_new(_("Yesterday and before"));
+            gtk_widget_set_sensitive(header, FALSE);
+            gtk_widget_set_margin_top(header, 3);
+            gtk_widget_set_margin_bottom(header, 3);
             gtk_container_add(GTK_CONTAINER(header_row), header);
 
             viewer->yesterday_header_added = TRUE;
@@ -780,8 +777,7 @@ xfce_notify_log_viewer_append_entries(XfceNotifyLogViewer *viewer, GList *entrie
 static void
 xfce_notify_log_viewer_list_finshed(GObject *source,
                                     GAsyncResult *res,
-                                    XfceNotifyLogViewer *viewer)
-{
+                                    XfceNotifyLogViewer *viewer) {
     GError *error = NULL;
     GVariant *entriesv = NULL;
 
@@ -877,13 +873,13 @@ static void
 xfce_notify_log_viewer_delete_entries(XfceNotifyLogViewer *viewer) {
     GtkWidget *toplevel = gtk_widget_get_toplevel(GTK_WIDGET(viewer));
     GtkWidget *dialog = gtk_dialog_new_with_buttons(_("Delete Selected Log Entries"),
-                                                     GTK_IS_WINDOW(toplevel) ? GTK_WINDOW(toplevel) : NULL,
-                                                     GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
-                                                     _("Cancel"),
-                                                     GTK_RESPONSE_CANCEL,
-                                                     _("Delete"),
-                                                     GTK_RESPONSE_ACCEPT,
-                                                     NULL);
+                                                    GTK_IS_WINDOW(toplevel) ? GTK_WINDOW(toplevel) : NULL,
+                                                    GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
+                                                    _("Cancel"),
+                                                    GTK_RESPONSE_CANCEL,
+                                                    _("Delete"),
+                                                    GTK_RESPONSE_ACCEPT,
+                                                    NULL);
     gtk_window_set_icon_name(GTK_WINDOW(dialog), "user-trash");
 
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
@@ -936,7 +932,7 @@ xfce_notify_log_viewer_show_log_file(void) {
     gchar *opener = NULL;
 
     if ((opener = g_find_program_in_path("xfce-open")) != NULL
-         || (opener = g_find_program_in_path("exo-open")) != NULL)
+        || (opener = g_find_program_in_path("exo-open")) != NULL)
     {
         open_cmdline = g_strv_builder_new();
         g_strv_builder_add(open_cmdline, opener);
@@ -973,8 +969,7 @@ create_toolbar_button(const gchar *label,
                       const gchar *icon_name,
                       gint icon_size,
                       GCallback click_callback,
-                      gpointer click_callback_user_data)
-{
+                      gpointer click_callback_user_data) {
     GtkWidget *icon = gtk_image_new_from_icon_name(icon_name, GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_image_set_pixel_size(GTK_IMAGE(icon), icon_size);
     GtkWidget *button = gtk_button_new();

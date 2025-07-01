@@ -22,59 +22,60 @@
 #endif
 
 #include <glib.h>
-#include <stdlib.h>
 #include <libnotify/notify.h>
+#include <stdlib.h>
 
 #define N_NOTIFICATIONS 30
 
-int main (int argc, char **argv)
-{
-  gint i;
+int
+main(int argc, char **argv) {
+    gint i;
 
-  if (!notify_init ("Test notification positioning"))
+    if (!notify_init("Test notification positioning"))
     {
-      g_error ("Failed to initialize libnotify.");
+        g_error("Failed to initialize libnotify.");
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  g_print ("%s", "Testing notification positioning\n");
+    g_print("%s", "Testing notification positioning\n");
 
-  for (i = 0; i < N_NOTIFICATIONS; i++)
+    for (i = 0; i < N_NOTIFICATIONS; i++)
     {
-      NotifyNotification *notification;
-      const gchar        *body;
-      gchar              *summary;
-      gint                type;
+        NotifyNotification *notification;
+        const gchar *body;
+        gchar *summary;
+        gint type;
 
-      summary = g_strdup_printf ("Notification %i", i);
+        summary = g_strdup_printf("Notification %i", i);
 
-      type = rand () % 3;
+        type = rand() % 3;
 
-      if (type == 0)
-        body = "Short body";
-      else if (type == 1)
-        body = "Enlarge your body";
-      else
-        body = "Huge body with a lot of text.\nAnd with a new line too!";
-
-      notification = notify_notification_new (summary,
-                                              body,
-                                              NULL);
-
-      if (!notify_notification_show (notification, NULL))
-        {
-          g_error ("Failed");
-
-          g_object_unref (notification);
-          g_free (summary);
-
-          return EXIT_FAILURE;
+        if (type == 0) {
+            body = "Short body";
+        } else if (type == 1) {
+            body = "Enlarge your body";
+        } else {
+            body = "Huge body with a lot of text.\nAnd with a new line too!";
         }
 
-      g_object_unref (notification);
-      g_free (summary);
+        notification = notify_notification_new(summary,
+                                               body,
+                                               NULL);
+
+        if (!notify_notification_show(notification, NULL))
+        {
+            g_error("Failed");
+
+            g_object_unref(notification);
+            g_free(summary);
+
+            return EXIT_FAILURE;
+        }
+
+        g_object_unref(notification);
+        g_free(summary);
     }
 
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

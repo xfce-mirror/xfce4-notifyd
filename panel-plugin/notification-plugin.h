@@ -20,10 +20,9 @@
 #ifndef __NOTIFICATION_PLUGIN_H__
 #define __NOTIFICATION_PLUGIN_H__
 
-#include <xfconf/xfconf.h>
-#include <libxfce4panel/libxfce4panel.h>
-
 #include <common/xfce-notify-log-gbus.h>
+#include <libxfce4panel/libxfce4panel.h>
+#include <xfconf/xfconf.h>
 
 G_BEGIN_DECLS
 
@@ -37,45 +36,44 @@ G_BEGIN_DECLS
 #define SETTING_LOG_ICON_SIZE     "/plugin/log-icon-size"
 #define SETTING_HIDE_ON_READ      "/plugin/hide-on-read"
 
-#define SETTING_SHOW_IN_MENU      "/plugin/show-in-menu"
-#define VALUE_SHOW_ALL            "show-all"
-#define VALUE_SHOW_UNREAD         "show-unread"
+#define SETTING_SHOW_IN_MENU "/plugin/show-in-menu"
+#define VALUE_SHOW_ALL       "show-all"
+#define VALUE_SHOW_UNREAD    "show-unread"
 
-#define SETTING_AFTER_MENU_SHOWN  "/plugin/after-menu-shown"
-#define VALUE_MARK_ALL_READ       "mark-all-read"
-#define VALUE_MARK_SHOWN_READ     "mark-shown-read"
-#define VALUE_DO_NOTHING          "do-nothing"
+#define SETTING_AFTER_MENU_SHOWN "/plugin/after-menu-shown"
+#define VALUE_MARK_ALL_READ      "mark-all-read"
+#define VALUE_MARK_SHOWN_READ    "mark-shown-read"
+#define VALUE_DO_NOTHING         "do-nothing"
 
 /* plugin structure */
 typedef struct
 {
     XfcePanelPlugin *plugin;
-    XfconfChannel   *channel;
+    XfconfChannel *channel;
 
     /* log */
     gint log_proxy_connect_id;
     XfceNotifyLogGBus *log;
 
     /* state */
-    gboolean         new_notifications;
+    gboolean new_notifications;
 
     /* panel widgets */
-    GtkWidget       *button;
-    GtkWidget       *image;
+    GtkWidget *button;
+    GtkWidget *image;
 
     /* menu widgets */
-    GtkWidget       *do_not_disturb_switch;
+    GtkWidget *do_not_disturb_switch;
 
     /* handlers */
-    guint            menu_size_allocate_next_handler;
+    guint menu_size_allocate_next_handler;
 
-    gboolean         hide_on_read;
-    gint             icon_size;
-}
-NotificationPlugin;
+    gboolean hide_on_read;
+    gint icon_size;
+} NotificationPlugin;
 
 GtkWidget *notification_plugin_menu_new(NotificationPlugin *notification_plugin);
-void notification_plugin_update_icon (NotificationPlugin *notification_plugin);
+void notification_plugin_update_icon(NotificationPlugin *notification_plugin);
 
 G_END_DECLS
 

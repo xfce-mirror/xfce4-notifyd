@@ -51,10 +51,10 @@ struct _XfceNotification {
 
     XfceNotificationActions *actions;
 
-    guint32 gauge_value_set:1,
-            icon_only:1,
-            do_fadeout:1,
-            do_slideout:1;
+    guint32 gauge_value_set : 1,
+        icon_only : 1,
+        do_fadeout : 1,
+        do_slideout : 1;
 
     GtkCssProvider *css_provider;
 
@@ -92,8 +92,7 @@ enum {
     N_PROPS,
 };
 
-enum
-{
+enum {
     SIG_CLOSED = 0,
     SIG_ACTION_INVOKED,
 
@@ -148,12 +147,16 @@ static void xfce_notification_set_sound_props(XfceNotification *notification,
 G_DEFINE_TYPE(XfceNotification, xfce_notification, G_TYPE_OBJECT)
 
 
-guint signals[N_SIGS] = { 0, };
+guint signals[N_SIGS] = {
+    0,
+};
 
 
 static void
 xfce_notification_class_init(XfceNotificationClass *klass) {
-    static GParamSpec *properties[N_PROPS] = { NULL, };
+    static GParamSpec *properties[N_PROPS] = {
+        NULL,
+    };
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
     gobject_class->constructed = xfce_notification_constructed;
@@ -289,8 +292,6 @@ xfce_notification_class_init(XfceNotificationClass *klass) {
                                                g_cclosure_marshal_VOID__STRING,
                                                G_TYPE_NONE,
                                                1, G_TYPE_STRING);
-
-
 }
 
 static void
@@ -333,8 +334,7 @@ static void
 xfce_notification_set_property(GObject *object,
                                guint prop_id,
                                const GValue *value,
-                               GParamSpec *pspec)
-{
+                               GParamSpec *pspec) {
     XfceNotification *notification = XFCE_NOTIFICATION(object);
 
     switch (prop_id) {
@@ -422,8 +422,7 @@ static void
 xfce_notification_get_property(GObject *object,
                                guint prop_id,
                                GValue *value,
-                               GParamSpec *pspec)
-{
+                               GParamSpec *pspec) {
     XfceNotification *notification = XFCE_NOTIFICATION(object);
 
     switch (prop_id) {
@@ -671,16 +670,14 @@ xfce_notification_set_sound_props(XfceNotification *notification, ca_proplist *s
 static void
 xfce_notification_window_action_invoked(XfceNotifyWindow *window,
                                         const gchar *action_id,
-                                        XfceNotification *notification)
-{
+                                        XfceNotification *notification) {
     g_signal_emit(notification, signals[SIG_ACTION_INVOKED], 0, action_id);
 }
 
 static void
 xfce_notification_window_closed(XfceNotifyWindow *window,
                                 XfceNotifyCloseReason reason,
-                                XfceNotification *notification)
-{
+                                XfceNotification *notification) {
     g_object_ref(notification);  // ensure we don't get destroyed during signal emission
 
     g_signal_emit(notification, signals[SIG_CLOSED], 0, reason);
@@ -711,8 +708,7 @@ xfce_notification_new(guint id,
 #ifdef ENABLE_SOUND
                       ca_proplist *sound_props,
 #endif
-                      GtkCssProvider *css_provider)
-{
+                      GtkCssProvider *css_provider) {
     g_return_val_if_fail(id > 0, NULL);
     g_return_val_if_fail(GTK_IS_CSS_PROVIDER(css_provider), NULL);
 
@@ -738,7 +734,6 @@ xfce_notification_new(guint id,
 #endif
                         "css-provider", css_provider,
                         NULL);
-
 }
 
 void
@@ -755,10 +750,10 @@ xfce_notification_update(XfceNotification *notification,
                          guint expire_timeout,
                          XfceNotifyUrgency urgency
 #ifdef ENABLE_SOUND
-                         , ca_proplist *sound_props
+                         ,
+                         ca_proplist *sound_props
 #endif
-                         )
-{
+) {
     g_return_if_fail(XFCE_IS_NOTIFICATION(notification));
 
     g_object_freeze_notify(G_OBJECT(notification));
@@ -787,8 +782,7 @@ create_notify_window(XfceNotification *notification,
                      gboolean override_redirect,
                      XfceNotifyPosition location,
                      gdouble normal_opacity,
-                     gboolean show_text_with_gauge)
-{
+                     gboolean show_text_with_gauge) {
     static const gchar *bind_properties[] = {
         "summary",
         "body",
@@ -832,8 +826,7 @@ xfce_notification_create_windows(XfceNotification *notification,
                                  gboolean override_redirect,
                                  XfceNotifyPosition location,
                                  gdouble normal_opacity,
-                                 gboolean show_text_with_gauge)
-{
+                                 gboolean show_text_with_gauge) {
     g_return_val_if_fail(XFCE_IS_NOTIFICATION(notification), NULL);
     g_return_val_if_fail(notification->windows == NULL, NULL);
 
