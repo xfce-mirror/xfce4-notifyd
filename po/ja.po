@@ -461,7 +461,7 @@ msgstr "常にパーセント値による通知を表示"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
-msgstr "通知を表示するときは次を表示する"
+msgstr "通知時に表示するもの"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
