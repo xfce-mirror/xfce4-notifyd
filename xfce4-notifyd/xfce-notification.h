@@ -70,9 +70,10 @@ void xfce_notification_update(XfceNotification *notification,
                               guint expire_timeout,
                               XfceNotifyUrgency urgency
 #ifdef ENABLE_SOUND
-                              , ca_proplist *sound_props
+                              ,
+                              ca_proplist *sound_props
 #endif
-                              );
+);
 
 GList *xfce_notification_create_windows(XfceNotification *notification,
                                         GList *monitors,
@@ -101,4 +102,4 @@ void xfce_notification_closed(XfceNotification *notification,
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFICATION_H__ */
+#endif /* __XFCE_NOTIFICATION_H__ */

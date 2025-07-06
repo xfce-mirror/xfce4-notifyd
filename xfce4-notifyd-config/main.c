@@ -36,29 +36,27 @@
 #define VERSION_STRING VERSION
 #endif
 
-#include <gio/gio.h>
-#include <gio/gdesktopappinfo.h>
-#include <gtk/gtk.h>
-#include <gtk/gtkx.h>
-
-#include <xfconf/xfconf.h>
-#include <libxfce4ui/libxfce4ui.h>
-#include <libnotify/notify.h>
-
 #include <common/xfce-notify-common.h>
 #include <common/xfce-notify-enum-types.h>
 #include <common/xfce-notify-log-gbus.h>
 #include <common/xfce-notify-log-util.h>
+#include <gio/gdesktopappinfo.h>
+#include <gio/gio.h>
+#include <gtk/gtk.h>
+#include <gtk/gtkx.h>
+#include <libnotify/notify.h>
+#include <libxfce4ui/libxfce4ui.h>
+#include <xfconf/xfconf.h>
 
 #include "xfce-notify-config-ui.h"
 #include "xfce-notify-log-viewer.h"
 
 typedef struct
 {
-    GtkWidget  *log_level;
-    GtkWidget  *log_level_apps;
-    GtkWidget  *log_level_apps_label;
-    GtkWidget  *infobar_label;
+    GtkWidget *log_level;
+    GtkWidget *log_level_apps;
+    GtkWidget *log_level_apps_label;
+    GtkWidget *infobar_label;
 } NotificationLogWidgets;
 
 typedef struct {
@@ -97,17 +95,15 @@ static void handle_app_switch_property_changed(XfconfChannel *channel,
 
 static void
 xfce_notifyd_config_show_notification_callback(NotifyNotification *notification,
-                                               const char         *action,
-                                               gpointer            unused)
-{
-  /* Don't do anything, we just have a button to show its style */
+                                               const char *action,
+                                               gpointer unused) {
+    /* Don't do anything, we just have a button to show its style */
 }
 
 static void
-xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window)
-{
+xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window) {
     NotifyNotification *notification;
-    GError             *error = NULL;
+    GError *error = NULL;
 
     notification =
         notify_notification_new(_("Notification Preview"),
@@ -117,7 +113,7 @@ xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window)
     notify_notification_add_action(notification,
                                    "button",
                                    _("Button"),
-                                   (NotifyActionCallback) xfce_notifyd_config_show_notification_callback,
+                                   (NotifyActionCallback)xfce_notifyd_config_show_notification_callback,
                                    NULL,
                                    NULL);
 
@@ -134,24 +130,23 @@ xfce_notifyd_config_show_notification_preview(GtkWindow *parent_window)
 static gchar *
 xfce4_notifyd_slider_format_value(GtkScale *slider,
                                   gdouble value,
-                                  gpointer user_data)
-{
+                                  gpointer user_data) {
     return g_strdup_printf("%d%%", (gint)(value * 100));
 }
 
 static void
 xfce4_notifyd_config_theme_combo_changed(GtkComboBox *theme_combo,
-                                         gpointer user_data)
-{
+                                         gpointer user_data) {
     XfconfChannel *channel = user_data;
     GtkTreeModel *model;
     GtkTreeIter iter;
     gchar *theme = NULL;
 
-    if(!gtk_combo_box_get_active_iter(theme_combo, &iter))
+    if (!gtk_combo_box_get_active_iter(theme_combo, &iter)) {
         return;
+    }
 
-    model = gtk_combo_box_get_model (theme_combo);
+    model = gtk_combo_box_get_model(theme_combo);
 
     gtk_tree_model_get(model, &iter, 0, &theme, -1);
     xfconf_channel_set_string(channel, "/theme", theme);
@@ -162,8 +157,7 @@ static void
 xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
                                    const gchar *property,
                                    const GValue *value,
-                                   gpointer user_data)
-{
+                                   gpointer user_data) {
     GtkWidget *theme_combo = user_data;
     GtkListStore *ls;
     GtkTreeIter iter;
@@ -174,12 +168,12 @@ xfce4_notifyd_config_theme_changed(XfconfChannel *channel,
 
     ls = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(theme_combo)));
 
-    for(gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ls), &iter);
-        gtk_list_store_iter_is_valid(ls, &iter);
-        gtk_tree_model_iter_next(GTK_TREE_MODEL(ls), &iter))
+    for (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ls), &iter);
+         gtk_list_store_iter_is_valid(ls, &iter);
+         gtk_tree_model_iter_next(GTK_TREE_MODEL(ls), &iter))
     {
         gtk_tree_model_get(GTK_TREE_MODEL(ls), &iter, 0, &theme, -1);
-        if(!strcmp(theme, new_theme)) {
+        if (!strcmp(theme, new_theme)) {
 
             gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
                                           &iter);
@@ -202,21 +196,22 @@ list_store_add_themes_in_dir(GtkListStore *ls,
                              const gchar *path,
                              const gchar *current_theme,
                              GHashTable *themes_seen,
-                             GtkTreeIter *current_theme_iter)
-{
+                             GtkTreeIter *current_theme_iter) {
     GDir *dir;
     const gchar *file;
     gchar *old_filename = NULL;
 
     dir = g_dir_open(path, 0, NULL);
-    if(!dir)
+    if (!dir) {
         return;
+    }
 
-    while((file = g_dir_read_name(dir))) {
+    while ((file = g_dir_read_name(dir))) {
         gchar *filename;
 
-        if(g_hash_table_lookup(themes_seen, file))
+        if (g_hash_table_lookup(themes_seen, file)) {
             continue;
+        }
 
         filename =
             g_build_filename(path, file, "xfce-notify-4.0", "gtk.css", NULL);
@@ -224,36 +219,37 @@ list_store_add_themes_in_dir(GtkListStore *ls,
         if (g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
             GtkTreeIter iter;
             if (old_filename != NULL) {
-                if (g_ascii_strcasecmp (old_filename, filename) < 0)
+                if (g_ascii_strcasecmp(old_filename, filename) < 0) {
                     gtk_list_store_append(ls, &iter);
-                else
+                } else {
                     gtk_list_store_prepend(ls, &iter);
-                g_free (old_filename);
+                }
+                g_free(old_filename);
                 old_filename = NULL;
-            }
-            else
+            } else {
                 gtk_list_store_append(ls, &iter);
+            }
 
             gtk_list_store_set(ls, &iter, 0, file, -1);
             g_hash_table_insert(themes_seen, g_strdup(file),
                                 GUINT_TO_POINTER(1));
 
-            if(!strcmp(file, current_theme))
+            if (!strcmp(file, current_theme)) {
                 memcpy(current_theme_iter, &iter, sizeof(iter));
+            }
         }
 
-        g_free (old_filename);
+        g_free(old_filename);
         old_filename = filename;
     }
-    g_free (old_filename);
+    g_free(old_filename);
 
     g_dir_close(dir);
 }
 
 static void
 xfce4_notifyd_config_setup_theme_combo(GtkWidget *theme_combo,
-                                       const gchar *current_theme)
-{
+                                       const gchar *current_theme) {
     GtkListStore *ls;
     gchar *dirname, **dirnames;
     GHashTable *themes_seen;
@@ -270,56 +266,55 @@ xfce4_notifyd_config_setup_theme_combo(GtkWidget *theme_combo,
     g_free(dirname);
 
     dirnames = xfce_resource_lookup_all(XFCE_RESOURCE_DATA, "themes/");
-    for(i = 0; dirnames && dirnames[i]; ++i)
+    for (i = 0; dirnames && dirnames[i]; ++i) {
         list_store_add_themes_in_dir(ls, dirnames[i], current_theme,
                                      themes_seen, &current_theme_iter);
+    }
     g_strfreev(dirnames);
 
     g_hash_table_destroy(themes_seen);
 
     gtk_combo_box_set_model(GTK_COMBO_BOX(theme_combo), GTK_TREE_MODEL(ls));
 
-    if(gtk_list_store_iter_is_valid(ls, &current_theme_iter))
+    if (gtk_list_store_iter_is_valid(ls, &current_theme_iter)) {
         gtk_combo_box_set_active_iter(GTK_COMBO_BOX(theme_combo),
                                       &current_theme_iter);
+    }
 
     g_object_unref(G_OBJECT(ls));
 }
 
 static void
-xfce_notifyd_config_dialog_response(GtkWidget *dialog, gint response, gpointer unused)
-{
-  if (response == 0)
-      g_signal_stop_emission_by_name (dialog, "response");
+xfce_notifyd_config_dialog_response(GtkWidget *dialog, gint response, gpointer unused) {
+    if (response == 0) {
+        g_signal_stop_emission_by_name(dialog, "response");
+    }
 }
 
 static void
-xfce_notifyd_config_preview_clicked(GtkButton *button)
-{
-  GtkWidget *window = gtk_widget_get_toplevel (GTK_WIDGET (button));
+xfce_notifyd_config_preview_clicked(GtkButton *button) {
+    GtkWidget *window = gtk_widget_get_toplevel(GTK_WIDGET(button));
 
-  xfce_notifyd_config_show_notification_preview (GTK_WINDOW (window));
+    xfce_notifyd_config_show_notification_preview(GTK_WINDOW(window));
 }
 
 /* Shows a separator before each row. */
 static void
-display_header_func (GtkListBoxRow *row,
-                     GtkListBoxRow *before,
-                     gpointer       user_data)
-{
-  if (before != NULL)
+display_header_func(GtkListBoxRow *row,
+                    GtkListBoxRow *before,
+                    gpointer user_data) {
+    if (before != NULL)
     {
-      GtkWidget *header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-      gtk_widget_show (header);
+        GtkWidget *header = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
+        gtk_widget_show(header);
 
-      gtk_list_box_row_set_header (row, header);
+        gtk_list_box_row_set_header(row, header);
     }
 }
 
 static gboolean
 xfce_g_strv_remove(gchar **strv,
-                   const gchar *to_remove)
-{
+                   const gchar *to_remove) {
     gint i;
 
     for (i = 0; strv[i] != NULL; ++i) {
@@ -329,14 +324,14 @@ xfce_g_strv_remove(gchar **strv,
     }
 
     if (G_LIKELY(strv[i] != NULL)) {
-        gint remaining = g_strv_length(&strv[i+1]);
+        gint remaining = g_strv_length(&strv[i + 1]);
 
         g_free(strv[i]);
 
         if (remaining > 0) {
-            memmove(&strv[i], &strv[i+1], remaining * sizeof(gchar *));
+            memmove(&strv[i], &strv[i + 1], remaining * sizeof(gchar *));
         }
-        strv[i+remaining] = NULL;
+        strv[i + remaining] = NULL;
 
         return TRUE;
     } else {
@@ -348,8 +343,7 @@ static void
 xfce_add_to_string_list_property(XfconfChannel *channel,
                                  const gchar *property_name,
                                  gchar **strv,
-                                 const gchar *to_add)
-{
+                                 const gchar *to_add) {
     if (strv == NULL || !g_strv_contains((const gchar *const *)strv, to_add)) {
         gint len = strv == NULL ? 0 : g_strv_length(strv);
         gchar **new_strv = g_new(gchar *, len + 2);
@@ -367,8 +361,7 @@ static void
 xfce_remove_from_string_list_property(XfconfChannel *channel,
                                       const gchar *property_name,
                                       gchar **strv,
-                                      const gchar *to_remove)
-{
+                                      const gchar *to_remove) {
     if (strv != NULL) {
         if (xfce_g_strv_remove(strv, to_remove)) {
             if (strv[0] == NULL) {
@@ -383,8 +376,7 @@ xfce_remove_from_string_list_property(XfconfChannel *channel,
 static void
 handle_app_switch_widget_toggled(KnownApplicationSignalData *signal_data,
                                  const gchar *property_name,
-                                 gboolean add_to_list)
-{
+                                 gboolean add_to_list) {
     gchar **strs = xfconf_channel_get_string_list(signal_data->panel->channel, property_name);
 
     g_signal_handlers_block_by_func(signal_data->panel->channel,
@@ -406,8 +398,7 @@ handle_app_switch_widget_toggled(KnownApplicationSignalData *signal_data,
 static void
 xfce4_notifyd_mute_switch_activated(GtkSwitch *sw,
                                     gboolean state,
-                                    KnownApplicationSignalData *signal_data)
-{
+                                    KnownApplicationSignalData *signal_data) {
     handle_app_switch_widget_toggled(signal_data, MUTED_APPLICATIONS_PROP, state);
     gtk_widget_set_sensitive(signal_data->app_label, !state);
     // There appears to be a strange issue where the switches don't redraw
@@ -419,8 +410,7 @@ xfce4_notifyd_mute_switch_activated(GtkSwitch *sw,
 static void
 xfce4_notifyd_allow_criticals_switch_activated(GtkSwitch *sw,
                                                gboolean state,
-                                               KnownApplicationSignalData *signal_data)
-{
+                                               KnownApplicationSignalData *signal_data) {
     handle_app_switch_widget_toggled(signal_data, DENIED_CRITICAL_NOTIFICATIONS_PROP, !state);
     // There appears to be a strange issue where the switches don't redraw
     // properly on their own (e.g., if the theme specifies a different
@@ -431,8 +421,7 @@ xfce4_notifyd_allow_criticals_switch_activated(GtkSwitch *sw,
 static void
 xfce4_notifyd_include_in_log_switch_activated(GtkSwitch *sw,
                                               gboolean state,
-                                              KnownApplicationSignalData *signal_data)
-{
+                                              KnownApplicationSignalData *signal_data) {
     handle_app_switch_widget_toggled(signal_data, EXCLUDED_FROM_LOG_APPLICATIONS_PROP, !state);
     // There appears to be a strange issue where the switches don't redraw
     // properly on their own (e.g., if the theme specifies a different
@@ -444,8 +433,7 @@ static void
 handle_app_switch_property_changed(XfconfChannel *channel,
                                    const gchar *property_name,
                                    const GValue *value,
-                                   KnownApplicationSignalData *signal_data)
-{
+                                   KnownApplicationSignalData *signal_data) {
     gboolean found = FALSE;
     GtkWidget *switch_to_set;
     GtkWidget *label_to_sensitize = NULL;
@@ -499,17 +487,15 @@ handle_app_switch_property_changed(XfconfChannel *channel,
 }
 
 static void
-listbox_remove_all (GtkWidget *widget, gpointer user_data)
-{
+listbox_remove_all(GtkWidget *widget, gpointer user_data) {
     GtkWidget *container = user_data;
-    gtk_container_remove (GTK_CONTAINER (container), widget);
+    gtk_container_remove(GTK_CONTAINER(container), widget);
 }
 
 static gint
-xfce_notify_sort_apps_in_log (gconstpointer a, gconstpointer b)
-{
-    const LogAppCount *entry1 = *((LogAppCount **) a);
-    const LogAppCount *entry2 = *((LogAppCount **) b);
+xfce_notify_sort_apps_in_log(gconstpointer a, gconstpointer b) {
+    const LogAppCount *entry1 = *((LogAppCount **)a);
+    const LogAppCount *entry2 = *((LogAppCount **)b);
 
     gint count_diff = entry2->count - entry1->count;
     if (count_diff != 0) {
@@ -571,8 +557,7 @@ xfce_notify_count_apps_in_log(GHashTable *app_id_counts, GPtrArray *known_applic
 }
 
 static void
-known_application_signal_data_free(KnownApplicationSignalData *signal_data)
-{
+known_application_signal_data_free(KnownApplicationSignalData *signal_data) {
     g_signal_handlers_disconnect_by_func(signal_data->panel->channel,
                                          handle_app_switch_property_changed,
                                          signal_data);
@@ -584,9 +569,8 @@ known_application_signal_data_free(KnownApplicationSignalData *signal_data)
 
 static void
 known_application_delete_clicked(GtkWidget *button,
-                                 KnownApplicationSignalData *signal_data)
-{
-    gchar *confirm_text = g_strdup_printf( _("Are you sure you want to delete notification settings for application \"%s\"?"),
+                                 KnownApplicationSignalData *signal_data) {
+    gchar *confirm_text = g_strdup_printf(_("Are you sure you want to delete notification settings for application \"%s\"?"),
                                           signal_data->known_application_name);
     if (xfce_dialog_confirm(GTK_WINDOW(gtk_widget_get_toplevel(button)),
                             "edit-delete",
@@ -617,8 +601,7 @@ known_application_delete_clicked(GtkWidget *button,
 static gboolean
 test_gicon_exists(GIcon *gicon,
                   gint size,
-                  gint scale)
-{
+                  gint scale) {
     GtkIconInfo *icon_info = gtk_icon_theme_lookup_by_gicon_for_scale(gtk_icon_theme_get_default(),
                                                                       gicon,
                                                                       size,
@@ -634,15 +617,14 @@ test_gicon_exists(GIcon *gicon,
 }
 
 static void
-xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
-                                            GtkWidget *known_applications_listbox,
-                                            GPtrArray *muted_applications,
-                                            const gchar *const *denied_critical_applications,
-                                            const gchar *const *excluded_from_log_applications,
-                                            const gchar *known_application,
-                                            const gchar *app_name,
-                                            gint count)
-{
+xfce4_notifyd_known_application_insert_row(SettingsPanel *panel,
+                                           GtkWidget *known_applications_listbox,
+                                           GPtrArray *muted_applications,
+                                           const gchar *const *denied_critical_applications,
+                                           const gchar *const *excluded_from_log_applications,
+                                           const gchar *known_application,
+                                           const gchar *app_name,
+                                           gint count) {
     GtkBuilder *builder;
     GtkWidget *row;
     GtkWidget *expander;
@@ -683,19 +665,19 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
     /* Number of notifications in the log (if enabled) */
     if (count > 0) {
         gchar *count_text = g_strdup_printf("%d", count);
-        gtk_label_set_text (GTK_LABEL(log_count_label), count_text);
+        gtk_label_set_text(GTK_LABEL(log_count_label), count_text);
         g_free(count_text);
     }
 
     /* All applications that don't supply their name at all */
-    if (xfce_str_is_empty (known_application)) {
+    if (xfce_str_is_empty(known_application)) {
         const char *format = "<span style=\"italic\">\%s</span>";
         char *markup;
 
         known_application = g_strdup(_("Unspecified applications"));
-        markup = g_markup_printf_escaped (format, known_application);
-        gtk_label_set_markup (GTK_LABEL (app_label), markup);
-        g_free (markup);
+        markup = g_markup_printf_escaped(format, known_application);
+        gtk_label_set_markup(GTK_LABEL(app_label), markup);
+        g_free(markup);
 
         gtk_widget_set_sensitive(mute_switch, FALSE);
         gtk_widget_set_sensitive(allow_criticals, FALSE);
@@ -713,7 +695,7 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
         signal_data->include_in_log = include_in_log;
 
         /* Try to find the correct icon based on the desktop file */
-        desktop_icon_name = notify_get_from_desktop_file (known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
+        desktop_icon_name = notify_get_from_desktop_file(known_application, G_KEY_FILE_DESKTOP_KEY_ICON);
         if (desktop_icon_name != NULL) {
             if (g_path_is_absolute(desktop_icon_name)
                 && g_file_test(desktop_icon_name, G_FILE_TEST_EXISTS)
@@ -775,10 +757,10 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
         if (muted_applications != NULL) {
             for (i = 0; i < muted_applications->len; i++) {
                 GValue *muted_application;
-                muted_application = g_ptr_array_index (muted_applications, i);
-                if (g_str_match_string (g_value_get_string (muted_application), known_application, FALSE) == TRUE) {
+                muted_application = g_ptr_array_index(muted_applications, i);
+                if (g_str_match_string(g_value_get_string(muted_application), known_application, FALSE) == TRUE) {
                     gtk_widget_set_sensitive(app_label, FALSE);
-                    gtk_switch_set_active (GTK_SWITCH (mute_switch), TRUE);
+                    gtk_switch_set_active(GTK_SWITCH(mute_switch), TRUE);
                     break;
                 }
             }
@@ -790,7 +772,7 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
 
         gtk_switch_set_active(GTK_SWITCH(allow_criticals),
                               denied_critical_applications == NULL
-                              || !g_strv_contains(denied_critical_applications, known_application));
+                                  || !g_strv_contains(denied_critical_applications, known_application));
         g_signal_connect(allow_criticals, "state-set",
                          G_CALLBACK(xfce4_notifyd_allow_criticals_switch_activated), signal_data);
         g_signal_connect(panel->channel, "property-changed::" DENIED_CRITICAL_NOTIFICATIONS_PROP,
@@ -798,7 +780,7 @@ xfce4_notifyd_known_application_insert_row (SettingsPanel *panel,
 
         gtk_switch_set_active(GTK_SWITCH(include_in_log),
                               excluded_from_log_applications == NULL
-                              || !g_strv_contains(excluded_from_log_applications, known_application));
+                                  || !g_strv_contains(excluded_from_log_applications, known_application));
         g_signal_connect(include_in_log, "state-set",
                          G_CALLBACK(xfce4_notifyd_include_in_log_switch_activated), signal_data);
         g_signal_connect(panel->channel, "property-changed::" EXCLUDED_FROM_LOG_APPLICATIONS_PROP,
@@ -857,15 +839,15 @@ known_application_log_counts_fetched(GObject *source, GAsyncResult *res, Setting
         }
     }
 
-    known_applications = xfconf_channel_get_arrayv (panel->channel, KNOWN_APPLICATIONS_PROP);
-    muted_applications = xfconf_channel_get_arrayv (panel->channel, MUTED_APPLICATIONS_PROP);
+    known_applications = xfconf_channel_get_arrayv(panel->channel, KNOWN_APPLICATIONS_PROP);
+    muted_applications = xfconf_channel_get_arrayv(panel->channel, MUTED_APPLICATIONS_PROP);
     denied_critical_applications = xfconf_channel_get_string_list(panel->channel, DENIED_CRITICAL_NOTIFICATIONS_PROP);
     excluded_from_log_applications = xfconf_channel_get_string_list(panel->channel, EXCLUDED_FROM_LOG_APPLICATIONS_PROP);
 
     /* TODO: Check the old list versus the new one and only add/remove rows
        as needed instead instead of cleaning up the whole widget */
     /* Clean up the list and re-fill it */
-    gtk_container_foreach (GTK_CONTAINER (known_applications_listbox), func, known_applications_listbox);
+    gtk_container_foreach(GTK_CONTAINER(known_applications_listbox), func, known_applications_listbox);
 
     if (known_applications != NULL) {
         /* Sort the apps based on their appearance in the log */
@@ -887,11 +869,11 @@ known_application_log_counts_fetched(GObject *source, GAsyncResult *res, Setting
         g_ptr_array_free(known_applications_sorted, TRUE);
     }
 
-    xfconf_array_free (known_applications);
-    xfconf_array_free (muted_applications);
+    xfconf_array_free(known_applications);
+    xfconf_array_free(muted_applications);
     g_strfreev(denied_critical_applications);
     g_strfreev(excluded_from_log_applications);
-    gtk_widget_show_all (known_applications_listbox);
+    gtk_widget_show_all(known_applications_listbox);
     g_hash_table_destroy(app_id_counts);
 }
 
@@ -908,58 +890,56 @@ xfce4_notifyd_known_applications_changed(SettingsPanel *panel) {
 }
 
 static void
-xfce4_notifyd_do_not_disturb_activated (GtkSwitch *do_not_disturb_switch,
-                                        gboolean state,
-                                        gpointer user_data)
-{
+xfce4_notifyd_do_not_disturb_activated(GtkSwitch *do_not_disturb_switch,
+                                       gboolean state,
+                                       gpointer user_data) {
     GtkWidget *do_not_disturb_info = user_data;
 
-    gtk_revealer_set_reveal_child (GTK_REVEALER (do_not_disturb_info),
-                                    gtk_switch_get_active (GTK_SWITCH (do_not_disturb_switch)));
-    gtk_switch_set_active (GTK_SWITCH (do_not_disturb_switch), state);
+    gtk_revealer_set_reveal_child(GTK_REVEALER(do_not_disturb_info),
+                                  gtk_switch_get_active(GTK_SWITCH(do_not_disturb_switch)));
+    gtk_switch_set_active(GTK_SWITCH(do_not_disturb_switch), state);
 }
 
 static void
-xfce4_notifyd_log_activated (GtkSwitch *log_switch,
-                             gboolean state,
-                             SettingsPanel *panel)
-{
+xfce4_notifyd_log_activated(GtkSwitch *log_switch,
+                            gboolean state,
+                            SettingsPanel *panel) {
     NotificationLogWidgets *log_widgets = &panel->log_widgets;
     const char *format = _("<b>Currently only urgent notifications are shown.</b>\nNotification logging is \%s.");
     char *markup;
 
-    gtk_switch_set_state (GTK_SWITCH (log_switch), state);
-    gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level), state);
-    gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps), state);
-    gtk_widget_set_sensitive (GTK_WIDGET (log_widgets->log_level_apps_label), state);
-    markup = g_markup_printf_escaped (format, state ? _("enabled") : _("disabled"));
-    gtk_label_set_markup (GTK_LABEL (log_widgets->infobar_label), markup);
-    g_free (markup);
+    gtk_switch_set_state(GTK_SWITCH(log_switch), state);
+    gtk_widget_set_sensitive(GTK_WIDGET(log_widgets->log_level), state);
+    gtk_widget_set_sensitive(GTK_WIDGET(log_widgets->log_level_apps), state);
+    gtk_widget_set_sensitive(GTK_WIDGET(log_widgets->log_level_apps_label), state);
+    markup = g_markup_printf_escaped(format, state ? _("enabled") : _("disabled"));
+    gtk_label_set_markup(GTK_LABEL(log_widgets->infobar_label), markup);
+    g_free(markup);
 }
 
-static void xfce4_notifyd_show_help(GtkButton *button,
-                                    GtkWidget *dialog)
-{
+static void
+xfce4_notifyd_show_help(GtkButton *button,
+                        GtkWidget *dialog) {
     xfce_dialog_show_help_with_version(GTK_WINDOW(dialog), "notifyd", "start", NULL, NULL);
 }
 
-static void xfce_notify_bus_name_appeared_cb (GDBusConnection *connection,
-                                              const gchar *name,
-                                              const gchar *name_owner,
-                                              gpointer user_data)
-{
-    GtkWidget  *notifyd_running = user_data;
-
-    gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), FALSE);
-}
-
-static void xfce_notify_bus_name_vanished_cb (GDBusConnection *connection,
-                                              const gchar *name,
-                                              gpointer user_data)
-{
+static void
+xfce_notify_bus_name_appeared_cb(GDBusConnection *connection,
+                                 const gchar *name,
+                                 const gchar *name_owner,
+                                 gpointer user_data) {
     GtkWidget *notifyd_running = user_data;
 
-    gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), TRUE);
+    gtk_revealer_set_reveal_child(GTK_REVEALER(notifyd_running), FALSE);
+}
+
+static void
+xfce_notify_bus_name_vanished_cb(GDBusConnection *connection,
+                                 const gchar *name,
+                                 gpointer user_data) {
+    GtkWidget *notifyd_running = user_data;
+
+    gtk_revealer_set_reveal_child(GTK_REVEALER(notifyd_running), TRUE);
 }
 
 static void
@@ -1025,7 +1005,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
     g_signal_connect(G_OBJECT(help_button), "clicked",
-                    G_CALLBACK(xfce4_notifyd_show_help), dlg);
+                     G_CALLBACK(xfce4_notifyd_show_help), dlg);
 
     /**************
         GENERAL   *
@@ -1040,15 +1020,15 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
         g_free(nick);
     }
 
-    do_not_disturb_switch = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb"));
-    xfconf_g_property_bind (panel->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
-                            G_OBJECT (do_not_disturb_switch), "active");
+    do_not_disturb_switch = GTK_WIDGET(gtk_builder_get_object(builder, "do_not_disturb"));
+    xfconf_g_property_bind(panel->channel, "/do-not-disturb", G_TYPE_BOOLEAN,
+                           G_OBJECT(do_not_disturb_switch), "active");
     /* Manually control the revealer for the infobar because of https://bugzilla.gnome.org/show_bug.cgi?id=710888 */
-    do_not_disturb_info = GTK_WIDGET (gtk_builder_get_object (builder, "do_not_disturb_info"));
-    gtk_revealer_set_reveal_child (GTK_REVEALER (do_not_disturb_info),
-                                   gtk_switch_get_active (GTK_SWITCH (do_not_disturb_switch)));
-    g_signal_connect (G_OBJECT (do_not_disturb_switch), "state-set",
-                      G_CALLBACK (xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
+    do_not_disturb_info = GTK_WIDGET(gtk_builder_get_object(builder, "do_not_disturb_info"));
+    gtk_revealer_set_reveal_child(GTK_REVEALER(do_not_disturb_info),
+                                  gtk_switch_get_active(GTK_SWITCH(do_not_disturb_switch)));
+    g_signal_connect(G_OBJECT(do_not_disturb_switch), "state-set",
+                     G_CALLBACK(xfce4_notifyd_do_not_disturb_activated), do_not_disturb_info);
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "suppress_duplicates"));
     xfconf_g_property_bind(panel->channel, SUPPRESS_DUPLICATES, G_TYPE_BOOLEAN,
@@ -1124,7 +1104,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                            G_OBJECT(sbtn), "active");
 
     do_fadeout = GTK_WIDGET(gtk_builder_get_object(builder, "do_fadeout"));
-    gtk_switch_set_active (GTK_SWITCH (do_fadeout), TRUE);
+    gtk_switch_set_active(GTK_SWITCH(do_fadeout), TRUE);
     xfconf_g_property_bind(panel->channel, "/do-fadeout", G_TYPE_BOOLEAN,
                            G_OBJECT(do_fadeout), "active");
 
@@ -1162,47 +1142,47 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     /*******************
         APPLICATIONS   *
      *******************/
-    known_applications_scrolled_window = GTK_WIDGET (gtk_builder_get_object (builder, "known_applications_scrolled_window"));
+    known_applications_scrolled_window = GTK_WIDGET(gtk_builder_get_object(builder, "known_applications_scrolled_window"));
     panel->known_applications_listbox = known_applications_listbox = gtk_list_box_new();
     gtk_list_box_set_selection_mode(GTK_LIST_BOX(known_applications_listbox), GTK_SELECTION_NONE);
-    gtk_container_add (GTK_CONTAINER (known_applications_scrolled_window), known_applications_listbox);
-    gtk_list_box_set_header_func (GTK_LIST_BOX (known_applications_listbox), display_header_func, NULL, NULL);
+    gtk_container_add(GTK_CONTAINER(known_applications_scrolled_window), known_applications_listbox);
+    gtk_list_box_set_header_func(GTK_LIST_BOX(known_applications_listbox), display_header_func, NULL, NULL);
 
     placeholder_label = xfce_notify_create_placeholder_label(_("<big><b>Currently there are no known applications.</b></big>"
                                                                "\nAs soon as an application sends a notification"
                                                                "\nit will appear in this list."));
     /* Initialize the list of known applications */
     xfce4_notifyd_known_applications_changed(panel);
-    gtk_list_box_set_placeholder (GTK_LIST_BOX (known_applications_listbox), placeholder_label);
-    gtk_widget_show_all (placeholder_label);
-    g_signal_connect_swapped(G_OBJECT (panel->channel), "property-changed::" KNOWN_APPLICATIONS_PROP,
+    gtk_list_box_set_placeholder(GTK_LIST_BOX(known_applications_listbox), placeholder_label);
+    gtk_widget_show_all(placeholder_label);
+    g_signal_connect_swapped(G_OBJECT(panel->channel), "property-changed::" KNOWN_APPLICATIONS_PROP,
                              G_CALLBACK(xfce4_notifyd_known_applications_changed), panel);
 
     /**********
         LOG   *
      **********/
-    panel->log_widgets.infobar_label = GTK_WIDGET (gtk_builder_get_object (builder, "infobar_label"));
+    panel->log_widgets.infobar_label = GTK_WIDGET(gtk_builder_get_object(builder, "infobar_label"));
 
-    log_switch = GTK_WIDGET (gtk_builder_get_object (builder, "log_switch"));
-    xfconf_g_property_bind (panel->channel, "/notification-log", G_TYPE_BOOLEAN,
-                            G_OBJECT (log_switch), "active");
-    g_signal_connect (G_OBJECT (log_switch), "state-set",
-                      G_CALLBACK (xfce4_notifyd_log_activated), panel);
+    log_switch = GTK_WIDGET(gtk_builder_get_object(builder, "log_switch"));
+    xfconf_g_property_bind(panel->channel, "/notification-log", G_TYPE_BOOLEAN,
+                           G_OBJECT(log_switch), "active");
+    g_signal_connect(G_OBJECT(log_switch), "state-set",
+                     G_CALLBACK(xfce4_notifyd_log_activated), panel);
 
-    panel->log_widgets.log_level = GTK_WIDGET (gtk_builder_get_object (builder, "log_level"));
+    panel->log_widgets.log_level = GTK_WIDGET(gtk_builder_get_object(builder, "log_level"));
     xfconf_g_property_bind(panel->channel, LOG_LEVEL_PROP, G_TYPE_STRING,
                            G_OBJECT(panel->log_widgets.log_level), "active-id");
 
-    panel->log_widgets.log_level_apps_label = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps_label"));
-    panel->log_widgets.log_level_apps = GTK_WIDGET (gtk_builder_get_object (builder, "log_level_apps"));
+    panel->log_widgets.log_level_apps_label = GTK_WIDGET(gtk_builder_get_object(builder, "log_level_apps_label"));
+    panel->log_widgets.log_level_apps = GTK_WIDGET(gtk_builder_get_object(builder, "log_level_apps"));
     xfconf_g_property_bind(panel->channel, LOG_LEVEL_APPS_PROP, G_TYPE_STRING,
-                          G_OBJECT(panel->log_widgets.log_level_apps), "active-id");
+                           G_OBJECT(panel->log_widgets.log_level_apps), "active-id");
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "log_max_size_enabled"));
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_ENABLED_PROP, G_TYPE_BOOLEAN,
                            G_OBJECT(btn), "active");
 
-    sbtn = GTK_WIDGET (gtk_builder_get_object (builder, "log_max_size"));
+    sbtn = GTK_WIDGET(gtk_builder_get_object(builder, "log_max_size"));
     g_object_bind_property(btn, "active", sbtn, "sensitive", G_BINDING_SYNC_CREATE);
     xfconf_g_property_bind(panel->channel, LOG_MAX_SIZE_PROP, G_TYPE_UINT,
                            G_OBJECT(sbtn), "value");
@@ -1217,12 +1197,12 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
                             log_file_info_ready,
                             g_object_ref(size_label));
 
-    xfce4_notifyd_log_activated (GTK_SWITCH (log_switch), gtk_switch_get_active (GTK_SWITCH(log_switch)), panel);
+    xfce4_notifyd_log_activated(GTK_SWITCH(log_switch), gtk_switch_get_active(GTK_SWITCH(log_switch)), panel);
 
     log_viewer_box = GTK_WIDGET(gtk_builder_get_object(builder, "log_viewer_box"));
     gtk_box_pack_start(GTK_BOX(log_viewer_box),
-                      xfce_notify_log_viewer_new(panel->channel, panel->log),
-                      TRUE, TRUE, 0);
+                       xfce_notify_log_viewer_new(panel->channel, panel->log),
+                       TRUE, TRUE, 0);
     gtk_widget_show_all(log_viewer_box);
 
     return dlg;
@@ -1230,8 +1210,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
 
 int
 main(int argc,
-     char **argv)
-{
+     char **argv) {
     GtkWidget *settings_dialog = NULL;
     GtkWidget *notifyd_running;
     GtkBuilder *builder;
@@ -1247,19 +1226,20 @@ main(int argc,
 
     xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
 
-    if(!gtk_init_with_args(&argc, &argv, NULL, option_entries, PACKAGE, &error)) {
-        if(G_LIKELY(error)) {
+    if (!gtk_init_with_args(&argc, &argv, NULL, option_entries, PACKAGE, &error)) {
+        if (G_LIKELY(error)) {
             g_printerr("%s: %s.\n", G_LOG_DOMAIN, error->message);
             g_printerr(_("Type '%s --help' for usage."), G_LOG_DOMAIN);
             g_printerr("\n");
             g_error_free(error);
-        } else
+        } else {
             g_error("Unable to open display.");
+        }
 
         return EXIT_FAILURE;
     }
 
-    if(G_UNLIKELY(opt_version)) {
+    if (G_UNLIKELY(opt_version)) {
         g_print("%s %s\n", G_LOG_DOMAIN, VERSION_STRING);
         g_print("Copyright (c) 2008-2011,2023 Brian Tarricone <brian@tarricone.org>\n");
         g_print("Copyright (c) 2010 Jérôme Guelfucci <jeromeg@xfce.org>\n");
@@ -1271,7 +1251,7 @@ main(int argc,
         return EXIT_SUCCESS;
     }
 
-    if(G_UNLIKELY(!xfconf_init(&error))) {
+    if (G_UNLIKELY(!xfconf_init(&error))) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
                             "dialog-error",
                             _("Settings daemon is unavailable"),
@@ -1282,14 +1262,14 @@ main(int argc,
         return EXIT_FAILURE;
     }
 
-    if (!notify_init ("Xfce4-notifyd settings")) {
-      g_warning("Failed to initialize libnotify.");
+    if (!notify_init("Xfce4-notifyd settings")) {
+        g_warning("Failed to initialize libnotify.");
     }
 
     xfce_notify_config_ui_register_resource();
 
     builder = gtk_builder_new_from_resource("/org/xfce/notifyd/settings/xfce4-notifyd-config.glade");
-    if(G_UNLIKELY(!builder)) {
+    if (G_UNLIKELY(!builder)) {
         g_error("Unable to read embedded UI definition file");
         return EXIT_FAILURE;
     }
@@ -1313,17 +1293,17 @@ main(int argc,
 
     settings_dialog = xfce4_notifyd_config_setup_dialog(panel, builder);
 
-    notifyd_running = GTK_WIDGET (gtk_builder_get_object (builder, "notifyd_running"));
-    gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), FALSE);
-    watch_handle_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                        "org.freedesktop.Notifications",
-                                        G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                        xfce_notify_bus_name_appeared_cb,
-                                        xfce_notify_bus_name_vanished_cb,
-                                        notifyd_running,
-                                        NULL);
+    notifyd_running = GTK_WIDGET(gtk_builder_get_object(builder, "notifyd_running"));
+    gtk_revealer_set_reveal_child(GTK_REVEALER(notifyd_running), FALSE);
+    watch_handle_id = g_bus_watch_name(G_BUS_TYPE_SESSION,
+                                       "org.freedesktop.Notifications",
+                                       G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                       xfce_notify_bus_name_appeared_cb,
+                                       xfce_notify_bus_name_vanished_cb,
+                                       notifyd_running,
+                                       NULL);
 
-    if(opt_socket_id) {
+    if (opt_socket_id) {
         GtkWidget *plug, *plug_child;
 
         plug = gtk_plug_new(opt_socket_id);
@@ -1334,8 +1314,8 @@ main(int argc,
         plug_child = GTK_WIDGET(gtk_builder_get_object(builder, "plug-child"));
 
         /* In the glade file, plug_child has parent, so remove it first */
-        gtk_container_remove (GTK_CONTAINER(gtk_widget_get_parent(plug_child)), plug_child);
-        gtk_container_add (GTK_CONTAINER(plug), plug_child);
+        gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(plug_child)), plug_child);
+        gtk_container_add(GTK_CONTAINER(plug), plug_child);
 
         gdk_notify_startup_complete();
         g_object_unref(G_OBJECT(builder));
@@ -1348,7 +1328,7 @@ main(int argc,
         gtk_dialog_run(GTK_DIALOG(settings_dialog));
     }
 
-    g_bus_unwatch_name (watch_handle_id);
+    g_bus_unwatch_name(watch_handle_id);
     if (panel->log != NULL) {
         g_object_unref(panel->log);
     }

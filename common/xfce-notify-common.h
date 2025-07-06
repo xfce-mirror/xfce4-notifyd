@@ -48,16 +48,16 @@
 #define DO_FADEOUT_PROP                     "/do-fadeout"
 #define DO_SLIDEOUT_PROP                    "/do-slideout"
 
-#define DATETIME_FORMAT_DEFAULT             XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT
-#define DATETIME_CUSTOM_FORMAT_DEFAULT      "%a %H:%M:%S"
-#define LOG_MAX_SIZE_DEFAULT                1000
-#define LOG_LEVEL_DEFAULT                   XFCE_LOG_LEVEL_NOT_FULLY_SHOWN
-#define LOG_LEVEL_APPS_DEFAULT              XFCE_LOG_LEVEL_APPS_ALL
-#define MIN_WIDTH_DEFAULT                   150
-#define EXPIRE_TIMEOUT_DEFAULT              10
-#define DISPLAY_FIELDS_DEFAULT              XFCE_NOTIFY_DISPLAY_FULL
-#define SHOW_NOTIFICATIONS_ON_DEFAULT       XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
-#define NOTIFY_LOCATION_DEFAULT             XFCE_NOTIFY_POS_TOP_LEFT
+#define DATETIME_FORMAT_DEFAULT        XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT
+#define DATETIME_CUSTOM_FORMAT_DEFAULT "%a %H:%M:%S"
+#define LOG_MAX_SIZE_DEFAULT           1000
+#define LOG_LEVEL_DEFAULT              XFCE_LOG_LEVEL_NOT_FULLY_SHOWN
+#define LOG_LEVEL_APPS_DEFAULT         XFCE_LOG_LEVEL_APPS_ALL
+#define MIN_WIDTH_DEFAULT              150
+#define EXPIRE_TIMEOUT_DEFAULT         10
+#define DISPLAY_FIELDS_DEFAULT         XFCE_NOTIFY_DISPLAY_FULL
+#define SHOW_NOTIFICATIONS_ON_DEFAULT  XFCE_NOTIFY_SHOW_ON_ACTIVE_MONITOR
+#define NOTIFY_LOCATION_DEFAULT        XFCE_NOTIFY_POS_TOP_LEFT
 
 // This is a hidden setting that restores the old behabior of using an
 // override-redirect window for the notification windows.  This should be
@@ -67,7 +67,7 @@
 // or screen locker, which many people might consider a security issue.  For
 // that reason, this option will remain hidden (not presented in the GUI),
 // and will be disabled by default.
-#define COMPAT_OVERRIDE_REDIRECT_PROP       "/compat/use-override-redirect-windows"
+#define COMPAT_OVERRIDE_REDIRECT_PROP "/compat/use-override-redirect-windows"
 
 G_BEGIN_DECLS
 
@@ -154,4 +154,4 @@ void xfce_notify_migrate_settings(XfconfChannel *channel);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_COMMON_H__ */
+#endif /* __XFCE_NOTIFY_COMMON_H__ */

@@ -23,123 +23,123 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <libnotify/notify.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libnotify/notify.h>
 
-static void action1_callback (NotifyNotification *notification,
-                              const char         *action,
-                              gpointer            loop)
-{
-  g_assert (action != NULL);
-  g_assert (strcmp (action, "action1") == 0);
-  g_assert (loop != NULL);
+static void
+action1_callback(NotifyNotification *notification,
+                 const char *action,
+                 gpointer loop) {
+    g_assert(action != NULL);
+    g_assert(strcmp(action, "action1") == 0);
+    g_assert(loop != NULL);
 
-  g_printf ("You clicked the first action\n");
+    g_printf("You clicked the first action\n");
 
-  notify_notification_close (notification, NULL);
+    notify_notification_close(notification, NULL);
 
-  g_main_loop_quit (loop);
+    g_main_loop_quit(loop);
 }
 
-static void action2_callback (NotifyNotification *notification,
-                              const char         *action,
-                              gpointer            loop)
-{
-  g_assert (action != NULL);
-  g_assert (strcmp (action, "action2") == 0);
-  g_assert (loop != NULL);
+static void
+action2_callback(NotifyNotification *notification,
+                 const char *action,
+                 gpointer loop) {
+    g_assert(action != NULL);
+    g_assert(strcmp(action, "action2") == 0);
+    g_assert(loop != NULL);
 
-  g_printf ("You clicked the second action\n");
+    g_printf("You clicked the second action\n");
 
-  notify_notification_close (notification, NULL);
+    notify_notification_close(notification, NULL);
 
-  g_main_loop_quit (loop);
+    g_main_loop_quit(loop);
 }
 
-static void clear_callback (NotifyNotification *notification,
-                            const char         *action,
-                            gpointer            loop)
-{
-  g_assert (action != NULL);
-  g_assert (strcmp (action, "clear") == 0);
-  g_assert (loop != NULL);
+static void
+clear_callback(NotifyNotification *notification,
+               const char *action,
+               gpointer loop) {
+    g_assert(action != NULL);
+    g_assert(strcmp(action, "clear") == 0);
+    g_assert(loop != NULL);
 
-  g_printf ("You clicked the clear action\n");
+    g_printf("You clicked the clear action\n");
 
-  notify_notification_clear_actions (notification);
+    notify_notification_clear_actions(notification);
 
-  notify_notification_add_action (notification,
-                                  "action1",
-                                  "First Action",
-                                  (NotifyActionCallback) action1_callback,
-                                  loop,
-                                  NULL);
+    notify_notification_add_action(notification,
+                                   "action1",
+                                   "First Action",
+                                   (NotifyActionCallback)action1_callback,
+                                   loop,
+                                   NULL);
 
-  notify_notification_add_action (notification,
-                                  "action2",
-                                  "Second Action",
-                                  (NotifyActionCallback) action2_callback,
-                                  loop,
-                                  NULL);
+    notify_notification_add_action(notification,
+                                   "action2",
+                                   "Second Action",
+                                   (NotifyActionCallback)action2_callback,
+                                   loop,
+                                   NULL);
 
-  if (!notify_notification_show (notification, NULL))
+    if (!notify_notification_show(notification, NULL))
     {
-      g_error ("Failed");
-      g_main_loop_quit (loop);
+        g_error("Failed");
+        g_main_loop_quit(loop);
     }
 }
 
-int main (int argc, char **argv)
-{
-  NotifyNotification *notification;
-  GMainLoop          *loop;
+int
+main(int argc, char **argv) {
+    NotifyNotification *notification;
+    GMainLoop *loop;
 
-  if (!notify_init ("Notification with actions test"))
+    if (!notify_init("Notification with actions test"))
     {
-      g_error ("Failed to initialize libnotify.");
+        g_error("Failed to initialize libnotify.");
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  loop = g_main_loop_new (NULL, FALSE);
+    loop = g_main_loop_new(NULL, FALSE);
 
-  notification = notify_notification_new ("Action!",
-                                          "Click my shiny actions",
-                                          NULL);
+    notification = notify_notification_new("Action!",
+                                           "Click my shiny actions",
+                                           NULL);
 
-  notify_notification_add_action (notification,
-                                  "action1",
-                                  "First Action",
-                                  (NotifyActionCallback) action1_callback,
-                                  loop,
-                                  NULL);
+    notify_notification_add_action(notification,
+                                   "action1",
+                                   "First Action",
+                                   (NotifyActionCallback)action1_callback,
+                                   loop,
+                                   NULL);
 
-  notify_notification_add_action (notification,
-                                  "action2",
-                                  "Second Action",
-                                  (NotifyActionCallback) action2_callback,
-                                  loop,
-                                  NULL);
+    notify_notification_add_action(notification,
+                                   "action2",
+                                   "Second Action",
+                                   (NotifyActionCallback)action2_callback,
+                                   loop,
+                                   NULL);
 
-  notify_notification_add_action (notification,
-                                  "clear",
-                                  "Clear me",
-                                  (NotifyActionCallback) clear_callback,
-                                  loop,
-                                  NULL);
+    notify_notification_add_action(notification,
+                                   "clear",
+                                   "Clear me",
+                                   (NotifyActionCallback)clear_callback,
+                                   loop,
+                                   NULL);
 
-  if (!notify_notification_show (notification, NULL))
+    if (!notify_notification_show(notification, NULL))
     {
-      g_error ("Failed");
-      g_object_unref (notification);
+        g_error("Failed");
+        g_object_unref(notification);
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  g_main_loop_run (loop);
+    g_main_loop_run(loop);
 
-  g_object_unref (notification);
+    g_object_unref(notification);
 
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
