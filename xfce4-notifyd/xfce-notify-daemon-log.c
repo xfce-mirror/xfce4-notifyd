@@ -204,8 +204,7 @@ notify_log_list(XfceNotifyDaemonLog *xndlog,
                 GDBusMethodInvocation *invocation,
                 const gchar *arg_start_after_id,
                 guint arg_count,
-                gboolean arg_only_unread)
-{
+                gboolean arg_only_unread) {
     if (xndlog->log == NULL) {
         g_dbus_method_invocation_return_error_literal(invocation, G_IO_ERROR, G_IO_ERROR_FAILED, _("Log is unavailable"));
     } else {

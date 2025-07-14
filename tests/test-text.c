@@ -22,70 +22,70 @@
 #endif
 
 #include <glib.h>
-#include <stdlib.h>
 #include <libnotify/notify.h>
+#include <stdlib.h>
 
-int main (int argc, char **argv)
-{
-  NotifyNotification *notification;
+int
+main(int argc, char **argv) {
+    NotifyNotification *notification;
 
-  if (!notify_init ("Notification with text test"))
+    if (!notify_init("Notification with text test"))
     {
-      g_error ("Failed to initialize libnotify.");
+        g_error("Failed to initialize libnotify.");
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  g_print ("%s", "Testing notification with text summary and body\n");
+    g_print("%s", "Testing notification with text summary and body\n");
 
-  notification = notify_notification_new ("Test text support",
-                                          "Does it work?",
-                                          NULL);
+    notification = notify_notification_new("Test text support",
+                                           "Does it work?",
+                                           NULL);
 
-  if (!notify_notification_show (notification, NULL))
+    if (!notify_notification_show(notification, NULL))
     {
-      g_error ("Failed");
-      g_object_unref (notification);
+        g_error("Failed");
+        g_object_unref(notification);
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  g_object_unref (notification);
+    g_object_unref(notification);
 
-  g_print ("%s", "Testing notification with text summary and no body\n");
+    g_print("%s", "Testing notification with text summary and no body\n");
 
-  notification = notify_notification_new ("Summary only support",
-                                          NULL,
-                                          NULL);
+    notification = notify_notification_new("Summary only support",
+                                           NULL,
+                                           NULL);
 
-  if (!notify_notification_show (notification, NULL))
+    if (!notify_notification_show(notification, NULL))
     {
-      g_error ("Failed");
-      g_object_unref (notification);
+        g_error("Failed");
+        g_object_unref(notification);
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  g_object_unref (notification);
+    g_object_unref(notification);
 
-  g_print ("%s", "Testing notification with markup in the body\n");
+    g_print("%s", "Testing notification with markup in the body\n");
 
-  notification = notify_notification_new ("Markup support",
-                                          "<i>Italic</i>\n"
-                                          "<b>Bold</b>\n"
-                                          "<u>Underlined</u>\n"
-                                          "<a href=\"http://www.xfce.org\">Xfce Web site</a>",
-                                          NULL);
+    notification = notify_notification_new("Markup support",
+                                           "<i>Italic</i>\n"
+                                           "<b>Bold</b>\n"
+                                           "<u>Underlined</u>\n"
+                                           "<a href=\"http://www.xfce.org\">Xfce Web site</a>",
+                                           NULL);
 
-  if (!notify_notification_show (notification, NULL))
+    if (!notify_notification_show(notification, NULL))
     {
-      g_error ("Failed");
-      g_object_unref (notification);
+        g_error("Failed");
+        g_object_unref(notification);
 
-      return EXIT_FAILURE;
+        return EXIT_FAILURE;
     }
 
-  g_object_unref (notification);
+    g_object_unref(notification);
 
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

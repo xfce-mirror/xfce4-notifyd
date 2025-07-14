@@ -20,9 +20,8 @@
 #ifndef __XFCE_NOTIFY_LOG_H__
 #define __XFCE_NOTIFY_LOG_H__
 
-#include <glib-object.h>
-
 #include <common/xfce-notify-log-types.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
@@ -59,4 +58,4 @@ void xfce_notify_log_clear(XfceNotifyLog *log);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_LOG_H__ */
+#endif /* __XFCE_NOTIFY_LOG_H__ */

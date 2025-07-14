@@ -40,4 +40,4 @@ void xfce_notification_actions_free(XfceNotificationActions *actions);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_TYPES_H__ */
+#endif /* __XFCE_NOTIFY_TYPES_H__ */

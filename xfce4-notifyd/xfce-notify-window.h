@@ -21,17 +21,16 @@
 #ifndef __XFCE_NOTIFY_WINDOW_H__
 #define __XFCE_NOTIFY_WINDOW_H__
 
+#include <common/xfce-notify-common.h>
 #include <gtk/gtk.h>
 
-#include <common/xfce-notify-common.h>
-
-#define XFCE_TYPE_NOTIFY_WINDOW     (xfce_notify_window_get_type())
-#define XFCE_NOTIFY_WINDOW(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_WINDOW, XfceNotifyWindow))
-#define XFCE_IS_NOTIFY_WINDOW(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_WINDOW))
+#define XFCE_TYPE_NOTIFY_WINDOW    (xfce_notify_window_get_type())
+#define XFCE_NOTIFY_WINDOW(obj)    (G_TYPE_CHECK_INSTANCE_CAST((obj), XFCE_TYPE_NOTIFY_WINDOW, XfceNotifyWindow))
+#define XFCE_IS_NOTIFY_WINDOW(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), XFCE_TYPE_NOTIFY_WINDOW))
 
 G_BEGIN_DECLS
 
-typedef struct _XfceNotifyWindow  XfceNotifyWindow;
+typedef struct _XfceNotifyWindow XfceNotifyWindow;
 
 GType xfce_notify_window_get_type(void) G_GNUC_CONST;
 
@@ -55,4 +54,4 @@ GdkRectangle *xfce_notify_window_get_geometry(XfceNotifyWindow *window);
 
 G_END_DECLS
 
-#endif  /* __XFCE_NOTIFY_WINDOW_H__ */
+#endif /* __XFCE_NOTIFY_WINDOW_H__ */

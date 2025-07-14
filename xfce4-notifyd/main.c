@@ -25,11 +25,9 @@
 #include <string.h>
 #endif
 
-#include <signal.h>
-
 #include <glib/gstdio.h>
-
 #include <gtk/gtk.h>
+#include <signal.h>
 
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
@@ -40,9 +38,9 @@
 #include <gtk-layer-shell.h>
 #endif
 
-#include <xfconf/xfconf.h>
-#include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
+#include <libxfce4util/libxfce4util.h>
+#include <xfconf/xfconf.h>
 
 #include "xfce-notify-daemon.h"
 
@@ -61,7 +59,8 @@ check_windowing_system_support(GdkDisplay *display) {
     } else
 #endif
 #ifdef ENABLE_WAYLAND
-    if (GDK_IS_WAYLAND_DISPLAY(display)) {
+        if (GDK_IS_WAYLAND_DISPLAY(display))
+    {
         if (!gtk_layer_is_supported()) {
             return _("Your Wayland compositor does not support required protocol wlr-layer-shell.");
         } else {
@@ -76,19 +75,18 @@ check_windowing_system_support(GdkDisplay *display) {
 
 int
 main(int argc,
-     char **argv)
-{
+     char **argv) {
     XfceNotifyDaemon *xndaemon;
     GError *error = NULL;
 
     xfconf_init(NULL);
- 	
+
     gtk_init(&argc, &argv);
 
     xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
 
-    if(argc > 1) {
-        if(!strcmp(argv[1], "--version") || !strcmp(argv[1], "-V")) {
+    if (argc > 1) {
+        if (!strcmp(argv[1], "--version") || !strcmp(argv[1], "-V")) {
             g_print("%s %s\n", _("Xfce Notify Daemon"), VERSION);
             return 0;
         } else {
@@ -111,7 +109,7 @@ main(int argc,
     }
 
     xndaemon = xfce_notify_daemon_new_unique(&error);
-    if(!xndaemon) {
+    if (!xndaemon) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
                             "dialog-error",
                             _("Unable to start notification daemon"),
