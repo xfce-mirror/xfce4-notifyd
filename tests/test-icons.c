@@ -26,10 +26,6 @@
       app_icon parameter
       for compatibility reason, "icon_data" */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <glib.h>
 #include <glib/gprintf.h>
 #include <stdlib.h>
