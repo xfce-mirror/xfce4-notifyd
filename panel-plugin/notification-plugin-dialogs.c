@@ -51,7 +51,6 @@ notification_plugin_configure_response (GtkWidget    *dialog,
   else
     {
       g_object_set_data (G_OBJECT (notification_plugin->plugin), "dialog", NULL);
-      xfce_panel_plugin_unblock_menu (notification_plugin->plugin);
       gtk_widget_destroy (dialog);
     }
 }
@@ -67,14 +66,16 @@ notification_plugin_configure (XfcePanelPlugin      *plugin,
   gint log_icon_size;
   gdouble log_display_limit;
 
+  if ((dialog = g_object_get_data(G_OBJECT(plugin), "dialog")) != NULL) {
+      gtk_window_present(GTK_WINDOW(dialog));
+      return;
+  }
+
   builder = gtk_builder_new_from_resource("/org/xfce/notifyd/panel-plugin/notification-plugin-settings.glade");
   if (G_UNLIKELY(builder == NULL)) {
       g_critical("Unable to read settings UI description");
       return;
   }
-
-  /* block the plugin menu */
-  xfce_panel_plugin_block_menu(plugin);
 
   dialog = GTK_WIDGET(gtk_builder_get_object(builder, "settings_dialog"));
   g_signal_connect(G_OBJECT(dialog), "response",
