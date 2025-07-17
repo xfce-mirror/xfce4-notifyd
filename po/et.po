@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Xfce
-# This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # Priit Jõerüüt <transifex@joeruut.com>, 2020,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
-"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-06-25 00:49+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-17 12:50+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Priit Jõerüüt <transifex@joeruut.com>, 2020,2022-2025\n"
 "Language-Team: Estonian (http://app.transifex.com/xfce/xfce-apps/language/et/)\n"
@@ -18,646 +18,629 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: common/xfce-notify-log-util.c:383
+#: ../common/xfce-notify-log-util.c:379
 msgid "Do you really want to clear the notification log?"
 msgstr "Kas sa kindlasti soovid kustutada teadete logi?"
 
-#: common/xfce-notify-log-util.c:388
+#: ../common/xfce-notify-log-util.c:384
 msgid "Clear notification log"
 msgstr "Kustuta teadete logi"
 
-#: common/xfce-notify-log-util.c:391
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:882
+#: ../common/xfce-notify-log-util.c:387
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:878
 msgid "Cancel"
 msgstr "Tühista"
 
-#: common/xfce-notify-log-util.c:393
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:206
+#: ../common/xfce-notify-log-util.c:389
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Clear"
 msgstr "Puhasta"
 
-#: common/xfce-notify-log-util.c:410 common/xfce-notify-log-util.c:418
+#: ../common/xfce-notify-log-util.c:406 ../common/xfce-notify-log-util.c:414
 msgid "include icon cache"
 msgstr "sealhulgas puhverdatud ikoonid"
 
-#: common/xfce-notify-log-util.c:455
+#: ../common/xfce-notify-log-util.c:451
 msgid "Now"
 msgstr "Nüüd"
 
-#: panel-plugin/notification-plugin.c:344
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
-#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
+#: ../panel-plugin/notification-plugin.c:341
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
 msgid "Notifications"
 msgstr "Teated"
 
-#: panel-plugin/notification-plugin-dialogs.c:53
+#: ../panel-plugin/notification-plugin-dialogs.c:49
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "Järgneva url'i avamine ei õnnestunud: %s"
 
-#: panel-plugin/notification-plugin-dialogs.c:135
+#: ../panel-plugin/notification-plugin-dialogs.c:133
 msgid "This is the notification plugin"
 msgstr "See on teadete pistikprogramm"
 
-#: panel-plugin/notification-plugin-dialogs.c:137
+#: ../panel-plugin/notification-plugin-dialogs.c:135
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "Autoriõigused © 2017 Simon Steinbeiß\n"
 
-#: panel-plugin/notification-plugin-log.c:153
+#: ../panel-plugin/notification-plugin-log.c:151
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>Ära _sega</b>"
 
-#: panel-plugin/notification-plugin-log.c:357
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
+#: ../panel-plugin/notification-plugin-log.c:355
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:172
 msgid "Unable to open notification log"
 msgstr "Teadete logi avamine ei õnnestu"
 
-#: panel-plugin/notification-plugin-log.c:359
+#: ../panel-plugin/notification-plugin-log.c:357
 msgid "No unread notifications"
 msgstr "Lugemata teateid pole"
 
-#: panel-plugin/notification-plugin-log.c:361
+#: ../panel-plugin/notification-plugin-log.c:359
 msgid "No notifications"
 msgstr "Teateid ei ole"
 
-#: panel-plugin/notification-plugin-log.c:383
+#: ../panel-plugin/notification-plugin-log.c:381
 msgid "_Clear log"
 msgstr "_Puhasta logi"
 
-#: panel-plugin/notification-plugin-log.c:394
+#: ../panel-plugin/notification-plugin-log.c:392
 msgid "_Mark all read"
 msgstr "_Märgi kõik loetuks"
 
-#: panel-plugin/notification-plugin-log.c:403
+#: ../panel-plugin/notification-plugin-log.c:401
 msgid "_Notification settings…"
 msgstr "_Teadete seadistused..."
 
-#: panel-plugin/notification-plugin-settings.glade:30
+#: ../panel-plugin/notification-plugin-settings.glade.h:1
 msgid "Notification Plugin Settings"
 msgstr "Teadete pistikprogrammi seadistused"
 
-#: panel-plugin/notification-plugin-settings.glade:46
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
+#: ../panel-plugin/notification-plugin-settings.glade.h:2
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
 msgid "_Help"
 msgstr "_Abi"
 
-#: panel-plugin/notification-plugin-settings.glade:61
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:82
+#: ../panel-plugin/notification-plugin-settings.glade.h:3
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
 msgid "_Close"
 msgstr "_Sulge"
 
-#: panel-plugin/notification-plugin-settings.glade:98
+#: ../panel-plugin/notification-plugin-settings.glade.h:4
 msgid "Notification icon size"
 msgstr "Teate ikooni suurus"
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: ../panel-plugin/notification-plugin-settings.glade.h:5
 msgid "Number of notifications to show"
 msgstr "Näidatavate teadete arv"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: ../panel-plugin/notification-plugin-settings.glade.h:6
 msgid "Only show notifications from today"
 msgstr "Näita vaid tänaseid teateid"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: ../panel-plugin/notification-plugin-settings.glade.h:7
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Peida „Kustuta teadete logi“ kinnitusdialoog"
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: ../panel-plugin/notification-plugin-settings.glade.h:8
 msgid "Hide panel button when no unread notifications"
 msgstr "Kui lugemata teateid pole, siis peida ribal asuv nupp"
 
-#: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
+#: ../panel-plugin/notification-plugin-settings.glade.h:9
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:49
 msgid "Appearance"
 msgstr "Välimus"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: ../panel-plugin/notification-plugin-settings.glade.h:10
 msgid "Show in menu"
 msgstr "Näita menüüs"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: ../panel-plugin/notification-plugin-settings.glade.h:11
 msgid "All notifications"
 msgstr "Kõiki teateid"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: ../panel-plugin/notification-plugin-settings.glade.h:12
 msgid "Unread notifications"
 msgstr "Lugemata teateid"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: ../panel-plugin/notification-plugin-settings.glade.h:13
 msgid "Behavior"
 msgstr "Käitumine"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: ../panel-plugin/notification-plugin-settings.glade.h:14
 msgid "After showing the menu"
 msgstr "Peale selle menüü kuvamist"
 
-#: panel-plugin/notification-plugin-settings.glade:299
+#: ../panel-plugin/notification-plugin-settings.glade.h:15
 msgid "Mark all log entries read"
 msgstr "Märgi kõik logikirjed loetuks"
 
-#: panel-plugin/notification-plugin-settings.glade:300
+#: ../panel-plugin/notification-plugin-settings.glade.h:16
 msgid "Mark shown log entries read"
 msgstr "Märgi näidatud logikirjed loetuks"
 
-#: panel-plugin/notification-plugin-settings.glade:301
+#: ../panel-plugin/notification-plugin-settings.glade.h:17
 msgid "Do nothing"
 msgstr "Ära tee midagi"
 
-#: panel-plugin/notification-plugin.desktop.in:5
-msgid "Notification Plugin"
-msgstr "Teadete pistikprogramm"
-
-#: panel-plugin/notification-plugin.desktop.in:6
-msgid "Notification plugin for the Xfce panel"
-msgstr "Teadete pistikprogramm Xfce paneeli jaoks"
-
-#: xfce4-notifyd/main.c:66
+#: ../xfce4-notifyd/main.c:62
 msgid ""
 "Your Wayland compositor does not support required protocol wlr-layer-shell."
 msgstr "Sinu arvuti operatsioonisüsteemi Waylandi komposiitor ei toeta vajalikku wlr-layer-shell protokolli."
 
-#: xfce4-notifyd/main.c:73
+#: ../xfce4-notifyd/main.c:69
 msgid "xfce4-notifyd was built without support for your windowing system."
 msgstr "xfce4-notifyd kompileeriti ilma hetkel kasutusel oleva aknahalduri toeta."
 
-#: xfce4-notifyd/main.c:92 xfce4-notifyd/main.c:103 xfce4-notifyd/main.c:115
-#: xfce4-notifyd-config/main.c:1271
+#: ../xfce4-notifyd/main.c:88 ../xfce4-notifyd/main.c:99
+#: ../xfce4-notifyd/main.c:111 ../xfce4-notifyd-config/main.c:1271
 msgid "Xfce Notify Daemon"
 msgstr "Xfce teadete taustaprogramm"
 
-#: xfce4-notifyd/main.c:95
+#: ../xfce4-notifyd/main.c:91
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "Tundmatu valik \"%s\"\n"
 
-#: xfce4-notifyd/main.c:105 xfce4-notifyd/main.c:117
+#: ../xfce4-notifyd/main.c:101 ../xfce4-notifyd/main.c:113
 msgid "Unable to start notification daemon"
 msgstr "Teadete taustaprogramm käivitamine ei õnnestunud"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:598
+#: ../xfce4-notifyd/xfce-notify-daemon.c:594
+#, c-format
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Kasutusel on teine teadete taustaprogramm, lõpetan töö\n"
 
-#: xfce4-notifyd/xfce-notify-daemon-log.c:179
-#: xfce4-notifyd/xfce-notify-daemon-log.c:210
-#: xfce4-notifyd/xfce-notify-daemon-log.c:244
-#: xfce4-notifyd/xfce-notify-daemon-log.c:257
-#: xfce4-notifyd/xfce-notify-daemon-log.c:291
-#: xfce4-notifyd/xfce-notify-daemon-log.c:305
-#: xfce4-notifyd/xfce-notify-daemon-log.c:317
-#: xfce4-notifyd/xfce-notify-daemon-log.c:331
-#: xfce4-notifyd/xfce-notify-daemon-log.c:343
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:175
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:206
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:240
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:253
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:287
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:301
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:313
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:327
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:339
 msgid "Log is unavailable"
 msgstr "Logi ei ole saadaval"
 
-#: xfce4-notifyd/xfce-notify-daemon-log.c:184
+#: ../xfce4-notifyd/xfce-notify-daemon-log.c:180
 msgid "Log entry not found"
 msgstr "Logikirjet ei leidu"
 
-#: xfce4-notifyd/xfce-notify-log.c:239
+#: ../xfce4-notifyd/xfce-notify-log.c:235
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
 msgstr "Teadete logi kaust (%s) pole üldsegi kaust"
 
-#: xfce4-notifyd/xfce-notify-log.c:251
+#: ../xfce4-notifyd/xfce-notify-log.c:247
 #, c-format
 msgid "Failed to open notification log: %s"
 msgstr "Teadete logi avamine ei õnnestu: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:335
+#: ../xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
 msgstr "SQL lausendi loomine ei õnnestunud: %%s (%s)"
 
-#: xfce4-notifyd/xfce-notify-log.c:364
+#: ../xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
 msgstr "tähemärgid lausendi lõpus"
 
-#: xfce4-notifyd/xfce-notify-log.c:462
+#: ../xfce4-notifyd/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
 msgstr "Teadete tabeli loomine ei õnnestunud: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:463
+#: ../xfce4-notifyd/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
 msgstr "Andmebaasi ajatempli indeksi loomine ei õnnestunud: %s"
 
-#: xfce4-notifyd/xfce-notify-log.c:464
+#: ../xfce4-notifyd/xfce-notify-log.c:460
 #, c-format
 msgid "Failed to create DB is_read index: %s"
 msgstr "Indeksi loomine andmebaasi is_read väljale ei õnnestunud: %s"
 
-#: xfce4-notifyd/xfce-notify-window.c:1457
+#: ../xfce4-notifyd/xfce-notify-window.c:1453
 msgid "Default Action"
 msgstr "Vaikimisi toiming"
 
-#: xfce4-notifyd/xfce4-notifyd.desktop.in:4
-msgid "Xfce Notification Daemon"
-msgstr "Xfce teadete taustaprogramm"
-
-#: xfce4-notifyd-config/main.c:113
+#: ../xfce4-notifyd-config/main.c:109
 msgid "Notification Preview"
 msgstr "Teadete eelvaade"
 
-#: xfce4-notifyd-config/main.c:114
+#: ../xfce4-notifyd-config/main.c:110
 msgid "This is what notifications will look like"
 msgstr "Teated saavad välja nägema sellised"
 
-#: xfce4-notifyd-config/main.c:119
+#: ../xfce4-notifyd-config/main.c:115
 msgid "Button"
 msgstr "Nupp"
 
-#: xfce4-notifyd-config/main.c:126
+#: ../xfce4-notifyd-config/main.c:122
 msgid "Notification preview failed"
 msgstr "Teadete eelvaate kuvamine ei õnnestunud"
 
-#: xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/main.c:585
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "Kas sa oled kindel et soovid kõik „%s“ rakenduse teated kustutada?"
 
-#: xfce4-notifyd-config/main.c:593
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:884
+#: ../xfce4-notifyd-config/main.c:589
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:880
 msgid "Delete"
 msgstr "Kustuta"
 
-#: xfce4-notifyd-config/main.c:595
-#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
+#: ../xfce4-notifyd-config/main.c:591
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:4
 msgid "Forget Application"
 msgstr "Unusta rakendus"
 
-#: xfce4-notifyd-config/main.c:693
+#: ../xfce4-notifyd-config/main.c:691
 msgid "Unspecified applications"
 msgstr "Määratlemata rakendused"
 
-#: xfce4-notifyd-config/main.c:924
+#: ../xfce4-notifyd-config/main.c:924
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Hetkel kuvatakse vaid olulisi teateid.</b>\nTeavituste logimine on %s."
 
-#: xfce4-notifyd-config/main.c:931
+#: ../xfce4-notifyd-config/main.c:931
 msgid "enabled"
 msgstr "lubatud"
 
-#: xfce4-notifyd-config/main.c:931
+#: ../xfce4-notifyd-config/main.c:931
 msgid "disabled"
 msgstr "keelatud"
 
-#: xfce4-notifyd-config/main.c:1167
+#: ../xfce4-notifyd-config/main.c:1167
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Ühtegi rakendust pole hetkel kirjeldatud.</b></big>\nNiipea, kui rakendus saadab mõne teate,\ntekib ta siia loendisse."
 
-#: xfce4-notifyd-config/main.c:1238
+#: ../xfce4-notifyd-config/main.c:1238
 msgid "Display version information"
 msgstr "Näita versiooniteavet"
 
-#: xfce4-notifyd-config/main.c:1239
+#: ../xfce4-notifyd-config/main.c:1239
 msgid "Settings manager socket"
 msgstr "Seadistuste halduri sokkel"
 
-#: xfce4-notifyd-config/main.c:1239
+#: ../xfce4-notifyd-config/main.c:1239
 msgid "SOCKET_ID"
 msgstr "SOKLI_ID"
 
-#: xfce4-notifyd-config/main.c:1249
+#: ../xfce4-notifyd-config/main.c:1249
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "Trüki „%s --help” kasutusjuhisteks. "
 
-#: xfce4-notifyd-config/main.c:1264
+#: ../xfce4-notifyd-config/main.c:1264
+#, c-format
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Avaldatud GNU General Public License versioon 2 alusel\n"
 
-#: xfce4-notifyd-config/main.c:1265
+#: ../xfce4-notifyd-config/main.c:1265
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Palun teata vigadest <%s>.\n"
 
-#: xfce4-notifyd-config/main.c:1273
+#: ../xfce4-notifyd-config/main.c:1273
 msgid "Settings daemon is unavailable"
 msgstr "Seadistuste taustaprogramm ei ole saadaval"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:178
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Teadete logi on tühi</b></big>\nMitte ühtegi teadet pole veel logitud."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:197
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:193
 msgid "Refresh"
 msgstr "Värskenda"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:198
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:194
 msgid "Refresh the notification log"
 msgstr "Värskenda teavituste logi"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:207
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:203
 msgid "Clear the notification log"
 msgstr "Tühjenda teavituste logi"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:215
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:211
 msgid "Mark All Read"
 msgstr "Märgi kõik loetuks"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:216
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:212
 msgid "Mark all unread notifications as read"
 msgstr "Märgi kõik lugemata teated loetuks"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:224
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:220
 msgid "Delete Entry"
 msgstr "Kustuta kirje"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:225
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:221
 msgid "Deletes the selected log entries"
 msgstr "Kustutab valitud logikirjed"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:233
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:229
 msgid "Show Log Location"
 msgstr "Näita logi asukohta"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:234
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:230
 msgid "Shows the location of the log file in the file manager"
 msgstr "Näitab failihalduris logifaili asukohta"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:547
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:543
 msgid "Mark log entry _read"
 msgstr "Märgi logikirje _loetuks"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:753
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:749
 msgid "Yesterday and before"
 msgstr "Eile ja varem"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:879
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:875
 msgid "Delete Selected Log Entries"
 msgstr "Kustuta valitud logikirjed"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1153
+#: ../xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
 msgid "Loading more log entries..."
 msgstr "Laadin järgmisi logikirjeid..."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
 msgid ""
 "The notification service is not running. No notifications will be shown."
 msgstr "Teadete teenus ei tööta ja ühtegi teadet ei näidata."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>Hetkel kuvatakse vaid olulisi teateid.</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
 msgid "Fade out"
 msgstr "Hääbumine"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
 msgid "_Slide out"
 msgstr "_Liugumine"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
 msgid "Do not disturb"
 msgstr "Ära sega"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:372
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
 msgid "<b>Behavior</b>"
 msgstr "<b>Käitumine</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:386
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
 msgid "<b>Animations</b>"
 msgstr "<b>Animatsioonid</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:399
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "Vaikimisi kuvatakse teadete jutumullid ekraanil, kus parasjagu paikneb hiirekursor."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:12
 msgid "Show notifications on"
 msgstr "Näita teateid"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:414
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:13
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
 msgstr "„Luba teadete helid“ seadistus peab välimuse seadistuste vaates olema helide esitamiseks sisse lülitatud"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:14
 msgid "_Mute sounds"
 msgstr "_Summuta helid"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:15
 msgid "Always show percent-value notifications"
 msgstr "Näita alati protsentuaalse väärtusega teavitusi"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:16
 msgid "When displaying notifications, show"
 msgstr "Teadete kuvamisel näita:"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:17
 msgid "icon, summary, and body"
 msgstr "ikooni, sisukokkuvõtet ja sisu"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:18
 msgid "icon and summary"
 msgstr "ikooni ja sisukokkuvõtet"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:19
 msgid "icon and application name"
 msgstr "ikooni ja rakenduse nime"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:20
 msgid "monitor with mouse pointer"
 msgstr "ekraan, kus on hiire kursor"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:21
 msgid "primary monitor"
 msgstr "esmane ekraan"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:22
 msgid "all monitors"
 msgstr "kõik ekraanid"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:23
 msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
 msgstr "Takista topeltteavituste kuvamist. Kui teate kokkuvõte on sama ja üks selline juba on ekraanil kuvatud, siis identsed teated jäävad kuvamata. See seadistust on abiks näiteks sõnumiklientide puhul."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:24
 msgid "_Suppress duplicate notifications"
 msgstr "Väldi topeltteavitu_si"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:25
 msgid "General"
 msgstr "Üldine"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:26
 msgid "seconds"
 msgstr "sekundit"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:27
 msgid "10"
 msgstr "10"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:28
 msgid "_Opacity"
 msgstr "_Läbipaistmatus"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:29
 msgid "Default _position"
 msgstr "Vaikimisi _asukoht"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:30
 msgid "Top left"
 msgstr "Ülal vasakul"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:31
 msgid "Bottom left"
 msgstr "All vasakul"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:32
 msgid "Top right"
 msgstr "Ülal paremal"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:33
 msgid "Bottom right"
 msgstr "All paremal"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:34
 msgid "Top center"
 msgstr "Ülal keskel"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:35
 msgid "Bottom center"
 msgstr "Ülal vasakul"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:36
 msgid "_Theme"
 msgstr "Kujunduse _teema"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:37
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr "Näita teate sisukokkuvõtet ja sisu, kui teate tegelikuks sisuks on protsentuaalne väärtus; see või näiteks juhtuda helivaljuse ja ekraaniereduse teadete puhul"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:38
 msgid "Show text with percent _values"
 msgstr "Näita teksti protsentuaalsete _väärtustega"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:39
 msgid "Date/time _format"
 msgstr "Kuupäeva ja aja _vorming"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:40
 msgid "Locale default"
 msgstr "Aeg vastavalt lokaadile"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:41
 msgid "Relative times"
 msgstr "Suhteline aeg"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:42
 msgid "ISO8601"
 msgstr "ISO8601"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:43
 msgid "Custom"
 msgstr "Vali ajavahemik"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:44
 msgid "Show _Preview"
 msgstr "Näita _eelvaadet"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:45
 msgid "_Disappear after"
 msgstr "_Peida teade peale"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:46
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr "Teate genereerimisel võivad rakendused määrata aja kui kaua seda teadet kuvatakse. Selle seadistusega saad juhtida, kase seda soovitud aega arvestatakse või mitte."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:47
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr "Luba järgida rakenduse poolt määratud „Peida teade peale“ aega"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:48
 msgid "_Minimum notification width"
 msgstr "Teavituse väiksei_m laius"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:50
 msgid "<b>Per-application notification settings</b>"
 msgstr "<b>Rakendusekohased teadete seadistused</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:51
 msgid "Applications"
 msgstr "Rakendused"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:52
 msgid "Log notifications"
 msgstr "Salvesta teated logisse"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:53
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
 msgstr "ainult siis, kui „Ära sega“ on kasutusel või kui teadete põhisisu ei kuvata"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:54
 msgid "always"
 msgstr "alati"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:55
 msgid "Log applications"
 msgstr "Salvesta rakenduste teateid"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:56
 msgid "all"
 msgstr "alati"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1026
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:57
 msgid "all except blocked"
 msgstr "alati, välja arvatud blokeeritud rakendustelt"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:58
 msgid "only blocked"
 msgstr "ainult blokeeritud rakendustelt"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:59
 msgid "The maximum number of entries to be retained in the log."
 msgstr "Logisse salvestatav maksimaalne kirjete arv."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:60
 msgid "Maximum number of log entries to keep"
 msgstr "Maksimaalselt säilitatavate logikirjete arv"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
+#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:61
 msgid "Log"
 msgstr "Logi"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:1
 msgid "Mute application"
 msgstr "Summuta rakendus"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:2
 msgid "Allow urgent notifications"
 msgstr "Luba olulised teated"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
+#: ../xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade.h:3
 msgid "Include in log"
 msgstr "Kaasa logisse"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
-msgid "Customize how notifications appear on your screen"
-msgstr "Kohanda seda, mil viisil teateid sinu ekraanil kuvatakse"
