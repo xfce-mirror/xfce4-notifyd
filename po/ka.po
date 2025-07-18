@@ -8,30 +8,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2023-03-02 00:48+0100\n"
+"POT-Creation-Date: 2025-07-18 11:04+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: ზურაბი დავითაშვილი <zurabi@tuta.io>, 2019\n"
-"Language-Team: Georgian (http://www.transifex.com/xfce/xfce-apps/language/ka/)\n"
+"Language-Team: Georgian (http://app.transifex.com/xfce/xfce-apps/language/ka/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ka\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: common/xfce-notify-log-util.c:380
+#: common/xfce-notify-log-util.c:379
 msgid "Do you really want to clear the notification log?"
 msgstr "ნამდვილად გსურთ შეტყობინების ჟურნალის გასუფთავება?"
 
-#: common/xfce-notify-log-util.c:385
+#: common/xfce-notify-log-util.c:384
 msgid "Clear notification log"
 msgstr "შეტყობინების ჟურნალის გასუფთავება"
 
-#: common/xfce-notify-log-util.c:388
+#: common/xfce-notify-log-util.c:387
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
 msgid "Cancel"
 msgstr "გაუქმება"
 
-#: common/xfce-notify-log-util.c:390
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:191
+#: common/xfce-notify-log-util.c:389
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
 msgid "Clear"
 msgstr "გასუფთავება"
 
@@ -39,55 +40,55 @@ msgstr "გასუფთავება"
 msgid "include icon cache"
 msgstr "ასევე ხატულების ქეში"
 
-#: common/xfce-notify-log-util.c:448
+#: common/xfce-notify-log-util.c:451
 msgid "Now"
 msgstr ""
 
-#: panel-plugin/notification-plugin.c:379
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:113
+#: panel-plugin/notification-plugin.c:341
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
 msgstr "შეტყობინებები"
 
-#: panel-plugin/notification-plugin-dialogs.c:52
+#: panel-plugin/notification-plugin-dialogs.c:49
 #, c-format
 msgid "Unable to open the following url: %s"
 msgstr "შეუძლებელია შემდეგი ვებ-მისამართის გახსნა: %s"
 
-#: panel-plugin/notification-plugin-dialogs.c:134
+#: panel-plugin/notification-plugin-dialogs.c:133
 msgid "This is the notification plugin"
 msgstr "ეს შეტყობინების მოდულია"
 
-#: panel-plugin/notification-plugin-dialogs.c:136
+#: panel-plugin/notification-plugin-dialogs.c:135
 msgid "Copyright © 2017 Simon Steinbeiß\n"
 msgstr "საავტორო უფლებები © 2017 Simon Steinbeiß\n"
 
-#: panel-plugin/notification-plugin-log.c:159
+#: panel-plugin/notification-plugin-log.c:151
 msgid "<b>_Do not disturb</b>"
 msgstr "<b>არ შემაწუხოთ</b>"
 
-#: panel-plugin/notification-plugin-log.c:362
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:165
+#: panel-plugin/notification-plugin-log.c:355
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
 msgid "Unable to open notification log"
 msgstr ""
 
-#: panel-plugin/notification-plugin-log.c:364
+#: panel-plugin/notification-plugin-log.c:357
 msgid "No unread notifications"
 msgstr ""
 
-#: panel-plugin/notification-plugin-log.c:366
+#: panel-plugin/notification-plugin-log.c:359
 msgid "No notifications"
 msgstr "შეტყობინებები არაა"
 
-#: panel-plugin/notification-plugin-log.c:388
+#: panel-plugin/notification-plugin-log.c:381
 msgid "_Clear log"
 msgstr "ჟურნალის გასუფთავება"
 
-#: panel-plugin/notification-plugin-log.c:399
+#: panel-plugin/notification-plugin-log.c:392
 msgid "_Mark all read"
 msgstr ""
 
-#: panel-plugin/notification-plugin-log.c:408
+#: panel-plugin/notification-plugin-log.c:401
 msgid "_Notification settings…"
 msgstr "შეტყობინების პარამეტრები..."
 
@@ -96,12 +97,12 @@ msgid "Notification Plugin Settings"
 msgstr "შეტყობინების მოდულის პარამეტრები"
 
 #: panel-plugin/notification-plugin-settings.glade:46
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:133
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
 msgid "_Help"
 msgstr "დახმარება"
 
 #: panel-plugin/notification-plugin-settings.glade:61
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:149
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:82
 msgid "_Close"
 msgstr "დახურვა"
 
@@ -126,7 +127,7 @@ msgid "Hide panel button when no unread notifications"
 msgstr ""
 
 #: panel-plugin/notification-plugin-settings.glade:224
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:878
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr ""
 
@@ -170,81 +171,84 @@ msgstr "შეტყობინების მოდული"
 msgid "Notification plugin for the Xfce panel"
 msgstr "შეტყობინების მოდული Xfce პანელისათვის"
 
-#: panel-plugin/notification-plugin.desktop.in:7
-#: xfce4-notifyd/xfce4-notifyd.desktop.in:6
-#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:7
-msgid "org.xfce.notification"
+#: xfce4-notifyd/main.c:62
+msgid ""
+"Your Wayland compositor does not support required protocol wlr-layer-shell."
 msgstr ""
 
-#: xfce4-notifyd/main.c:58 xfce4-notifyd/main.c:77
-#: xfce4-notifyd-config/main.c:1206
+#: xfce4-notifyd/main.c:69
+msgid "xfce4-notifyd was built without support for your windowing system."
+msgstr ""
+
+#: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
+#: xfce4-notifyd-config/main.c:1271
 msgid "Xfce Notify Daemon"
 msgstr "Xfce-ის შეტყობინების სერვისი"
 
-#: xfce4-notifyd/main.c:61
+#: xfce4-notifyd/main.c:91
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "უცნობი ვარიანტი \"%s\"\n"
 
-#: xfce4-notifyd/main.c:79
+#: xfce4-notifyd/main.c:101 xfce4-notifyd/main.c:113
 msgid "Unable to start notification daemon"
 msgstr "შეტყობინების სერვისის გაშვება შეუძლებელია"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:593
+#: xfce4-notifyd/xfce-notify-daemon.c:594
 msgid "Another notification daemon is running, exiting\n"
 msgstr "შეტყობინების სხვა სერვისი უკვე მუშაობს, გამოვდივართ\n"
 
-#: xfce4-notifyd/xfce-notify-daemon-log.c:179
-#: xfce4-notifyd/xfce-notify-daemon-log.c:210
-#: xfce4-notifyd/xfce-notify-daemon-log.c:244
-#: xfce4-notifyd/xfce-notify-daemon-log.c:257
-#: xfce4-notifyd/xfce-notify-daemon-log.c:291
-#: xfce4-notifyd/xfce-notify-daemon-log.c:305
-#: xfce4-notifyd/xfce-notify-daemon-log.c:317
-#: xfce4-notifyd/xfce-notify-daemon-log.c:331
-#: xfce4-notifyd/xfce-notify-daemon-log.c:343
+#: xfce4-notifyd/xfce-notify-daemon-log.c:175
+#: xfce4-notifyd/xfce-notify-daemon-log.c:206
+#: xfce4-notifyd/xfce-notify-daemon-log.c:240
+#: xfce4-notifyd/xfce-notify-daemon-log.c:253
+#: xfce4-notifyd/xfce-notify-daemon-log.c:287
+#: xfce4-notifyd/xfce-notify-daemon-log.c:301
+#: xfce4-notifyd/xfce-notify-daemon-log.c:313
+#: xfce4-notifyd/xfce-notify-daemon-log.c:327
+#: xfce4-notifyd/xfce-notify-daemon-log.c:339
 msgid "Log is unavailable"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-daemon-log.c:184
+#: xfce4-notifyd/xfce-notify-daemon-log.c:180
 msgid "Log entry not found"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:236
+#: xfce4-notifyd/xfce-notify-log.c:235
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:248
+#: xfce4-notifyd/xfce-notify-log.c:247
 #, c-format
 msgid "Failed to open notification log: %s"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:335
+#: xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:364
+#: xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:468
+#: xfce4-notifyd/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:469
+#: xfce4-notifyd/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-log.c:470
+#: xfce4-notifyd/xfce-notify-log.c:460
 #, c-format
 msgid "Failed to create DB is_read index: %s"
 msgstr ""
 
-#: xfce4-notifyd/xfce-notify-window.c:1393
+#: xfce4-notifyd/xfce-notify-window.c:1453
 msgid "Default Action"
 msgstr ""
 
@@ -252,348 +256,393 @@ msgstr ""
 msgid "Xfce Notification Daemon"
 msgstr ""
 
-#: xfce4-notifyd-config/main.c:105
+#: xfce4-notifyd-config/main.c:109
 msgid "Notification Preview"
 msgstr "შეტყობინების ესკიზი"
 
-#: xfce4-notifyd-config/main.c:106
+#: xfce4-notifyd-config/main.c:110
 msgid "This is what notifications will look like"
 msgstr "ასე გამოიყურება შეტყობინებები"
 
-#: xfce4-notifyd-config/main.c:111
+#: xfce4-notifyd-config/main.c:115
 msgid "Button"
 msgstr "ღილაკი"
 
-#: xfce4-notifyd-config/main.c:118
+#: xfce4-notifyd-config/main.c:122
 msgid "Notification preview failed"
 msgstr "შეტყობინების ესკიზის ჩვენება ვერ მოხერხდა"
 
-#: xfce4-notifyd-config/main.c:565
+#: xfce4-notifyd-config/main.c:585
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr ""
 
-#: xfce4-notifyd-config/main.c:569
+#: xfce4-notifyd-config/main.c:589
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
 msgid "Delete"
 msgstr "წაშლა"
 
-#: xfce4-notifyd-config/main.c:571
+#: xfce4-notifyd-config/main.c:591
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr ""
 
-#: xfce4-notifyd-config/main.c:669
+#: xfce4-notifyd-config/main.c:691
 msgid "Unspecified applications"
 msgstr ""
 
-#: xfce4-notifyd-config/main.c:900
+#: xfce4-notifyd-config/main.c:924
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>ამჟამად ნაჩვენებია მხოლოდ გადაუდებელი შეტყობინებები.</b>\nშეტყობინების ჟურნალში ჩაწერა არის %s."
 
-#: xfce4-notifyd-config/main.c:907
+#: xfce4-notifyd-config/main.c:931
 msgid "enabled"
 msgstr "ჩართული"
 
-#: xfce4-notifyd-config/main.c:907
+#: xfce4-notifyd-config/main.c:931
 msgid "disabled"
 msgstr "გამორთული"
 
-#: xfce4-notifyd-config/main.c:1108
+#: xfce4-notifyd-config/main.c:1167
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>ამჟამად არ არის ცნობილი პროგრამები.</b></big>\nმაშინვე, როგორც კი რომელიმე პროგრამა გაგზავნის შეტყობინებას\nის ამ სიაში გამოჩნდება."
 
-#: xfce4-notifyd-config/main.c:1173
+#: xfce4-notifyd-config/main.c:1238
 msgid "Display version information"
 msgstr "ინფორმაცია ვერსიის შესახებ"
 
-#: xfce4-notifyd-config/main.c:1174
+#: xfce4-notifyd-config/main.c:1239
 msgid "Settings manager socket"
 msgstr "პარამეტრების მმართველის სოკეტი"
 
-#: xfce4-notifyd-config/main.c:1174
+#: xfce4-notifyd-config/main.c:1239
 msgid "SOCKET_ID"
 msgstr "სოკეტის აიდი"
 
-#: xfce4-notifyd-config/main.c:1184
+#: xfce4-notifyd-config/main.c:1249
 #, c-format
 msgid "Type '%s --help' for usage."
 msgstr "აკრიფეთ '%s --help' გამოყენებისთვის."
 
-#: xfce4-notifyd-config/main.c:1199
+#: xfce4-notifyd-config/main.c:1264
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "გამოიცა \"GNU General Public License, version 2\" პირობებით\n"
 
-#: xfce4-notifyd-config/main.c:1200
+#: xfce4-notifyd-config/main.c:1265
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "გთხოვთ, შეცდომების შესახებ გვაცნობეთ აქ %s.\n"
 
-#: xfce4-notifyd-config/main.c:1208
+#: xfce4-notifyd-config/main.c:1273
 msgid "Settings daemon is unavailable"
 msgstr "პარამეტრების სერვისი მიუწვდომელია"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:167
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>ჟურნალი ცარიელია</b></big>\nჯერ არცერთი შეტყობინება არ ჩაწერილა ჟურნალში."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:183
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
 msgid "Refresh"
 msgstr "განახლება"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:184
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
 msgid "Refresh the notification log"
 msgstr "შეტყობინების ჟურანლის განახლება"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:192
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
 msgid "Clear the notification log"
 msgstr "შეტყობინების ჟურნალის გასუფთავება"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:201
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
 msgid "Mark All Read"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
 msgid "Mark all unread notifications as read"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:515
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+msgid "Delete Entry"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+msgid "Deletes the selected log entries"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+msgid "Show Log Location"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+msgid "Shows the location of the log file in the file manager"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
 msgid "Mark log entry _read"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:711
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
 msgid "Yesterday and before"
 msgstr "გუშინ და მანამდე"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:995
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+msgid "Delete Selected Log Entries"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
 msgid "Loading more log entries..."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:47
-msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:50
-msgid "always"
-msgstr "ყოველთვის"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:61
-msgid "all"
-msgstr "ყველა"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:64
-msgid "all except blocked"
-msgstr "ყველა, გარდა დაბლოკილისა"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:67
-msgid "only blocked"
-msgstr "მხოლოდ დაბლოკილი"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:78
-msgid "Locale default"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:81
-msgid "Relative times"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:84
-msgid "ISO8601"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:87
-msgid "Custom"
-msgstr ""
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:98
-msgid "Top left"
-msgstr "ზედა მარცხენა"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:101
-msgid "Bottom left"
-msgstr "ქვედა მარცხენა"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:104
-msgid "Top right"
-msgstr "ზედა მარჯვენა"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:107
-msgid "Bottom right"
-msgstr "ქვედა მარჯვენა"
-
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:211
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
 "The notification service is not running. No notifications will be shown."
 msgstr "შეტყობინების სერვისი არაა გაშვებული. არცერთი შეტყობინება არ იქნება ნაჩვენები."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:290
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
 msgid "<b>Currently only urgent notifications are shown.</b>"
 msgstr "<b>ამჟამად ნაჩვენებია მხოლოდ გადაუდებელი შეტყობინებები.</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:376
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
 msgid "Fade out"
 msgstr "ნელნელა გაქრობა"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:389
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
 msgid "_Slide out"
 msgstr "გასრიალება"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:415
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
 msgid "Do not disturb"
 msgstr "Არ შემაწუხოთ"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:439
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:372
 msgid "<b>Behavior</b>"
 msgstr "<b>ქცევა</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:453
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:386
 msgid "<b>Animations</b>"
 msgstr "<b>ანიმაციები</b>"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:466
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:399
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
 msgstr "ჩვეულებისამებრ შეტყობინების ბუშტები იმ ეკრანზე გამოჩნდება, რომელზედაც მდებარეობს თაგვის მაჩვენებელი."
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
 msgid "Show notifications on"
 msgstr "მაჩვენე შეტყობინებები"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:481
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:414
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:510
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:535
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:549
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:550
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "icon and summary"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:551
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
 msgid "icon and application name"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:565
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:566
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
 msgid "primary monitor"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:567
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
 msgid "all monitors"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:584
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
+msgid ""
+"Prevent redundant notifications. If a message with the same summary and body"
+" is already visible on screen, new identical alerts will be suppressed. "
+"Useful for multi-instance applications like chat clients."
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
+msgid "_Suppress duplicate notifications"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
 msgstr "ზოგადი"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:622
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "seconds"
 msgstr "წამი"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
 msgid "10"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:662
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
 msgid "_Opacity"
 msgstr "გაუმჭვირვალობა"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:676
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "Default _position"
 msgstr "ნაგულისხმევი პოზიცია"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:724
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
+msgid "Top left"
+msgstr "ზედა მარცხენა"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
+msgid "Bottom left"
+msgstr "ქვედა მარცხენა"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
+msgid "Top right"
+msgstr "ზედა მარჯვენა"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
+msgid "Bottom right"
+msgstr "ქვედა მარჯვენა"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
+msgid "Top center"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
+msgid "Bottom center"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
 msgid "_Theme"
 msgstr "თემა"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Show text with percent _values"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:753
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
 msgid "Date/time _format"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:805
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+msgid "Locale default"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
+msgid "Relative times"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+msgid "ISO8601"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+msgid "Custom"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
 msgid "Show _Preview"
 msgstr "ესკიზის ჩვენება"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:831
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
 msgid "_Disappear after"
 msgstr "დრო გაქრობამდე"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:849
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
 msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:851
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:896
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
+msgid "_Minimum notification width"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
 msgid "<b>Per-application notification settings</b>"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:923
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
 msgid "Applications"
 msgstr "პროგრამები"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:942
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
 msgid "Log notifications"
 msgstr "შეტყობინებების ჟურნალში ჩაწერა"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:985
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr ""
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
+msgid "always"
+msgstr "ყოველთვის"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
 msgid "Log applications"
 msgstr "პროგრამების ჟურნალში ჩაწერა"
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1033
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1049
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
+msgid "all"
+msgstr "ყველა"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1026
+msgid "all except blocked"
+msgstr "ყველა, გარდა დაბლოკილისა"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
+msgid "only blocked"
+msgstr "მხოლოდ დაბლოკილი"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
 msgid "The maximum number of entries to be retained in the log."
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1045
-msgid "Log size limit"
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
+msgid "Maximum number of log entries to keep"
 msgstr ""
 
-#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1066
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
 msgstr "ჟურნალი"
 
