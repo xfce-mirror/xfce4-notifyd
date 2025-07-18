@@ -312,7 +312,7 @@ msgstr "<big><b>Obecnie nie ma znanych programów.</b></big>\nJak tylko program 
 
 #: ../xfce4-notifyd-config/main.c:1238
 msgid "Display version information"
-msgstr "Wyświetla informacje o wersji"
+msgstr "Wyświetla informacje o wersji"
 
 #: ../xfce4-notifyd-config/main.c:1239
 msgid "Settings manager socket"
