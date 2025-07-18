@@ -41,21 +41,17 @@ Your Wayland compositor must support the layer-shell protocol.
 The usual:
 
 ```
-# If from a git checkout:
-./autogen.sh
-# Or from a release tarball:
-./configure
-
-make
-make install
+meson setup build
+meson compile -C build
+meson install -C build
 ```
 
 should work just fine.  Pass `--prefix=/path/to/wherever` to install in a
 location other than the default `/usr/local`.
 
 X11 and Wayland support will be autodetected, but you can pass
-`--enable-x11`, `--enable-wayland`, `--disable-x11`, and/or
-`--disable-wayland` to require and/or explicitly disable support for
+`-Dx11=enabled`, `-Dwayland=enabled`, `-Dx11=disabled`, and/or
+`-Dwayland=disabled` to require and/or explicitly disable support for
 either.
 
 In order for xfce4-notifyd to be started automatically, you must have a
@@ -66,11 +62,11 @@ shouldn't have to worry about this.
 If you install xfce4-notifyd to a non-standard prefix, the D-Bus and
 systemd service and unit files will be installed to the non-standard
 prefix as well, in places where the respective daemons may not be able
-to find them.  You can pass `--with-dbus-service-dir=` and
-`--with-systemd-user-service-dir=` to `configure` in order to set the
-appropriate directories.  If you want `configure` to automatically
+to find them.  You can pass `-Ddbus-service-dir=` and
+`-Dsystemd-user-service-dir=` to `meson setup` in order to set the
+appropriate directories.  If you want `meson setup` to automatically
 figure out the correct places to put those files (which may be outside
-your installation prefix), you can pass `auto` as the value to those two
+your installation prefix), you can leave the value empty for those two
 command-line options.
 
 
