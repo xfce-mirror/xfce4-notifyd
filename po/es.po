@@ -500,11 +500,11 @@ msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
-msgstr ""
+msgstr "Evita notificaciones redundantes. Si ya se ve en pantalla un mensaje con el mismo resumen y cuerpo, se suprimirán las nuevas alertas idénticas. Es útil para aplicaciones con varias instancias, como clientes de chat."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
-msgstr ""
+msgstr "_Suprimir notificaciones duplicadas"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
