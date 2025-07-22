@@ -13,8 +13,9 @@ exit $2
 }
 
 # create a fresh build to be sure
-./autogen.sh || die "Autogen failed" 4
-make  || die "make failed" 5
+rm -rf build
+meson setup -Cbuild || die "meson setup failed" 4
+meson compile -Cbuild || die "meson compile failed" 5
 
 pushd tests
 
@@ -26,7 +27,7 @@ for i in {1..10}; do
   # reset the known applications property, to see if values get inserted correctly
   xfconf-query -c xfce4-notifyd -p /applications/known_applications -r;
 
-  ../xfce4-notifyd/xfce4-notifyd &
+  ../build/xfce4-notifyd/xfce4-notifyd &
   PID=$!
 
   # check if notifyd just died on startup
