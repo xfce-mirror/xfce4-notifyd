@@ -410,7 +410,7 @@ xfce_notify_daemon_get_monitor_index (GdkDisplay *display,
             return i;
     }
 
-    return 0;
+    return -1;
 }
 
 static void
@@ -818,9 +818,10 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
         gtk_window_set_screen(GTK_WINDOW(widget), screen);
     }
 
-    gtk_widget_get_allocation(widget, &allocation);
     monitor_num = xfce_notify_daemon_get_monitor_index(gdk_screen_get_display(screen), monitor);
-    g_return_if_fail(monitor_num >= 0);
+    if (G_UNLIKELY(monitor_num == -1)) {
+        return;
+    }
 
     xndaemon->reserved_rectangles[monitor_num] = g_list_remove(xndaemon->reserved_rectangles[monitor_num],
                                                                xfce_notify_window_get_geometry(window));
@@ -829,6 +830,7 @@ xfce_notify_daemon_place_notification_window(XfceNotifyDaemon *xndaemon,
     gint workarea_height = xndaemon->monitors_workarea[monitor_num].height;
     DBG("workarea: %dx%d", workarea_width, workarea_height);
 
+    gtk_widget_get_allocation(widget, &allocation);
     DBG("placing window, allocation=%dx%d+%d+%d", allocation.width, allocation.height, allocation.x, allocation.y);
 
     // Set initial position.  We ignore the start position
