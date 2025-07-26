@@ -477,10 +477,6 @@ xfce_notify_daemon_screen_changed(GdkScreen *screen,
     gint new_nmonitor;
     gint old_nmonitor;
 
-    if(!xndaemon->monitors_workarea || !xndaemon->reserved_rectangles)
-        /* Placement data not initialized, don't update it */
-        return;
-
     new_nmonitor = gdk_display_get_n_monitors(display);
     old_nmonitor = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(screen), XND_N_MONITORS));
 
