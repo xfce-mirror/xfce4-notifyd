@@ -673,6 +673,13 @@ xfce_notification_window_action_invoked(XfceNotifyWindow *window,
 }
 
 static void
+xfce_notification_window_destroyed(XfceNotifyWindow *window,
+                                   XfceNotification *notification)
+{
+    notification->windows = g_list_remove(notification->windows, window);
+}
+
+static void
 xfce_notification_window_closed(XfceNotifyWindow *window,
                                 XfceNotifyCloseReason reason,
                                 XfceNotification *notification)
@@ -681,6 +688,7 @@ xfce_notification_window_closed(XfceNotifyWindow *window,
 
     g_signal_emit(notification, signals[SIG_CLOSED], 0, reason);
 
+    g_signal_handlers_disconnect_by_func(window, xfce_notification_window_destroyed, notification);
     g_list_free_full(notification->windows, (GDestroyNotify)gtk_widget_destroy);
     notification->windows = NULL;
 
@@ -818,6 +826,8 @@ create_notify_window(XfceNotification *notification,
                      G_CALLBACK(xfce_notification_window_action_invoked), notification);
     g_signal_connect(window, "closed",
                      G_CALLBACK(xfce_notification_window_closed), notification);
+    g_signal_connect(window, "destroy",
+                     G_CALLBACK(xfce_notification_window_destroyed), notification);
 
     return window;
 }
