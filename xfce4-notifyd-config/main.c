@@ -58,8 +58,14 @@ typedef struct
 } NotificationLogWidgets;
 
 typedef struct {
+    guint32 socket_id;
+    guint32 bus_name_watch_id;
+
     XfconfChannel *channel;
     XfceNotifyLogGBus *log;
+
+    GtkWidget *settings_dialog;
+    GtkWidget *plug_child;
 
     GtkWidget *known_applications_listbox;
 
@@ -1017,7 +1023,7 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
 
     btn = GTK_WIDGET(gtk_builder_get_object(builder, "close_btn"));
     g_signal_connect_swapped(G_OBJECT(btn), "clicked",
-                             G_CALLBACK(gtk_dialog_response), dlg);
+                             G_CALLBACK(gtk_widget_destroy), dlg);
 
     help_button = GTK_WIDGET(gtk_builder_get_object(builder, "help_btn"));
     g_signal_connect(G_OBJECT(help_button), "clicked",
@@ -1224,49 +1230,44 @@ xfce4_notifyd_config_setup_dialog(SettingsPanel *panel, GtkBuilder *builder) {
     return dlg;
 }
 
-int
-main(int argc,
-     char **argv)
-{
-    GtkWidget *settings_dialog = NULL;
-    GtkWidget *notifyd_running;
-    GtkBuilder *builder;
-    gboolean opt_version = FALSE;
-    gint32 opt_socket_id = 0;
-    guint watch_handle_id;
-    GOptionEntry option_entries[] = {
-        { "version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version, N_("Display version information"), NULL },
-        { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET_ID") },
-        { NULL, '\0', 0, 0, NULL, NULL, NULL },
-    };
-    GError *error = NULL;
-
-    xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
-
-    if(!gtk_init_with_args(&argc, &argv, NULL, option_entries, PACKAGE, &error)) {
-        if(G_LIKELY(error)) {
-            g_printerr("%s: %s.\n", G_LOG_DOMAIN, error->message);
-            g_printerr(_("Type '%s --help' for usage."), G_LOG_DOMAIN);
-            g_printerr("\n");
-            g_error_free(error);
-        } else
-            g_error("Unable to open display.");
-
-        return EXIT_FAILURE;
-    }
-
-    if(G_UNLIKELY(opt_version)) {
+static gint
+settings_app_handle_local_options(GApplication *app, GVariantDict *options, SettingsPanel *panel) {
+    GVariant *opt_version = g_variant_dict_lookup_value(options, "version", G_VARIANT_TYPE_BOOLEAN);
+    if (opt_version != NULL && g_variant_get_boolean(opt_version)) {
         g_print("%s %s\n", G_LOG_DOMAIN, VERSION_STRING);
-        g_print("Copyright (c) 2008-2011,2023 Brian Tarricone <brian@tarricone.org>\n");
+        g_print("Copyright (c) 2008-2011,2023-2025 Brian Tarricone <brian@tarricone.org>\n");
         g_print("Copyright (c) 2010 Jérôme Guelfucci <jeromeg@xfce.org>\n");
         g_print("Copyright (c) 2016 Ali Abdallah <ali@xfce.org>\n");
         g_print("Copyright (c) 2016 Simon Steinbeiß <simon@xfce.org>\n");
         g_print(_("Released under the terms of the GNU General Public License, version 2\n"));
         g_print(_("Please report bugs to %s.\n"), PACKAGE_BUGREPORT);
-
-        return EXIT_SUCCESS;
+        g_variant_unref(opt_version);
+        return 0;
     }
 
+    GVariant *opt_socket_id = g_variant_dict_lookup_value(options, "socket-id", G_VARIANT_TYPE_INT32);
+    if (opt_socket_id) {
+        panel->socket_id = g_variant_get_int32(opt_socket_id);
+        g_variant_unref(opt_socket_id);
+
+        if (panel->socket_id != 0) {
+            // Without setting this flag, if xfce4-notifyd-config was already
+            // running in standalone dialog mode, we'd just end up activating
+            // the existing window.  NON_UNIQUE makes GApplication ignore any
+            // existing instances and continue startup indepdenently.  As a
+            // nice side-effect, if we're open in embedded mode in the settings
+            // manager, and the user tries to open in standalone mode, that
+            // will still work too.
+            g_application_set_flags(app, g_application_get_flags(app) | G_APPLICATION_NON_UNIQUE);
+        }
+    }
+
+    return -1;
+}
+
+static void
+settings_app_startup(GApplication *app, SettingsPanel *panel) {
+    GError *error = NULL;
     if(G_UNLIKELY(!xfconf_init(&error))) {
         xfce_message_dialog(NULL, _("Xfce Notify Daemon"),
                             "dialog-error",
@@ -1275,7 +1276,7 @@ main(int argc,
                             "application-exit", GTK_RESPONSE_ACCEPT,
                             NULL);
         g_clear_error(&error);
-        return EXIT_FAILURE;
+        exit(1);
     }
 
     if (!notify_init ("Xfce4-notifyd settings")) {
@@ -1284,13 +1285,12 @@ main(int argc,
 
     xfce_notify_config_ui_register_resource();
 
-    builder = gtk_builder_new_from_resource("/org/xfce/notifyd/settings/xfce4-notifyd-config.glade");
+    GtkBuilder *builder = gtk_builder_new_from_resource("/org/xfce/notifyd/settings/xfce4-notifyd-config.glade");
     if(G_UNLIKELY(!builder)) {
         g_error("Unable to read embedded UI definition file");
-        return EXIT_FAILURE;
+        exit(1);
     }
 
-    SettingsPanel *panel = g_new0(SettingsPanel, 1);
     panel->channel = xfconf_channel_new("xfce4-notifyd");
     xfce_notify_migrate_settings(panel->channel);
 
@@ -1307,50 +1307,91 @@ main(int argc,
         g_dbus_proxy_set_default_timeout(G_DBUS_PROXY(panel->log), 1500);
     }
 
-    settings_dialog = xfce4_notifyd_config_setup_dialog(panel, builder);
+    panel->settings_dialog = xfce4_notifyd_config_setup_dialog(panel, builder);
 
-    notifyd_running = GTK_WIDGET (gtk_builder_get_object (builder, "notifyd_running"));
+    GtkWidget *notifyd_running = GTK_WIDGET(gtk_builder_get_object(builder, "notifyd_running"));
     gtk_revealer_set_reveal_child (GTK_REVEALER (notifyd_running), FALSE);
-    watch_handle_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                        "org.freedesktop.Notifications",
-                                        G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                        xfce_notify_bus_name_appeared_cb,
-                                        xfce_notify_bus_name_vanished_cb,
-                                        notifyd_running,
-                                        NULL);
 
-    if(opt_socket_id) {
-        GtkWidget *plug, *plug_child;
+    panel->bus_name_watch_id = g_bus_watch_name(G_BUS_TYPE_SESSION,
+                                                "org.freedesktop.Notifications",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                xfce_notify_bus_name_appeared_cb,
+                                                xfce_notify_bus_name_vanished_cb,
+                                                notifyd_running,
+                                                NULL);
 
-        plug = gtk_plug_new(opt_socket_id);
-        gtk_widget_show(plug);
-        g_signal_connect(G_OBJECT(plug), "delete-event",
-                         G_CALLBACK(gtk_main_quit), NULL);
-
-        plug_child = GTK_WIDGET(gtk_builder_get_object(builder, "plug-child"));
-
-        /* In the glade file, plug_child has parent, so remove it first */
-        gtk_container_remove (GTK_CONTAINER(gtk_widget_get_parent(plug_child)), plug_child);
-        gtk_container_add (GTK_CONTAINER(plug), plug_child);
-
-        gdk_notify_startup_complete();
-        g_object_unref(G_OBJECT(builder));
-        gtk_widget_destroy(settings_dialog);
-
-        gtk_main();
+    if (panel->socket_id != 0) {
+        // In the glade file, plug_child has a parent, so remove it so we can
+        // later use it as a GtkPlug child.  We need to add a reference,
+        // because the parent container holds the only reference, and will drop
+        // it when removing it.
+        panel->plug_child = g_object_ref(GTK_WIDGET(gtk_builder_get_object(builder, "plug-child")));
+        gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(panel->plug_child)), panel->plug_child);
+        g_clear_pointer(&panel->settings_dialog, gtk_widget_destroy);
     } else {
-        g_object_unref(G_OBJECT(builder));
-
-        gtk_dialog_run(GTK_DIALOG(settings_dialog));
+        gtk_application_add_window(GTK_APPLICATION(app), GTK_WINDOW(panel->settings_dialog));
     }
 
-    g_bus_unwatch_name (watch_handle_id);
+    g_object_unref(G_OBJECT(builder));
+}
+
+static void
+settings_app_activate(GApplication *app, SettingsPanel *panel) {
+    if (panel->socket_id != 0) {
+        g_assert(panel->plug_child != NULL);
+        g_assert(panel->settings_dialog == NULL);
+
+        GtkWidget *plug = gtk_plug_new(panel->socket_id);
+        gtk_container_add(GTK_CONTAINER(plug), panel->plug_child);
+        g_object_unref(panel->plug_child);
+
+        gtk_widget_show_all(plug);
+        gtk_application_add_window(GTK_APPLICATION(app), GTK_WINDOW(plug));
+
+        gdk_notify_startup_complete();
+    } else {
+        g_assert(panel->settings_dialog != NULL);
+        g_assert(panel->plug_child == NULL);
+
+        gtk_window_present(GTK_WINDOW(panel->settings_dialog));
+    }
+}
+
+static void
+settings_app_shutdown(GApplication *app, SettingsPanel *panel) {
+    if (panel->bus_name_watch_id != 0) {
+        g_bus_unwatch_name(panel->bus_name_watch_id);
+    }
     if (panel->log != NULL) {
         g_object_unref(panel->log);
     }
     notify_uninit();
     xfconf_shutdown();
     g_free(panel);
+}
 
-    return EXIT_SUCCESS;
+int
+main(int argc, char **argv) {
+    const GOptionEntry option_entries[] = {
+        { "version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, NULL, N_("Display version information"), NULL },
+        { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, NULL, N_("Settings manager socket"), N_("SOCKET_ID") },
+        { NULL, '\0', 0, 0, NULL, NULL, NULL },
+    };
+
+    xfce_textdomain(GETTEXT_PACKAGE, LOCALEDIR, "UTF-8");
+
+    SettingsPanel *panel = g_new0(SettingsPanel, 1);
+
+    GtkApplication *app = gtk_application_new("org.xfce.NotifydConfig", G_APPLICATION_FLAGS_NONE);
+    g_application_add_main_option_entries(G_APPLICATION(app), option_entries);
+    g_signal_connect(app, "handle-local-options", G_CALLBACK(settings_app_handle_local_options), panel);
+    g_signal_connect(app, "startup", G_CALLBACK(settings_app_startup), panel);
+    g_signal_connect(app, "activate", G_CALLBACK(settings_app_activate), panel);
+    g_signal_connect(app, "shutdown", G_CALLBACK(settings_app_shutdown), panel);
+
+    int ret = g_application_run(G_APPLICATION(app), argc, argv);
+
+    g_object_unref(app);
+
+    return ret;
 }
