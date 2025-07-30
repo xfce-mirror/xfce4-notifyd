@@ -298,6 +298,23 @@ xfce_notification_constructed(GObject *object) {
 }
 
 static void
+xfce_notification_window_destroyed(XfceNotifyWindow *window,
+                                   XfceNotification *notification)
+{
+    notification->windows = g_list_remove(notification->windows, window);
+}
+
+static void
+xfce_notification_free_window_list(XfceNotification *notification) {
+    for (GList *lp = notification->windows; lp != NULL; lp = lp->next) {
+        g_signal_handlers_disconnect_by_func(lp->data, xfce_notification_window_destroyed, notification);
+        gtk_widget_destroy(lp->data);
+    }
+    g_list_free(notification->windows);
+    notification->windows = NULL;
+}
+
+static void
 xfce_notification_finalize(GObject *object) {
     XfceNotification *notification = XFCE_NOTIFICATION(object);
 
@@ -320,7 +337,7 @@ xfce_notification_finalize(GObject *object) {
 #endif
 
     // FIXME: probably not what we want?
-    g_list_free_full(notification->windows, (GDestroyNotify)gtk_widget_destroy);
+    xfce_notification_free_window_list(notification);
 
     G_OBJECT_CLASS(xfce_notification_parent_class)->finalize(object);
 }
@@ -673,13 +690,6 @@ xfce_notification_window_action_invoked(XfceNotifyWindow *window,
 }
 
 static void
-xfce_notification_window_destroyed(XfceNotifyWindow *window,
-                                   XfceNotification *notification)
-{
-    notification->windows = g_list_remove(notification->windows, window);
-}
-
-static void
 xfce_notification_window_closed(XfceNotifyWindow *window,
                                 XfceNotifyCloseReason reason,
                                 XfceNotification *notification)
@@ -688,9 +698,7 @@ xfce_notification_window_closed(XfceNotifyWindow *window,
 
     g_signal_emit(notification, signals[SIG_CLOSED], 0, reason);
 
-    g_signal_handlers_disconnect_by_func(window, xfce_notification_window_destroyed, notification);
-    g_list_free_full(notification->windows, (GDestroyNotify)gtk_widget_destroy);
-    notification->windows = NULL;
+    xfce_notification_free_window_list(notification);
 
     g_object_unref(notification);
 }
