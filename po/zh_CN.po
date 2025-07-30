@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-18 11:04+0200\n"
+"POT-Creation-Date: 2025-07-30 12:49+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2016-2018,2020-2025\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/xfce/xfce-apps/language/zh_CN/)\n"
@@ -189,7 +189,7 @@ msgid "xfce4-notifyd was built without support for your windowing system."
 msgstr "xfce4-notifyd 的构建不支持您的视窗系统。"
 
 #: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
-#: xfce4-notifyd-config/main.c:1271
+#: xfce4-notifyd-config/main.c:1272
 msgid "Xfce Notify Daemon"
 msgstr "Xfce 提示守护进程"
 
@@ -202,7 +202,7 @@ msgstr "未知选项 “%s”\n"
 msgid "Unable to start notification daemon"
 msgstr "未能启动通知守护进程"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:594
+#: xfce4-notifyd/xfce-notify-daemon.c:590
 msgid "Another notification daemon is running, exiting\n"
 msgstr "另一个通知守护程序已在运行，现将退出\n"
 
@@ -264,94 +264,89 @@ msgstr "默认动作"
 msgid "Xfce Notification Daemon"
 msgstr "Xfce 通知守护进程"
 
-#: xfce4-notifyd-config/main.c:109
+#: xfce4-notifyd-config/main.c:115
 msgid "Notification Preview"
 msgstr "通知预览"
 
-#: xfce4-notifyd-config/main.c:110
+#: xfce4-notifyd-config/main.c:116
 msgid "This is what notifications will look like"
 msgstr "通知看起来会像这个样子"
 
-#: xfce4-notifyd-config/main.c:115
+#: xfce4-notifyd-config/main.c:121
 msgid "Button"
 msgstr "按钮"
 
-#: xfce4-notifyd-config/main.c:122
+#: xfce4-notifyd-config/main.c:128
 msgid "Notification preview failed"
 msgstr "无法预览通知"
 
-#: xfce4-notifyd-config/main.c:585
+#: xfce4-notifyd-config/main.c:591
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "您确认要删除应用程序 \"%s\" 的通知设置？"
 
-#: xfce4-notifyd-config/main.c:589
+#: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
 msgid "Delete"
 msgstr "删除"
 
-#: xfce4-notifyd-config/main.c:591
+#: xfce4-notifyd-config/main.c:597
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr "清除应用程序设置"
 
-#: xfce4-notifyd-config/main.c:691
+#: xfce4-notifyd-config/main.c:697
 msgid "Unspecified applications"
 msgstr "未指定的应用程序"
 
-#: xfce4-notifyd-config/main.c:924
+#: xfce4-notifyd-config/main.c:930
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>目前仅显示紧急通知。</b>\n通知日志状态为%s。"
 
-#: xfce4-notifyd-config/main.c:931
+#: xfce4-notifyd-config/main.c:937
 msgid "enabled"
 msgstr "已启用"
 
-#: xfce4-notifyd-config/main.c:931
+#: xfce4-notifyd-config/main.c:937
 msgid "disabled"
 msgstr "已禁用"
 
-#: xfce4-notifyd-config/main.c:1167
+#: xfce4-notifyd-config/main.c:1173
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>目前还没有已知的应用程序。</b></big>\n一旦应用程序发送通知\n它将出现在此列表中。"
 
-#: xfce4-notifyd-config/main.c:1238
-msgid "Display version information"
-msgstr "显示版本信息"
-
-#: xfce4-notifyd-config/main.c:1239
-msgid "Settings manager socket"
-msgstr "设置管理器套接字"
-
-#: xfce4-notifyd-config/main.c:1239
-msgid "SOCKET_ID"
-msgstr "套接字 ID(_I)"
-
-#: xfce4-notifyd-config/main.c:1249
-#, c-format
-msgid "Type '%s --help' for usage."
-msgstr "输入 ‘%s --help’ 获取用法。"
-
-#: xfce4-notifyd-config/main.c:1264
+#: xfce4-notifyd-config/main.c:1242
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "以 GNU 通用公共许可协议第二版发布\n"
 
-#: xfce4-notifyd-config/main.c:1265
+#: xfce4-notifyd-config/main.c:1243
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "请向 %s 报告缺陷。\n"
 
-#: xfce4-notifyd-config/main.c:1273
+#: xfce4-notifyd-config/main.c:1274
 msgid "Settings daemon is unavailable"
 msgstr "设置守护进程无效"
+
+#: xfce4-notifyd-config/main.c:1376
+msgid "Display version information"
+msgstr "显示版本信息"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "Settings manager socket"
+msgstr "设置管理器套接字"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "SOCKET_ID"
+msgstr "套接字 ID(_I)"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid ""
