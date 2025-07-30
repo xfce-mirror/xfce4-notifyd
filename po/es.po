@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-18 11:04+0200\n"
+"POT-Creation-Date: 2025-07-30 12:49+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Ignacio Poggi <ignaciop.3@gmail.com>, 2020,2023-2025\n"
 "Language-Team: Spanish (http://app.transifex.com/xfce/xfce-apps/language/es/)\n"
@@ -192,7 +192,7 @@ msgid "xfce4-notifyd was built without support for your windowing system."
 msgstr "xfce4-notifyd fue creado sin compatibilidad para su sistema de ventanas."
 
 #: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
-#: xfce4-notifyd-config/main.c:1271
+#: xfce4-notifyd-config/main.c:1272
 msgid "Xfce Notify Daemon"
 msgstr "Servicio de notificaciones de Xfce"
 
@@ -205,7 +205,7 @@ msgstr "Opción desconocida: «%s»\n"
 msgid "Unable to start notification daemon"
 msgstr "No se puede iniciar el servicio de notificaciones"
 
-#: xfce4-notifyd/xfce-notify-daemon.c:594
+#: xfce4-notifyd/xfce-notify-daemon.c:590
 msgid "Another notification daemon is running, exiting\n"
 msgstr "Hay otro servicio de notificaciones en ejecución. Saliendo.\n"
 
@@ -267,94 +267,89 @@ msgstr "Acción predeterminada"
 msgid "Xfce Notification Daemon"
 msgstr "Servicio de notificaciones de Xfce"
 
-#: xfce4-notifyd-config/main.c:109
+#: xfce4-notifyd-config/main.c:115
 msgid "Notification Preview"
 msgstr "Vista previa de las notificaciones"
 
-#: xfce4-notifyd-config/main.c:110
+#: xfce4-notifyd-config/main.c:116
 msgid "This is what notifications will look like"
 msgstr "Este es el aspecto de las notificaciones"
 
-#: xfce4-notifyd-config/main.c:115
+#: xfce4-notifyd-config/main.c:121
 msgid "Button"
 msgstr "Botón"
 
-#: xfce4-notifyd-config/main.c:122
+#: xfce4-notifyd-config/main.c:128
 msgid "Notification preview failed"
 msgstr "No se ha podido mostrar una vista previa de las notificaciones"
 
-#: xfce4-notifyd-config/main.c:585
+#: xfce4-notifyd-config/main.c:591
 #, c-format
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
 msgstr "¿Seguro que quiere eliminar la configuración de notificaciones de la aplicación «%s»?"
 
-#: xfce4-notifyd-config/main.c:589
+#: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
 msgid "Delete"
 msgstr "Borrar"
 
-#: xfce4-notifyd-config/main.c:591
+#: xfce4-notifyd-config/main.c:597
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
 msgstr "Olvidar la aplicación"
 
-#: xfce4-notifyd-config/main.c:691
+#: xfce4-notifyd-config/main.c:697
 msgid "Unspecified applications"
 msgstr "Aplicaciones no especificadas"
 
-#: xfce4-notifyd-config/main.c:924
+#: xfce4-notifyd-config/main.c:930
 #, c-format
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
 msgstr "<b>Actualmente solo se muestran las notificaciones urgentes.</b>\nEl registro de notificaciones está %s."
 
-#: xfce4-notifyd-config/main.c:931
+#: xfce4-notifyd-config/main.c:937
 msgid "enabled"
 msgstr "activado"
 
-#: xfce4-notifyd-config/main.c:931
+#: xfce4-notifyd-config/main.c:937
 msgid "disabled"
 msgstr "desactivado"
 
-#: xfce4-notifyd-config/main.c:1167
+#: xfce4-notifyd-config/main.c:1173
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
 msgstr "<big><b>Actualmente no hay aplicaciones conocidas.</b></big>\nEn cuanto una aplicación envíe una notificación\naparecerá en esta lista."
 
-#: xfce4-notifyd-config/main.c:1238
-msgid "Display version information"
-msgstr "Mostrar información de la versión"
-
-#: xfce4-notifyd-config/main.c:1239
-msgid "Settings manager socket"
-msgstr "Socket del gestor de configuración"
-
-#: xfce4-notifyd-config/main.c:1239
-msgid "SOCKET_ID"
-msgstr "ID_DEL_SOCKET"
-
-#: xfce4-notifyd-config/main.c:1249
-#, c-format
-msgid "Type '%s --help' for usage."
-msgstr "Escriba «%s --help» para su uso."
-
-#: xfce4-notifyd-config/main.c:1264
+#: xfce4-notifyd-config/main.c:1242
 msgid "Released under the terms of the GNU General Public License, version 2\n"
 msgstr "Se ha publicado según los términos de la versión 2 de la Licencia Pública General de GNU\n"
 
-#: xfce4-notifyd-config/main.c:1265
+#: xfce4-notifyd-config/main.c:1243
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "Informe de errores a %s.\n"
 
-#: xfce4-notifyd-config/main.c:1273
+#: xfce4-notifyd-config/main.c:1274
 msgid "Settings daemon is unavailable"
 msgstr "El servicio de configuración no está disponible"
+
+#: xfce4-notifyd-config/main.c:1376
+msgid "Display version information"
+msgstr "Mostrar información de la versión"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "Settings manager socket"
+msgstr "Socket del gestor de configuración"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "SOCKET_ID"
+msgstr "ID_DEL_SOCKET"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid ""
