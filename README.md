@@ -69,6 +69,11 @@ figure out the correct places to put those files (which may be outside
 your installation prefix), you can leave the value empty for those two
 command-line options.
 
+### Uninstallation
+
+```
+ninja uninstall -C build
+```
 
 ## Configuration
 
