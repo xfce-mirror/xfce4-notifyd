@@ -5,14 +5,14 @@
 # Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2013
 # Cédric Valmary <cvalmary@yahoo.fr>, 2013
-# Quentin PAGÈS, 2020,2022-2024
+# Quentin PAGÈS, 2020,2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-07-30 12:49+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Cédric Valmary <cvalmary@yahoo.fr>, 2013\n"
+"Last-Translator: Quentin PAGÈS, 2020,2022-2025\n"
 "Language-Team: Occitan (post 1500) (http://app.transifex.com/xfce/xfce-apps/language/oc/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -233,22 +233,22 @@ msgstr ""
 
 #: xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "caractèrs de fin a la fin de la declaracion"
 
 #: xfce4-notifyd/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "Fracàs de la creacion de la taula « notifications » : %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Fracàs de crear l'indèx de timestamp de la BD : %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:460
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Fracàs de creacion de l'indèx is_read de la BD : %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1453
 msgid "Default Action"
@@ -279,7 +279,7 @@ msgstr "Impossible d'afichar un apercebut de las notificacions"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr ""
+msgstr "Volètz vertadièrament suprimir los paramètres de notificacion per l'aplicacion « %s » ?"
 
 #: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
@@ -374,7 +374,7 @@ msgstr "Suprimir l’entrada"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
 msgid "Deletes the selected log entries"
-msgstr ""
+msgstr "Suprimís las entradas de jornal seleccionadas"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
 msgid "Show Log Location"
@@ -398,16 +398,16 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Cargament de mai d’entradas de jornal..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr ""
+msgstr "Lo servici de notificacion es pas en execucion. Cap de notificacion serà pas mostrada."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr ""
+msgstr "<b>Actualament solament las notificacions urgentas seràn mostradas.</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
 msgid "Fade out"
@@ -459,15 +459,15 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "icòna, resumit e còs"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "icon and summary"
-msgstr ""
+msgstr "icòna e resumit"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
 msgid "icon and application name"
-msgstr ""
+msgstr "icòna e nom de l’aplicacion"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
-msgstr ""
+msgstr "_Levar las notificacions en doble"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
