@@ -229,7 +229,7 @@ msgstr "Fracàs de la dobertura del log de notificacion : %s"
 #: xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "Fracàs de preparar la declaracion SQL : %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
@@ -300,7 +300,7 @@ msgstr "Aplicacions pas especificadas"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr ""
+msgstr "<b>Actualament se mòstran pas que las notificacions urgentas.</b>\nLa jornalizacion de las notificacion es %s."
 
 #: xfce4-notifyd-config/main.c:937
 msgid "enabled"
@@ -315,7 +315,7 @@ msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr ""
+msgstr "<big><b>Actualament i a pas cap d'aplicacion coneguda.</b></big>\nTre qu'una aplicacion manda una notificacion\napareisserà dins aquesta lista."
 
 #: xfce4-notifyd-config/main.c:1242
 msgid "Released under the terms of the GNU General Public License, version 2\n"
@@ -346,7 +346,7 @@ msgstr "ID_SOCKET"
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
-msgstr ""
+msgstr "<big><b>Jornal void</b></big>\nCap de notificacion es pas encara estada enregistrada."
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
 msgid "Refresh"
@@ -378,15 +378,15 @@ msgstr "Suprimís las entradas de jornal seleccionadas"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
 msgid "Show Log Location"
-msgstr ""
+msgstr "Afichar l’emplaçament dels jornals"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
 msgid "Shows the location of the log file in the file manager"
-msgstr ""
+msgstr "Aficha l’emplaçament del fichièrs de log dins lo gestionari de fichièrs"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Marcar l’entrada de jornal coma _legida"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
 msgid "Yesterday and before"
@@ -394,7 +394,7 @@ msgstr "Ièr e abans"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
 msgid "Delete Selected Log Entries"
-msgstr ""
+msgstr "Suprimir las entradas de jornal seleccionadas"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
 msgid "Loading more log entries..."
@@ -443,7 +443,7 @@ msgstr "Afichar las notificacions sus"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr ""
+msgstr "L'opcion « Activar los sons d'eveniments » dins la bóstia de dialòg dels paramètres d'aparéncia deu èsser marcada per ausir los sons de notificacion."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
