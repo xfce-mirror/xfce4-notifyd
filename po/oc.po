@@ -451,11 +451,11 @@ msgstr "_Amudir los sons"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Totjorn mostrar las notificacions de percentatges"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "En afichant las notificacions, mostrar"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
@@ -471,7 +471,7 @@ msgstr "icòna e nom de l’aplicacion"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "monitor amb lo puntador"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
 msgid "primary monitor"
@@ -486,7 +486,7 @@ msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
-msgstr ""
+msgstr "Empachar las notificacions redondantas. Se un messatge amb lo meteis resumit e còs es ja visible a l'ecran, las alertas identicas novèlas seràn suprimidas. Util per las aplicacions de multiplas instàncias coma los clients de chat."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
