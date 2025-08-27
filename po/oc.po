@@ -545,11 +545,11 @@ msgstr "_Tèma"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr ""
+msgstr "Afichar lo resumit e lo còs de la notificacion quand la notificacion es una valor en percentatge, coma lo volum àudio o la luminositat de l'ecran"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Show text with percent _values"
-msgstr ""
+msgstr "Afichar lo tèxte amb las _valors en percentatge"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
 msgid "Date/time _format"
@@ -584,11 +584,11 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Quand se crèa una notificacion, las aplicacions pòdon demandar quant de temps vòlon que la notificacion demòre a l'ecran. Aqueste paramètre contraròtla se la requèsta es observada o non."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Observar las demandas de durada « Desaparéisser aprèp » d’aplicacion "
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
 msgid "_Minimum notification width"
@@ -608,7 +608,7 @@ msgstr "Enregistrar las notificacions"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "solament en mòde « Destorbar pas », o quand los còsses de las notificacions son pas mostrats"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
 msgid "always"
