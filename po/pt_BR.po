@@ -181,11 +181,11 @@ msgstr "Não faça nada"
 
 #: panel-plugin/notification-plugin.desktop.in:5
 msgid "Notification Plugin"
-msgstr "Plug-in de notificação"
+msgstr "Plugin de notificação"
 
 #: panel-plugin/notification-plugin.desktop.in:6
 msgid "Notification plugin for the Xfce panel"
-msgstr "Plug-in de notificação para o painel do Xfce"
+msgstr "Plugin de notificação para o painel do Xfce"
 
 #: xfce4-notifyd/main.c:62
 msgid ""
@@ -270,7 +270,7 @@ msgstr "Ação padrão"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr "Daemon de notificação Xfce"
+msgstr "Daemon de notificação do Xfce"
 
 #: xfce4-notifyd-config/main.c:115
 msgid "Notification Preview"
