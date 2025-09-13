@@ -1,143 +1,657 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
 # 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 20:38+0200\n"
-"PO-Revision-Date: 2013-07-17 06:41+0000\n"
-"Last-Translator: kawichi\n"
-"Language-Team: Uighur (http://www.transifex.com/projects/p/xfce/language/ug/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"PO-Revision-Date: 2013-07-03 18:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Uyghur (http://app.transifex.com/xfce/xfce-apps/language/ug/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ug\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:258
+#: common/xfce-notify-log-util.c:379
+msgid "Do you really want to clear the notification log?"
+msgstr "ئۇقتۇرۇش خاتىرىسىنى راستتىنلا تازىلىۋېتەمسىز؟"
+
+#: common/xfce-notify-log-util.c:384
+msgid "Clear notification log"
+msgstr "ئۇقتۇرۇش خاتىرىسىنى تازىلا"
+
+#: common/xfce-notify-log-util.c:387
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
+msgid "Cancel"
+msgstr "ۋاز كەچ"
+
+#: common/xfce-notify-log-util.c:389
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+msgid "Clear"
+msgstr "تازىلا"
+
+#: common/xfce-notify-log-util.c:406 common/xfce-notify-log-util.c:414
+msgid "include icon cache"
+msgstr "سىنبەلگە غەملىكىمۇ ئىچىدە"
+
+#: common/xfce-notify-log-util.c:451
+msgid "Now"
+msgstr "ھازىرلا"
+
+#: panel-plugin/notification-plugin.c:341
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
+#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
+msgid "Notifications"
+msgstr "ئۇقتۇرۇش"
+
+#: panel-plugin/notification-plugin-dialogs.c:49
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "تۆۋەندىكى تور ئادرېسىنى ئاچقىلى بولمىدى: %s"
+
+#: panel-plugin/notification-plugin-dialogs.c:133
+msgid "This is the notification plugin"
+msgstr "بۇ ئۇقتۇرۇش قىستۇرمىسى"
+
+#: panel-plugin/notification-plugin-dialogs.c:135
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "نەشر ھوقۇقىقا ئىگە © 2017 Simon Steinbeiß\n"
+
+#: panel-plugin/notification-plugin-log.c:151
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>دەخلى قىلماڭ(_D)</b>"
+
+#: panel-plugin/notification-plugin-log.c:355
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
+msgid "Unable to open notification log"
+msgstr "ئۇقتۇرۇش خاتىرىسىنى ئاچالمايدۇ"
+
+#: panel-plugin/notification-plugin-log.c:357
+msgid "No unread notifications"
+msgstr "ئوقۇلمىغان ئۇقتۇرۇش يوق"
+
+#: panel-plugin/notification-plugin-log.c:359
+msgid "No notifications"
+msgstr "ئۇقتۇرۇش يوق"
+
+#: panel-plugin/notification-plugin-log.c:381
+msgid "_Clear log"
+msgstr "خاتىرە تازىلا(_C)"
+
+#: panel-plugin/notification-plugin-log.c:392
+msgid "_Mark all read"
+msgstr "ھەممىسىگە ئوقۇلدى بەلگىسى سال(_M)"
+
+#: panel-plugin/notification-plugin-log.c:401
+msgid "_Notification settings…"
+msgstr "ئۇقتۇرۇش تەڭشىكى(_N)…"
+
+#: panel-plugin/notification-plugin-settings.glade:30
+msgid "Notification Plugin Settings"
+msgstr "ئۇقتۇرۇش قىستۇرما تەڭشىكى"
+
+#: panel-plugin/notification-plugin-settings.glade:46
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
+msgid "_Help"
+msgstr "ياردەم(_H)"
+
+#: panel-plugin/notification-plugin-settings.glade:61
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:82
+msgid "_Close"
+msgstr "ياپ(_C)"
+
+#: panel-plugin/notification-plugin-settings.glade:98
+msgid "Notification icon size"
+msgstr "ئۇقتۇرۇش سىنبەلگە چوڭلۇقى"
+
+#: panel-plugin/notification-plugin-settings.glade:125
+msgid "Number of notifications to show"
+msgstr "كۆرسىتىدىغان ئۇقتۇرۇش سانى"
+
+#: panel-plugin/notification-plugin-settings.glade:153
+msgid "Only show notifications from today"
+msgstr "بۈگۈننىڭ ئۇقتۇرۇشىنىلا كۆرسەت"
+
+#: panel-plugin/notification-plugin-settings.glade:177
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "«خاتىرە تازىلا» نى جەزملەش سۆزلەشكۈسىنى يوشۇر"
+
+#: panel-plugin/notification-plugin-settings.glade:201
+msgid "Hide panel button when no unread notifications"
+msgstr "ئوقۇلمىغان ئۇچۇر بولمىغاندا كۆزنەكچە توپچىنى يوشۇرىدۇ"
+
+#: panel-plugin/notification-plugin-settings.glade:224
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
+msgid "Appearance"
+msgstr "كۆرۈنۈشى"
+
+#: panel-plugin/notification-plugin-settings.glade:241
+msgid "Show in menu"
+msgstr "تىزىملىكتە كۆرسەت"
+
+#: panel-plugin/notification-plugin-settings.glade:255
+msgid "All notifications"
+msgstr "ھەممە ئۇقتۇرۇش"
+
+#: panel-plugin/notification-plugin-settings.glade:256
+msgid "Unread notifications"
+msgstr "ئوقۇلمىغان ئۇقتۇرۇش"
+
+#: panel-plugin/notification-plugin-settings.glade:268
+msgid "Behavior"
+msgstr "قىلمىش"
+
+#: panel-plugin/notification-plugin-settings.glade:285
+msgid "After showing the menu"
+msgstr "تىزىملىكنى كۆرسەتكەندىن كېيىن"
+
+#: panel-plugin/notification-plugin-settings.glade:299
+msgid "Mark all log entries read"
+msgstr "بارلىق خاتىرە تۈرىگە ئوقۇلدى بەلگىسى سالىدۇ"
+
+#: panel-plugin/notification-plugin-settings.glade:300
+msgid "Mark shown log entries read"
+msgstr "كۆرسەتكەن خاتىرە تۈرىگە ئوقۇلدى بەلگىسى سالىدۇ"
+
+#: panel-plugin/notification-plugin-settings.glade:301
+msgid "Do nothing"
+msgstr "ھېچقانداق قىلما"
+
+#: panel-plugin/notification-plugin.desktop.in:5
+msgid "Notification Plugin"
+msgstr "ئۇقتۇرۇش قىستۇرمىسى"
+
+#: panel-plugin/notification-plugin.desktop.in:6
+msgid "Notification plugin for the Xfce panel"
+msgstr "Xfce كۆزنەكچىنىڭ ئۇقتۇرۇش قىستۇرمىسى"
+
+#: xfce4-notifyd/main.c:62
+msgid ""
+"Your Wayland compositor does not support required protocol wlr-layer-shell."
+msgstr "سىزنىڭ Wayland بىرىكتۈرگۈچىڭىز زۆرۈر بولغان wlr-layer-shell كېلىشىمىنى قوللىمايدۇ."
+
+#: xfce4-notifyd/main.c:69
+msgid "xfce4-notifyd was built without support for your windowing system."
+msgstr "xfce4-notifyd نىڭ قۇرۇلمىسى كۆزنەك سىستېمىڭىزنى قوللىمايدۇ."
+
+#: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
+#: xfce4-notifyd-config/main.c:1272
 msgid "Xfce Notify Daemon"
-msgstr "Xfce ئۇقتۇرۇش مۇئەككىلى"
+msgstr "Xfce ئۇقتۇرۇش نازارەتچسى"
 
-#: ../xfce4-notifyd/main.c:77
+#: xfce4-notifyd/main.c:91
 #, c-format
 msgid "Unknown option \"%s\"\n"
 msgstr "نامەلۇم تاللانما «%s»\n"
 
-#: ../xfce4-notifyd/main.c:86
+#: xfce4-notifyd/main.c:101 xfce4-notifyd/main.c:113
 msgid "Unable to start notification daemon"
-msgstr "ئۇقتۇرۇش مۇئەككىلىنى قوزغاتقىلى بولمىدى"
+msgstr "ئۇقتۇرۇش نازارەتچسىنى قوزغاتقىلى بولمىدى"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
-msgid "Failed to set new theme"
-msgstr "يېڭى ئۆرنەكنى بەلگىلەش مەغلۇپ بولدى"
+#: xfce4-notifyd/xfce-notify-daemon.c:590
+msgid "Another notification daemon is running, exiting\n"
+msgstr "باشقا بىر ئۇقتۇرۇش نازارەتچىسى ئىجرا قىلىنىۋاتىدۇ، چېكىنىۋاتىدۇ\n"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
+#: xfce4-notifyd/xfce-notify-daemon-log.c:175
+#: xfce4-notifyd/xfce-notify-daemon-log.c:206
+#: xfce4-notifyd/xfce-notify-daemon-log.c:240
+#: xfce4-notifyd/xfce-notify-daemon-log.c:253
+#: xfce4-notifyd/xfce-notify-daemon-log.c:287
+#: xfce4-notifyd/xfce-notify-daemon-log.c:301
+#: xfce4-notifyd/xfce-notify-daemon-log.c:313
+#: xfce4-notifyd/xfce-notify-daemon-log.c:327
+#: xfce4-notifyd/xfce-notify-daemon-log.c:339
+msgid "Log is unavailable"
+msgstr "خاتىرىنى ئىشلەتكىلى بولمايدۇ"
+
+#: xfce4-notifyd/xfce-notify-daemon-log.c:180
+msgid "Log entry not found"
+msgstr "خاتىرە مەزمۇنىنى تاپالمىدى"
+
+#: xfce4-notifyd/xfce-notify-log.c:235
 #, c-format
-msgid "Unable to connect to D-Bus session bus"
-msgstr "D-Bus ئەڭگىمە باش لىنىيىسىگە باغلانغىلى بولمىدى"
+msgid "The notification log directory (%s) is not a directory"
+msgstr "ئۇقتۇرۇش خاتىرە مۇندەرىجىسى (%s) مۇندەرىجە ئەمەس"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
+#: xfce4-notifyd/xfce-notify-log.c:247
 #, c-format
-msgid "Another notification xndaemon is already running"
-msgstr "باشقا بىر xndaemon ئىجرا بۆلۈۋېتىپتۇ"
+msgid "Failed to open notification log: %s"
+msgstr "ئۇقتۇرۇش خاتىرىسىنى ئاچالمىدى: %s"
 
-#: ../xfce4-notifyd-config/main.c:57
+#: xfce4-notifyd/xfce-notify-log.c:331
+#, c-format
+msgid "Failed to prepare SQL statement: %%s (%s)"
+msgstr "SQL جۈملىسىنى تەييارلىيالمىدى: %%s (%s)"
+
+#: xfce4-notifyd/xfce-notify-log.c:360
+msgid "trailing characters at end of statement"
+msgstr "جۈملە ئاخىرىدىكى ئەگەشمە ھەرپ"
+
+#: xfce4-notifyd/xfce-notify-log.c:458
+#, c-format
+msgid "Failed to create 'notifications' table: %s"
+msgstr "«ئۇقتۇرۇش» جەدۋىلى قۇرالمىدى: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:459
+#, c-format
+msgid "Failed to create DB timestamp index: %s"
+msgstr "ساندان يەنى DB ۋاقىت تامغا ئىندېكىسى قۇرالمىدى: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:460
+#, c-format
+msgid "Failed to create DB is_read index: %s"
+msgstr "ساندان يەنى DB نىڭ is_read ئىندېكىسى قۇرالمىدى: %s"
+
+#: xfce4-notifyd/xfce-notify-window.c:1453
+msgid "Default Action"
+msgstr "كۆڭۈلدىكى مەشغۇلات"
+
+#: xfce4-notifyd/xfce4-notifyd.desktop.in:4
+msgid "Xfce Notification Daemon"
+msgstr "Xfce ئۇقتۇرۇش نازارەتچسى"
+
+#: xfce4-notifyd-config/main.c:115
 msgid "Notification Preview"
-msgstr ""
+msgstr "ئۇقتۇرۇشنى ئالدىن كۆزەت"
 
-#: ../xfce4-notifyd-config/main.c:58
-msgid "This is how notifications will look like"
-msgstr ""
+#: xfce4-notifyd-config/main.c:116
+msgid "This is what notifications will look like"
+msgstr "بۇ دەل ئۇقتۇرۇشنىڭ قانداق كۆرۈنىدىغانلىقى"
 
-#: ../xfce4-notifyd-config/main.c:63
+#: xfce4-notifyd-config/main.c:121
 msgid "Button"
-msgstr ""
+msgstr "توپچە"
 
-#: ../xfce4-notifyd-config/main.c:70
+#: xfce4-notifyd-config/main.c:128
 msgid "Notification preview failed"
-msgstr "ئۇقتۇرۇشنى ئالدىن كۆرۈش مەغلۇپ بولدى"
+msgstr "ئۇقتۇرۇشنى ئالدىن كۆرەلمىدى"
 
-#: ../xfce4-notifyd-config/main.c:260
-msgid "Settings daemon is unavailable"
-msgstr "تەڭشەك مۇئەككىلى يوق"
-
-#: ../xfce4-notifyd-config/main.c:310
-msgid "Display version information"
-msgstr "نەشر ئۇچۇرىنى كۆرسەت"
-
-#: ../xfce4-notifyd-config/main.c:311
-msgid "Settings manager socket"
-msgstr "باشقۇرغۇچى سوكېتنىڭ تەڭشەكلىرى"
-
-#: ../xfce4-notifyd-config/main.c:311
-msgid "SOCKET_ID"
-msgstr "SOCKET_ID"
-
-#: ../xfce4-notifyd-config/main.c:321
+#: xfce4-notifyd-config/main.c:591
 #, c-format
-msgid "Type '%s --help' for usage."
-msgstr "'%s --help' كىرگۈزسە ئىشلىتىش ئۇسۇلىنى كۆرگىلى بولىدۇ"
+msgid ""
+"Are you sure you want to delete notification settings for application "
+"\"%s\"?"
+msgstr "پىروگرامما «%s» نىڭ ئۇقتۇرۇش تەڭشىكىنى راستتىنلا ئۆچۈرۈمسىز؟"
 
-#: ../xfce4-notifyd-config/main.c:334
+#: xfce4-notifyd-config/main.c:595
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
+msgid "Delete"
+msgstr "ئۆچۈر"
+
+#: xfce4-notifyd-config/main.c:597
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
+msgid "Forget Application"
+msgstr "پىروگراممىنى ئۇنتۇ"
+
+#: xfce4-notifyd-config/main.c:697
+msgid "Unspecified applications"
+msgstr "بەلگىلەنمىگەن پىروگرامما"
+
+#: xfce4-notifyd-config/main.c:930
 #, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>نۆۋەتتە پەقەت جىددىي ئۇقتۇرۇشلا كۆرسىتىلىدۇ.</b>\nئۇقتۇرۇش خاتىرىسى %s."
+
+#: xfce4-notifyd-config/main.c:937
+msgid "enabled"
+msgstr "قوزغىتىلغان"
+
+#: xfce4-notifyd-config/main.c:937
+msgid "disabled"
+msgstr "چەكلەنگەن"
+
+#: xfce4-notifyd-config/main.c:1173
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>نۆۋەتتە بىلىدىغان پىروگرامما يوق.</b></big>\nپىروگرامما ئۇقتۇرۇش تارقاتسىلا ئۇ بۇ تىزىمدا كۆرۈنىدۇ."
+
+#: xfce4-notifyd-config/main.c:1242
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "مەزكۇر پروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
+msgstr "مەزكۇر پىروگرامما GNU General Public License, 2-نەشرى ئاساسىدا تارقىتىلغان\n"
 
-#: ../xfce4-notifyd-config/main.c:335
+#: xfce4-notifyd-config/main.c:1243
 #, c-format
 msgid "Please report bugs to %s.\n"
 msgstr "كەمتۈكنى %s غا مەلۇم قىلىڭ.\n"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Top left"
-msgstr "ئۈستى سول"
+#: xfce4-notifyd-config/main.c:1274
+msgid "Settings daemon is unavailable"
+msgstr "تەڭشەك نازارەتچسى يوق"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom left"
-msgstr "ئاستى سول"
+#: xfce4-notifyd-config/main.c:1376
+msgid "Display version information"
+msgstr "نەشر ئۇچۇرىنى كۆرسەت"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Top right"
-msgstr "ئۈستى ئوڭ"
+#: xfce4-notifyd-config/main.c:1377
+msgid "Settings manager socket"
+msgstr "باشقۇرغۇچى ئوقۇر تەڭشىكى"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-msgid "Bottom right"
-msgstr "ئاستى ئوڭ"
+#: xfce4-notifyd-config/main.c:1377
+msgid "SOCKET_ID"
+msgstr "ئوقۇر كىملىكى(_I)"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
-msgid "Notifications"
-msgstr "ئۇقتۇرۇشلار"
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>بوش خاتىرە</b></big>\nتېخى ھېچقانداق خاتىرە خاتىرىلەنمىگەن."
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "ئالدىن كۆزەت(_P)"
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+msgid "Refresh"
+msgstr "يېڭىلا"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Opacity:"
-msgstr "غۇۋالىقى(_O):"
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
+msgid "Refresh the notification log"
+msgstr "ئۇقتۇرۇش خاتىرىسىنى يېڭىلا"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Disappear after:"
-msgstr "غايىب بولغۇچە بولغان ۋاقىت(_D):"
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+msgid "Clear the notification log"
+msgstr "ئۇقتۇرۇش خاتىرىسىنى تازىلا"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "Default _position:"
-msgstr "كۆڭۈلدىكى ئورۇن(_P):"
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
+msgid "Mark All Read"
+msgstr "ھەممىسىگە ئوقۇلدى بەلگىسى سال"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Theme:"
-msgstr "ئۆرنەك(_T):"
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
+msgid "Mark all unread notifications as read"
+msgstr "ئوقۇلمىغان ئۇقتۇرۇشلارنىڭ ھەممىسىگە ئوقۇلدى بەلگىسى سالىدۇ"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+msgid "Delete Entry"
+msgstr "تۈر ئۆچۈر"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+msgid "Deletes the selected log entries"
+msgstr "تاللانغان خاتىرە تۈرىنى ئۆچۈر"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+msgid "Show Log Location"
+msgstr "خاتىرە ئورنىنى كۆرسەت"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+msgid "Shows the location of the log file in the file manager"
+msgstr "خاتىرە ھۆججەتنىڭ ھۆججەت باشقۇرغۇچتىكى ئونىنى كۆرسىتىدۇ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
+msgid "Mark log entry _read"
+msgstr "خاتىرە تۈرىگە ئوقۇلدى بەلگىسى سال(_R)"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
+msgid "Yesterday and before"
+msgstr "تۈنۈگۈن ۋە بۇرۇن"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+msgid "Delete Selected Log Entries"
+msgstr "تاللانغان خاتىرە تۈرىنى ئۆچۈر"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
+msgid "Loading more log entries..."
+msgstr "تېخىمۇ كۆپ خاتىرە تۈرىنى يۈكلەۋاتىدۇ…"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
+msgid ""
+"The notification service is not running. No notifications will be shown."
+msgstr "ئۇقتۇرۇش مۇلازىمىتى ئىجرا قىلىنمايۋاتىدۇ. ھېچقانداق ئۇقتۇرۇش كۆرسىتىلمەيدۇ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>نۆۋەتتە پەقەت جىددىي ئۇقتۇرۇشلا كۆرسىتىلىدۇ.</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
+msgid "Fade out"
+msgstr "تەدرىجىي ئاجىزلات"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
+msgid "_Slide out"
+msgstr "سىيرىلىپ چىق(_S)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
+msgid "Do not disturb"
+msgstr "دەخلى قىلماڭ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:372
+msgid "<b>Behavior</b>"
+msgstr "<b>قىلمىش</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:386
+msgid "<b>Animations</b>"
+msgstr "<b>جانلاندۇرۇم</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:399
+msgid ""
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "كۆڭۈلدىكى ئەھۋالدا ئۇقتۇرۇش شارى چاشقىنەك نىشانلىغۇچ تۇرۇشلۇق ئېكراندا كۆرۈنىدۇ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
+msgid "Show notifications on"
+msgstr "ئۇقتۇرۇش كۆرسىتىش ئوچۇق"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:414
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "ئۇقتۇرۇش ئاۋازىنى ئاڭلاش ئۈچۈن كۆرۈنۈش تەڭشەك سۆزلەشكۈدىكى «پائالىيەت ئاۋازىنى قوزغات» تەڭشىكى چوقۇم تاللىنىشى كېرەك"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
+msgid "_Mute sounds"
+msgstr "ئاۋازنى ئۈنسىزلە(_M)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
+msgid "Always show percent-value notifications"
+msgstr "ھەمىشە پىرسەنت قىممەتتىكى ئۇقتۇرۇشنى كۆرسىتىدۇ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
+msgid "When displaying notifications, show"
+msgstr "ئۇقتۇرۇش كۆرسەتكەندە، كۆرسىتىدىغىنى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
+msgid "icon, summary, and body"
+msgstr "سىنبەلگە، خۇلاسە ۋە تېكىست"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
+msgid "icon and summary"
+msgstr "سىنبەلگە ۋە خۇلاسە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
+msgid "icon and application name"
+msgstr "سىنبەلگە ۋە پىروگرامما ئىسمى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
+msgid "monitor with mouse pointer"
+msgstr "چاشقىنەك نىشانلىغۇچىسى بار كۆزەتكۈچ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
+msgid "primary monitor"
+msgstr "ئاساسىي كۆزەتكۈچ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
+msgid "all monitors"
+msgstr "ھەممە كۆزەتكۈچ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
+msgid ""
+"Prevent redundant notifications. If a message with the same summary and body"
+" is already visible on screen, new identical alerts will be suppressed. "
+"Useful for multi-instance applications like chat clients."
+msgstr "قالدۇق ئۇقتۇرۇشنىڭ ئالدىنى ئالىدۇ. ئەگەر ئېكراندا ئوخشاش خۇلاسىسى ۋە تېكىست مەزمۇنى بار ئۇچۇرنى كۆرسەتكەن بولسا، يېڭى ئوخشاش ئۇقتۇرۇش باسۇرۇلىدۇ. سۆھبەت خېرىدارىغا ئوخشاش كۆپ مىساللىق پىروگراممىغا ماس كېلىدۇ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
+msgid "_Suppress duplicate notifications"
+msgstr "تەكرار ئۇقتۇرۇشنى باسۇر(_S)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
+msgid "General"
+msgstr "ئادەتتىكى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "seconds"
 msgstr "سېكۇنت"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
+msgid "10"
+msgstr "10"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
+msgid "_Opacity"
+msgstr "غۇۋالىقى(_O)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
+msgid "Default _position"
+msgstr "كۆڭۈلدىكى ئورنى(_P)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
+msgid "Top left"
+msgstr "سول ئۈستى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
+msgid "Bottom left"
+msgstr "سول ئاستى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
+msgid "Top right"
+msgstr "ئوڭ ئۈستى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
+msgid "Bottom right"
+msgstr "ئوڭ ئاستى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
+msgid "Top center"
+msgstr "ئوتتۇرا يۇقىرى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
+msgid "Bottom center"
+msgstr "ئوتتۇرا ئاستى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
+msgid "_Theme"
+msgstr "ئۆرنەك(_T)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
+msgid ""
+"Show the notification summary and body when the notification is a percent "
+"value, such as audio volume or screen brightness"
+msgstr "ئۇقتۇرۇش پىرسەنت قىممىتى يەنى ئاۋاز كۈچلۈكلۈكى ياكى ئېكران يورۇقلۇقىغا ئوخشاش بولغاندا، ئۇقتۇرۇش خۇلاسىسى ۋە تېكىست مەزمۇنىنى كۆرسىتىدۇ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
+msgid "Show text with percent _values"
+msgstr "پىرسەنت قىممىتى بار تېكىستنى كۆرسىتىدۇ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
+msgid "Date/time _format"
+msgstr "چېسلا/ۋاقىت پىچىمى(_F)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+msgid "Locale default"
+msgstr "يەرلىك كۆڭۈلدىكى قىممەت"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
+msgid "Relative times"
+msgstr "نىسپىي ۋاقىت"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+msgid "ISO8601"
+msgstr "ISO8601"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+msgid "Custom"
+msgstr "ئىختىيارى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
+msgid "Show _Preview"
+msgstr "ئالدىن كۆزىتىشنى كۆرسەت(_P)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
+msgid "_Disappear after"
+msgstr "غايىب بولىدىغان ۋاقىت(_D)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
+msgid ""
+"When creating a notification, applications can request how long they'd like "
+"the notification remain on screen. This setting controls whether or not that"
+" request is honored."
+msgstr "ئۇقتۇرۇش قۇرغاندا، پىروگرامما ئۇقتۇرۇشنىڭ ئېكراندا قانچىلىك ۋاقىت كۆرۈنىدىغانلىقىنى ئىلتىماس قىلالايدۇ. بۇ تەڭشەك مەزكۇر ئىلتىماسقا ئىنكاس قايتۇرۇش ياكى قايتۇرماسلىقنى تىزگىنلەيدۇ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
+msgid "Honor app-requested \"Disappear after\" time"
+msgstr "ئىجازەت بېرىلگەن پىروگرامما ئىلتىماس قىلغان «غايىب بولىدىغان ۋاقىت»"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
+msgid "_Minimum notification width"
+msgstr "ئۇقتۇرۇشنىڭ ئەڭ كىچىك كەڭلىكى(_M)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
+msgid "<b>Per-application notification settings</b>"
+msgstr "<b>پىروگرامما ئۇقتۇرۇش تەڭشىكى</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
+msgid "Applications"
+msgstr "پىروگرامما"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
+msgid "Log notifications"
+msgstr "خاتىرە ئۇقتۇرۇشى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr "پەقەت «دەخلى قىلماڭ» مەزگىلىدە ياكى ئۇقتۇرۇش گەۋدىسى كۆرۈنمىگەندە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
+msgid "always"
+msgstr "ھەمىشە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
+msgid "Log applications"
+msgstr "پىروگراممىنى خاتىرىلە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
+msgid "all"
+msgstr "ھەممىسى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1026
+msgid "all except blocked"
+msgstr "ھەممىسى توسۇلغىنى مۇستەسنا"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
+msgid "only blocked"
+msgstr "توسۇلغىنىلا"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
+msgid "The maximum number of entries to be retained in the log."
+msgstr "خاتىرىدە ساقلاپ قالىدىغان ئەڭ كۆپ خاتىرە سانى."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
+msgid "Maximum number of log entries to keep"
+msgstr "ساقلاپ قالىدىغان خاتىرە تۈرىنىڭ سانى"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
+msgid "Log"
+msgstr "خاتىرە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
+msgid "Mute application"
+msgstr "پىروگراممىنى ئۈنسىزلە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
+msgid "Allow urgent notifications"
+msgstr "جىددىي ئۇقتۇرۇشقا يول قويىدۇ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
+msgid "Include in log"
+msgstr "خاتىرە ئىچىدە"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
 msgstr "ئۇقتۇرۇشلارنىڭ كۆرۈنۈش ئۇسۇلىنى ئۆزلەشتۈر"
