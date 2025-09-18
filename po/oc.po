@@ -22,7 +22,7 @@ msgstr ""
 
 #: common/xfce-notify-log-util.c:379
 msgid "Do you really want to clear the notification log?"
-msgstr "Volètz vertadièrament escafar lo jornal de notificacions ?"
+msgstr "Volètz vertadièrament escafar l'istoric de notificacions ?"
 
 #: common/xfce-notify-log-util.c:384
 msgid "Clear notification log"
@@ -72,7 +72,7 @@ msgstr "<b>_Destorbar pas</b>"
 #: panel-plugin/notification-plugin-log.c:355
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
 msgid "Unable to open notification log"
-msgstr "Dubertura impossibla del jornal de notificacion"
+msgstr "Dubertura impossibla de l'istoric de notificacion"
 
 #: panel-plugin/notification-plugin-log.c:357
 msgid "No unread notifications"
@@ -84,7 +84,7 @@ msgstr "Cap de notificacion"
 
 #: panel-plugin/notification-plugin-log.c:381
 msgid "_Clear log"
-msgstr "_Escafar log"
+msgstr "_Escafar l'istoric"
 
 #: panel-plugin/notification-plugin-log.c:392
 msgid "_Mark all read"
@@ -122,7 +122,7 @@ msgstr "Afichar sonque las notificacions d’uèi"
 
 #: panel-plugin/notification-plugin-settings.glade:177
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "Amagar la bóstia de dialòg « Escafar log »"
+msgstr "Amagar la bóstia de dialòg « Escafar l'istoric »"
 
 #: panel-plugin/notification-plugin-settings.glade:201
 msgid "Hide panel button when no unread notifications"
@@ -159,7 +159,7 @@ msgstr "Marca totas las entradas del log coma legidas"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark shown log entries read"
-msgstr "Marcar las entradas de log afichadas coma legidas"
+msgstr "Marcar las entradas de l'istoric afichadas coma legidas"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Do nothing"
@@ -210,21 +210,21 @@ msgstr "Un autre demòni de notificacion es ja en cors d'execucion\n"
 #: xfce4-notifyd/xfce-notify-daemon-log.c:327
 #: xfce4-notifyd/xfce-notify-daemon-log.c:339
 msgid "Log is unavailable"
-msgstr "Lo jornal es indisponible"
+msgstr "L'istoric es indisponible"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:180
 msgid "Log entry not found"
-msgstr "Entrada de jornal non trobat"
+msgstr "Entrada d'istoric non trobat"
 
 #: xfce4-notifyd/xfce-notify-log.c:235
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr "Lo repertòri de jornal de notificacion (%s) es pas un repertòri"
+msgstr "Lo repertòri d'istoric de notificacion (%s) es pas un repertòri"
 
 #: xfce4-notifyd/xfce-notify-log.c:247
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr "Fracàs de la dobertura del log de notificacion : %s"
+msgstr "Fracàs de la dobertura de l'istoric de notificacion : %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
@@ -354,11 +354,11 @@ msgstr "Refrescar"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
 msgid "Refresh the notification log"
-msgstr "Refrescar lo log de notificacion"
+msgstr "Refrescar l'istoric de notificacions"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
 msgid "Clear the notification log"
-msgstr "Escafar lo log de notificacion"
+msgstr "Escafar l'istoric de notificacion"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
 msgid "Mark All Read"
@@ -374,19 +374,19 @@ msgstr "Suprimir l’entrada"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
 msgid "Deletes the selected log entries"
-msgstr "Suprimís las entradas de jornal seleccionadas"
+msgstr "Suprimís las entradas d'istoric seleccionadas"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
 msgid "Show Log Location"
-msgstr "Afichar l’emplaçament dels jornals"
+msgstr "Afichar l’emplaçament dels istorics"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
 msgid "Shows the location of the log file in the file manager"
-msgstr "Aficha l’emplaçament del fichièrs de log dins lo gestionari de fichièrs"
+msgstr "Aficha l’emplaçament del fichièrs d'istoric dins lo gestionari de fichièrs"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
 msgid "Mark log entry _read"
-msgstr "Marcar l’entrada de jornal coma _legida"
+msgstr "Marcar l’entrada d'istoric coma _legida"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
 msgid "Yesterday and before"
@@ -394,11 +394,11 @@ msgstr "Ièr e abans"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
 msgid "Delete Selected Log Entries"
-msgstr "Suprimir las entradas de jornal seleccionadas"
+msgstr "Suprimir las entradas d'istoric seleccionadas"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
 msgid "Loading more log entries..."
-msgstr "Cargament de mai d’entradas de jornal..."
+msgstr "Cargament de mai d’entradas d'istoric..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
@@ -633,15 +633,15 @@ msgstr "solament las blocadas"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
 msgid "The maximum number of entries to be retained in the log."
-msgstr "Lo nombre maximum d'entradas de conservar dins lo jornal."
+msgstr "Lo nombre maximum d'entradas de conservar dins l'istoric."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
 msgid "Maximum number of log entries to keep"
-msgstr "Lo nombre maximal d’entradas de log a gardar"
+msgstr "Lo nombre maximal d’entradas d'istoric a gardar"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
-msgstr "Log"
+msgstr "Istoric"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
@@ -653,7 +653,7 @@ msgstr "Autorizar las notificacions urgentas"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr "Inclure als logs"
+msgstr "Inclure dins l'istoric"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
