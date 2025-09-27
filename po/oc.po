@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-07-30 12:49+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Quentin PAGÈS, 2020,2022-2025\n"
+"Last-Translator: Cédric Valmary <cvalmary@yahoo.fr>, 2013\n"
 "Language-Team: Occitan (post 1500) (http://app.transifex.com/xfce/xfce-apps/language/oc/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -443,7 +443,7 @@ msgstr "Afichar las notificacions sus"
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr "L'opcion « Activar los sons d'eveniments » dins la bóstia de dialòg dels paramètres d'aparéncia deu èsser marcada per ausir los sons de notificacion."
+msgstr "L'opcion « Activar los sons d'eveniments » dins la bóstia de dialòg dels paramètres d'aparéncia deu èsser marcada per ausir los sons de notificacion"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
@@ -588,7 +588,7 @@ msgstr "Quand se crèa una notificacion, las aplicacions pòdon demandar quant d
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr "Observar las demandas de durada « Desaparéisser aprèp » d’aplicacion "
+msgstr "Observar las demandas de durada « Desaparéisser aprèp » d’aplicacion"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
 msgid "_Minimum notification width"
