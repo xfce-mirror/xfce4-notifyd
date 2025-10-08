@@ -486,11 +486,11 @@ msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
-msgstr ""
+msgstr "Parandalo njoftime të përsëritura. Nëse një mesazhe me të njëjtën përmbledhje dhe lëndë është tashmë i pranishëm në ekran, s’do të lejohen sinjalizime të reja identike. E dobishme për aplikacione me shumë instanca, fjala vjen klientë fjalosjesh."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
-msgstr ""
+msgstr "_Mos lejo njoftime të përsëdytura"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
