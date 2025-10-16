@@ -147,7 +147,7 @@ msgstr "Notificacions pas legidas"
 
 #: panel-plugin/notification-plugin-settings.glade:268
 msgid "Behavior"
-msgstr "Comportament"
+msgstr "Compòrtament"
 
 #: panel-plugin/notification-plugin-settings.glade:285
 msgid "After showing the menu"
