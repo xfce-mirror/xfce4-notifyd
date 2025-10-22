@@ -523,19 +523,19 @@ msgstr "Inferior esquèrre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
 msgid "Top right"
-msgstr "Superior drech"
+msgstr "Superior dreit"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
 msgid "Bottom right"
-msgstr "Inferior drech"
+msgstr "Inferior dreit"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
 msgid "Top center"
-msgstr "Amont al centre"
+msgstr "Superior al centre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
 msgid "Bottom center"
-msgstr "Aval al centre"
+msgstr "Inferior centre"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
 msgid "_Theme"
@@ -569,7 +569,7 @@ msgstr "ISO8601"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "Custom"
-msgstr "Personalizats"
+msgstr "Personalizat"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
 msgid "Show _Preview"
