@@ -324,7 +324,7 @@ msgstr "<big><b>Obecnie nie ma znanych programów.</b></big>\nJak tylko program 
 
 #: xfce4-notifyd-config/main.c:1242
 msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Wydany na warunkach Powszechnej Licencji Publicznej GNU (GPL) w wersji 2\n"
+msgstr "Wydano na warunkach Powszechnej Licencji Publicznej GNU (GPL) w wersji 2\n"
 
 #: xfce4-notifyd-config/main.c:1243
 #, c-format
