@@ -173,7 +173,7 @@ msgstr "Connector de notificacions"
 
 #: panel-plugin/notification-plugin.desktop.in:6
 msgid "Notification plugin for the Xfce panel"
-msgstr "Connector de notificacions per al tauler de Xfce"
+msgstr "Connector de notificacions per al panell de l'Xfce"
 
 #: xfce4-notifyd/main.c:62
 msgid ""
@@ -187,7 +187,7 @@ msgstr "L'xfce4-notifyd s'ha creat sense suport per al vostre sistema de finestr
 #: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
 #: xfce4-notifyd-config/main.c:1272
 msgid "Xfce Notify Daemon"
-msgstr "Dimoni de notificacions de Xfce"
+msgstr "Dimoni de notificacions de l'Xfce"
 
 #: xfce4-notifyd/main.c:91
 #, c-format
