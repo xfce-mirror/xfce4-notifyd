@@ -1,144 +1,659 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
 # 
 # Translators:
-# truongap <truongap.ars@gmail.com>, 2014
+# Duy Truong Nguyen <truongap.ars@gmail.com>, 2014
+# Loc Huynh <https://github.com/hthienloc>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-27 18:31+0100\n"
-"PO-Revision-Date: 2014-04-04 07:20+0000\n"
-"Last-Translator: truongap <truongap.ars@gmail.com>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/projects/p/xfce/language/vi/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"PO-Revision-Date: 2013-07-03 18:39+0000\n"
+"Last-Translator: Loc Huynh <https://github.com/hthienloc>, 2025\n"
+"Language-Team: Vietnamese (http://app.transifex.com/xfce/xfce-apps/language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../xfce4-notifyd/main.c:74 ../xfce4-notifyd/main.c:84
-#: ../xfce4-notifyd-config/main.c:258
-msgid "Xfce Notify Daemon"
-msgstr "Daemon thông báo Xfce"
+#: common/xfce-notify-log-util.c:379
+msgid "Do you really want to clear the notification log?"
+msgstr "Bạn có thực sự muốn xóa toàn bộ nhật ký thông báo không?"
 
-#: ../xfce4-notifyd/main.c:77
-#, c-format
-msgid "Unknown option \"%s\"\n"
-msgstr "Tùy chọn không rõ \"%s\"\n"
+#: common/xfce-notify-log-util.c:384
+msgid "Clear notification log"
+msgstr "Xóa nhật ký thông báo"
 
-#: ../xfce4-notifyd/main.c:86
-msgid "Unable to start notification daemon"
-msgstr "Không thể bắt chạy daemon thông báo"
+#: common/xfce-notify-log-util.c:387
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
+msgid "Cancel"
+msgstr "Hủy bỏ"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1142
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1162
-msgid "Failed to set new theme"
-msgstr "Đặt chủ đề, thất bại"
+#: common/xfce-notify-log-util.c:389
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+msgid "Clear"
+msgstr "Xóa"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1215
-#, c-format
-msgid "Unable to connect to D-Bus session bus"
-msgstr ""
+#: common/xfce-notify-log-util.c:406 common/xfce-notify-log-util.c:414
+msgid "include icon cache"
+msgstr "bao gồm bộ đệm biểu tượng"
 
-#: ../xfce4-notifyd/xfce-notify-daemon.c:1232
-#, c-format
-msgid "Another notification xndaemon is already running"
-msgstr ""
+#: common/xfce-notify-log-util.c:451
+msgid "Now"
+msgstr "Bây giờ"
 
-#: ../xfce4-notifyd-config/main.c:57
-msgid "Notification Preview"
-msgstr "Xem trước thông báo"
-
-#: ../xfce4-notifyd-config/main.c:58
-msgid "This is what notifications will look like"
-msgstr "Thông báo trông sẽ như thế này"
-
-#: ../xfce4-notifyd-config/main.c:63
-msgid "Button"
-msgstr "Nút"
-
-#: ../xfce4-notifyd-config/main.c:70
-msgid "Notification preview failed"
-msgstr "Xem trước thông báo, thất bại"
-
-#: ../xfce4-notifyd-config/main.c:260
-msgid "Settings daemon is unavailable"
-msgstr ""
-
-#: ../xfce4-notifyd-config/main.c:310
-msgid "Display version information"
-msgstr "Thông tin phiên bản màn hình"
-
-#: ../xfce4-notifyd-config/main.c:311
-msgid "Settings manager socket"
-msgstr ""
-
-#: ../xfce4-notifyd-config/main.c:311
-msgid "SOCKET_ID"
-msgstr ""
-
-#: ../xfce4-notifyd-config/main.c:321
-#, c-format
-msgid "Type '%s --help' for usage."
-msgstr "Nhập '%s --help' để kiếm trợ giúp"
-
-#: ../xfce4-notifyd-config/main.c:334
-#, c-format
-msgid "Released under the terms of the GNU General Public License, version 2\n"
-msgstr "Phát hành dưới những điều khoản của Giấy phép công cộng phổ biến GNU, phiên bản 2\n"
-
-#: ../xfce4-notifyd-config/main.c:335
-#, c-format
-msgid "Please report bugs to %s.\n"
-msgstr "Thông báo lỗi đến %s.\n"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:1
-msgid "Top left"
-msgstr "Trên bên trái"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:2
-msgid "Bottom left"
-msgstr "Dưới bên trái"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:3
-msgid "Top right"
-msgstr "Trên bên phải"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:4
-msgid "Bottom right"
-msgstr "Dưới bên phải"
-
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:5
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:1
+#: panel-plugin/notification-plugin.c:341
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
+#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
 msgstr "Thông báo"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:6
-msgid "_Preview"
-msgstr "_Xem trước"
+#: panel-plugin/notification-plugin-dialogs.c:49
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "Không thể mở URL sau: %s"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:7
-msgid "_Opacity:"
-msgstr "_Độ trong suốt"
+#: panel-plugin/notification-plugin-dialogs.c:133
+msgid "This is the notification plugin"
+msgstr "Đây là phần mở rộng thông báo"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:8
-msgid "_Disappear after:"
-msgstr "_Ẩn sau:"
+#: panel-plugin/notification-plugin-dialogs.c:135
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "Bản quyền © 2017 Simon Steinbeiß\n"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:9
-msgid "Default _position:"
-msgstr "_Vị trí mặc định:"
+#: panel-plugin/notification-plugin-log.c:151
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_Không làm phiền</b>"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:10
-msgid "_Theme:"
-msgstr "_Chủ đề:"
+#: panel-plugin/notification-plugin-log.c:355
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
+msgid "Unable to open notification log"
+msgstr "Không thể mở nhật ký thông báo"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.glade.h:11
+#: panel-plugin/notification-plugin-log.c:357
+msgid "No unread notifications"
+msgstr "Không có thông báo chưa đọc"
+
+#: panel-plugin/notification-plugin-log.c:359
+msgid "No notifications"
+msgstr "Không có thông báo"
+
+#: panel-plugin/notification-plugin-log.c:381
+msgid "_Clear log"
+msgstr "_Xóa nhật ký"
+
+#: panel-plugin/notification-plugin-log.c:392
+msgid "_Mark all read"
+msgstr "Đánh dấu _tất cả đã đọc"
+
+#: panel-plugin/notification-plugin-log.c:401
+msgid "_Notification settings…"
+msgstr "_Cài đặt thông báo…"
+
+#: panel-plugin/notification-plugin-settings.glade:30
+msgid "Notification Plugin Settings"
+msgstr "Cài đặt phần mở rộng thông báo"
+
+#: panel-plugin/notification-plugin-settings.glade:46
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
+msgid "_Help"
+msgstr "Trợ _giúp"
+
+#: panel-plugin/notification-plugin-settings.glade:61
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:82
+msgid "_Close"
+msgstr "Đón_g"
+
+#: panel-plugin/notification-plugin-settings.glade:98
+msgid "Notification icon size"
+msgstr "Kích thước biểu tượng thông báo"
+
+#: panel-plugin/notification-plugin-settings.glade:125
+msgid "Number of notifications to show"
+msgstr "Số lượng thông báo hiển thị"
+
+#: panel-plugin/notification-plugin-settings.glade:153
+msgid "Only show notifications from today"
+msgstr "Chỉ hiển thị thông báo hôm nay"
+
+#: panel-plugin/notification-plugin-settings.glade:177
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "Ẩn hộp thoại xác nhận khi xóa nhật ký"
+
+#: panel-plugin/notification-plugin-settings.glade:201
+msgid "Hide panel button when no unread notifications"
+msgstr "Ẩn nút bảng điều khiển khi không có thông báo chưa đọc"
+
+#: panel-plugin/notification-plugin-settings.glade:224
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
+msgid "Appearance"
+msgstr "Giao diện"
+
+#: panel-plugin/notification-plugin-settings.glade:241
+msgid "Show in menu"
+msgstr "Hiển thị trong menu"
+
+#: panel-plugin/notification-plugin-settings.glade:255
+msgid "All notifications"
+msgstr "Tất cả thông báo"
+
+#: panel-plugin/notification-plugin-settings.glade:256
+msgid "Unread notifications"
+msgstr "Thông báo chưa đọc"
+
+#: panel-plugin/notification-plugin-settings.glade:268
+msgid "Behavior"
+msgstr "Hành vi"
+
+#: panel-plugin/notification-plugin-settings.glade:285
+msgid "After showing the menu"
+msgstr "Sau khi hiển thị menu"
+
+#: panel-plugin/notification-plugin-settings.glade:299
+msgid "Mark all log entries read"
+msgstr "Đánh dấu tất cả mục nhật ký đã đọc"
+
+#: panel-plugin/notification-plugin-settings.glade:300
+msgid "Mark shown log entries read"
+msgstr "Đánh dấu các mục đã hiển thị là đã đọc"
+
+#: panel-plugin/notification-plugin-settings.glade:301
+msgid "Do nothing"
+msgstr "Không làm gì"
+
+#: panel-plugin/notification-plugin.desktop.in:5
+msgid "Notification Plugin"
+msgstr "Phần mở rộng thông báo"
+
+#: panel-plugin/notification-plugin.desktop.in:6
+msgid "Notification plugin for the Xfce panel"
+msgstr "Phần mở rộng thông báo cho bảng điều khiển Xfce"
+
+#: xfce4-notifyd/main.c:62
+msgid ""
+"Your Wayland compositor does not support required protocol wlr-layer-shell."
+msgstr "Trình quản lý Wayland của bạn không hỗ trợ giao thức wlr-layer-shell bắt buộc."
+
+#: xfce4-notifyd/main.c:69
+msgid "xfce4-notifyd was built without support for your windowing system."
+msgstr "xfce4-notifyd được biên dịch mà không hỗ trợ hệ thống cửa sổ của bạn."
+
+#: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
+#: xfce4-notifyd-config/main.c:1272
+msgid "Xfce Notify Daemon"
+msgstr "Dịch vụ thông báo Xfce"
+
+#: xfce4-notifyd/main.c:91
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "Tùy chọn không xác định \"%s\"\n"
+
+#: xfce4-notifyd/main.c:101 xfce4-notifyd/main.c:113
+msgid "Unable to start notification daemon"
+msgstr "Không thể khởi động dịch vụ thông báo"
+
+#: xfce4-notifyd/xfce-notify-daemon.c:590
+msgid "Another notification daemon is running, exiting\n"
+msgstr "Một dịch vụ thông báo khác đang chạy, thoát\n"
+
+#: xfce4-notifyd/xfce-notify-daemon-log.c:175
+#: xfce4-notifyd/xfce-notify-daemon-log.c:206
+#: xfce4-notifyd/xfce-notify-daemon-log.c:240
+#: xfce4-notifyd/xfce-notify-daemon-log.c:253
+#: xfce4-notifyd/xfce-notify-daemon-log.c:287
+#: xfce4-notifyd/xfce-notify-daemon-log.c:301
+#: xfce4-notifyd/xfce-notify-daemon-log.c:313
+#: xfce4-notifyd/xfce-notify-daemon-log.c:327
+#: xfce4-notifyd/xfce-notify-daemon-log.c:339
+msgid "Log is unavailable"
+msgstr "Nhật ký không khả dụng"
+
+#: xfce4-notifyd/xfce-notify-daemon-log.c:180
+msgid "Log entry not found"
+msgstr "Không tìm thấy mục nhật ký"
+
+#: xfce4-notifyd/xfce-notify-log.c:235
+#, c-format
+msgid "The notification log directory (%s) is not a directory"
+msgstr "Thư mục nhật ký thông báo (%s) không phải là thư mục"
+
+#: xfce4-notifyd/xfce-notify-log.c:247
+#, c-format
+msgid "Failed to open notification log: %s"
+msgstr "Không mở được nhật ký thông báo: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:331
+#, c-format
+msgid "Failed to prepare SQL statement: %%s (%s)"
+msgstr "Không chuẩn bị được câu lệnh SQL: %%s (%s)"
+
+#: xfce4-notifyd/xfce-notify-log.c:360
+msgid "trailing characters at end of statement"
+msgstr "có ký tự thừa ở cuối câu lệnh"
+
+#: xfce4-notifyd/xfce-notify-log.c:458
+#, c-format
+msgid "Failed to create 'notifications' table: %s"
+msgstr "Không tạo được bảng 'notifications': %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:459
+#, c-format
+msgid "Failed to create DB timestamp index: %s"
+msgstr "Không tạo được chỉ mục thời gian DB: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:460
+#, c-format
+msgid "Failed to create DB is_read index: %s"
+msgstr "Không tạo được chỉ mục is_read của DB: %s"
+
+#: xfce4-notifyd/xfce-notify-window.c:1453
+msgid "Default Action"
+msgstr "Hành động mặc định"
+
+#: xfce4-notifyd/xfce4-notifyd.desktop.in:4
+msgid "Xfce Notification Daemon"
+msgstr "Dịch vụ thông báo Xfce"
+
+#: xfce4-notifyd-config/main.c:115
+msgid "Notification Preview"
+msgstr "Xem trước thông báo"
+
+#: xfce4-notifyd-config/main.c:116
+msgid "This is what notifications will look like"
+msgstr "Thông báo sẽ trông như thế này"
+
+#: xfce4-notifyd-config/main.c:121
+msgid "Button"
+msgstr "Nút"
+
+#: xfce4-notifyd-config/main.c:128
+msgid "Notification preview failed"
+msgstr "Xem trước thông báo thất bại"
+
+#: xfce4-notifyd-config/main.c:591
+#, c-format
+msgid ""
+"Are you sure you want to delete notification settings for application "
+"\"%s\"?"
+msgstr "Bạn có chắc muốn xóa cài đặt thông báo của ứng dụng \"%s\" không?"
+
+#: xfce4-notifyd-config/main.c:595
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
+msgid "Delete"
+msgstr "Xóa"
+
+#: xfce4-notifyd-config/main.c:597
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
+msgid "Forget Application"
+msgstr "Quên ứng dụng"
+
+#: xfce4-notifyd-config/main.c:697
+msgid "Unspecified applications"
+msgstr "Ứng dụng không xác định"
+
+#: xfce4-notifyd-config/main.c:930
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>Hiện chỉ hiển thị thông báo khẩn cấp.</b>\nGhi nhật ký thông báo đang %s."
+
+#: xfce4-notifyd-config/main.c:937
+msgid "enabled"
+msgstr "bật"
+
+#: xfce4-notifyd-config/main.c:937
+msgid "disabled"
+msgstr "tắt"
+
+#: xfce4-notifyd-config/main.c:1173
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>Hiện chưa có ứng dụng nào được nhận diện.</b></big>\nKhi một ứng dụng gửi thông báo,\nnó sẽ xuất hiện trong danh sách này."
+
+#: xfce4-notifyd-config/main.c:1242
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "Phát hành theo giấy phép GNU GPL phiên bản 2\n"
+
+#: xfce4-notifyd-config/main.c:1243
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "Vui lòng báo lỗi tới %s.\n"
+
+#: xfce4-notifyd-config/main.c:1274
+msgid "Settings daemon is unavailable"
+msgstr "Dịch vụ cài đặt không khả dụng"
+
+#: xfce4-notifyd-config/main.c:1376
+msgid "Display version information"
+msgstr "Hiển thị thông tin phiên bản"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "Settings manager socket"
+msgstr "Socket quản lý cài đặt"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "SOCKET_ID"
+msgstr "SOCKET_ID"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>Nhật ký trống</b></big>\nChưa có thông báo nào được ghi lại."
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+msgid "Refresh"
+msgstr "Cập nhật"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
+msgid "Refresh the notification log"
+msgstr "Cập nhật nhật ký thông báo"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+msgid "Clear the notification log"
+msgstr "Xóa nhật ký thông báo"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
+msgid "Mark All Read"
+msgstr "Đánh dấu tất cả đã đọc"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
+msgid "Mark all unread notifications as read"
+msgstr "Đánh dấu tất cả thông báo chưa đọc thành đã đọc"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+msgid "Delete Entry"
+msgstr "Xóa mục"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+msgid "Deletes the selected log entries"
+msgstr "Xóa các mục nhật ký đã chọn"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+msgid "Show Log Location"
+msgstr "Hiển thị vị trí nhật ký"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+msgid "Shows the location of the log file in the file manager"
+msgstr "Hiển thị vị trí tập tin nhật ký trong trình quản lý tập tin"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
+msgid "Mark log entry _read"
+msgstr "Đánh dấu mục nhật ký _đã đọc"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
+msgid "Yesterday and before"
+msgstr "Hôm qua và trước đó"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+msgid "Delete Selected Log Entries"
+msgstr "Xóa các mục nhật ký đã chọn"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
+msgid "Loading more log entries..."
+msgstr "Đang tải thêm mục nhật ký…"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
+msgid ""
+"The notification service is not running. No notifications will be shown."
+msgstr "Dịch vụ thông báo chưa chạy. Sẽ không hiển thị thông báo nào."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>Hiện chỉ hiển thị thông báo khẩn cấp.</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
+msgid "Fade out"
+msgstr "Mờ dần"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
+msgid "_Slide out"
+msgstr "_Trượt ra"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
+msgid "Do not disturb"
+msgstr "Không làm phiền"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:372
+msgid "<b>Behavior</b>"
+msgstr "<b>Hành vi</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:386
+msgid "<b>Animations</b>"
+msgstr "<b>Hiệu ứng động</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:399
+msgid ""
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "Mặc định, bong bóng thông báo sẽ hiện trên màn hình có con trỏ chuột."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
+msgid "Show notifications on"
+msgstr "Hiển thị thông báo trên"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:414
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "Phải bật \"Bật âm thanh sự kiện\" trong phần Giao diện để nghe âm thanh thông báo"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
+msgid "_Mute sounds"
+msgstr "_Tắt âm thanh"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
+msgid "Always show percent-value notifications"
+msgstr "Luôn hiển thị thông báo dạng phần trăm"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
+msgid "When displaying notifications, show"
+msgstr "Khi hiển thị thông báo, hiện"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
+msgid "icon, summary, and body"
+msgstr "biểu tượng, tóm tắt và nội dung"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
+msgid "icon and summary"
+msgstr "biểu tượng và tóm tắt"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
+msgid "icon and application name"
+msgstr "biểu tượng và tên ứng dụng"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
+msgid "monitor with mouse pointer"
+msgstr "màn hình có con trỏ chuột"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
+msgid "primary monitor"
+msgstr "màn hình chính"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
+msgid "all monitors"
+msgstr "tất cả màn hình"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
+msgid ""
+"Prevent redundant notifications. If a message with the same summary and body"
+" is already visible on screen, new identical alerts will be suppressed. "
+"Useful for multi-instance applications like chat clients."
+msgstr "Ngăn thông báo trùng lặp. Nếu thông báo có cùng tóm tắt và nội dung đã hiển thị, thông báo mới giống hệt sẽ bị ẩn. Hữu ích cho ứng dụng chạy nhiều phiên như trình chat."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
+msgid "_Suppress duplicate notifications"
+msgstr "_Ẩn thông báo trùng lặp"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
+msgid "General"
+msgstr "Chung"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
 msgid "seconds"
 msgstr "giây"
 
-#: ../xfce4-notifyd-config/xfce4-notifyd-config.desktop.in.h:2
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
+msgid "10"
+msgstr "10"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
+msgid "_Opacity"
+msgstr "_Độ trong suốt"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
+msgid "Default _position"
+msgstr "_Vị trí mặc định"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
+msgid "Top left"
+msgstr "Trên trái"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
+msgid "Bottom left"
+msgstr "Dưới trái"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
+msgid "Top right"
+msgstr "Trên phải"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
+msgid "Bottom right"
+msgstr "Dưới phải"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
+msgid "Top center"
+msgstr "Trên giữa"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
+msgid "Bottom center"
+msgstr "Dưới giữa"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
+msgid "_Theme"
+msgstr "_Chủ đề"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
+msgid ""
+"Show the notification summary and body when the notification is a percent "
+"value, such as audio volume or screen brightness"
+msgstr "Hiển thị tóm tắt và nội dung khi thông báo là giá trị phần trăm (ví dụ âm lượng hoặc độ sáng màn hình)"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
+msgid "Show text with percent _values"
+msgstr "Hiển thị nội dung khi có giá trị _phần trăm"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
+msgid "Date/time _format"
+msgstr "Định _dạng ngày/giờ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+msgid "Locale default"
+msgstr "Mặc định theo ngôn ngữ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
+msgid "Relative times"
+msgstr "Thời gian tương đối"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+msgid "ISO8601"
+msgstr "ISO8601"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+msgid "Custom"
+msgstr "Tùy chỉnh"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
+msgid "Show _Preview"
+msgstr "_Xem trước"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
+msgid "_Disappear after"
+msgstr "_Biến mất sau"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
+msgid ""
+"When creating a notification, applications can request how long they'd like "
+"the notification remain on screen. This setting controls whether or not that"
+" request is honored."
+msgstr "Khi tạo thông báo, ứng dụng có thể yêu cầu thời gian hiển thị. Tùy chọn này quyết định có tôn trọng yêu cầu đó hay không."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
+msgid "Honor app-requested \"Disappear after\" time"
+msgstr "Tôn trọng thời gian \"Biến mất sau\" do ứng dụng yêu cầu"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
+msgid "_Minimum notification width"
+msgstr "Chiều _rộng tối thiểu của thông báo"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
+msgid "<b>Per-application notification settings</b>"
+msgstr "<b>Cài đặt thông báo theo từng ứng dụng</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
+msgid "Applications"
+msgstr "Ứng dụng"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
+msgid "Log notifications"
+msgstr "Ghi nhật ký thông báo"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr "chỉ khi ở chế độ \"Không làm phiền\" hoặc khi không hiển thị nội dung thông báo"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
+msgid "always"
+msgstr "luôn luôn"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
+msgid "Log applications"
+msgstr "Ghi nhật ký ứng dụng"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
+msgid "all"
+msgstr "tất cả"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1026
+msgid "all except blocked"
+msgstr "tất cả trừ ứng dụng bị chặn"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
+msgid "only blocked"
+msgstr "chỉ ứng dụng bị chặn"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
+msgid "The maximum number of entries to be retained in the log."
+msgstr "Số mục tối đa được giữ trong nhật ký."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
+msgid "Maximum number of log entries to keep"
+msgstr "Số mục nhật ký tối đa được lưu"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
+msgid "Log"
+msgstr "Nhật ký"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
+msgid "Mute application"
+msgstr "Tắt tiếng ứng dụng"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
+msgid "Allow urgent notifications"
+msgstr "Cho phép thông báo khẩn cấp"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
+msgid "Include in log"
+msgstr "Ghi vào nhật ký"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
-msgstr "Tùy chỉnh cách thông báo ẩn trên màn hình"
+msgstr "Tùy chỉnh cách hiển thị thông báo trên màn hình"
