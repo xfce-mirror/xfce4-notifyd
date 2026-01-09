@@ -95,7 +95,8 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="margin-start">12</property>
-                <property name="label" translatable="yes">Notification icon size</property>
+                <property name="label" translatable="yes">Size of icons in menu</property>
+                <property name="tooltip-text" translatable="yes">Size of the icon shown next to each notification listed in the menu</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
