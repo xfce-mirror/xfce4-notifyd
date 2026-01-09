@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.eu>, 2024\n"
 "Language-Team: Galician (http://app.transifex.com/xfce/xfce-apps/language/gl/)\n"
@@ -110,59 +110,63 @@ msgid "_Close"
 msgstr "_Pechar"
 
 #: panel-plugin/notification-plugin-settings.glade:98
-msgid "Notification icon size"
-msgstr "Tamaño da icona de notificación"
+msgid "Size of icons in menu"
+msgstr ""
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr ""
+
+#: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
 msgstr "Número de notificacións que amosar"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
 msgstr "Amosar só as notificacións de hoxe"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Agochar o diálogo de confirmación de \"Borrar o rexistro\""
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
 msgstr "Agochar o botón do panel cando non hai notificacións sen ler"
 
-#: panel-plugin/notification-plugin-settings.glade:224
+#: panel-plugin/notification-plugin-settings.glade:225
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "Aparencia"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
 msgstr "Amosar no menú"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
 msgstr "Todas as notificacións"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: panel-plugin/notification-plugin-settings.glade:257
 msgid "Unread notifications"
 msgstr "Notificacións sen ler"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
 msgstr "Comportamento"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
 msgstr "Despois de amosar o menú"
 
-#: panel-plugin/notification-plugin-settings.glade:299
+#: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
 msgstr "Marcar todas as entradas de rexistro como lidas"
 
-#: panel-plugin/notification-plugin-settings.glade:300
+#: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
 msgstr "Marcar as entradas de rexistro amosadas como lidas"
 
-#: panel-plugin/notification-plugin-settings.glade:301
+#: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
 msgstr "Non facer nada"
 
