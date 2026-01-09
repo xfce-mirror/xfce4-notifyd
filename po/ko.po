@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Seok Chae <seok.chae@gmail.com>, 2024\n"
 "Language-Team: Korean (http://app.transifex.com/xfce/xfce-apps/language/ko/)\n"
@@ -109,59 +109,63 @@ msgid "_Close"
 msgstr "닫기(_C)"
 
 #: panel-plugin/notification-plugin-settings.glade:98
-msgid "Notification icon size"
-msgstr "알림 아이콘 크기"
+msgid "Size of icons in menu"
+msgstr ""
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr ""
+
+#: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
 msgstr "표시할 알림 수"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
 msgstr "오늘 부터의 알림만 표시"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "'로그 지우기' 확인 대화상자 숨기기"
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
 msgstr "읽지 않은 알림이 없을 때 패널 단추 숨김"
 
-#: panel-plugin/notification-plugin-settings.glade:224
+#: panel-plugin/notification-plugin-settings.glade:225
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "겉 모양"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
 msgstr "메뉴에 표시"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
 msgstr "모든 알림"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: panel-plugin/notification-plugin-settings.glade:257
 msgid "Unread notifications"
 msgstr "읽지 않은 알림"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
 msgstr "동작"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
 msgstr "메뉴에 표시한 후"
 
-#: panel-plugin/notification-plugin-settings.glade:299
+#: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
 msgstr "모든 로그 항목을 읽음으로 표시"
 
-#: panel-plugin/notification-plugin-settings.glade:300
+#: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
 msgstr "나타난 로그 항목을 읽음으로 표시"
 
-#: panel-plugin/notification-plugin-settings.glade:301
+#: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
 msgstr "아무것도 안 함"
 
