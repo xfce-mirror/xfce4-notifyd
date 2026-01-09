@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Eder Etxebarria Rojo, 2024\n"
 "Language-Team: Basque (http://app.transifex.com/xfce/xfce-apps/language/eu/)\n"
@@ -108,59 +108,63 @@ msgid "_Close"
 msgstr "It_xi"
 
 #: panel-plugin/notification-plugin-settings.glade:98
-msgid "Notification icon size"
-msgstr "Jakinarazpenen ikonoen neurria"
+msgid "Size of icons in menu"
+msgstr ""
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr ""
+
+#: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
 msgstr "Erakusteko berri-emate kopurua"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
 msgstr "Erakutsi gaurko berri-emateak soilik"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Ezkutatu 'Erregistroa garbitu' baieztapen leihoa"
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
 msgstr "Ezkutatu panelaren botoia irakurri gabeko jakinarazpenik ez dagoenean"
 
-#: panel-plugin/notification-plugin-settings.glade:224
+#: panel-plugin/notification-plugin-settings.glade:225
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "Itxura"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
 msgstr "Menuan erakutsi"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
 msgstr "Jakinarazpen guztiak"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: panel-plugin/notification-plugin-settings.glade:257
 msgid "Unread notifications"
 msgstr "Irakurri gabeko jakinarazpenak"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
 msgstr "Portamoldea"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
 msgstr "Menua erakutsi eta gero"
 
-#: panel-plugin/notification-plugin-settings.glade:299
+#: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
 msgstr "Markatu erregistroko sarrera guztiak irakurrita gisa"
 
-#: panel-plugin/notification-plugin-settings.glade:300
+#: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
 msgstr "Markatu erakutsitako erregistroko sarrerak irakurrita gisa"
 
-#: panel-plugin/notification-plugin-settings.glade:301
+#: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
 msgstr "Ez egin ezer"
 
