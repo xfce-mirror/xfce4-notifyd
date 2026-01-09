@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Besnik Bleta <besnik@programeshqip.org>, 2008,2018
-# Besnik Bleta <besnik@programeshqip.org>, 2008,2020,2022-2025
+# Besnik Bleta <besnik@programeshqip.org>, 2008,2020,2022-2026
 # Besnik Bleta <besnik@programeshqip.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2008,2020,2022-2025\n"
+"Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2008,2020,2022-2026\n"
 "Language-Team: Albanian (http://app.transifex.com/xfce/xfce-apps/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,59 +109,63 @@ msgid "_Close"
 msgstr "_Mbylle"
 
 #: panel-plugin/notification-plugin-settings.glade:98
-msgid "Notification icon size"
-msgstr "Madhësi ikone njoftimesh"
+msgid "Size of icons in menu"
+msgstr "Madhësi e ikonave në menu"
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr "Madhësi e ikonës shfaqur në krah të çdo njoftimi të paraqitur te menuja"
+
+#: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
 msgstr "Numër njoftimesh për shfaqje"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
 msgstr "Shfaq njoftime vetëm për sot"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Fshihe dialogun e ripohimit “Spastro regjistrin”"
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
 msgstr "Fshihe butonin e panelit, kur s’ka njoftime të palexuara"
 
-#: panel-plugin/notification-plugin-settings.glade:224
+#: panel-plugin/notification-plugin-settings.glade:225
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "Dukje"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
 msgstr "Shfaqe në menu"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
 msgstr "Krejt njoftimet"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: panel-plugin/notification-plugin-settings.glade:257
 msgid "Unread notifications"
 msgstr "Njoftime të palexuara"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
 msgstr "Sjellje"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
 msgstr "Pas shfaqjes së menusë"
 
-#: panel-plugin/notification-plugin-settings.glade:299
+#: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
 msgstr "Vëru shenjë si të lexuar krejt zërave të regjistrit"
 
-#: panel-plugin/notification-plugin-settings.glade:300
+#: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
 msgstr "Vëru shenjë si të lexuar zërave të shfaqur të regjistrit"
 
-#: panel-plugin/notification-plugin-settings.glade:301
+#: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
 msgstr "Mos bëj gjë"
 
