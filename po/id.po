@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>, 2008,2014\n"
 "Language-Team: Indonesian (http://app.transifex.com/xfce/xfce-apps/language/id/)\n"
@@ -108,59 +108,63 @@ msgid "_Close"
 msgstr "_Tutup"
 
 #: panel-plugin/notification-plugin-settings.glade:98
-msgid "Notification icon size"
-msgstr "Ukuran ikon notifikasi"
+msgid "Size of icons in menu"
+msgstr ""
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr ""
+
+#: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
 msgstr "Jumlah notifikasi yang ditampilkan"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
 msgstr "Hanya tampilkan notifikasi untuk hari ini"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "Sembunyikan dialog konfirmasi 'Bersihkan log'"
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
 msgstr "Sembunyikan tombol panel jika tidak ada notifikasi yang belum dibaca"
 
-#: panel-plugin/notification-plugin-settings.glade:224
+#: panel-plugin/notification-plugin-settings.glade:225
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "Tampilan"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
 msgstr "Tampilkan di menu"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
 msgstr "Semua notifikasi"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: panel-plugin/notification-plugin-settings.glade:257
 msgid "Unread notifications"
 msgstr "Notifikasi yang belum dibaca"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
 msgstr "Perilaku"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
 msgstr "Setelah menampilkan menu"
 
-#: panel-plugin/notification-plugin-settings.glade:299
+#: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
 msgstr "Tandai semua entri log sudah dibaca"
 
-#: panel-plugin/notification-plugin-settings.glade:300
+#: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
 msgstr "Tandai entri log yang ditampilkan sudah dibaca"
 
-#: panel-plugin/notification-plugin-settings.glade:301
+#: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
 msgstr "Tak lakukan apapun"
 
