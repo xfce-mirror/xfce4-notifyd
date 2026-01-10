@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-07-30 12:49+0200\n"
+"POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010,2013,2016-2020,2022-2024\n"
 "Language-Team: Kazakh (http://app.transifex.com/xfce/xfce-apps/language/kk/)\n"
@@ -86,7 +86,7 @@ msgstr "Журналды та_зарту"
 
 #: panel-plugin/notification-plugin-log.c:392
 msgid "_Mark all read"
-msgstr ""
+msgstr "_Барлығын оқылған деп белгілеу"
 
 #: panel-plugin/notification-plugin-log.c:401
 msgid "_Notification settings…"
@@ -107,59 +107,63 @@ msgid "_Close"
 msgstr "_Жабу"
 
 #: panel-plugin/notification-plugin-settings.glade:98
-msgid "Notification icon size"
-msgstr ""
+msgid "Size of icons in menu"
+msgstr "Мәзірдегі таңбашалардың өлшемі"
 
-#: panel-plugin/notification-plugin-settings.glade:125
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr "Мәзірде көрсетілген әрбір хабарламаның қасындағы таңбашаның өлшемі"
+
+#: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
 msgstr "Көрсетілетін хабарламалар саны"
 
-#: panel-plugin/notification-plugin-settings.glade:153
+#: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
 msgstr "Тек бүгінгі хабарламаларды көрсету"
 
-#: panel-plugin/notification-plugin-settings.glade:177
+#: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
 msgstr "\"Журналды тазарту\" растау сұхбатын жасыру"
 
-#: panel-plugin/notification-plugin-settings.glade:201
+#: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
 msgstr "Оқылмаған хабарламалар жоқ болса, панель батырмасын жасыру"
 
-#: panel-plugin/notification-plugin-settings.glade:224
+#: panel-plugin/notification-plugin-settings.glade:225
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
 msgid "Appearance"
 msgstr "Сыртқы түрі"
 
-#: panel-plugin/notification-plugin-settings.glade:241
+#: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
 msgstr "Мәзірде көрсету"
 
-#: panel-plugin/notification-plugin-settings.glade:255
+#: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
 msgstr "Барлық хабарламалар"
 
-#: panel-plugin/notification-plugin-settings.glade:256
+#: panel-plugin/notification-plugin-settings.glade:257
 msgid "Unread notifications"
-msgstr ""
+msgstr "Оқылмаған хабарламалар"
 
-#: panel-plugin/notification-plugin-settings.glade:268
+#: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
 msgstr "Мінез-құлығы"
 
-#: panel-plugin/notification-plugin-settings.glade:285
+#: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
-msgstr ""
-
-#: panel-plugin/notification-plugin-settings.glade:299
-msgid "Mark all log entries read"
-msgstr ""
+msgstr "Мәзірді көрсеткеннен кейін"
 
 #: panel-plugin/notification-plugin-settings.glade:300
-msgid "Mark shown log entries read"
-msgstr ""
+msgid "Mark all log entries read"
+msgstr "Барлық журнал жазбаларын оқылған деп белгілеу"
 
 #: panel-plugin/notification-plugin-settings.glade:301
+msgid "Mark shown log entries read"
+msgstr "Көрсетілген журнал жазбаларын оқылған деп белгілеу"
+
+#: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
 msgstr "Ешнәрсе жасамау"
 
@@ -174,11 +178,11 @@ msgstr "Xfce панелі үшін хабарламалар плагині"
 #: xfce4-notifyd/main.c:62
 msgid ""
 "Your Wayland compositor does not support required protocol wlr-layer-shell."
-msgstr ""
+msgstr "Сіздің Wayland композиторыңыз қажетті wlr-layer-shell протоколына қолдау көрсетпейді."
 
 #: xfce4-notifyd/main.c:69
 msgid "xfce4-notifyd was built without support for your windowing system."
-msgstr ""
+msgstr "xfce4-notifyd сіздің терезелер жүйесіне қолдаусыз құрастырылған."
 
 #: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
 #: xfce4-notifyd-config/main.c:1272
@@ -217,36 +221,36 @@ msgstr "Журнал жазбасы табылмады"
 #: xfce4-notifyd/xfce-notify-log.c:235
 #, c-format
 msgid "The notification log directory (%s) is not a directory"
-msgstr ""
+msgstr "Хабарламалар журналының бумасы (%s) бума емес"
 
 #: xfce4-notifyd/xfce-notify-log.c:247
 #, c-format
 msgid "Failed to open notification log: %s"
-msgstr ""
+msgstr "Хабарламалар журналын ашу сәтсіз аяқталды: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr ""
+msgstr "SQL сұранымын дайындау сәтсіз аяқталды: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
-msgstr ""
+msgstr "сұраным соңындағы артық таңбалар"
 
 #: xfce4-notifyd/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr ""
+msgstr "'notifications' кестесін жасау сәтсіз аяқталды: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr ""
+msgstr "Деректер базасының уақыт белгісі нұсқағышын жасау сәтсіз аяқталды: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:460
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr ""
+msgstr "Деректер базасының is_read нұсқағышын жасау сәтсіз аяқталды: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1453
 msgid "Default Action"
@@ -364,27 +368,27 @@ msgstr "Барлығын оқылған етіп белгілеу"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
 msgid "Mark all unread notifications as read"
-msgstr ""
+msgstr "Барлық оқылмаған хабарламаларды оқылған деп белгілеу"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
 msgid "Delete Entry"
-msgstr ""
+msgstr "Жазбаны өшіру"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
 msgid "Deletes the selected log entries"
-msgstr ""
+msgstr "Таңдалған журнал жазбаларын өшіреді"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
 msgid "Show Log Location"
-msgstr ""
+msgstr "Журналдың орналасқан жерін көрсету"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
 msgid "Shows the location of the log file in the file manager"
-msgstr ""
+msgstr "Файлдық менеджерде журнал файлының орналасқан жерін көрсетеді"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
 msgid "Mark log entry _read"
-msgstr ""
+msgstr "Журнал жазбасын оқылған деп бел_гілеу"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
 msgid "Yesterday and before"
@@ -392,11 +396,11 @@ msgstr "Кеше және оған дейін"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
 msgid "Delete Selected Log Entries"
-msgstr ""
+msgstr "Таңдалған журнал жазбаларын өшіру"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
 msgid "Loading more log entries..."
-msgstr ""
+msgstr "Көбірек журнал жазбаларын жүктеу..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
@@ -449,46 +453,46 @@ msgstr "Дыбыстарды _басу"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
-msgstr ""
+msgstr "Әрқашан пайыздық мәні бар хабарламаларды көрсету"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
-msgstr ""
+msgstr "Хабарландыруларды көрсету кезінде, көрсету"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
-msgstr ""
+msgstr "таңбаша, қорытынды және негізгі мәтін"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "icon and summary"
-msgstr ""
+msgstr "таңбаша және жиынтық"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
 msgid "icon and application name"
-msgstr ""
+msgstr "таңбаша және қолданба аты"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
-msgstr ""
+msgstr "тышқан нұсқағышы бар монитор"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
 msgid "primary monitor"
-msgstr ""
+msgstr "негізгі монитор"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
 msgid "all monitors"
-msgstr ""
+msgstr "барлық мониторлар"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
 msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
-msgstr ""
+msgstr "Артық хабарландыруларды болдырмау. Егер экранда жиынтығы мен мәтіні бірдей хабарлама көрініп тұрса, жаңа бірдей ескертулер көрсетілмейді. Бұл чат клиенттері сияқты бірнеше данасы бар қолданбалар үшін пайдалы."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
-msgstr ""
+msgstr "Қа_йталанатын хабарландыруларды болдырмау"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
@@ -501,7 +505,7 @@ msgstr "секунд"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
 msgid "_Opacity"
@@ -529,11 +533,11 @@ msgstr "Төменгі оң жақта"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
 msgid "Top center"
-msgstr ""
+msgstr "Жоғарғы ортада"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
 msgid "Bottom center"
-msgstr ""
+msgstr "Төменгі ортада"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
 msgid "_Theme"
@@ -551,19 +555,19 @@ msgstr "Пайыз мә_ндерімен мәтінді көрсету"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
 msgid "Date/time _format"
-msgstr ""
+msgstr "Күн/уақыт _пішімі"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
 msgid "Locale default"
-msgstr ""
+msgstr "Локальдің әдепкі мәні"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
 msgid "Relative times"
-msgstr ""
+msgstr "Салыстырмалы уақыттар"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
 msgid "ISO8601"
-msgstr ""
+msgstr "ISO8601"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
 msgid "Custom"
@@ -582,19 +586,19 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr ""
+msgstr "Хабарландыруды жасаған кезде, қолданбалар хабарландырудың экранда қанша уақыт тұруын сұрай алады. Бұл параметр сол сұранымның ескерілу-ескерілмеуін басқарады."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr ""
+msgstr "Қолданба сұраған \"Кейін жоғалу\" уақытын ескеру"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
 msgid "_Minimum notification width"
-msgstr ""
+msgstr "Хабарландырудың _минималды ені"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
 msgid "<b>Per-application notification settings</b>"
-msgstr ""
+msgstr "<b>Әр қолданба үшін хабарландыру параметрлері</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
 msgid "Applications"
@@ -606,7 +610,7 @@ msgstr "Хабарламаларды журналдау"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr ""
+msgstr "тек \"Мазаламаңыз\" кезінде немесе хабарландыру мәтіндері көрсетілмегенде"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
 msgid "always"
@@ -631,11 +635,11 @@ msgstr "тек блокталған"
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
 msgid "The maximum number of entries to be retained in the log."
-msgstr ""
+msgstr "Журналда сақталатын жазбалардың максималды саны."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Сақталатын журнал жазбаларының максималды саны"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
@@ -647,7 +651,7 @@ msgstr "Қолданба дыбысын басу"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
-msgstr ""
+msgstr "Шұғыл хабарландыруларға рұқсат беру"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
