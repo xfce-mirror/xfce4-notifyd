@@ -6,14 +6,14 @@
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2009
 # 黃柏諺 <s8321414@gmail.com>, 2016-2018
 # Walter Cheuk <wwycheuk@gmail.com>, 2013-2014
-# 黃柏諺 <s8321414@gmail.com>, 2020,2022-2025
+# 黃柏諺 <s8321414@gmail.com>, 2020,2022-2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2025\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2026\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/xfce/xfce-apps/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -111,11 +111,11 @@ msgstr "關閉(_C)"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Size of icons in menu"
-msgstr ""
+msgstr "選單中的圖示大小"
 
 #: panel-plugin/notification-plugin-settings.glade:99
 msgid "Size of the icon shown next to each notification listed in the menu"
-msgstr ""
+msgstr "選單中每個通知旁顯示的圖示大小"
 
 #: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
