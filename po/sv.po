@@ -114,11 +114,11 @@ msgstr "_Stäng"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Size of icons in menu"
-msgstr ""
+msgstr "Storlek på ikoner i meny"
 
 #: panel-plugin/notification-plugin-settings.glade:99
 msgid "Size of the icon shown next to each notification listed in the menu"
-msgstr ""
+msgstr "Storlek på ikon som visas bredvid varje avisering i menyn"
 
 #: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
