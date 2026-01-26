@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
 # 
 # Translators:
-# Andi Chandler <andi@gowling.com>, 2023-2025
+# Andi Chandler <andi@gowling.com>, 2023-2026
 # Jeff Bailes <thepizzaking@gmail.com>, 2010
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2026-01-09 12:57+0100\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
-"Last-Translator: Andi Chandler <andi@gowling.com>, 2023-2025\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>, 2023-2026\n"
 "Language-Team: English (United Kingdom) (http://app.transifex.com/xfce/xfce-apps/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,11 +109,11 @@ msgstr "_Close"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Size of icons in menu"
-msgstr ""
+msgstr "Size of icons in menu"
 
 #: panel-plugin/notification-plugin-settings.glade:99
 msgid "Size of the icon shown next to each notification listed in the menu"
-msgstr ""
+msgstr "Size of the icon shown next to each notification listed in the menu"
 
 #: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
