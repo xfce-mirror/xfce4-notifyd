@@ -3,9 +3,6 @@ panel_plugin_generated_sources = []
 panel_plugin_generated_sources += gnome.compile_resources(
   'notification-plugin-settings-ui',
   'notification-plugin-settings-ui.gresource.xml',
-  extra_args: [
-    '--manual-register',
-  ],
   export: false,
   install: false,
 )
