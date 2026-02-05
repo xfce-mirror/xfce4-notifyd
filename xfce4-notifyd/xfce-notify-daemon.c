@@ -1208,7 +1208,6 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
 {
     XfceNotification *notification = NULL;
     XfceNotificationActions *actions;
-    const gchar **cur_action_id;
     guint n_actions = 0;
     gchar *log_id = NULL;
     GVariant *image_data = NULL;
@@ -1392,13 +1391,16 @@ notify_notify(XfceNotifyFdoGBus *skeleton,
         icon_name = notify_get_from_desktop_file(desktop_id, G_KEY_FILE_DESKTOP_KEY_ICON);
     }
 
-    cur_action_id = actions_data;
-    while (*cur_action_id != NULL) {
-        if (cur_action_id[1] != NULL) {
-            cur_action_id += 2;
-            ++n_actions;
-        }
+    n_actions = g_strv_length((gchar **)actions_data);
+    if (n_actions % 2 != 0) {
+        g_dbus_method_invocation_return_error_literal(invocation,
+                                                      G_IO_ERROR,
+                                                      G_IO_ERROR_INVALID_DATA,
+                                                      "actions data must contain an even number of strings");
+        return TRUE;
     }
+    n_actions /= 2;
+
     actions = g_new0(XfceNotificationActions, 1);
     actions->ids_are_icon_names = actions_are_icon_names;
     actions->actions = g_new0(XfceNotificationAction, n_actions);
