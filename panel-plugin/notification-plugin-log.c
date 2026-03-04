@@ -39,6 +39,8 @@
 #include "notification-plugin.h"
 #include "notification-plugin-log.h"
 
+
+
 static void
 notification_plugin_menu_item_activate (GtkWidget      *menuitem,
                                         gpointer        user_data)
@@ -312,7 +314,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
       }
 
-      clip = g_strconcat (summary_text, " ", timestamp_text, "\n", body_text, NULL);
+      clip = g_strconcat (entry->summary, " ", timestamp_text, "\n", body_text, NULL);
       g_signal_connect (mi , "activate", G_CALLBACK (notification_plugin_copy_to_clipboard) , clip);
 
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
