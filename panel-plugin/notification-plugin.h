@@ -49,15 +49,6 @@ G_BEGIN_DECLS
 #define UNREAD_STYLE_CLASS        "unread"
 #define DND_STYLE_CLASS           "dnd"
 
-#define NOTIFICATION_ICON_UNREAD_ANIMATION "@keyframes XfceNotificationPluginHover { \
-                                                0% {-gtk-icon-transform:rotate(0deg);} \
-                                                50% {-gtk-icon-transform:rotate(-25deg);}\
-                                                100% {-gtk-icon-transform:rotate(-25deg);} \
-                                            } \
-                                            #notification-icon.unread:not(.dnd) { \
-                                                animation: XfceNotificationPluginHover 480ms ease 200ms infinite alternate both; \
-                                            } \0"
-
 /* plugin structure */
 typedef struct
 {
