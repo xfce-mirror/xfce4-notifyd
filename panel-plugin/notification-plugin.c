@@ -136,17 +136,23 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-new-disabled-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notification-disabled-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-symbolic");
+    gtk_style_context_add_class (style_context, DND_STYLE_CLASS);
+    gtk_style_context_add_class (style_context, UNREAD_STYLE_CLASS);
   } else if (dnd_enabled) {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-disabled-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-symbolic");
+    gtk_style_context_add_class (style_context, DND_STYLE_CLASS);
   } else if (notification_plugin->new_notifications) {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-new-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-new-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notification-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-symbolic");
+    gtk_style_context_add_class (style_context, UNREAD_STYLE_CLASS);
   } else {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-symbolic");
+    gtk_style_context_remove_class (style_context, DND_STYLE_CLASS);
+    gtk_style_context_remove_class (style_context, UNREAD_STYLE_CLASS);
   }
 
   scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
@@ -319,6 +325,8 @@ static NotificationPlugin *
 notification_plugin_new (XfcePanelPlugin *panel_plugin)
 {
   NotificationPlugin    *notification_plugin;
+  GtkStyleContext       *style_context;
+  GtkCssProvider        *style_provider;
 
   /* Allocate memory for the plugin structure */
   notification_plugin = g_slice_new0 (NotificationPlugin);
@@ -342,7 +350,18 @@ notification_plugin_new (XfcePanelPlugin *panel_plugin)
 
   gtk_container_add (GTK_CONTAINER (notification_plugin->button), notification_plugin->image);
   gtk_widget_show_all (GTK_WIDGET (notification_plugin->button));
-  gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "xfce4-notification-plugin");
+
+  gtk_widget_set_name (GTK_WIDGET (notification_plugin->button), "notification-button");
+  gtk_widget_set_name (notification_plugin->image, "notification-icon");
+
+  style_context = gtk_widget_get_style_context(notification_plugin->image);
+  style_provider = gtk_css_provider_new ();
+
+  gtk_css_provider_load_from_data (style_provider , NOTIFICATION_ICON_UNREAD_ANIMATION , -1 , NULL);
+
+  gtk_style_context_add_provider (style_context , GTK_STYLE_PROVIDER (style_provider) , GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
+
+  g_object_unref (style_provider);
 
   notification_plugin_size_changed(notification_plugin->plugin,
                                    xfce_panel_plugin_get_size(notification_plugin->plugin),
