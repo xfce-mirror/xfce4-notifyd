@@ -142,6 +142,7 @@ notification_plugin_update_icon(NotificationPlugin *notification_plugin) {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-disabled-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-disabled-symbolic");
     gtk_style_context_add_class (style_context, DND_STYLE_CLASS);
+    gtk_style_context_remove_class (style_context, UNREAD_STYLE_CLASS);
   } else if (notification_plugin->new_notifications) {
     base_icon = g_themed_icon_new_with_default_fallbacks("notification-new-symbolic");
     g_themed_icon_append_name(G_THEMED_ICON(base_icon), "notifications-new-symbolic");
