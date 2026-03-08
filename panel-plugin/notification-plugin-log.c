@@ -52,7 +52,17 @@ notification_plugin_menu_item_activate (GtkWidget      *menuitem,
   gtk_switch_set_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch), muted);
 }
 
+static void
+notification_plugin_copy_to_clipboard (GtkWidget      *menuitem,
+                                       gchar          *clip)
+{
+  GtkClipboard *clipboard = gtk_clipboard_get_default(gtk_widget_get_display(menuitem));
 
+  gtk_clipboard_set_text(clipboard, clip, -1);
+  gtk_clipboard_store(clipboard);
+
+  g_free(clip);
+}
 
 static void
 notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
@@ -219,6 +229,7 @@ notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
       cairo_surface_t *icon;
       gchar *tooltip_timestamp_text;
       gchar *tooltip_text;
+      gchar *clip;
 
       /* optionally only show notifications from today */
       if (log_only_today == TRUE) {
@@ -302,6 +313,9 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
       }
+
+      clip = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
+      g_signal_connect(mi, "activate", G_CALLBACK(notification_plugin_copy_to_clipboard) , clip);
 
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
       gtk_widget_show_all(mi);
