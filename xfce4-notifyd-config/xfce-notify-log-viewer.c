@@ -894,11 +894,12 @@ xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
 
 static void
 xfce_notify_log_viewer_copy(XfceNotifyLogViewer *viewer) {
-    GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
     GtkClipboard *clipboard = gtk_clipboard_get_default(gtk_widget_get_display(GTK_WIDGET(viewer)));
-    gchar *clip, *timestamp_text, *body_text;
+    GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
 
     for(GList *l = selected; l != NULL; l = l->next) {
+        gchar *clip, *timestamp_text, *body_text;
+
         GtkWidget *row = GTK_WIDGET(l->data);
         XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
 
