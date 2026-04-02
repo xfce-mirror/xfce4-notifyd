@@ -220,7 +220,7 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
     gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->mark_read_button, FALSE, FALSE, 0);
 
     viewer->copy_button = create_toolbar_button(_("Copy To Clipboard"),
-                                                _("Copy the selected log entries to clipboard"),
+                                                _("Copy the selected log entries to the clipboard"),
                                                 "clipboard-symbolic",
                                                 icon_size,
                                                 G_CALLBACK(xfce_notify_log_viewer_copy),
@@ -550,7 +550,7 @@ xfce_notify_log_viewer_listbox_row_button_press(GtkWidget *eventbox,
                 g_signal_connect(menu, "selection-done",
                                  G_CALLBACK(gtk_widget_destroy), NULL);
 
-                label = g_strdup_printf(P_("_Copy log entry to clipboard", "_Copy %d log entries to clipboard", n_selected), n_selected);
+                label = g_strdup_printf(P_("_Copy log entry to the clipboard", "_Copy %d log entries to the clipboard", n_selected), n_selected);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
                 mi = gtk_image_menu_item_new_with_mnemonic(label);
                 gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), gtk_image_new_from_icon_name("clipboard-symbolic", GTK_ICON_SIZE_MENU));
