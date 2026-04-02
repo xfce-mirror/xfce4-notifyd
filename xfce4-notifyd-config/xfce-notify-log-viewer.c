@@ -896,18 +896,17 @@ static void
 xfce_notify_log_viewer_copy(XfceNotifyLogViewer *viewer) {
     GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
     GtkClipboard *clipboard = gtk_clipboard_get_default(gtk_widget_get_display(GTK_WIDGET(viewer)));
-    gchar *clip, *timestamp_text, *body_text;
 
     for(GList *l = selected; l != NULL; l = l->next) {
         GtkWidget *row = GTK_WIDGET(l->data);
         XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
 
-        timestamp_text = notify_log_format_timestamp(entry->timestamp,
-                                                     xfce_notify_xfconf_channel_get_enum(viewer->channel, DATETIME_FORMAT_PROP, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, XFCE_TYPE_NOTIFY_DATETIME_FORMAT),
-                                                     xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT));
-        body_text = notify_log_format_body(entry->body);
+        gchar *timestamp_text = notify_log_format_timestamp(entry->timestamp,
+                                                            xfce_notify_xfconf_channel_get_enum(viewer->channel, DATETIME_FORMAT_PROP, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, XFCE_TYPE_NOTIFY_DATETIME_FORMAT),
+                                                            xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT));
+        gchar *body_text = notify_log_format_body(entry->body);
+        gchar *clip = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
 
-        clip = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
         clip = g_utf8_make_valid(clip , -1);
         gtk_clipboard_set_text(clipboard, clip, -1);
         gtk_clipboard_store(clipboard);
