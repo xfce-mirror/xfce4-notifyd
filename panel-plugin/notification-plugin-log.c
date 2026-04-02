@@ -52,7 +52,22 @@ notification_plugin_menu_item_activate (GtkWidget      *menuitem,
   gtk_switch_set_active (GTK_SWITCH (notification_plugin->do_not_disturb_switch), muted);
 }
 
+static void
+notification_plugin_menu_on_destroy (GtkWidget    *menuitem,
+                                     GStrvBuilder *list)
+{
+  g_strv_builder_unref (list);
+}
 
+static void
+notification_plugin_copy_to_clipboard(GtkWidget *menuitem,
+                                      gchar     *clip)
+{
+  GtkClipboard *clipboard = gtk_clipboard_get_default(gtk_widget_get_display(menuitem));
+
+  gtk_clipboard_set_text(clipboard, clip, -1);
+  gtk_clipboard_store(clipboard);
+}
 
 static void
 notification_plugin_settings_activate_cb (GtkMenuItem *menuitem,
@@ -80,7 +95,7 @@ notification_plugin_clear_log_dialog (GtkWidget *widget, gpointer user_data)
 {
   NotificationPlugin* notification_plugin = user_data;
   GtkWidget *dialog;
-	
+
   if (xfconf_channel_get_bool (notification_plugin->channel, SETTING_HIDE_CLEAR_PROMPT, FALSE)) {
     xfce_notify_log_gbus_call_clear(notification_plugin->log, NULL, NULL, NULL);
   } else {
@@ -116,12 +131,15 @@ notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
   gboolean no_notifications = FALSE;
   GtkStyleContext *style_context = gtk_widget_get_style_context(notification_plugin->button);
   gint scale_factor = gtk_widget_get_scale_factor(notification_plugin->button);
+  GStrvBuilder *copy_content = g_strv_builder_new ();
 
   today = g_date_time_new_now_local();
   today_year = g_date_time_get_year(today);
   today_day = g_date_time_get_day_of_year(today);
 
   menu = gtk_menu_new();
+
+  g_signal_connect (menu, "destroy", G_CALLBACK(notification_plugin_menu_on_destroy), copy_content);
 
   notify_log_icon_folder = xfce_resource_save_location (XFCE_RESOURCE_CACHE,
                                                         XFCE_NOTIFY_ICON_PATH, TRUE);
@@ -208,6 +226,7 @@ notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
     if (entries == NULL)
       no_notifications = TRUE;
 
+
     for (GList *l = entries; l != NULL; l = l->next) {
       XfceNotifyLogEntry *entry = l->data;
       GtkWidget *hbox;
@@ -219,6 +238,7 @@ notification_plugin_menu_new(NotificationPlugin *notification_plugin) {
       cairo_surface_t *icon;
       gchar *tooltip_timestamp_text;
       gchar *tooltip_text;
+      gchar *clip;
 
       /* optionally only show notifications from today */
       if (log_only_today == TRUE) {
@@ -303,6 +323,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         gtk_box_pack_start(GTK_BOX(vbox), body, FALSE, FALSE, 0);
       }
 
+      clip = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
+      g_strv_builder_add (copy_content, clip);
+      g_signal_connect(mi, "activate", G_CALLBACK(notification_plugin_copy_to_clipboard) , clip);
+
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
       gtk_widget_show_all(mi);
 
@@ -317,6 +341,8 @@ G_GNUC_END_IGNORE_DEPRECATIONS
           cairo_surface_destroy(icon);
       }
     }
+
+    g_strv_builder_end (copy_content);
 
     if (numberof_notifications_shown > 0)
       no_notifications = FALSE;
