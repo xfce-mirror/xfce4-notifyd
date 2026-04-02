@@ -51,6 +51,7 @@ struct _XfceNotifyLogViewer {
     GtkWidget *toolbar;
     GtkWidget *clear_log_button;
     GtkWidget *mark_read_button;
+    GtkWidget *copy_button;
     GtkWidget *delete_entry_button;
 
     gboolean yesterday_header_added;
@@ -81,6 +82,7 @@ static void xfce_notify_log_viewer_refresh(XfceNotifyLogViewer *viewer);
 
 static void xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_mark_all_read(XfceNotifyLogViewer *viewer);
+static void xfce_notify_log_viewer_copy(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_delete_entries(XfceNotifyLogViewer *viewer);
 static void xfce_notify_log_viewer_show_log_file(void);
 
@@ -216,6 +218,15 @@ xfce_notify_log_viewer_constructed(GObject *obj) {
                                                      viewer);
     gtk_widget_set_sensitive(viewer->mark_read_button, FALSE);
     gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->mark_read_button, FALSE, FALSE, 0);
+
+    viewer->copy_button = create_toolbar_button(_("Copy To Clipboard"),
+                                                _("Copy the selected log entries to clipboard"),
+                                                "clipboard-symbolic",
+                                                icon_size,
+                                                G_CALLBACK(xfce_notify_log_viewer_copy),
+                                                viewer);
+    gtk_widget_set_sensitive(viewer->copy_button, FALSE);
+    gtk_box_pack_start(GTK_BOX(viewer->toolbar), viewer->copy_button, FALSE, FALSE, 0);
 
     viewer->delete_entry_button = create_toolbar_button(_("Delete Entry"),
                                                         _("Deletes the selected log entries"),
@@ -539,6 +550,16 @@ xfce_notify_log_viewer_listbox_row_button_press(GtkWidget *eventbox,
                 g_signal_connect(menu, "selection-done",
                                  G_CALLBACK(gtk_widget_destroy), NULL);
 
+                label = g_strdup_printf(P_("_Copy log entry to clipboard", "_Copy %d log entries to clipboard", n_selected), n_selected);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+                mi = gtk_image_menu_item_new_with_mnemonic(label);
+                gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), gtk_image_new_from_icon_name("clipboard-symbolic", GTK_ICON_SIZE_MENU));
+G_GNUC_END_IGNORE_DEPRECATIONS
+                gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+                g_signal_connect_swapped(mi, "activate",
+                                         G_CALLBACK(xfce_notify_log_viewer_copy), viewer);
+                g_free(label);
+
                 if (n_unread == 0) {
                     label = g_strdup(_("Mark log entry _read"));
                 } else {
@@ -612,6 +633,7 @@ xfce_notify_log_viewer_listbox_button_press(GtkWidget *listbox, GdkEventButton *
 static void
 xfce_notify_log_viewer_selection_changed(GtkWidget *listbox, XfceNotifyLogViewer *viewer) {
     GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(listbox));
+    gtk_widget_set_sensitive(viewer->copy_button, selected != NULL);
     gtk_widget_set_sensitive(viewer->delete_entry_button, selected != NULL);
     g_list_free(selected);
 }
@@ -839,6 +861,7 @@ xfce_notify_log_viewer_populate(XfceNotifyLogViewer *viewer) {
 
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->copy_button), FALSE);
 
     if (viewer->log != NULL) {
         xfce_notify_log_gbus_call_list(viewer->log,
@@ -867,6 +890,34 @@ xfce_notify_log_viewer_clear(XfceNotifyLogViewer *viewer) {
                                                      GTK_IS_WINDOW(toplevel) ? GTK_WINDOW(toplevel) : NULL);
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
+}
+
+static void
+xfce_notify_log_viewer_copy(XfceNotifyLogViewer *viewer) {
+    GList *selected = gtk_list_box_get_selected_rows(GTK_LIST_BOX(viewer->listbox));
+    GtkClipboard *clipboard = gtk_clipboard_get_default(gtk_widget_get_display(GTK_WIDGET(viewer)));
+    gchar *clip, *timestamp_text, *body_text;
+
+    for(GList *l = selected; l != NULL; l = l->next) {
+        GtkWidget *row = GTK_WIDGET(l->data);
+        XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
+
+        timestamp_text = notify_log_format_timestamp(entry->timestamp,
+                                                     xfce_notify_xfconf_channel_get_enum(viewer->channel, DATETIME_FORMAT_PROP, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, XFCE_TYPE_NOTIFY_DATETIME_FORMAT),
+                                                     xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT));
+        body_text = notify_log_format_body(entry->body);
+
+        clip = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
+        clip = g_utf8_make_valid(clip , -1);
+        gtk_clipboard_set_text(clipboard, clip, -1);
+        gtk_clipboard_store(clipboard);
+
+        g_free(body_text);
+        g_free(timestamp_text);
+        g_free(clip);
+    }
+
+    g_list_free(selected);
 }
 
 static void
@@ -1124,6 +1175,7 @@ xfce_notify_log_viewer_log_cleared(XfceNotifyLogViewer *viewer) {
 
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->clear_log_button), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(viewer->copy_button), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(viewer->delete_entry_button), FALSE);
 
     g_list_free(rows);
