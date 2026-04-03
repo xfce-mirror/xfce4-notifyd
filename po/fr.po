@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2026-01-09 12:57+0100\n"
+"POT-Creation-Date: 2026-04-03 12:57+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Wallon Wallon, 2022-2023,2025-2026\n"
 "Language-Team: French (http://app.transifex.com/xfce/xfce-apps/language/fr/)\n"
@@ -37,12 +37,12 @@ msgid "Clear notification log"
 msgstr "Effacer le journal des notifications"
 
 #: common/xfce-notify-log-util.c:387
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:928
 msgid "Cancel"
 msgstr "Annuler"
 
 #: common/xfce-notify-log-util.c:389
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:204
 msgid "Clear"
 msgstr "Effacer"
 
@@ -54,7 +54,7 @@ msgstr "inclure le cache des icônes"
 msgid "Now"
 msgstr "Maintenant"
 
-#: panel-plugin/notification-plugin.c:341
+#: panel-plugin/notification-plugin.c:340
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
@@ -78,7 +78,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Ne pas déranger</b>"
 
 #: panel-plugin/notification-plugin-log.c:355
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid "Unable to open notification log"
 msgstr "Impossible d’ouvrir le journal de notification"
 
@@ -294,7 +294,7 @@ msgid ""
 msgstr "Êtes-vous sûr de vouloir supprimer les paramètres de notification de l’application « %s » ?"
 
 #: xfce4-notifyd-config/main.c:595
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:930
 msgid "Delete"
 msgstr "Effacer"
 
@@ -354,61 +354,69 @@ msgstr "Socket du gestionnaire de paramètres"
 msgid "SOCKET_ID"
 msgstr "ID_SOCKET"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Journal vide</b></big>\nAucune notification enregistrée."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:195
 msgid "Refresh"
 msgstr "Actualiser"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:196
 msgid "Refresh the notification log"
 msgstr "Actualiser le journal des notifications"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:205
 msgid "Clear the notification log"
 msgstr "Effacer le journal des notifications"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:213
 msgid "Mark All Read"
 msgstr "Marquer tout lu"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:214
 msgid "Mark all unread notifications as read"
 msgstr "Marquer toutes les notifications non lues comme lues"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:222
+msgid "Copy To Clipboard"
+msgstr "Copier dans le presse‑papiers"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:223
+msgid "Copy the selected log entries to the clipboard"
+msgstr "Copier les entrées de journal sélectionnées dans le presse‑papiers"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:231
 msgid "Delete Entry"
 msgstr "Supprimer l’entrée"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:232
 msgid "Deletes the selected log entries"
 msgstr "Supprime les entrées de journal sélectionnées"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:240
 msgid "Show Log Location"
 msgstr "Afficher l’emplacement du journal"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:241
 msgid "Shows the location of the log file in the file manager"
 msgstr "Affiche l’emplacement du fichier journal dans le gestionnaire de fichiers"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:564
 msgid "Mark log entry _read"
 msgstr "Marquer l’entrée du journal lue"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:771
 msgid "Yesterday and before"
 msgstr "Hier et antérieur"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
 msgid "Delete Selected Log Entries"
 msgstr "Supprimer les entrées de journal sélectionnées"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1200
 msgid "Loading more log entries..."
 msgstr "Chargement de plus d’entrées du journal ..."
 
