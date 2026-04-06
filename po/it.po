@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2026-01-09 12:57+0100\n"
+"POT-Creation-Date: 2026-04-03 12:57+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.com>, 2025-2026\n"
 "Language-Team: Italian (http://app.transifex.com/xfce/xfce-apps/language/it/)\n"
@@ -37,12 +37,12 @@ msgid "Clear notification log"
 msgstr "Pulisci il registro delle notifiche"
 
 #: common/xfce-notify-log-util.c:387
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:928
 msgid "Cancel"
 msgstr "Annulla"
 
 #: common/xfce-notify-log-util.c:389
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:204
 msgid "Clear"
 msgstr "Pulisci"
 
@@ -54,7 +54,7 @@ msgstr "includi la cache delle icone"
 msgid "Now"
 msgstr "Adesso"
 
-#: panel-plugin/notification-plugin.c:341
+#: panel-plugin/notification-plugin.c:340
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
@@ -78,7 +78,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_Non disturbare</b>"
 
 #: panel-plugin/notification-plugin-log.c:355
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid "Unable to open notification log"
 msgstr "Impossibile aprire il registro delle notifiche"
 
@@ -294,7 +294,7 @@ msgid ""
 msgstr "Sicuro di voler eliminare le impostazioni di notifica per l'applicazione \"%s\"?"
 
 #: xfce4-notifyd-config/main.c:595
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:930
 msgid "Delete"
 msgstr "Elimina"
 
@@ -354,61 +354,69 @@ msgstr "Socket del gestore delle impostazioni"
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>Registro vuoto</b></big>\nNessuna notifica registrata finora."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:195
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:196
 msgid "Refresh the notification log"
 msgstr "Aggiorna il registro delle notifiche"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:205
 msgid "Clear the notification log"
 msgstr "Svuota il registro delle notifiche"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:213
 msgid "Mark All Read"
 msgstr "Segna tutti come da leggere"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:214
 msgid "Mark all unread notifications as read"
 msgstr "Segna tutte le notifiche da leggere come lette"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:222
+msgid "Copy To Clipboard"
+msgstr "Copia negli appunti"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:223
+msgid "Copy the selected log entries to the clipboard"
+msgstr "Copia gli elementi selezionati del log negli appunti"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:231
 msgid "Delete Entry"
 msgstr "Elimina elemento"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:232
 msgid "Deletes the selected log entries"
 msgstr "Elimina gli elementi selezionati nel registro"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:240
 msgid "Show Log Location"
 msgstr "Mostra la posizione del registro"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:241
 msgid "Shows the location of the log file in the file manager"
 msgstr "Mostra la posizione del file di registro nell'esploratore dei file"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:564
 msgid "Mark log entry _read"
 msgstr "Segna elemento del registro come _letto"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:771
 msgid "Yesterday and before"
 msgstr "Ieri e prima"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
 msgid "Delete Selected Log Entries"
 msgstr "Elimina gli elementi selezionati"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1200
 msgid "Loading more log entries..."
 msgstr "Caricamento di ulteriori elementi del registro in corso..."
 
