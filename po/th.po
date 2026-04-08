@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2026-01-09 12:57+0100\n"
+"POT-Creation-Date: 2026-04-03 12:57+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Warut Bunprasert <warut.b@disroot.org>, 2025-2026\n"
 "Language-Team: Thai (http://app.transifex.com/xfce/xfce-apps/language/th/)\n"
@@ -29,12 +29,12 @@ msgid "Clear notification log"
 msgstr "ล้างปูมการแจ้งเหตุ"
 
 #: common/xfce-notify-log-util.c:387
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:928
 msgid "Cancel"
 msgstr "ยกเลิก"
 
 #: common/xfce-notify-log-util.c:389
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:204
 msgid "Clear"
 msgstr "ล้าง"
 
@@ -46,7 +46,7 @@ msgstr "รวมแคชของไอคอนด้วย"
 msgid "Now"
 msgstr "ขณะนี้"
 
-#: panel-plugin/notification-plugin.c:341
+#: panel-plugin/notification-plugin.c:340
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
@@ -70,7 +70,7 @@ msgid "<b>_Do not disturb</b>"
 msgstr "<b>_ห้ามรบกวน</b>"
 
 #: panel-plugin/notification-plugin-log.c:355
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid "Unable to open notification log"
 msgstr "ไม่สามารถเปิดปูมการแจ้งเหตุ"
 
@@ -286,7 +286,7 @@ msgid ""
 msgstr "คุณยืนยันที่จะลบการตั้งค่าการแจ้งเหตุของแอปพลิเคชัน \"%s\" ใช่หรือไม่?"
 
 #: xfce4-notifyd-config/main.c:595
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:930
 msgid "Delete"
 msgstr "ลบ"
 
@@ -346,61 +346,69 @@ msgstr "ซ็อกเก็ตของโปรแกรมจัดการ
 msgid "SOCKET_ID"
 msgstr "หมายเลขซ็อกเก็ต"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
 msgstr "<big><b>ปูมว่างเปล่า</b></big>\nยังไม่มีรายการแจ้งเหตุในปูม"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:195
 msgid "Refresh"
 msgstr "ปรับแสดง"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:196
 msgid "Refresh the notification log"
 msgstr "ปรับแสดงเนื้อหาปูมการแจ้งเหตุ"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:205
 msgid "Clear the notification log"
 msgstr "ล้างปูมการแจ้งเหตุ"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:213
 msgid "Mark All Read"
 msgstr "กาว่าอ่านแล้วทั้งหมด"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:214
 msgid "Mark all unread notifications as read"
 msgstr "ทำเครื่องหมายรายการแจ้งเหตุทั้งหมดที่ยังไม่อ่านว่าอ่านแล้ว"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:222
+msgid "Copy To Clipboard"
+msgstr "คัดลอกไปยังคลิปบอร์ด"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:223
+msgid "Copy the selected log entries to the clipboard"
+msgstr "คัดลอกรายการปูมลงในคลิปบอร์ด"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:231
 msgid "Delete Entry"
 msgstr "ลบรายการ"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:232
 msgid "Deletes the selected log entries"
 msgstr "ลบรายการปูมที่เลือก"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:240
 msgid "Show Log Location"
 msgstr "แสดงตำแหน่งปูม"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:241
 msgid "Shows the location of the log file in the file manager"
 msgstr "แสดงตำแหน่งของแฟ้มปูมในโปรแกรมจัดการแฟ้ม"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:564
 msgid "Mark log entry _read"
 msgstr "การายการปูมว่า_อ่านแล้ว"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:771
 msgid "Yesterday and before"
 msgstr "เมื่อวานและก่อนหน้า"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
 msgid "Delete Selected Log Entries"
 msgstr "ลบรายการปูมที่เลือก"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1200
 msgid "Loading more log entries..."
 msgstr "กำลังโหลดรายการปูมเพิ่มเติม..."
 
