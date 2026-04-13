@@ -116,11 +116,11 @@ msgstr "_Κλείσιμο"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Size of icons in menu"
-msgstr ""
+msgstr "Μέγεθος εικονιδίων στο μενού"
 
 #: panel-plugin/notification-plugin-settings.glade:99
 msgid "Size of the icon shown next to each notification listed in the menu"
-msgstr ""
+msgstr "Το μέγεθος του εικονιδίου που εμφανίζεται δίπλα σε κάθε ειδοποίηση που φαίνεται στο μενού"
 
 #: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
@@ -165,11 +165,11 @@ msgstr "Μετά την εμφάνιση του μενού"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
-msgstr "Σημείωση ως αναγνωσμένες όλων των καταχωρήσεων"
+msgstr "Σημείωση ως αναγνωσμένες όλων των καταχωρίσεων"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
-msgstr "Σημείωση ως αναγνωσμένες όλων των εμφανιζόμενων καταχωρήσεων"
+msgstr "Σημείωση ως αναγνωσμένες όλων των εμφανιζόμενων καταχωρίσεων"
 
 #: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
@@ -384,7 +384,7 @@ msgstr "Αντιγραφή στο πρόχειρο"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:223
 msgid "Copy the selected log entries to the clipboard"
-msgstr ""
+msgstr "Αντιγραφή των επιλεγμένων καταχωρίσεων στο πρόχειρο"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:231
 msgid "Delete Entry"
@@ -392,7 +392,7 @@ msgstr "Διαγραφή καταγραφής"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:232
 msgid "Deletes the selected log entries"
-msgstr "Διαγραφή επιλεγμένων καταγραφών"
+msgstr "Διαγραφή επιλεγμένων καταχωρίσεων"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:240
 msgid "Show Log Location"
@@ -412,11 +412,11 @@ msgstr "Χθες και παλαιότερα"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
 msgid "Delete Selected Log Entries"
-msgstr "Διαγραφή των επιλεγμένων καταγραφών"
+msgstr "Διαγραφή των επιλεγμένων καταχωρίσεων"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:1200
 msgid "Loading more log entries..."
-msgstr "Φόρτωση περισσότερων καταχωρήσεων..."
+msgstr "Φόρτωση περισσότερων καταχωρίσεων..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
