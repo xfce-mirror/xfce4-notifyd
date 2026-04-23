@@ -1,0 +1,669 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-notifyd package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Apps\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2026-04-03 12:57+0200\n"
+"PO-Revision-Date: 2013-07-03 18:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Lao (http://app.transifex.com/xfce/xfce-apps/language/lo/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lo\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: common/xfce-notify-log-util.c:379
+msgid "Do you really want to clear the notification log?"
+msgstr "ທ່ານຕ້ອງການລ້າງບັນທຶກການແຈ້ງເຕືອນແທ້ຫຼືບໍ່?"
+
+#: common/xfce-notify-log-util.c:384
+msgid "Clear notification log"
+msgstr "ລ້າງບັນທຶກການແຈ້ງເຕືອນ"
+
+#: common/xfce-notify-log-util.c:387
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:928
+msgid "Cancel"
+msgstr "ຍົກເລີກ"
+
+#: common/xfce-notify-log-util.c:389
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:204
+msgid "Clear"
+msgstr "ລ້າງ"
+
+#: common/xfce-notify-log-util.c:406 common/xfce-notify-log-util.c:414
+msgid "include icon cache"
+msgstr "ລວມເອົາແຄຊ໌ໄອຄອນ"
+
+#: common/xfce-notify-log-util.c:451
+msgid "Now"
+msgstr "ດຽວນີ້"
+
+#: panel-plugin/notification-plugin.c:340
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
+#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
+msgid "Notifications"
+msgstr "ການແຈ້ງເຕືອນ"
+
+#: panel-plugin/notification-plugin-dialogs.c:49
+#, c-format
+msgid "Unable to open the following url: %s"
+msgstr "ບໍ່ສາມາດເປີດ URL ຕໍ່ໄປນີ້ໄດ້: %s"
+
+#: panel-plugin/notification-plugin-dialogs.c:133
+msgid "This is the notification plugin"
+msgstr "ນີ້ຄືປລັກອິນການແຈ້ງເຕືອນ"
+
+#: panel-plugin/notification-plugin-dialogs.c:135
+msgid "Copyright © 2017 Simon Steinbeiß\n"
+msgstr "ລິຂະສິດ © 2017 Simon Steinbeiß\n"
+
+#: panel-plugin/notification-plugin-log.c:151
+msgid "<b>_Do not disturb</b>"
+msgstr "<b>_ຫ້າມລົບກວນ</b>"
+
+#: panel-plugin/notification-plugin-log.c:355
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+msgid "Unable to open notification log"
+msgstr "ບໍ່ສາມາດເປີດບັນທຶກການແຈ້ງເຕືອນໄດ້"
+
+#: panel-plugin/notification-plugin-log.c:357
+msgid "No unread notifications"
+msgstr "ບໍ່ມີການແຈ້ງເຕືອນທີ່ຍັງບໍ່ໄດ້ອ່ານ"
+
+#: panel-plugin/notification-plugin-log.c:359
+msgid "No notifications"
+msgstr "ບໍ່ມີການແຈ້ງເຕືອນ"
+
+#: panel-plugin/notification-plugin-log.c:381
+msgid "_Clear log"
+msgstr "_ລ້າງບັນທຶກ"
+
+#: panel-plugin/notification-plugin-log.c:392
+msgid "_Mark all read"
+msgstr "_ໝາຍວ່າອ່ານແລ້ວທັງໝົດ"
+
+#: panel-plugin/notification-plugin-log.c:401
+msgid "_Notification settings…"
+msgstr "_ຕັ້ງຄ່າການແຈ້ງເຕືອນ…"
+
+#: panel-plugin/notification-plugin-settings.glade:30
+msgid "Notification Plugin Settings"
+msgstr "ຕັ້ງຄ່າປລັກອິນການແຈ້ງເຕືອນ"
+
+#: panel-plugin/notification-plugin-settings.glade:46
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
+msgid "_Help"
+msgstr "_ຊ່ວຍເຫຼືອ"
+
+#: panel-plugin/notification-plugin-settings.glade:61
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:82
+msgid "_Close"
+msgstr "_ປິດ"
+
+#: panel-plugin/notification-plugin-settings.glade:98
+msgid "Size of icons in menu"
+msgstr "ຂະໜາດຂອງໄອຄອນໃນເມນູ"
+
+#: panel-plugin/notification-plugin-settings.glade:99
+msgid "Size of the icon shown next to each notification listed in the menu"
+msgstr "ຂະໜາດຂອງໄອຄອນທີ່ຈະສະແດງຂ້າງແຕ່ລະການແຈ້ງເຕືອນໃນເມນູ"
+
+#: panel-plugin/notification-plugin-settings.glade:126
+msgid "Number of notifications to show"
+msgstr "ຈຳນວນການແຈ້ງເຕືອນທີ່ຈະສະແດງ"
+
+#: panel-plugin/notification-plugin-settings.glade:154
+msgid "Only show notifications from today"
+msgstr "ສະແດງສະເພາະການແຈ້ງເຕືອນຂອງມື້ນີ້"
+
+#: panel-plugin/notification-plugin-settings.glade:178
+msgid "Hide 'Clear log' confirmation dialog"
+msgstr "ເຊື່ອງໜ້າຕ່າງຢືນຢັນ 'ລ້າງບັນທຶກ'"
+
+#: panel-plugin/notification-plugin-settings.glade:202
+msgid "Hide panel button when no unread notifications"
+msgstr "ເຊື່ອງປຸ່ມເທິງແຖບເຄື່ອງມືເມື່ອບໍ່ມີການແຈ້ງເຕືອນທີ່ຍັງບໍ່ໄດ້ອ່ານ"
+
+#: panel-plugin/notification-plugin-settings.glade:225
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:891
+msgid "Appearance"
+msgstr "ຮູບລັກສະນະ"
+
+#: panel-plugin/notification-plugin-settings.glade:242
+msgid "Show in menu"
+msgstr "ສະແດງໃນເມນູ"
+
+#: panel-plugin/notification-plugin-settings.glade:256
+msgid "All notifications"
+msgstr "ການແຈ້ງເຕືອນທັງໝົດ"
+
+#: panel-plugin/notification-plugin-settings.glade:257
+msgid "Unread notifications"
+msgstr "ການແຈ້ງເຕືອນທີ່ຍັງບໍ່ໄດ້ອ່ານ"
+
+#: panel-plugin/notification-plugin-settings.glade:269
+msgid "Behavior"
+msgstr "ພຶດຕິກຳ"
+
+#: panel-plugin/notification-plugin-settings.glade:286
+msgid "After showing the menu"
+msgstr "ຫຼັງຈາກສະແດງເມນູ"
+
+#: panel-plugin/notification-plugin-settings.glade:300
+msgid "Mark all log entries read"
+msgstr "ໝາຍລາຍການບັນທຶກທັງໝົດວ່າອ່ານແລ້ວ"
+
+#: panel-plugin/notification-plugin-settings.glade:301
+msgid "Mark shown log entries read"
+msgstr "ໝາຍລາຍການບັນທຶກທີ່ສະແດງວ່າອ່ານແລ້ວ"
+
+#: panel-plugin/notification-plugin-settings.glade:302
+msgid "Do nothing"
+msgstr "ບໍ່ຕ້ອງເຮັດຫຍັງ"
+
+#: panel-plugin/notification-plugin.desktop.in:5
+msgid "Notification Plugin"
+msgstr "ປລັກອິນການແຈ້ງເຕືອນ"
+
+#: panel-plugin/notification-plugin.desktop.in:6
+msgid "Notification plugin for the Xfce panel"
+msgstr "ປລັກອິນການແຈ້ງເຕືອນສຳລັບແຖບເຄື່ອງມື Xfce"
+
+#: xfce4-notifyd/main.c:62
+msgid ""
+"Your Wayland compositor does not support required protocol wlr-layer-shell."
+msgstr "Wayland compositor ຂອງທ່ານບໍ່ຮອງຮັບໂປຣໂຕຄໍ wlr-layer-shell ທີ່ຈຳເປັນ."
+
+#: xfce4-notifyd/main.c:69
+msgid "xfce4-notifyd was built without support for your windowing system."
+msgstr "xfce4-notifyd ຖືກສ້າງຂຶ້ນໂດຍບໍ່ຮອງຮັບລະບົບຈັດການໜ້າຕ່າງຂອງທ່ານ."
+
+#: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
+#: xfce4-notifyd-config/main.c:1272
+msgid "Xfce Notify Daemon"
+msgstr "ເດມອນການແຈ້ງເຕືອນ Xfce"
+
+#: xfce4-notifyd/main.c:91
+#, c-format
+msgid "Unknown option \"%s\"\n"
+msgstr "ບໍ່ຮູ້ຈັກຕົວເລືອກ \"%s\"\n"
+
+#: xfce4-notifyd/main.c:101 xfce4-notifyd/main.c:113
+msgid "Unable to start notification daemon"
+msgstr "ບໍ່ສາມາດເລີ່ມເຮັດວຽກເດມອນການແຈ້ງເຕືອນໄດ້"
+
+#: xfce4-notifyd/xfce-notify-daemon.c:590
+msgid "Another notification daemon is running, exiting\n"
+msgstr "ມີເດມອນການແຈ້ງເຕືອນອື່ນກຳລັງເຮັດວຽກຢູ່, ກຳລັງອອກ\n"
+
+#: xfce4-notifyd/xfce-notify-daemon-log.c:175
+#: xfce4-notifyd/xfce-notify-daemon-log.c:206
+#: xfce4-notifyd/xfce-notify-daemon-log.c:240
+#: xfce4-notifyd/xfce-notify-daemon-log.c:253
+#: xfce4-notifyd/xfce-notify-daemon-log.c:287
+#: xfce4-notifyd/xfce-notify-daemon-log.c:301
+#: xfce4-notifyd/xfce-notify-daemon-log.c:313
+#: xfce4-notifyd/xfce-notify-daemon-log.c:327
+#: xfce4-notifyd/xfce-notify-daemon-log.c:339
+msgid "Log is unavailable"
+msgstr "ບໍ່ສາມາດໃຊ້ງານບັນທຶກໄດ້"
+
+#: xfce4-notifyd/xfce-notify-daemon-log.c:180
+msgid "Log entry not found"
+msgstr "ບໍ່ພົບລາຍການບັນທຶກ"
+
+#: xfce4-notifyd/xfce-notify-log.c:235
+#, c-format
+msgid "The notification log directory (%s) is not a directory"
+msgstr "ໄດເຣັກທໍຣີບັນທຶກການແຈ້ງເຕືອນ (%s) ບໍ່ແມ່ນໄດເຣັກທໍຣີ"
+
+#: xfce4-notifyd/xfce-notify-log.c:247
+#, c-format
+msgid "Failed to open notification log: %s"
+msgstr "ເປີດບັນທຶກການແຈ້ງເຕືອນບໍ່ສຳເລັດ: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:331
+#, c-format
+msgid "Failed to prepare SQL statement: %%s (%s)"
+msgstr "ກຽມຄຳສັ່ງ SQL ບໍ່ສຳເລັດ: %%s (%s)"
+
+#: xfce4-notifyd/xfce-notify-log.c:360
+msgid "trailing characters at end of statement"
+msgstr "ມີຕົວອັກສອນເກີນຢູ່ທ້າຍຄຳສັ່ງ"
+
+#: xfce4-notifyd/xfce-notify-log.c:458
+#, c-format
+msgid "Failed to create 'notifications' table: %s"
+msgstr "ສ້າງຕາຕະລາງ 'notifications' ບໍ່ສຳເລັດ: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:459
+#, c-format
+msgid "Failed to create DB timestamp index: %s"
+msgstr "ສ້າງດັດຊະນີ timestamp ໃນ DB ບໍ່ສຳເລັດ: %s"
+
+#: xfce4-notifyd/xfce-notify-log.c:460
+#, c-format
+msgid "Failed to create DB is_read index: %s"
+msgstr "ສ້າງດັດຊະນີ is_read ໃນ DB ບໍ່ສຳເລັດ: %s"
+
+#: xfce4-notifyd/xfce-notify-window.c:1453
+msgid "Default Action"
+msgstr "ການກະທຳເລີ່ມຕົ້ນ"
+
+#: xfce4-notifyd/xfce4-notifyd.desktop.in:4
+msgid "Xfce Notification Daemon"
+msgstr "ເດມອນການແຈ້ງເຕືອນ Xfce"
+
+#: xfce4-notifyd-config/main.c:115
+msgid "Notification Preview"
+msgstr "ຕົວຢ່າງການແຈ້ງເຕືອນ"
+
+#: xfce4-notifyd-config/main.c:116
+msgid "This is what notifications will look like"
+msgstr "ນີ້ຄືຕົວຢ່າງຮູບແບບການແຈ້ງເຕືອນທີ່ຈະສະແດງ"
+
+#: xfce4-notifyd-config/main.c:121
+msgid "Button"
+msgstr "ປຸ່ມ"
+
+#: xfce4-notifyd-config/main.c:128
+msgid "Notification preview failed"
+msgstr "ສະແດງຕົວຢ່າງການແຈ້ງເຕືອນບໍ່ສຳເລັດ"
+
+#: xfce4-notifyd-config/main.c:591
+#, c-format
+msgid ""
+"Are you sure you want to delete notification settings for application "
+"\"%s\"?"
+msgstr "ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລຶບການຕັ້ງຄ່າການແຈ້ງເຕືອນສຳລັບແອັບພລິເຄຊັນ \"%s\"?"
+
+#: xfce4-notifyd-config/main.c:595
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:930
+msgid "Delete"
+msgstr "ລຶບ"
+
+#: xfce4-notifyd-config/main.c:597
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
+msgid "Forget Application"
+msgstr "ລຶບແອັບພລິເຄຊັນອອກຈາກຄວາມຈຳ"
+
+#: xfce4-notifyd-config/main.c:697
+msgid "Unspecified applications"
+msgstr "ແອັບພລິເຄຊັນທີ່ບໍ່ໄດ້ລະບຸ"
+
+#: xfce4-notifyd-config/main.c:930
+#, c-format
+msgid ""
+"<b>Currently only urgent notifications are shown.</b>\n"
+"Notification logging is %s."
+msgstr "<b>ປະຈຸບັນສະແດງສະເພາະການແຈ້ງເຕືອນທີ່ເລັ່ງດ່ວນເທົ່ານັ້ນ.</b>\nການບັນທຶກການແຈ້ງເຕືອນຄື %s."
+
+#: xfce4-notifyd-config/main.c:937
+msgid "enabled"
+msgstr "ເປີດໃຊ້ງານ"
+
+#: xfce4-notifyd-config/main.c:937
+msgid "disabled"
+msgstr "ປິດໃຊ້ງານ"
+
+#: xfce4-notifyd-config/main.c:1173
+msgid ""
+"<big><b>Currently there are no known applications.</b></big>\n"
+"As soon as an application sends a notification\n"
+"it will appear in this list."
+msgstr "<big><b>ປະຈຸບັນຍັງບໍ່ມີແອັບພລິເຄຊັນທີ່ຮູ້ຈັກ.</b></big>\nເມື່ອມີແອັບພລິເຄຊັນສົ່ງການແຈ້ງເຕືອນ\nມັນຈະປະກົດຂຶ້ນໃນລາຍການນີ້."
+
+#: xfce4-notifyd-config/main.c:1242
+msgid "Released under the terms of the GNU General Public License, version 2\n"
+msgstr "ເຜີຍແຜ່ພາຍໃຕ້ເງື່ອນໄຂຂອງ GNU General Public License, ເວີຊັນ 2\n"
+
+#: xfce4-notifyd-config/main.c:1243
+#, c-format
+msgid "Please report bugs to %s.\n"
+msgstr "ກະລຸນາລາຍງານບັນຫາ (bug) ໄປທີ່ %s.\n"
+
+#: xfce4-notifyd-config/main.c:1274
+msgid "Settings daemon is unavailable"
+msgstr "ເດມອນການຕັ້ງຄ່າບໍ່ສາມາດໃຊ້ງານໄດ້"
+
+#: xfce4-notifyd-config/main.c:1376
+msgid "Display version information"
+msgstr "ສະແດງຂໍ້ມູນເວີຊັນ"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "Settings manager socket"
+msgstr "ຊັອກເກັດຂອງຕົວຈັດການການຕັ້ງຄ່າ"
+
+#: xfce4-notifyd-config/main.c:1377
+msgid "SOCKET_ID"
+msgstr "SOCKET_ID"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
+msgid ""
+"<big><b>Empty log</b></big>\n"
+"No notifications have been logged yet."
+msgstr "<big><b>ບັນທຶກຫວ່າງເປົ່າ</b></big>\nຍັງບໍ່ມີການບັນທຶກການແຈ້ງເຕືອນເທື່ອ."
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:195
+msgid "Refresh"
+msgstr "ໂຫຼດໃໝ່"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:196
+msgid "Refresh the notification log"
+msgstr "ໂຫຼດບັນທຶກການແຈ້ງເຕືອນໃໝ່"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:205
+msgid "Clear the notification log"
+msgstr "ລ້າງບັນທຶກການແຈ້ງເຕືອນ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:213
+msgid "Mark All Read"
+msgstr "ໝາຍວ່າອ່ານແລ້ວທັງໝົດ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:214
+msgid "Mark all unread notifications as read"
+msgstr "ໝາຍການແຈ້ງເຕືອນທີ່ຍັງບໍ່ໄດ້ອ່ານທັງໝົດວ່າອ່ານແລ້ວ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:222
+msgid "Copy To Clipboard"
+msgstr "ສຳເນົາໄປທີ່ຄລິບບອດ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:223
+msgid "Copy the selected log entries to the clipboard"
+msgstr "ສຳເນົາລາຍການບັນທຶກທີ່ເລືອກໄປທີ່ຄລິບບອດ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:231
+msgid "Delete Entry"
+msgstr "ລຶບລາຍການ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:232
+msgid "Deletes the selected log entries"
+msgstr "ລຶບລາຍການບັນທຶກທີ່ເລືອກ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:240
+msgid "Show Log Location"
+msgstr "ສະແດງບ່ອນເກັບບັນທຶກ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:241
+msgid "Shows the location of the log file in the file manager"
+msgstr "ສະແດງຕຳແໜ່ງຂອງໄຟລ໌ບັນທຶກໃນຕົວຈັດການໄຟລ໌"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:564
+msgid "Mark log entry _read"
+msgstr "ໝາຍລາຍການບັນທຶກວ່າ_ອ່ານແລ້ວ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:771
+msgid "Yesterday and before"
+msgstr "ມື້ວານນີ້ ແລະ ກ່ອນໜ້ານັ້ນ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
+msgid "Delete Selected Log Entries"
+msgstr "ລຶບລາຍການບັນທຶກທີ່ເລືອກ"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1200
+msgid "Loading more log entries..."
+msgstr "ກຳລັງໂຫຼດລາຍການບັນທຶກເພີ່ມເຕີມ..."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
+msgid ""
+"The notification service is not running. No notifications will be shown."
+msgstr "ບໍລິການແຈ້ງເຕືອນບໍ່ໄດ້ເຮັດວຽກ. ຈະບໍ່ມີການສະແດງການແຈ້ງເຕືອນໃດໆ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
+msgid "<b>Currently only urgent notifications are shown.</b>"
+msgstr "<b>ປະຈຸບັນສະແດງສະເພາະການແຈ້ງເຕືອນທີ່ເລັ່ງດ່ວນເທົ່ານັ້ນ.</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
+msgid "Fade out"
+msgstr "ຄ່ອຍໆຈາງອອກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
+msgid "_Slide out"
+msgstr "_ເລື່ອນອອກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
+msgid "Do not disturb"
+msgstr "ຫ້າມລົບກວນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:372
+msgid "<b>Behavior</b>"
+msgstr "<b>ພຶດຕິກຳ</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:386
+msgid "<b>Animations</b>"
+msgstr "<b>ພາບເຄື່ອນໄຫວ</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:399
+msgid ""
+"By default the notification bubbles will be shown on the display on which "
+"the mouse pointer is located."
+msgstr "ໂດຍປົກກະຕິ ປ໋ອບອັບການແຈ້ງເຕືອນຈະສະແດງຢູ່ໜ້າຈໍທີ່ຕົວຊີ້ເມົາຕັ້ງຢູ່."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
+msgid "Show notifications on"
+msgstr "ສະແດງການແຈ້ງເຕືອນທີ່"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:414
+msgid ""
+"The \"Enable event sounds\" setting in the Appearance Settings dialog must "
+"be checked to hear notification sounds"
+msgstr "ຕ້ອງເປີດໃຊ້ງານ \"ເປີດໃຊ້ສຽງເຫດການ\" ໃນການຕັ້ງຄ່າຮູບລັກສະນະ ເພື່ອໃຫ້ໄດ້ຍິນສຽງແຈ້ງເຕືອນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
+msgid "_Mute sounds"
+msgstr "_ປິດສຽງ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
+msgid "Always show percent-value notifications"
+msgstr "ສະແດງການແຈ້ງເຕືອນຄ່າເປີເຊັນສະເໝີ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
+msgid "When displaying notifications, show"
+msgstr "ເມື່ອສະແດງການແຈ້ງເຕືອນ, ໃຫ້ສະແດງ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
+msgid "icon, summary, and body"
+msgstr "ໄອຄອນ, ຫົວຂໍ້ ແລະ ເນື້ອໃນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
+msgid "icon and summary"
+msgstr "ໄອຄອນ ແລະ ຫົວຂໍ້"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:484
+msgid "icon and application name"
+msgstr "ໄອຄອນ ແລະ ຊື່ແອັບພລິເຄຊັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
+msgid "monitor with mouse pointer"
+msgstr "ໜ້າຈໍທີ່ມີຕົວຊີ້ເມົາ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
+msgid "primary monitor"
+msgstr "ໜ້າຈໍຫຼັກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
+msgid "all monitors"
+msgstr "ທຸກໜ້າຈໍ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
+msgid ""
+"Prevent redundant notifications. If a message with the same summary and body"
+" is already visible on screen, new identical alerts will be suppressed. "
+"Useful for multi-instance applications like chat clients."
+msgstr "ປ້ອງກັນການແຈ້ງເຕືອນທີ່ຊ້ຳຊ້ອນ. ຖ້າຂໍ້ຄວາມທີ່ມີຫົວຂໍ້ ແລະ ເນື້ອໃນດຽວກັນສະແດງຢູ່ແລ້ວ, ການແຈ້ງເຕືອນໃໝ່ທີ່ຄືກັນຈະຖືກລະງັບໄວ້. ມີປະໂຫຍດສຳລັບແອັບພລິເຄຊັນເຊັ່ນ ໂປຣແກຣມແຊັດ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
+msgid "_Suppress duplicate notifications"
+msgstr "_ລະງັບການແຈ້ງເຕືອນທີ່ຊ້ຳກັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
+msgid "General"
+msgstr "ທົ່ວໄປ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:583
+msgid "seconds"
+msgstr "ວິນາທີ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:598
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:861
+msgid "10"
+msgstr "10"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
+msgid "_Opacity"
+msgstr "_ຄວາມໂປ່ງໃສ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
+msgid "Default _position"
+msgstr "_ຕຳແໜ່ງເລີ່ມຕົ້ນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
+msgid "Top left"
+msgstr "ເທິງຊ້າຍ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
+msgid "Bottom left"
+msgstr "ລຸ່ມຊ້າຍ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:654
+msgid "Top right"
+msgstr "ເທິງຂວາ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:655
+msgid "Bottom right"
+msgstr "ລຸ່ມຂວາ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
+msgid "Top center"
+msgstr "ເທິງກາງ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
+msgid "Bottom center"
+msgstr "ລຸ່ມກາງ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
+msgid "_Theme"
+msgstr "_ຮູບແບບ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
+msgid ""
+"Show the notification summary and body when the notification is a percent "
+"value, such as audio volume or screen brightness"
+msgstr "ສະແດງຫົວຂໍ້ ແລະ ເນື້ອໃນການແຈ້ງເຕືອນ ເມື່ອການແຈ້ງເຕືອນເປັນຄ່າເປີເຊັນ ເຊັ່ນ ລະດັບສຽງ ຫຼື ຄວາມສະຫວ່າງໜ້າຈໍ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
+msgid "Show text with percent _values"
+msgstr "ສະແດງຂໍ້ຄວາມພ້ອມກັບ_ຄ່າເປີເຊັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
+msgid "Date/time _format"
+msgstr "_ຮູບແບບ ວັນທີ/ເວລາ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
+msgid "Locale default"
+msgstr "ຕາມຄ່າເລີ່ມຕົ້ນຂອງພາສາ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
+msgid "Relative times"
+msgstr "ເວລາແບບສຳພັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:739
+msgid "ISO8601"
+msgstr "ISO8601"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:740
+msgid "Custom"
+msgstr "ກຳນົດເອງ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
+msgid "Show _Preview"
+msgstr "ສະແດງ_ຕົວຢ່າງ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
+msgid "_Disappear after"
+msgstr "_ຫາຍໄປຫຼັງຈາກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
+msgid ""
+"When creating a notification, applications can request how long they'd like "
+"the notification remain on screen. This setting controls whether or not that"
+" request is honored."
+msgstr "ເມື່ອສ້າງການແຈ້ງເຕືອນ, ແອັບພລິເຄຊັນສາມາດຮ້ອງຂໍໄລຍະເວລາທີ່ຈະໃຫ້ການແຈ້ງເຕືອນຄ້າງໄວ້ເທິງໜ້າຈໍ. ການຕັ້ງຄ່ານີ້ຈະຄວບຄຸມວ່າຈະເຮັດຕາມຄຳຮ້ອງຂໍນັ້ນຫຼືບໍ່."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
+msgid "Honor app-requested \"Disappear after\" time"
+msgstr "ເຮັດຕາມເວລາ \"ຫາຍໄປຫຼັງຈາກ\" ທີ່ແອັບພລິເຄຊັນຮ້ອງຂໍ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
+msgid "_Minimum notification width"
+msgstr "ຄວາມກວ້າງ_ຕ່ຳສຸດຂອງການແຈ້ງເຕືອນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
+msgid "<b>Per-application notification settings</b>"
+msgstr "<b>ການຕັ້ງຄ່າການແຈ້ງເຕືອນແຍກຕາມແອັບພລິເຄຊັນ</b>"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
+msgid "Applications"
+msgstr "ແອັບພລິເຄຊັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
+msgid "Log notifications"
+msgstr "ບັນທຶກການແຈ້ງເຕືອນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
+msgid "only during \"Do not disturb\", or when notification bodies are not shown"
+msgstr "ສະເພາະຕອນທີ່ເປີດ \"ຫ້າມລົບກວນ\", ຫຼື ເມື່ອບໍ່ໄດ້ສະແດງເນື້ອໃນການແຈ້ງເຕືອນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
+msgid "always"
+msgstr "ຕະຫຼອດເວລາ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
+msgid "Log applications"
+msgstr "ບັນທຶກແອັບພລິເຄຊັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
+msgid "all"
+msgstr "ທັງໝົດ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1026
+msgid "all except blocked"
+msgstr "ທັງໝົດ ຍົກເວັ້ນທີ່ຖືກບລັອກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1027
+msgid "only blocked"
+msgstr "ສະເພາະທີ່ຖືກບລັອກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1039
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1055
+msgid "The maximum number of entries to be retained in the log."
+msgstr "ຈຳນວນລາຍການສູງສຸດທີ່ຈະເກັບໄວ້ໃນບັນທຶກ."
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
+msgid "Maximum number of log entries to keep"
+msgstr "ຈຳນວນລາຍການບັນທຶກສູງສຸດທີ່ຈະເກັບໄວ້"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
+msgid "Log"
+msgstr "ບັນທຶກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
+msgid "Mute application"
+msgstr "ປິດສຽງແອັບພລິເຄຊັນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
+msgid "Allow urgent notifications"
+msgstr "ອະນຸຍາດການແຈ້ງເຕືອນທີ່ເລັ່ງດ່ວນ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
+msgid "Include in log"
+msgstr "ລວມໃນບັນທຶກ"
+
+#: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
+msgid "Customize how notifications appear on your screen"
+msgstr "ປັບແຕ່ງຮູບແບບການແຈ້ງເຕືອນທີ່ຈະປະກົດເທິງໜ້າຈໍຂອງທ່ານ"
