@@ -650,7 +650,7 @@ msgstr "로그로 남겨둘 최대 기록 갯수입니다."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "보관할 최대 로그 항목 수"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
