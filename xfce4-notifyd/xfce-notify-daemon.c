@@ -593,6 +593,8 @@ xfce_notify_bus_name_lost_cb (GDBusConnection *connection,
 
 static void
 xfce_notify_daemon_constructed(GObject *obj) {
+    G_OBJECT_CLASS(xfce_notify_daemon_parent_class)->constructed(obj);
+
     XfceNotifyDaemon *self = XFCE_NOTIFY_DAEMON (obj);
 
     self->bus_name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
