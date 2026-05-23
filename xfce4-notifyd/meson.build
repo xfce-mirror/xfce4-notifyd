@@ -66,7 +66,7 @@ executable(
 )
 
 systemd_service_dbus_text = ''
-if systemd.found()
+if enable_systemd
   systemd_service_dbus_text = 'SystemdService=xfce4-notifyd.service'
 endif
 daemon_service_data = configuration_data()
@@ -95,7 +95,7 @@ if get_option('dbus-start-daemon')
   )
 endif
 
-if systemd.found()
+if enable_systemd
   systemd_user_service_dir = get_option('systemd-user-service-dir')
   if systemd_user_service_dir == ''
     systemd_user_service_dir = get_option('prefix') / 'lib' / 'systemd' / 'user'

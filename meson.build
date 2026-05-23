@@ -47,7 +47,8 @@ gtk_layer_shell = dependency('gtk-layer-shell-0', version: dependency_versions['
 
 canberra_gtk3 = dependency('libcanberra-gtk3', version: dependency_versions['canberra'], required: get_option('sound'))
 
-systemd = dependency('systemd', version: dependency_versions['systemd'], required: get_option('systemd'))
+systemd = dependency('systemd', version: dependency_versions['systemd'], required: false)
+enable_systemd = (systemd.found() and get_option('systemd').allowed()) or get_option('systemd').enabled()
 
 feature_cflags = []
 
