@@ -44,11 +44,11 @@ msgstr "Vymazat"
 
 #: common/xfce-notify-log-util.c:406 common/xfce-notify-log-util.c:414
 msgid "include icon cache"
-msgstr "zahrnout vyrovnávací paměť pro ikony"
+msgstr "zahrnout mezipaměť ikon"
 
 #: common/xfce-notify-log-util.c:451
 msgid "Now"
-msgstr "Teď"
+msgstr "Nyní"
 
 #: panel-plugin/notification-plugin.c:340
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
@@ -76,7 +76,7 @@ msgstr "<b>_Nerušit</b>"
 #: panel-plugin/notification-plugin-log.c:355
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid "Unable to open notification log"
-msgstr "Nepodařilo se otevřít protokol s oznámeními"
+msgstr "Nepodařilo se otevřít protokol oznámení"
 
 #: panel-plugin/notification-plugin-log.c:357
 msgid "No unread notifications"
@@ -130,7 +130,7 @@ msgstr "Zobrazit pouze dnešní oznámení"
 
 #: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "Skrýt potvrzovací dialogové okno \"Vymazat protokol\""
+msgstr "Skrýt potvrzovací dialogové okno „Vymazat protokol“"
 
 #: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
@@ -237,26 +237,26 @@ msgstr "Nepodařilo se otevřít protokol oznámení: %s"
 #: xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr "Nepodařilo se připravit SQL příkaz: %%s (%s)"
+msgstr "Nepodařilo se připravit příkaz SQL: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
-msgstr "koncové znaky na konci příkazu"
+msgstr "neočekávané znaky za koncem příkazu"
 
 #: xfce4-notifyd/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr "Nepodařilo se vytvořit tabulku 'oznámení': %s"
+msgstr "Nepodařilo se vytvořit tabulku „notifications“: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr "Nepodařilo se vytvořit index časového razítka DB: %s"
+msgstr "Nepodařilo se vytvořit databázový index časového razítka: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:460
 #, c-format
 msgid "Failed to create DB is_read index: %s"
-msgstr "Nepodařilo se vytvořit index DB is_read: %s"
+msgstr "Nepodařilo se vytvořit databázový index is_read: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1453
 msgid "Default Action"
@@ -287,7 +287,7 @@ msgstr "Náhled oznámení se nezdařil"
 msgid ""
 "Are you sure you want to delete notification settings for application "
 "\"%s\"?"
-msgstr "Opravdu chcete odstranit nastavení oznámení pro aplikaci %s?"
+msgstr "Opravdu chcete odstranit nastavení oznámení pro aplikaci \"%s\"?"
 
 #: xfce4-notifyd-config/main.c:595
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:930
@@ -406,7 +406,7 @@ msgstr "Označit položku p_rotokolu jako přečtenou"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:771
 msgid "Yesterday and before"
-msgstr "Včera a starší"
+msgstr "Včera a dříve"
 
 #: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
 msgid "Delete Selected Log Entries"
@@ -419,7 +419,7 @@ msgstr "Načítají se další položky protokolu..."
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr "Služba pro oznámení není spuštěna. Oznámení se nebudou zobrazovat."
+msgstr "Služba oznámení není spuštěna. Oznámení se nebudou zobrazovat."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
 msgid "<b>Currently only urgent notifications are shown.</b>"
@@ -427,7 +427,7 @@ msgstr "<b>Aktuálně se zobrazují pouze naléhavá oznámení.</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
 msgid "Fade out"
-msgstr "Do ztracena"
+msgstr "Postupné mizení"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
 msgid "_Slide out"
@@ -475,7 +475,7 @@ msgstr "Při zobrazení oznámení zobrazit"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
-msgstr "ikonu, shrnutí a tělo zprávy"
+msgstr "ikonu, shrnutí a text oznámení"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "icon and summary"
@@ -561,7 +561,7 @@ msgstr "_Motiv"
 msgid ""
 "Show the notification summary and body when the notification is a percent "
 "value, such as audio volume or screen brightness"
-msgstr "Zobrazit souhrn oznámení a obsah, pokud oznámení obsahuje procentuální hodnotu, např. hlasitost zvuku nebo jas obrazovky."
+msgstr "Zobrazit shrnutí a text oznámení, pokud oznámení obsahuje procentuální hodnotu, např. hlasitost zvuku nebo jas obrazovky."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:702
 msgid "Show text with percent _values"
@@ -600,7 +600,7 @@ msgid ""
 "When creating a notification, applications can request how long they'd like "
 "the notification remain on screen. This setting controls whether or not that"
 " request is honored."
-msgstr "Když aplikace vytváří oznámení, může zažádat o dobu, po kterou oznámení zůstane na obrazovce. Toto nastavení ovládá, zda je tento požadavek akceptován."
+msgstr "Když aplikace vytvářejí oznámení, mohou požádat o dobu, po kterou oznámení zůstane na obrazovce. Toto nastavení ovládá, zda je tento požadavek respektuje."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
@@ -624,7 +624,7 @@ msgstr "Protokolovat oznámení"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr "pouze při režimu \"Nerušit\" nebo pokud není zobrazen obsah oznámení"
+msgstr "pouze při režimu \"Nerušit\" nebo pokud se nezobrazuje text oznámení"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
 msgid "always"
@@ -653,7 +653,7 @@ msgstr "Maximální počet položek, které mají být uchovávány v protokolu.
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
 msgid "Maximum number of log entries to keep"
-msgstr "Maximální počet ponechaných položek protokolu"
+msgstr "Maximální počet uchovávaných položek protokolu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
