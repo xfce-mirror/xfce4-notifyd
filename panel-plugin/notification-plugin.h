@@ -46,6 +46,9 @@ G_BEGIN_DECLS
 #define VALUE_MARK_SHOWN_READ     "mark-shown-read"
 #define VALUE_DO_NOTHING          "do-nothing"
 
+#define UNREAD_STYLE_CLASS        "unread"
+#define DND_STYLE_CLASS           "dnd"
+
 /* plugin structure */
 typedef struct
 {
