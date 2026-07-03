@@ -33,7 +33,7 @@ G_BEGIN_DECLS
 
 typedef struct _XfceNotifyWindow  XfceNotifyWindow;
 
-GType xfce_notify_window_get_type(void) G_GNUC_CONST;
+GType xfce_notify_window_get_type(void);
 
 GtkWidget *xfce_notify_window_new(guint id,
                                   GdkMonitor *monitor,
