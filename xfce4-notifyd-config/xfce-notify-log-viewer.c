@@ -901,18 +901,22 @@ xfce_notify_log_viewer_copy(XfceNotifyLogViewer *viewer) {
         GtkWidget *row = GTK_WIDGET(l->data);
         XfceNotifyLogEntry *entry = g_object_get_data(G_OBJECT(row), LOG_ENTRY_KEY);
 
+        gchar *custom_dt_format = xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT);
         gchar *timestamp_text = notify_log_format_timestamp(entry->timestamp,
                                                             xfce_notify_xfconf_channel_get_enum(viewer->channel, DATETIME_FORMAT_PROP, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, XFCE_TYPE_NOTIFY_DATETIME_FORMAT),
-                                                            xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT));
-        gchar *body_text = notify_log_format_body(entry->body);
-        gchar *clip = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
+                                                            custom_dt_format);
+        g_free(custom_dt_format);
 
-        clip = g_utf8_make_valid(clip , -1);
+        gchar *body_text = notify_log_format_body(entry->body);
+        gchar *entry_text = g_strconcat(entry->summary, " ", timestamp_text, "\n", body_text, NULL);
+
+        gchar *clip = g_utf8_make_valid(entry_text , -1);
         gtk_clipboard_set_text(clipboard, clip, -1);
         gtk_clipboard_store(clipboard);
 
         g_free(body_text);
         g_free(timestamp_text);
+        g_free(entry_text);
         g_free(clip);
     }
 
@@ -1050,12 +1054,15 @@ added_row_fetched(GObject *source, GAsyncResult *res, XfceNotifyLogViewer *viewe
             gint icon_width, icon_height;
 
             gtk_icon_size_lookup(GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_width, &icon_height);
+
+            gchar *custom_dt_format = xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT);
             xfce_notify_log_viewer_insert_entry(viewer,
                                                 entry,
                                                 0,
                                                 xfce_notify_xfconf_channel_get_enum(viewer->channel, DATETIME_FORMAT_PROP, XFCE_NOTIFY_DATETIME_LOCALE_DEFAULT, XFCE_TYPE_NOTIFY_DATETIME_FORMAT),
-                                                xfconf_channel_get_string(viewer->channel, DATETIME_CUSTOM_FORMAT_PROP, DATETIME_CUSTOM_FORMAT_DEFAULT),
+                                                custom_dt_format,
                                                 MIN(icon_width, icon_height));
+            g_free(custom_dt_format);
 
             if (!entry->is_read) {
                 gtk_widget_set_sensitive(GTK_WIDGET(viewer->mark_read_button), TRUE);
