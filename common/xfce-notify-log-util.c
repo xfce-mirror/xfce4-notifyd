@@ -325,23 +325,34 @@ static void xfce_notify_clear_icon_cache (void)
                                                      G_FILE_QUERY_INFO_NONE,
                                                      NULL,
                                                      NULL);
-        /* Iterate over the folder and delete each file */
-        while (TRUE)
-        {
-            GFile *icon_file;
-            if (!g_file_enumerator_iterate (folder_contents, NULL, &icon_file, NULL, NULL))
-                goto out;
-            if (!icon_file)
-                break;
-            if (!g_file_delete (icon_file, NULL, NULL))
-                g_warning ("Could not delete a notification icon: %s", notify_icon_cache_path);
+        if (folder_contents != NULL) {
+            /* Iterate over the folder and delete each file */
+            while (TRUE) {
+                GFile *icon_file = NULL;
+                if (!g_file_enumerator_iterate(folder_contents, NULL, &icon_file, NULL, NULL)
+                    || icon_file == NULL)
+                {
+                    break;
+                }
+
+                GError *error = NULL;
+                if (!g_file_delete(icon_file, NULL, &error)) {
+                    g_message("Could not delete a notification icon (%s): %s", g_file_peek_path(icon_file), error->message);
+                    g_error_free(error);
+                }
+            }
+
+            g_object_unref(folder_contents);
         }
-        out:
-            g_object_unref (folder_contents);
 
         /* Delete the empty folder */
-        if (!g_file_delete (icon_folder, NULL, NULL))
-            g_warning ("Could not delete the notification icon cache: %s", notify_icon_cache_path);
+        GError *error = NULL;
+        if (!g_file_delete(icon_folder, NULL, &error)) {
+            if (!g_error_matches(error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND)) {
+                g_message ("Could not delete the notification icon cache (%s): %s", notify_icon_cache_path, error->message);
+            }
+            g_error_free(error);
+        }
 
         g_object_unref (icon_folder);
         g_free (notify_icon_cache_path);
