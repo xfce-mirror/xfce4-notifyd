@@ -13,7 +13,7 @@ shared_module(
     'notification-plugin.c',
     'notification-plugin-dialogs.c',
     'notification-plugin-log.c',
-  ] + panel_plugin_generated_sources,
+  ] + panel_plugin_generated_sources + common_generated_headers,
   gnu_symbol_visibility: 'hidden',
   include_directories: [
     include_directories('..'),

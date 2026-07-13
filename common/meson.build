@@ -1,4 +1,5 @@
 common_generated_sources = []
+common_generated_headers = []
 
 common_generated_sources += gnome.gdbus_codegen(
   'xfce-notify-log-gbus',
@@ -7,6 +8,7 @@ common_generated_sources += gnome.gdbus_codegen(
   namespace: 'Xfce',
   install_header: false,
 )
+common_generated_headers += common_generated_sources[-1]
 
 common_generated_sources += gnome.mkenums_simple(
   'xfce-notify-enum-types',
@@ -14,6 +16,7 @@ common_generated_sources += gnome.mkenums_simple(
     'xfce-notify-common.h',
   ]
 )
+common_generated_headers += common_generated_sources[-1]
 
 libxfce_notify_common = static_library(
   'libxfce-notifyd-common',

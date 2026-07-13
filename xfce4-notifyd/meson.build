@@ -38,7 +38,7 @@ executable(
     'xfce-notify-daemon-log.c',
     'xfce-notify-types.c',
     'xfce-notify-window.c',
-  ] + daemon_generated_sources,
+  ] + daemon_generated_sources + common_generated_headers,
   include_directories: [
     include_directories('..'),
   ],

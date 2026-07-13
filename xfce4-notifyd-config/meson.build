@@ -16,7 +16,7 @@ executable(
     'main.c',
     'xfce-notify-log-viewer.c',
     xfce_revision_h,
-  ] + config_generated_sources,
+  ] + config_generated_sources + common_generated_headers,
   include_directories: [
     include_directories('..'),
   ],
