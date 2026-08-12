@@ -44,7 +44,8 @@
 
 static void
 terminate_app(gint signum, gpointer user_data) {
-    for (guint i = 0; i < gtk_main_level(); ++i) {
+    guint level = gtk_main_level();
+    for (guint i = 0; i < level; ++i) {
         gtk_main_quit();
     }
 }
