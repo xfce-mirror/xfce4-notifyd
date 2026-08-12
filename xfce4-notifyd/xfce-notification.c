@@ -795,7 +795,7 @@ xfce_notification_update(XfceNotification *notification,
 
 static XfceNotifyWindow *
 create_notify_window(XfceNotification *notification,
-                     GdkMonitor *monitor,
+                     XfwMonitor *monitor,
                      gboolean override_redirect,
                      XfceNotifyPosition location,
                      gdouble normal_opacity,
@@ -863,7 +863,7 @@ xfce_notification_create_windows(XfceNotification *notification,
         notification->windows = g_list_prepend(notification->windows, window);
     } else {
         for (GList *l = monitors; l != NULL; l = l->next) {
-            GdkMonitor *monitor = GDK_MONITOR(l->data);
+            XfwMonitor *monitor = XFW_MONITOR(l->data);
             XfceNotifyWindow *window = create_notify_window(notification,
                                                             monitor,
                                                             override_redirect,
