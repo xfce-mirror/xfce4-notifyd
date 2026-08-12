@@ -23,6 +23,8 @@
 
 #include <gtk/gtk.h>
 
+#include <libxfce4windowing/libxfce4windowing.h>
+
 #include <common/xfce-notify-common.h>
 
 #define XFCE_TYPE_NOTIFY_WINDOW     (xfce_notify_window_get_type())
@@ -36,7 +38,7 @@ typedef struct _XfceNotifyWindow  XfceNotifyWindow;
 GType xfce_notify_window_get_type(void);
 
 GtkWidget *xfce_notify_window_new(guint id,
-                                  GdkMonitor *monitor,
+                                  XfwMonitor *monitor,
                                   gboolean override_redirect,
                                   XfceNotifyPosition location,
                                   gdouble normal_opacity,
@@ -44,9 +46,9 @@ GtkWidget *xfce_notify_window_new(guint id,
 
 guint xfce_notify_window_get_id(XfceNotifyWindow *window);
 
-GdkMonitor *xfce_notify_window_get_monitor(XfceNotifyWindow *window);
+XfwMonitor *xfce_notify_window_get_monitor(XfceNotifyWindow *window);
 void xfce_notify_window_update_monitor(XfceNotifyWindow *window,
-                                       GdkMonitor *monitor);
+                                       XfwMonitor *monitor);
 
 void xfce_notify_window_set_geometry(XfceNotifyWindow *window,
                                      GdkRectangle *rectangle,
