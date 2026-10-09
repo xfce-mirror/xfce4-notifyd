@@ -185,7 +185,7 @@ msgstr "Wtyczka powiadomień dla panelu Xfce"
 #: xfce4-notifyd/main.c:62
 msgid ""
 "Your Wayland compositor does not support required protocol wlr-layer-shell."
-msgstr "Ten kompozytor Wayland nie obsługuje wymaganego protokołu wlr-layer-shell."
+msgstr "Ten menedżer składania Wayland nie obsługuje wymaganego protokołu wlr-layer-shell."
 
 #: xfce4-notifyd/main.c:69
 msgid "xfce4-notifyd was built without support for your windowing system."
