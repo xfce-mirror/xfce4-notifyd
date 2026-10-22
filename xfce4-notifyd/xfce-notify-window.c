@@ -1640,6 +1640,21 @@ xfce_notify_window_move(XfceNotifyWindow *window, gint x, gint y) {
 #endif
 }
 
+static gboolean
+xfce_notify_window_activate_link(GtkLabel *label,
+                                 const gchar *uri)
+{
+    guint32 timestamp = gtk_get_current_event_time();
+    GError *error = NULL;
+
+    if (!gtk_show_uri_on_window(NULL, uri, timestamp, &error)) {
+        g_message("Unable to show '%s': %s", uri, error->message);
+        g_error_free(error);
+    }
+
+    return TRUE;
+}
+
 static void
 xfce_notify_window_ensure_widgets(XfceNotifyWindow *window) {
     if (window->icon == NULL) {
@@ -1697,6 +1712,9 @@ xfce_notify_window_ensure_widgets(XfceNotifyWindow *window) {
         gtk_label_set_xalign (GTK_LABEL(window->body), 0);
         gtk_widget_set_valign (window->body, GTK_ALIGN_BASELINE);
         gtk_box_pack_start(GTK_BOX(vbox), window->body, TRUE, TRUE, 0);
+
+        g_signal_connect(window->body, "activate-link",
+                         G_CALLBACK(xfce_notify_window_activate_link), NULL);
 
         window->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
         gtk_button_box_set_layout(GTK_BUTTON_BOX(window->button_box),
