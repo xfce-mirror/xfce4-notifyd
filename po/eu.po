@@ -5,11 +5,12 @@
 # Translators:
 # beriain, 2020-2021,2023
 # Eder Etxebarria Rojo, 2024
+# Eder Etxebarria Rojo, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Apps\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2026-01-09 12:57+0100\n"
+"POT-Creation-Date: 2026-04-03 12:57+0200\n"
 "PO-Revision-Date: 2013-07-03 18:39+0000\n"
 "Last-Translator: Eder Etxebarria Rojo, 2024\n"
 "Language-Team: Basque (http://app.transifex.com/xfce/xfce-apps/language/eu/)\n"
@@ -21,44 +22,44 @@ msgstr ""
 
 #: common/xfce-notify-log-util.c:379
 msgid "Do you really want to clear the notification log?"
-msgstr "Berri-emateen erregistroa garbitu nahi duzu?"
+msgstr "Benetan garbitu nahi duzu jakinarazpenen erregistroa?"
 
 #: common/xfce-notify-log-util.c:384
 msgid "Clear notification log"
-msgstr "Berri-emateen erregistroa garbitu"
+msgstr "Garbitu jakinarazpenen erregistroa"
 
 #: common/xfce-notify-log-util.c:387
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:878
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:928
 msgid "Cancel"
 msgstr "Utzi"
 
 #: common/xfce-notify-log-util.c:389
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:202
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:204
 msgid "Clear"
 msgstr "Garbitu"
 
 #: common/xfce-notify-log-util.c:406 common/xfce-notify-log-util.c:414
 msgid "include icon cache"
-msgstr "ikonoen cache-a barne"
+msgstr "ikonoen cachea barne"
 
 #: common/xfce-notify-log-util.c:451
 msgid "Now"
 msgstr "Orain"
 
-#: panel-plugin/notification-plugin.c:341
+#: panel-plugin/notification-plugin.c:340
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:4
 msgid "Notifications"
-msgstr "Berri-emateak"
+msgstr "Jakinarazpenak"
 
 #: panel-plugin/notification-plugin-dialogs.c:49
 #, c-format
 msgid "Unable to open the following url: %s"
-msgstr "Ezin izan da hurrengo url-a ireki: %s"
+msgstr "Ezin izan da URL hau ireki: %s"
 
 #: panel-plugin/notification-plugin-dialogs.c:133
 msgid "This is the notification plugin"
-msgstr "Hau berri-emate plugina da"
+msgstr "Hau jakinarazpenen plugina da"
 
 #: panel-plugin/notification-plugin-dialogs.c:135
 msgid "Copyright © 2017 Simon Steinbeiß\n"
@@ -66,10 +67,10 @@ msgstr "Copyright © 2017 Simon Steinbeiß\n"
 
 #: panel-plugin/notification-plugin-log.c:151
 msgid "<b>_Do not disturb</b>"
-msgstr "<b>Ez gogaitu</b>"
+msgstr "<b>Ez _molestatu</b>"
 
 #: panel-plugin/notification-plugin-log.c:355
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:172
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
 msgid "Unable to open notification log"
 msgstr "Ezin izan da jakinarazpenen erregistroa ireki"
 
@@ -79,23 +80,23 @@ msgstr "Ez dago irakurri gabeko jakinarazpenik"
 
 #: panel-plugin/notification-plugin-log.c:359
 msgid "No notifications"
-msgstr "Berri-ematerik ez"
+msgstr "Ez dago jakinarazpenik"
 
 #: panel-plugin/notification-plugin-log.c:381
 msgid "_Clear log"
-msgstr "Erregistroa garbitu"
+msgstr "_Garbitu erregistroa"
 
 #: panel-plugin/notification-plugin-log.c:392
 msgid "_Mark all read"
-msgstr "_Markatu dena irakurritako gisa"
+msgstr "_Markatu denak irakurritako gisa"
 
 #: panel-plugin/notification-plugin-log.c:401
 msgid "_Notification settings…"
-msgstr "Berri-emate ezarpenak…"
+msgstr "_Jakinarazpenen ezarpenak…"
 
 #: panel-plugin/notification-plugin-settings.glade:30
 msgid "Notification Plugin Settings"
-msgstr "Berri-emate pluginaren ezarpenak"
+msgstr "Jakinarazpenen pluginaren ezarpenak"
 
 #: panel-plugin/notification-plugin-settings.glade:46
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:66
@@ -109,23 +110,23 @@ msgstr "It_xi"
 
 #: panel-plugin/notification-plugin-settings.glade:98
 msgid "Size of icons in menu"
-msgstr ""
+msgstr "Menuko ikonoen tamaina"
 
 #: panel-plugin/notification-plugin-settings.glade:99
 msgid "Size of the icon shown next to each notification listed in the menu"
-msgstr ""
+msgstr "Menuan zerrendatutako jakinarazpen bakoitzaren ondoan erakusten den ikonoaren tamaina"
 
 #: panel-plugin/notification-plugin-settings.glade:126
 msgid "Number of notifications to show"
-msgstr "Erakusteko berri-emate kopurua"
+msgstr "Erakutsi beharreko jakinarazpen kopurua"
 
 #: panel-plugin/notification-plugin-settings.glade:154
 msgid "Only show notifications from today"
-msgstr "Erakutsi gaurko berri-emateak soilik"
+msgstr "Erakutsi gaurko jakinarazpenak soilik"
 
 #: panel-plugin/notification-plugin-settings.glade:178
 msgid "Hide 'Clear log' confirmation dialog"
-msgstr "Ezkutatu 'Erregistroa garbitu' baieztapen leihoa"
+msgstr "Ezkutatu 'Garbitu erregistroa' berrespen-elkarrizketa"
 
 #: panel-plugin/notification-plugin-settings.glade:202
 msgid "Hide panel button when no unread notifications"
@@ -138,7 +139,7 @@ msgstr "Itxura"
 
 #: panel-plugin/notification-plugin-settings.glade:242
 msgid "Show in menu"
-msgstr "Menuan erakutsi"
+msgstr "Erakutsi menuan"
 
 #: panel-plugin/notification-plugin-settings.glade:256
 msgid "All notifications"
@@ -150,7 +151,7 @@ msgstr "Irakurri gabeko jakinarazpenak"
 
 #: panel-plugin/notification-plugin-settings.glade:269
 msgid "Behavior"
-msgstr "Portamoldea"
+msgstr "Portaera"
 
 #: panel-plugin/notification-plugin-settings.glade:286
 msgid "After showing the menu"
@@ -158,11 +159,11 @@ msgstr "Menua erakutsi eta gero"
 
 #: panel-plugin/notification-plugin-settings.glade:300
 msgid "Mark all log entries read"
-msgstr "Markatu erregistroko sarrera guztiak irakurrita gisa"
+msgstr "Markatu erregistroko sarrera guztiak irakurritako gisa"
 
 #: panel-plugin/notification-plugin-settings.glade:301
 msgid "Mark shown log entries read"
-msgstr "Markatu erakutsitako erregistroko sarrerak irakurrita gisa"
+msgstr "Markatu erakutsitako erregistro-sarrerak irakurritako gisa"
 
 #: panel-plugin/notification-plugin-settings.glade:302
 msgid "Do nothing"
@@ -170,25 +171,25 @@ msgstr "Ez egin ezer"
 
 #: panel-plugin/notification-plugin.desktop.in:5
 msgid "Notification Plugin"
-msgstr "Berri-emate plugina"
+msgstr "Jakinarazpenen plugina"
 
 #: panel-plugin/notification-plugin.desktop.in:6
 msgid "Notification plugin for the Xfce panel"
-msgstr "Berri-emate plugina Xfce panelerako"
+msgstr "Xfce panelerako jakinarazpenen plugina"
 
 #: xfce4-notifyd/main.c:62
 msgid ""
 "Your Wayland compositor does not support required protocol wlr-layer-shell."
-msgstr "Zure Wayland konpositoreak ez du wlr-layer-shell beharrezko protokoloa onartzen."
+msgstr "Zure Wayland konposatzaileak ez du onartzen beharrezkoa den wlr-layer-shell protokoloa."
 
 #: xfce4-notifyd/main.c:69
 msgid "xfce4-notifyd was built without support for your windowing system."
-msgstr "xfce4-notifyd zure leiho sistemarako laguntzarik gabe eraiki zen."
+msgstr "xfce4-notifyd zure leiho-sistemarako euskarririk gabe konpilatu zen."
 
 #: xfce4-notifyd/main.c:88 xfce4-notifyd/main.c:99 xfce4-notifyd/main.c:111
 #: xfce4-notifyd-config/main.c:1272
 msgid "Xfce Notify Daemon"
-msgstr "Xfce berri-emate deabrua"
+msgstr "Xfce jakinarazpen-daemona"
 
 #: xfce4-notifyd/main.c:91
 #, c-format
@@ -197,11 +198,11 @@ msgstr "\"%s\" aukera ezezaguna\n"
 
 #: xfce4-notifyd/main.c:101 xfce4-notifyd/main.c:113
 msgid "Unable to start notification daemon"
-msgstr "Ezin da berri-emate deabrua abiarazi"
+msgstr "Ezin da jakinarazpen-daemona abiarazi"
 
 #: xfce4-notifyd/xfce-notify-daemon.c:590
 msgid "Another notification daemon is running, exiting\n"
-msgstr "Beste berri-emate deabru bat martxan da, irteten\n"
+msgstr "Beste jakinarazpen-daemon bat exekutatzen ari da; irteten\n"
 
 #: xfce4-notifyd/xfce-notify-daemon-log.c:175
 #: xfce4-notifyd/xfce-notify-daemon-log.c:206
@@ -232,21 +233,21 @@ msgstr "Ezin izan da jakinarazpenen erregistroa ireki: %s"
 #: xfce4-notifyd/xfce-notify-log.c:331
 #, c-format
 msgid "Failed to prepare SQL statement: %%s (%s)"
-msgstr "Ezin izan da prestatu SQL adierazpena: %%s (%s)"
+msgstr "Ezin izan da SQL instrukzioa prestatu: %%s (%s)"
 
 #: xfce4-notifyd/xfce-notify-log.c:360
 msgid "trailing characters at end of statement"
-msgstr "amaierako karaktereak adierazpenaren amaieran"
+msgstr "soberako karaktereak instrukzioaren amaieran"
 
 #: xfce4-notifyd/xfce-notify-log.c:458
 #, c-format
 msgid "Failed to create 'notifications' table: %s"
-msgstr "Ezin izan da sortu \"jakinarazpen\" taula: %s"
+msgstr "Ezin izan da 'notifications' taula sortu: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:459
 #, c-format
 msgid "Failed to create DB timestamp index: %s"
-msgstr "Ezin izan da sortu DB denbora-zigiluaren indizea: %s"
+msgstr "Ezin izan da DBko denbora-zigiluaren indizea sortu: %s"
 
 #: xfce4-notifyd/xfce-notify-log.c:460
 #, c-format
@@ -255,27 +256,27 @@ msgstr "Ezin izan da DB is_read indizea sortu: %s"
 
 #: xfce4-notifyd/xfce-notify-window.c:1453
 msgid "Default Action"
-msgstr "Lehenetsitako Ekintza"
+msgstr "Ekintza lehenetsia"
 
 #: xfce4-notifyd/xfce4-notifyd.desktop.in:4
 msgid "Xfce Notification Daemon"
-msgstr "Xfce Daemon jakinarazpena"
+msgstr "Xfce jakinarazpen-daemona"
 
 #: xfce4-notifyd-config/main.c:115
 msgid "Notification Preview"
-msgstr "Berri-emate aurreikuspena"
+msgstr "Jakinarazpenaren aurrebista"
 
 #: xfce4-notifyd-config/main.c:116
 msgid "This is what notifications will look like"
-msgstr "Hau da berri-emate batek izango duen itxura"
+msgstr "Hau da jakinarazpenek izango duten itxura"
 
 #: xfce4-notifyd-config/main.c:121
 msgid "Button"
-msgstr "Behean"
+msgstr "Botoia"
 
 #: xfce4-notifyd-config/main.c:128
 msgid "Notification preview failed"
-msgstr "Berri-emate aurreikuspenak huts egin du"
+msgstr "Huts egin du jakinarazpenaren aurrebistak"
 
 #: xfce4-notifyd-config/main.c:591
 #, c-format
@@ -285,14 +286,14 @@ msgid ""
 msgstr "Ziur \"%s\" aplikazioaren jakinarazpen-ezarpenak ezabatu nahi dituzula?"
 
 #: xfce4-notifyd-config/main.c:595
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:880
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:930
 msgid "Delete"
 msgstr "Ezabatu"
 
 #: xfce4-notifyd-config/main.c:597
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:133
 msgid "Forget Application"
-msgstr "Ahaztu Aplikazioa"
+msgstr "Ahaztu aplikazioa"
 
 #: xfce4-notifyd-config/main.c:697
 msgid "Unspecified applications"
@@ -303,7 +304,7 @@ msgstr "Zehaztugabeko aplikazioak"
 msgid ""
 "<b>Currently only urgent notifications are shown.</b>\n"
 "Notification logging is %s."
-msgstr "<b>Orain premiazko berri-emateak erakutsiko dira soilik.</b>\nBerri-emateen erregistroa %s dago."
+msgstr "<b>Une honetan premiazko jakinarazpenak soilik erakusten dira.</b>\nJakinarazpenen erregistroa %s dago."
 
 #: xfce4-notifyd-config/main.c:937
 msgid "enabled"
@@ -311,14 +312,14 @@ msgstr "gaituta"
 
 #: xfce4-notifyd-config/main.c:937
 msgid "disabled"
-msgstr "ezgaituta"
+msgstr "desgaituta"
 
 #: xfce4-notifyd-config/main.c:1173
 msgid ""
 "<big><b>Currently there are no known applications.</b></big>\n"
 "As soon as an application sends a notification\n"
 "it will appear in this list."
-msgstr "<big><b>Une honetan ez dago aplikazio ezagunik.</b></big>\nAplikazioren batek berri-emateren bat bidaltzen duen\nbezain azkar zerrenda honetan agertuko da."
+msgstr "<big><b>Une honetan ez dago aplikazio ezagunik.</b></big>\nAplikazio batek jakinarazpen bat bidaltzen duen\nbezain laster, zerrenda honetan agertuko da."
 
 #: xfce4-notifyd-config/main.c:1242
 msgid "Released under the terms of the GNU General Public License, version 2\n"
@@ -327,102 +328,110 @@ msgstr "GNU Lizentzia Publiko Orokorraren 2. bertsioko baldintzen arabera argita
 #: xfce4-notifyd-config/main.c:1243
 #, c-format
 msgid "Please report bugs to %s.\n"
-msgstr "Mesedez programa erroreen-berri %s-en eman.\n"
+msgstr "Eman akatsen berri hemen: %s.\n"
 
 #: xfce4-notifyd-config/main.c:1274
 msgid "Settings daemon is unavailable"
-msgstr "Ezarpen deabrua ez dago erabilgarri"
+msgstr "Ezarpenen daemona ez dago erabilgarri"
 
 #: xfce4-notifyd-config/main.c:1376
 msgid "Display version information"
-msgstr "Bistarazi bertsio argibideak"
+msgstr "Bistaratu bertsioaren informazioa"
 
 #: xfce4-notifyd-config/main.c:1377
 msgid "Settings manager socket"
-msgstr "Ezarpena kudeatzaile socket-a"
+msgstr "Ezarpen-kudeatzailearen socketa"
 
 #: xfce4-notifyd-config/main.c:1377
 msgid "SOCKET_ID"
 msgstr "SOCKET_ID"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:174
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:176
 msgid ""
 "<big><b>Empty log</b></big>\n"
 "No notifications have been logged yet."
-msgstr "<big><b>Erregistroa hutsik</b></big>\nEz da berri-ematerik erregistratu oraindik."
+msgstr "<big><b>Erregistroa hutsik</b></big>\nOraindik ez da jakinarazpenik erregistratu."
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:193
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:195
 msgid "Refresh"
 msgstr "Freskatu"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:194
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:196
 msgid "Refresh the notification log"
-msgstr "Berri-emateen erregistroa freskatu"
+msgstr "Freskatu jakinarazpenen erregistroa"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:203
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:205
 msgid "Clear the notification log"
-msgstr "Berri-emateen erregistroa garbitu"
+msgstr "Garbitu jakinarazpenen erregistroa"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:211
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:213
 msgid "Mark All Read"
-msgstr "Markatu denak irakurrita gisa"
+msgstr "Markatu denak irakurritako gisa"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:212
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:214
 msgid "Mark all unread notifications as read"
-msgstr "Markatu irakurri gabeko jakinarazpenak irakurrita gisa"
+msgstr "Markatu irakurri gabeko jakinarazpen guztiak irakurritako gisa"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:220
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:222
+msgid "Copy To Clipboard"
+msgstr "Kopiatu arbelera"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:223
+msgid "Copy the selected log entries to the clipboard"
+msgstr "Kopiatu erregistroko sarrera hautatuak arbelera"
+
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:231
 msgid "Delete Entry"
-msgstr ""
+msgstr "Ezabatu sarrera"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:221
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:232
 msgid "Deletes the selected log entries"
-msgstr ""
+msgstr "Erregistroko sarrera hautatuak ezabatzen ditu"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:229
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:240
 msgid "Show Log Location"
-msgstr ""
+msgstr "Erakutsi erregistroaren kokalekua"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:230
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:241
 msgid "Shows the location of the log file in the file manager"
-msgstr ""
+msgstr "Erregistro-fitxategiaren kokalekua fitxategi-kudeatzailean erakusten du"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:543
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:564
 msgid "Mark log entry _read"
-msgstr "Markatu erregistroko sarrera irakurrita gisa"
+msgstr "Markatu erregistro-sarrera _irakurritako gisa"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:749
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:771
 msgid "Yesterday and before"
 msgstr "Atzo eta lehenago"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:875
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:925
 msgid "Delete Selected Log Entries"
-msgstr ""
+msgstr "Ezabatu erregistroko sarrera hautatuak"
 
-#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1149
+#: xfce4-notifyd-config/xfce-notify-log-viewer.c:1200
 msgid "Loading more log entries..."
 msgstr "Erregistroko sarrera gehiago kargatzen..."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:144
 msgid ""
 "The notification service is not running. No notifications will be shown."
-msgstr "Berri-emate zerbitzua ez dago martxan. Ez da berri-ematerik erakutsiko."
+msgstr "Jakinarazpen-zerbitzua ez dago exekutatzen. Ez da jakinarazpenik erakutsiko."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:223
 msgid "<b>Currently only urgent notifications are shown.</b>"
-msgstr "<b>Orain premiazko berri-emateak erakutsiko dira soilik.</b>"
+msgstr "<b>Une honetan premiazko jakinarazpenak soilik erakusten dira.</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:309
 msgid "Fade out"
-msgstr "Marguldu"
+msgstr "Iraungi pixkanaka"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:322
 msgid "_Slide out"
-msgstr "Kanporantz mugitu"
+msgstr "_Irristatu kanpora"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:348
 msgid "Do not disturb"
-msgstr "Ez gogaitu"
+msgstr "Ez molestatu"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:372
 msgid "<b>Behavior</b>"
@@ -436,33 +445,33 @@ msgstr "<b>Animazioak</b>"
 msgid ""
 "By default the notification bubbles will be shown on the display on which "
 "the mouse pointer is located."
-msgstr "Modu lehenetsian berri-emate mezuak sagu markatzailea dagoen pantailan erakutsiko dira."
+msgstr "Lehenespenez, jakinarazpen-burbuilak saguaren erakuslea dagoen pantailan erakutsiko dira."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:401
 msgid "Show notifications on"
-msgstr "Erakutsi berri-emateak"
+msgstr "Erakutsi jakinarazpenak hemen:"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:414
 msgid ""
 "The \"Enable event sounds\" setting in the Appearance Settings dialog must "
 "be checked to hear notification sounds"
-msgstr "Itxura ezarpenak elkarrizketa-koadroko \"Gaitu gertaeren soinuak\" ezarpena egiaztatu behar da jakinarazpen soinuak entzuteko"
+msgstr "Jakinarazpenen soinuak entzuteko, itxuraren ezarpenen elkarrizketako \"Gaitu gertaeren soinuak\" ezarpena markatuta egon behar du"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:416
 msgid "_Mute sounds"
-msgstr "_Mutu soinuak"
+msgstr "_Isilarazi soinuak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:443
 msgid "Always show percent-value notifications"
-msgstr "Erakutsi beti ehuneko balioaren jakinarazpenak"
+msgstr "Erakutsi beti ehuneko-balioko jakinarazpenak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:468
 msgid "When displaying notifications, show"
-msgstr "Jakinarazpenak pantailan agertzerakoan, erakutsi"
+msgstr "Jakinarazpenak bistaratzean, erakutsi:"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:482
 msgid "icon, summary, and body"
-msgstr "ikonoa, laburpen, eta gorputza"
+msgstr "ikonoa, laburpena eta gorputza"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:483
 msgid "icon and summary"
@@ -474,26 +483,26 @@ msgstr "ikonoa eta aplikazioaren izena"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:498
 msgid "monitor with mouse pointer"
-msgstr "monitorea saguaren erakuslearekin"
+msgstr "saguaren erakuslea duen monitorean"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:499
 msgid "primary monitor"
-msgstr "monitore nagusia"
+msgstr "monitore nagusian"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:500
 msgid "all monitors"
-msgstr "monitore guztiak"
+msgstr "monitore guztietan"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:512
 msgid ""
 "Prevent redundant notifications. If a message with the same summary and body"
 " is already visible on screen, new identical alerts will be suppressed. "
 "Useful for multi-instance applications like chat clients."
-msgstr ""
+msgstr "Saihestu jakinarazpen errepikatuak. Laburpen eta gorputz bera dituen mezu bat pantailan ikusgai badago jada, alerta berdin berriak isilaraziko dira. Erabilgarria da instantzia anitzeko aplikazioetarako, txat-bezeroak kasu."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:514
 msgid "_Suppress duplicate notifications"
-msgstr ""
+msgstr "_Isilarazi jakinarazpen bikoiztuak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:545
 msgid "General"
@@ -510,15 +519,15 @@ msgstr "10"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:623
 msgid "_Opacity"
-msgstr "_Opakotasuna"
+msgstr "_Opakutasuna"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:637
 msgid "Default _position"
-msgstr "Kokapen lehenetsia"
+msgstr "_Kokapen lehenetsia"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:652
 msgid "Top left"
-msgstr "Goian  ezkerrean"
+msgstr "Goian ezkerrean"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:653
 msgid "Bottom left"
@@ -534,15 +543,15 @@ msgstr "Behean eskuinean"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:656
 msgid "Top center"
-msgstr "Zentratu goian"
+msgstr "Goian erdian"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:657
 msgid "Bottom center"
-msgstr "Zentratu behean"
+msgstr "Behean erdian"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:687
 msgid "_Theme"
-msgstr "I_txura"
+msgstr "_Gaia"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:700
 msgid ""
@@ -556,11 +565,11 @@ msgstr "Erakutsi testua ehuneko _balioekin"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:716
 msgid "Date/time _format"
-msgstr "Data/ordua _formatua"
+msgstr "Data/orduaren _formatua"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:737
 msgid "Locale default"
-msgstr "Lokala lehenetsia"
+msgstr "Eskualde-ezarpenen lehenetsia"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:738
 msgid "Relative times"
@@ -576,11 +585,11 @@ msgstr "Pertsonalizatua"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:768
 msgid "Show _Preview"
-msgstr "Aurrebista erakutsi"
+msgstr "Erakutsi _aurrebista"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:794
 msgid "_Disappear after"
-msgstr "_Desagertu honen ondoren"
+msgstr "_Desagertu denbora honen ondoren:"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:812
 msgid ""
@@ -591,7 +600,7 @@ msgstr "Jakinarazpena sortzean, aplikazioek jakinarazpena pantailan zenbat denbo
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:814
 msgid "Honor app-requested \"Disappear after\" time"
-msgstr "Honor app-ek eskatu du \"desagertu orain\" momentuan"
+msgstr "Errespetatu aplikazioak eskatutako \"Desagertu\" denbora"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:837
 msgid "_Minimum notification width"
@@ -599,7 +608,7 @@ msgstr "_Jakinarazpenen gutxieneko zabalera"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:909
 msgid "<b>Per-application notification settings</b>"
-msgstr "<b>Per-aplikazioen jakinarazpenen ezarpenak</b>"
+msgstr "<b>Aplikazio bakoitzeko jakinarazpen-ezarpenak</b>"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:936
 msgid "Applications"
@@ -607,11 +616,11 @@ msgstr "Aplikazioak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:955
 msgid "Log notifications"
-msgstr "Berri-emateak erregistratu"
+msgstr "Erregistratu jakinarazpenak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:981
 msgid "only during \"Do not disturb\", or when notification bodies are not shown"
-msgstr "\"Kendu jakinarazpenak\" moduan bakarrik, edo jakinarazpenen edukiak erakusten ez direnean"
+msgstr "\"Ez molestatu\" moduan soilik, edo jakinarazpenen gorputza erakusten ez denean"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:982
 msgid "always"
@@ -619,7 +628,7 @@ msgstr "beti"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:994
 msgid "Log applications"
-msgstr "Aplikazioak erregistratu"
+msgstr "Erregistratu aplikazioak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1025
 msgid "all"
@@ -640,7 +649,7 @@ msgstr "Erregistroan gorde beharreko gehienezko sarrera-kopurua."
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1051
 msgid "Maximum number of log entries to keep"
-msgstr ""
+msgstr "Gorde beharreko erregistro-sarreren gehienezko kopurua"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.glade:1080
 msgid "Log"
@@ -648,7 +657,7 @@ msgstr "Erregistroa"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:27
 msgid "Mute application"
-msgstr "Aplikazioa mututu"
+msgstr "Isilarazi aplikazioa"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:62
 msgid "Allow urgent notifications"
@@ -656,8 +665,8 @@ msgstr "Baimendu premiazko jakinarazpenak"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config-known-app.glade:98
 msgid "Include in log"
-msgstr "Erregistroan barneratuta"
+msgstr "Sartu erregistroan"
 
 #: xfce4-notifyd-config/xfce4-notifyd-config.desktop.in:5
 msgid "Customize how notifications appear on your screen"
-msgstr "Pertsonalizatu berri-emateak zure pantailan nola agertuko diren"
+msgstr "Pertsonalizatu jakinarazpenak zure pantailan nola agertzen diren"
