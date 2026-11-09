@@ -58,8 +58,6 @@ notify_pixbuf_from_image_data (GVariant *image_data)
     gint32 width, height, rowstride, bits_per_sample, channels;
     gboolean has_alpha;
     GVariant *pixel_data;
-    gsize correct_len;
-    guchar *data;
 
     if (!g_variant_is_of_type (image_data, G_VARIANT_TYPE ("(iiibiiay)")))
     {
@@ -88,16 +86,19 @@ notify_pixbuf_from_image_data (GVariant *image_data)
         return NULL;
     }
 
-    correct_len = (height - 1) * rowstride + width
-                  * ((channels * bits_per_sample + 7) / 8);
-    if(correct_len != g_variant_get_size (pixel_data)) {
-        g_message ("Pixel data length (%lu) did not match expected value (%u)",
-                   g_variant_get_size (pixel_data), (guint)correct_len);
+    guint64 w = width;
+    guint64 h = height;
+    guint64 rs = rowstride;
+
+    guint64 expected_len = (h - 1) * rs + w * ((channels * bits_per_sample + 7) / 8);
+    gsize actual_len = g_variant_get_size(pixel_data);
+    if (expected_len != (guint64)actual_len) {
+        g_message("Pixel data length (%" G_GSIZE_FORMAT ") did not match expected value (%" G_GSIZE_FORMAT ")",
+                  actual_len, expected_len);
         return NULL;
     }
 
-    data = (guchar *)g_memdup2(g_variant_get_data(pixel_data),
-                               g_variant_get_size(pixel_data));
+    guchar *data = (guchar *)g_memdup2(g_variant_get_data(pixel_data), actual_len);
     g_variant_unref(pixel_data);
 
     if (data != NULL) {
