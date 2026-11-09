@@ -77,6 +77,17 @@ notify_pixbuf_from_image_data (GVariant *image_data)
                    &channels,
                    &pixel_data);
 
+    if (width <= 0 || height <= 0 || rowstride <= 0) {
+        g_message("Icon pixel dimensions invalid (width=%d, height=%d, rowstride=%d)", width, height, rowstride);
+        return NULL;
+    } else if (!((channels == 4 && has_alpha) || (channels == 3 && !has_alpha)) || bits_per_sample != 8) {
+        g_message("Icon pixel format is invalid (channels=%d, has_alpha=%s bits_per_sample=%d)",
+                  channels,
+                  has_alpha ? "TRUE" : "FALSE",
+                  bits_per_sample);
+        return NULL;
+    }
+
     correct_len = (height - 1) * rowstride + width
                   * ((channels * bits_per_sample + 7) / 8);
     if(correct_len != g_variant_get_size (pixel_data)) {
