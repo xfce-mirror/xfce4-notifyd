@@ -20,10 +20,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifdef HAVE_STRING_H
-#include <string.h>
-#endif
-
+#include <gio/gdesktopappinfo.h>
 #include <gio/gio.h>
 
 #ifdef ENABLE_X11
@@ -55,9 +52,8 @@
 #include "xfce-notify-gbus.h"
 #include "xfce-notify-log.h"
 #include "xfce-notify-window.h"
-#include "xfce-notify-marshal.h"
 
-#define NOTIFICATIONS_SPEC_VERSION "1.2"
+#define NOTIFICATIONS_SPEC_VERSION "1.3"
 #define SPACE 16
 #define XND_N_MONITORS xfce_notify_daemon_get_n_monitors_quark()
 
@@ -738,6 +734,62 @@ xfce_notify_daemon_action_invoked(XfceNotification *notification,
     guint id = xfce_notification_get_id(notification);
 
     g_return_if_fail(id > 0);
+
+    gboolean token_needs_app_info = FALSE;
+    GAppInfo *app_info;
+
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY(gdk_display_get_default())) {
+        // The X11 backend of GdkAppLaunchContext requires GAppInfo in order to
+        // generate the startup notification ID.
+        token_needs_app_info = TRUE;
+
+        const gchar *app_name = xfce_notification_get_app_name(notification);
+        gchar *resource = g_strconcat("applications",
+                                      G_DIR_SEPARATOR_S,
+                                      app_name,
+                                      !g_str_has_suffix(app_name, ".desktop") ? ".desktop" : NULL,
+                                      NULL);
+        gchar *desktop_file = xfce_resource_lookup(XFCE_RESOURCE_DATA, resource);
+        g_free(resource);
+
+        GDesktopAppInfo *dapp_info = desktop_file != NULL ? g_desktop_app_info_new_from_filename(desktop_file) : NULL;
+        g_free(desktop_file);
+
+        app_info = dapp_info != NULL
+            ? G_APP_INFO(dapp_info)
+            : g_app_info_create_from_commandline(app_name, app_name, G_APP_INFO_CREATE_NONE, NULL);
+    } else
+#endif
+    {
+        app_info = NULL;
+    }
+
+    if (app_info != NULL || !token_needs_app_info) {
+        GdkAppLaunchContext *context = gdk_display_get_app_launch_context(gdk_display_get_default());
+        gchar *activation_token = g_app_launch_context_get_startup_notify_id(G_APP_LAUNCH_CONTEXT(context), app_info, NULL);
+
+        if (activation_token != NULL) {
+            xfce_notify_fdo_gbus_emit_activation_token(XFCE_NOTIFY_FDO_GBUS(xndaemon), id, activation_token);
+
+            // The client may or may not actually use the activation token
+            // (many probably don't even support the ActivationToken signal, or
+            // the invoked action might not do anything needing a token), so
+            // ensure that the startup notification is marked as done,
+            // regardless.  This only matters on X11, and will have the
+            // unfortunate side effect of not allowing the client to focus a
+            // new window, but there's not much else we can do about it.
+            g_app_launch_context_launch_failed(G_APP_LAUNCH_CONTEXT(context), activation_token);
+
+            g_free(activation_token);
+        }
+
+        g_object_unref(context);
+    }
+
+    if (app_info != NULL) {
+        g_object_unref(app_info);
+    }
 
     xfce_notify_fdo_gbus_emit_action_invoked(XFCE_NOTIFY_FDO_GBUS(xndaemon),
                                              id,

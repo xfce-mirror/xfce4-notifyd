@@ -36,6 +36,11 @@
             <arg name="reason" type="u"/>
         </signal>
 
+        <signal name="ActivationToken">
+            <arg name="id" type="u"/>
+            <arg name="activation_token" type="s"/>
+        </signal>
+
         <signal name="ActionInvoked">
             <arg name="id" type="u"/>
             <arg name="action_key" type="s"/>
