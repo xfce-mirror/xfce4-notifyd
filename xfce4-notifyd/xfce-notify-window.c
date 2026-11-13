@@ -59,7 +59,7 @@ struct _XfceNotifyWindow
     GtkWindow parent;
 
     guint id;
-    GdkMonitor *monitor;
+    XfwMonitor *monitor;
 
     GtkCssProvider *css_provider;
 
@@ -253,7 +253,7 @@ xfce_notify_window_class_init(XfceNotifyWindowClass *klass)
     properties[PROP_MONITOR] = g_param_spec_object("monitor",
                                                    "monitor",
                                                    "Monitor the notification should be displayed on",
-                                                   GDK_TYPE_MONITOR,
+                                                   XFW_TYPE_MONITOR,
                                                    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
     properties[PROP_OVERRIDE_REDIRECT] = g_param_spec_boolean("override-redirect",
@@ -453,7 +453,8 @@ xfce_notify_window_constructed(GObject *object) {
     if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
         gtk_layer_init_for_window(GTK_WINDOW(window));
         if (window->monitor != NULL) {
-            gtk_layer_set_monitor(GTK_WINDOW(window), window->monitor);
+            GdkMonitor *gdkmonitor = xfw_monitor_get_gdk_monitor(window->monitor);
+            gtk_layer_set_monitor(GTK_WINDOW(window), gdkmonitor);
         }
         gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_OVERLAY);
         gtk_layer_set_namespace(GTK_WINDOW(window), "notification");
@@ -1095,7 +1096,7 @@ xfce_notify_window_fade_timeout(gpointer data)
         }
 #endif
 
-        gdk_monitor_get_geometry(window->monitor, &monitor_geom);
+        xfw_monitor_get_logical_geometry(window->monitor, &monitor_geom);
 
         if (window->draw_offset_x == 0 && window->draw_offset_y == 0) {
 
@@ -1731,7 +1732,7 @@ xfce_notify_window_ensure_widgets(XfceNotifyWindow *window) {
         /* Use the monitor width to get a maximum width for the notification bubble.
            This assumes that a character is 10px wide and we want a third of the
            monitor as maximum width. */
-        gdk_monitor_get_geometry(window->monitor, &geometry);
+        xfw_monitor_get_logical_geometry(window->monitor, &geometry);
         screen_width = geometry.width / 30;
 
         gtk_label_set_max_width_chars(GTK_LABEL(window->summary), screen_width);
@@ -1742,7 +1743,7 @@ xfce_notify_window_ensure_widgets(XfceNotifyWindow *window) {
 
 GtkWidget *
 xfce_notify_window_new(guint id,
-                       GdkMonitor *monitor,
+                       XfwMonitor *monitor,
                        gboolean override_redirect,
                        XfceNotifyPosition location,
                        gdouble normal_opacity,
@@ -1765,16 +1766,16 @@ xfce_notify_window_get_id(XfceNotifyWindow *window) {
     return window->id;
 }
 
-GdkMonitor *
+XfwMonitor *
 xfce_notify_window_get_monitor(XfceNotifyWindow *window) {
     g_return_val_if_fail(XFCE_IS_NOTIFY_WINDOW(window), NULL);
     return window->monitor;
 }
 
 void
-xfce_notify_window_update_monitor(XfceNotifyWindow *window, GdkMonitor *monitor) {
+xfce_notify_window_update_monitor(XfceNotifyWindow *window, XfwMonitor *monitor) {
     g_return_if_fail(XFCE_IS_NOTIFY_WINDOW(window));
-    g_return_if_fail(GDK_IS_MONITOR(monitor));
+    g_return_if_fail(XFW_IS_MONITOR(monitor));
     g_return_if_fail(window->monitor == NULL);
 
     window->monitor = g_object_ref(monitor);

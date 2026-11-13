@@ -51,6 +51,7 @@ executable(
     gtk,
     libxfce4util,
     libxfce4ui,
+    libxfce4windowing,
     xfconf,
     sqlite,
     libnotify,
